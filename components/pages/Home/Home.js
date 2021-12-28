@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import { Typography } from "@mui/material";
 import LogsContainer from "./LogsContainer"
 import Log from "./Log"
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
+import MintContainer from "../../MintContainer";
 import style from "../../../styles/Home.module.scss"
-import { Typography } from "@mui/material";
 
 const Home = ({alertRef, logs}) => {
     const [logsData, setLogsData] = useState([]);
@@ -41,7 +42,14 @@ const Home = ({alertRef, logs}) => {
                 </div>
             </div>
             <div className={style.hostContainer}>
-        
+                <img src="/logo.png" alt="NFT Host Logo" />
+                <Typography variant="h2" component="div">
+                    Kalabaw NFT
+                </Typography>
+                <Typography variant="body1">
+                    Kalabaw NFT is a collection of 200 unique carabaos/water buffalos NFTs.
+                </Typography>
+                <MintContainer />
             </div>
         </div>
     )

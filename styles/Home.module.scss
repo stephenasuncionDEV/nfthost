@@ -50,4 +50,13 @@ $hostContainerColor: rgb(61, 61, 61);
 .hostContainer {
     height: 100vh;
     background-color: $hostContainerColor;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+
+    img {
+        width: 20%;
+    }
 }
