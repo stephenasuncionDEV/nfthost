@@ -13,13 +13,13 @@ const Home = ({alertRef, logs}) => {
                     </div>
                     <div className={style.subContainer}>
                         <LogsContainer>
-                            <Log version="0.0.2" date="December 30, 2021" author="StephenAsuncionDEV"
+                            <Log hash="0.0.2" date="December 30, 2021" author="StephenAsuncionDEV"
                                 body={["test body", "test body2"]}
                             />
-                            <Log version="0.0.2" date="December 29, 2021" author="StephenAsuncionDEV"
+                            <Log hash="0.0.2" date="December 29, 2021" author="StephenAsuncionDEV"
                                 body={["test body", "test body2"]}
                             />
-                            <Log version="0.0.1" date="December 28, 2021" author="StephenAsuncionDEV"
+                            <Log hash="0.0.1" date="December 28, 2021" author="StephenAsuncionDEV"
                                 body={["test body", "test body2"]}
                             />
                         </LogsContainer>

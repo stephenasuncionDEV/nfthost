@@ -15,8 +15,8 @@ app.post('/api/webhook', (req, res) => {
         commitArr.push(commit.message);
     });
     const newLog = {
-        version: "0.0.1",
-        date: data.commits[0].timestamp,
+        hash: data.head_commit.id,
+        date: data.head_commit.timestamp,
         author: data.pusher.name,
         body: commitArr
     }

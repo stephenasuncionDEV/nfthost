@@ -2,11 +2,11 @@ import React, { useState, useEffect, useRef } from "react";
 import { Typography } from '@mui/material';
 import style from "../../../styles/Log.module.scss"
 
-const Log = ({version, date, author, body}) => {
+const Log = ({hash, date, author, body}) => {
     return (
         <div className={style.container}>
             <Typography variant="h5" component="div">
-                Update v{version}
+                {hash}
             </Typography>
             <Typography sx={{ fontSize: 14, mb: 0 }} color="text.secondary" gutterBottom>
                 {date} 

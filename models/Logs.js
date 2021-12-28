@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const LogsSchema = new Schema({
-    version: {
+    hash: {
         type:String, 
         required:true
     },
