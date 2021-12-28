@@ -1,6 +1,5 @@
 const handler = (req, res) => {
-    const body = JSON.parse(req.body)
-    console.log(body);
+    console.log(req.body);
 }
 
 export default handler
