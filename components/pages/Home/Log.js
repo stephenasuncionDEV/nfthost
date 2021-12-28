@@ -6,7 +6,10 @@ const Log = ({hash, date, author, body}) => {
     return (
         <div className={style.container}>
             <Typography variant="h5" component="div">
-                {hash}
+                Update Log
+            </Typography>
+            <Typography sx={{ fontSize: 14 }} gutterBottom>
+                Hash: {hash}
             </Typography>
             <Typography sx={{ fontSize: 14, mb: 0 }} color="text.secondary" gutterBottom>
                 {date} 

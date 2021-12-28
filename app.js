@@ -1,9 +1,11 @@
-const express = require("express");
+const express = require("express")
+const cors = require('cors')
 const app = express();
 
 const connection = require('./db/connection');
 const { Log } = require('./models/Logs');
 
+app.use(cors());
 app.use(express.static('public'));
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
@@ -28,6 +30,18 @@ app.post('/api/webhook', (req, res) => {
     .catch(err => {
         console.log(err);
        // res.status(404).end({message: err.message})
+    });
+});
+
+app.get('/api/webhook/get', (req, res) => {
+    Log
+    .find({})
+    .limit(5)
+    .then(results => {
+        res.json(results);
+    })
+    .catch(err => {
+        console.log(err);
     });
 });
 
