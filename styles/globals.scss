@@ -18,3 +18,11 @@ a {
 * {
     box-sizing: border-box;
 }
+
+.main-pane {
+    height: 100%;
+    padding: 1em;
+    background-color: $mainPane;
+    display: flex;
+    flex-direction: column;
+}

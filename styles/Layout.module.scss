@@ -1,0 +1,10 @@
+.pane {
+    height: 100vh;
+    display: flex;
+}
+
+.topPane {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
