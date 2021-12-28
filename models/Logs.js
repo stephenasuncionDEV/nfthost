@@ -21,4 +21,4 @@ const LogsSchema = new Schema({
     }
 });
 
-exports.logs = mongoose.model('log', LogsSchema);
+exports.Log = mongoose.model('log', LogsSchema);
