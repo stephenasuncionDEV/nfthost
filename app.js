@@ -35,7 +35,7 @@ app.post('/api/webhook', (req, res) => {
 app.get('/api/webhook/get', (req, res) => {
     Log
     .find({})
-    .limit(5)
+    .limit(3)
     .sort({ date : -1 })
     .then(results => {
         res.json(results);
