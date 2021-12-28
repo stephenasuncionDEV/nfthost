@@ -22,7 +22,7 @@ app.post('/api/webhook', (req, res) => {
     }
     const log = new Log(newLog);
     log.save()
-    .then(res => {
+    .then(response => {
         res.status(200).json({message: "Log successfully added"});
     })
     .catch(err => {
