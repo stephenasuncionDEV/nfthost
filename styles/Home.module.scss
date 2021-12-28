@@ -30,16 +30,20 @@ $hostContainerColor: rgb(61, 61, 61);
 .previewHeader {
     text-align: center;
     animation: goDown 2s infinite;
+
+    svg {
+        color: rgb(61, 61, 61);
+    }
 }
 
 @keyframes goDown {
     from {
         transform: translateY(35%);
-        opacity: 35%;
+        opacity: 100%;
     }
     to {
         transform: translateY(100%);
-        opacity: 5%;
+        opacity: 20%;
     }
 }
 

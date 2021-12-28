@@ -33,7 +33,7 @@ const Home = ({alertRef, logs}) => {
                         </div>
                         <div className={style.previewHeader}>
                             <Typography variant="h5" component="div">
-                                Website Preview
+                                Check out our new collection
                             </Typography>
                             <KeyboardDoubleArrowDownIcon sx={{ fontSize: "24pt" }} />
                         </div>
