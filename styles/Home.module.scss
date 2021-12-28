@@ -1,0 +1,27 @@
+$titleColor: rgb(0, 0, 0);
+
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    h1 {
+        color: $titleColor;
+        font-weight: 500;
+    }
+    h2 {
+        margin: 0;
+    }
+    padding-bottom: 5em;
+}
+
+.headerContainer {
+    max-width: 800px;
+    width: 100%;
+}
+
+.subContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}

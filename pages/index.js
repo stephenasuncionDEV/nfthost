@@ -3,6 +3,7 @@ import Header from "../components/Header"
 import Alert from "../components/Alert"
 import Login from "../components/Login"
 import Layout from "../components/Layout"
+import Home from "../components/pages/Home/Home"
 
 const Index = () => {
     const [isConnected, setIsConnected] = useState(false);
@@ -31,9 +32,14 @@ const Index = () => {
                     setCurrentPage={setCurrentPage}
                 >
                     {currentPage == 0 && (
-                        <h1>Dashboard</h1>
+                        <Home 
+                            alertRef={alertRef}
+                        />
                     )}
                     {currentPage == 1 && (
+                        <h1>Dashboard</h1>
+                    )}
+                    {currentPage == 2 && (
                         <h1>About</h1>
                     )}
                 </Layout>
