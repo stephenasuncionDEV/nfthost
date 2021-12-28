@@ -26,7 +26,8 @@ app.post('/api/webhook', (req, res) => {
         res.status(200).json({message: "Log successfully added"});
     })
     .catch(err => {
-        res.status(404).end({message: err.message})
+        console.log(error);
+       // res.status(404).end({message: err.message})
     });
 });
 
