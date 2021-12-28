@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
 import { List, ListItem, ListItemIcon, ListItemText, Drawer, Divider, Toolbar, Button, Avatar, Box } from '@mui/material';
-import CelebrationIcon from '@mui/icons-material/Celebration';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import InfoIcon from '@mui/icons-material/Info';
+import LogoutIcon from '@mui/icons-material/Logout';
 import style from "../styles/Sidebar.module.scss"
 
 const drawerWidth = 240;
 const menuItems = [
     {id: 0, name: "Dashboard", icon: 0},
-    {id: 1, name: "About", icon: 1}
+    {id: 1, name: "About", icon: 1},
+    {id: 2, name: "Logout", icon: 2}
 ];
 
 const Sidebar = ({currentPage, setCurrentPage}) => {
@@ -36,7 +37,7 @@ const Sidebar = ({currentPage, setCurrentPage}) => {
                     startIcon={<Avatar src="/logo.png" />}
                     href="/"
                 >
-                    Crypto Raffle
+                    NFT Host
                 </Button>
             </Toolbar>
             <Divider />
@@ -52,7 +53,7 @@ const Sidebar = ({currentPage, setCurrentPage}) => {
                             <ListItemIcon>
                                 {item.icon == 0 && (<DashboardIcon />)}
                                 {item.icon == 1 && (<InfoIcon />)}
-                                {item.icon == 2 && (<CelebrationIcon />)}
+                                {item.icon == 2 && (<LogoutIcon />)}
                             </ListItemIcon>
                             <ListItemText primary={item.name} />
                         </ListItem>
