@@ -7,7 +7,7 @@ const LogsContainer = ({children}) => {
         <Card className={style.card}>
             <CardContent>
                 <Typography variant="h6" gutterBottom>
-                    Logs
+                    Commits
                 </Typography>
                 {children}
             </CardContent>

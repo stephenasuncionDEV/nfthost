@@ -33,12 +33,18 @@ app.post('/api/webhook', (req, res) => {
 });
 
 app.get('/api/webhook/get', (req, res) => {
-    Log
-    .find({})
-    .limit(3)
-    .sort({ date : -1 })
+    let length = 0;
+    Log.find({}).count()
+    .then(count => {
+        length = count;
+        return Log.find({}).limit(3).sort({ date : -1 });
+    })
     .then(results => {
-        res.json(results);
+        const data = results.map((result, index) => ({
+            ...result._doc,
+            index: length - index
+        }));
+        res.json(data);
     })
     .catch(err => {
         console.log(err);
