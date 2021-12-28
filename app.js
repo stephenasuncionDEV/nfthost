@@ -29,7 +29,6 @@ app.post('/api/webhook', (req, res) => {
     })
     .catch(err => {
         console.log(err);
-       // res.status(404).end({message: err.message})
     });
 });
 
