@@ -1,0 +1,67 @@
+$button-yes: rgb(159, 255, 159);
+$button-yes-bottom: rgb(162, 204, 134);
+$button-no: rgb(255, 159, 183);
+$button-no-bottom: rgb(204, 134, 175);
+$button-other: rgb(238, 238, 238);
+$button-other-bottom: rgb(158, 158, 158);
+$button-discord: rgb(114,137,218);
+$button-discord-bottom: rgb(88, 105, 167);
+
+.btnGreen {
+    border: 0;
+    background-color: $button-yes;
+    border-bottom: 4px solid $button-yes-bottom;
+    color: white;
+}
+
+.btnRed {
+    border: 0;
+    background-color: $button-no;
+    border-bottom: 4px solid $button-no-bottom;
+    color: white;
+}
+
+.btnBlue {
+    border: 0;
+    background-color: $button-discord;
+    border-bottom: 4px solid $button-discord-bottom;
+    color: white;
+}
+
+.btnOther {
+    border: 0;
+    background-color: $button-other;
+    border-bottom: 4px solid $button-other-bottom;
+    color: black;
+}
+
+.btnIcon {
+    svg {
+        vertical-align: bottom;
+        font-size: 12pt;
+    }
+    span {
+        margin-left: .5em;
+    }
+}
+
+.btnFullWidth {
+    width: 100%;
+}
+
+.btnMarginLeft {
+    margin-left: .5em;
+}
+
+.btn {
+    padding: 1em 3em 1em 3em;
+    border-radius: 5px 5px;
+    font-family: 'Inconsolata', monospace;
+    font-weight: 700;
+    transition: transform .25s;
+    cursor: pointer;
+}
+
+.btn:hover {
+    transform: scale(1.1);
+}
