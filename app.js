@@ -9,18 +9,25 @@ app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 
 app.post('/api/webhook', (req, res) => {
-    console.log(req.body)
-    // const newLog = {
-
-    // }
-    // const log = new Log(newLog);
-    // log.save()
-    // .then(res => {
-    //     res.status(200).json({message: "Log successfully added"});
-    // })
-    // .catch(err => {
-    //     res.status(404).end({message: err})
-    // });
+    const data = req.body;
+    let commitArr = [];
+    data.commits.forEach((commit) => {
+        commitArr.push(commit.message);
+    });
+    const newLog = {
+        version: "0.0.1",
+        date: data.commits[0].timestamp,
+        author: data.pusher.name,
+        body: commitArr
+    }
+    const log = new Log(newLog);
+    log.save()
+    .then(res => {
+        res.status(200).json({message: "Log successfully added"});
+    })
+    .catch(err => {
+        res.status(404).end({message: err})
+    });
 });
 
 connection.once('open', ()=>{

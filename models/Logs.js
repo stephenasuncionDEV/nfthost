@@ -16,7 +16,7 @@ const LogsSchema = new Schema({
         required:true
     },
     body: {
-        type:String, 
+        type:Array, 
         required:true
     }
 });
