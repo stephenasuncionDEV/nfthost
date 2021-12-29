@@ -1,10 +1,15 @@
-import React, { useState, forwardRef, useImperativeHandle } from "react";
+import React, { useState, useEffect, forwardRef, useImperativeHandle } from "react";
 import { Dialog, DialogContent, DialogActions, DialogContentText, DialogTitle, Button, TextField } from '@mui/material';
 
 const UploadImageDialog = (props, ref) => {
-    const {setHostImage} = props;
-    const [imageURL, setImageURL] = useState("");
+    const {hostImage, setHostImage} = props;
+    const [imageURL, setImageURL] = useState(hostImage);
     const [open, setOpen] = useState(false);
+
+    useEffect(() => {
+        if (hostImage == null) return;
+        setImageURL(hostImage)
+    }, [hostImage])
 
     useImperativeHandle(ref, () => ({
         handleOpen() {

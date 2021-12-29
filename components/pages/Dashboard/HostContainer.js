@@ -133,6 +133,8 @@ const HostContainer = ({alertRef}) => {
         })
         .then(res => {
             alertRef.current.handleOpen("success", "Changes has been saved");
+            onClear();
+            setIsPreview(false);
         })
         .catch(err =>  {
             alertRef.current.handleOpen("error", err.message);
@@ -207,7 +209,11 @@ const HostContainer = ({alertRef}) => {
 
     return (
         <Card className={style.card}>
-            <UploadImageDialog ref={uploadImageRef} setHostImage={setHostImage} />
+            <UploadImageDialog 
+                ref={uploadImageRef} 
+                hostImage={hostImage} 
+                setHostImage={setHostImage} 
+            />
             <CardContent>
                 <Typography variant="h6" gutterBottom>
                     NFT Host
