@@ -18,7 +18,7 @@ const Dashboard = ({alertRef, userData}) => {
                 </div>
                 <div className={style.subContainer}>
                     {currentApp == 0 && (
-                        <HostContainer />
+                        <HostContainer alertRef={alertRef}/>
                     )}
                     {currentApp == 1 && (
                         <GeneratorContainer />

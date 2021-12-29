@@ -4,11 +4,64 @@
     width: 100%;
 }
 
-.firstLayout {
+.container {
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
 }
 
 .hostList {
     background-color: #f0f0f0;
+    height: 240px;
+    padding: 5px;
+}
+
+.subContainer {
+    margin-top: 1.5em;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.hostInfoParent {
+    display: flex;
+}
+
+.hostInfoContainer {
+    flex: 1;
+    margin-left: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.imageUpload {
+    width: 150px;
+    height: 150px;
+    border-radius: 10px 10px;
+    border: 1px dashed rgb(175, 175, 175);
+    color: rgb(175, 175, 175);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: .5s all;
+}
+
+.imageUpload:hover {
+    border: 1px dashed rgb(63, 63, 63);
+    color: rgb(63, 63, 63);
+}
+
+.hostButtons {
+    margin-top: .5em;
+    margin-left: auto;
+}
+
+.hostButtons button:first-child {
+    background-color: white;
+}
+
+.hostButtons button:first-child:hover {
+    background-color: white;
 }

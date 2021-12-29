@@ -38,7 +38,9 @@ const Layout = ({children, currentPage, setCurrentPage, userData}) => {
                     >
                         {userData.address}
                         <Divider sx={{ ml: 1, mr: 1 }} orientation="vertical" flexItem />
-                        {`${userData.balance.length > 6 ? userData.balance.substring(0, 6) : userData.balance} ETH`}
+                        {userData.balance && (
+                            `${userData.balance.length > 6 ? userData.balance.substring(0, 6) : userData.balance} ETH`
+                        )}
                     </Button>
                 </Toolbar>
                 <Divider />
