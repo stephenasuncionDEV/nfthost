@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Card, CardContent, Typography, IconButton } from '@mui/material';
-import style from "../../../styles/HostContainer.module.scss"
+import style from "../../../styles/GeneratorContainer.module.scss"
 
-const GeneratorContainer = () => {
+const GeneratorContainer = ({alertRef}) => {
     return (
         <Card className={style.card}>
             <CardContent>

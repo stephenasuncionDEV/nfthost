@@ -4,7 +4,7 @@ import HostContainer from "./HostContainer";
 import GeneratorContainer from "./GeneratorContainer"
 import style from "../../../styles/Dashboard.module.scss"
 
-const Dashboard = ({alertRef, userData}) => {
+const Dashboard = ({alertRef}) => {
     const [currentApp, setCurrentApp] = useState(0);
 
     return (
@@ -21,7 +21,7 @@ const Dashboard = ({alertRef, userData}) => {
                         <HostContainer alertRef={alertRef}/>
                     )}
                     {currentApp == 1 && (
-                        <GeneratorContainer />
+                        <GeneratorContainer alertRef={alertRef}/>
                     )}
                 </div>
             </div>

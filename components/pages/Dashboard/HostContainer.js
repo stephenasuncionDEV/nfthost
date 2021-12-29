@@ -207,6 +207,16 @@ const HostContainer = ({alertRef}) => {
         })
     }
 
+    const onCopyURL = () => {
+        if (hostIndex == -1) {
+            alertRef.current.handleOpen("error", "Please select a website");
+            return;
+        }
+
+        navigator.clipboard.writeText(hostList[hostIndex].url);
+        alertRef.current.handleOpen("info", "Link has been copied.");
+    }
+
     return (
         <Card className={style.card}>
             <UploadImageDialog 
@@ -239,7 +249,10 @@ const HostContainer = ({alertRef}) => {
                                 )}
                             </IconButton>
                             <div className={style.hostInfoContainer}>
-                                <TextField required label="Title" variant="outlined" size="small" sx={{ width: "100%" }} autoComplete='off' value={hostTitle} onChange={onTitleChange}/>
+                                <div className={style.hostTitleLink}>
+                                    <TextField required label="Title" variant="outlined" size="small" sx={{ width: "50%" }} autoComplete='off' value={hostTitle} onChange={onTitleChange}/>
+                                    <TextField required disabled label="Link" variant="outlined" size="small" sx={{ width: "50%", ml: 1 }} autoComplete='off' value={hostURL} onClick={onCopyURL}/>
+                                </div>
                                 <TextField required label="Header" variant="outlined" size="small" sx={{ width: "100%" }} autoComplete='off' value={hostHeader} onChange={onHeaderChange}/>
                                 <TextField required label="Description" variant="outlined" size="small" sx={{ width: "100%" }} autoComplete='off' value={hostDescription} onChange={onDescriptionChange}/>
                             </div>
@@ -272,11 +285,6 @@ const HostContainer = ({alertRef}) => {
                                             Save Changes
                                         </Button>
                                     </div>
-                                </div>
-                                <div>
-                                <Typography variant="body1" sx={{mt: 3, color: "rgb(80,80,80)"}} gutterBottom>
-                                    Link: {hostURL}
-                                </Typography>
                                 </div>
                             </div>
                         )}
