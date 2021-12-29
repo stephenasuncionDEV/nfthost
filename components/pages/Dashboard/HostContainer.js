@@ -184,13 +184,16 @@ const HostContainer = ({alertRef}) => {
         if (hostIndex == -1) {
             alertRef.current.handleOpen("error", "Please select a website");
             return;
-        } 
+        }
 
-        let newHostList = [...hostList];
-        newHostList.splice(hostIndex, 1);
-        setHostList(newHostList);
-        setUserData({
-            websites: newHostList
+        axios.post("http://localhost:8080/api/host/delete", {
+            url: hostList[hostIndex].url
+        })
+        .then(res => {
+            let newHostList = [...hostList];
+            newHostList.splice(hostIndex, 1);
+            setHostList(newHostList);
+            return setUserData({websites: newHostList})
         })
         .then(res => {
             alertRef.current.handleOpen("success", "Successfully deleted");

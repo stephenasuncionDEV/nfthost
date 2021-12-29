@@ -49,9 +49,20 @@ app.post('/api/host', (req, res) => {
     fs.writeFile(`${__dirname}/pages/${id}.js`, content, err => {
         if (err) {
             res.status(400).json({message: err.message});
-            return
         }
         res.status(200).json({url: url});
+    })
+});
+
+app.post('/api/host/delete', (req, res) => {
+    const url = req.body.url;
+    const fileName = url.substring(url.lastIndexOf('/') + 1) + ".js";
+    const fullPath = `${__dirname}/pages/${fileName}`
+    fs.unlink(fullPath, (err) => {
+        if (err) {
+            res.status(400).json({message: err.message});
+        }
+        res.status(200).json({message: "Succesfully deleted"});
     })
 });
 
