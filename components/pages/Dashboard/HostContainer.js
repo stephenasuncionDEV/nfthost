@@ -71,6 +71,7 @@ const HostContainer = ({alertRef}) => {
                     .then(res => {
                         getHostList();
                         onClear();
+                        alertRef.current.handleOpen("success", "Your mint website has been created");
                     })
                     .catch(err => {
                         alertRef.current.handleOpen("error", err.message);
