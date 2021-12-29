@@ -19,8 +19,8 @@ const Home = ({alertRef, userData}) => {
 
     return (
         <div>
-            <div className="main-pane" style={{ height: "100vh" }}>
-                <div className="host-frame">
+            <div className="main-pane">
+                <div>
                     <div className={style.container}>
                         <div className={style.headerContainer}>
                             <h1>Home 🏠</h1>
@@ -40,24 +40,24 @@ const Home = ({alertRef, userData}) => {
                         </div>
                     </div>
                 </div>
-            </div>
-            <div className={style.hostContainer}>
-                <img src="/logo.png" alt="NFT Host Logo" />
-                <Typography variant="h2" component="div">
-                    Kalabaw NFT
-                </Typography>
-                <Typography variant="body1">
-                    Kalabaw NFT is a collection of 200 unique carabaos/water buffalos NFTs.
-                </Typography>
-                <MintContainer 
-                    iframe='<iframe
-                        src="https://cloudflare-ipfs.com/ipfs/bafybeigpfbnasq3sbciukilnculoy3cd24ov5mshzmuw7gregexdy223be?contract=0xce240737302120e7C61334fFec8DF254B7003703&chainId=4"
-                        width="400px"
-                        height="400px"
-                        style="max-width:100%;"
-                        frameborder="0"
-                    />'
-                />
+                <div className={style.hostContainer}>
+                    <img src="/logo.png" alt="NFT Host Logo" />
+                    <Typography variant="h2" component="div">
+                        Kalabaw NFT
+                    </Typography>
+                    <Typography variant="body1">
+                        Kalabaw NFT is a collection of 200 unique carabaos/water buffalos NFTs.
+                    </Typography>
+                    <MintContainer 
+                        iframe='<iframe
+                            src="https://cloudflare-ipfs.com/ipfs/bafybeigpfbnasq3sbciukilnculoy3cd24ov5mshzmuw7gregexdy223be?contract=0xce240737302120e7C61334fFec8DF254B7003703&chainId=4"
+                            width="600px"
+                            height="600px"
+                            style="max-width:100%;"
+                            frameborder="0"
+                        />'
+                    />
+                </div>
             </div>
         </div>
     )

@@ -4,11 +4,13 @@ import { Card, CardContent, Typography, Button, Avatar, IconButton, TextField } 
 import WebsiteContainer from "./WebsiteContainer";
 import style from "../../../styles/HostContainer.module.scss"
 import UploadImageDialog from "./UploadImageDialog";
+import axios from "axios";
 
 const HostContainer = ({alertRef}) => {
     const { user, setUserData } = useMoralis();
     const [isPreview, setIsPreview] = useState(false);
     const [hostIndex, setHostIndex] = useState(null);
+    const [hostURL, setHostURL] = useState("");
     const [hostImage, setHostImage] = useState("");
     const [hostTitle, setHostTitle] = useState("");
     const [hostHeader, setHostHeader] = useState("");
@@ -17,11 +19,16 @@ const HostContainer = ({alertRef}) => {
     const [hostList, setHostList] = useState([]);
     const uploadImageRef = useRef();
 
-    useEffect(() => {
+    const getHostList = () => {
         if (user == null) return;
         const websiteArr = user.attributes.websites;
         setHostList(websiteArr);
-    }, [user])
+    }
+
+    useEffect(() => {
+        if (user == null) return;
+        getHostList();
+    }, [user, setUserData])
 
     const onCreate = () => {
         if (!isPreview) {
@@ -40,6 +47,7 @@ const HostContainer = ({alertRef}) => {
                 description: hostDescription,
                 image: hostImage,
                 iframe: hostIframe,
+                url: ""
             }
 
             const websiteArr = user.attributes.websites;
@@ -55,7 +63,13 @@ const HostContainer = ({alertRef}) => {
                         websites: [...websiteArr, newHost]
                     })
                     .then(res => {
-                        setHostList([...hostList, newHost]);
+                        return axios.post("http://localhost:8080/api/host", newHost)
+                    })
+                    .then(res => {
+                        return onSaveURL(res.data.url);
+                    })
+                    .then(res => {
+                        getHostList();
                         onClear();
                     })
                     .catch(err => {
@@ -72,6 +86,32 @@ const HostContainer = ({alertRef}) => {
             onClear();
             setIsPreview(false);
         }
+    }
+
+    const onSaveURL = (url) => {
+        let newList = [];
+        if (hostList.length == 0) {
+            const newHost = {
+                title: hostTitle,
+                header: hostHeader,
+                description: hostDescription,
+                image: hostImage,
+                iframe: hostIframe,
+                url: url
+            }
+            newList = [newHost];
+            setHostList([newHost]);
+        }
+        else {
+            let newHostList = [...hostList];
+            newHostList[hostIndex].url = url;
+            newList = [newHostList];
+            setHostList(newHostList);
+        }
+
+        return setUserData({
+            websites: newList
+        })
     }
 
     const onSaveChanges = () => {
@@ -99,12 +139,14 @@ const HostContainer = ({alertRef}) => {
     }
 
     const onClickHost = (host) => {
+        getHostList();
         const index = hostList.findIndex(res => res.title == host.title);
         setHostImage(host.image);
         setHostTitle(host.title);
         setHostHeader(host.header);
         setHostDescription(host.description);
         setHostIframe(host.iframe);
+        setHostURL(host.url);
         setHostIndex(index);
         setIsPreview(true);
     }
@@ -134,7 +176,7 @@ const HostContainer = ({alertRef}) => {
     }
 
     const onIframeChange = (e) => {
-        setHostIframe(e.target.value);
+        setHostIframe(e.target.value.replaceAll('"', "'"));
     }
 
     const onDelete = () => {
@@ -187,9 +229,9 @@ const HostContainer = ({alertRef}) => {
                                 )}
                             </IconButton>
                             <div className={style.hostInfoContainer}>
-                                <TextField required label="Title" variant="outlined" size="small" sx={{ width: "100%" }} value={hostTitle} onChange={onTitleChange}/>
-                                <TextField required label="Header" variant="outlined" size="small" sx={{ width: "100%" }} value={hostHeader} onChange={onHeaderChange}/>
-                                <TextField required label="Description" variant="outlined" size="small" sx={{ width: "100%" }} value={hostDescription} onChange={onDescriptionChange}/>
+                                <TextField required label="Title" variant="outlined" size="small" sx={{ width: "100%" }} autoComplete='off' value={hostTitle} onChange={onTitleChange}/>
+                                <TextField required label="Header" variant="outlined" size="small" sx={{ width: "100%" }} autoComplete='off' value={hostHeader} onChange={onHeaderChange}/>
+                                <TextField required label="Description" variant="outlined" size="small" sx={{ width: "100%" }} autoComplete='off' value={hostDescription} onChange={onDescriptionChange}/>
                             </div>
                         </div>
                         <div className={style.hostIframe}>
@@ -201,25 +243,34 @@ const HostContainer = ({alertRef}) => {
                                 variant="outlined" 
                                 size="small" 
                                 sx={{ width: "100%" }} 
+                                autoComplete='off'
                                 value={hostIframe} 
                                 onChange={onIframeChange}
                             />
                         </div>
                         {isPreview && (
-                            <div className={style.hostButtons}>
-                                <Button variant="contained" color="error" onClick={onDelete}>
-                                    Delete
-                                </Button>
-                                <div className={style.hostButtonRight}>
-                                    <Button variant="contained" sx={{ color: "black" }} onClick={onClear}>
-                                        Clear
+                            <div>
+                                <div className={style.hostButtons}>
+                                    <Button variant="contained" color="error" onClick={onDelete}>
+                                        Delete
                                     </Button>
-                                    <Button variant="contained" sx={{ ml: 1 }} onClick={onSaveChanges}>
-                                        Save Changes
-                                    </Button>
+                                    <div className={style.hostButtonRight}>
+                                        <Button variant="contained" sx={{ color: "black" }} onClick={onClear}>
+                                            Clear
+                                        </Button>
+                                        <Button variant="contained" sx={{ ml: 1 }} onClick={onSaveChanges}>
+                                            Save Changes
+                                        </Button>
+                                    </div>
+                                </div>
+                                <div>
+                                <Typography variant="body1" sx={{mt: 3, color: "rgb(80,80,80)"}} gutterBottom>
+                                    Link: {hostURL}
+                                </Typography>
                                 </div>
                             </div>
                         )}
+
                     </div>
                 </div>
             </CardContent>

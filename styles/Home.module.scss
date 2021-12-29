@@ -1,5 +1,4 @@
 $titleColor: rgb(0, 0, 0);
-$hostContainerColor: rgb(61, 61, 61);
 
 .container {
     height: 100%;
@@ -48,13 +47,14 @@ $hostContainerColor: rgb(61, 61, 61);
 }
 
 .hostContainer {
-    height: 100vh;
-    background-color: $hostContainerColor;
+    margin-top: 5em;
+    margin-bottom: 5em;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: white;
+    color: black;
 
     img {
         width: 20%;

@@ -39,6 +39,7 @@ const UploadImageDialog = (props, ref) => {
                 label="url"
                 fullWidth
                 variant="standard"
+                autoComplete='off'
                 value={imageURL}
                 onChange={onImageURLChange}
             />
