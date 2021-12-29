@@ -37,3 +37,4 @@ yarn-error.log*
 # others
 /utils/firebase.js
 /utils/mongodb.js
+/utils/moralis.js

@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
-import { ethers } from "ethers";
+import { useMoralis } from "react-moralis";
 import LoginIcon from '@mui/icons-material/Login';
 import WalletDialog from "./WalletDialog";
 import style from "../styles/Login.module.scss"
 
-const Login = ({alertRef, setUserData, setProvider, setSigner}) => {
+const Login = ({alertRef}) => {
     const [selectedWallet, setSelectedWallet] = useState("");
+    const { authenticate } = useMoralis();
     const walletDialogRef = useRef();
 
     useEffect(() => {
@@ -15,47 +16,13 @@ const Login = ({alertRef, setUserData, setProvider, setSigner}) => {
                 throw new Error("No crypto currency wallet found.")
             }
             if (selectedWallet == "MetaMask") {
-                metamaskLoginHandler();
+                authenticate({ provider: "metamask" });
             }
         }
         catch (err) {
             alertRef.current.handleOpen("error", err.message);
         }
     }, [selectedWallet])
-
-    const metamaskLoginHandler = () => {
-        try {
-            window.ethereum.sendAsync({ method: 'eth_requestAccounts' }, (err, res) => {
-                if (err) throw new Error(err);
-
-                const provider = new ethers.providers.Web3Provider(window.ethereum);
-                setProvider(provider);
-
-                const signer = provider.getSigner();
-                setSigner(signer);
-
-                let userAccount = "";
-                provider.listAccounts()
-                .then(account => {
-                    userAccount = account[0];
-                    return provider.getBalance(account[0]);
-                })
-                .then(balance => {
-                    const userData = {
-                        address: userAccount,
-                        balance: ethers.utils.formatEther(balance)
-                    }
-                    setUserData(userData);
-                })
-                .catch(err => {
-                    alertRef.current.handleOpen("error", err);
-                })
-            });
-        }
-        catch (err) {
-            alertRef.current.handleOpen("error", err);
-        }
-    }
 
     return (
         <div className={style.centerPane}>

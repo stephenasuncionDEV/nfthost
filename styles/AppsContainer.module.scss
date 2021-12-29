@@ -1,0 +1,25 @@
+.card {
+    max-width: 1000px;
+    width: 100%;
+}
+
+.cardContent {
+    svg {
+        color: black;
+    }
+}
+
+.button {
+    margin-left: .25em;
+    transition: .5s all;
+}
+
+.button:hover {
+    transform: scale(1.2);
+    opacity: 50%;
+}
+
+.appsContainer {
+    display: flex;
+    flex-wrap: wrap;
+}

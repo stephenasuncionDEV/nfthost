@@ -1,11 +1,13 @@
 import React, { useRef } from "react";
+import { useMoralis } from "react-moralis";
 import { Toolbar, Divider, Button, Typography } from '@mui/material';
 import Sidebar from "./Sidebar"
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import Alert from "../components/Alert"
 import style from "../styles/Layout.module.scss"
 
-const Layout = ({children, userData, currentPage, setCurrentPage}) => {
+const Layout = ({children, currentPage, setCurrentPage, userData}) => {
+    const { logout } = useMoralis();
     const alertRef = useRef();
 
     const onCopyAddress = () => {
@@ -19,6 +21,7 @@ const Layout = ({children, userData, currentPage, setCurrentPage}) => {
             <Sidebar 
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
+                logout={logout}
             />
             <div className={style.topPane}>
                 <Toolbar>

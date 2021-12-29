@@ -1,22 +1,41 @@
 import React, { useState, useEffect, useRef } from "react";
+import { ethers } from "ethers"
+import { useMoralis, useMoralisWeb3Api } from "react-moralis";
 import Header from "../components/Header"
 import Alert from "../components/Alert"
 import Login from "../components/Login"
 import Layout from "../components/Layout"
 import Home from "../components/pages/Home/Home"
+import Dashboard from "../components/pages/Dashboard/Dashboard";
 
 const Index = () => {
-    const [isConnected, setIsConnected] = useState(false);
     const [userData, setUserData] = useState({});
-    const [provider, setProvider] = useState(null);
-    const [signer, setSigner] = useState(null);
     const [currentPage, setCurrentPage] = useState(0);
+    const {isAuthenticated, account} = useMoralis();
+    const Web3Api = useMoralisWeb3Api()
     const alertRef = useRef();
 
+    const getBalance = () => {
+        Web3Api.account.getNativeBalance({
+            chain: "rinkeby",
+            address: account
+        })
+        .then(res => {
+            setUserData({
+                address: account,
+                balance: ethers.utils.formatEther(res.balance)
+            })
+        })
+        .catch(err => {
+            alertRef.current.handleOpen("error", err.message);
+        })
+    }
+
     useEffect(() => {
-        if (Object.keys(userData).length === 0) return;
-        setIsConnected(true);
-    }, [userData])
+        if (isAuthenticated) {
+            getBalance();
+        }
+    }, [isAuthenticated])
 
     return (
         <div>
@@ -25,11 +44,11 @@ const Index = () => {
                 keywords="NFT Host, Host NFT, Mint Website, Mint NFT Website Hosting, Mint NFT, NFT, Mint, Crypto Currency, Crypto, Ethereum"
             />
             <Alert ref={alertRef}/>
-            {isConnected ? (
+            {isAuthenticated ? (
                 <Layout 
-                    userData={userData}
                     currentPage={currentPage}
                     setCurrentPage={setCurrentPage}
+                    userData={userData}
                 >
                     {currentPage == 0 && (
                         <Home 
@@ -37,7 +56,9 @@ const Index = () => {
                         />
                     )}
                     {currentPage == 1 && (
-                        <h1>Dashboard</h1>
+                        <Dashboard 
+                            alertRef={alertRef}
+                        />
                     )}
                     {currentPage == 2 && (
                         <h1>About</h1>
@@ -46,9 +67,6 @@ const Index = () => {
             ) : (
                 <Login
                     alertRef={alertRef}
-                    setUserData={setUserData}
-                    setProvider={setProvider}
-                    setSigner={setSigner}
                 />
             )}
         </div>

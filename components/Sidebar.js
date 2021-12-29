@@ -14,10 +14,10 @@ const menuItems = [
     {id: 3, name: "Logout", icon: 3}
 ];
 
-const Sidebar = ({currentPage, setCurrentPage}) => {
+const Sidebar = ({currentPage, setCurrentPage, logout}) => {
     const onItemClick = (itemID) => {
         if (itemID == 3) {
-            window.location.replace("/");
+            logout();
         }
         else {
             setCurrentPage(itemID)

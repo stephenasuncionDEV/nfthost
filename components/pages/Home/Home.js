@@ -7,7 +7,7 @@ import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrow
 import MintContainer from "../../MintContainer";
 import style from "../../../styles/Home.module.scss"
 
-const Home = ({alertRef, logs}) => {
+const Home = ({alertRef, userData}) => {
     const [logsData, setLogsData] = useState([]);
 
     useEffect(() => {
