@@ -7,3 +7,4 @@ module.exports = {
         METAMASK_ADDRESS: process.env.METAMASK_ADDRESS
     }
 }
+ 

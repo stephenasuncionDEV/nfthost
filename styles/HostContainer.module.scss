@@ -55,13 +55,18 @@
 
 .hostButtons {
     margin-top: .5em;
-    margin-left: auto;
+    display: flex;
+    justify-content: space-between;
 }
 
-.hostButtons button:first-child {
+.hostButtonRight button:first-child {
     background-color: white;
 }
 
-.hostButtons button:first-child:hover {
+.hostButtonRight button:first-child:hover {
     background-color: white;
+}
+
+.hostIframe {
+    margin-top: 1em;
 }

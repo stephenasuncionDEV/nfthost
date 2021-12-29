@@ -1,14 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Card, CardContent, Typography, Button } from '@mui/material';
 import style from "../styles/MintContainer.module.scss"
 
-const MintContainer = () => {
+const MintContainer = ({iframe}) => {
     return (
-        <Card className={style.card} sx={{mt: 3}}>
-            <CardContent>
-                
-            </CardContent>
-        </Card>
+        <div className={style.container}>
+            { <div dangerouslySetInnerHTML={{ __html: iframe.replace(/\n/g, '<br />')}} /> }
+        </div>
     )
 }
 

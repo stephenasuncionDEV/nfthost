@@ -8,6 +8,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@3rdweb/sdk": "^1.29.9",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "@mui/icons-material": "^5.2.5",
