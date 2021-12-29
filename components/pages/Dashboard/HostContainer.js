@@ -250,8 +250,8 @@ const HostContainer = ({alertRef}) => {
                             </IconButton>
                             <div className={style.hostInfoContainer}>
                                 <div className={style.hostTitleLink}>
-                                    <TextField required label="Title" variant="outlined" size="small" sx={{ width: "50%" }} autoComplete='off' value={hostTitle} onChange={onTitleChange}/>
-                                    <TextField required disabled label="Link" variant="outlined" size="small" sx={{ width: "50%", ml: 1 }} autoComplete='off' value={hostURL} onClick={onCopyURL}/>
+                                    <TextField required label="Title" variant="outlined" size="small" sx={{ flexGrow: 1 }} autoComplete='off' value={hostTitle} onChange={onTitleChange}/>
+                                    <TextField required disabled label="Link" variant="outlined" size="small" sx={{ flexGrow: 1, ml: 1 }} autoComplete='off' value={hostURL} onClick={onCopyURL}/>
                                 </div>
                                 <TextField required label="Header" variant="outlined" size="small" sx={{ width: "100%" }} autoComplete='off' value={hostHeader} onChange={onHeaderChange}/>
                                 <TextField required label="Description" variant="outlined" size="small" sx={{ width: "100%" }} autoComplete='off' value={hostDescription} onChange={onDescriptionChange}/>
