@@ -12,11 +12,11 @@ const Index = () => {
     const [userData, setUserData] = useState({});
     const [currentPage, setCurrentPage] = useState(0);
     const {isAuthenticated, account} = useMoralis();
-    const Web3Api = useMoralisWeb3Api()
+    const web3Api = useMoralisWeb3Api();
     const alertRef = useRef();
 
     const getBalance = () => {
-        Web3Api.account.getNativeBalance({
+        web3Api.account.getNativeBalance({
             chain: "rinkeby",
             address: account
         })

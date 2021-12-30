@@ -3,6 +3,7 @@ import { List, ListItem, ListItemIcon, ListItemText, Drawer, Divider, Toolbar, B
 import HomeIcon from '@mui/icons-material/Home';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import InfoIcon from '@mui/icons-material/Info';
+import HelpIcon from '@mui/icons-material/Help';
 import LogoutIcon from '@mui/icons-material/Logout';
 import style from "../styles/Sidebar.module.scss"
 
@@ -11,17 +12,12 @@ const menuItems = [
     {id: 0, name: "Home", icon: 0},
     {id: 1, name: "Dashboard", icon: 1},
     {id: 2, name: "About", icon: 2},
-    {id: 3, name: "Logout", icon: 3}
 ];
 
 const Sidebar = ({currentPage, setCurrentPage, logout}) => {
-    const onItemClick = (itemID) => {
-        if (itemID == 3) {
-            logout();
-        }
-        else {
-            setCurrentPage(itemID)
-        }
+
+    const onSupport = () => {
+        window.open("https://discord.gg/CYgj5DHc3t");
     }
 
     return (
@@ -48,24 +44,39 @@ const Sidebar = ({currentPage, setCurrentPage, logout}) => {
                 </Button>
             </Toolbar>
             <Divider />
-            <List>
+            <List sx={{ height: "100%", mb: 2 }}>
                 <Box
                     sx={{ 
                         ml: 2,
-                        mr: 2
+                        mr: 2,
+                        height: "100%",
+                        position: "relative"
                     }}
-                    >
-                    {menuItems.map((item, idx) => (
-                        <ListItem button key={idx} className={item.id == currentPage ? style.itemSelectedTrue : style.itemSelectedFalse} onClick={() => onItemClick(item.id)}>
+                >
+                {menuItems.map((item, idx) => (
+                    <ListItem button key={idx} className={item.id == currentPage ? style.itemSelectedTrue : style.itemSelectedFalse} onClick={() => setCurrentPage(item.id)}>
+                        <ListItemIcon>
+                            {item.icon == 0 && (<HomeIcon />)}
+                            {item.icon == 1 && (<DashboardIcon />)}
+                            {item.icon == 2 && (<InfoIcon />)}
+                        </ListItemIcon>
+                        <ListItemText primary={item.name} />
+                    </ListItem>
+                ))}
+                    <div style={{ position: "absolute", bottom: 0, width: "100%" }}>
+                        <ListItem button className={style.itemSelectedFalse} onClick={onSupport}>
                             <ListItemIcon>
-                                {item.icon == 0 && (<HomeIcon />)}
-                                {item.icon == 1 && (<DashboardIcon />)}
-                                {item.icon == 2 && (<InfoIcon />)}
-                                {item.icon == 3 && (<LogoutIcon />)}
+                                <HelpIcon />
                             </ListItemIcon>
-                            <ListItemText primary={item.name} />
+                            <ListItemText primary="Support" />
                         </ListItem>
-                    ))}
+                        <ListItem button className={style.itemSelectedFalse} onClick={logout}>
+                            <ListItemIcon>
+                                <LogoutIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Logout" />
+                        </ListItem>
+                    </div>
                 </Box>
             </List>
         </Drawer>

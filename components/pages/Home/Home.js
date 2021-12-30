@@ -7,13 +7,16 @@ import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrow
 import MintContainer from "../../MintContainer";
 import style from "../../../styles/Home.module.scss"
 
-const Home = ({alertRef, userData}) => {
+const Home = ({alertRef}) => {
     const [logsData, setLogsData] = useState([]);
 
     useEffect(() => {
         axios.get("http://localhost:8080/api/webhook/get")
         .then(res => {
             setLogsData(res.data);
+        })
+        .catch(err => {
+            alertRef.current.handleOpen("error", err.message);
         });
     }, [])
 
