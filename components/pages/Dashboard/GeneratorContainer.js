@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Card, CardContent, Typography, IconButton, List, ListItem, ListItemText, ListItemIcon, Avatar } from '@mui/material';
 import LayerContainer from "./LayersContainer";
 import LayerDisplay from "./LayerDisplay"
-import FileUploadIcon from '@mui/icons-material/FileUpload';
+import ProjectSettings from "./ProjectSettings"
 import style from "../../../styles/GeneratorContainer.module.scss"
 
 const GeneratorContainer = ({alertRef}) => {
@@ -16,12 +16,17 @@ const GeneratorContainer = ({alertRef}) => {
 
     return (
         <div className={style.firstLayout}>
-            <LayerDisplay 
-                alertRef={alertRef}
-                layerList={layerList} 
-                layerIndex={layerIndex}
-                setLayerList={setLayerList}
-            />
+            <div className={style.secondLayout}>
+                <LayerDisplay 
+                    alertRef={alertRef}
+                    layerList={layerList} 
+                    layerIndex={layerIndex}
+                    setLayerList={setLayerList}
+                />
+                <ProjectSettings 
+                    alertRef={alertRef}
+                />
+            </div>
             <LayerContainer 
                 alertRef={alertRef}
                 layerList={layerList} 

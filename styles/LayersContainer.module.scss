@@ -1,6 +1,7 @@
 .card {
+    margin-top: 1em;
     flex-grow: 1;
-    max-width: 350px;
+    max-width: 300px;
     margin-left: 1em;
 }
 
@@ -36,4 +37,13 @@
 
 .layerTitleInput:focus {
     outline: none;
+}
+
+@media only screen and (max-width: 780px) {
+    .card {
+        margin-top: 1em;
+        flex-grow: 1;
+        max-width: inherit;
+        margin-left: 0;
+    }
 }

@@ -47,7 +47,7 @@ const LayerDisplay = ({alertRef, layerList, layerIndex, setLayerList}) => {
 
     return (
         <Card className={style.card}>
-            <CardContent className={style.cardContent}>
+            <CardContent>
                 <Typography variant="h6" component="div" gutterBottom>
                     Assets
                 </Typography>
