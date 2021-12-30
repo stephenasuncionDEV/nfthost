@@ -29,7 +29,7 @@ const AppsContainer = ({setCurrentApp}) => {
                         aria-label="Generate NFTs" 
                         size="large" 
                         className={style.button} 
-                        sx={{ bgcolor: "rgb(32,129,226)" }} 
+                        sx={{ bgcolor: "rgb(242,80,34)" }} 
                         onClick={() => onClick(1)}
                     >
                         <PrecisionManufacturingSharpIcon />

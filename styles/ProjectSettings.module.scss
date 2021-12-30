@@ -5,6 +5,30 @@
 }
 
 .cardContent {
+    height: 100%;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 }
+
+.horizontalLayout {
+    display: flex;
+    div {
+        flex: 1;
+    }
+}
+
+.verticalLayout {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.buttonContainer {
+    margin-top: 1em;
+    display: flex;
+    button {
+        margin-left: auto; 
+    }
+}
+

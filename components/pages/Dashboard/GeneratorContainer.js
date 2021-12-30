@@ -25,6 +25,7 @@ const GeneratorContainer = ({alertRef}) => {
                 />
                 <ProjectSettings 
                     alertRef={alertRef}
+                    layerList={layerList}
                 />
             </div>
             <LayerContainer 
