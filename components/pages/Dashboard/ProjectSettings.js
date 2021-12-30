@@ -42,7 +42,7 @@ const ProjectSettings = ({alertRef, layerList}) => {
 
     const onGenerate = () => {
         let metadata = [];
-        
+        console.log(layerList)
     }
 
     return (

@@ -34,24 +34,24 @@ const UploadImageDialog = (props, ref) => {
         <Dialog open={open} onClose={handleClose}>
             <DialogTitle>Upload an Image</DialogTitle>
             <DialogContent>
-            <DialogContentText>
-                Please enter an image URL below:
-            </DialogContentText>
-            <TextField
-                autoFocus
-                margin="dense"
-                id="name"
-                label="url"
-                fullWidth
-                variant="standard"
-                autoComplete='off'
-                value={imageURL}
-                onChange={onImageURLChange}
-            />
+                <DialogContentText>
+                    Please enter an image URL below:
+                </DialogContentText>
+                <TextField
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    label="url"
+                    fullWidth
+                    variant="standard"
+                    autoComplete='off'
+                    value={imageURL}
+                    onChange={onImageURLChange}
+                />
             </DialogContent>
             <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={handleSet}>Set</Button>
+                <Button onClick={handleClose}>Cancel</Button>
+                <Button onClick={handleSet}>Set</Button>
             </DialogActions>
         </Dialog>
     )
