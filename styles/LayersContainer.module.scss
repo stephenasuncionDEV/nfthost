@@ -1,0 +1,39 @@
+.card {
+    flex-grow: 1;
+    max-width: 350px;
+    margin-left: 1em;
+}
+
+.cardContent {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+@mixin isSelected($selected: false) {
+    -webkit-box-shadow: 0px .5px 3px 0px #cecece, 0px 4px 5px 0px #e9e9e9; 
+    box-shadow: 0px .5px 3px 0px #cecece, 0px 4px 5px 0px #e9e9e9; 
+    margin-bottom: 1em;
+    @if $selected {
+        border-bottom: 3px solid rgb(252, 151, 123);
+    }
+}
+
+.layerItemTrue {
+    @include isSelected($selected: true);
+}
+
+.layerItemFalse {
+    @include isSelected($selected: false);
+}
+
+.layerTitleInput {
+    border: 0;
+    background-color: transparent;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.layerTitleInput:focus {
+    outline: none;
+}

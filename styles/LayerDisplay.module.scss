@@ -1,0 +1,69 @@
+.card {
+    flex-grow: 1;
+    max-width: 650px;
+}
+
+.cardContent {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.layerDisplay {
+    position: relative;
+    height: 100%;
+}
+
+.layerImageContainer {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    min-height: 11.7em;
+    height: 100%;
+    background-color: rgb(243, 243, 243);
+}
+
+.layerImageContainer div {
+    margin: .5em;
+}
+
+.layerImageItem {
+    background-color: rgb(231, 231, 231);
+    -webkit-box-shadow: 0px .5px 3px 0px #cecece, 0px 4px 5px 0px #e9e9e9; 
+    box-shadow: 0px .5px 3px 0px #cecece, 0px 4px 5px 0px #e9e9e9; 
+}
+
+@mixin isOver($over: false) {
+    border: 1px dashed rgb(211, 211, 211);
+    background-color: rgb(236, 236, 236);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 30%;
+    cursor: pointer;
+    svg {
+        font-size: 24pt;
+    }
+    svg, span {
+        color: rgb(131, 131, 131);
+    }
+    @if $over {
+        border: 1px dashed rgb(119, 119, 119);
+        svg, span {
+            color: rgb(70, 70, 70);
+        }
+    } 
+}
+
+.layerDisplayDropTrue {
+    @include isOver($over: true);
+}
+
+.layerDisplayDropFalse {
+    @include isOver($over: false);
+}

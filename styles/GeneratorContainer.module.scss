@@ -1,6 +1,9 @@
-.card {
+.firstLayout {
     margin-top: 1em;
     margin-bottom: 4em;
-    max-width: 1000px;
+    display: flex;
+    flex-wrap: wrap;
     width: 100%;
+    max-width: 1000px;
+    align-items:flex-start;
 }
