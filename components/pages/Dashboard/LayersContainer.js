@@ -32,14 +32,14 @@ const LayerContainer = ({alertRef, layerList, layerIndex, setLayerList, setLayer
         setLayerList(newLayerList);
     }
 
-    const onTitleChange = (e, index) => {
+    const onTitleChange = (e) => {
         let newLayerList = [...layerList];
-        newLayerList[index].name = e.target.value;
+        newLayerList[layerIndex].name = e.target.value;
         setLayerList(newLayerList);
     }
 
     const onSettings = () => {
-
+        console.log(layerList)
     }
 
     return (
@@ -69,12 +69,8 @@ const LayerContainer = ({alertRef, layerList, layerIndex, setLayerList, setLayer
                         </Avatar>
                         <ListItemText
                             sx={{ ml: 2 }}
-                            primary={<span 
-                                className={style.layerTitleInput} 
-                                contentEditable="true" 
-                                suppressContentEditableWarning={true} 
-                                onChange={(e) => onTitleChange(e, idx)}>{layer.name}</span>} 
-                            secondary={`Images ${layer.images.length}`}
+                            primary={<input type="text" className={style.layerTitleInput} value={layer.name} onChange={onTitleChange} />} 
+                            secondary={`${layer.images.length} Images`}
                         />
                         <IconButton onClick={() => onDelete(idx)}>
                             <CloseIcon />

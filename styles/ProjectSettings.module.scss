@@ -27,8 +27,19 @@
 .buttonContainer {
     margin-top: 1em;
     display: flex;
-    button {
-        margin-left: auto; 
-    }
+    justify-content: space-between;
 }
 
+.canvas {
+    margin-top: 1em;
+}
+
+.canvasInvisible {
+    display: none;
+}
+
+.renderButtons {
+    margin-top: 1em;
+    display: flex;
+    justify-content: end;
+}

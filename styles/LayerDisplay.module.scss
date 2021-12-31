@@ -1,4 +1,6 @@
 .card {
+    flex: 1;
+    width: 684px;
     margin-top: 1em;
 }
 
@@ -82,5 +84,11 @@
     label {
         margin-left: auto;
         color: rgb(100, 100, 100);
+    }
+}
+
+@media only screen and (max-width: 1255px) {
+    .card {
+        width: 100%;
     }
 }

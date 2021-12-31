@@ -56,8 +56,8 @@ const LayerDisplay = ({alertRef, layerList, layerIndex, setLayerList}) => {
 
     const onDeleteItem = (index) => {
         let newLayerList = [...layerList];
-       newLayerList[layerIndex].images.splice(index, 1);
-       setLayerList(newLayerList);
+        newLayerList[layerIndex].images.splice(index, 1);
+        setLayerList(newLayerList);
     }
 
     const onClickItem = (index) => {

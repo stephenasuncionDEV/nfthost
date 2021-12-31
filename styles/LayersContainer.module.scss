@@ -1,7 +1,6 @@
 .card {
     margin-top: 1em;
-    flex-grow: 1;
-    max-width: 300px;
+    width: 300px;
     margin-left: 1em;
 }
 
@@ -39,7 +38,7 @@
     outline: none;
 }
 
-@media only screen and (max-width: 1011px) {
+@media only screen and (max-width: 1271px) {
     .card {
         margin-top: 1em;
         flex-grow: 1;
