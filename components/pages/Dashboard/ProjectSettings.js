@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import JSZip from "jszip";
 import { Card, CardContent, Typography, TextField, Button } from '@mui/material';
 import { saveAs } from 'file-saver';
@@ -9,6 +9,17 @@ import style from "../../../styles/ProjectSettings.module.scss"
 
 const zip = new JSZip();
 const wait = ms => new Promise(res => setTimeout(res, ms));
+
+const getImageHeightAndWidth = dataURL => new Promise(resolve => {
+    const img = new Image()
+    img.onload = () => {
+      resolve({
+        height: img.height,
+        width: img.width
+      })
+    }
+    img.src = dataURL
+})
 
 const ProjectSettings = ({alertRef, layerList}) => {
     const [name, setName] = useState("");
@@ -21,8 +32,16 @@ const ProjectSettings = ({alertRef, layerList}) => {
     const [curRenderIndex, setCurRenderIndex] = useState(0);
     const [isRendering, setIsRendering] = useState(false);
     const [metadata, setMetadata] = useState([]);
-    const [weights, setWeights] = useState([]);
     const canvasRef = useRef();
+
+    useEffect(() => {
+        if (layerList[0].images.length == 0) return;
+        getImageHeightAndWidth(layerList[0].images[0].url)
+        .then(res => {
+            setImgWidth(res.width);
+            setImgLength(res.height);
+        });
+    }, [layerList[0].images])
 
     const onNameChange = (e) => {
         setName(e.target.value);
@@ -38,14 +57,6 @@ const ProjectSettings = ({alertRef, layerList}) => {
 
     const onCountChange = (e) => {
         setCount(e.target.value);
-    }
-
-    const onWidthChange = (e) => {
-        setImgWidth(e.target.value);
-    }
-
-    const onLengthChange = (e) => {
-        setImgLength(e.target.value);
     }
 
     const onStartCountChange = (e) => {
@@ -200,8 +211,8 @@ const ProjectSettings = ({alertRef, layerList}) => {
                         <TextField required label="Start Count" type="number" variant="outlined" size="small" autoComplete='off' sx={{ mt: 2 }} value={startCount} onChange={onStartCountChange}/>
                     </div>
                     <div className={style.verticalLayout}>
-                        <TextField required label="Image Width" type="number" variant="outlined" size="small" autoComplete='off' sx={{ ml: 1, mt: 2 }} value={imgWidth} onChange={onWidthChange}/>
-                        <TextField required label="Image Length" type="number" variant="outlined" size="small" autoComplete='off' sx={{ ml: 1, mt: 2 }} value={imgLength} onChange={onLengthChange}/>
+                        <TextField label="Image Width" type="number" variant="outlined" size="small" autoComplete='off' sx={{ ml: 1, mt: 2 }} value={imgWidth} disabled/>
+                        <TextField label="Image Length" type="number" variant="outlined" size="small" autoComplete='off' sx={{ ml: 1, mt: 2 }} value={imgLength} disabled/>
                     </div>
                 </div>
                 <div className={style.buttonContainer}>

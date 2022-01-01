@@ -61,8 +61,6 @@ const LayerDisplay = ({alertRef, layerList, layerIndex, setLayerList}) => {
             array[idx].percentage = (100 / array.length).toFixed(2);
         });
 
-        console.log(newLayerList);
-
         setLayerList(newLayerList);
     }
 
