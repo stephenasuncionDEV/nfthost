@@ -8,7 +8,7 @@ NFT Host is a website where you can host your ERC721 drops. Upload your nft coll
 
 ## Screenshot 📸
 
-<br />
+(screenshots here)
 
 ## License 🚀️
 
