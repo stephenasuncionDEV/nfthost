@@ -51,12 +51,18 @@ const ProjectSettings = ({alertRef, layerList}) => {
         setStartCount(e.target.value);
     }
 
+    const getLayerImageIndex = () => {
+        
+    }
+
     const stackLayers = (ctx, attributes) => {
         return new Promise((resolve, reject) => {
             layerList.forEach((layer, idx) => {
                 setTimeout(() => {
                     let layerImage = new Image();
+
                     const randomIndex = Math.floor(Math.random() * layer.images.length);
+
                     layerImage.src = layer.images[randomIndex].url;
                     layerImage.onload = () => {
                         ctx.drawImage(layerImage, 0, 0, imgWidth, imgLength)

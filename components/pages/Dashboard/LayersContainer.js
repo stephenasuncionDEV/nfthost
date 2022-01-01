@@ -44,6 +44,8 @@ const LayerContainer = ({alertRef, layerList, layerIndex, setLayerList, setLayer
     const onSettings = (e) => {
         e.stopPropagation(); 
 
+        console.log(layerList)
+
         if (layerList[layerIndex].images == 0) {
             alertRef.current.handleOpen("error", "Selected layer must have images");
             return;

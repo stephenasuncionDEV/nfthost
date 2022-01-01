@@ -14,16 +14,10 @@ const RarityDialog = (props, ref) => {
             setLayerIndex(index);  
             let tempRarityListArray = [];
             let isNew = true;
-            layerList[index].images.forEach((image, idx, array) => {
-                if (image.percentage == -1) {
-                    isNew = true;
-                    tempRarityListArray.push({value: (100 / array.length).toFixed(2), tempValue: 50});
-                } else {
-                    isNew = false;
-                    tempRarityListArray.push({value: image.percentage, tempValue: image.value});
-                }
+            layerList[index].images.forEach((image) => {
+                tempRarityListArray.push({value: image.percentage, tempValue: image.value});
             });
-            !isNew ? setMaxValue(layerList[index].images[0].maxValue) : setMaxValue(tempRarityListArray.length * 50);
+            setMaxValue(layerList[index].images[0].maxValue);
             setImageRarityList(tempRarityListArray);
             setOpen(true);
         }
@@ -38,7 +32,7 @@ const RarityDialog = (props, ref) => {
         tempRarityList[index].tempValue = e.target.value;
 
         let max = 0;
-        tempRarityList.forEach((data, idx) => {
+        tempRarityList.forEach((data) => {
             max += parseInt(data.tempValue);
         })
         setMaxValue(max);

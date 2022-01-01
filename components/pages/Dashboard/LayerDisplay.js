@@ -54,6 +54,15 @@ const LayerDisplay = ({alertRef, layerList, layerIndex, setLayerList}) => {
         let newLayerList = [...layerList];
         const oldImageList = newLayerList[layerIndex].images;
         newLayerList[layerIndex].images = oldImageList.length == 0 ? newImages : [...oldImageList, ...newImages];
+
+        newLayerList[layerIndex].images.forEach((image, idx, array) => {
+            array[idx].value = 50;
+            array[idx].maxValue = array.length * 50;
+            array[idx].percentage = (100 / array.length).toFixed(2);
+        });
+
+        console.log(newLayerList);
+
         setLayerList(newLayerList);
     }
 
