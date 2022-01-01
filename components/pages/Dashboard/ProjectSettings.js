@@ -21,6 +21,7 @@ const ProjectSettings = ({alertRef, layerList}) => {
     const [curRenderIndex, setCurRenderIndex] = useState(0);
     const [isRendering, setIsRendering] = useState(false);
     const [metadata, setMetadata] = useState([]);
+    const [weights, setWeights] = useState([]);
     const canvasRef = useRef();
 
     const onNameChange = (e) => {
@@ -51,8 +52,23 @@ const ProjectSettings = ({alertRef, layerList}) => {
         setStartCount(e.target.value);
     }
 
-    const getLayerImageIndex = () => {
-        
+    const getLayerImageIndex = (layer) => {
+        let i;
+        let weights = [];
+
+        layer.images.forEach((image, idx) => {
+            weights.push(parseInt(image.value) + (weights[idx - 1] || 0));
+        });
+
+        const random = Math.random() * layer.images[0].maxValue;
+
+        for (i = 0; i < weights.length; i++) {
+            if (weights[i] > random) {
+                break;
+            }
+        }     
+
+        return i;
     }
 
     const stackLayers = (ctx, attributes) => {
@@ -61,7 +77,7 @@ const ProjectSettings = ({alertRef, layerList}) => {
                 setTimeout(() => {
                     let layerImage = new Image();
 
-                    const randomIndex = Math.floor(Math.random() * layer.images.length);
+                    const randomIndex = getLayerImageIndex(layer);
 
                     layerImage.src = layer.images[randomIndex].url;
                     layerImage.onload = () => {
@@ -72,6 +88,7 @@ const ProjectSettings = ({alertRef, layerList}) => {
                         value: layer.images[randomIndex].name
                     }
                     attributes.push(newAttribute);
+
                     if (idx === layerList.length - 1) resolve();
                 }, idx * 50);
             });
