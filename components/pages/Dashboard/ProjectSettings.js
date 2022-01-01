@@ -1,10 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import JSZip from "jszip";
 import { Card, CardContent, Typography, TextField, Button } from '@mui/material';
+import { saveAs } from 'file-saver';
 import LoadingButton from '@mui/lab/LoadingButton';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import DownloadIcon from '@mui/icons-material/Download';
 import style from "../../../styles/ProjectSettings.module.scss"
+
+const zip = new JSZip();
+const wait = ms => new Promise(res => setTimeout(res, ms));
 
 const ProjectSettings = ({alertRef, layerList}) => {
     const [name, setName] = useState("");
@@ -21,6 +25,7 @@ const ProjectSettings = ({alertRef, layerList}) => {
 
     const onNameChange = (e) => {
         setName(e.target.value);
+        setIsRendering(false);
     }
 
     const onDescriptionChange = (e) => {
@@ -47,7 +52,41 @@ const ProjectSettings = ({alertRef, layerList}) => {
         setStartCount(e.target.value);
     }
 
-    const onGenerate = () => {
+    const stackLayers = (ctx, attributes) => {
+        return new Promise((resolve, reject) => {
+            layerList.forEach((layer, idx) => {
+                setTimeout(() => {
+                    let layerImage = new Image();
+                    const randomIndex = Math.floor(Math.random() * layer.images.length);
+                    layerImage.src = layer.images[randomIndex].url;
+                    layerImage.onload = () => {
+                        ctx.drawImage(layerImage, 0, 0, imgWidth, imgLength)
+                    }
+                    const newAttribute = {
+                        trait_type: layer.name,
+                        value: layer.images[randomIndex].name
+                    }
+                    attributes.push(newAttribute);
+                    if (idx === layerList.length - 1) resolve();
+                }, idx * 50);
+            });
+        });
+    }
+
+    const onGenerate = async () => {
+        try {
+            layerList.forEach((layer, idx) => {
+                if (layer.images.length == 0) {
+                    throw new Error("All layers must have atleast one image");
+                }
+            });
+        }
+        catch (err) {
+            alertRef.current.handleOpen("error", err.message);
+            return;
+        }
+
+        setIsRendering(true);
         setMetadata([]);
         const canvas = canvasRef.current;
         const ctx = canvas.getContext("2d");
@@ -55,27 +94,14 @@ const ProjectSettings = ({alertRef, layerList}) => {
         let tempMetadata = [];
         let countStart = startCount;
 
-        setIsRendering(true);
-
         for (let i = 1; i <= count; i++) {
-            setTimeout(() => {
-                setCurRenderIndex(i);
-                ctx.clearRect(0, 0, canvas.width, canvas.height);           
-                let attributes = [];
-                layerList.forEach((layer, idx) => {
-                    setTimeout(() => {
-                        let layerImage = new Image();
-                        const randomIndex = Math.floor(Math.random() * layer.images.length);
-                        layerImage.src = layer.images[randomIndex].url;
-                        layerImage.onload = () => {
-                            ctx.drawImage(layerImage, 0, 0, imgWidth, imgLength)
-                        }
-                        const newAttribute = {
-                            trait_type: layer.name,
-                            value: layer.images[randomIndex].name
-                        }
-                        attributes.push(newAttribute);
-                    }, idx * 20);
+            setCurRenderIndex(i);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            let attributes = [];
+            stackLayers(ctx, attributes)
+            .then(() => {
+                canvas.toBlob((blob) => {
+                    zip.folder("Images").file(`${countStart}.png`, blob);
                 });
                 const nftJson = {
                     name: name,
@@ -87,11 +113,13 @@ const ProjectSettings = ({alertRef, layerList}) => {
                 }
                 tempMetadata.push(nftJson);
                 countStart++;
-            }, i * 500);
+                if (countStart == count) {
+                    setMetadata(tempMetadata);
+                    setIsRendering(false);
+                }
+            })
+            await wait(1000);
         }
-
-        setMetadata(tempMetadata);
-        setIsRendering(false);
     }
 
     const onDownload = () => {
@@ -101,17 +129,19 @@ const ProjectSettings = ({alertRef, layerList}) => {
         }
 
         let countStart = startCount;
-        const zip = new JSZip();
-        zip.file("metadata.json", JSON.stringify(metadata, null, 2));
+
+        zip.folder("Metadata").file("metadata.json", JSON.stringify(metadata, null, 2));
 
         metadata.forEach(data => {
-            zip.file(`${countStart}.json`, JSON.stringify(data, null, 2));
+            zip.folder("Metadata").file(`${countStart}.json`, JSON.stringify(data, null, 2));
             countStart++;
         });
 
-        zip.generateAsync({type: "base64"})
+        zip.generateAsync({
+            type: "blob", 
+        })
         .then(res => {
-            location.href = "data:application/zip;base64," + res;
+            saveAs(res, "NFT Host.zip");
         })
         .catch(err => {
             alertRef.current.handleOpen("error", err.message);
@@ -126,10 +156,10 @@ const ProjectSettings = ({alertRef, layerList}) => {
                     Project Settings
                 </Typography>
                 <div className={style.horizontalLayout}>
-                    <TextField required label="Name" variant="outlined" size="small" autoComplete='off' value={name} onChange={onNameChange}/>
-                    <TextField required label="Image BaseURI" variant="outlined" size="small" autoComplete='off' sx={{ ml: 1 }} value={base} onChange={onBaseChange}/>
+                    <TextField label="Name" variant="outlined" size="small" autoComplete='off' value={name} onChange={onNameChange}/>
+                    <TextField label="Image BaseURI" variant="outlined" size="small" autoComplete='off' sx={{ ml: 1 }} value={base} onChange={onBaseChange}/>
                 </div>
-                <TextField required label="Description" variant="outlined" size="small" autoComplete='off' sx={{ mt: 1 }} value={description} onChange={onDescriptionChange}/>
+                <TextField label="Description" variant="outlined" size="small" autoComplete='off' sx={{ mt: 1 }} value={description} onChange={onDescriptionChange}/>
                 <div className={style.horizontalLayout}>
                     <div className={style.verticalLayout}>
                         <TextField required label="Collection Count" type="number" variant="outlined" size="small" autoComplete='off' sx={{ mt: 2 }} value={count} onChange={onCountChange}/>
@@ -142,11 +172,11 @@ const ProjectSettings = ({alertRef, layerList}) => {
                 </div>
                 <div className={style.buttonContainer}>
                     {curRenderIndex == count && (
-                        <Button variant="contained" color="success" startIcon={<DownloadIcon />} onClick={onDownload}>
+                        <Button variant="contained" color="success" endIcon={<DownloadIcon />} onClick={onDownload}>
                             Download
                         </Button>
                     )}
-                    <LoadingButton sx={{ ml:"auto" }} variant="contained" endIcon={<ChevronRightIcon />} loading={isRendering} onClick={onGenerate}>
+                    <LoadingButton sx={{ ml:"auto" }} onClick={onGenerate} loading={isRendering} loadingPosition="end" endIcon={<ChevronRightIcon />} variant="contained">
                         Generate
                     </LoadingButton>
                 </div>

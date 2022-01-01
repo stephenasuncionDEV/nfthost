@@ -19,6 +19,7 @@
     "dotenv": "^10.0.0",
     "ethers": "^5.5.2",
     "express": "^4.17.2",
+    "file-saver": "^2.0.5",
     "get-eth-price": "^1.0.0",
     "html-react-parser": "^1.4.4",
     "jszip": "^3.7.1",
