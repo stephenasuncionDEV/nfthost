@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Card, CardContent, Typography, IconButton, List, ListItem, ListItemText, ListItemIcon, Avatar } from '@mui/material';
+import React, { useState } from "react";
 import LayerContainer from "./LayersContainer";
 import LayerDisplay from "./LayerDisplay"
 import ProjectSettings from "./ProjectSettings"
