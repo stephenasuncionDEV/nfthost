@@ -54,69 +54,74 @@ const HostContainer = ({alertRef}) => {
     }, [user, setUserData])
 
     const onCreate = () => {
-        if (!isPreview) {
-            if (hostImage.trim().length == 0 
-            || hostTitle.trim().length == 0 
-            || hostHeader.trim().length == 0 
-            || hostDescription.trim().length == 0 
-            || hostIframe.trim().length == 0) {
-                alertRef.current.handleOpen("error", "Please fill in all the required fields", 2000);
-                return;
-            }
+        if (isPreview) {
+            onClear();
+            setIsPreview(false);
+            return;
+        }
 
-            let keywords = "";
-            chipData.forEach((chip, idx) => {
-                keywords += chip + (idx == chipData.length - 1 ? "" : ", ");
-            });
+        if (hostImage.trim().length == 0 || 
+            hostTitle.trim().length == 0 || 
+            hostHeader.trim().length == 0 || 
+            hostDescription.trim().length == 0 || 
+            hostIframe.trim().length == 0) {
+            alertRef.current.handleOpen("error", "Please fill in all the required fields");
+            return;
+        }
 
-            const newHost = {
-                title: hostTitle,
-                header: hostHeader,
-                description: hostDescription,
-                image: hostImage,
-                iframe: hostIframe,
-                url: "",
-                keywords: keywords,
-                isRobot: hostIsRobot,
-                language: hostLanguage
-            }
+        if (hostIframe.indexOf("iframe") == -1 || hostIframe.indexOf("src='https://cloudflare-ipfs.com/ipfs/") == -1) {
+            alertRef.current.handleOpen("error", "You must use Thirdweb's iframe embed code");
+            return;
+        }
 
-            const websiteArr = user.attributes.websites;
-            if (websiteArr == null) {
+        let keywords = "";
+        chipData.forEach((chip, idx) => {
+            keywords += chip + (idx == chipData.length - 1 ? "" : ", ");
+        });
+
+        const newHost = {
+            title: hostTitle,
+            header: hostHeader,
+            description: hostDescription,
+            image: hostImage,
+            iframe: hostIframe,
+            url: "",
+            keywords: keywords,
+            isRobot: hostIsRobot,
+            language: hostLanguage
+        }
+
+        const websiteArr = user.attributes.websites;
+        if (websiteArr == null) {
+            setUserData({
+                websites: [newHost]
+            })
+        }
+        else {
+            const uniqueValues = new Set(websiteArr.map(w => w.title));
+            if (!uniqueValues.has(hostTitle)) {
                 setUserData({
-                    websites: [newHost]
+                    websites: [...websiteArr, newHost]
+                })
+                .then(res => {
+                    return axios.post("http://localhost:8080/api/host", newHost)
+                })
+                .then(res => {
+                    return onSaveURL(res.data.url);
+                })
+                .then(res => {
+                    getHostList();
+                    onClear();
+                    alertRef.current.handleOpen("success", "Your mint website has been created");
+                })
+                .catch(err => {
+                    alertRef.current.handleOpen("error", err.message);
                 })
             }
             else {
-                const uniqueValues = new Set(websiteArr.map(w => w.title));
-                if (!uniqueValues.has(hostTitle)) {
-                    setUserData({
-                        websites: [...websiteArr, newHost]
-                    })
-                    .then(res => {
-                        return axios.post("http://localhost:8080/api/host", newHost)
-                    })
-                    .then(res => {
-                        return onSaveURL(res.data.url);
-                    })
-                    .then(res => {
-                        getHostList();
-                        onClear();
-                        alertRef.current.handleOpen("success", "Your mint website has been created");
-                    })
-                    .catch(err => {
-                        alertRef.current.handleOpen("error", err.message);
-                    })
-                }
-                else {
-                    alertRef.current.handleOpen("error", "You cannot have duplicated websites", 2000);
-                    return;
-                }
+                alertRef.current.handleOpen("error", "You cannot have duplicated websites", 2000);
+                return;
             }
-        }
-        else {
-            onClear();
-            setIsPreview(false);
         }
     }
 
