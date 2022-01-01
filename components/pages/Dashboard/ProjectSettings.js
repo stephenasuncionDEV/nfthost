@@ -25,7 +25,6 @@ const ProjectSettings = ({alertRef, layerList}) => {
 
     const onNameChange = (e) => {
         setName(e.target.value);
-        setIsRendering(false);
     }
 
     const onDescriptionChange = (e) => {

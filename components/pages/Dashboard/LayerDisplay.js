@@ -10,7 +10,7 @@ const LayerDisplay = ({alertRef, layerList, layerIndex, setLayerList}) => {
     const imageDialogRef = useRef();
 
     const onEdit = (e) => {
-        setEditable(event.target.checked);
+        setEditable(e.target.checked);
     };
 
     const onDragLeave = (e) => {
@@ -46,6 +46,9 @@ const LayerDisplay = ({alertRef, layerList, layerIndex, setLayerList}) => {
             newImages.push({
                 url: URL.createObjectURL(file),
                 name: file.name.substring(0, file.name.lastIndexOf('.')),
+                value: -1,
+                maxValue: -1,
+                percentage: -1
             });
         }
         let newLayerList = [...layerList];
@@ -69,7 +72,7 @@ const LayerDisplay = ({alertRef, layerList, layerIndex, setLayerList}) => {
             <ImageDialog ref={imageDialogRef} onDeleteItem={onDeleteItem}/>
             <CardContent>
                 <Typography variant="h6" component="div" gutterBottom>
-                    {layerList[layerIndex].name} Images
+                    {layerList[layerIndex] && layerList[layerIndex].name} Images
                 </Typography>
                 <div className={style.layerDisplay}>
                     <div className={style.layerImageContainer}>
