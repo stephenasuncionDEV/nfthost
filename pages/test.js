@@ -8,7 +8,11 @@ const test = () => {
         <div className={style.hostFrame}>
             <Header 
                 title="NFT Host"
+                description="NFT Host is a website where you can host your ERC721 drops. Upload your nft collection(s) and share it with anyone!!!"
                 keywords="NFT Host, Host NFT, Mint Website, Mint NFT Website Hosting, Mint NFT, NFT, Mint, Crypto Currency, Crypto, Ethereum"
+                robots={true}
+                language="English"
+                image="/logo.png"
             />
             <div className={style.hostContainer}>
                 <img src="/logo.png" alt="NFT Host Logo" />

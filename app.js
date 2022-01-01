@@ -23,8 +23,12 @@ app.post('/api/host', (req, res) => {
         return (
             <div className={style.hostFrame}>
                 <Header 
-                    title="NFT Host"
-                    keywords="NFT Host, Host NFT, Mint Website, Mint NFT Website Hosting, Mint NFT, NFT, Mint, Crypto Currency, Crypto, Ethereum"
+                    title="${data.title}"
+                    description="${data.description}"
+                    keywords="${data.keywords}"
+                    robots={${data.isRobot}}
+                    language="${data.language}"
+                    image="${data.image}"
                 />
                 <div className={style.hostContainer}>
                     <img src="${data.image}" alt="NFT Host Logo" />
@@ -56,6 +60,7 @@ app.post('/api/host', (req, res) => {
 
 app.post('/api/host/delete', (req, res) => {
     const url = req.body.url;
+    console.log(url);
     const fileName = url.substring(url.lastIndexOf('/') + 1) + ".js";
     const fullPath = `${__dirname}/pages/${fileName}`
     fs.unlink(fullPath, (err) => {

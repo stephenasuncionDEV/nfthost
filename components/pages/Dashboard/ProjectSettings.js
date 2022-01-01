@@ -178,9 +178,9 @@ const ProjectSettings = ({alertRef, layerList}) => {
                     name: name,
                     description: description,
                     image: `${base}${countStart}.png`,
+                    hash: currentHash,
                     date: new Date().getTime(),
                     attributes: attributes,
-                    hash: currentHash,
                     compiler: "NFT Host"
                 }
                 tempMetadata.push(nftJson);
@@ -259,7 +259,7 @@ const ProjectSettings = ({alertRef, layerList}) => {
                 {isRendering && (
                     <div>
                         <Typography variant="h6" component="div" gutterBottom>
-                        Rendering ({curRenderIndex}/{count})
+                            Rendering ({curRenderIndex}/{count})
                         </Typography>
                         <Typography sx={{fontSize: "10pt", color: "rgb(80, 80, 80)"}} component="div" gutterBottom>
                             This will take a long time because we are not doing server-side rendering.

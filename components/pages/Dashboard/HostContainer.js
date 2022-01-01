@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useMoralis } from "react-moralis";
-import { Card, CardContent, Typography, Button, Avatar, IconButton, TextField } from '@mui/material';
+import { Card, CardContent, Typography, Button, Avatar, IconButton, TextField, Paper, FormControlLabel, Checkbox } from '@mui/material';
+import Chip from '@material-ui/core/Chip';
 import WebsiteContainer from "./WebsiteContainer";
 import style from "../../../styles/HostContainer.module.scss"
 import UploadImageDialog from "./UploadImageDialog";
@@ -17,12 +18,34 @@ const HostContainer = ({alertRef}) => {
     const [hostDescription, setHostDescription] = useState("");
     const [hostIframe, setHostIframe] = useState("");
     const [hostList, setHostList] = useState([]);
+    const [hostKeywords, setHostKeywords] = useState("");
+    const [hostIsRobot, setHostIsRobot] = useState(true);
+    const [hostLanguage, setHostLanguage] = useState("");
+    const [chipData, setChipData] = useState([
+        "NFT Host",
+        "Host NFTs",
+        "Mint Website",
+        "NFT Website Hosting",
+        "Mint NFT Website Hosting",
+        "Mint NFT",
+        "NFT",
+        "Mint",
+        "Crypto Currency",
+        "Crypto",
+        "Ethereum",
+    ]);
     const uploadImageRef = useRef();
 
     const getHostList = () => {
         if (user == null) return;
         const websiteArr = user.attributes.websites;
         setHostList(websiteArr);
+    }
+
+    const handleDelete = (index) => {
+        let newChipData = [...chipData];
+        newChipData.splice(index, 1);
+        setChipData(newChipData);
     }
 
     useEffect(() => {
@@ -41,13 +64,21 @@ const HostContainer = ({alertRef}) => {
                 return;
             }
 
+            let keywords = "";
+            chipData.forEach((chip, idx) => {
+                keywords += chip + (idx == chipData.length - 1 ? "" : ", ");
+            });
+
             const newHost = {
                 title: hostTitle,
                 header: hostHeader,
                 description: hostDescription,
                 image: hostImage,
                 iframe: hostIframe,
-                url: ""
+                url: "",
+                keywords: keywords,
+                isRobot: hostIsRobot,
+                language: hostLanguage
             }
 
             const websiteArr = user.attributes.websites;
@@ -160,6 +191,9 @@ const HostContainer = ({alertRef}) => {
         setHostHeader("");
         setHostDescription("");
         setHostIframe("");
+        setHostLanguage("");
+        setHostKeywords("");
+        setHostIsRobot(true);
     }
 
     const onImageUpload = () => {
@@ -180,6 +214,45 @@ const HostContainer = ({alertRef}) => {
 
     const onIframeChange = (e) => {
         setHostIframe(e.target.value.replaceAll('"', "'"));
+    }
+
+    const onLanguageChange = (e) => {
+        setHostLanguage(e.target.value);
+    }
+
+    const onKeywordsChange = (e) => {
+        setHostKeywords(e.target.value);
+    }
+
+    const onKeywordsEnter = (e) => {
+        if (e.key === 'Enter') {
+            if (hostKeywords.indexOf(",") != -1) {
+                let chipArray = [];
+                let currentWord = "";
+                for (let i = 0; i < hostKeywords.length; i++) {
+                    const currentChar = hostKeywords.charAt(i);
+                    currentWord += hostKeywords.charAt(i);
+                    if (currentChar == ',' || i == hostKeywords.length - 1) {
+                        const word = currentWord.trim().replace(',', "");
+                        if (!chipArray.includes(word) && !chipData.includes(word)) {
+                            chipArray.push(word);
+                        } else {
+                            alertRef.current.handleOpen("error", `You already used "${word}" keyword`);
+                        }
+                        currentWord = "";
+                    }
+                }
+                setChipData([...chipData, ...chipArray]);
+            }
+            else {
+                const word = hostKeywords.trim();
+                if (!chipData.includes(word)) {
+                    setChipData([...chipData, word]);
+                } else {
+                    alertRef.current.handleOpen("error", `You already used "${word}" keyword`);
+                }
+            }
+        }
     }
 
     const onDelete = () => {
@@ -208,11 +281,7 @@ const HostContainer = ({alertRef}) => {
     }
 
     const onCopyURL = () => {
-        if (hostURL.length == 0) {
-            alertRef.current.handleOpen("error", "Please select a website");
-            return;
-        }
-
+        if (hostURL.length == 0) return;
         navigator.clipboard.writeText(hostList[hostIndex].url);
         alertRef.current.handleOpen("info", "Link has been copied.");
     }
@@ -258,18 +327,28 @@ const HostContainer = ({alertRef}) => {
                             </div>
                         </div>
                         <div className={style.hostIframe}>
-                            <TextField 
-                                required 
-                                multiline 
-                                rows={7}
-                                label="ThirdWeb IFrame Embed Code" 
-                                variant="outlined" 
-                                size="small" 
-                                sx={{ width: "100%" }} 
-                                autoComplete='off'
-                                value={hostIframe} 
-                                onChange={onIframeChange}
-                            />
+                            <TextField required multiline rows={7} label="ThirdWeb IFrame Embed Code" variant="outlined" size="small" sx={{ width: "100%" }} autoComplete='off' value={hostIframe} onChange={onIframeChange} />
+                        </div>
+                        <Typography variant="h6" sx={{mt: 1, mb: 2}} gutterBottom>
+                            Meta Tags
+                        </Typography>
+                        <div className={style.hostMetaContainer}>
+                            <FormControlLabel sx={{mb:1}} control={<Checkbox defaultChecked checked={hostIsRobot} onChange={() => setHostIsRobot((prev) => !prev)}/>} label="Allow robots to index your website?" />
+                            <div className={style.hostTitleLink}>
+                                <TextField label="Language" variant="outlined" size="small" sx={{ flexGrow: 1 }} autoComplete='off' value={hostLanguage} onChange={onLanguageChange}/>
+                                <TextField label="Keywords" variant="outlined" size="small" sx={{ flexGrow: 1, ml: 1 }} autoComplete='off' value={hostKeywords} onChange={onKeywordsChange} onKeyUp={onKeywordsEnter}/>
+                            </div>
+                            <Paper component="ul" className={style.hostKeywordContainer}>
+                                {chipData.map((chip, idx) => (
+                                    <li key={idx}>
+                                        <Chip
+                                            label={`${chip}`}
+                                            onDelete={() => handleDelete(idx)}
+                                            className={style.hostKeywordChip}
+                                        />
+                                    </li>   
+                                ))}
+                            </Paper>
                         </div>
                         {isPreview && (
                             <div>

@@ -75,3 +75,21 @@
 .hostTitleLink {
     display: flex;
 }
+
+.hostMetaContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.hostKeywordContainer {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 5px;
+    margin: 0;
+}
+
+.hostKeywordChip {
+    padding: 5px;
+}
