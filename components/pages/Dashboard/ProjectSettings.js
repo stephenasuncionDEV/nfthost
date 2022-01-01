@@ -75,6 +75,18 @@ const ProjectSettings = ({alertRef, layerList}) => {
 
     const onGenerate = async () => {
         try {
+            if(layerList.length == 1) {
+                throw new Error("You must have atleast 2 layers");
+            }
+            if(count <= 0) {
+                throw new Error("Collection count must be greater than 0");
+            }
+            if(startCount < 0) {
+                throw new Error("Start count must be greater than 0");
+            }
+            if(imgWidth <= 0 || imgLength <= 0) {
+                throw new Error("Image width or length must be greater than 0");
+            }
             layerList.forEach((layer, idx) => {
                 if (layer.images.length == 0) {
                     throw new Error("All layers must have atleast one image");
@@ -171,7 +183,7 @@ const ProjectSettings = ({alertRef, layerList}) => {
                     </div>
                 </div>
                 <div className={style.buttonContainer}>
-                    {curRenderIndex == count && (
+                    {curRenderIndex == count && metadata.length > 0 && (
                         <Button variant="contained" color="success" endIcon={<DownloadIcon />} onClick={onDownload}>
                             Download
                         </Button>
