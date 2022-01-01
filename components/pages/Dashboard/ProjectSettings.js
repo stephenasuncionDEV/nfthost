@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import MD5 from "crypto-js/md5"
 import JSZip from "jszip";
 import { Card, CardContent, Typography, TextField, Button } from '@mui/material';
 import { saveAs } from 'file-saver';
@@ -25,7 +26,7 @@ const ProjectSettings = ({alertRef, layerList}) => {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [base, setBase] = useState("");
-    const [count, setCount] = useState(100);
+    const [count, setCount] = useState(50);
     const [imgWidth, setImgWidth] = useState(0);
     const [imgLength, setImgLength] = useState(0);
     const [startCount, setStartCount] = useState(0);
@@ -45,6 +46,7 @@ const ProjectSettings = ({alertRef, layerList}) => {
 
     const onNameChange = (e) => {
         setName(e.target.value);
+        setIsRendering(false);
     }
 
     const onDescriptionChange = (e) => {
@@ -82,14 +84,13 @@ const ProjectSettings = ({alertRef, layerList}) => {
         return i;
     }
 
-    const stackLayers = (ctx, attributes) => {
+    const stackLayers = (ctx) => {
+        let attributes = [];
         return new Promise((resolve, reject) => {
             layerList.forEach((layer, idx) => {
                 setTimeout(() => {
                     let layerImage = new Image();
-
                     const randomIndex = getLayerImageIndex(layer);
-
                     layerImage.src = layer.images[randomIndex].url;
                     layerImage.onload = () => {
                         ctx.drawImage(layerImage, 0, 0, imgWidth, imgLength)
@@ -99,11 +100,21 @@ const ProjectSettings = ({alertRef, layerList}) => {
                         value: layer.images[randomIndex].name
                     }
                     attributes.push(newAttribute);
-
-                    if (idx === layerList.length - 1) resolve();
+                    if (idx === layerList.length - 1) resolve(attributes);
                 }, idx * 50);
             });
         });
+    }
+
+    const saveCanvas = (countStart) => {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                canvasRef.current.toBlob((blob) => {
+                    zip.folder("Images").file(`${countStart}.png`, blob);
+                    resolve();
+                });
+            }, 50);
+        })
     }
 
     const onGenerate = async () => {
@@ -131,39 +142,59 @@ const ProjectSettings = ({alertRef, layerList}) => {
             return;
         }
 
-        setIsRendering(true);
-        setMetadata([]);
+        zip.remove("Metadata");
+        zip.remove("Images");
+
         const canvas = canvasRef.current;
         const ctx = canvas.getContext("2d");
         
         let tempMetadata = [];
         let countStart = startCount;
+        let imageIndex = 0;
+        let renderIndex = 1;
 
-        for (let i = 1; i <= count; i++) {
-            setCurRenderIndex(i);
+        let hashList = [];
+        let currentHash = "";
+
+        setIsRendering(true);
+        setMetadata([]);
+        
+        while (imageIndex != count) {
+            setCurRenderIndex(renderIndex);
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             let attributes = [];
-            stackLayers(ctx, attributes)
+            stackLayers(ctx)
+            .then(res => {
+                currentHash = MD5(JSON.stringify(res)).toString();
+                if (!hashList.includes(currentHash)) {
+                    attributes = [...res];
+                    return saveCanvas(countStart);
+                }
+                throw new Error(`${currentHash} is a duplicate.`);
+            })
             .then(() => {
-                canvas.toBlob((blob) => {
-                    zip.folder("Images").file(`${countStart}.png`, blob);
-                });
+                imageIndex++;
                 const nftJson = {
                     name: name,
                     description: description,
                     image: `${base}${countStart}.png`,
                     date: new Date().getTime(),
                     attributes: attributes,
+                    hash: currentHash,
                     compiler: "NFT Host"
                 }
                 tempMetadata.push(nftJson);
                 countStart++;
-                if (countStart == count) {
+                renderIndex++;
+                if (imageIndex == count) {
                     setMetadata(tempMetadata);
                     setIsRendering(false);
                 }
             })
-            await wait(1000);
+            .catch(err => {
+                alertRef.current.handleOpen("info", err.message);
+            })
+            await wait(500);
         }
     }
 
