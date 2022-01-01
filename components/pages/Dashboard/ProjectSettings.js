@@ -192,9 +192,14 @@ const ProjectSettings = ({alertRef, layerList}) => {
                     </LoadingButton>
                 </div>
                 {isRendering && (
-                    <Typography variant="h6" component="div" gutterBottom>
+                    <div>
+                        <Typography variant="h6" component="div" gutterBottom>
                         Rendering ({curRenderIndex}/{count})
-                    </Typography>
+                        </Typography>
+                        <Typography sx={{fontSize: "10pt", color: "rgb(80, 80, 80)"}} component="div" gutterBottom>
+                            This will take a long time because we are not doing server-side rendering.
+                        </Typography>
+                    </div>
                 )}
                 <canvas ref={canvasRef} width={imgWidth} height={imgLength} className={isRendering ? style.canvas : style.canvasInvisible}/>
             </CardContent>

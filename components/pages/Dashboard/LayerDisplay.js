@@ -40,7 +40,7 @@ const LayerDisplay = ({alertRef, layerList, layerIndex, setLayerList}) => {
         for (let i = 0; i < files.length; i++) {
             const file = files[i];
             if (!file.type.match(/image.png/)) {
-                alertRef.current.handleOpen("error", "Please upload PNG files only", 3000);
+                alertRef.current.handleOpen("error", "Please upload PNG files only");
                 return;
             }
             newImages.push({
@@ -98,8 +98,8 @@ const LayerDisplay = ({alertRef, layerList, layerIndex, setLayerList}) => {
                         >
                             <FileUploadIcon />
                             <span>Drag and drop images here!</span>
-                            <span>(image/png, Max size: 10MB)</span>
-                            <input type="file" accept="image/png" onChange={onUpload} hidden/>
+                            <span>(image/png, Max size: N/A)</span>
+                            <input type="file" accept="image/png" name='files[]' onChange={onUpload} multiple hidden/>
                         </Button>
                     )}
                 </div>
