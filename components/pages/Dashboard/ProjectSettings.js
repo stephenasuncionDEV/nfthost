@@ -119,6 +119,11 @@ const ProjectSettings = ({alertRef, layerList}) => {
 
     const onGenerate = async () => {
         try {
+            layerList.forEach((layer, idx) => {
+                if (layer.images.length == 0) {
+                    throw new Error("All layers must have atleast one image");
+                }
+            });
             if(layerList.length == 1) {
                 throw new Error("You must have atleast 2 layers");
             }
@@ -131,11 +136,6 @@ const ProjectSettings = ({alertRef, layerList}) => {
             if(imgWidth <= 0 || imgLength <= 0) {
                 throw new Error("Image width or length must be greater than 0");
             }
-            layerList.forEach((layer, idx) => {
-                if (layer.images.length == 0) {
-                    throw new Error("All layers must have atleast one image");
-                }
-            });
         }
         catch (err) {
             alertRef.current.handleOpen("error", err.message);
@@ -263,6 +263,9 @@ const ProjectSettings = ({alertRef, layerList}) => {
                         </Typography>
                         <Typography sx={{fontSize: "10pt", color: "rgb(80, 80, 80)"}} component="div" gutterBottom>
                             This will take a long time because we are not doing server-side rendering.
+                        </Typography>
+                        <Typography sx={{fontSize: "10pt", color: "rgb(233,30,99)"}} component="div" gutterBottom>
+                            Please do not click anything while rendering (DO NOT CHANGE PAGES).
                         </Typography>
                     </div>
                 )}

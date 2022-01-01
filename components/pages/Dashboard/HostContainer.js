@@ -338,7 +338,7 @@ const HostContainer = ({alertRef}) => {
                             Meta Tags
                         </Typography>
                         <div className={style.hostMetaContainer}>
-                            <FormControlLabel sx={{mb:1}} control={<Checkbox defaultChecked checked={hostIsRobot} onChange={() => setHostIsRobot((prev) => !prev)}/>} label="Allow robots to index your website?" />
+                            <FormControlLabel sx={{mb:1}} control={<Checkbox checked={hostIsRobot} onChange={() => setHostIsRobot((prev) => !prev)}/>} label="Allow robots to index your website?" />
                             <div className={style.hostTitleLink}>
                                 <TextField label="Language" variant="outlined" size="small" sx={{ flexGrow: 1 }} autoComplete='off' value={hostLanguage} onChange={onLanguageChange}/>
                                 <TextField label="Keywords" variant="outlined" size="small" sx={{ flexGrow: 1, ml: 1 }} autoComplete='off' value={hostKeywords} onChange={onKeywordsChange} onKeyUp={onKeywordsEnter}/>
