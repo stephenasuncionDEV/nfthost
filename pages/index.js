@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { ethers } from "ethers"
 import { useMoralis, useMoralisWeb3Api } from "react-moralis";
 import Header from "../components/Header"
 import Alert from "../components/Alert"
@@ -45,7 +44,7 @@ const Index = () => {
         .then(res => {
             setUserData({
                 address: user.attributes.ethAddress,
-                balance: ethers.utils.formatEther(res.balance)
+                balance: Moralis.Units.FromWei(res.balance).toString()
             })
         })
         .catch(err => {

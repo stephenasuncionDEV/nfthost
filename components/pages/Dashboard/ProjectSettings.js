@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
+import { getEthPriceNow } from "get-eth-price";
 import { ethers } from "ethers";
 import { useMoralis } from "react-moralis";
 import MD5 from "crypto-js/md5"
 import JSZip from "jszip";
 import { Card, CardContent, Typography, TextField, Button, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Paper, Chip } from '@mui/material';
 import { saveAs } from 'file-saver';
+import PaymentDialog from "./PaymentDialog"
 import LoadingButton from '@mui/lab/LoadingButton';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import DownloadIcon from '@mui/icons-material/Download';
@@ -26,7 +28,7 @@ const getImageHeightAndWidth = dataURL => new Promise(resolve => {
 })
 
 const ProjectSettings = ({alertRef, layerList}) => {
-    const {user} = useMoralis();
+    const {user, Moralis} = useMoralis();
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [base, setBase] = useState("");
@@ -46,7 +48,9 @@ const ProjectSettings = ({alertRef, layerList}) => {
     const [creators, setCreators] = useState([
         {address: user.attributes.ethAddress, share: 100}
     ]);
+    const [price, setPrice] = useState(50);
     const canvasRef = useRef();
+    const paymentDialogRef = useRef();
 
     useEffect(() => {
         if (layerList[0].images.length == 0) return;
@@ -130,7 +134,84 @@ const ProjectSettings = ({alertRef, layerList}) => {
         })
     }
 
-    const onGenerate = async () => {
+    const onDownload = () => {
+        if (metadata == null) {
+            alertRef.current.handleOpen("error", "Please generate your collection first");
+            return;
+        }
+
+        let countStart = startCount;
+
+        zip.folder("Metadata").file("metadata.json", JSON.stringify(metadata, null, 2));
+
+        metadata.forEach(data => {
+            zip.folder("Metadata").file(`${countStart}.json`, JSON.stringify(data, null, 2));
+            countStart++;
+        });
+
+        zip.generateAsync({
+            type: "blob", 
+        })
+        .then(res => {
+            saveAs(res, "NFT Host.zip");
+        })
+        .catch(err => {
+            alertRef.current.handleOpen("error", err.message);
+            console.log(err)
+        });
+    }
+
+    const onMetadataTypeChange = (e) => {
+        setMetadataType(e.target.value);
+    }
+
+    const onSymbolChange = (e) => {
+        setSymbol(e.target.value);
+    }
+
+    const onSellerPointsChange = (e) => {
+        setSellerPoints(e.target.value);
+    }
+
+    const onExternalURLChange = (e) => {
+        setExternalURL(e.target.value);
+    }
+
+    const onCreatorAddressChange = (e) => {
+        setCreatorAddress(e.target.value);
+    }
+
+    const onCreatorShareChange = (e) => {
+        setCreatorShare(e.target.value);
+    }
+
+    const handleDeleteCreator = (index) => {
+        let newCreators = [...creators];
+        newCreators.splice(index, 1);
+        setCreators(newCreators);
+    }
+
+    const onAddCreator = () => {
+        try {
+            ethers.utils.getAddress(creatorAddress);
+            const newCreator = {
+                address: creatorAddress,
+                preview: `${creatorAddress.substring(0, 15)}...`,
+                share: creatorShare
+            }
+            setCreators([...creators, newCreator]);
+            setCreatorAddress("");
+        }
+        catch (err) {
+            alertRef.current.handleOpen("error", err.message);
+        }
+    }
+
+    const onBuyCollection = () => {
+        console.log("buy")
+    }
+
+    const onGenerateCollection = () => {
         try {
             layerList.forEach((layer, idx) => {
                 if (layer.images.length == 0) {
@@ -155,6 +236,37 @@ const ProjectSettings = ({alertRef, layerList}) => {
             return;
         }
 
+        if (count > 100) {
+            if (count > 100 && count <= 1000) {
+                setPrice(50);
+            } else if (count > 1000 && count <= 5000) {
+                setPrice(100);
+            } else if (count > 5000 && count <= 10000) {
+                setPrice(200);
+            }
+
+            getEthPriceNow()
+            .then(data => {
+                const ethPrice = price / data[Object.keys(data)[0]].ETH.USD;
+                const val = ethPrice.toString().substring(0, 11);
+                return Moralis.transfer({
+                    type: "native", 
+                    amount: Moralis.Units.ETH(val), 
+                    receiver: process.env.METAMASK_ADDRESS
+                })
+            })
+            .then(res => {
+                onGenerate();
+            })
+            .catch(err => {
+                alertRef.current.handleOpen("error", err.message);
+            })
+        } else {
+            onGenerate();
+        }
+    }
+
+    const onGenerate = async () => {
         zip.remove("Metadata");
         zip.remove("Images");
 
@@ -235,81 +347,11 @@ const ProjectSettings = ({alertRef, layerList}) => {
         }
     }
 
-    const onDownload = () => {
-        if (metadata == null) {
-            alertRef.current.handleOpen("error", "Please generate your collection first");
-            return;
-        }
-
-        let countStart = startCount;
-
-        zip.folder("Metadata").file("metadata.json", JSON.stringify(metadata, null, 2));
-
-        metadata.forEach(data => {
-            zip.folder("Metadata").file(`${countStart}.json`, JSON.stringify(data, null, 2));
-            countStart++;
-        });
-
-        zip.generateAsync({
-            type: "blob", 
-        })
-        .then(res => {
-            saveAs(res, "NFT Host.zip");
-        })
-        .catch(err => {
-            alertRef.current.handleOpen("error", err.message);
-            console.log(err)
-        });
-    }
-
-    const onMetadataTypeChange = (e) => {
-        setMetadataType(e.target.value);
-    }
-
-    const onSymbolChange = (e) => {
-        setSymbol(e.target.value);
-    }
-
-    const onSellerPointsChange = (e) => {
-        setSellerPoints(e.target.value);
-    }
-
-    const onExternalURLChange = (e) => {
-        setExternalURL(e.target.value);
-    }
-
-    const onCreatorAddressChange = (e) => {
-        setCreatorAddress(e.target.value);
-    }
-
-    const onCreatorShareChange = (e) => {
-        setCreatorShare(e.target.value);
-    }
-
-    const handleDeleteCreator = (index) => {
-        let newCreators = [...creators];
-        newCreators.splice(index, 1);
-        setCreators(newCreators);
-    }
-
-    const onAddCreator = () => {
-        try {
-            ethers.utils.getAddress(creatorAddress);
-            const newCreator = {
-                address: creatorAddress,
-                preview: `${creatorAddress.substring(0, 15)}...`,
-                share: creatorShare
-            }
-            setCreators([...creators, newCreator]);
-            setCreatorAddress("");
-        }
-        catch (err) {
-            alertRef.current.handleOpen("error", err.message);
-        }
-    }
-
     return (
         <Card className={style.card}>
+            <PaymentDialog 
+                ref={paymentDialogRef}
+            />
             <CardContent className={style.cardContent}>
                 <Typography variant="h6" component="div" gutterBottom>
                     Project Settings
@@ -373,7 +415,7 @@ const ProjectSettings = ({alertRef, layerList}) => {
                             Download
                         </Button>
                     )}
-                    <LoadingButton sx={{ ml:"auto" }} onClick={onGenerate} loading={isRendering} loadingPosition="end" endIcon={<ChevronRightIcon />} variant="contained">
+                    <LoadingButton sx={{ ml:"auto" }} onClick={onGenerateCollection} loading={isRendering} loadingPosition="end" endIcon={<ChevronRightIcon />} variant="contained">
                         Generate
                     </LoadingButton>
                 </div>
