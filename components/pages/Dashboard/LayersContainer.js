@@ -1,14 +1,11 @@
-import React, { useRef } from "react";
 import { Card, CardContent, Typography, IconButton, List, ListItem, ListItemText, Avatar } from '@mui/material';
 import LayersIcon from '@mui/icons-material/Layers';
 import CloseIcon from '@mui/icons-material/Close';
 import AddIcon from '@mui/icons-material/Add';
-import SettingsIcon from '@mui/icons-material/Settings';
-import RarityDialog from './RarityDialog';
+import CodeIcon from '@mui/icons-material/Code';
 import style from "../../../styles/LayersContainer.module.scss"
 
 const LayerContainer = ({alertRef, layerList, layerIndex, setLayerList, setLayerIndex}) => {
-    const rarityDialogRef = useRef();
 
     const onAddLayer = () => {
         if (layerList.length >= 6) return;
@@ -41,26 +38,13 @@ const LayerContainer = ({alertRef, layerList, layerIndex, setLayerList, setLayer
         setLayerList(newLayerList);
     }
 
-    const onSettings = (e) => {
-        e.stopPropagation(); 
-
-        console.log(layerList)
-
-        if (layerList[layerIndex].images == 0) {
-            alertRef.current.handleOpen("error", "Selected layer must have images");
-            return;
-        }
-
-        rarityDialogRef.current.handleOpen(layerList, layerIndex);
+    const onScript = () => {
+        e.stopPropagation();
+        
     }
 
     return (
         <Card className={style.card}>
-            <RarityDialog 
-                ref={rarityDialogRef} 
-                layerList={layerList} 
-                setLayerList={setLayerList}
-            />
             <CardContent className={style.cardContent}>
                 <Typography variant="h6" gutterBottom>
                     Layers
@@ -75,8 +59,8 @@ const LayerContainer = ({alertRef, layerList, layerIndex, setLayerList, setLayer
                             primary={"Add Layer"}
                             secondary={`Layers ${layerList.length}`}
                         />
-                        <IconButton onClick={onSettings}>
-                            <SettingsIcon />
+                        <IconButton onClick={onScript}>
+                            <CodeIcon />
                         </IconButton>
                     </ListItem>
                 {layerList.map((layer, idx) => (

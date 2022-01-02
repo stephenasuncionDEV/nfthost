@@ -1,13 +1,16 @@
 import React, { useState, useRef } from "react";
-import { Card, CardContent, Typography, Button, Switch, Avatar, FormControlLabel } from '@mui/material';
+import { Card, CardContent, Typography, Button, Switch, Avatar, FormControlLabel, IconButton } from '@mui/material';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
-import style from "../../../styles/LayerDisplay.module.scss"
 import ImageDialog from "./ImageDialog";
+import RarityDialog from './RarityDialog';
+import SettingsIcon from '@mui/icons-material/Settings';
+import style from "../../../styles/LayerDisplay.module.scss"
 
 const LayerDisplay = ({alertRef, layerList, layerIndex, setLayerList}) => {
     const [editable, setEditable] = useState(false);
     const [fileOverState, setFileOverState] = useState(false);
     const imageDialogRef = useRef();
+    const rarityDialogRef = useRef();
 
     const onEdit = (e) => {
         setEditable(e.target.checked);
@@ -74,13 +77,32 @@ const LayerDisplay = ({alertRef, layerList, layerIndex, setLayerList}) => {
         imageDialogRef.current.handleOpen(index);
     }
 
+    const onSettings = (e) => {
+        if (layerList[layerIndex].images == 0) {
+            alertRef.current.handleOpen("error", "Selected layer must have images");
+            return;
+        }
+
+        rarityDialogRef.current.handleOpen(layerList, layerIndex);
+    }
+
     return (
         <Card className={style.card}>
+            <RarityDialog 
+                ref={rarityDialogRef} 
+                layerList={layerList} 
+                setLayerList={setLayerList}
+            />
             <ImageDialog ref={imageDialogRef} onDeleteItem={onDeleteItem}/>
             <CardContent>
-                <Typography variant="h6" component="div" gutterBottom>
-                    {layerList[layerIndex] && layerList[layerIndex].name} Images
-                </Typography>
+                <div className={style.headerContainer}>
+                    <Typography variant="h6" component="div" gutterBottom>
+                        {layerList[layerIndex] && layerList[layerIndex].name} Images
+                    </Typography>
+                    <IconButton onClick={onSettings}>
+                        <SettingsIcon />
+                    </IconButton>
+                </div>
                 <div className={style.layerDisplay}>
                     <div className={style.layerImageContainer}>
                         {layerList[layerIndex] && layerList[layerIndex].images.map((image, idx) => (

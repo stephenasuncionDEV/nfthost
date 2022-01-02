@@ -87,6 +87,11 @@
     }
 }
 
+.headerContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
 @media only screen and (max-width: 1255px) {
     .card {
         width: 100%;
