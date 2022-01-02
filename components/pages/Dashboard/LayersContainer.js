@@ -1,11 +1,14 @@
+import React, { useRef } from "react"
 import { Card, CardContent, Typography, IconButton, List, ListItem, ListItemText, Avatar } from '@mui/material';
 import LayersIcon from '@mui/icons-material/Layers';
 import CloseIcon from '@mui/icons-material/Close';
 import AddIcon from '@mui/icons-material/Add';
 import CodeIcon from '@mui/icons-material/Code';
+import ScriptDialog from "./ScriptDialog"
 import style from "../../../styles/LayersContainer.module.scss"
 
 const LayerContainer = ({alertRef, layerList, layerIndex, setLayerList, setLayerIndex}) => {
+    const scriptDialogRef = useRef();
 
     const onAddLayer = () => {
         if (layerList.length >= 6) return;
@@ -38,13 +41,18 @@ const LayerContainer = ({alertRef, layerList, layerIndex, setLayerList, setLayer
         setLayerList(newLayerList);
     }
 
-    const onScript = () => {
+    const onScript = (e) => {
         e.stopPropagation();
-        
+        scriptDialogRef.current.handleOpen();
     }
 
     return (
         <Card className={style.card}>
+            <ScriptDialog 
+                ref={scriptDialogRef}
+                layerList={layerList} 
+                setLayerList={setLayerList}
+            />
             <CardContent className={style.cardContent}>
                 <Typography variant="h6" gutterBottom>
                     Layers
