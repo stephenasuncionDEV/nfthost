@@ -1,6 +1,7 @@
-const express = require("express")
-const cors = require('cors')
-const fs = require('fs')
+const express = require("express");
+const cors = require('cors');
+const path = require('path');
+const fs = require('fs');
 const uniqid = require('uniqid'); 
 const app = express();
 
@@ -12,7 +13,15 @@ app.use(express.static('public'));
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 
-app.post('/api/host', (req, res) => {
+const { HostValidator } = require('./validators');
+const { validationResult } = require('express-validator');
+
+app.post('/api/host', HostValidator, (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+    
     const data = req.body;
     const id = uniqid();
     const content = `import style from "../styles/Host.module.scss"
@@ -50,7 +59,7 @@ app.post('/api/host', (req, res) => {
     //const url = req.protocol + '://' + req.get('host') + `/${id}`;
     const url = req.protocol + '://localhost:3000' + `/${id}`;
 
-    fs.writeFile(`${__dirname}/pages/${id}.js`, content, err => {
+    fs.writeFile(path.join(__dirname + `/pages/${id}.js`), content, err => {
         if (err) {
             res.status(400).json({message: err.message});
         }
@@ -58,12 +67,15 @@ app.post('/api/host', (req, res) => {
     })
 });
 
-app.post('/api/host/delete', (req, res) => {
+app.post('/api/host/delete', HostValidatorDelete, (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
     const url = req.body.url;
-    console.log(url);
     const fileName = url.substring(url.lastIndexOf('/') + 1) + ".js";
-    const fullPath = `${__dirname}/pages/${fileName}`
-    fs.unlink(fullPath, (err) => {
+    fs.unlink(path.join(__dirname + `/pages/${fileName}`), (err) => {
         if (err) {
             res.status(400).json({message: err.message});
         }

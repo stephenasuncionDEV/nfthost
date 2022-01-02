@@ -207,10 +207,6 @@ const ProjectSettings = ({alertRef, layerList}) => {
         }
     }
 
-    const onBuyCollection = () => {
-        console.log("buy")
-    }
-
     const onGenerateCollection = () => {
         try {
             layerList.forEach((layer, idx) => {
