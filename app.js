@@ -1,3 +1,4 @@
+// Dependencies
 const express = require("express");
 const cors = require('cors');
 const path = require('path');
@@ -5,16 +6,22 @@ const fs = require('fs');
 const uniqid = require('uniqid'); 
 const app = express();
 
+// Database
 const connection = require('./db/connection');
 const { Log } = require('./models/Logs');
 
+// Express Config
 app.use(cors());
 app.use(express.static('public'));
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 
-const { HostValidator } = require('./validators');
+// Validations
+const { HostValidator, HostValidatorDelete } = require('./utils/validator');
 const { validationResult } = require('express-validator');
+
+// Jwt
+const { generateAccessToken, authenticateToken } = require('./utils/jwt');
 
 app.post('/api/host', HostValidator, (req, res) => {
     const errors = validationResult(req);
@@ -22,8 +29,9 @@ app.post('/api/host', HostValidator, (req, res) => {
         return res.status(400).json({ errors: errors.array() });
     }
     
-    const data = req.body;
+    const {title, description, keywords, isRobot, language, image, iframe} = req.body;
     const id = uniqid();
+
     const content = `import style from "../styles/Host.module.scss"
     import { Typography } from "@mui/material";
     import MintContainer from "../components/MintContainer";
@@ -32,23 +40,23 @@ app.post('/api/host', HostValidator, (req, res) => {
         return (
             <div className={style.hostFrame}>
                 <Header 
-                    title="${data.title}"
-                    description="${data.description}"
-                    keywords="${data.keywords}"
-                    robots={${data.isRobot}}
-                    language="${data.language}"
-                    image="${data.image}"
+                    title="${title}"
+                    description="${description}"
+                    keywords="${keywords}"
+                    robots={${isRobot}}
+                    language="${language}"
+                    image="${image}"
                 />
                 <div className={style.hostContainer}>
-                    <img src="${data.image}" alt="NFT Host Logo" />
+                    <img src="${image}" alt="NFT Host Logo" />
                     <Typography variant="h2" component="div">
-                        ${data.title}
+                        ${title}
                     </Typography>
                     <Typography variant="body1">
-                        ${data.description}
+                        ${description}
                     </Typography>
                     <MintContainer 
-                        iframe="${data.iframe}"
+                        iframe="${iframe}"
                     />
                 </div>
             </div>
@@ -63,11 +71,13 @@ app.post('/api/host', HostValidator, (req, res) => {
         if (err) {
             res.status(400).json({message: err.message});
         }
-        res.status(200).json({url: url});
-    })
+        const data = { url: url };
+        const accessToken = generateAccessToken(data);
+        res.json({ accessToken: accessToken });
+    });
 });
 
-app.post('/api/host/delete', HostValidatorDelete, (req, res) => {
+app.post('/api/host/delete', HostValidatorDelete, authenticateToken, (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -101,7 +111,7 @@ app.post('/api/webhook', (req, res) => {
         res.status(200).json({message: "Log successfully added"});
     })
     .catch(err => {
-        res.status(400).json(err);
+        res.status(400).json({message: err.message});
     });
 });
 
@@ -120,7 +130,7 @@ app.get('/api/webhook/get', (req, res) => {
         res.json(data);
     })
     .catch(err => {
-        res.status(400).json(err);
+        res.status(400).json({message: err.message});
     });
 });
 

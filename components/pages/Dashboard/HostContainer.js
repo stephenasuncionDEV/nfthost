@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import jwt_decode from "jwt-decode";
 import { useMoralis } from "react-moralis";
 import { Card, CardContent, Typography, Button, Avatar, IconButton, TextField, Paper, FormControlLabel, Checkbox } from '@mui/material';
 import Chip from '@material-ui/core/Chip';
@@ -100,7 +101,6 @@ const HostContainer = ({alertRef}) => {
             language: hostLanguage
         }
 
-
         const websiteArr = user.attributes.websites;
         if (websiteArr == null) {
             setUserData({
@@ -118,7 +118,10 @@ const HostContainer = ({alertRef}) => {
                     return axios.post("http://localhost:8080/api/host", newHost)
                 })
                 .then(res => {
-                    return onSaveURL(res.data.url);
+                    const accessToken = res.data.accessToken;
+                    localStorage.setItem("accessToken", accessToken);
+                    const data = jwt_decode(accessToken);
+                    return onSaveURL(data.url);
                 })
                 .then(res => {
                     getHostList();
@@ -278,9 +281,16 @@ const HostContainer = ({alertRef}) => {
             return;
         }
 
+        const accessToken = localStorage.getItem("accessToken");
+        const headers = {
+            headers: {
+                authorization: `Bearer ${accessToken}`
+            }
+        }
+
         axios.post("http://localhost:8080/api/host/delete", {
             url: hostList[hostIndex].url
-        })
+        }, headers)
         .then(res => {
             let newHostList = [...hostList];
             newHostList.splice(hostIndex, 1);

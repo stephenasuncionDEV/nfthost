@@ -16,7 +16,7 @@ const Login = ({alertRef}) => {
                 throw new Error("No crypto currency wallet found.")
             }
             if (selectedWallet == "MetaMask") {
-                authenticate({ provider: "metamask", chainId: 56})
+                authenticate({ provider: "metamask", chainId: 4})
                 .then(() => {
                     if (authError) {
                         throw new Error(authError.message.substring(authError.message.indexOf(':') + 2))
