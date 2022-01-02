@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import AppsContainer from "./AppsContainer"
 import HostContainer from "./HostContainer";
 import GeneratorContainer from "./GeneratorContainer"

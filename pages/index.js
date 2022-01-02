@@ -7,6 +7,7 @@ import Login from "../components/Login"
 import Layout from "../components/Layout"
 import Home from "../components/pages/Home/Home"
 import Dashboard from "../components/pages/Dashboard/Dashboard";
+import About from "../components/pages/About/About"
 
 const Index = () => {
     const [userData, setUserData] = useState({});
@@ -65,7 +66,7 @@ const Index = () => {
                         />
                     )}
                     {currentPage == 2 && (
-                        <h1>About</h1>
+                        <About />
                     )}
                 </Layout>
             ) : (

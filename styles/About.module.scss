@@ -1,0 +1,40 @@
+$titleColor: rgb(0, 0, 0);
+
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 5em;
+}
+
+.headerContainer {
+    max-width: 800px;
+    width: 100%;
+    h1 {
+        color: $titleColor;
+        font-weight: 500;
+        margin-bottom: 0;
+    }
+}
+
+.card {
+    margin-top: 1em;
+    width: 100%;
+    max-width: 800px;
+}
+
+.cardContent {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.horizontal {
+    display: flex;
+}
+
+.vertical {
+    display: flex;
+    flex-direction: column;
+}
