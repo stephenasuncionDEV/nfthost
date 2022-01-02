@@ -5,6 +5,7 @@ import Chip from '@material-ui/core/Chip';
 import WebsiteContainer from "./WebsiteContainer";
 import style from "../../../styles/HostContainer.module.scss"
 import UploadImageDialog from "./UploadImageDialog";
+import PaymentDialog from "./PaymentDialog";
 import axios from "axios";
 
 const HostContainer = ({alertRef}) => {
@@ -35,6 +36,7 @@ const HostContainer = ({alertRef}) => {
         "Ethereum",
     ]);
     const uploadImageRef = useRef();
+    const paymentDialogRef = useRef();
 
     const getHostList = () => {
         if (user == null) return;
@@ -57,6 +59,13 @@ const HostContainer = ({alertRef}) => {
         if (isPreview) {
             onClear();
             setIsPreview(false);
+            return;
+        }
+
+        const hostSize = user.attributes.hostSize;
+        if (hostSize != null && hostList.length + 1 > hostSize) {
+            paymentDialogRef.current.handleOpen("Buy Website Slot", "");
+            //alertRef.current.handleOpen("error", `You can only have ${hostSize} website(s)`);
             return;
         }
 
@@ -91,10 +100,12 @@ const HostContainer = ({alertRef}) => {
             language: hostLanguage
         }
 
+
         const websiteArr = user.attributes.websites;
         if (websiteArr == null) {
             setUserData({
-                websites: [newHost]
+                websites: [newHost],
+                hostSize: 1
             })
         }
         else {
@@ -198,6 +209,7 @@ const HostContainer = ({alertRef}) => {
         setHostIframe("");
         setHostLanguage("");
         setHostKeywords("");
+        setHostURL("");
         setHostIsRobot(true);
     }
 
@@ -297,6 +309,10 @@ const HostContainer = ({alertRef}) => {
                 ref={uploadImageRef} 
                 hostImage={hostImage} 
                 setHostImage={setHostImage} 
+            />
+            <PaymentDialog 
+                ref={paymentDialogRef}
+                // onConfirm={}
             />
             <CardContent>
                 <Typography variant="h6" gutterBottom>

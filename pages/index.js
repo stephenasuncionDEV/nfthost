@@ -12,7 +12,7 @@ import About from "../components/pages/About/About"
 const Index = () => {
     const [userData, setUserData] = useState({});
     const [currentPage, setCurrentPage] = useState(0);
-    const {isAuthenticated, account, logout, Moralis} = useMoralis();
+    const {isAuthenticated, user, logout, Moralis} = useMoralis();
     const web3Api = useMoralisWeb3Api();
     const alertRef = useRef();
 
@@ -39,12 +39,12 @@ const Index = () => {
             }
             return web3Api.account.getNativeBalance({
                 chain: `0x${process.env.CHAIN_ID}`,
-                address: account
+                address: user.attributes.ethAddress
             });
         })
         .then(res => {
             setUserData({
-                address: account,
+                address: user.attributes.ethAddress,
                 balance: ethers.utils.formatEther(res.balance)
             })
         })
@@ -52,9 +52,6 @@ const Index = () => {
             alertRef.current.handleOpen("error", err.message);
             return;
         })
-
-        // chain id 4 rinkeyby
-        // chain id 1 ethereum main net
     }
 
     useEffect(() => {

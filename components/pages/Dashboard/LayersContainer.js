@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react"
+import React, { useRef } from "react"
 import { Card, CardContent, Typography, IconButton, List, ListItem, ListItemText, Avatar } from '@mui/material';
 import LayersIcon from '@mui/icons-material/Layers';
 import CloseIcon from '@mui/icons-material/Close';
@@ -9,10 +9,6 @@ import style from "../../../styles/LayersContainer.module.scss"
 
 const LayerContainer = ({alertRef, layerList, layerIndex, setLayerList, setLayerIndex}) => {
     const scriptDialogRef = useRef();
-
-    useEffect(() => {
-        
-    }, [])
 
     const onAddLayer = () => {
         if (layerList.length >= 6) return;
