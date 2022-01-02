@@ -2,13 +2,17 @@ import React, { useState, forwardRef, useImperativeHandle } from "react"
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material';
 
 const ScriptDialog = (props, ref) => {
-    const {layerList, setLayerList} = props;
+    const {alertRef, layerList, setLayerList} = props;
     const [script, setScript] = useState("");
     const [open, setOpen] = useState(false);
 
     useImperativeHandle(ref, () => ({
         handleOpen() {  
             setOpen(true);
+        },
+        runScript(script) {
+            setScript(script);
+            onRun();
         }
     }), [])
 
@@ -33,7 +37,12 @@ const ScriptDialog = (props, ref) => {
                     images: []
                 })
             });
-            setLayerList([...layerList, ...retLayers]);
+            if (layerList.length + retLayers.length > 6) {
+                alertRef.current.handleOpen("error", "You cannot have more than 6 layers.");
+                return;
+            } else {
+                setLayerList([...layerList, ...retLayers]);
+            }    
         }
     }
 
