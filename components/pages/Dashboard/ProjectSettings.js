@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
+import { ethers } from "ethers";
+import { useMoralis } from "react-moralis";
 import MD5 from "crypto-js/md5"
 import JSZip from "jszip";
-import { Card, CardContent, Typography, TextField, Button } from '@mui/material';
+import { Card, CardContent, Typography, TextField, Button, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Paper, Chip } from '@mui/material';
 import { saveAs } from 'file-saver';
 import LoadingButton from '@mui/lab/LoadingButton';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import DownloadIcon from '@mui/icons-material/Download';
+import AddIcon from '@mui/icons-material/Add';
 import style from "../../../styles/ProjectSettings.module.scss"
 
 const zip = new JSZip();
@@ -23,16 +26,26 @@ const getImageHeightAndWidth = dataURL => new Promise(resolve => {
 })
 
 const ProjectSettings = ({alertRef, layerList}) => {
+    const {user} = useMoralis();
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [base, setBase] = useState("");
-    const [count, setCount] = useState(50);
+    const [count, setCount] = useState(100);
     const [imgWidth, setImgWidth] = useState(0);
     const [imgLength, setImgLength] = useState(0);
     const [startCount, setStartCount] = useState(0);
     const [curRenderIndex, setCurRenderIndex] = useState(0);
     const [isRendering, setIsRendering] = useState(false);
     const [metadata, setMetadata] = useState([]);
+    const [metadataType, setMetadataType] = useState("ETH");
+    const [symbol, setSymbol] = useState("");
+    const [sellerPoints, setSellerPoints] = useState(1000);
+    const [externalURL, setExternalURL] = useState("");
+    const [creatorAddress, setCreatorAddress] = useState("");
+    const [creatorShare, setCreatorShare] = useState(100);
+    const [creators, setCreators] = useState([
+        {address: user.attributes.ethAddress, share: 100}
+    ]);
     const canvasRef = useRef();
 
     useEffect(() => {
@@ -174,7 +187,7 @@ const ProjectSettings = ({alertRef, layerList}) => {
             })
             .then(() => {
                 imageIndex++;
-                const nftJson = {
+                let nftJson = {
                     name: name,
                     description: description,
                     image: `${base}${countStart}.png`,
@@ -182,6 +195,30 @@ const ProjectSettings = ({alertRef, layerList}) => {
                     date: new Date().getTime(),
                     attributes: attributes,
                     compiler: "NFT Host"
+                }
+                if (metadataType === "SOL") {
+                    nftJson = {
+                        name: nftJson.name,
+                        symbol: symbol,
+                        description: nftJson.description,
+                        seller_fee_basis_points: sellerPoints,
+                        image: `${countStart}.png`,
+                        external_url: externalURL,
+                        hash: currentHash,
+                        date: new Date().getTime(),
+                        attributes: nftJson.attributes,
+                        properties: {
+                            category: "image",
+                            files: [
+                                {
+                                    uri: `${countStart}.png`,
+                                    type: "image/png"
+                                }
+                            ],
+                            creators: creators
+                        },
+                        compiler: "NFT Host"
+                    }
                 }
                 tempMetadata.push(nftJson);
                 countStart++;
@@ -225,6 +262,52 @@ const ProjectSettings = ({alertRef, layerList}) => {
         });
     }
 
+    const onMetadataTypeChange = (e) => {
+        setMetadataType(e.target.value);
+    }
+
+    const onSymbolChange = (e) => {
+        setSymbol(e.target.value);
+    }
+
+    const onSellerPointsChange = (e) => {
+        setSellerPoints(e.target.value);
+    }
+
+    const onExternalURLChange = (e) => {
+        setExternalURL(e.target.value);
+    }
+
+    const onCreatorAddressChange = (e) => {
+        setCreatorAddress(e.target.value);
+    }
+
+    const onCreatorShareChange = (e) => {
+        setCreatorShare(e.target.value);
+    }
+
+    const handleDeleteCreator = (index) => {
+        let newCreators = [...creators];
+        newCreators.splice(index, 1);
+        setCreators(newCreators);
+    }
+
+    const onAddCreator = () => {
+        try {
+            ethers.utils.getAddress(creatorAddress);
+            const newCreator = {
+                address: creatorAddress,
+                preview: `${creatorAddress.substring(0, 15)}...`,
+                share: creatorShare
+            }
+            setCreators([...creators, newCreator]);
+            setCreatorAddress("");
+        }
+        catch (err) {
+            alertRef.current.handleOpen("error", err.message);
+        }
+    }
+
     return (
         <Card className={style.card}>
             <CardContent className={style.cardContent}>
@@ -233,7 +316,9 @@ const ProjectSettings = ({alertRef, layerList}) => {
                 </Typography>
                 <div className={style.horizontalLayout}>
                     <TextField label="Name" variant="outlined" size="small" autoComplete='off' value={name} onChange={onNameChange}/>
-                    <TextField label="Image BaseURI" variant="outlined" size="small" autoComplete='off' sx={{ ml: 1 }} value={base} onChange={onBaseChange}/>
+                    {metadataType != "SOL" && (
+                        <TextField label="Image BaseURI" variant="outlined" size="small" autoComplete='off' sx={{ ml: 1 }} value={base} onChange={onBaseChange}/>
+                    )}
                 </div>
                 <TextField label="Description" variant="outlined" size="small" autoComplete='off' sx={{ mt: 1 }} value={description} onChange={onDescriptionChange}/>
                 <div className={style.horizontalLayout}>
@@ -246,6 +331,42 @@ const ProjectSettings = ({alertRef, layerList}) => {
                         <TextField label="Image Length" type="number" variant="outlined" size="small" autoComplete='off' sx={{ ml: 1, mt: 2 }} value={imgLength} disabled/>
                     </div>
                 </div>
+                <FormControl component="fieldset" sx={{mt: 1}}>
+                    <FormLabel component="legend">Metadata Type</FormLabel>
+                    <RadioGroup row aria-label="Metadata Type" name="row-radio-buttons-group" value={metadataType} onChange={onMetadataTypeChange}>
+                        <FormControlLabel value="ETH" control={<Radio />} label="ETH" />
+                        <FormControlLabel value="SOL" control={<Radio />} label="SOL" />
+                    </RadioGroup>
+                </FormControl>
+                {metadataType === "SOL" && (
+                    <div className={style.vertLayout}>
+                        <div className={style.horizontalLayout}>
+                            <TextField label="Symbol" variant="outlined" size="small" autoComplete='off' value={symbol} onChange={onSymbolChange} />
+                            <TextField label="Seller Fee Basis Points (e.g. 1000 = 10%)" type="number" variant="outlined" size="small" autoComplete='off' sx={{ ml: 1 }} value={sellerPoints} onChange={onSellerPointsChange}/>
+                        </div>
+                        <TextField label="External URL" variant="outlined" size="small" sx={{mt: 1, mb: 1}} autoComplete='off' value={externalURL} onChange={onExternalURLChange}/>
+                        <div className={style.horizontalLayout}>
+                            <TextField label="Creator Address" variant="outlined" size="small" autoComplete='off' value={creatorAddress} onChange={onCreatorAddressChange}/>
+                            <Button variant="contained" sx={{ml: 1}} endIcon={<AddIcon />} onClick={onAddCreator}>
+                                Add Creator
+                            </Button>
+                        </div>
+                        <TextField label="Share" type="number" variant="outlined" size="small" sx={{mt: 1}} autoComplete='off' value={creatorShare} onChange={onCreatorShareChange}/>
+                        {creators.length > 0 && (
+                            <Paper component="ul" className={style.creatorContainer}>
+                                {creators.map((creator, idx) => (
+                                    <li key={idx}>
+                                        <Chip
+                                            label={`Address: ${creator.address.substring(0, 15)}... / Share: ${creator.share}`}
+                                            onDelete={() => handleDeleteCreator(idx)}
+                                            className={style.hostKeywordChip}
+                                        />
+                                    </li>   
+                                ))}
+                            </Paper>
+                        )}
+                    </div>
+                )}
                 <div className={style.buttonContainer}>
                     {curRenderIndex == count && metadata.length > 0 && (
                         <Button variant="contained" color="success" endIcon={<DownloadIcon />} onClick={onDownload}>

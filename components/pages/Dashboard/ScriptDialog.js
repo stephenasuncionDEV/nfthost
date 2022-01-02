@@ -78,6 +78,7 @@ const ScriptDialog = (props, ref) => {
                     onKeyDown={onTab}
                     value={script}
                     onChange={onScript}
+                    autoComplete='off'
                 />
             </DialogContent>
             <DialogActions>

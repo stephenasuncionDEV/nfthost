@@ -43,3 +43,21 @@
     display: flex;
     justify-content: flex-end;
 }
+
+.vertLayout {
+    display: flex;
+    flex-direction: column;
+}
+
+.creatorContainer {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 5px;
+    margin: 0;
+}
+
+.creatorChip {
+    padding: 5px;
+}
