@@ -6,7 +6,7 @@ import style from "../styles/Login.module.scss"
 
 const Login = ({alertRef}) => {
     const [selectedWallet, setSelectedWallet] = useState("");
-    const { authenticate } = useMoralis();
+    const { authenticate, authError } = useMoralis();
     const walletDialogRef = useRef();
 
     useEffect(() => {
@@ -16,7 +16,15 @@ const Login = ({alertRef}) => {
                 throw new Error("No crypto currency wallet found.")
             }
             if (selectedWallet == "MetaMask") {
-                authenticate({ provider: "metamask" });
+                authenticate({ provider: "metamask", chainId: 56})
+                .then(() => {
+                    if (authError) {
+                        throw new Error(authError.message.substring(authError.message.indexOf(':') + 2))
+                    }
+                })
+                .catch(err => {
+                    alertRef.current.handleOpen("error", err.message);
+                })
             }
         }
         catch (err) {

@@ -12,14 +12,35 @@ import About from "../components/pages/About/About"
 const Index = () => {
     const [userData, setUserData] = useState({});
     const [currentPage, setCurrentPage] = useState(0);
-    const {isAuthenticated, account} = useMoralis();
+    const {isAuthenticated, account, logout, Moralis} = useMoralis();
     const web3Api = useMoralisWeb3Api();
     const alertRef = useRef();
 
-    const getBalance = () => {
-        web3Api.account.getNativeBalance({
-            chain: "rinkeby",
-            address: account
+    useEffect(() => {
+        Moralis.onChainChanged(async (chainID) => {
+            if (chainID != `0x${process.env.CHAIN_ID}`) {
+                logout()
+                .then(() => {
+                    alertRef.current.handleOpen("error", "Please switch to Ethereum Mainnet");
+                });
+            }
+        });
+    }, [Moralis])
+
+    const getUserData = () => {
+        Moralis.enableWeb3({ provider: "metamask" })
+        .then(res => {
+            return Moralis.getChainId();
+        })
+        .then(chainID => {
+            if (chainID != process.env.CHAIN_ID) {
+                logout();
+                throw new Error("Please switch to Ethereum Mainnet");
+            }
+            return web3Api.account.getNativeBalance({
+                chain: `0x${process.env.CHAIN_ID}`,
+                address: account
+            });
         })
         .then(res => {
             setUserData({
@@ -29,12 +50,16 @@ const Index = () => {
         })
         .catch(err => {
             alertRef.current.handleOpen("error", err.message);
+            return;
         })
+
+        // chain id 4 rinkeyby
+        // chain id 1 ethereum main net
     }
 
     useEffect(() => {
         if (isAuthenticated) {
-            getBalance();
+            getUserData();
         }
     }, [isAuthenticated])
 

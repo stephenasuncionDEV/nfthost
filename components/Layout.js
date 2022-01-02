@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { useMoralis } from "react-moralis";
-import { Toolbar, Divider, Button, Typography } from '@mui/material';
+import { Toolbar, Divider, Button } from '@mui/material';
 import Sidebar from "./Sidebar"
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import Alert from "../components/Alert"
