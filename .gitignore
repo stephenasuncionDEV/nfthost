@@ -35,7 +35,4 @@ yarn-error.log*
 .vercel
 
 # others
-/utils/firebase.js
-/utils/mongodb.js
-/utils/moralis.js
 plan.txt

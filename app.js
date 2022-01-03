@@ -1,7 +1,7 @@
 // Dependencies
 const express = require('express');
 const cors = require('cors');
-const router = require('./routes')
+const router = require('./routes');
 const app = express();
 const {errorHandler} = require('./middlewares/errorHandler');
 
@@ -19,7 +19,7 @@ app.use(errorHandler);
 // Connection
 connection.once('open', ()=>{
     console.log('Connected to db');
-    app.listen(process.env.PORT || 8080, ()=>{
-        console.log('Listening on port 8080');
+    app.listen(process.env.PORT || 3000, ()=>{
+        console.log('Listening on port 3000');
     });
 });
