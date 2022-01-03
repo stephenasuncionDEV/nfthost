@@ -92,7 +92,6 @@ const HostContainer = ({alertRef}) => {
                 websites: websiteArr.length == 0 ? [newHost] : newWebsiteArr
             })
             .then(res => {
-                console.log(user.attributes.websites)
                 return axios.post("http://localhost:8080/api/host", newHost)
             })
             .then(res => {
@@ -108,7 +107,6 @@ const HostContainer = ({alertRef}) => {
             })
             .catch(err => {
                 alertRef.current.handleOpen("error", err.message);
-                console.error(err.message);
                 return;
             })
 
@@ -149,6 +147,8 @@ const HostContainer = ({alertRef}) => {
                 });
             }
 
+            // Pay for host $50 USD
+            paymentDialogRef.current.handleOpen("Out of Website Slots", "", "You will be prompted 1 transaction");
             const hostSize = user.attributes.hostSize;
             if (hostSize != null && hostList.length >= hostSize) {
                 getEthPriceNow()
@@ -162,6 +162,7 @@ const HostContainer = ({alertRef}) => {
                     })
                 })
                 .then(res => {
+                    paymentDialogRef.current.handleClose();
                     const curHostSize = user.attributes.hostSize;
                     return setUserData({
                         hostSize: curHostSize + 1
@@ -171,7 +172,9 @@ const HostContainer = ({alertRef}) => {
                     onCreation();
                 })
                 .catch(err => {
+                    paymentDialogRef.current.handleClose();
                     alertRef.current.handleOpen("error", err.message);
+                    return;
                 })
             } else {
                 onCreation();
@@ -359,13 +362,10 @@ const HostContainer = ({alertRef}) => {
                 hostImage={hostImage} 
                 setHostImage={setHostImage} 
             />
-            <PaymentDialog 
-                ref={paymentDialogRef}
-                // onConfirm={}
-            />
+            <PaymentDialog ref={paymentDialogRef} />
             <CardContent>
                 <Typography variant="h6" gutterBottom>
-                    NFT Host
+                    NFT Host ({hostList.length}/{user.attributes.hostSize == null ? 1 : user.attributes.hostSize})
                 </Typography>
                 <div className={style.container}>
                     <WebsiteContainer
@@ -430,7 +430,7 @@ const HostContainer = ({alertRef}) => {
                                         <Button variant="contained" sx={{ color: "black" }} onClick={onClear}>
                                             Clear
                                         </Button>
-                                        <Button variant="contained" sx={{ ml: 1 }} onClick={onSaveChanges}>
+                                        <Button variant="contained" sx={{ ml: 1 }} onClick={onSaveChanges} disabled>
                                             Save Changes
                                         </Button>
                                     </div>
