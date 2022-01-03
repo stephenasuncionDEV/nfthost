@@ -1,13 +1,13 @@
 // Dependencies
-require('dotenv').config({path: "../../.env"});
+require('dotenv').config({path: "../.env"});
 const express = require('express');
 const cors = require('cors');
-const router = require('../../routes');
+const router = require('../routes');
 const app = express();
-const {errorHandler} = require('../../middlewares/errorHandler');
+const {errorHandler} = require('../middlewares/errorHandler');
 
 // Database
-const connection = require('../../db/connection');
+const connection = require('../db/connection');
 
 // Express Config
 app.use(cors());
