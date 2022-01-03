@@ -1,16 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
-import jwt_decode from "jwt-decode";
-import { useMoralis } from "react-moralis";
 import { Card, CardContent, Typography, Button, Avatar, IconButton, TextField, Paper, FormControlLabel, Checkbox } from '@mui/material';
+import { getEthPriceNow } from "get-eth-price";
+import { useMoralis } from "react-moralis";
 import Chip from '@material-ui/core/Chip';
 import WebsiteContainer from "./WebsiteContainer";
 import style from "../../../styles/HostContainer.module.scss"
 import UploadImageDialog from "./UploadImageDialog";
 import PaymentDialog from "./PaymentDialog";
+import jwt_decode from "jwt-decode";
 import axios from "axios";
 
 const HostContainer = ({alertRef}) => {
-    const { user, setUserData } = useMoralis();
+    const { user, setUserData, Moralis } = useMoralis();
     const [isPreview, setIsPreview] = useState(false);
     const [hostIndex, setHostIndex] = useState(null);
     const [hostURL, setHostURL] = useState("");
@@ -40,9 +41,7 @@ const HostContainer = ({alertRef}) => {
     const paymentDialogRef = useRef();
 
     const getHostList = () => {
-        if (user == null) return;
-        const websiteArr = user.attributes.websites;
-        setHostList(websiteArr);
+        setHostList(user.attributes.websites);
     }
 
     const handleDelete = (index) => {
@@ -52,38 +51,11 @@ const HostContainer = ({alertRef}) => {
     }
 
     useEffect(() => {
-        if (user == null) return;
-        getHostList();
-    }, [user, setUserData])
+        setHostList(user.attributes.websites);
+    }, [])
 
-    const onCreate = () => {
-        if (isPreview) {
-            onClear();
-            setIsPreview(false);
-            return;
-        }
-
-        const hostSize = user.attributes.hostSize;
-        if (hostSize != null && hostList.length + 1 > hostSize) {
-            paymentDialogRef.current.handleOpen("Buy Website Slot", "");
-            //alertRef.current.handleOpen("error", `You can only have ${hostSize} website(s)`);
-            return;
-        }
-
-        if (hostImage.trim().length == 0 || 
-            hostTitle.trim().length == 0 || 
-            hostHeader.trim().length == 0 || 
-            hostDescription.trim().length == 0 || 
-            hostIframe.trim().length == 0) {
-            alertRef.current.handleOpen("error", "Please fill in all the required fields");
-            return;
-        }
-
-        if (hostIframe.indexOf("iframe") == -1 || hostIframe.indexOf("src='https://cloudflare-ipfs.com/ipfs/") == -1) {
-            alertRef.current.handleOpen("error", "You must use Thirdweb's iframe embed code");
-            return;
-        }
-
+    const onCreation = () => {
+        // Parse Keywords
         let keywords = "";
         chipData.forEach((chip, idx) => {
             keywords += chip + (idx == chipData.length - 1 ? "" : ", ");
@@ -101,68 +73,122 @@ const HostContainer = ({alertRef}) => {
             language: hostLanguage
         }
 
+        // User's current website array
         const websiteArr = user.attributes.websites;
-        if (websiteArr == null) {
+
+        try {
+            // Check if duplicated
+            const uniqueTitles = new Set(websiteArr.map(w => w.title));
+            if (uniqueTitles.has(hostTitle)) throw new Error("You cannot have a duplicated website");
+
+            let newWebsiteArr;
+            if (websiteArr.length > 0) {
+                newWebsiteArr = [...websiteArr];
+                newWebsiteArr.push(newHost);
+            }
+            
+            // Create Website
             setUserData({
-                websites: [newHost],
-                hostSize: 1
+                websites: websiteArr.length == 0 ? [newHost] : newWebsiteArr
             })
+            .then(res => {
+                console.log(user.attributes.websites)
+                return axios.post("http://localhost:8080/api/host", newHost)
+            })
+            .then(res => {
+                const accessToken = res.data.accessToken;
+                localStorage.setItem("accessToken", accessToken);
+                const data = jwt_decode(accessToken);
+                return onSaveURL(data.url);
+            })
+            .then(res => {
+                getHostList();
+                onClear();
+                alertRef.current.handleOpen("success", "Your mint website has been created");
+            })
+            .catch(err => {
+                alertRef.current.handleOpen("error", err.message);
+                console.error(err.message);
+                return;
+            })
+
+        } catch (err) {
+            alertRef.current.handleOpen("error", err.message);
+            return;
         }
-        else {
-            const uniqueValues = new Set(websiteArr.map(w => w.title));
-            if (!uniqueValues.has(hostTitle)) {
+    }
+
+    const onCreate = () => {
+        try {
+            // Reset state if isPreview
+            if (isPreview) {
+                onClear();
+                setIsPreview(false);
+                return;
+            }
+
+            // Validate if fields are empty
+            if (hostImage.trim().length == 0 || 
+                hostTitle.trim().length == 0 || 
+                hostHeader.trim().length == 0 || 
+                hostDescription.trim().length == 0 || 
+                hostIframe.trim().length == 0) {
+                throw new Error("Please fill in all the required fields");
+            }
+
+            // Validate Iframe source code
+            if (hostIframe.indexOf("iframe") == -1 || hostIframe.indexOf("src='https://cloudflare-ipfs.com/ipfs/") == -1) {
+                throw new Error("You must use Thirdweb's iframe embed code");
+            }
+
+            // Initialize hostSize (for new users)
+            const websiteArr = user.attributes.websites;
+            if (websiteArr == null) {
                 setUserData({
-                    websites: [...websiteArr, newHost]
+                    hostSize: 1
+                });
+            }
+
+            const hostSize = user.attributes.hostSize;
+            if (hostSize != null && hostList.length >= hostSize) {
+                getEthPriceNow()
+                .then(data => {
+                    const ethPrice = 50 / data[Object.keys(data)[0]].ETH.USD;
+                    const val = ethPrice.toString().substring(0, 11);
+                    return Moralis.transfer({
+                        type: "native", 
+                        amount: Moralis.Units.ETH(val), 
+                        receiver: process.env.METAMASK_ADDRESS
+                    })
                 })
                 .then(res => {
-                    return axios.post("http://localhost:8080/api/host", newHost)
+                    const curHostSize = user.attributes.hostSize;
+                    return setUserData({
+                        hostSize: curHostSize + 1
+                    });
                 })
                 .then(res => {
-                    const accessToken = res.data.accessToken;
-                    localStorage.setItem("accessToken", accessToken);
-                    const data = jwt_decode(accessToken);
-                    return onSaveURL(data.url);
-                })
-                .then(res => {
-                    getHostList();
-                    onClear();
-                    alertRef.current.handleOpen("success", "Your mint website has been created");
+                    onCreation();
                 })
                 .catch(err => {
                     alertRef.current.handleOpen("error", err.message);
                 })
+            } else {
+                onCreation();
             }
-            else {
-                alertRef.current.handleOpen("error", "You cannot have duplicated websites", 2000);
-                return;
-            }
+        }
+        catch (err) {
+            alertRef.current.handleOpen("error", err.message);
+            return;
         }
     }
 
     const onSaveURL = (url) => {
-        let newList = [];
-        if (hostList.length == 0) {
-            const newHost = {
-                title: hostTitle,
-                header: hostHeader,
-                description: hostDescription,
-                image: hostImage,
-                iframe: hostIframe,
-                url: url
-            }
-            newList = [newHost];
-            setHostList([newHost]);
-        }
-        else {
-            let newHostList = [...hostList];
-            newHostList[hostIndex].url = url;
-            newList = [newHostList];
-            setHostList(newHostList);
-        }
-
-        return setUserData({
-            websites: newList
-        })
+        const websiteArr = user.attributes.websites;
+        let newHostList = [...websiteArr];
+        newHostList[websiteArr.length - 1].url = url;
+        setHostList(newHostList);
+        return setUserData({ websites: newHostList })
     }
 
     const onSaveChanges = () => {
@@ -170,6 +196,11 @@ const HostContainer = ({alertRef}) => {
             alertRef.current.handleOpen("error", "Please select a website");
             return;
         } 
+
+        let keywords = "";
+        chipData.forEach((chip, idx) => {
+            keywords += chip + (idx == chipData.length - 1 ? "" : ", ");
+        });
         
         let newHostList = [...hostList];
         newHostList[hostIndex].title = hostTitle;
@@ -177,6 +208,9 @@ const HostContainer = ({alertRef}) => {
         newHostList[hostIndex].description = hostDescription;
         newHostList[hostIndex].iframe = hostIframe;
         newHostList[hostIndex].image = hostImage;
+        newHostList[hostIndex].isRobot = hostIsRobot;
+        newHostList[hostIndex].language = hostLanguage;
+        newHostList[hostIndex].keywords = keywords;
         setHostList(newHostList);
         setUserData({
             websites: newHostList
@@ -200,6 +234,11 @@ const HostContainer = ({alertRef}) => {
         setHostDescription(host.description);
         setHostIframe(host.iframe);
         setHostURL(host.url);
+        setHostIsRobot(host.isRobot);
+        setHostLanguage(host.language);
+        if (host.keywords.length > 0) {
+            setChipData(host.keywords.split(", "));
+        };
         setHostIndex(index);
         setIsPreview(true);
     }
@@ -213,6 +252,19 @@ const HostContainer = ({alertRef}) => {
         setHostLanguage("");
         setHostKeywords("");
         setHostURL("");
+        setChipData([
+            "NFT Host",
+            "Host NFTs",
+            "Mint Website",
+            "NFT Website Hosting",
+            "Mint NFT Website Hosting",
+            "Mint NFT",
+            "NFT",
+            "Mint",
+            "Crypto Currency",
+            "Crypto",
+            "Ethereum",
+        ]);
         setHostIsRobot(true);
     }
 
@@ -247,27 +299,14 @@ const HostContainer = ({alertRef}) => {
     const onKeywordsEnter = (e) => {
         if (e.key === 'Enter') {
             if (hostKeywords.indexOf(",") != -1) {
-                let chipArray = [];
-                let currentWord = "";
-                for (let i = 0; i < hostKeywords.length; i++) {
-                    const currentChar = hostKeywords.charAt(i);
-                    currentWord += hostKeywords.charAt(i);
-                    if (currentChar == ',' || i == hostKeywords.length - 1) {
-                        const word = currentWord.trim().replace(',', "");
-                        if (!chipArray.includes(word) && !chipData.includes(word)) {
-                            chipArray.push(word);
-                        } else {
-                            alertRef.current.handleOpen("error", `You already used "${word}" keyword`);
-                        }
-                        currentWord = "";
-                    }
-                }
+                const chipArray = hostKeywords.split(', ');
                 setChipData([...chipData, ...chipArray]);
-            }
-            else {
+                setHostKeywords("");
+            } else {
                 const word = hostKeywords.trim();
                 if (!chipData.includes(word)) {
                     setChipData([...chipData, word]);
+                    setHostKeywords("");
                 } else {
                     alertRef.current.handleOpen("error", `You already used "${word}" keyword`);
                 }
@@ -398,7 +437,6 @@ const HostContainer = ({alertRef}) => {
                                 </div>
                             </div>
                         )}
-
                     </div>
                 </div>
             </CardContent>
