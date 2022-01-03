@@ -147,10 +147,10 @@ const HostContainer = ({alertRef}) => {
                 });
             }
 
-            // Pay for host $50 USD
-            paymentDialogRef.current.handleOpen("Out of Website Slots", "", "You will be prompted 1 transaction");
+            // Check if user needs to pay
             const hostSize = user.attributes.hostSize;
             if (hostSize != null && hostList.length >= hostSize) {
+                paymentDialogRef.current.handleOpen("Out of Website Slots", "", "You will be prompted 1 transaction");
                 getEthPriceNow()
                 .then(data => {
                     const ethPrice = 50 / data[Object.keys(data)[0]].ETH.USD;

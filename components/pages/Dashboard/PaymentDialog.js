@@ -19,10 +19,6 @@ const PaymentDialog = (props, ref) => {
         }
     }), [])
 
-    const handleClose = () => {
-        setOpen(false);
-    }
-
     return (
         <Dialog
             open={open}

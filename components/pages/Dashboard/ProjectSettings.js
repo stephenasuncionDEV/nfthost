@@ -209,56 +209,71 @@ const ProjectSettings = ({alertRef, layerList}) => {
 
     const onGenerateCollection = () => {
         try {
+            // Check if one of the layer(s) is empty
             layerList.forEach((layer, idx) => {
                 if (layer.images.length == 0) {
                     throw new Error("All layers must have atleast one image");
                 }
             });
+
+            // Check if there at more than 1 layer
             if(layerList.length == 1) {
                 throw new Error("You must have atleast 2 layers");
             }
+
+            // Check if collection count is greater than 0
             if(count <= 0) {
                 throw new Error("Collection count must be greater than 0");
             }
+
+            // Check if start count is not negative
             if(startCount < 0) {
                 throw new Error("Start count must be greater than 0");
             }
+
+            // Check if img width and length is greater than 0
             if(imgWidth <= 0 || imgLength <= 0) {
                 throw new Error("Image width or length must be greater than 0");
+            }
+
+            // Check if user needs to pay
+            if (count > 100) {
+                if (count > 100 && count <= 1000) {
+                    setPrice(50);
+                } else if (count > 1000 && count <= 5000) {
+                    setPrice(100);
+                } else if (count > 5000 && count <= 10000) {
+                    setPrice(200);
+                }
+    
+                // Show Payment Dialog
+                paymentDialogRef.current.handleOpen("Collection Count More Than 100", "", "You will be prompted 1 transaction");
+                getEthPriceNow()
+                .then(data => {
+                    const ethPrice = price / data[Object.keys(data)[0]].ETH.USD;
+                    const val = ethPrice.toString().substring(0, 11);
+                    return Moralis.transfer({
+                        type: "native", 
+                        amount: Moralis.Units.ETH(val), 
+                        receiver: process.env.METAMASK_ADDRESS
+                    })
+                })
+                .then(res => {
+                    paymentDialogRef.current.handleClose();
+                    onGenerate();
+                })
+                .catch(err => {
+                    paymentDialogRef.current.handleClose();
+                    alertRef.current.handleOpen("error", err.message);
+                    return
+                })
+            } else {
+                onGenerate();
             }
         }
         catch (err) {
             alertRef.current.handleOpen("error", err.message);
             return;
-        }
-
-        if (count > 100) {
-            if (count > 100 && count <= 1000) {
-                setPrice(50);
-            } else if (count > 1000 && count <= 5000) {
-                setPrice(100);
-            } else if (count > 5000 && count <= 10000) {
-                setPrice(200);
-            }
-
-            getEthPriceNow()
-            .then(data => {
-                const ethPrice = price / data[Object.keys(data)[0]].ETH.USD;
-                const val = ethPrice.toString().substring(0, 11);
-                return Moralis.transfer({
-                    type: "native", 
-                    amount: Moralis.Units.ETH(val), 
-                    receiver: process.env.METAMASK_ADDRESS
-                })
-            })
-            .then(res => {
-                onGenerate();
-            })
-            .catch(err => {
-                alertRef.current.handleOpen("error", err.message);
-            })
-        } else {
-            onGenerate();
         }
     }
 
@@ -345,9 +360,7 @@ const ProjectSettings = ({alertRef, layerList}) => {
 
     return (
         <Card className={style.card}>
-            <PaymentDialog 
-                ref={paymentDialogRef}
-            />
+            <PaymentDialog ref={paymentDialogRef} />
             <CardContent className={style.cardContent}>
                 <Typography variant="h6" component="div" gutterBottom>
                     Project Settings
