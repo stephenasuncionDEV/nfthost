@@ -92,7 +92,7 @@ const HostContainer = ({alertRef}) => {
                 websites: websiteArr.length == 0 ? [newHost] : newWebsiteArr
             })
             .then(res => {
-                return axios.post("http://localhost:8080/api/host", newHost)
+                return axios.post("/api/host", newHost)
             })
             .then(res => {
                 const accessToken = res.data.accessToken;
@@ -330,7 +330,7 @@ const HostContainer = ({alertRef}) => {
             }
         }
 
-        axios.post("http://localhost:8080/api/host/delete", {
+        axios.post("/api/host/delete", {
             url: hostList[hostIndex].url
         }, headers)
         .then(res => {

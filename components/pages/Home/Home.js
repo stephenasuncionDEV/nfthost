@@ -11,7 +11,7 @@ const Home = ({alertRef}) => {
     const [logsData, setLogsData] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:8080/api/webhook/get")
+        axios.get("/api/webhook/get")
         .then(res => {
             setLogsData(res.data);
         })
