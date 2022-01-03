@@ -11,7 +11,7 @@ const connection = require('../db/connection');
 
 // Express Config
 app.use(cors());
-app.use(express.static('public'));
+//app.use(express.static('public'));
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 app.use('/api', router);
