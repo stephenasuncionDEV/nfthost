@@ -76,11 +76,12 @@ exports.delete = (req, res, next) => {
 
 exports.list = (req, res, next) => {
     try {
-        fs.readdir(join(dirname(require.main.filename), '/.output/server/pages'), (err, files) => {
-            if (err) throw new NFTError(err.message, 400);
-            const files = files.map((file) => file);
-            res.json({files: files})
-        });
+        res.json({files: dirname(require.main.filename)});
+        // fs.readdir(join(dirname(require.main.filename), '/.output/server/pages'), (err, files) => {
+        //     if (err) throw new NFTError(err.message, 400);
+        //     const files = files.map((file) => file);
+        //     res.json({files: files})
+        // });
     } catch (err) {
         next (err)
     }
