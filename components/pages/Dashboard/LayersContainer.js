@@ -1,16 +1,20 @@
-import React, { useRef } from "react"
-import { Card, CardContent, Typography, IconButton, List, ListItem, ListItemText, Avatar } from '@mui/material';
-import LayersIcon from '@mui/icons-material/Layers';
-import CloseIcon from '@mui/icons-material/Close';
-import AddIcon from '@mui/icons-material/Add';
-import CodeIcon from '@mui/icons-material/Code';
+import { useRef } from "react"
+import { useToast, Box, Text, IconButton, List, ListItem, Avatar, Button, Input } from '@chakra-ui/react'
+import { MdLayers, MdClose, MdAdd, MdCode } from 'react-icons/md'
 import ScriptDialog from "./ScriptDialog"
-import style from "../../../styles/LayersContainer.module.scss"
+import style from "../../../styles/Container.module.scss"
 
-const LayerContainer = ({alertRef, layerList, layerIndex, setLayerList, setLayerIndex}) => {
+const LayerContainer = ({layerList, layerIndex, setLayerList, setLayerIndex}) => {
+    const alert = useToast();
     const scriptDialogRef = useRef();
 
-    const onAddLayer = () => {
+    const onTitleChange = (e) => {
+        let newLayerList = [...layerList];
+        newLayerList[layerIndex].name = e.target.value;
+        setLayerList(newLayerList);
+    }
+
+    const handleAddLayer = () => {
         if (layerList.length >= 6) return;
         const newLayer = {
             name: "New Layer",
@@ -20,13 +24,18 @@ const LayerContainer = ({alertRef, layerList, layerIndex, setLayerList, setLayer
         setLayerIndex(layerList.length);
     }
 
-    const onClick = (index) => {
+    const handleLayerClick = (index) => {
         setLayerIndex(index);
     }
 
-    const onDelete = (index) => {
+    const handleDeleteLayer = (index) => {
         if (layerList.length == 1) {
-            alertRef.current.handleOpen("error", "You cannot delete the first layer");
+            alert({
+                title: 'Error',
+                description: "You cannot delete the first layer.",
+                status: 'error',
+                duration: 3000,
+            })
             return;
         }
         let newLayerList = [...layerList];
@@ -35,64 +44,94 @@ const LayerContainer = ({alertRef, layerList, layerIndex, setLayerList, setLayer
         setLayerIndex(layerList.length - 2);
     }
 
-    const onTitleChange = (e) => {
-        let newLayerList = [...layerList];
-        newLayerList[layerIndex].name = e.target.value;
-        setLayerList(newLayerList);
-    }
-
-    const onScript = (e) => {
+    const handleOpenScript = (e) => {
         e.stopPropagation();
-        scriptDialogRef.current.handleOpen();
+        scriptDialogRef.current.show();
     }
 
     return (
-        <Card className={style.card}>
+        <Box
+            maxW='300px'
+            flex='1'
+            mt='4'
+            bg='white' 
+            p='5'
+            ml='4'
+            className={style.box}
+        >
             <ScriptDialog 
                 ref={scriptDialogRef}
-                alertRef={alertRef}
                 layerList={layerList} 
                 setLayerList={setLayerList}
             />
-            <CardContent className={style.cardContent}>
-                <Typography variant="h6" gutterBottom>
-                    Layers
-                </Typography>
-                <List sx={{ paddingBottom: 0 }}>
-                    <ListItem button className={style.layerItemFalse} onClick={onAddLayer}>
-                        <Avatar>
-                            <AddIcon />
-                        </Avatar>
-                        <ListItemText
-                            sx={{ ml: 2 }}
-                            primary={"Add Layer"}
-                            secondary={`Layers ${layerList.length}`}
+
+            <Text fontSize='16pt'>
+                Layers
+            </Text>
+            <List mt='2'>
+                <ListItem>
+                    <Button 
+                        justifyContent='space-between'
+                        variant='solid'
+                        w='full'
+                        h='70px'
+                        className={style.box}
+                        onClick={handleAddLayer}
+                    >
+                        <Avatar
+                            icon={<MdAdd />}
                         />
-                        <IconButton onClick={onScript}>
-                            <CodeIcon />
-                        </IconButton>
-                    </ListItem>
+                        <Box
+                            display='flex'
+                            flexDir='column'
+                            alignItems='flex-start'
+                        >
+                            <Text>Add Layer</Text>
+                            <Text fontSize='10pt'>{layerList.length} Layers</Text>
+                        </Box>
+                        <IconButton
+                            icon={<MdCode />}
+                            onClick={handleOpenScript}
+                        />
+                    </Button>
+                </ListItem>
                 {layerList.map((layer, idx) => (
-                    <ListItem key={idx} button className={layerIndex == idx ? style.layerItemTrue : style.layerItemFalse} onClick={() => onClick(idx)}>
-                        <Avatar style={{ backgroundColor: "rgb(242,80,34)" }}>
-                            <LayersIcon />
-                        </Avatar>
-                        <ListItemText
-                            sx={{ ml: 2 }}
-                            primary={<input type="text" className={style.layerTitleInput} value={layer.name} onChange={onTitleChange} />} 
-                            secondary={`${layer.images.length} Images`}
+                    <ListItem key={idx} mt='4'>
+                        <Button
+                            justifyContent='space-between'
+                            variant='solid'
+                            w='full'
+                            h='70px'
+                            className={style.box}
+                            borderBottomWidth='3px'
+                            borderBottomColor={idx === layerIndex ? 'blackAlpha.500' : 'black.500'}
+                            onClick={() => handleLayerClick(idx)}
+                        >
+                        <Avatar
+                            icon={<MdLayers />}
+                            bg='rgb(255,103,35)'
                         />
-                        <IconButton onClick={(e) => {
-                            e.stopPropagation(); 
-                            onDelete(idx);
-                        }}>
-                            <CloseIcon />
-                        </IconButton>
+                        <Box
+                            display='flex'
+                            flexDir='column'
+                            alignItems='flex-start'
+                            ml='5'
+                        >
+                            <Input variant='unstyled' value={layer.name} onChange={onTitleChange} />
+                            <Text fontSize='10pt'>{layer.images.length} Images</Text>
+                        </Box>
+                        <IconButton
+                            icon={<MdClose />}
+                            onClick={(e) => {
+                                e.stopPropagation(); 
+                                handleDeleteLayer(idx);
+                            }}
+                        />
+                        </Button>
                     </ListItem>
                 ))}
-                </List>
-            </CardContent>
-        </Card>
+            </List>
+        </Box>
     )
 }
 

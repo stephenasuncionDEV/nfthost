@@ -1,49 +1,69 @@
-import React, { useRef } from "react";
-import { useMoralis } from "react-moralis";
-import { Toolbar, Divider, Button } from '@mui/material';
+import { useToast, ButtonGroup, Button, IconButton, Icon, Text, Box } from '@chakra-ui/react'
+import { useMoralis } from "react-moralis";  
+import { FiCopy } from 'react-icons/fi'
 import Sidebar from "./Sidebar"
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import Alert from "../components/Alert"
 import style from "../styles/Layout.module.scss"
 
-const Layout = ({children, currentPage, setCurrentPage, userData}) => {
-    const { logout } = useMoralis();
-    const alertRef = useRef();
+const Layout = ({children, currentPage, setCurrentPage}) => {
+    const { user } = useMoralis();
+    const alert = useToast();
 
-    const onCopyAddress = () => {
-        navigator.clipboard.writeText(userData.address);
-        alertRef.current.handleOpen("info", "Address copied.");
+    const handleCopyAddress = () => {
+        navigator.clipboard.writeText(user.attributes.ethAddress);
+        alert({
+            title: 'Your address has been copied.',
+            description: "",
+            status: 'info',
+            duration: 3000,
+        })
     }
 
     return (
         <div className={style.pane}>
-            <Alert ref={alertRef}/>
             <Sidebar 
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
-                logout={logout}
             />
             <div className={style.topPane}>
-                <Toolbar>
-                    <Button 
-                        variant="outlined" 
-                        startIcon={<ContentCopyIcon/>}
-                        style={{
-                            borderRadius: 20,
-                            border: '1px solid rgb(230, 230, 230)',
-                            color: 'rgb(90, 90, 90)',
-                            fontSize: 12
-                        }}
-                        onClick={onCopyAddress}
+                <Box 
+                    display='flex'
+                    alignItems='center'
+                    justifyContent='flex-end'
+                    h='81px'
+                    pl='4'
+                    pr='4'
+                >
+                    <ButtonGroup 
+                        variant='outlined' 
+                        justifyContent='flex-end' 
+                        color='black'
+                        isAttached
                     >
-                        {userData.address}
-                        <Divider sx={{ ml: 1, mr: 1 }} orientation="vertical" flexItem />
-                        {userData.balance && (
-                            `${userData.balance.length > 6 ? userData.balance.substring(0, 6) : userData.balance} ETH`
-                        )}
-                    </Button>
-                </Toolbar>
-                <Divider />
+                        <IconButton 
+                            aria-label='Copy account address' 
+                            icon={<Icon as={FiCopy} />} 
+                            borderWidth='1px' 
+                            borderRadius='20px' 
+                            onClick={handleCopyAddress} 
+                        />
+                        <Button 
+                            ml='-px' 
+                            borderWidth='1px' 
+                            borderRadius='20px' 
+                            onClick={handleCopyAddress}
+                        >
+                            <Text>{user.attributes.ethAddress}</Text>
+                        </Button>
+                        <Button 
+                            ml='-px' 
+                            borderWidth='1px'
+                            borderRadius='20px' 
+                            onClick={handleCopyAddress}
+                        >
+                            <Text>{`${user.attributes.balance.length > 6 ? user.attributes.balance.substring(0, 6) : user.attributes.balance} ETH`}</Text>
+                        </Button>
+                    </ButtonGroup>
+                </Box>
                 {children}
             </div>
         </div>

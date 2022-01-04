@@ -1,40 +1,42 @@
-import React, { useState, forwardRef, useImperativeHandle } from "react";
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import { useState, forwardRef, useImperativeHandle } from "react";
+import { useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, ModalFooter, Button, Input } from '@chakra-ui/react'
 
 const ImageDialog = (props, ref) => {
-    const {onDeleteItem} = props;
+    const { onDeleteItem } = props;
+    const { isOpen, onOpen, onClose } = useDisclosure();
     const [imageIndex, setImageIndex] = useState(null);
-    const [open, setOpen] = useState(false);
 
     useImperativeHandle(ref, () => ({
-        handleOpen(index) {
+        show(index) {
             setImageIndex(index);
-            setOpen(true);
+            onOpen();
         }
     }), [])
 
-    const handleClose = () => {
-        setOpen(false);
-    };
-
     const handleDelete = () => {
         onDeleteItem(imageIndex);
-        setOpen(false);
+        onClose();
     }
 
     return (
-        <Dialog open={open} onClose={handleClose}>
-            <DialogTitle>Image Settings</DialogTitle>
-            <DialogContent>
-                <DialogContentText>
-                    Do you want to delete this image?
-                </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={handleClose}>Cancel</Button>
-                <Button onClick={handleDelete} color="error">Delete</Button>
-            </DialogActions>
-        </Dialog>
+        <Modal isCentered isOpen={isOpen} onClose={onClose} motionPreset='slideInBottom'>
+            <ModalOverlay />
+            <ModalContent>
+                <ModalHeader>Delete Image</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody>
+                    Would you like to delete this image?
+                </ModalBody>
+                <ModalFooter>
+                    <Button variant='solid' colorScheme='gray' onClick={onClose}>
+                        Cancel
+                    </Button>
+                    <Button ml='2' variant='solid' colorScheme='red' onClick={handleDelete}>
+                        Delete
+                    </Button>
+                </ModalFooter>
+            </ModalContent>
+        </Modal>
     )
 }
 

@@ -1,35 +1,6 @@
-$titleColor: rgb(0, 0, 0);
-
-.container {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    h1 {
-        color: $titleColor;
-        font-weight: 500;
-    }
-    h2 {
-        margin: 0;
-    }
-    padding-bottom: 5em;
-}
-
-.headerContainer {
-    max-width: 800px;
-    width: 100%;
-}
-
-.subContainer {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
 .previewHeader {
     text-align: center;
     animation: goDown 2s infinite;
-
     svg {
         color: rgb(61, 61, 61);
     }
@@ -43,20 +14,5 @@ $titleColor: rgb(0, 0, 0);
     to {
         transform: translateY(100%);
         opacity: 20%;
-    }
-}
-
-.hostContainer {
-    margin-top: 5em;
-    margin-bottom: 5em;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: black;
-
-    img {
-        width: 20%;
     }
 }

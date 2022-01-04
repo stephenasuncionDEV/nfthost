@@ -1,50 +1,64 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useMoralis } from "react-moralis";
-import LoginIcon from '@mui/icons-material/Login';
+import { useEffect, useRef } from "react"
+import { useToast, Button, Icon } from '@chakra-ui/react'
+import { useMoralis } from "react-moralis"
+import { MdLogin } from 'react-icons/md'
 import WalletDialog from "./WalletDialog";
 import style from "../styles/Login.module.scss"
 
-const Login = ({alertRef}) => {
-    const [selectedWallet, setSelectedWallet] = useState("");
+const Login = () => {
     const { authenticate, authError } = useMoralis();
     const walletDialogRef = useRef();
+    const alert = useToast();
 
+    // Check if there is crypto wallet
     useEffect(() => {
-        if (selectedWallet.length == 0) return;
         try {
-            if (!window.ethereum) {
-                throw new Error("No crypto currency wallet found.")
-            }
-            if (selectedWallet == "MetaMask") {
-                authenticate({ provider: "metamask", chainId: 4})
-                .then(() => {
-                    if (authError) {
-                        throw new Error(authError.message.substring(authError.message.indexOf(':') + 2))
-                    }
-                })
-                .catch(err => {
-                    alertRef.current.handleOpen("error", err.message);
-                })
-            }
+            if (!window.ethereum) throw new Error("No crypto currency wallet found.");
+        } catch (err) {
+            alert({
+                title: 'Error.',
+                description: err.message,
+                status: 'error',
+                duration: 3000,
+            })
         }
-        catch (err) {
-            alertRef.current.handleOpen("error", err.message);
+    }, [])
+
+    // Check result of Wallet Dialog
+    const handleWalletChange = (index) => {
+        if (index === 0) {
+            authenticate({ provider: "metamask", chainId: process.env.CHAIN_ID})
+            .then(() => {
+                if (authError) throw new Error(authError.message.substring(authError.message.indexOf(':') + 2));
+            })
+            .catch(err => {
+                alert({
+                    title: 'Error',
+                    description: err.message,
+                    status: 'error',
+                    duration: 3000,
+                })
+            })
         }
-    }, [selectedWallet])
+    }
+
+    // Show wallet dialog
+    const handleConnectWithWallet = () => {
+        walletDialogRef.current.show();
+    }
 
     return (
         <div className={style.centerPane}>
+            <WalletDialog ref={walletDialogRef} onChange={handleWalletChange} />
             <div id={style.container}>
-                <WalletDialog ref={walletDialogRef} setSelectedWallet={setSelectedWallet}/>
                 <header>
                     <img src="/logo.png" alt="NFT Host Logo" />
                     <h1>NFT Host</h1>
                 </header>
                 <div id={style.subContainer}>
-                    <button className={[style.btn, style.btnIcon, style.btnOther].join(" ")} onClick={() => walletDialogRef.current.handleOpen()}>
-                        <LoginIcon />
-                        <span>Login with Wallet</span>
-                    </button>
+                    <Button variant='solid' px={6} rightIcon={<Icon as={MdLogin} />} colorScheme='blue' onClick={handleConnectWithWallet}>
+                        Connect to a Wallet
+                    </Button>
                 </div>
             </div>   
         </div>

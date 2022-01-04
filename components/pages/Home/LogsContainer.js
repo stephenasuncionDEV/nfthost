@@ -1,17 +1,20 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Card, CardContent, Typography, Button } from '@mui/material';
-import style from "../../../styles/LogsContainer.module.scss"
+import { Box, Text } from '@chakra-ui/react'
+import style from "../../../styles/Container.module.scss"
 
 const LogsContainer = ({children}) => {
     return (
-        <Card className={style.card}>
-            <CardContent>
-                <Typography variant="h6" gutterBottom>
-                    Commits
-                </Typography>
-                {children}
-            </CardContent>
-        </Card>
+        <Box 
+            maxWidth='1200px' 
+            width='100%' 
+            bg='white' 
+            borderRadius='5px'
+            mt='6'
+            p='5'
+            className={style.box}
+        >
+            <Text fontSize='16pt'>Commits</Text>
+            {children}
+        </Box>
     )
 }
 

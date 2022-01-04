@@ -1,26 +1,25 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Typography } from '@mui/material';
+import { Text } from '@chakra-ui/react'
 import style from "../../../styles/Log.module.scss"
 
 const Log = ({index, hash, date, author, body}) => {
     return (
         <div className={style.container}>
-            <Typography variant="h5" component="div">
+            <Text fontSize='19pt'>
                 Update Log #{index}
-            </Typography>
-            <Typography sx={{ fontSize: 14 }} gutterBottom>
+            </Text>
+            <Text fontSize='10pt'>
                 Hash: {hash}
-            </Typography>
-            <Typography sx={{ fontSize: 14, mb: 0 }} color="text.secondary" gutterBottom>
+            </Text>
+            <Text sx={{ fontSize: 14, mb: 0 }} color=''>
                 {date} 
-            </Typography>
-            <Typography sx={{ mb: 1.5, fontSize: 12 }} color="text.secondary">
+            </Text>
+            <Text sx={{ mb: 1.5, fontSize: 12 }} color=''>
                 Published by: {author}
-            </Typography>
+            </Text>
             {body.map((content, idx) => (
-                <Typography variant="body2" key={idx}>
+                <Text key={idx}>
                     - {content}
-                </Typography>
+                </Text>
             ))}
         </div>
     )

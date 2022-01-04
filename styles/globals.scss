@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;300;400;500;600;700;800;900&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+
 $bg: rgb(255, 255, 255);
 $mainPane: rgb(250, 250, 250);
 
@@ -5,9 +7,12 @@ html,
 body {
     padding: 0;
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-        Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    font-family: 'Inconsolata', monospace, 'Open Sans', sans-serif;
     background-color: $bg;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    height: 100%;
 }
 
 a {
@@ -21,7 +26,7 @@ a {
 
 .main-pane {
     height: 100%;
-    padding: 1em;
+    padding: 2em;
     background-color: $mainPane;
     display: flex;
     flex-direction: column;

@@ -1,49 +1,29 @@
-import React, { useState, useRef } from "react";
-import { Card, CardContent, Typography, Button, Switch, Avatar, FormControlLabel, IconButton } from '@mui/material';
-import FileUploadIcon from '@mui/icons-material/FileUpload';
+import { useState, useRef } from "react";
+import { useToast, Box, Text, Button, IconButton, Switch } from '@chakra-ui/react'
+import { BsImageFill } from 'react-icons/bs'
+import { MdSettings } from 'react-icons/md'
 import ImageDialog from "./ImageDialog";
 import RarityDialog from './RarityDialog';
-import SettingsIcon from '@mui/icons-material/Settings';
-import style from "../../../styles/LayerDisplay.module.scss"
+import style from "../../../styles/Container.module.scss"
 
-const LayerDisplay = ({alertRef, layerList, layerIndex, setLayerList}) => {
-    const [editable, setEditable] = useState(false);
+const LayerDisplay = ({layerList, layerIndex, setLayerList}) => {
     const [fileOverState, setFileOverState] = useState(false);
+    const [isEditable, setIsEditable] = useState(false);
     const imageDialogRef = useRef();
     const rarityDialogRef = useRef();
-
-    const onEdit = (e) => {
-        setEditable(e.target.checked);
-    };
-
-    const onDragLeave = (e) => {
-        setFileOverState(false);
-    }
-
-    const onDragOver = (e) => {
-        e.stopPropagation();
-        e.preventDefault();
-        e.dataTransfer.dropEffect = "copy";
-        setFileOverState(true);
-    }
-
-    const onDrop = (e) => {
-        e.stopPropagation();
-        e.preventDefault();
-        setFileOverState(false);
-        fileHandler(e.dataTransfer.files);
-    }
-
-    const onUpload = (e) => {
-        fileHandler(e.target.files);
-    }
+    const alert = useToast();
 
     const fileHandler = (files) => {
         let newImages = [];
         for (let i = 0; i < files.length; i++) {
             const file = files[i];
             if (!file.type.match(/image.png/)) {
-                alertRef.current.handleOpen("error", "Please upload PNG files only");
+                alert({
+                    title: 'Error',
+                    description: "Please upload PNG files only",
+                    status: 'error',
+                    duration: 3000,
+                })
                 return;
             }
             newImages.push({
@@ -67,88 +47,149 @@ const LayerDisplay = ({alertRef, layerList, layerIndex, setLayerList}) => {
         setLayerList(newLayerList);
     }
 
-    const onDeleteItem = (index) => {
+    const onEditableChange = (e) => {
+        setIsEditable(e.target.checked);
+    };
+
+    const onDragLeave = (e) => {
+        setFileOverState(false);
+    }
+
+    const onDragOver = (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        e.dataTransfer.dropEffect = "copy";
+        setFileOverState(true);
+    }
+
+    const onDrop = (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        setFileOverState(false);
+        fileHandler(e.dataTransfer.files);
+    }
+
+    const handleUploadClick = (e) => {
+        fileHandler(e.target.files);
+    }
+
+    const handleDeleteItem = (index) => {
         let newLayerList = [...layerList];
         newLayerList[layerIndex].images.splice(index, 1);
         setLayerList(newLayerList);
     }
 
-    const onClickItem = (index) => {
-        imageDialogRef.current.handleOpen(index);
+    const handleItemClick = (index) => {
+        imageDialogRef.current.show(index);
     }
 
-    const onSettings = (e) => {
+    const handleRaritySettingsClick = () => {
         if (layerList[layerIndex].images == 0) {
-            alertRef.current.handleOpen("error", "Selected layer must have images");
+            alert({
+                title: 'Error',
+                description: "Selected layer must have images",
+                status: 'error',
+                duration: 3000,
+            })
             return;
         }
 
-        rarityDialogRef.current.handleOpen(layerList, layerIndex);
+        rarityDialogRef.current.show(layerList, layerIndex);
     }
 
     return (
-        <Card className={style.card}>
-            <RarityDialog 
+        <Box
+            flex='1'
+            mt='4'
+            bg='white' 
+            p='5'
+            className={style.box}
+        >
+            <RarityDialog
                 ref={rarityDialogRef} 
                 layerList={layerList} 
                 setLayerList={setLayerList}
             />
-            <ImageDialog ref={imageDialogRef} onDeleteItem={onDeleteItem}/>
-            <CardContent>
-                <div className={style.headerContainer}>
-                    <Typography variant="h6" component="div" gutterBottom>
-                        {layerList[layerIndex] && layerList[layerIndex].name} Images
-                    </Typography>
-                    <IconButton onClick={onSettings}>
-                        <SettingsIcon />
-                    </IconButton>
-                </div>
-                <div className={style.layerDisplay}>
-                    <div className={style.layerImageContainer}>
-                        {layerList[layerIndex] && layerList[layerIndex].images.map((image, idx) => (
-                            <Avatar
-                                className={style.layerImageItem}
-                                variant="rounded"
-                                alt="User Image"
-                                src={image.url}
-                                sx={{ width: 100, height: 100 }}
-                                key={idx}
-                                onClick={() => onClickItem(idx)}
-                            />
-                        ))}
-                    </div>
-                    {!editable && (
+            <ImageDialog 
+                ref={imageDialogRef}
+                onDeleteItem={handleDeleteItem}
+            />
+            <Box
+                display='flex'
+                justifyContent='space-between'
+            >
+                <Text fontSize='16pt'>
+                    {layerList[layerIndex] && layerList[layerIndex].name} Images
+                </Text>
+                <IconButton
+                    aria-label='Open current layer rarity settings' 
+                    icon={<MdSettings />}
+                    onClick={handleRaritySettingsClick}
+                />
+            </Box>
+            <Box
+                position='relative'
+                mt='2'
+            >
+                <Box
+                    display='flex'
+                    justifyContent='center'
+                    flexWrap='wrap'
+                    minH='11.7em'
+                    bg='rgb(243, 243, 243)'
+                    p='1'
+                >
+                    {layerList[layerIndex] && layerList[layerIndex].images.map((image, idx) => (
                         <Button 
-                            className={fileOverState ? style.layerDisplayDropTrue : style.layerDisplayDropFalse} 
-                            onDragOver={onDragOver}
-                            onDragLeave={onDragLeave}
-                            onDrop={onDrop}
-                            component="label"
+                            key={idx}
+                            bg='rgb(230, 230, 230)'
+                            w='100px'
+                            h='100px'
+                            p='1'
+                            style={{ borderRadius: '5px' }}
+                            onClick={() => handleItemClick(idx)}
                         >
-                            <FileUploadIcon />
-                            <span>Drag and drop images here!</span>
-                            <span>(image/png, Max size: N/A)</span>
-                            <input type="file" accept="image/png" name='files[]' onChange={onUpload} multiple hidden/>
+                            <img src={image.url} alt={image.name}/>
                         </Button>
-                    )}
-                </div>
-                <div className={style.editContainer}>
-                    <Typography variant="body2" component="div" gutterBottom>
-                        Note: All images must have the same dimensions.
-                    </Typography>
-                    <FormControlLabel
-                        control={
-                            <Switch
-                                checked={editable}
-                                onChange={onEdit}
-                                inputProps={{ 'aria-label': 'controlled' }}
-                            />
-                        }
-                        label="Edit Images"
-                    />
-                </div>
-            </CardContent>
-        </Card>
+                    ))}
+                </Box>
+                {!isEditable && (
+                    <Button
+                        position='absolute'
+                        top='0'
+                        w='full'
+                        h='full'
+                        display='flex'
+                        flexDir='column'
+                        as='label'
+                        opacity='80%'
+                        className={style.box}
+                        onDragOver={onDragOver}
+                        onDragLeave={onDragLeave}
+                        onDrop={onDrop}
+                    >
+                        <BsImageFill />
+                        <Text>Drag and drop images here!</Text>
+                        <Text>(image/png, Max size: N/A)</Text>
+                        <input type="file" accept="image/png" name='files[]' onChange={handleUploadClick} multiple hidden/>
+                    </Button>
+                )}
+            </Box>
+            <Box
+                mt='2'
+                display='flex'
+                justifyContent='flex-end'
+                alignItems='center'
+            >
+                <Switch 
+                    mt='1' 
+                    size='md' 
+                    isChecked={isEditable}
+                    onChange={onEditableChange}
+                />
+                <Text ml='2'>Edit</Text>
+            </Box>
+        </Box>
     )
 }
 

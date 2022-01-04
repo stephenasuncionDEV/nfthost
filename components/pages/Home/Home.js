@@ -1,68 +1,85 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { useToast, Box, Text, Icon } from '@chakra-ui/react'
+import { FaChevronDown } from "react-icons/fa"
 import axios from "axios";
-import { Typography } from "@mui/material";
+import MintContainer from "../../MintContainer";
 import LogsContainer from "./LogsContainer"
 import Log from "./Log"
-import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
-import MintContainer from "../../MintContainer";
 import style from "../../../styles/Home.module.scss"
 
-const Home = ({alertRef}) => {
+const Home = () => {
     const [logsData, setLogsData] = useState([]);
+    const alert = useToast();
 
     useEffect(() => {
-        axios.get("/api/webhook/get")
+        axios.get("https://nfthost.vercel.app/api/webhook/get")
         .then(res => {
             setLogsData(res.data);
         })
         .catch(err => {
-            alertRef.current.handleOpen("error", err.message);
+            alert({
+                title: 'Error',
+                description: err.message,
+                status: 'error',
+                duration: 3000,
+            })
         });
     }, [])
 
     return (
-        <div>
+        <>
             <div className="main-pane">
-                <div>
-                    <div className={style.container}>
-                        <div className={style.headerContainer}>
-                            <h1>Home 🏠</h1>
-                        </div>
-                        <div className={style.subContainer}>
-                            <LogsContainer>
-                                {logsData.map((log, idx) => (
-                                    <Log index={log.index} hash={log.hash} date={log.date} author={log.author} body={log.body} key={idx} />
-                                ))}
-                            </LogsContainer>
-                        </div>
-                        <div className={style.previewHeader}>
-                            <Typography variant="h5" component="div">
-                                Check out our new collection
-                            </Typography>
-                            <KeyboardDoubleArrowDownIcon sx={{ fontSize: "24pt" }} />
-                        </div>
+                <Box
+                    display='flex'
+                    flexDir='column'
+                    h='full'
+                    alignItems='center'
+                    mt='6'
+                >
+                    <Box 
+                        maxWidth='1200px' 
+                        width='100%'>
+                        <Text fontSize='28pt'>Home 🏠</Text>
+                    </Box>
+                    <LogsContainer>
+                        {logsData.map((log, idx) => (
+                            <Log {...log} key={idx} />
+                        ))}
+                    </LogsContainer>
+                    <div className={style.previewHeader}>
+                        <Text fontSize='16pt'>
+                            Check out our new collection
+                        </Text>
+                        <Icon as={FaChevronDown}/>
                     </div>
-                </div>
-                <div className={style.hostContainer}>
-                    <img src="/logo.png" alt="NFT Host Logo" />
-                    <Typography variant="h2" component="div">
+                </Box>
+                <Box
+                    w='full'
+                    display='flex'
+                    flexDir='column'
+                    alignItems='center'
+                    mt='8em'
+                    mb='4em'
+                >
+                    <img src="/logo.png" alt="NFT Host Logo" width='20%'/>
+                    <Text fontSize='32pt'>
                         Kalabaw NFT
-                    </Typography>
-                    <Typography variant="body1">
+                    </Text>
+                    <Text fontSize='14pt'>
                         Kalabaw NFT is a collection of 200 unique carabaos/water buffalos NFTs.
-                    </Typography>
+                    </Text>
                     <MintContainer 
                         iframe='<iframe
                             src="https://cloudflare-ipfs.com/ipfs/bafybeigpfbnasq3sbciukilnculoy3cd24ov5mshzmuw7gregexdy223be?contract=0xce240737302120e7C61334fFec8DF254B7003703&chainId=4"
-                            width="600px"
-                            height="600px"
+                            width="500px"
+                            height="500px"
                             style="max-width:100%;"
                             frameborder="0"
                         />'
                     />
-                </div>
+                </Box>
             </div>
-        </div>
+        </>
     )
 }
 

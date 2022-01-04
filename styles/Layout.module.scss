@@ -1,9 +1,11 @@
 .pane {
-    height: 100vh;
+    height: 100%;
     display: flex;
 }
 
 .topPane {
+    height: 100%;
+    margin-left: 300px;
     width: 100%;
     display: flex;
     flex-direction: column;

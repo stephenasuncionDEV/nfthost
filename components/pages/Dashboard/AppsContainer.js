@@ -1,42 +1,40 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Card, CardContent, Typography, IconButton } from '@mui/material';
-import GiteIcon from '@mui/icons-material/Gite';
-import PrecisionManufacturingSharpIcon from '@mui/icons-material/PrecisionManufacturingSharp';
-import style from "../../../styles/AppsContainer.module.scss"
+import { Box, Text, IconButton } from '@chakra-ui/react'
+import { FaServer } from 'react-icons/fa'
+import { GoCircuitBoard } from 'react-icons/go'
+import style from "../../../styles/Container.module.scss"
 
 const AppsContainer = ({setCurrentApp}) => {
-    const onClick = (value) => {
-        setCurrentApp(value);
-    }
-
     return (
-        <Card className={style.card}>
-            <CardContent className={style.cardContent}>
-                <Typography variant="h6" gutterBottom>
-                    Your Applications
-                </Typography>
-                <div className={style.appsContainer}>
-                    <IconButton 
-                        aria-label="Host NFT Drops" 
-                        size="large" 
-                        className={style.button} 
-                        sx={{ bgcolor: "rgb(233,30,99)" }} 
-                        onClick={() => onClick(0)}
-                    >
-                        <GiteIcon />
-                    </IconButton>
-                    <IconButton 
-                        aria-label="Generate NFTs" 
-                        size="large" 
-                        className={style.button} 
-                        sx={{ bgcolor: "rgb(242,80,34)" }} 
-                        onClick={() => onClick(1)}
-                    >
-                        <PrecisionManufacturingSharpIcon />
-                    </IconButton>
-                </div>
-            </CardContent>
-        </Card>
+        <Box 
+            maxW='1000px' 
+            w='100%' 
+            bg='white' 
+            borderRadius='5px'
+            mt='6'
+            p='5'
+            className={style.box}
+        >
+            <Text fontSize='16pt'>
+                Your Applications
+            </Text>
+            <Box 
+                mt='1'
+            >
+                <IconButton
+                    aria-label='NFT Website Hosting'
+                    size='lg'
+                    icon={<FaServer size='24' />}
+                    onClick={() => setCurrentApp(0)}
+                />
+                <IconButton
+                    aria-label='NFT Generator'
+                    size='lg'
+                    icon={<GoCircuitBoard size='24' />}
+                    ml='2'
+                    onClick={() => setCurrentApp(1)}
+                />
+            </Box>
+        </Box>
     )
 }
 

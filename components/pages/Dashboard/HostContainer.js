@@ -1,16 +1,16 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Card, CardContent, Typography, Button, Avatar, IconButton, TextField, Paper, FormControlLabel, Checkbox } from '@mui/material';
-import { getEthPriceNow } from "get-eth-price";
-import { useMoralis } from "react-moralis";
-import Chip from '@material-ui/core/Chip';
-import WebsiteContainer from "./WebsiteContainer";
-import style from "../../../styles/HostContainer.module.scss"
-import UploadImageDialog from "./UploadImageDialog";
-import PaymentDialog from "./PaymentDialog";
-import jwt_decode from "jwt-decode";
-import axios from "axios";
+import { useState, useEffect, useRef } from "react"
+import { useToast, Box, Text, Button, Avatar, IconButton, Input, Checkbox, Textarea, Tag, TagLabel, TagCloseButton } from '@chakra-ui/react'
+import { BsImageFill } from 'react-icons/bs'
+import { getEthPriceNow } from "get-eth-price"
+import { useMoralis } from "react-moralis"
+import jwt_decode from "jwt-decode"
+import axios from "axios"
+import WebsiteContainer from "./WebsiteContainer"
+import UploadImageDialog from "./UploadImageDialog"
+import PaymentDialog from "./PaymentDialog"
+import style from "../../../styles/Container.module.scss"
 
-const HostContainer = ({alertRef}) => {
+const HostContainer = () => {
     const { user, setUserData, Moralis } = useMoralis();
     const [isPreview, setIsPreview] = useState(false);
     const [hostIndex, setHostIndex] = useState(null);
@@ -39,20 +39,15 @@ const HostContainer = ({alertRef}) => {
     ]);
     const uploadImageRef = useRef();
     const paymentDialogRef = useRef();
-
-    const getHostList = () => {
-        setHostList(user.attributes.websites);
-    }
-
-    const handleDelete = (index) => {
-        let newChipData = [...chipData];
-        newChipData.splice(index, 1);
-        setChipData(newChipData);
-    }
+    const alert = useToast();
 
     useEffect(() => {
         setHostList(user.attributes.websites);
     }, [])
+
+    const getHostList = () => {
+        setHostList(user.attributes.websites);
+    }
 
     const onCreation = () => {
         // Parse Keywords
@@ -102,21 +97,49 @@ const HostContainer = ({alertRef}) => {
             })
             .then(res => {
                 getHostList();
-                onClear();
-                alertRef.current.handleOpen("success", "Your mint website has been created");
+                onClear();       
+                alert({
+                    title: 'Website Created',
+                    description: 'Your website has been created.',
+                    status: 'success',
+                    duration: 3000,
+                })
             })
-            .catch(err => {
-                alertRef.current.handleOpen("error", err.message);
-                return;
+            .catch(err => {        
+                alert({
+                    title: 'Error',
+                    description: err.message,
+                    status: 'error',
+                    duration: 3000,
+                })
             })
 
-        } catch (err) {
-            alertRef.current.handleOpen("error", err.message);
+        } catch (err) { 
+            alert({
+                title: 'Error',
+                description: err.message,
+                status: 'error',
+                duration: 3000,
+            })
             return;
         }
     }
 
-    const onCreate = () => {
+    const onSaveURL = (url) => {
+        const websiteArr = user.attributes.websites;
+        let newHostList = [...websiteArr];
+        newHostList[websiteArr.length - 1].url = url;
+        setHostList(newHostList);
+        return setUserData({ websites: newHostList })
+    }
+
+    const handleDeleteKeyword = (index) => {
+        let newChipData = [...chipData];
+        newChipData.splice(index, 1);
+        setChipData(newChipData);
+    }
+
+    const handleCreateWebsite = () => {
         try {
             // Reset state if isPreview
             if (isPreview) {
@@ -150,7 +173,10 @@ const HostContainer = ({alertRef}) => {
             // Check if user needs to pay
             const hostSize = user.attributes.hostSize;
             if (hostSize != null && hostList.length >= hostSize) {
-                paymentDialogRef.current.handleOpen("Out of Website Slots", "", "You will be prompted 1 transaction");
+                paymentDialogRef.current.show({
+                    title: "Out of Website Slots",
+                    footer: "You will be prompted 1 transaction"
+                });
                 getEthPriceNow()
                 .then(data => {
                     const ethPrice = 50 / data[Object.keys(data)[0]].ETH.USD;
@@ -162,7 +188,7 @@ const HostContainer = ({alertRef}) => {
                     })
                 })
                 .then(res => {
-                    paymentDialogRef.current.handleClose();
+                    paymentDialogRef.current.hide();
                     const curHostSize = user.attributes.hostSize;
                     return setUserData({
                         hostSize: curHostSize + 1
@@ -172,8 +198,13 @@ const HostContainer = ({alertRef}) => {
                     onCreation();
                 })
                 .catch(err => {
-                    paymentDialogRef.current.handleClose();
-                    alertRef.current.handleOpen("error", err.message);
+                    paymentDialogRef.current.hide();
+                    alert({
+                        title: 'Error',
+                        description: err.message,
+                        status: 'error',
+                        duration: 3000,
+                    })        
                     return;
                 })
             } else {
@@ -181,22 +212,24 @@ const HostContainer = ({alertRef}) => {
             }
         }
         catch (err) {
-            alertRef.current.handleOpen("error", err.message);
+            alert({
+                title: 'Error',
+                description: err.message,
+                status: 'error',
+                duration: 3000,
+            })
             return;
         }
     }
 
-    const onSaveURL = (url) => {
-        const websiteArr = user.attributes.websites;
-        let newHostList = [...websiteArr];
-        newHostList[websiteArr.length - 1].url = url;
-        setHostList(newHostList);
-        return setUserData({ websites: newHostList })
-    }
-
-    const onSaveChanges = () => {
+    const handleSaveChangesClick = () => {
         if (hostIndex == -1) {
-            alertRef.current.handleOpen("error", "Please select a website");
+            alert({
+                title: 'Error',
+                description: 'Please select a website',
+                status: 'error',
+                duration: 3000,
+            })
             return;
         } 
 
@@ -219,16 +252,27 @@ const HostContainer = ({alertRef}) => {
             websites: newHostList
         })
         .then(res => {
-            alertRef.current.handleOpen("success", "Changes has been saved");
             onClear();
             setIsPreview(false);
+            alert({
+                title: 'Website Updated',
+                description: "Changes has been updated.",
+                status: 'success',
+                duration: 3000,
+            })
+
         })
         .catch(err =>  {
-            alertRef.current.handleOpen("error", err.message);
+            alert({
+                title: 'Error',
+                description: err.message,
+                status: 'error',
+                duration: 3000,
+            })
         })
     }
 
-    const onClickHost = (host) => {
+    const handleWebsiteClick = (host) => {
         getHostList();
         const index = hostList.findIndex(res => res.title == host.title);
         setHostImage(host.image);
@@ -246,7 +290,7 @@ const HostContainer = ({alertRef}) => {
         setIsPreview(true);
     }
 
-    const onClear = () => {
+    const handleClearClick = () => {
         setHostImage("");
         setHostTitle("");
         setHostHeader("");
@@ -271,8 +315,71 @@ const HostContainer = ({alertRef}) => {
         setHostIsRobot(true);
     }
 
-    const onImageUpload = () => {
-        uploadImageRef.current.handleOpen();
+    const handleImageUploadClick = () => {
+        uploadImageRef.current.show();
+    }
+
+    const handleWebsiteDelete = () => {
+        if (hostIndex == -1) {
+            alert({
+                title: 'Error',
+                description: 'Please select a website',
+                status: 'error',
+                duration: 3000,
+            })
+            return;
+        }
+
+        const accessToken = localStorage.getItem("accessToken");
+        const headers = {
+            headers: {
+                authorization: `Bearer ${accessToken}`
+            }
+        }
+
+        axios.post("/api/host/delete", {
+            url: hostList[hostIndex].url
+        }, headers)
+        .then(res => {
+            let newHostList = [...hostList];
+            newHostList.splice(hostIndex, 1);
+            setHostList(newHostList);
+            return setUserData({websites: newHostList})
+        })
+        .then(res => {
+            onClear();
+            setIsPreview(false);
+            alert({
+                title: 'Success',
+                description: "Website has been deleted",
+                status: 'success',
+                duration: 3000,
+            })
+
+        })
+        .catch(err =>  {
+            alert({
+                title: 'Error',
+                description: err.message,
+                status: 'error',
+                duration: 3000,
+            })
+        })
+    }
+
+    const handleCopyURL = () => {
+        if (hostURL.length == 0) return;
+        navigator.clipboard.writeText(hostList[hostIndex].url);
+        alert({
+            title: 'Info',
+            description: "Link has been copied.",
+            status: 'info',
+            duration: 2000,
+        })
+    }
+
+    const handleIsRobotChange = () => {
+        setHostIsRobot((prev) => !prev)
     }
 
     const onTitleChange = (e) => {
@@ -311,136 +418,178 @@ const HostContainer = ({alertRef}) => {
                     setChipData([...chipData, word]);
                     setHostKeywords("");
                 } else {
-                    alertRef.current.handleOpen("error", `You already used "${word}" keyword`);
+                    alert({
+                        title: 'Error',
+                        description: `You already used "${word}" keyword`,
+                        status: 'error',
+                        duration: 3000,
+                    })
                 }
             }
         }
     }
 
-    const onDelete = () => {
-        if (hostIndex == -1) {
-            alertRef.current.handleOpen("error", "Please select a website");
-            return;
-        }
-
-        const accessToken = localStorage.getItem("accessToken");
-        const headers = {
-            headers: {
-                authorization: `Bearer ${accessToken}`
-            }
-        }
-
-        axios.post("/api/host/delete", {
-            url: hostList[hostIndex].url
-        }, headers)
-        .then(res => {
-            let newHostList = [...hostList];
-            newHostList.splice(hostIndex, 1);
-            setHostList(newHostList);
-            return setUserData({websites: newHostList})
-        })
-        .then(res => {
-            alertRef.current.handleOpen("success", "Successfully deleted");
-            onClear();
-            setIsPreview(false);
-        })
-        .catch(err =>  {
-            alertRef.current.handleOpen("error", err.message);
-        })
-    }
-
-    const onCopyURL = () => {
-        if (hostURL.length == 0) return;
-        navigator.clipboard.writeText(hostList[hostIndex].url);
-        alertRef.current.handleOpen("info", "Link has been copied.");
-    }
-
     return (
-        <Card className={style.card}>
+        <Box 
+            maxW='1000px' 
+            w='100%' 
+            bg='white' 
+            borderRadius='5px'
+            mt='6'
+            p='5'
+            className={style.box}
+        >
             <UploadImageDialog 
                 ref={uploadImageRef} 
-                hostImage={hostImage} 
-                setHostImage={setHostImage} 
+                hostImage={hostImage}
+                setHostImage={setHostImage}
             />
             <PaymentDialog ref={paymentDialogRef} />
-            <CardContent>
-                <Typography variant="h6" gutterBottom>
-                    NFT Host ({hostList.length}/{user.attributes.hostSize == null ? 1 : user.attributes.hostSize})
-                </Typography>
-                <div className={style.container}>
-                    <WebsiteContainer
-                        hostList={hostList}
-                        onCreate={onCreate}
-                        onClickHost={onClickHost}
+            <Text fontSize='16pt'>
+                NFT Drop Hosting
+            </Text>
+            <Text fontSize='10pt'>
+                ({hostList.length}/{user.attributes.hostSize == null ? 1 : user.attributes.hostSize})
+            </Text>
+            <WebsiteContainer 
+                onCreate={handleCreateWebsite} 
+                onClickHost={handleWebsiteClick}
+            />
+            <Box
+                display='flex'
+                flexDir='wrap'
+                mt='2'
+                h='180px'
+            >
+                <Button
+                    variant='outline'
+                    w='200px'
+                    h='full'
+                    mr='2'
+                    onClick={handleImageUploadClick}
+                >
+                    <BsImageFill size='18pt' />
+                    {hostImage.length > 0 && <img src={hostImage} alt='Website Logo'/>}
+                </Button>
+                <Box
+                    display='flex'
+                    flexDir='column'
+                    w='full'
+                    justifyContent='space-between'
+                >
+                    <Box
+                        display='flex'
+                    >
+                        <Input 
+                            placeholder='Title' 
+                            variant='outline' 
+                            value={hostTitle} 
+                            onChange={onTitleChange}
+                            isRequired
+                        />
+                        <Input 
+                            placeholder='Link' 
+                            variant='outline' 
+                            value={hostURL} 
+                            ml='2'
+                            disabled
+                            onClick={handleCopyURL}
+                        />
+                    </Box>
+                    <Input 
+                        placeholder='Header' 
+                        variant='outline' 
+                        value={hostHeader} 
+                        onChange={onHeaderChange}
+                        isRequired
                     />
-                    <div className={style.subContainer}>
-                        <div className={style.hostInfoParent}>
-                            <IconButton variant="outlined" component="label" className={style.imageUpload} onClick={onImageUpload}>
-                                {hostImage ? (
-                                    <Avatar
-                                        variant="rounded"
-                                        alt="NFT Website Logo"
-                                        src={hostImage}
-                                        sx={{ width: 150, height: 150 }}
-                                    />
-                                ) : (
-                                    "Upload Logo"
-                                )}
-                            </IconButton>
-                            <div className={style.hostInfoContainer}>
-                                <div className={style.hostTitleLink}>
-                                    <TextField required label="Title" variant="outlined" size="small" sx={{ flexGrow: 1 }} autoComplete='off' value={hostTitle} onChange={onTitleChange}/>
-                                    <TextField disabled label="Link" variant="outlined" size="small" sx={{ flexGrow: 1, ml: 1 }} autoComplete='off' value={hostURL} onClick={onCopyURL}/>
-                                </div>
-                                <TextField required label="Header" variant="outlined" size="small" sx={{ width: "100%" }} autoComplete='off' value={hostHeader} onChange={onHeaderChange}/>
-                                <TextField required label="Description" variant="outlined" size="small" sx={{ width: "100%" }} autoComplete='off' value={hostDescription} onChange={onDescriptionChange}/>
-                            </div>
-                        </div>
-                        <div className={style.hostIframe}>
-                            <TextField required multiline rows={7} label="ThirdWeb IFrame Embed Code" variant="outlined" size="small" sx={{ width: "100%" }} autoComplete='off' value={hostIframe} onChange={onIframeChange} />
-                        </div>
-                        <Typography variant="h6" sx={{mt: 1, mb: 2}} gutterBottom>
-                            Meta Tags
-                        </Typography>
-                        <div className={style.hostMetaContainer}>
-                            <FormControlLabel sx={{mb:1}} control={<Checkbox checked={hostIsRobot} onChange={() => setHostIsRobot((prev) => !prev)}/>} label="Allow robots to index your website?" />
-                            <div className={style.hostTitleLink}>
-                                <TextField label="Language" variant="outlined" size="small" sx={{ flexGrow: 1 }} autoComplete='off' value={hostLanguage} onChange={onLanguageChange}/>
-                                <TextField label="Keywords" variant="outlined" size="small" sx={{ flexGrow: 1, ml: 1 }} autoComplete='off' value={hostKeywords} onChange={onKeywordsChange} onKeyUp={onKeywordsEnter}/>
-                            </div>
-                            <Paper component="ul" className={style.hostKeywordContainer}>
-                                {chipData.map((chip, idx) => (
-                                    <li key={idx}>
-                                        <Chip
-                                            label={`${chip}`}
-                                            onDelete={() => handleDelete(idx)}
-                                            className={style.hostKeywordChip}
-                                        />
-                                    </li>   
-                                ))}
-                            </Paper>
-                        </div>
-                        {isPreview && (
-                            <div>
-                                <div className={style.hostButtons}>
-                                    <Button variant="contained" color="error" onClick={onDelete}>
-                                        Delete
-                                    </Button>
-                                    <div className={style.hostButtonRight}>
-                                        <Button variant="contained" sx={{ color: "black" }} onClick={onClear}>
-                                            Clear
-                                        </Button>
-                                        <Button variant="contained" sx={{ ml: 1 }} onClick={onSaveChanges} disabled>
-                                            Save Changes
-                                        </Button>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                </div>
-            </CardContent>
-        </Card>
+                    <Textarea 
+                        placeholder='Description' 
+                        variant='outline' 
+                        value={hostDescription} 
+                        onChange={onDescriptionChange}
+                        isRequired
+                    />
+                </Box>
+            </Box>
+            <Box
+                mt='2'
+            >
+                <Textarea 
+                    placeholder='ThirdWeb IFrame Embed Code' 
+                    variant='outline' 
+                    value={hostIframe} 
+                    onChange={onIframeChange}
+                    isRequired
+                />
+                <Checkbox 
+                    mt='3'
+                    size='md'
+                    isChecked={hostIsRobot} 
+                    onChange={handleIsRobotChange}
+                >
+                    Allow robots to index your website?
+                </Checkbox>
+                <Box
+                    display='flex'
+                    mt='3'
+                >
+                    <Input 
+                        placeholder='Language'
+                        variant='outline' 
+                        value={hostLanguage} 
+                        onChange={onLanguageChange}
+                    />
+                    <Input 
+                        placeholder='Keywords'
+                        variant='outline' 
+                        value={hostKeywords} 
+                        ml='2'
+                        onChange={onKeywordsChange}
+                        onKeyDown={onKeywordsEnter}
+                    />
+                </Box>
+                <Box
+                    mt='3'
+                    display='flex'
+                    flexWrap='wrap'
+                    justifyContent='center'
+                >
+                    {chipData.map((chip, idx) => (
+                        <Tag 
+                            variant='solid'
+                            size='md' 
+                            borderRadius='full'
+                            bg='rgb(230, 230, 230)'
+                            color='blackAlpha.800'
+                        >
+                            <TagLabel>{chip}</TagLabel>
+                            <TagCloseButton onClick={() => handleDeleteKeyword(idx)}/>
+                        </Tag>
+                    ))}
+                </Box>
+                {isPreview && (
+                    <Box
+                        display='flex'
+                        justifyContent='space-between'
+                    >
+                        <Button variant="contained" colorScheme="red" onClick={handleWebsiteDelete}>
+                            Delete
+                        </Button>
+                        <Box
+                            display='flex'
+                        >
+                            <Button variant="contained" colorScheme="gray" onClick={handleClearClick}>
+                                Clear
+                            </Button>
+                            <Button variant="contained" colorScheme="blue" onClick={handleSaveChangesClick} disabled>
+                                Save Changes
+                            </Button>
+                        </Box>
+                    </Box>
+                )}
+            </Box>
+        </Box>
     )
 }
 

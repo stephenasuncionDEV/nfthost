@@ -1,5 +1,6 @@
 import '../styles/globals.scss'
 import { MoralisProvider } from 'react-moralis'
+import { ChakraProvider } from '@chakra-ui/react'
 
 const MyApp = ({ Component, pageProps }) => {
     return (
@@ -7,7 +8,9 @@ const MyApp = ({ Component, pageProps }) => {
             appId={process.env.MORALIS_APP_ID}
             serverUrl={process.env.MORALIS_SERVER_URL}
         >
-            <Component {...pageProps} />
+            <ChakraProvider>
+                <Component {...pageProps} />
+            </ChakraProvider>
         </MoralisProvider>
     )
 }

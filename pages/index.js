@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useMoralis, useMoralisWeb3Api } from "react-moralis";
+import { useState, useEffect } from "react"
+import { useToast } from '@chakra-ui/react'
+import { useMoralis, useMoralisWeb3Api } from "react-moralis"
 import Header from "../components/Header"
-import Alert from "../components/Alert"
 import Login from "../components/Login"
 import Layout from "../components/Layout"
 import Home from "../components/pages/Home/Home"
@@ -9,53 +9,59 @@ import Dashboard from "../components/pages/Dashboard/Dashboard";
 import About from "../components/pages/About/About"
 
 const Index = () => {
-    const [userData, setUserData] = useState({});
     const [currentPage, setCurrentPage] = useState(0);
-    const {isAuthenticated, user, logout, Moralis} = useMoralis();
+    const {Moralis, isAuthenticated, user, logout, setUserData} = useMoralis();
     const web3Api = useMoralisWeb3Api();
-    const alertRef = useRef();
+    const alert = useToast();
 
     useEffect(() => {
         Moralis.onChainChanged(async (chainID) => {
             if (chainID != `0x${process.env.CHAIN_ID}`) {
                 logout()
                 .then(() => {
-                    alertRef.current.handleOpen("error", "Please switch to Ethereum Mainnet");
-                });
+                    throw new Error("Please switch to Ethereum Mainnet Network.");
+                })
+                .catch(err => {
+                    alert({
+                        title: 'Error',
+                        description: err.message,
+                        status: 'error',
+                        duration: 3000,
+                    })
+                })
             }
         });
     }, [Moralis])
 
-    const getUserData = () => {
-        Moralis.enableWeb3({ provider: "metamask" })
-        .then(res => {
-            return Moralis.getChainId();
-        })
-        .then(chainID => {
-            if (chainID != process.env.CHAIN_ID) {
-                logout();
-                throw new Error("Please switch to Ethereum Mainnet");
-            }
-            return web3Api.account.getNativeBalance({
-                chain: `0x${process.env.CHAIN_ID}`,
-                address: user.attributes.ethAddress
-            });
-        })
-        .then(res => {
-            setUserData({
-                address: user.attributes.ethAddress,
-                balance: Moralis.Units.FromWei(res.balance).toString()
-            })
-        })
-        .catch(err => {
-            alertRef.current.handleOpen("error", err.message);
-            return;
-        })
-    }
-
     useEffect(() => {
         if (isAuthenticated) {
-            getUserData();
+            Moralis.enableWeb3({ provider: "metamask" })
+            .then(res => {
+                return Moralis.getChainId();
+            })
+            .then(chainID => {
+                if (chainID != process.env.CHAIN_ID) {
+                    logout();
+                    throw new Error("Please switch to Ethereum Mainnet");
+                }
+                return web3Api.account.getNativeBalance({
+                    chain: `0x${process.env.CHAIN_ID}`,
+                    address: user.attributes.ethAddress
+                });
+            })
+            .then(res => {
+                setUserData({
+                    balance: Moralis.Units.FromWei(res.balance).toString()
+                })
+            })
+            .catch(err => {
+                alert({
+                    title: 'Error',
+                    description: err.message,
+                    status: 'error',
+                    duration: 3000,
+                })
+            })
         }
     }, [isAuthenticated])
 
@@ -69,31 +75,17 @@ const Index = () => {
                 language="English"
                 image="/logo.png"
             />
-            <Alert ref={alertRef}/>
             {isAuthenticated ? (
                 <Layout 
                     currentPage={currentPage}
                     setCurrentPage={setCurrentPage}
-                    userData={userData}
                 >
-                    {currentPage == 0 && (
-                        <Home 
-                            alertRef={alertRef}
-                        />
-                    )}
-                    {currentPage == 1 && (
-                        <Dashboard 
-                            alertRef={alertRef}
-                        />
-                    )}
-                    {currentPage == 2 && (
-                        <About />
-                    )}
+                    {currentPage == 0 && <Home />}
+                    {currentPage == 1 && <Dashboard />}
+                    {currentPage == 2 && <About />}
                 </Layout>
             ) : (
-                <Login
-                    alertRef={alertRef}
-                />
+                <Login />
             )}
         </div>
     )

@@ -1,39 +1,34 @@
-import React, { useState, forwardRef, useImperativeHandle } from "react"
-import { Dialog, DialogContent, DialogContentText, DialogTitle, LinearProgress } from '@mui/material';
+import { useState, forwardRef, useImperativeHandle } from "react";
+import { useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter, Skeleton, Text } from '@chakra-ui/react'
 
 const PaymentDialog = (props, ref) => {
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
-    const [footer, setFooter] = useState("");
-    const [open, setOpen] = useState(false);
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const [paymentInfo, setPaymentInfo] = useState("");
 
     useImperativeHandle(ref, () => ({
-        handleOpen(title, description, footer) {  
-            setTitle(title);
-            setDescription(description);
-            setFooter(footer);
-            setOpen(true);
+        show(data) {  
+            setPaymentInfo(data);
+            onOpen();
         },
-        handleClose() {
-            setOpen(false);
+        hide() {
+            onClose();
         }
     }), [])
 
     return (
-        <Dialog
-            open={open}
-        >
-            <DialogTitle>{title}</DialogTitle>
-            <DialogContent>
-                <DialogContentText sx={{ mb: 2 }}>
-                    {description}
-                </DialogContentText>
-                <LinearProgress />
-                <DialogContentText sx={{mt:2}}>
-                    {footer}
-                </DialogContentText>
-            </DialogContent>
-        </Dialog>
+        <Modal isCentered isOpen={isOpen} motionPreset='slideInBottom'>
+            <ModalOverlay />
+            <ModalContent>
+                <ModalHeader>{paymentInfo.title}</ModalHeader>
+                <ModalBody>
+                    <Text mb='2'>Please do not refresh this page</Text>
+                    <Skeleton startColor='pink.500' endColor='orange.500' height='15px' />
+                </ModalBody>
+                <ModalFooter>
+                    <Text>{paymentInfo.footer}</Text>
+                </ModalFooter>
+            </ModalContent>
+        </Modal>
     )
 }
 

@@ -1,24 +1,17 @@
-import React, { useState, forwardRef, useImperativeHandle } from "react"
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material';
+import { useState, forwardRef, useImperativeHandle } from "react"
+import { useToast, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, ModalFooter, Button, Input, Textarea } from '@chakra-ui/react'
 
 const ScriptDialog = (props, ref) => {
-    const {alertRef, layerList, setLayerList} = props;
+    const { layerList, setLayerList } = props;
+    const { isOpen, onOpen, onClose } = useDisclosure();
     const [script, setScript] = useState("");
-    const [open, setOpen] = useState(false);
+    const alert = useToast();
 
     useImperativeHandle(ref, () => ({
-        handleOpen() {  
-            setOpen(true);
-        },
-        runScript(script) {
-            setScript(script);
-            onRun();
+        show() {  
+            onOpen();
         }
     }), [])
-
-    const handleClose = () => {
-        setOpen(false);
-    }
 
     const determineLayer = () => {
         if (script.indexOf("layers=") != -1) {
@@ -38,7 +31,12 @@ const ScriptDialog = (props, ref) => {
                 })
             });
             if (layerList.length + retLayers.length > 6) {
-                alertRef.current.handleOpen("error", "You cannot have more than 6 layers.");
+                alert({
+                    title: 'Error',
+                    description: "You cannot have more than 6 layers.",
+                    status: 'error',
+                    duration: 3000,
+                })
                 return;
             } else {
                 setLayerList([...layerList, ...retLayers]);
@@ -46,46 +44,40 @@ const ScriptDialog = (props, ref) => {
         }
     }
 
-    const onRun = () => {
+    const handleRunClick = () => {
         determineLayer();
-        setOpen(false);
+        onClose();
     }
 
-    const onTab = (e) => {
-        if (e.key == "Tab") {
-            e.preventDefault();
-        }
-    }
-
-    const onScript = (e) => {
+    const onScriptChange = (e) => {
         setScript(e.target.value);
     }
 
     return (
-        <Dialog
-            open={open} 
-            onClose={handleClose}
-            fullWidth
-        >
-            <DialogTitle>Script</DialogTitle>
-            <DialogContent>
-                <TextField
-                    label="script"
-                    rows={10}
-                    fullWidth
-                    multiline
-                    sx={{mt: 1}}
-                    onKeyDown={onTab}
-                    value={script}
-                    onChange={onScript}
-                    autoComplete='off'
-                />
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={handleClose}>Cancel</Button>
-                <Button onClick={onRun} color="success">Run</Button>
-            </DialogActions>
-        </Dialog>
+        <Modal isCentered isOpen={isOpen} onClose={onClose} motionPreset='slideInBottom'>
+            <ModalOverlay />
+            <ModalContent>
+                <ModalHeader>Run a script</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody>
+                    <Textarea 
+                        placeholder='Script' 
+                        variant='outline' 
+                        value={script} 
+                        onChange={onScriptChange}
+                        isRequired
+                    />
+                </ModalBody>
+                <ModalFooter>
+                    <Button variant='solid' colorScheme='gray' onClick={onClose}>
+                        Cancel
+                    </Button>
+                    <Button ml='2' variant='solid' colorScheme='blue' onClick={handleRunClick}>
+                        Run
+                    </Button>
+                </ModalFooter>
+            </ModalContent>
+        </Modal>
     )
 }
 

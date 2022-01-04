@@ -1,10 +1,10 @@
-import React, { useState, useEffect, forwardRef, useImperativeHandle } from "react";
-import { Dialog, DialogContent, DialogActions, DialogContentText, DialogTitle, Button, TextField } from '@mui/material';
+import { useState, useEffect, forwardRef, useImperativeHandle } from "react";
+import { useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, ModalFooter, Button, Input } from '@chakra-ui/react'
 
 const UploadImageDialog = (props, ref) => {
-    const {hostImage, setHostImage} = props;
+    const { hostImage, setHostImage } = props;
+    const { isOpen, onOpen, onClose } = useDisclosure();
     const [imageURL, setImageURL] = useState(hostImage);
-    const [open, setOpen] = useState(false);
 
     useEffect(() => {
         if (hostImage == null) return;
@@ -12,48 +12,39 @@ const UploadImageDialog = (props, ref) => {
     }, [hostImage])
 
     useImperativeHandle(ref, () => ({
-        handleOpen() {
-            setOpen(true);
+        show() {
+            onOpen();
         }
     }), [])
 
-    const handleClose = () => {
-        setOpen(false);
-    };
-
-    const handleSet = () => {
+    const handleSetImage = () => {
         setHostImage(imageURL);
-        setOpen(false);
+        onClose();
     };
 
-    const onImageURLChange = (e) => {
+    const handleImageURLChange = (e) => {
         setImageURL(e.target.value);
     }
 
     return (
-        <Dialog open={open} onClose={handleClose}>
-            <DialogTitle>Upload an Image</DialogTitle>
-            <DialogContent>
-                <DialogContentText>
-                    Please enter an image URL below:
-                </DialogContentText>
-                <TextField
-                    autoFocus
-                    margin="dense"
-                    id="name"
-                    label="url"
-                    fullWidth
-                    variant="standard"
-                    autoComplete='off'
-                    value={imageURL}
-                    onChange={onImageURLChange}
-                />
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={handleClose}>Cancel</Button>
-                <Button onClick={handleSet}>Set</Button>
-            </DialogActions>
-        </Dialog>
+        <Modal isCentered isOpen={isOpen} onClose={onClose} motionPreset='slideInBottom'>
+            <ModalOverlay />
+            <ModalContent>
+                <ModalHeader>Upload an Image</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody>
+                    <Input variant='outline' placeholder='Image URL' value={imageURL} onChange={handleImageURLChange}/>
+                </ModalBody>
+                <ModalFooter>
+                    <Button variant='solid' colorScheme='gray' onClick={onClose}>
+                        Cancel
+                    </Button>
+                    <Button ml='2' variant='solid' colorScheme='blue' onClick={handleSetImage}>
+                        Save
+                    </Button>
+                </ModalFooter>
+            </ModalContent>
+        </Modal>
     )
 }
 

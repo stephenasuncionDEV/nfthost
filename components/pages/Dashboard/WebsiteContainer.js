@@ -1,27 +1,40 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Typography, Button } from '@mui/material';
-import WebAssetIcon from '@mui/icons-material/WebAsset';
-import AddIcon from '@mui/icons-material/Add';
-import style from "../../../styles/WebsiteContainer.module.scss"
+import { Box, Text, Button } from '@chakra-ui/react'
+import { useMoralis } from "react-moralis"
+import { MdCreate, MdWebAsset } from 'react-icons/md'
 
-const WebsiteContainer = ({hostList, onCreate, onClickHost}) => {
+const WebsiteContainer = ({ onCreate, onClickHost }) => {
+    const { user } = useMoralis();
+
     return (
-        <div className={style.websiteContainer}>
-            <Button variant="outlined" component="label" className={style.websiteProp} onClick={onCreate}>
-                <AddIcon />
-                <Typography sx={{fontSize: 12}}>
-                    Create
-                </Typography>
+        <Box 
+            display='flex'
+            flexWrap='wrap'
+            mt='2'
+            p='2'
+            borderStyle='dashed'
+            borderWidth='1px'
+        >
+            <Button
+                aria-label='Create a new website'
+                w='150px'
+                h='140px'
+                onClick={onCreate}
+            >
+                <MdCreate size='24' />
+                <Text>Create</Text>
             </Button>
-            {hostList.map((host, idx) => (
-                <Button variant="outlined" component="label" className={style.websiteProp} key={idx} onClick={() => onClickHost(host)}>
-                    <WebAssetIcon />
-                    <Typography sx={{fontSize: 12}}>
-                        {host.title.length > 11 ? host.title.substring(0, 7) + "..." : host.title}
-                    </Typography>
+            {user.attributes.websites.map((host, idx) => (
+                <Button
+                    aria-label='Create a new website'
+                    w='150px'
+                    h='140px'
+                    onClick={() => onClickHost(host)}
+                >
+                    <MdWebAsset size='24' />
+                    <Text>{host.title.length > 11 ? host.title.substring(0, 7) + "..." : host.title}</Text>
                 </Button>
             ))}
-        </div>
+        </Box>
     )
 }
 
