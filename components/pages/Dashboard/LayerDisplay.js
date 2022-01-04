@@ -161,6 +161,8 @@ const LayerDisplay = ({layerList, layerIndex, setLayerList}) => {
                     {layerList[layerIndex] && layerList[layerIndex].images.map((image, idx) => (
                         <Button 
                             key={idx}
+                            ml='2'
+                            mb='2'
                             bg='rgb(230, 230, 230)'
                             w='100px'
                             h='100px'
