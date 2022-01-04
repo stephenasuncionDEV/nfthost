@@ -2,7 +2,6 @@ import { useToast, ButtonGroup, Button, IconButton, Icon, Text, Box } from '@cha
 import { useMoralis } from "react-moralis";  
 import { FiCopy } from 'react-icons/fi'
 import Sidebar from "./Sidebar"
-import style from "../styles/Layout.module.scss"
 
 const Layout = ({children, currentPage, setCurrentPage}) => {
     const { user } = useMoralis();
@@ -19,12 +18,21 @@ const Layout = ({children, currentPage, setCurrentPage}) => {
     }
 
     return (
-        <div className={style.pane}>
+        <Box
+            h='full'
+            display='flex'
+        >
             <Sidebar 
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
             />
-            <div className={style.topPane}>
+            <Box
+                w='full'
+                h='full'
+                ml='300px'
+                display='flex'
+                flexDir='column'
+            >
                 <Box 
                     display='flex'
                     alignItems='center'
@@ -65,8 +73,8 @@ const Layout = ({children, currentPage, setCurrentPage}) => {
                     </ButtonGroup>
                 </Box>
                 {children}
-            </div>
-        </div>
+            </Box>
+        </Box>
     )
 }
 

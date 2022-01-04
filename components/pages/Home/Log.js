@@ -1,9 +1,13 @@
-import { Text } from '@chakra-ui/react'
-import style from "../../../styles/Log.module.scss"
+import { Box, Text } from '@chakra-ui/react'
 
 const Log = ({index, hash, date, author, body}) => {
     return (
-        <div className={style.container}>
+        <Box
+            mt='1em'
+            bg='rgb(240, 240, 240)'
+            borderRadius='10px 10px'
+            p='1em'
+        >
             <Text fontSize='19pt'>
                 Update Log #{index}
             </Text>
@@ -21,7 +25,7 @@ const Log = ({index, hash, date, author, body}) => {
                     - {content}
                 </Text>
             ))}
-        </div>
+        </Box>
     )
 }
 

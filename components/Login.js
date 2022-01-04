@@ -1,9 +1,8 @@
 import { useEffect, useRef } from "react"
-import { useToast, Button, Icon } from '@chakra-ui/react'
+import { useToast, Box, Button, Image, Text } from '@chakra-ui/react'
 import { useMoralis } from "react-moralis"
-import { MdLogin } from 'react-icons/md'
+import { IoMdWallet } from 'react-icons/io'
 import WalletDialog from "./WalletDialog";
-import style from "../styles/Login.module.scss"
 
 const Login = () => {
     const { authenticate, authError } = useMoralis();
@@ -48,20 +47,42 @@ const Login = () => {
     }
 
     return (
-        <div className={style.centerPane}>
-            <WalletDialog ref={walletDialogRef} onChange={handleWalletChange} />
-            <div id={style.container}>
-                <header>
-                    <img src="/logo.png" alt="NFT Host Logo" />
-                    <h1>NFT Host</h1>
-                </header>
-                <div id={style.subContainer}>
-                    <Button variant='solid' px={6} rightIcon={<Icon as={MdLogin} />} colorScheme='blue' onClick={handleConnectWithWallet}>
-                        Connect to a Wallet
-                    </Button>
-                </div>
-            </div>   
-        </div>
+        <Box
+            h='full'
+            display='flex'
+            flexDirection='column'
+            justifyContent='center'
+            alignItems='center'
+        >
+            <WalletDialog 
+                ref={walletDialogRef} 
+                onChange={handleWalletChange} 
+            />
+            <Image 
+                src="/logo.png" 
+                alt="NFT Host Logo" 
+                boxSize='240px'
+                objectFit='scale-down'
+            />
+            <Text 
+                fontSize='32pt'
+                lineHeight='32pt'
+            >
+                NFT Host
+            </Text>
+            <Button 
+                mt='4'
+                variant='solid' 
+                py='5'
+                px='6'
+                rightIcon={<IoMdWallet/>} 
+                colorScheme='gray' 
+                borderBottomWidth='3px'
+                onClick={handleConnectWithWallet}
+            >
+                Connect to a Wallet
+            </Button>
+        </Box>
     )
 }
 

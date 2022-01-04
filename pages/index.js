@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { useToast } from '@chakra-ui/react'
+import { useToast, Box } from '@chakra-ui/react'
 import { useMoralis, useMoralisWeb3Api } from "react-moralis"
 import Header from "../components/Header"
 import Login from "../components/Login"
@@ -66,7 +66,7 @@ const Index = () => {
     }, [isAuthenticated])
 
     return (
-        <div>
+        <Box h='full'>
             <Header 
                 title="NFT Host"
                 description="NFT Host is a website where you can host your ERC721 drops. Upload your nft collection(s) and share it with anyone!!!"
@@ -87,7 +87,7 @@ const Index = () => {
             ) : (
                 <Login />
             )}
-        </div>
+        </Box>
     )
 }
 
