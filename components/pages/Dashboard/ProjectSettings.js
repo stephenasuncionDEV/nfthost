@@ -312,7 +312,7 @@ const ProjectSettings = ({alertRef, layerList}) => {
             .then(() => {
                 imageIndex++;
                 let nftJson = {
-                    name: name,
+                    name: `${name} #${renderIndex}`,
                     description: description,
                     image: `${base}${countStart}.png`,
                     hash: currentHash,
