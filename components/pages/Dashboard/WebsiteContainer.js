@@ -19,7 +19,6 @@ const WebsiteContainer = ({ onCreate, onClickHost }) => {
                 w='150px'
                 h='140px'
                 onClick={onCreate}
-                disabled
             >
                 <MdCreate size='24' />
                 <Text>Create</Text>
@@ -31,6 +30,7 @@ const WebsiteContainer = ({ onCreate, onClickHost }) => {
                     w='150px'
                     h='140px'
                     onClick={() => onClickHost(host)}
+                    key={idx}
                 >
                     <MdWebAsset size='24' />
                     <Text>{host.title.length > 11 ? host.title.substring(0, 7) + "..." : host.title}</Text>

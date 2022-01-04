@@ -1,17 +1,16 @@
 import { useState, useEffect, useRef } from "react"
-import { useToast, Box, Text, Button, Avatar, IconButton, Input, Checkbox, Textarea, Tag, TagLabel, TagCloseButton } from '@chakra-ui/react'
+import { useToast, Box, Text, Button, Input, Checkbox, Textarea, Tag, TagLabel, TagCloseButton } from '@chakra-ui/react'
 import { BsImageFill } from 'react-icons/bs'
 import { getEthPriceNow } from "get-eth-price"
 import { useMoralis } from "react-moralis"
-import jwt_decode from "jwt-decode"
-import axios from "axios"
+import uniqid from 'uniqid';
 import WebsiteContainer from "./WebsiteContainer"
 import UploadImageDialog from "./UploadImageDialog"
 import PaymentDialog from "./PaymentDialog"
 import style from "../../../styles/Container.module.scss"
 
 const HostContainer = () => {
-    const { user, setUserData, Moralis } = useMoralis();
+    const { Moralis, user, setUserData } = useMoralis();
     const [isPreview, setIsPreview] = useState(false);
     const [hostIndex, setHostIndex] = useState(null);
     const [hostURL, setHostURL] = useState("");
@@ -43,12 +42,8 @@ const HostContainer = () => {
 
     useEffect(() => {
         setHostList(user.attributes.websites);
-        console.log(user.attributes)
+        console.log(user.attributes.websites)
     }, [])
-
-    const getHostList = () => {
-        setHostList(user.attributes.websites);
-    }
 
     const onCreation = () => {
         // Parse Keywords
@@ -83,22 +78,33 @@ const HostContainer = () => {
                 newWebsiteArr.push(newHost);
             }
             
+            const generatedURL = `https://nfthost.vercel.app/${uniqid()}`;
+
             // Create Website
             setUserData({
                 websites: websiteArr.length == 0 ? [newHost] : newWebsiteArr
             })
             .then(res => {
-                return axios.post("/api/host", newHost)
+                const websiteClass = Moralis.Object.extend("Website");
+                const website = new websiteClass();
+                website.set('owner', user.attributes.ethAddress);
+                website.set('title', hostTitle);
+                website.set('header', hostHeader);
+                website.set('description', hostDescription);
+                website.set('image', hostImage);
+                website.set('iframe', hostIframe);
+                website.set('keywords', keywords);
+                website.set('isRobot', hostIsRobot);
+                website.set('language', hostLanguage);
+                website.set('url', generatedURL);
+                return website.save();
             })
             .then(res => {
-                const accessToken = res.data.accessToken;
-                localStorage.setItem("accessToken", accessToken);
-                const data = jwt_decode(accessToken);
-                return onSaveURL(data.url);
+                return onSaveURL(generatedURL);
             })
             .then(res => {
-                getHostList();
-                onClear();       
+                setHostList(user.attributes.websites);
+                handleClear();
                 alert({
                     title: 'Website Created',
                     description: 'Your website has been created.',
@@ -114,7 +120,6 @@ const HostContainer = () => {
                     duration: 3000,
                 })
             })
-
         } catch (err) { 
             alert({
                 title: 'Error',
@@ -122,7 +127,6 @@ const HostContainer = () => {
                 status: 'error',
                 duration: 3000,
             })
-            return;
         }
     }
 
@@ -132,6 +136,52 @@ const HostContainer = () => {
         newHostList[websiteArr.length - 1].url = url;
         setHostList(newHostList);
         return setUserData({ websites: newHostList })
+    }
+
+    const handleWebsiteDelete = () => {
+        if (hostIndex == -1) {
+            alert({
+                title: 'Error',
+                description: 'Please select a website',
+                status: 'error',
+                duration: 3000,
+            })
+            return;
+        }
+
+        let newHostList = [...hostList];
+        newHostList.splice(hostIndex, 1);
+        setHostList(newHostList);
+        setUserData({
+            websites: newHostList
+        })
+        .then(res => {
+            const websiteClass = Moralis.Object.extend("Website");
+            const query = new Moralis.Query(websiteClass);
+            query.equalTo("url", hostURL);
+            return query.first();
+        })
+        .then(res => {
+            return res.destroy();
+        })
+        .then(res => {
+            handleClear();
+            setIsPreview(false);
+            alert({
+                title: 'Success',
+                description: "Website has been deleted",
+                status: 'success',
+                duration: 3000,
+            })
+        })
+        .catch(err =>  {
+            alert({
+                title: 'Error',
+                description: err.message,
+                status: 'error',
+                duration: 3000,
+            })
+        })
     }
 
     const handleDeleteKeyword = (index) => {
@@ -144,7 +194,7 @@ const HostContainer = () => {
         try {
             // Reset state if isPreview
             if (isPreview) {
-                onClear();
+                handleClear();
                 setIsPreview(false);
                 return;
             }
@@ -223,7 +273,7 @@ const HostContainer = () => {
         }
     }
 
-    const handleSaveChangesClick = () => {
+    const handleSaveChanges = () => {
         if (hostIndex == -1) {
             alert({
                 title: 'Error',
@@ -253,7 +303,24 @@ const HostContainer = () => {
             websites: newHostList
         })
         .then(res => {
-            onClear();
+            const websiteClass = Moralis.Object.extend("Website");
+            const query = new Moralis.Query(websiteClass);
+            query.equalTo("url", hostURL);
+            return query.first();
+        })
+        .then(res => {
+            res.set('title', hostTitle);
+            res.set('header', hostHeader);
+            res.set('description', hostDescription);
+            res.set('image', hostImage);
+            res.set('iframe', hostIframe);
+            res.set('keywords', keywords);
+            res.set('isRobot', hostIsRobot);
+            res.set('language', hostLanguage);
+            return res.save();
+        })
+        .then(res => {
+            handleClear();
             setIsPreview(false);
             alert({
                 title: 'Website Updated',
@@ -261,7 +328,6 @@ const HostContainer = () => {
                 status: 'success',
                 duration: 3000,
             })
-
         })
         .catch(err =>  {
             alert({
@@ -273,8 +339,8 @@ const HostContainer = () => {
         })
     }
 
-    const handleWebsiteClick = (host) => {
-        getHostList();
+    const handleWebsitePreview = (host) => {
+        setHostList(user.attributes.websites);
         const index = hostList.findIndex(res => res.title == host.title);
         setHostImage(host.image);
         setHostTitle(host.title);
@@ -291,7 +357,7 @@ const HostContainer = () => {
         setIsPreview(true);
     }
 
-    const handleClearClick = () => {
+    const handleClear = () => {
         setHostImage("");
         setHostTitle("");
         setHostHeader("");
@@ -316,56 +382,8 @@ const HostContainer = () => {
         setHostIsRobot(true);
     }
 
-    const handleImageUploadClick = () => {
+    const handleImageUpload = () => {
         uploadImageRef.current.show();
-    }
-
-    const handleWebsiteDelete = () => {
-        if (hostIndex == -1) {
-            alert({
-                title: 'Error',
-                description: 'Please select a website',
-                status: 'error',
-                duration: 3000,
-            })
-            return;
-        }
-
-        const accessToken = localStorage.getItem("accessToken");
-        const headers = {
-            headers: {
-                authorization: `Bearer ${accessToken}`
-            }
-        }
-
-        axios.post("/api/host/delete", {
-            url: hostList[hostIndex].url
-        }, headers)
-        .then(res => {
-            let newHostList = [...hostList];
-            newHostList.splice(hostIndex, 1);
-            setHostList(newHostList);
-            return setUserData({websites: newHostList})
-        })
-        .then(res => {
-            onClear();
-            setIsPreview(false);
-            alert({
-                title: 'Success',
-                description: "Website has been deleted",
-                status: 'success',
-                duration: 3000,
-            })
-
-        })
-        .catch(err =>  {
-            alert({
-                title: 'Error',
-                description: err.message,
-                status: 'error',
-                duration: 3000,
-            })
-        })
     }
 
     const handleCopyURL = () => {
@@ -454,7 +472,7 @@ const HostContainer = () => {
             </Text>
             <WebsiteContainer 
                 onCreate={handleCreateWebsite} 
-                onClickHost={handleWebsiteClick}
+                onClickHost={handleWebsitePreview}
             />
             <Box
                 display='flex'
@@ -467,7 +485,7 @@ const HostContainer = () => {
                     w='200px'
                     h='full'
                     mr='2'
-                    onClick={handleImageUploadClick}
+                    onClick={handleImageUpload}
                 >
                     <BsImageFill size='18pt' />
                     {hostImage.length > 0 && <img src={hostImage} alt='Website Logo'/>}
@@ -582,10 +600,10 @@ const HostContainer = () => {
                         <Box
                             display='flex'
                         >
-                            <Button variant="solid" colorScheme="gray" onClick={handleClearClick}>
+                            <Button variant="solid" colorScheme="gray" onClick={handleClear}>
                                 Clear
                             </Button>
-                            <Button variant="solid" colorScheme="blue" onClick={handleSaveChangesClick} disabled>
+                            <Button variant="solid" ml='2' colorScheme="blue" onClick={handleSaveChanges}>
                                 Save Changes
                             </Button>
                         </Box>
