@@ -13,6 +13,11 @@ const ConfirmationDialog = (props, ref) => {
         }
     }), [])
 
+    const handleConfirm = () => {
+        onConfirm();
+        onClose();
+    }
+
     return (
         <Modal isCentered isOpen={isOpen} onClose={onClose} motionPreset='slideInBottom'>
             <ModalOverlay />
@@ -26,7 +31,7 @@ const ConfirmationDialog = (props, ref) => {
                     <Button variant='solid' colorScheme='gray' onClick={onClose}>
                         Cancel
                     </Button>
-                    <Button ml='2' variant='solid' colorScheme={dialogData.buttonColor} onClick={onConfirm}>
+                    <Button ml='2' variant='solid' colorScheme={dialogData.buttonColor} onClick={handleConfirm}>
                         {dialogData.button}
                     </Button>
                 </ModalFooter>
