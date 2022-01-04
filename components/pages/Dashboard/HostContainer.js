@@ -7,6 +7,7 @@ import uniqid from 'uniqid';
 import WebsiteContainer from "./WebsiteContainer"
 import UploadImageDialog from "./UploadImageDialog"
 import PaymentDialog from "./PaymentDialog"
+import ConfirmationDialog from "../../ConfirmationDialog"
 import style from "../../../styles/Container.module.scss"
 
 const HostContainer = () => {
@@ -38,6 +39,7 @@ const HostContainer = () => {
     ]);
     const uploadImageRef = useRef();
     const paymentDialogRef = useRef();
+    const confirmationDialogRef = useRef();
     const alert = useToast();
 
     useEffect(() => {
@@ -136,6 +138,14 @@ const HostContainer = () => {
         newHostList[websiteArr.length - 1].url = url;
         setHostList(newHostList);
         return setUserData({ websites: newHostList })
+    }
+
+    const handleDeleteDialog = () => {
+        confirmationDialogRef.current.show({
+            description: "Do you want to delete this website?",
+            button: "Delete",
+            buttonColor: "red"
+        })
     }
 
     const handleWebsiteDelete = () => {
@@ -464,6 +474,10 @@ const HostContainer = () => {
                 setHostImage={setHostImage}
             />
             <PaymentDialog ref={paymentDialogRef} />
+            <ConfirmationDialog 
+                ref={confirmationDialogRef} 
+                onConfirm={handleWebsiteDelete} 
+            />
             <Text fontSize='16pt'>
                 NFT Drop Hosting
             </Text>
@@ -594,7 +608,7 @@ const HostContainer = () => {
                         display='flex'
                         justifyContent='space-between'
                     >
-                        <Button variant="solid" colorScheme="red" onClick={handleWebsiteDelete}>
+                        <Button variant="solid" colorScheme="red" onClick={handleDeleteDialog}>
                             Delete
                         </Button>
                         <Box
