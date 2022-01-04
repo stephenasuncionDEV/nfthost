@@ -658,6 +658,8 @@ const ProjectSettings = ({alertRef, layerList}) => {
                     </Box>
                 )}
                 <Button
+                    isLoading={isRendering}
+                    loadingText='Generating'
                     ml='auto'
                     variant='solid'
                     colorScheme='blue'
