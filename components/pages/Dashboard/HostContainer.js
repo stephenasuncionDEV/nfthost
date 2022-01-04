@@ -446,7 +446,7 @@ const HostContainer = () => {
             />
             <PaymentDialog ref={paymentDialogRef} />
             <Text fontSize='16pt'>
-                NFT Drop Hosting
+                NFT Drop Hosting (Soon)
             </Text>
             <Text fontSize='10pt'>
                 ({hostList.length}/{user.attributes.hostSize == null ? 1 : user.attributes.hostSize})
@@ -571,19 +571,20 @@ const HostContainer = () => {
                 </Box>
                 {isPreview && (
                     <Box
+                        mt='2'
                         display='flex'
                         justifyContent='space-between'
                     >
-                        <Button variant="contained" colorScheme="red" onClick={handleWebsiteDelete}>
+                        <Button variant="solid" colorScheme="red" onClick={handleWebsiteDelete}>
                             Delete
                         </Button>
                         <Box
                             display='flex'
                         >
-                            <Button variant="contained" colorScheme="gray" onClick={handleClearClick}>
+                            <Button variant="solid" colorScheme="gray" onClick={handleClearClick}>
                                 Clear
                             </Button>
-                            <Button variant="contained" colorScheme="blue" onClick={handleSaveChangesClick} disabled>
+                            <Button variant="solid" colorScheme="blue" onClick={handleSaveChangesClick} disabled>
                                 Save Changes
                             </Button>
                         </Box>

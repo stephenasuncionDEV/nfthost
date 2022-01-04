@@ -19,13 +19,15 @@ const WebsiteContainer = ({ onCreate, onClickHost }) => {
                 w='150px'
                 h='140px'
                 onClick={onCreate}
+                disabled
             >
                 <MdCreate size='24' />
                 <Text>Create</Text>
             </Button>
             {user.attributes.websites.map((host, idx) => (
                 <Button
-                    aria-label='Create a new website'
+                    aria-label={host.title}
+                    ml='2'
                     w='150px'
                     h='140px'
                     onClick={() => onClickHost(host)}
