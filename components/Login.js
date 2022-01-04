@@ -12,7 +12,7 @@ const Login = () => {
     // Check if there is crypto wallet
     useEffect(() => {
         try {
-            if (!window.ethereum) throw new Error("No crypto currency wallet found.");
+            if (!window.ethereum) throw new Error("No crypto currency wallet found. Please install Metamask extension.");
         } catch (err) {
             alert({
                 title: 'Error.',
