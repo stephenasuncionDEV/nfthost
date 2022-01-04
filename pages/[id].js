@@ -1,9 +1,11 @@
 import { useState, useEffect, } from "react"
-import { useToast, Box, Text, Image, Button } from '@chakra-ui/react'
+import { useToast, Box, Text, Image, Button, Icon } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useMoralis } from 'react-moralis'
+import { FaChevronDown } from "react-icons/fa"
 import MintContainer from '../components/MintContainer'
 import Header from '../components/Header'
+import style from "../styles/Home.module.scss"
 
 const Website = () => {
     const [websiteData, setWebsiteData] = useState(null);
@@ -22,6 +24,7 @@ const Website = () => {
             setWebsiteData(res.attributes);
         })
         .catch(err => {
+            location.href = "http://localhost:3000/";
             alert({
                 title: 'Error',
                 description: err.message,
@@ -36,14 +39,9 @@ const Website = () => {
     }
 
     return (
-        <Box
-            display='flex'
-            flexDir='column'
-            justifyContent='center'
-            alignItems='center'
-        >
+        <>
             {websiteData && (
-                <>
+                <Box>
                     <Header
                         title={websiteData.header}
                         description={websiteData.description}
@@ -52,48 +50,79 @@ const Website = () => {
                         language={websiteData.language}
                         image={websiteData.image}
                     />
-                    <Image 
-                        boxSize='280px'
-                        objectFit='scale-down'
-                        src={websiteData.image} 
-                        alt={websiteData.title} 
-                        fallbackSrc='https://via.placeholder.com/270'
-                    />
-                    <Text fontSize='32pt'>
-                        {websiteData.title}
-                    </Text>
-                    <Text fontSize='14pt'>
-                        {websiteData.description}
-                    </Text>
-                    <MintContainer
-                        iframe={websiteData.iframe}
-                    />
-                    <Box 
-                        display='flex'
-                        flexDir='column'
-                        mt='10em'
-                        mb='5em'
-                        w='full'
-                        alignItems='center'
+                    <Box
+                        h='100vh'
                     >
-                        <Text
-                            color='rgb(120, 120, 120)'
+                        <Box
+                            h='full'
+                            display='flex'
+                            flexDirection='column'
+                            justifyContent='center'
+                            alignItems='center'
                         >
-                            NFT Collection Hosted By
-                        </Text>
-                        <Button
-                            w='100px'
-                            variant='solid'
-                            colorScheme='gray'
-                            color='rgb(120, 120, 120)'
-                            onClick={handleNFTHost}
-                        >
-                            NFT Host
-                        </Button>
+                            <Image 
+                                boxSize='280px'
+                                objectFit='scale-down'
+                                src={websiteData.image} 
+                                alt={websiteData.title} 
+                                fallbackSrc='https://via.placeholder.com/270'
+                            />
+                            <Text fontSize='32pt'>
+                                {websiteData.title}
+                            </Text>
+                            <Text fontSize='14pt'>
+                                {websiteData.description}
+                            </Text>
+                            <Box 
+                                display='flex'
+                                flexDir='column'
+                                mt='5em'
+                                mb='5em'
+                                w='full'
+                                alignItems='center'
+                            >
+                                <Text
+                                    color='rgb(160, 160, 160)'
+                                >
+                                    NFT Collection Hosted By
+                                </Text>
+                                <Button
+                                    w='100px'
+                                    variant='solid'
+                                    colorScheme='gray'
+                                    color='rgb(120, 120, 120)'
+                                    onClick={handleNFTHost}
+                                >
+                                    NFT Host
+                                </Button>
+                            </Box>
+                            <div className={style.previewHeader}>
+                                <Text fontSize='16pt'>
+                                    Check out the collection
+                                </Text>
+                                <Icon as={FaChevronDown}/>
+                            </div>
+                        </Box>
                     </Box>
-                </>
+                    <Box
+                        h='100vh'   
+                        bg='rgb(180, 180, 180)'
+                    >
+                        <Box
+                            h='full'
+                            display='flex'
+                            flexDirection='column'
+                            justifyContent='center'
+                            alignItems='center'
+                        >
+                            <MintContainer
+                                iframe={websiteData.iframe}
+                            />
+                        </Box>
+                    </Box>
+                </Box>
             )}
-        </Box>
+        </>
     )
 }
 
