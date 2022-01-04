@@ -465,7 +465,7 @@ const HostContainer = () => {
             />
             <PaymentDialog ref={paymentDialogRef} />
             <Text fontSize='16pt'>
-                NFT Drop Hosting (Soon)
+                NFT Drop Hosting
             </Text>
             <Text fontSize='10pt'>
                 ({hostList.length}/{user.attributes.hostSize == null ? 1 : user.attributes.hostSize})
