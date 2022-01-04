@@ -43,6 +43,7 @@ const HostContainer = () => {
 
     useEffect(() => {
         setHostList(user.attributes.websites);
+        console.log(user.attributes)
     }, [])
 
     const getHostList = () => {

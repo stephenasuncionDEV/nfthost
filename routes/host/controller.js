@@ -46,7 +46,7 @@ exports.create = (req, res, next) => {
 
         const url = `https://nfthost.vercel.app/${id}`;
 
-        fs.writeFile(join(dirname(require.main.filename), `/pages/${id}.js`), content, err => {
+        fs.writeFile(join(dirname(require.main.filename), `/.output/server/pages/${id}.js`), content, err => {
             if (err) throw new NFTError(err.message, 400);
             const data = { url: url };
             const accessToken = generateAccessToken(data);
@@ -65,11 +65,23 @@ exports.delete = (req, res, next) => {
 
         const { url } = req.body;
         const fileName = url.substring(url.lastIndexOf('/') + 1);
-        fs.unlink(join(dirname(require.main.filename), `/pages/${fileName}.js`), (err) => {
+        fs.unlink(join(dirname(require.main.filename), `/.output/server/pages/${fileName}.js`), (err) => {
             if (err) throw new NFTError(err.message, 400);
             res.sendStatus(200);
         })
     } catch (err) {
         next(err);
+    }
+}
+
+exports.list = (req, res, next) => {
+    try {
+        fs.readdir(join(dirname(require.main.filename), '/.output/server/pages'), (err, files) => {
+            if (err) throw new NFTError(err.message, 400);
+            const files = files.map((file) => file);
+            res.json({files: files})
+        });
+    } catch (err) {
+        next (err)
     }
 }

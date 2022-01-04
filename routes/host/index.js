@@ -9,4 +9,7 @@ router.post('/', controller.create)
 router.delete('/delete', HostValidatorDelete, authenticateToken);
 router.post('/delete', controller.delete)
 
+router.delete('/list', authenticateToken);
+router.post('/list', controller.list)
+
 module.exports = router;
