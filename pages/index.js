@@ -66,7 +66,7 @@ const Index = () => {
     }, [isAuthenticated])
 
     return (
-        <Box h='full'>
+        <Box h='100%'>
             <Header 
                 title="NFT Host"
                 description="NFT Host is a website where you can host your ERC721 drops. Upload your nft collection(s) and share it with anyone!!!"

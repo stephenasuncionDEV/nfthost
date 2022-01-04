@@ -36,36 +36,41 @@ const Layout = ({children, currentPage, setCurrentPage}) => {
                 <Box 
                     display='flex'
                     alignItems='center'
-                    justifyContent='flex-end'
-                    h='81px'
                     pl='4'
                     pr='4'
                 >
                     <ButtonGroup 
+                        h='81px'
                         variant='outlined' 
-                        justifyContent='flex-end' 
+                        alignItems='center'
                         color='black'
                         isAttached
                     >
                         <IconButton 
+                            variant='solid'
                             aria-label='Copy account address' 
                             icon={<Icon as={FiCopy} />} 
                             borderWidth='1px' 
                             borderRadius='20px' 
+                            size='sm'
                             onClick={handleCopyAddress} 
                         />
                         <Button 
+                            variant='solid'
                             ml='-px' 
                             borderWidth='1px' 
                             borderRadius='20px' 
+                            size='sm'
                             onClick={handleCopyAddress}
                         >
                             <Text>{user.attributes.ethAddress}</Text>
                         </Button>
                         <Button 
+                            variant='solid'
                             ml='-px' 
                             borderWidth='1px'
                             borderRadius='20px' 
+                            size='sm'
                             onClick={handleCopyAddress}
                         >
                             <Text>{`${user.attributes.balance.length > 6 ? user.attributes.balance.substring(0, 6) : user.attributes.balance} ETH`}</Text>

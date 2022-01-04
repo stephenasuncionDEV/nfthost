@@ -4,6 +4,14 @@ $bg: rgb(255, 255, 255);
 $mainPane: rgb(250, 250, 250);
 
 html,
+body,
+body > div:first-child,
+div#__next,
+div#__next > div {
+    height: 100%;
+}
+
+html,
 body {
     padding: 0;
     margin: 0;
@@ -12,7 +20,6 @@ body {
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     -moz-osx-font-smoothing: grayscale;
-    height: 100%;
 }
 
 a {
@@ -25,13 +32,9 @@ a {
 }
 
 .main-pane {
-    height: 100%;
     padding: 2em;
+    padding-bottom: 5em;
     background-color: $mainPane;
     display: flex;
     flex-direction: column;
-}
-
-#__next {
-    height: 100%;
 }
