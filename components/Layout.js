@@ -73,7 +73,7 @@ const Layout = ({children, currentPage, setCurrentPage}) => {
                             size='sm'
                             onClick={handleCopyAddress}
                         >
-                            <Text>{`${user.attributes.balance.length > 6 ? user.attributes.balance.substring(0, 6) : user.attributes.balance} ETH`}</Text>
+                            <Text>{`${user.attributes.balance && user.attributes.balance.length > 6 ? user.attributes.balance.substring(0, 6) : user.attributes.balance} ETH`}</Text>
                         </Button>
                     </ButtonGroup>
                 </Box>
