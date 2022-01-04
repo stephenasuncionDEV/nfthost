@@ -12,7 +12,6 @@
     "@chakra-ui/react": "^1.7.3",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
-    "@walletconnect/web3-provider": "^1.7.0",
     "axios": "^0.24.0",
     "cors": "^2.8.5",
     "crypto-js": "^4.1.1",
@@ -33,9 +32,6 @@
     "react-dom": "17.0.2",
     "react-icons": "^4.3.1",
     "react-moralis": "^0.3.11",
-    "react-router-dom": "^6.2.1",
-    "react-virtualized": "^9.22.3",
-    "react-window": "^1.8.6",
     "sass": "^1.45.2",
     "uniqid": "^5.4.0"
   },
