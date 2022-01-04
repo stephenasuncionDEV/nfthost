@@ -4,11 +4,11 @@ import { useToast, Box, Text, Button,
     NumberInputStepper, NumberIncrementStepper,
     NumberDecrementStepper, NumberInput, FormControl, FormLabel,
     RadioGroup, Radio, Stack, TagCloseButton, Alert, AlertIcon, AlertDescription } from '@chakra-ui/react'
+import { MdChevronRight, MdDownload, MdAdd } from 'react-icons/md'
 import { getEthPriceNow } from "get-eth-price";
 import { useMoralis } from "react-moralis";
 import { ethers } from "ethers";
 import { saveAs } from 'file-saver';
-import { MdChevronRight, MdDownload, MdAdd } from 'react-icons/md'
 import MD5 from "crypto-js/md5"
 import JSZip from "jszip";
 import PaymentDialog from "./PaymentDialog"
@@ -315,6 +315,7 @@ const ProjectSettings = ({alertRef, layerList}) => {
                     description: description,
                     image: `${base}${countStart}.png`,
                     hash: currentHash,
+                    edition: renderIndex,
                     date: new Date().getTime(),
                     attributes: attributes,
                     compiler: "NFT Host"
@@ -327,6 +328,7 @@ const ProjectSettings = ({alertRef, layerList}) => {
                         seller_fee_basis_points: sellerPoints,
                         image: `${countStart}.png`,
                         external_url: externalURL,
+                        edition: nftJson.edition,
                         hash: currentHash,
                         date: new Date().getTime(),
                         attributes: nftJson.attributes,
@@ -374,15 +376,19 @@ const ProjectSettings = ({alertRef, layerList}) => {
             return;
         }
 
+        // File name start count
         let countStart = startCount;
 
+        // Add Metadata file in zip
         zip.folder("Metadata").file("metadata.json", JSON.stringify(metadata, null, 2));
 
+        // Add each image's metadata in zip
         metadata.forEach(data => {
             zip.folder("Metadata").file(`${countStart}.json`, JSON.stringify(data, null, 2));
             countStart++;
         });
 
+        // Save the zip file
         zip.generateAsync({
             type: "blob", 
         })
@@ -397,6 +403,44 @@ const ProjectSettings = ({alertRef, layerList}) => {
                 duration: 3000,
             })
         });
+    }
+
+    const handleGenerateCSV = () => {
+        let csvData = [];
+
+        // Get the columns
+        let keys = Object.keys(metadata[0]).slice(0, 6);
+        keys.splice(2, 1);
+        const attributes = metadata[0].attributes.map((attribute, idx) => attribute.trait_type)
+        const columns = [...keys, ...attributes];
+        
+        csvData.push(columns);
+
+        // Get Rows
+        metadata.forEach((data, idx) => {
+            let row = [
+                data.name,
+                data.description,
+                data.hash,
+                data.edition,
+                data.date
+            ]
+            data.attributes.forEach((attribute, idx) => {
+                row.push(attribute.value);
+            })
+            csvData.push(row);
+        })
+
+        console.log(csvData)
+
+        let csv = "";
+        csvData.forEach((row) => {  
+            csv += row.join(',');  
+            csv += "\n";
+        }); 
+
+        var blob = new Blob([csv], {type: "text/csv;charset=utf-8"});
+        saveAs(blob, "NFT Host.csv");
     }
 
     return (
@@ -487,7 +531,7 @@ const ProjectSettings = ({alertRef, layerList}) => {
                     display='flex'
                     justifyContent='space-between'
                 >
-                    <Stack direction='row'>
+                    <Stack direction='row' spacing='4'>
                         <Radio value='ETH'>ETH</Radio>
                         <Radio value='SOL'>SOL</Radio>
                     </Stack>
@@ -593,14 +637,25 @@ const ProjectSettings = ({alertRef, layerList}) => {
                 mt='6'
             >
                 {curRenderIndex == count && metadata.length > 0 && (
-                    <Button
-                        variant='solid'
-                        colorScheme='blue'
-                        rightIcon={<MdDownload />}
-                        onClick={onDownload}
-                    >
-                        Download
-                    </Button>
+                    <Box>
+                        <Button
+                            variant='solid'
+                            colorScheme='blue'
+                            rightIcon={<MdDownload />}
+                            onClick={onDownload}
+                        >
+                            Download
+                        </Button>
+                        <Button
+                            ml='2'
+                            variant='solid'
+                            colorScheme='gray'
+                            rightIcon={<MdDownload />}
+                            onClick={handleGenerateCSV}
+                        >
+                            Get CSV File
+                        </Button>
+                    </Box>
                 )}
                 <Button
                     ml='auto'
