@@ -1,12 +1,9 @@
-import { useRef } from "react"
 import { useToast, Box, Text, IconButton, List, ListItem, Avatar, Button, Input } from '@chakra-ui/react'
-import { MdLayers, MdClose, MdAdd, MdCode } from 'react-icons/md'
-import ScriptDialog from "./ScriptDialog"
+import { MdLayers, MdClose, MdAdd } from 'react-icons/md'
 import style from "../../../styles/Container.module.scss"
 
 const LayerContainer = ({layerList, layerIndex, setLayerList, setLayerIndex}) => {
     const alert = useToast();
-    const scriptDialogRef = useRef();
 
     const onTitleChange = (e) => {
         let newLayerList = [...layerList];
@@ -44,11 +41,6 @@ const LayerContainer = ({layerList, layerIndex, setLayerList, setLayerIndex}) =>
         setLayerIndex(layerList.length - 2);
     }
 
-    const handleOpenScript = (e) => {
-        e.stopPropagation();
-        scriptDialogRef.current.show();
-    }
-
     return (
         <Box
             maxW='300px'
@@ -59,19 +51,14 @@ const LayerContainer = ({layerList, layerIndex, setLayerList, setLayerIndex}) =>
             ml='4'
             className={style.box}
         >
-            <ScriptDialog 
-                ref={scriptDialogRef}
-                layerList={layerList} 
-                setLayerList={setLayerList}
-            />
-
             <Text fontSize='16pt'>
                 Layers
             </Text>
             <List mt='2'>
                 <ListItem>
-                    <Button 
-                        justifyContent='space-between'
+                    <Button
+                        as='label'
+                        justifyContent='flex-start'
                         variant='solid'
                         w='full'
                         h='70px'
@@ -82,6 +69,7 @@ const LayerContainer = ({layerList, layerIndex, setLayerList, setLayerIndex}) =>
                             icon={<MdAdd />}
                         />
                         <Box
+                            ml='5'
                             display='flex'
                             flexDir='column'
                             alignItems='flex-start'
@@ -89,15 +77,12 @@ const LayerContainer = ({layerList, layerIndex, setLayerList, setLayerIndex}) =>
                             <Text>Add Layer</Text>
                             <Text fontSize='10pt'>{layerList.length} Layers</Text>
                         </Box>
-                        <IconButton
-                            icon={<MdCode />}
-                            onClick={handleOpenScript}
-                        />
                     </Button>
                 </ListItem>
                 {layerList.map((layer, idx) => (
                     <ListItem key={idx} mt='4'>
                         <Button
+                            as='label'
                             justifyContent='space-between'
                             variant='solid'
                             w='full'
@@ -107,26 +92,26 @@ const LayerContainer = ({layerList, layerIndex, setLayerList, setLayerIndex}) =>
                             borderBottomColor={idx === layerIndex ? 'blackAlpha.500' : 'black.500'}
                             onClick={() => handleLayerClick(idx)}
                         >
-                        <Avatar
-                            icon={<MdLayers />}
-                            bg='rgb(255,103,35)'
-                        />
-                        <Box
-                            display='flex'
-                            flexDir='column'
-                            alignItems='flex-start'
-                            ml='5'
-                        >
-                            <Input variant='unstyled' value={layer.name} onChange={onTitleChange} />
-                            <Text fontSize='10pt'>{layer.images.length} Images</Text>
-                        </Box>
-                        <IconButton
-                            icon={<MdClose />}
-                            onClick={(e) => {
-                                e.stopPropagation(); 
-                                handleDeleteLayer(idx);
-                            }}
-                        />
+                            <Avatar
+                                icon={<MdLayers />}
+                                bg='rgb(255,103,35)'
+                            />
+                            <Box
+                                display='flex'
+                                flexDir='column'
+                                alignItems='flex-start'
+                                ml='5'
+                            >
+                                <Input variant='unstyled' value={layer.name} onChange={onTitleChange} />
+                                <Text fontSize='10pt'>{layer.images.length} Images</Text>
+                            </Box>
+                            <IconButton
+                                icon={<MdClose />}
+                                onClick={(e) => {
+                                    e.stopPropagation(); 
+                                    handleDeleteLayer(idx);
+                                }}
+                            />
                         </Button>
                     </ListItem>
                 ))}

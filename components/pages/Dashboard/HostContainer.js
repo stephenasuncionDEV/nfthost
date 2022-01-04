@@ -562,6 +562,7 @@ const HostContainer = () => {
                             borderRadius='full'
                             bg='rgb(230, 230, 230)'
                             color='blackAlpha.800'
+                            key={idx}
                         >
                             <TagLabel>{chip}</TagLabel>
                             <TagCloseButton onClick={() => handleDeleteKeyword(idx)}/>
