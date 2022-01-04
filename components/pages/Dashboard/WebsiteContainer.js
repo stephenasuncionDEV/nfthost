@@ -23,7 +23,7 @@ const WebsiteContainer = ({ onCreate, onClickHost }) => {
                 <MdCreate size='24' />
                 <Text>Create</Text>
             </Button>
-            {user.attributes.websites.map((host, idx) => (
+            {user.attributes.websites && user.attributes.websites.map((host, idx) => (
                 <Button
                     aria-label={host.title}
                     ml='2'

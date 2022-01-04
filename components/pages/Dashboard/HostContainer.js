@@ -43,8 +43,15 @@ const HostContainer = () => {
     const alert = useToast();
 
     useEffect(() => {
+        // Initialize hostSize (for new users)
+        const websiteArr = user.attributes.websites;
+        if (websiteArr == null) {
+            setUserData({
+                websites: [],
+                hostSize: 1
+            });
+        }
         setHostList(user.attributes.websites);
-        console.log(user.attributes.websites)
     }, [])
 
     const onCreation = () => {
@@ -221,14 +228,6 @@ const HostContainer = () => {
             // Validate Iframe source code
             if (hostIframe.indexOf("iframe") == -1 || hostIframe.indexOf("src='https://cloudflare-ipfs.com/ipfs/") == -1) {
                 throw new Error("You must use Thirdweb's iframe embed code");
-            }
-
-            // Initialize hostSize (for new users)
-            const websiteArr = user.attributes.websites;
-            if (websiteArr == null) {
-                setUserData({
-                    hostSize: 1
-                });
             }
 
             // Check if user needs to pay
@@ -482,7 +481,7 @@ const HostContainer = () => {
                 NFT Drop Hosting
             </Text>
             <Text fontSize='10pt'>
-                ({hostList.length}/{user.attributes.hostSize == null ? 1 : user.attributes.hostSize})
+                ({hostList && hostList.length}/{user.attributes.hostSize == null ? 1 : user.attributes.hostSize})
             </Text>
             <WebsiteContainer 
                 onCreate={handleCreateWebsite} 
