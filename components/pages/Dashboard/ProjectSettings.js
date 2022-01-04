@@ -50,6 +50,7 @@ const ProjectSettings = ({alertRef, layerList}) => {
         {address: user.attributes.ethAddress, share: 100}
     ]);
     const [price, setPrice] = useState(50);
+    const [isDownloading, setIsDownloading] = useState(false);
     const canvasRef = useRef();
     const paymentDialogRef = useRef();
     const alert = useToast();
@@ -378,6 +379,7 @@ const ProjectSettings = ({alertRef, layerList}) => {
 
         // File name start count
         let countStart = startCount;
+        setIsDownloading(true);
 
         // Add Metadata file in zip
         zip.folder("Metadata").file("metadata.json", JSON.stringify(metadata, null, 2));
@@ -394,6 +396,7 @@ const ProjectSettings = ({alertRef, layerList}) => {
         })
         .then(res => {
             saveAs(res, "NFT Host.zip");
+            setIsDownloading(false);
         })
         .catch(err => {
             alert({
@@ -639,6 +642,8 @@ const ProjectSettings = ({alertRef, layerList}) => {
                 {curRenderIndex == count && metadata.length > 0 && (
                     <Box>
                         <Button
+                            isLoading={isDownloading}
+                            loadingText="Downloading"
                             variant='solid'
                             colorScheme='blue'
                             rightIcon={<MdDownload />}
