@@ -13,7 +13,7 @@ exports.create = (req, res, next) => {
         const {title, description, keywords, isRobot, language, image, iframe} = req.body;
         const id = uniqid();
         const content = `import style from "../styles/Host.module.scss"
-        import { Typography } from "@mui/material";
+        import { Text } from "@chakra-ui/react"
         import MintContainer from "../components/MintContainer";
         import Header from "../components/Header"  
         const ${id} = () => {
@@ -29,12 +29,12 @@ exports.create = (req, res, next) => {
                     />
                     <div className={style.hostContainer}>
                         <img src="${image}" alt="NFT Host Logo" />
-                        <Typography variant="h2" component="div">
+                        <Text fontSize='32pt'>
                             ${title}
-                        </Typography>
-                        <Typography variant="body1">
+                        </Text>
+                        <Text fontSize='14pt'>
                             ${description}
-                        </Typography>
+                        </Text>
                         <MintContainer 
                             iframe="${iframe}"
                         />
@@ -44,7 +44,7 @@ exports.create = (req, res, next) => {
         }  
         export default ${id}`;
 
-        const url = req.protocol + '://localhost:3000' + `/${id}`;
+        const url = `https://nfthost.vercel.app/${id}`;
 
         fs.writeFile(join(dirname(require.main.filename), `/pages/${id}.js`), content, err => {
             if (err) throw new NFTError(err.message, 400);
