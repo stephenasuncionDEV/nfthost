@@ -53,7 +53,7 @@ const RarityDialog = (props, ref) => {
         });
 
         setLayerList(tempLayerList);
-        setOpen(false);
+        onClose();
     }
 
     return (
@@ -65,6 +65,7 @@ const RarityDialog = (props, ref) => {
                 <ModalBody>
                     <Box
                         display='flex'
+                        justifyContent='space-between'
                     >
                         <List>
                             {layerList[layerIndex].images.map((image, idx) => (
@@ -82,13 +83,23 @@ const RarityDialog = (props, ref) => {
                                 </ListItem>
                             ))}
                         </List>
-                        <List>
+                        <List
+                            mt='2'
+                            display='flex'
+                            flexDir='column'
+                            justifyContent='space-between'
+                        >
                             {imageRarityList.map((data, idx) => (
-                                <ListItem key={idx} sx={{ height: 58 }}>
+                                <ListItem 
+                                    key={idx} 
+                                    h='48px'
+                                >
                                     <HStack
                                         spacing='24px'
                                     >
-                                        <Text>{data.value}%</Text>
+                                        <Text w='70px'>
+                                            {data.value}%
+                                        </Text>
                                         <NumberInput step={1} value={data.tempValue} min={1} onChange={(value) => onChangeValue(value, idx)} w='100px'>
                                             <NumberInputField />
                                             <NumberInputStepper>
@@ -101,7 +112,7 @@ const RarityDialog = (props, ref) => {
                                             variant='outline' 
                                             value={maxValue} 
                                             disabled
-                                            w='100px'
+                                            w='80px'
                                         />
                                     </HStack>
                                 </ListItem>
