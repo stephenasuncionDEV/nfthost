@@ -12,7 +12,7 @@ const LayerContainer = ({layerList, layerIndex, setLayerList, setLayerIndex}) =>
     }
 
     const handleAddLayer = () => {
-        if (layerList.length >= 6) return;
+        //if (layerList.length >= 6) return; 
         const newLayer = {
             name: "New Layer",
             images: []

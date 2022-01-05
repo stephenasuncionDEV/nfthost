@@ -30,17 +30,17 @@ const ScriptDialog = (props, ref) => {
                     images: []
                 })
             });
-            if (layerList.length + retLayers.length > 6) {
-                alert({
-                    title: 'Error',
-                    description: "You cannot have more than 6 layers.",
-                    status: 'error',
-                    duration: 3000,
-                })
-                return;
-            } else {
+            // if (layerList.length + retLayers.length > 6) {
+            //     alert({
+            //         title: 'Error',
+            //         description: "You cannot have more than 6 layers.",
+            //         status: 'error',
+            //         duration: 3000,
+            //     })
+            //     return;
+            // } else {
                 setLayerList([...layerList, ...retLayers]);
-            }    
+           // }    
         }
     }
 
