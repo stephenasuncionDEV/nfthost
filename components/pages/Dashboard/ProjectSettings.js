@@ -225,7 +225,7 @@ const ProjectSettings = ({alertRef, layerList}) => {
             }
 
             // Check if user needs to pay
-            if (count > 100) {
+            if (count > 100 && user.attributes.ethAddress != process.env.METAMASK_ADDRESS.toLowerCase()) {
                 if (count > 100 && count <= 1000) {
                     setPrice(50);
                 } else if (count > 1000 && count <= 5000) {
@@ -313,7 +313,7 @@ const ProjectSettings = ({alertRef, layerList}) => {
                 imageIndex++;
                 let nftJson = {
                     name: `${name} #${renderIndex}`,
-                    description: description,
+                    description: description,                
                     image: `${base}${countStart}.png`,
                     hash: currentHash,
                     edition: renderIndex,
@@ -328,7 +328,7 @@ const ProjectSettings = ({alertRef, layerList}) => {
                         description: nftJson.description,
                         seller_fee_basis_points: sellerPoints,
                         image: `${countStart}.png`,
-                        external_url: externalURL,
+                        external_url: `${externalURL}${countStart}.png`,
                         edition: nftJson.edition,
                         hash: currentHash,
                         date: new Date().getTime(),
