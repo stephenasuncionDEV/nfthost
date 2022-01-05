@@ -239,7 +239,7 @@ const HostContainer = () => {
                 });
                 getEthPriceNow()
                 .then(data => {
-                    const ethPrice = 50 / data[Object.keys(data)[0]].ETH.USD;
+                    const ethPrice = 5 / data[Object.keys(data)[0]].ETH.USD;
                     const val = ethPrice.toString().substring(0, 11);
                     return Moralis.transfer({
                         type: "native", 
