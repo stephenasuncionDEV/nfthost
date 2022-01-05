@@ -87,7 +87,7 @@ const HostContainer = () => {
                 newWebsiteArr.push(newHost);
             }
             
-            const generatedURL = `https://nfthost.vercel.app/${uniqid()}`;
+            const generatedURL = `https://www.nfthost.app/${uniqid()}`;
 
             // Create Website
             setUserData({

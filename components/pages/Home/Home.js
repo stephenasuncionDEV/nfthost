@@ -12,7 +12,7 @@ const Home = () => {
     const alert = useToast();
 
     useEffect(() => {
-        axios.get("https://nfthost.vercel.app/api/webhook/get")
+        axios.get("/api/webhook/get")
         .then(res => {
             setLogsData(res.data);
         })

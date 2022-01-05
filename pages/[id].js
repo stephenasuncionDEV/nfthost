@@ -18,13 +18,13 @@ const Website = () => {
         if (id == null) return;
         const websiteClass = Moralis.Object.extend("Website");
         const query = new Moralis.Query(websiteClass);
-        query.equalTo("url", `https://nfthost.vercel.app/${id}`);
+        query.equalTo("url", `https://www.nfthost.app/${id}`);
         query.first()
         .then(res => {
             setWebsiteData(res.attributes);
         })
         .catch(err => {
-            location.href = "http://localhost:3000/";
+            location.href = "https://www.nfthost.app/";
             alert({
                 title: 'Error',
                 description: err.message,
@@ -35,7 +35,7 @@ const Website = () => {
     }, [router])
 
     const handleNFTHost = () => {
-        window.open("https://nfthost.vercel.app/");
+        window.open("https://www.nfthost.app/");
     }
 
     return (

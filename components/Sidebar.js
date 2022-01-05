@@ -1,6 +1,5 @@
 import { useMoralis } from "react-moralis"
 import { Flex, Avatar, Text, Button, List, ListItem, Icon, Container, Box} from '@chakra-ui/react'
-import { HamburgerIcon } from '@chakra-ui/icons'
 import { AiFillHome } from 'react-icons/ai'
 import { MdDashboard, MdLogout } from 'react-icons/md'
 import { BsInfoSquareFill, BsDiscord } from 'react-icons/bs'
