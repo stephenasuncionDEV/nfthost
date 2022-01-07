@@ -19,7 +19,7 @@ const Dashboard = () => {
                 <Box 
                     maxWidth='1000px' 
                     width='100%'>
-                    <Text fontSize='28pt'>Dashboard 🔥</Text>
+                    <Text fontSize='28pt'>Dashboard</Text>
                 </Box>
                 <AppsContainer setCurrentApp={setCurrentApp} />
                 {currentApp == 0 && <HostContainer />}

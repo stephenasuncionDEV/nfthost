@@ -20,7 +20,7 @@ const About = () => {
                 <Box 
                     maxW='1200px' 
                     w='100%'>
-                    <Text fontSize='28pt'>About 👨‍🚀</Text>
+                    <Text fontSize='28pt'>About</Text>
                 </Box>
                 <Box 
                     maxW='1200px' 

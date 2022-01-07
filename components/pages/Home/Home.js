@@ -39,7 +39,7 @@ const Home = () => {
                     <Box 
                         maxWidth='1200px' 
                         width='100%'>
-                        <Text fontSize='28pt'>Home 🏠</Text>
+                        <Text fontSize='28pt'>Home</Text>
                     </Box>
                     <LogsContainer>
                         {logsData.map((log, idx) => (
