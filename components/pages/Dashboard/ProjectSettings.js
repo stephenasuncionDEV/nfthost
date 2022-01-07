@@ -28,8 +28,8 @@ const getImageHeightAndWidth = dataURL => new Promise(resolve => {
     img.src = dataURL
 })
 
-const ProjectSettings = ({alertRef, layerList}) => {
-    const {user, Moralis} = useMoralis();
+const ProjectSettings = ({layerList}) => {
+    const {user, Moralis, setUserData} = useMoralis();
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [base, setBase] = useState("");
@@ -199,6 +199,13 @@ const ProjectSettings = ({alertRef, layerList}) => {
         }
     }
 
+    const onAddGenerateCount = () => {
+        const count = user.attributes.generateCount;
+        setUserData({
+            generateCount: count == null ? 1 : count + 1
+        })
+    }
+
     const onGenerateCollection = () => {
         try {
             // Check if one of the layer(s) is empty
@@ -255,6 +262,7 @@ const ProjectSettings = ({alertRef, layerList}) => {
                 })
                 .then(res => {
                     paymentDialogRef.current.hide();
+                    onAddGenerateCount();
                     generateCollection();
                 })
                 .catch(err => {
@@ -268,6 +276,7 @@ const ProjectSettings = ({alertRef, layerList}) => {
                     return
                 })
             } else {
+                onAddGenerateCount();
                 generateCollection();
             }
         }
