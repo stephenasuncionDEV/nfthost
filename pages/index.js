@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { useToast, Box } from '@chakra-ui/react'
 import { useMoralis, useMoralisWeb3Api } from "react-moralis"
 import { useRouter } from 'next/router'
@@ -8,6 +8,7 @@ import Layout from "../components/Layout"
 import Home from "../components/pages/Home/Home"
 import Dashboard from "../components/pages/Dashboard/Dashboard";
 import About from "../components/pages/About/About"
+import CookieDrawer from "../components/CookieDrawer"
 
 const Index = () => {
     const [currentPage, setCurrentPage] = useState(0);
@@ -16,6 +17,7 @@ const Index = () => {
     const alert = useToast();
     const router = useRouter();
     const { page } = router.query;
+    const cookieDrawerRef = useRef();
 
     useEffect(() => {
         if (page == null) return;
@@ -63,6 +65,13 @@ const Index = () => {
                 setUserData({
                     balance: Moralis.Units.FromWei(res.balance).toString()
                 })
+                if (user.attributes.cookie == null) {
+                    setUserData({
+                        cookie: false
+                    })
+                } else if (user.attributes.cookie === false) {
+                    cookieDrawerRef.current.show();
+                }
             })
             .catch(err => {
                 alert({
@@ -85,6 +94,7 @@ const Index = () => {
                 language="English"
                 image="/logo.png"
             />
+            <CookieDrawer ref={cookieDrawerRef} />
             {isAuthenticated ? (
                 <Layout currentPage={currentPage}>
                     {currentPage === 0 && <Home />}
