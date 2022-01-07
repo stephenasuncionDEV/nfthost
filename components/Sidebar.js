@@ -1,5 +1,6 @@
 import { useMoralis } from "react-moralis"
 import { Flex, Avatar, Text, Button, List, ListItem, Icon, Container, Box} from '@chakra-ui/react'
+import { useRouter } from 'next/router'
 import { AiFillHome } from 'react-icons/ai'
 import { MdDashboard, MdLogout } from 'react-icons/md'
 import { BsInfoSquareFill, BsDiscord } from 'react-icons/bs'
@@ -10,11 +11,18 @@ const menuItems = [
     {name: "About", icon: 2},
 ];
 
-const Sidebar = ({currentPage, setCurrentPage}) => {
+const Sidebar = ({currentPage}) => {
     const { logout } = useMoralis();
+    const router = useRouter();
 
-    const handleMinimize = () => {
-        console.log("Test")
+    const handleTabClick = (name) => {
+        router.query.page = name.toLowerCase();
+        router.push({ 
+            pathname: '/',
+            query: { ...router.query } }, 
+            undefined, 
+            {}
+        )
     }
 
     const handleLogoClick = () => {
@@ -54,7 +62,7 @@ const Sidebar = ({currentPage, setCurrentPage}) => {
                 <List spacing='2' w='full'>
                     {menuItems.map((menu, idx) => (
                         <ListItem key={idx} h='50'>
-                            <Button variant='solid' w='100%' h='100%' borderBottomWidth='3px' borderBottomColor={idx === currentPage ? 'blackAlpha.500' : 'black.500'} onClick={() => setCurrentPage(idx)}>
+                            <Button variant='solid' w='100%' h='100%' borderBottomWidth='3px' borderBottomColor={idx === currentPage ? 'blackAlpha.500' : 'black.500'} onClick={() => handleTabClick(menu.name)}>
                                 <Flex align='center' w='100%'>
                                     {menu.icon === 0 && <Icon as={AiFillHome} w='6' h='6' />}
                                     {menu.icon === 1 && <Icon as={MdDashboard} w='6' h='6' />}

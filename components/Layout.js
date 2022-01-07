@@ -3,7 +3,7 @@ import { useMoralis } from "react-moralis";
 import { FiCopy } from 'react-icons/fi'
 import Sidebar from "./Sidebar"
 
-const Layout = ({children, currentPage, setCurrentPage}) => {
+const Layout = ({children, currentPage}) => {
     const { user } = useMoralis();
     const alert = useToast();
 
@@ -24,7 +24,6 @@ const Layout = ({children, currentPage, setCurrentPage}) => {
         >
             <Sidebar 
                 currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
             />
             <Box
                 w='full'
