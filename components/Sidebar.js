@@ -1,9 +1,11 @@
+import { useRef } from "react";
 import { useMoralis } from "react-moralis"
 import { Flex, Avatar, Text, Button, List, ListItem, Icon, Container, Box} from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { AiFillHome } from 'react-icons/ai'
 import { MdDashboard, MdLogout } from 'react-icons/md'
 import { BsInfoSquareFill, BsDiscord } from 'react-icons/bs'
+import ConfirmationDialog from "./ConfirmationDialog"
 
 const menuItems = [
     {name: "Home", icon: 0},
@@ -14,15 +16,30 @@ const menuItems = [
 const Sidebar = ({currentPage}) => {
     const { logout } = useMoralis();
     const router = useRouter();
+    const confirmationDialogRef = useRef();
 
-    const handleTabClick = (name) => {
-        router.query.page = name.toLowerCase();
+    const handleTabClick = (tabName) => {
+        if (localStorage.getItem("isRendering") === "true") {
+            confirmationDialogRef.current.show({
+                description: "Your NFT collection is currently rendering. Do you want to go to another page and lose all your work?",
+                button: "Proceed",
+                buttonColor: "blue",
+                data: tabName
+            });
+            return;
+        }
+        onChangeTabs(tabName);
+    }
+
+    const onChangeTabs = (tabName) => {
+        router.query.page = tabName.toLowerCase();
         router.push({ 
             pathname: '/',
             query: { ...router.query } }, 
             undefined, 
             {}
         )
+        localStorage.setItem("isRendering", false);
     }
 
     const handleLogoClick = () => {
@@ -44,6 +61,10 @@ const Sidebar = ({currentPage}) => {
             alignItems='flex-start'
             pos='fixed'
         >
+            <ConfirmationDialog 
+                ref={confirmationDialogRef}
+                onConfirm={onChangeTabs}
+            />
             <Box borderBottomWidth='1px' w='full' p='5'>
                 <Button bg='white.500' onClick={handleLogoClick} isFullWidth>
                     <Flex align="center">

@@ -1,14 +1,38 @@
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { Box, Text } from '@chakra-ui/react'
 import AppsContainer from "./AppsContainer"
 import HostContainer from "./HostContainer"
 import GeneratorContainer from "./GeneratorContainer"
+import ConfirmationDialog from "../../ConfirmationDialog" 
 
 const Dashboard = () => {
     const [currentApp, setCurrentApp] = useState(0);
+    const confirmationDialogRef = useRef();
+
+    const handleChangeApp = (index) => {
+        if (localStorage.getItem("isRendering") === "true") {
+            confirmationDialogRef.current.show({
+                description: "Your NFT collection is currently rendering. Do you want to go to another page and lose all your work?",
+                button: "Proceed",
+                buttonColor: "blue",
+                data: index
+            });
+            return;
+        }
+        onChangeApps(index);
+    }
+
+    const onChangeApps = (index) => {
+        setCurrentApp(index);
+        localStorage.setItem("isRendering", false);
+    }
 
     return (
         <div className="main-pane">
+            <ConfirmationDialog 
+                ref={confirmationDialogRef}
+                onConfirm={onChangeApps}
+            />
             <Box
                 display='flex'
                 flexDir='column'
@@ -21,7 +45,7 @@ const Dashboard = () => {
                     width='100%'>
                     <Text fontSize='28pt'>Dashboard</Text>
                 </Box>
-                <AppsContainer setCurrentApp={setCurrentApp} />
+                <AppsContainer onChange={handleChangeApp} />
                 {currentApp == 0 && <HostContainer />}
                 {currentApp == 1 && <GeneratorContainer />}
             </Box>

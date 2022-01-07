@@ -128,10 +128,14 @@ const ProjectSettings = ({alertRef, layerList}) => {
     const saveCanvas = (countStart) => {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                canvasRef.current.toBlob((blob) => {
-                    zip.folder("Images").file(`${countStart}.png`, blob);
-                    resolve();
-                });
+                try {
+                    canvasRef.current.toBlob((blob) => {
+                        zip.folder("Images").file(`${countStart}.png`, blob);
+                        resolve();
+                    });
+                } catch (err) {
+                    // Ignore Error
+                }
             }, 50);
         })
     }
@@ -293,6 +297,7 @@ const ProjectSettings = ({alertRef, layerList}) => {
         let hashList = [];
         let currentHash = "";
 
+        localStorage.setItem("isRendering", true);
         setIsRendering(true);
         setMetadata([]);
         
@@ -352,6 +357,7 @@ const ProjectSettings = ({alertRef, layerList}) => {
                 if (imageIndex == count) {
                     setMetadata(tempMetadata);
                     setIsRendering(false);
+                    localStorage.setItem("isRendering", false);
                 }
             })
             .catch(err => {

@@ -14,7 +14,11 @@ const ConfirmationDialog = (props, ref) => {
     }), [])
 
     const handleConfirm = () => {
-        onConfirm();
+        if (dialogData.data != null) {
+            onConfirm(dialogData.data);
+        } else {
+            onConfirm();
+        }
         onClose();
     }
 

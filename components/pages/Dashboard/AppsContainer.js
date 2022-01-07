@@ -3,7 +3,7 @@ import { FaServer } from 'react-icons/fa'
 import { GoCircuitBoard } from 'react-icons/go'
 import style from "../../../styles/Container.module.scss"
 
-const AppsContainer = ({setCurrentApp}) => {
+const AppsContainer = ({onChange}) => {
     return (
         <Box 
             maxW='1000px' 
@@ -24,14 +24,14 @@ const AppsContainer = ({setCurrentApp}) => {
                     aria-label='NFT Website Hosting'
                     size='lg'
                     icon={<FaServer size='24' />}
-                    onClick={() => setCurrentApp(0)}
+                    onClick={() => onChange(0)}
                 />
                 <IconButton
                     aria-label='NFT Generator'
                     size='lg'
                     icon={<GoCircuitBoard size='24' />}
                     ml='2'
-                    onClick={() => setCurrentApp(1)}
+                    onClick={() => onChange(1)}
                 />
             </Box>
         </Box>
