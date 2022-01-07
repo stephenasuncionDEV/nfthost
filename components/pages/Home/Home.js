@@ -46,14 +46,14 @@ const Home = () => {
                             <Log {...log} key={idx} />
                         ))}
                     </LogsContainer>
-                    <div className={style.previewHeader}>
+                    {/* <div className={style.previewHeader}>
                         <Text fontSize='16pt'>
                             Check out our new collection
                         </Text>
                         <Icon as={FaChevronDown}/>
-                    </div>
+                    </div> */}
                 </Box>
-                <Box
+                {/* <Box
                     w='full'
                     display='flex'
                     flexDir='column'
@@ -77,7 +77,7 @@ const Home = () => {
                             frameborder="0"
                         />'
                     />
-                </Box>
+                </Box> */}
             </div>
         </>
     )
