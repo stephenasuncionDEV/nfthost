@@ -34,7 +34,7 @@ const Sidebar = ({currentPage}) => {
     const onChangeTabs = (tabName) => {
         router.query.page = tabName.toLowerCase();
         router.push({ 
-            pathname: '/',
+            pathname: '/console',
             query: { ...router.query } }, 
             undefined, 
             {}

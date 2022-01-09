@@ -4,7 +4,7 @@ import { useDisclosure, Button, Drawer, DrawerBody, DrawerCloseButton, DrawerFoo
 
 const CookieDrawer = (props, ref) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const { setUserData } = useMoralis();
+    const { setUserData, user } = useMoralis();
 
     useImperativeHandle(ref, () => ({
         show() {
@@ -16,7 +16,9 @@ const CookieDrawer = (props, ref) => {
         setUserData({
             cookie: true
         })
-        onClose();
+        .then(res => {
+            onClose();
+        })
     }
 
     return (

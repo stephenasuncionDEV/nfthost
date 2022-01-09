@@ -1,5 +1,5 @@
 import { forwardRef, useImperativeHandle } from "react"
-import { useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, ModalFooter, List, ListItem, Button, Box } from '@chakra-ui/react'
+import { useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, ModalFooter, List, ListItem, Button } from '@chakra-ui/react'
 import MetamaskIcon from "./icons/MetamaskIcon"
 
 const walletList = [{name: "Metamask", icon: 0}];
@@ -14,6 +14,11 @@ const WalletDialog = (props, ref) => {
         }
     }), [])
 
+    const handleChoose = (index) => {
+        onChange(index);
+        onClose();
+    }
+
     return (
         <Modal isCentered isOpen={isOpen} onClose={onClose} motionPreset='slideInBottom'>
             <ModalOverlay />
@@ -21,13 +26,10 @@ const WalletDialog = (props, ref) => {
                 <ModalHeader>Connect to a wallet</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
-                    <Box w='100%' p={4} color='black' border='1px' borderColor='gray.200' borderRadius='5px' mb={4}>
-                        By connecting to a wallet, you agree to NFT Host's Terms of Service and you have read and understand NFT Host's Disclaimer.
-                    </Box>
                     <List>
                         {walletList.map((wallet, idx) => (
                             <ListItem key={idx}>
-                                <Button variant='solid' rightIcon={<MetamaskIcon size={24}/>} colorScheme='blue' isFullWidth onClick={() => onChange(idx)}>               
+                                <Button variant='solid' rightIcon={<MetamaskIcon size={24}/>} colorScheme='blue' isFullWidth onClick={() => handleChoose(idx)}>               
                                     {wallet.name}
                                 </Button>
                             </ListItem>
