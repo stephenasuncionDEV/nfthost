@@ -1,11 +1,8 @@
 import { useState, useEffect } from "react";
 import { useToast, Box, Text, Icon } from '@chakra-ui/react'
-import { FaChevronDown } from "react-icons/fa"
 import axios from "axios";
-import MintContainer from "../../MintContainer";
 import LogsContainer from "./LogsContainer"
 import Log from "./Log"
-import style from "../../../styles/Home.module.scss"
 
 const Home = () => {
     const [logsData, setLogsData] = useState([]);

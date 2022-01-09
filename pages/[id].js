@@ -74,34 +74,14 @@ const Website = () => {
                                 {websiteData.description}
                             </Text>
                             <Box 
-                                display='flex'
-                                flexDir='column'
-                                mt='5em'
-                                mb='5em'
-                                w='full'
-                                alignItems='center'
+                                mt='3em'
+                                className={style.previewHeader}
                             >
-                                <Text
-                                    color='rgb(160, 160, 160)'
-                                >
-                                    NFT Collection Hosted By
-                                </Text>
-                                <Button
-                                    w='100px'
-                                    variant='solid'
-                                    colorScheme='gray'
-                                    color='rgb(120, 120, 120)'
-                                    onClick={handleNFTHost}
-                                >
-                                    NFT Host
-                                </Button>
-                            </Box>
-                            <div className={style.previewHeader}>
                                 <Text fontSize='16pt'>
                                     Check out the collection
                                 </Text>
                                 <Icon as={FaChevronDown}/>
-                            </div>
+                            </Box>
                         </Box>
                     </Box>
                     <Box
@@ -118,6 +98,29 @@ const Website = () => {
                             <MintContainer
                                 iframe={websiteData.iframe}
                             />
+                            <Box 
+                                mt='2em'
+                                display='flex'
+                                flexDirection='column'
+                                justifyContent='center'
+                                alignItems='center'
+                            >
+                                <Text
+                                    color='rgb(120, 120, 120)'
+                                >
+                                    NFT Collection Hosted By
+                                </Text>
+                                <Button
+                                    mt='2'
+                                    w='100px'
+                                    variant='solid'
+                                    colorScheme='gray'
+                                    color='rgb(120, 120, 120)'
+                                    onClick={handleNFTHost}
+                                >
+                                    NFT Host
+                                </Button>
+                            </Box>
                         </Box>
                     </Box>
                 </Box>
