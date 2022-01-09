@@ -6,9 +6,9 @@ import { useMoralis } from "react-moralis"
 import uniqid from 'uniqid';
 import WebsiteContainer from "./WebsiteContainer"
 import UploadImageDialog from "./UploadImageDialog"
-import PaymentDialog from "./PaymentDialog"
-import ConfirmationDialog from "../../ConfirmationDialog"
-import style from "../../../styles/Container.module.scss"
+import PaymentDialog from "../PaymentDialog"
+import ConfirmationDialog from "../../../ConfirmationDialog"
+import style from "../../../../styles/Container.module.scss"
 
 const HostContainer = () => {
     const { Moralis, user, setUserData } = useMoralis();

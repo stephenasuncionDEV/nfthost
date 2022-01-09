@@ -5,7 +5,7 @@ import { MdSettings, MdCode } from 'react-icons/md'
 import ImageDialog from "./ImageDialog";
 import RarityDialog from './RarityDialog';
 import ScriptDialog from "./ScriptDialog"
-import style from "../../../styles/Container.module.scss"
+import style from "../../../../styles/Container.module.scss"
 
 const LayerDisplay = ({layerList, layerIndex, setLayerList}) => {
     const [fileOverState, setFileOverState] = useState(false);

@@ -1,6 +1,6 @@
 import { useToast, Box, Text, IconButton, List, ListItem, Avatar, Button, Input } from '@chakra-ui/react'
 import { MdLayers, MdClose, MdAdd } from 'react-icons/md'
-import style from "../../../styles/Container.module.scss"
+import style from "../../../../styles/Container.module.scss"
 
 const LayerContainer = ({layerList, layerIndex, setLayerList, setLayerIndex}) => {
     const alert = useToast();

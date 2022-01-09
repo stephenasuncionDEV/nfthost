@@ -11,8 +11,8 @@ import { ethers } from "ethers";
 import { saveAs } from 'file-saver';
 import MD5 from "crypto-js/md5"
 import JSZip from "jszip";
-import PaymentDialog from "./PaymentDialog"
-import style from "../../../styles/Container.module.scss"
+import PaymentDialog from "../PaymentDialog"
+import style from "../../../../styles/Container.module.scss"
 
 const zip = new JSZip();
 const wait = ms => new Promise(res => setTimeout(res, ms));
@@ -36,7 +36,7 @@ const ProjectSettings = ({layerList}) => {
     const [count, setCount] = useState(100);
     const [imgWidth, setImgWidth] = useState(0);
     const [imgLength, setImgLength] = useState(0);
-    const [startCount, setStartCount] = useState(0);
+    const [startCount, setStartCount] = useState(1);
     const [curRenderIndex, setCurRenderIndex] = useState(0);
     const [isRendering, setIsRendering] = useState(false);
     const [metadata, setMetadata] = useState([]);
