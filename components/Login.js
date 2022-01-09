@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react"
+import { useRef } from "react"
 import { useToast, Box, Button, Image, Text, Link } from '@chakra-ui/react'
 import { useMoralis } from "react-moralis"
 import { IoMdWallet } from 'react-icons/io'

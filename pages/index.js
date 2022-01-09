@@ -1,5 +1,5 @@
-import { useEffect } from "react"
-import { Box, Text } from '@chakra-ui/react'
+import { userRef, useEffect } from "react"
+import { useToast, Box, Text } from '@chakra-ui/react'
 import MenuBar from "../components/pages/Main/MenuBar"
 import IntroContainer from "../components/pages/Main/IntroContainer"
 import FeatureContainer from "../components/pages/Main/FeatureContainer"
@@ -8,6 +8,8 @@ import Header from "../components/Header"
 import style from '../styles/Main.module.scss'
 
 const Main = () => {
+    const alert = useToast();
+    
     // Check if there is crypto wallet
     useEffect(() => {
         try {
