@@ -10,7 +10,7 @@ const IntroContainer = () => {
     }
 
     const handleVideoGenerator = () => {
-        window.open("https://www.youtube.com/watch?v=54MAbT-yiAY&t=170s");
+        window.open("https://www.youtube.com/watch?v=54MAbT-yiAY");
     }
 
     const handleConsole = () => {

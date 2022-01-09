@@ -7,6 +7,7 @@
 NFT Host is a website where you can generate and host your ERC721 drops. Upload your nft collection(s) and share it with anyone.
 
 Join Our Discord: https://discord.gg/BMZZXZMnmv
+Want to donate? https://www.buymeacoffee.com/stephenasuncion
 
 ## Screenshot 📸
 
