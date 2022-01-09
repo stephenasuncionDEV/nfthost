@@ -282,17 +282,7 @@ const HostContainer = () => {
         }
     }
 
-    const handleSaveChanges = () => {
-        if (hostIndex == -1) {
-            alert({
-                title: 'Error',
-                description: 'Please select a website',
-                status: 'error',
-                duration: 3000,
-            })
-            return;
-        } 
-
+    const onSaveChanges = () => {
         let keywords = "";
         chipData.forEach((chip, idx) => {
             keywords += chip + (idx == chipData.length - 1 ? "" : ", ");
@@ -346,6 +336,37 @@ const HostContainer = () => {
                 duration: 3000,
             })
         })
+    }
+
+    const handleSaveChanges = () => {
+        try {
+            // Check if a website is selected
+            if (hostIndex == -1) throw new Error("Please select a website");
+
+            // Validate if fields are empty
+            if (hostImage.trim().length == 0 || 
+                hostTitle.trim().length == 0 || 
+                hostHeader.trim().length == 0 || 
+                hostDescription.trim().length == 0 || 
+                hostIframe.trim().length == 0) {
+                throw new Error("Please fill in all the required fields");
+            }
+
+            // Validate Iframe source code
+            if (hostIframe.indexOf("iframe") == -1 || hostIframe.indexOf("src='https://cloudflare-ipfs.com/ipfs/") == -1) {
+                throw new Error("You must use Thirdweb's iframe embed code");
+            }
+
+            onSaveChanges();
+        }
+        catch (err) {
+            alert({
+                title: 'Error',
+                description: err.message,
+                status: 'error',
+                duration: 3000,
+            })
+        }
     }
 
     const handleWebsitePreview = (host) => {
