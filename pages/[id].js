@@ -2,10 +2,8 @@ import { useState, useEffect, } from "react"
 import { useToast, Box, Text, Image, Button, Icon } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useMoralis } from 'react-moralis'
-import { FaChevronDown } from "react-icons/fa"
-import MintContainer from '../components/MintContainer'
 import Header from '../components/Header'
-import style from "../styles/Home.module.scss"
+import parse from 'html-react-parser';
 
 const Website = () => {
     const [websiteData, setWebsiteData] = useState(null);
@@ -21,7 +19,9 @@ const Website = () => {
         query.equalTo("url", `https://www.nfthost.app/${id}`);
         query.first()
         .then(res => {
-            setWebsiteData(res.attributes);
+            const data = res.attributes;
+            if (data.body == null) throw new Error("Must save changes to website");
+            setWebsiteData(data);
         })
         .catch(err => {
             location.href = "https://www.nfthost.app/";
@@ -33,6 +33,11 @@ const Website = () => {
             })
         });
     }, [router])
+
+    useEffect(() => {
+        if(websiteData == null) return;
+        console.log(websiteData.body)
+    }, [websiteData])
 
     const handleNFTHost = () => {
         window.open("https://www.nfthost.app/");
@@ -50,78 +55,29 @@ const Website = () => {
                         language={websiteData.language}
                         image={websiteData.image}
                     />
-                    <Box
-                        h='100vh'
+                    <style>
+                        {parse(websiteData.body.css)}
+                    </style>
+                    {parse(websiteData.body.html)}
+                    <Box 
+                        display='flex'
+                        flexDir='column'
+                        w='full'
+                        alignItems='center'
+                        p='2em'
                     >
-                        <Box
-                            h='full'
-                            display='flex'
-                            flexDirection='column'
-                            justifyContent='center'
-                            alignItems='center'
+                        <Text color='rgb(120, 120, 120)'>
+                            NFT Collection Hosted By
+                        </Text>
+                        <Button
+                            w='100px'
+                            variant='solid'
+                            colorScheme='gray'
+                            color='rgb(120, 120, 120)'
+                            onClick={handleNFTHost}
                         >
-                            <Image 
-                                boxSize='280px'
-                                objectFit='scale-down'
-                                src={websiteData.image} 
-                                alt={websiteData.title} 
-                                fallbackSrc='https://via.placeholder.com/270'
-                            />
-                            <Text fontSize='32pt'>
-                                {websiteData.title}
-                            </Text>
-                            <Text fontSize='14pt'>
-                                {websiteData.description}
-                            </Text>
-                            <Box 
-                                mt='3em'
-                                className={style.previewHeader}
-                            >
-                                <Text fontSize='16pt'>
-                                    Check out the collection
-                                </Text>
-                                <Icon as={FaChevronDown}/>
-                            </Box>
-                        </Box>
-                    </Box>
-                    <Box
-                        h='100vh'   
-                        bg='rgb(180, 180, 180)'
-                    >
-                        <Box
-                            h='full'
-                            display='flex'
-                            flexDirection='column'
-                            justifyContent='center'
-                            alignItems='center'
-                        >
-                            <MintContainer
-                                iframe={websiteData.iframe}
-                            />
-                            <Box 
-                                mt='2em'
-                                display='flex'
-                                flexDirection='column'
-                                justifyContent='center'
-                                alignItems='center'
-                            >
-                                <Text
-                                    color='rgb(120, 120, 120)'
-                                >
-                                    NFT Collection Hosted By
-                                </Text>
-                                <Button
-                                    mt='2'
-                                    w='100px'
-                                    variant='solid'
-                                    colorScheme='gray'
-                                    color='rgb(120, 120, 120)'
-                                    onClick={handleNFTHost}
-                                >
-                                    NFT Host
-                                </Button>
-                            </Box>
-                        </Box>
+                            NFT Host
+                        </Button>
                     </Box>
                 </Box>
             )}

@@ -22,6 +22,8 @@
     "file-saver": "^2.0.5",
     "framer-motion": "^5.5.5",
     "get-eth-price": "^1.0.0",
+    "grapesjs": "^0.17.29",
+    "grapesjs-preset-webpage": "^0.1.11",
     "html-react-parser": "^1.4.4",
     "jsonwebtoken": "^8.5.1",
     "jszip": "^3.7.1",

@@ -1,6 +1,7 @@
 import '../styles/globals.scss'
 import { MoralisProvider } from 'react-moralis'
 import { ChakraProvider } from '@chakra-ui/react'
+import 'grapesjs/dist/css/grapes.min.css';
 
 const MyApp = ({ Component, pageProps }) => {
     return (

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react"
 import { useToast, Box, Text, Button, Input, Checkbox, Textarea, Tag, TagLabel, TagCloseButton } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
 import { BsImageFill } from 'react-icons/bs'
 import { getEthPriceNow } from "get-eth-price"
 import { useMoralis } from "react-moralis"
@@ -41,6 +42,7 @@ const HostContainer = () => {
     const paymentDialogRef = useRef();
     const confirmationDialogRef = useRef();
     const alert = useToast();
+    const router = useRouter();
 
     useEffect(() => {
         // Initialize hostSize (for new users)
@@ -431,6 +433,18 @@ const HostContainer = () => {
         setHostIsRobot((prev) => !prev)
     }
 
+    const handleEditWebsite = () => {
+        const url = hostList[hostIndex].url;
+        router.query.id = url.substring(url.lastIndexOf('/') + 1);
+        router.push({ 
+            pathname: '/editor',
+            query: { id: router.query.id }
+        }, 
+            undefined, 
+            {}
+        )
+    }
+
     const onTitleChange = (e) => {
         setHostTitle(e.target.value);
     }
@@ -624,7 +638,7 @@ const HostContainer = () => {
                 </Box>
                 {isPreview && (
                     <Box
-                        mt='2'
+                        mt='1.5em'
                         display='flex'
                         justifyContent='space-between'
                     >
@@ -636,6 +650,9 @@ const HostContainer = () => {
                         >
                             <Button variant="solid" colorScheme="gray" onClick={handleClear}>
                                 Clear
+                            </Button>
+                            <Button variant="outline" ml='2' colorScheme="blue" onClick={handleEditWebsite}>
+                                Edit Website
                             </Button>
                             <Button variant="solid" ml='2' colorScheme="blue" onClick={handleSaveChanges}>
                                 Save Changes

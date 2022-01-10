@@ -1,4 +1,4 @@
-import { userRef, useEffect } from "react"
+import { useEffect } from "react"
 import { useToast, Box, Text } from '@chakra-ui/react'
 import MenuBar from "../components/pages/Main/MenuBar"
 import IntroContainer from "../components/pages/Main/IntroContainer"
