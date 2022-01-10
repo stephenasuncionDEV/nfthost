@@ -5,6 +5,7 @@ const cors = require('cors');
 const router = require('../routes');
 const app = express();
 const {errorHandler} = require('../middlewares/errorHandler');
+const production = true;
 
 // Database
 const connection = require('../db/connection');
@@ -25,10 +26,12 @@ app.use(errorHandler);
 
 // Connection
 connection.once('open', () => {
-    console.log('Connected to db');
-    app.listen(8080, () => {
-        console.log(`Example app listening at http://localhost:${8080}`)
-    })
+    if (!production) {
+        console.log("Connected to DB.")
+        app.listen(8080, () => {
+            console.log(`Example app listening at http://localhost:${8080}`)
+        })
+    }
 });
 
 module.exports = app;

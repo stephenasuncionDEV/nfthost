@@ -1,5 +1,4 @@
-import { useEffect } from "react"
-import { useToast, Box, Text } from '@chakra-ui/react'
+import { Box, Text } from '@chakra-ui/react'
 import MenuBar from "../components/pages/Main/MenuBar"
 import IntroContainer from "../components/pages/Main/IntroContainer"
 import FeatureContainer from "../components/pages/Main/FeatureContainer"
@@ -8,22 +7,6 @@ import Header from "../components/Header"
 import style from '../styles/Main.module.scss'
 
 const Main = () => {
-    const alert = useToast();
-    
-    // Check if there is crypto wallet
-    useEffect(() => {
-        try {
-            if (!window.ethereum) throw new Error("No crypto currency wallet found. Please install Metamask extension.");
-        } catch (err) {
-            alert({
-                title: 'Error.',
-                description: err.message,
-                status: 'error',
-                duration: 3000,
-            })
-        }
-    }, [])
-
     return (
         <Box>
             <Header 

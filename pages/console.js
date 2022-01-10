@@ -19,6 +19,21 @@ const Index = () => {
     const { page } = router.query;
     const cookieDrawerRef = useRef();
 
+    // Check if there is crypto wallet
+    useEffect(() => {
+        try {
+            if (!window.ethereum) throw new Error("No crypto currency wallet found. Please install Metamask extension.");
+        } catch (err) {
+            alert({
+                title: 'Error.',
+                description: err.message,
+                status: 'error',
+                duration: 3000,
+            })
+        }
+    }, [])
+
+    // Get current page through query param
     useEffect(() => {
         if (page == null) return;
         if (page === "home") setCurrentPage(0);
@@ -26,6 +41,7 @@ const Index = () => {
         else if (page === "about") setCurrentPage(2);
     }, [router])
 
+    // Check if network changed
     useEffect(() => {
         Moralis.onChainChanged(async (chainID) => {
             if (chainID != `0x${process.env.CHAIN_ID}`) {
@@ -45,6 +61,7 @@ const Index = () => {
         });
     }, [Moralis])
 
+    // Check if user is authenticated
     useEffect(() => {
         if (isAuthenticated) {
             Moralis.enableWeb3({ provider: "metamask" })
@@ -62,16 +79,17 @@ const Index = () => {
                 });
             })
             .then(res => {
-                setUserData({
+                return setUserData({
                     balance: Moralis.Units.FromWei(res.balance).toString()
                 })
+            })
+            .then(res => {
                 if (user.attributes.cookie == null) {
                     setUserData({
                         cookie: false
                     })
-                } else if (user.attributes.cookie === false) {
-                    cookieDrawerRef.current.show();
                 }
+                if (user.attributes.cookie != true) cookieDrawerRef.current.show();
             })
             .catch(err => {
                 alert({
