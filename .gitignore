@@ -36,3 +36,5 @@ yarn-error.log*
 
 # others
 plan.txt
+/components/pages/Dashboard/Generator/ProjectSettings.js
+/components/pages/Dashboard/Hosting/HostContainer.js

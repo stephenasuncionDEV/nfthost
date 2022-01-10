@@ -24,7 +24,7 @@ const PricesCard = ({pricingRef}) => {
                             title: "Free",
                             titleColor: "rgba(150,150,150,0.5)",
                             price: 0,
-                            per: "Hosting",
+                            per: "Lifetime",
                             items: ["1 Website", "Modify Logo", "Modify Title", "Modify Meta Tags", "Modify Description", "ThirdWeb Iframe Embed"]
                         }}
                     />
@@ -33,7 +33,7 @@ const PricesCard = ({pricingRef}) => {
                             title: "Premium",
                             titleColor: "rgba(49,130,206,0.5)",
                             price: 5,
-                            per: "Hosting",
+                            per: "Month",
                             items: ["+1 Website", "Modify Logo", "Modify Title", "Modify Meta Tags", "Modify Description", "ThirdWeb Iframe Embed"]
                         }}
                     />
@@ -53,7 +53,7 @@ const PricesCard = ({pricingRef}) => {
                             title: "Free",
                             titleColor: "rgba(150,150,150,0.5)",
                             price: 0,
-                            per: "Hosting",
+                            per: "Generate",
                             items: ["100 Unique Combinations", "No Watermark", "ETH & SOL Metadata", "Image Rarity"]
                         }}
                     />
@@ -61,8 +61,8 @@ const PricesCard = ({pricingRef}) => {
                         data={{
                             title: "Premium",
                             titleColor: "rgba(49,130,206,0.5)",
-                            price: 5,
-                            per: "Hosting",
+                            price: "--",
+                            per: "Generate",
                             items: ["1000 Unique Combinations = $50 USD", "5000 Unique Combinations = $100 USD", "10000 Unique Combinations = $200 USD", "No Watermark", "ETH & SOL Metadata", "Image Rarity"]
                         }}
                     />

@@ -1,4 +1,4 @@
-import { Box, Text, HStack, VStack, List, ListItem, ListIcon } from '@chakra-ui/react'
+import { Box, Text, HStack, List, ListItem, ListIcon } from '@chakra-ui/react'
 import { FaCheck } from 'react-icons/fa'
 import style from "../../../styles/Main.module.scss"
 
