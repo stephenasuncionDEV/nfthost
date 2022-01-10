@@ -1,10 +1,11 @@
 import { useState, useEffect, forwardRef, useImperativeHandle } from "react";
-import { useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, ModalFooter, Button, Input } from '@chakra-ui/react'
+import { useToast, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, ModalFooter, Button, Input } from '@chakra-ui/react'
 
 const UploadImageDialog = (props, ref) => {
     const { hostImage, setHostImage } = props;
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [imageURL, setImageURL] = useState(hostImage);
+    const alert = useToast();
 
     useEffect(() => {
         if (hostImage == null) return;
@@ -18,6 +19,16 @@ const UploadImageDialog = (props, ref) => {
     }), [])
 
     const handleSetImage = () => {
+        if (url.match(/\.(jpeg|jpg|gif|png|webp|bmp|gif)$/) == null) {
+            alert({
+                title: 'Error',
+                description: "URL is not an image file.",
+                status: 'error',
+                duration: 3000,
+            })
+            return;
+        }
+
         setHostImage(imageURL);
         onClose();
     };
