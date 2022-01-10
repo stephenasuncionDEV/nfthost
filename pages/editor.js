@@ -4,6 +4,8 @@ import { useRouter } from 'next/router'
 import { useMoralis } from "react-moralis"
 import grapesjs from "grapesjs"
 import gjsPresetWebpage from "grapesjs-preset-webpage"
+import NftHostLogo from "../components/icons/NftHostLogo"
+import ThirdWebLogo from "../components/icons/ThirdWebLogo"
 import LogoutModal from "../components/pages/Editor/LogoutModal"
 import Header from '../components/Header'
 
@@ -67,7 +69,7 @@ const Editor = () => {
                         type: "image",
                         category: "NFT Host",
                         content: `<img data-gjs-type="nfthost-image" src="${websiteData.image}" alt="${websiteData.header}" />`,
-                        media: nftLogo.current.contentDocument
+                        media: NftHostLogo()
                     },
                     {
                         id: 'nfthost-header',
@@ -75,7 +77,7 @@ const Editor = () => {
                         type: "text",
                         category: "NFT Host",
                         content: `<div data-gjs-type="nfthost-header" style="font-size:50px; font-family:'Lucida Sans Unicode'">${websiteData.header}</div>`,
-                        media: nftLogo.current.contentDocument
+                        media: NftHostLogo()
                     },
                     {
                         id: 'nfthost-description',
@@ -83,7 +85,7 @@ const Editor = () => {
                         type: "text",
                         category: "NFT Host",
                         content: `<div data-gjs-type="nfthost-description" style="font-family:'Lucida Sans Unicode'">${websiteData.description}</div>`,
-                        media: nftLogo.current.contentDocument
+                        media: NftHostLogo()
                     },
                     {
                         id: 'nfthost-iframe',
@@ -91,7 +93,7 @@ const Editor = () => {
                         type: "iframe",
                         category: "NFT Host",
                         content: `<div data-gjs-type="nfthost-iframe">${websiteData.iframe}`,
-                        media: twLogo.current.contentDocument
+                        media: ThirdWebLogo()
                     },
                 ]
             },
