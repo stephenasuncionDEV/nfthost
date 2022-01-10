@@ -1,5 +1,5 @@
 import { useState, useEffect, } from "react"
-import { useToast, Box, Text, Image, Button, Icon } from '@chakra-ui/react'
+import { useToast, Box, Text, Button } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useMoralis } from 'react-moralis'
 import Header from '../components/Header'

@@ -10,7 +10,7 @@ import LogoutModal from "../components/pages/Editor/LogoutModal"
 import Header from '../components/Header'
 
 const Editor = () => {
-    const { Moralis, user, isAuthenticated, setUserData } = useMoralis();
+    const { Moralis, user } = useMoralis();
     const [editable, setEditable] = useState(false);
     const [websiteData, setWebsiteData] = useState(null);
     const [editor, setEditor] = useState(null);
