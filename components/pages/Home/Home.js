@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useToast, Box, Text, Icon } from '@chakra-ui/react'
+import { useToast, Box, Text } from '@chakra-ui/react'
 import axios from "axios";
 import LogsContainer from "./LogsContainer"
 import Log from "./Log"
@@ -43,38 +43,7 @@ const Home = () => {
                             <Log {...log} key={idx} />
                         ))}
                     </LogsContainer>
-                    {/* <div className={style.previewHeader}>
-                        <Text fontSize='16pt'>
-                            Check out our new collection
-                        </Text>
-                        <Icon as={FaChevronDown}/>
-                    </div> */}
                 </Box>
-                {/* <Box
-                    w='full'
-                    display='flex'
-                    flexDir='column'
-                    alignItems='center'
-                    mt='8em'
-                    mb='4em'
-                >
-                    <img src="/logo.png" alt="NFT Host Logo" width='20%'/>
-                    <Text fontSize='32pt'>
-                        Kalabaw NFT
-                    </Text>
-                    <Text fontSize='14pt'>
-                        Kalabaw NFT is a collection of 200 unique carabaos/water buffalos NFTs.
-                    </Text>
-                    <MintContainer 
-                        iframe='<iframe
-                            src="https://cloudflare-ipfs.com/ipfs/bafybeigpfbnasq3sbciukilnculoy3cd24ov5mshzmuw7gregexdy223be?contract=0xce240737302120e7C61334fFec8DF254B7003703&chainId=4"
-                            width="500px"
-                            height="500px"
-                            style="max-width:100%;"
-                            frameborder="0"
-                        />'
-                    />
-                </Box> */}
             </div>
         </>
     )

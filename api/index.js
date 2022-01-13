@@ -29,7 +29,7 @@ connection.once('open', () => {
     if (!production) {
         console.log("Connected to DB.")
         app.listen(8080, () => {
-            console.log(`Example app listening at http://localhost:${8080}`)
+            console.log(`App listening at http://localhost:${8080}`)
         })
     }
 });

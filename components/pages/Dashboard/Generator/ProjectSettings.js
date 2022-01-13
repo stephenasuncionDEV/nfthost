@@ -9,10 +9,16 @@ import { getEthPriceNow } from "get-eth-price";
 import { useMoralis } from "react-moralis";
 import { ethers } from "ethers";
 import { saveAs } from 'file-saver';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
 import MD5 from "crypto-js/md5"
 import JSZip from "jszip";
-import PaymentDialog from "../PaymentDialog"
+import PaymentDialog from "../PaymentDialog";
+import PaymentMethodDialog from "../PaymentMethodDialog";
+import PaymentLoadingDialog from "../PaymentLoadingDialog"
 import style from "../../../../styles/Container.module.scss"
+
+const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY);
 
 const zip = new JSZip();
 const wait = ms => new Promise(res => setTimeout(res, ms));
@@ -49,10 +55,11 @@ const ProjectSettings = ({layerList}) => {
     const [creators, setCreators] = useState([
         {address: user.attributes.ethAddress, share: 100}
     ]);
-    const [price, setPrice] = useState(50);
     const [isDownloading, setIsDownloading] = useState(false);
     const canvasRef = useRef();
     const paymentDialogRef = useRef();
+    const paymentMethodDialogRef = useRef();
+    const paymentLoadingDialogRef = useRef();
     const alert = useToast();
 
     useEffect(() => {
@@ -237,50 +244,7 @@ const ProjectSettings = ({layerList}) => {
 
             // Check if user needs to pay
             if (count > 100) {
-                alert({
-                    title: 'Info',
-                    description: "Payments are disabled for now, Thank you :)",
-                    status: 'info',
-                    duration: 3000,
-                })        
-                return;
-                // if (count > 100 && count <= 1000) {
-                //     setPrice(50);
-                // } else if (count > 1000 && count <= 5000) {
-                //     setPrice(100);
-                // } else if (count > 5000 && count <= 10000) {
-                //     setPrice(200);
-                // }
-    
-                // // Show Payment Dialog
-                // paymentDialogRef.current.show({
-                //     title: "Collection Count More Than 100",
-                //     footer: "You will be prompted 1 transaction"
-                // });
-                // getEthPriceNow()
-                // .then(data => {
-                //     const ethPrice = price / data[Object.keys(data)[0]].ETH.USD;
-                //     const val = ethPrice.toString().substring(0, 11);
-                //     return Moralis.transfer({
-                //         type: "native", 
-                //         amount: Moralis.Units.ETH(val), 
-                //         receiver: process.env.METAMASK_ADDRESS
-                //     })
-                // })
-                // .then(res => {
-                //     paymentDialogRef.current.hide();
-                //     onAddGenerateCount();
-                //     generateCollection();
-                // })
-                // .catch(err => {
-                //     paymentDialogRef.current.hide();
-                //     alert({
-                //         title: 'Error',
-                //         description: err.message,
-                //         status: 'error',
-                //         duration: 3000,
-                //     })
-                // })
+                paymentMethodDialogRef.current.show();
             } else {
                 onAddGenerateCount();
                 generateCollection();
@@ -293,7 +257,6 @@ const ProjectSettings = ({layerList}) => {
                 status: 'error',
                 duration: 3000,
             })
-            return;
         }
     }
 
@@ -467,6 +430,57 @@ const ProjectSettings = ({layerList}) => {
         saveAs(blob, "NFT Host.csv");
     }
 
+    const handlePaymentMethodChange = (method) => {
+        if (method === 'metamask') {
+            paymentLoadingDialogRef.current.show({
+                title: "Collection Count More Than 100",
+                footer: "You will be prompted 1 transaction"
+            });
+            getEthPriceNow()
+            .then(data => {
+                const ethPrice = 20 / data[Object.keys(data)[0]].ETH.USD;
+                const val = ethPrice.toString().substring(0, 11);
+                return Moralis.transfer({
+                    type: "native", 
+                    amount: Moralis.Units.ETH(val), 
+                    receiver: process.env.METAMASK_ADDRESS
+                })
+            })
+            .then(res => {
+                const transactionsClass = Moralis.Object.extend("Transactions");
+                const transaction = new transactionsClass();
+                transaction.set('owner', user.attributes.ethAddress);
+                transaction.set('type', 'metamask');
+                transaction.set('amount', 20);
+                transaction.set('status', 'paid');
+                transaction.set('paymentID', res.blockHash);
+                return transaction.save();
+            })
+            .then(res => {
+                paymentLoadingDialogRef.current.hide();
+                onAddGenerateCount();
+                generateCollection();
+            })
+            .catch(err => {
+                paymentLoadingDialogRef.current.hide();
+                alert({
+                    title: 'Error',
+                    description: err.message,
+                    status: 'error',
+                    duration: 3000,
+                })
+            })
+        }
+        else if (method === 'stripe') {
+            paymentDialogRef.current.show("Buy Premium Generator", 20);
+        }
+    }
+
+    const handlePaymentSuccess = () => {
+        onAddGenerateCount();
+        generateCollection();
+    }
+
     return (
         <Box           
             flex='1'
@@ -475,7 +489,19 @@ const ProjectSettings = ({layerList}) => {
             p='5'
             className={style.box}
         >
-            <PaymentDialog ref={paymentDialogRef} />
+            <PaymentMethodDialog 
+                ref={paymentMethodDialogRef}
+                onChange={handlePaymentMethodChange}
+            />
+            <PaymentLoadingDialog 
+                ref={paymentLoadingDialogRef} 
+            />
+            <Elements stripe={stripePromise} >
+                <PaymentDialog 
+                    ref={paymentDialogRef}
+                    onSuccess={handlePaymentSuccess}
+                />
+            </Elements>
             <Text fontSize='16pt'>
                 Project Settings
             </Text>
@@ -666,7 +692,11 @@ const ProjectSettings = ({layerList}) => {
                             isLoading={isDownloading}
                             loadingText="Downloading"
                             variant='solid'
-                            colorScheme='blue'
+                            bg='black' 
+                            color='white' 
+                            _hover={{
+                                bg: 'rgb(50,50,50)'
+                            }}
                             rightIcon={<MdDownload />}
                             onClick={onDownload}
                         >
@@ -688,7 +718,11 @@ const ProjectSettings = ({layerList}) => {
                     loadingText='Generating'
                     ml='auto'
                     variant='solid'
-                    colorScheme='blue'
+                    bg='black' 
+                    color='white' 
+                    _hover={{
+                        bg: 'rgb(50,50,50)'
+                    }}
                     rightIcon={<MdChevronRight />}
                     onClick={onGenerateCollection}
                 >

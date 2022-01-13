@@ -35,8 +35,8 @@ exports.retrieve = (req, res, next) => {
             length = count;
             return Log.find({}).limit(3).sort({ date : -1 });
         })
-        .then(results => {
-            const data = results.map((result, index) => ({
+        .then(response => {
+            const data = response.map((result, index) => ({
                 ...result._doc,
                 index: length - index
             }));

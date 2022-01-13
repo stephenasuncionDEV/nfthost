@@ -1,24 +1,20 @@
 import { useState, forwardRef, useImperativeHandle } from "react";
 import { useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, ModalFooter, Button } from '@chakra-ui/react'
 
-const ConfirmationDialog = (props, ref) => {
-    const { onConfirm } = props;
+const ConfirmDeleteDialog = (props, ref) => {
+    const { onDelete } = props;
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const [dialogData, setDialogData] = useState({});
+    const [websiteData, setWebsiteData] = useState({});
 
     useImperativeHandle(ref, () => ({
         show(data) {
-            setDialogData(data);
+            setWebsiteData(data);
             onOpen();
         }
     }), [])
 
     const handleConfirm = () => {
-        if (dialogData.data != null) {
-            onConfirm(dialogData.data);
-        } else {
-            onConfirm();
-        }
+        onDelete(websiteData);
         onClose();
     }
 
@@ -29,14 +25,24 @@ const ConfirmationDialog = (props, ref) => {
                 <ModalHeader>Are you sure?</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
-                    {dialogData.description}
+                    Do you want to delete this website?
                 </ModalBody>
                 <ModalFooter>
-                    <Button variant='solid' colorScheme='gray' onClick={onClose}>
+                    <Button 
+                        variant='solid' 
+                        colorScheme='gray' 
+                        borderWidth='1px' 
+                        onClick={onClose}
+                    >
                         Cancel
                     </Button>
-                    <Button ml='2' variant='solid' colorScheme={dialogData.buttonColor} onClick={handleConfirm}>
-                        {dialogData.button}
+                    <Button 
+                        ml='2' 
+                        variant='solid' 
+                        colorScheme='red' 
+                        onClick={handleConfirm}
+                    >
+                        Delete
                     </Button>
                 </ModalFooter>
             </ModalContent>
@@ -44,4 +50,4 @@ const ConfirmationDialog = (props, ref) => {
     )
 }
 
-export default forwardRef(ConfirmationDialog)
+export default forwardRef(ConfirmDeleteDialog)

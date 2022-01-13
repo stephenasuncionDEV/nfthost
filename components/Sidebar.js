@@ -3,14 +3,15 @@ import { useMoralis } from "react-moralis"
 import { Flex, Avatar, Text, Button, List, ListItem, Icon, Container, Box} from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { AiFillHome } from 'react-icons/ai'
-import { MdDashboard, MdLogout } from 'react-icons/md'
+import { MdDashboard, MdLogout, MdPayments } from 'react-icons/md'
 import { BsInfoSquareFill, BsDiscord } from 'react-icons/bs'
 import ConfirmationDialog from "./ConfirmationDialog"
 
 const menuItems = [
     {name: "Home", icon: 0},
     {name: "Dashboard", icon: 1},
-    {name: "About", icon: 2},
+    {name: "Payments", icon: 2},
+    {name: "About", icon: 3},
 ];
 
 const Sidebar = ({currentPage}) => {
@@ -87,7 +88,8 @@ const Sidebar = ({currentPage}) => {
                                 <Flex align='center' w='100%'>
                                     {menu.icon === 0 && <Icon as={AiFillHome} w='6' h='6' />}
                                     {menu.icon === 1 && <Icon as={MdDashboard} w='6' h='6' />}
-                                    {menu.icon === 2 && <Icon as={BsInfoSquareFill} w='5' h='5' />}
+                                    {menu.icon === 2 && <Icon as={MdPayments} w='6' h='6' />}
+                                    {menu.icon === 3 && <Icon as={BsInfoSquareFill} w='5' h='5' />}
                                     <Flex direction='column' grow='1'>
                                         {menu.name}
                                     </Flex>

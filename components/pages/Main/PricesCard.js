@@ -34,7 +34,7 @@ const PricesCard = ({pricingRef}) => {
                             titleColor: "rgba(49,130,206,0.5)",
                             price: 5,
                             per: "Month",
-                            items: ["+1 Website", "Modify Logo", "Modify Title", "Modify Meta Tags", "Modify Description", "ThirdWeb Iframe Embed"]
+                            items: ["+1 Website", "Website Editor", "Modify Logo", "Modify Title", "Modify Meta Tags", "Modify Description", "ThirdWeb Iframe Embed", "More soon..."]
                         }}
                     />
                 </Box>
@@ -53,7 +53,7 @@ const PricesCard = ({pricingRef}) => {
                             title: "Free",
                             titleColor: "rgba(150,150,150,0.5)",
                             price: 0,
-                            per: "Generate",
+                            per: "Lifetime",
                             items: ["100 Unique Combinations", "No Watermark", "ETH & SOL Metadata", "Image Rarity"]
                         }}
                     />
@@ -61,9 +61,9 @@ const PricesCard = ({pricingRef}) => {
                         data={{
                             title: "Premium",
                             titleColor: "rgba(49,130,206,0.5)",
-                            price: "--",
+                            price: 20,
                             per: "Generate",
-                            items: ["1000 Unique Combinations = $50 USD", "5000 Unique Combinations = $100 USD", "10000 Unique Combinations = $200 USD", "No Watermark", "ETH & SOL Metadata", "Image Rarity"]
+                            items: ["10000 Unique Combinations", "No Watermark", "ETH & SOL Metadata", "Image Rarity"]
                         }}
                     />
                 </Box>

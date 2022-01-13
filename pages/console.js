@@ -7,6 +7,7 @@ import Login from "../components/Login"
 import Layout from "../components/Layout"
 import Home from "../components/pages/Home/Home"
 import Dashboard from "../components/pages/Dashboard/Dashboard";
+import Payments from "../components/pages/Payments/Payments";
 import About from "../components/pages/About/About"
 import CookieDrawer from "../components/CookieDrawer"
 
@@ -38,11 +39,13 @@ const Index = () => {
         if (page == null) return;
         if (page === "home") setCurrentPage(0);
         else if (page === "dashboard") setCurrentPage(1);
-        else if (page === "about") setCurrentPage(2);
+        else if (page === "payments") setCurrentPage(2);
+        else if (page === "about") setCurrentPage(3);
     }, [router])
 
     // Check if network changed
     useEffect(() => {
+        if (Moralis == null) return;
         Moralis.onChainChanged(async (chainID) => {
             if (chainID != `0x${process.env.CHAIN_ID}`) {
                 logout()
@@ -106,7 +109,7 @@ const Index = () => {
         <Box h='100%'>
             <Header 
                 title="NFT Host"
-                description="NFT Host is a website where you can host your ERC721 drops. Upload your nft collection(s) and share it with anyone!!!"
+                description="NFT Host is a website where you can generate NFT collections and create NFT minting website."
                 keywords="NFT Host, Host NFT, Mint Website, Mint NFT Website Hosting, Mint NFT, NFT, Mint, Crypto Currency, Crypto, Ethereum"
                 robots={true}
                 language="English"
@@ -117,7 +120,8 @@ const Index = () => {
                 <Layout currentPage={currentPage}>
                     {currentPage === 0 && <Home />}
                     {currentPage === 1 && <Dashboard />}
-                    {currentPage === 2 && <About />}
+                    {currentPage === 2 && <Payments />}
+                    {currentPage === 3 && <About />}
                 </Layout>
             ) : (
                 <Login />

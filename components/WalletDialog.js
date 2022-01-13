@@ -29,16 +29,25 @@ const WalletDialog = (props, ref) => {
                     <List>
                         {walletList.map((wallet, idx) => (
                             <ListItem key={idx}>
-                                <Button variant='solid' rightIcon={<MetamaskIcon size={24}/>} colorScheme='blue' isFullWidth onClick={() => handleChoose(idx)}>               
+                                <Button 
+                                    isFullWidth 
+                                    variant='solid' 
+                                    leftIcon={<MetamaskIcon size={24}/>} 
+                                    bg='black' 
+                                    color='white' 
+                                    _hover={{
+                                        bg: 'rgb(50,50,50)'
+                                    }}
+                                    onClick={() => handleChoose(idx)}
+
+                                >               
                                     {wallet.name}
                                 </Button>
                             </ListItem>
                         ))}
                     </List>
                 </ModalBody>
-                <ModalFooter>
-
-                </ModalFooter>
+                <ModalFooter />
             </ModalContent>
         </Modal>
     )

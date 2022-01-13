@@ -3,7 +3,7 @@ import { Box, Text } from '@chakra-ui/react'
 import AppsContainer from "./AppsContainer"
 import HostContainer from "./Hosting/HostContainer"
 import GeneratorContainer from "./Generator/GeneratorContainer"
-import ConfirmationDialog from "../../ConfirmationDialog" 
+import ConfirmationDialog from "../../ConfirmationDialog"
 
 const Dashboard = () => {
     const [currentApp, setCurrentApp] = useState(0);

@@ -61,7 +61,11 @@ const IntroContainer = () => {
                     py='1.5em'
                     px='2em'
                     variant='solid'
-                    colorScheme='blue'
+                    bg='black'
+                    color='white'
+                    _hover={{
+                        bg: 'rgb(50,50,50)'
+                    }}
                     onClick={handleConsole}
                 >
                     Get Started

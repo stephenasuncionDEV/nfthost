@@ -1,5 +1,5 @@
 import { useState, useEffect, } from "react"
-import { useToast, Box, Text, Button } from '@chakra-ui/react'
+import { Box, Text, Button, Center } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useMoralis } from 'react-moralis'
 import Header from '../components/Header'
@@ -9,7 +9,6 @@ const Website = () => {
     const [websiteData, setWebsiteData] = useState(null);
     const { Moralis } = useMoralis();
     const router = useRouter();
-    const alert = useToast();
     const { id } = router.query;
 
     useEffect(() => {
@@ -19,25 +18,17 @@ const Website = () => {
         query.equalTo("url", `https://www.nfthost.app/${id}`);
         query.first()
         .then(res => {
-            const data = res.attributes;
-            if (data.body == null) throw new Error("Must save changes to website");
-            setWebsiteData(data);
+            const expiryDate = res.attributes.expiresAt;
+            const curDate = new Date();
+            if (curDate.getTime() >= expiryDate.getTime()) throw new Error("Website Hosting Expired. If you are the owner, please renew your website.");
+
+            setWebsiteData(res.attributes);
         })
         .catch(err => {
+            console.error(err.message);
             location.href = "https://www.nfthost.app/";
-            alert({
-                title: 'Error',
-                description: err.message,
-                status: 'error',
-                duration: 3000,
-            })
         });
-    }, [router])
-
-    useEffect(() => {
-        if(websiteData == null) return;
-        console.log(websiteData.body)
-    }, [websiteData])
+    }, [id])
 
     const handleNFTHost = () => {
         window.open("https://www.nfthost.app/");
@@ -51,14 +42,25 @@ const Website = () => {
                         title={websiteData.header}
                         description={websiteData.description}
                         keywords={websiteData.keywords}
-                        robots={websiteData.isRobot}
+                        robots={websiteData.allowIndex}
                         language={websiteData.language}
                         image={websiteData.image}
                     />
-                    <style>
-                        {parse(websiteData.body.css)}
-                    </style>
-                    {parse(websiteData.body.html)}
+                    {websiteData.body ? (
+                        <Box>
+                            <style>
+                                {parse(websiteData.body.css)}
+                            </style>
+                            {parse(websiteData.body.html)}
+                        </Box>
+                    ) : (
+                        <Center h='100vh' flexDir='column'>
+                            <Text fontSize='32pt' textAlign='center'>Hello 👋,</Text>
+                            <Text fontSize='14pt' textAlign='center'>{websiteData.title}</Text>
+                            <Text textAlign='center'>If you are the owner, please update your website using the website editor.</Text>
+                            <Text mt='4' textAlign='center'>- NFT Host</Text>
+                        </Center>
+                    )}
                     <Box 
                         display='flex'
                         flexDir='column'

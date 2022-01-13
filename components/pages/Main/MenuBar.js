@@ -123,7 +123,11 @@ const MenuBar = () => {
                         <HStack>
                             <Button 
                                 variant='solid'
-                                colorScheme='blue'
+                                bg='black'
+                                color='white'
+                                _hover={{
+                                    bg: 'rgb(50,50,50)'
+                                }}
                                 onClick={handleConsole}
                             >
                                 Go to console

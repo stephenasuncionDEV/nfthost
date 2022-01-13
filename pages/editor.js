@@ -14,6 +14,7 @@ const Editor = () => {
     const [editable, setEditable] = useState(false);
     const [websiteData, setWebsiteData] = useState(null);
     const [editor, setEditor] = useState(null);
+    const [isSaving, setIsSaving] = useState(false);
     const logoutModalRef = useRef();
     const nftLogo = useRef();
     const twLogo = useRef();
@@ -59,8 +60,10 @@ const Editor = () => {
             pluginOpts: {
                 gjsPresetWebpage: {},
             },
-            autoload: false,
-            autosave: false,
+            storageManager: {
+                autoload: false,
+                autosave: false
+            },
             blockManager: {
                 blocks: [
                     {
@@ -168,6 +171,7 @@ const Editor = () => {
     }
 
     const handleSaveChanges = () => {
+        setIsSaving(true);
         const websiteClass = Moralis.Object.extend("Website");
         const query = new Moralis.Query(websiteClass);
         query.equalTo("url", `https://www.nfthost.app/${id}`);
@@ -177,6 +181,7 @@ const Editor = () => {
             return res.save();
         })
         .then(res => {
+            setIsSaving(false);
             alert({
                 title: 'Success',
                 description: 'Changes has been saved.',
@@ -201,7 +206,7 @@ const Editor = () => {
         >
             <Header
                 title='NFT Host - Website Editor'
-                description='Website Editor for NFT Host'
+                description='NFT Host is a website where you can generate NFT collections and create NFT minting website.'
                 keywords="NFT Host, Host NFT, Mint Website, Mint NFT Website Hosting, Mint NFT, NFT, Mint, Crypto Currency, Crypto, Ethereum"
                 robots={false}
                 language='English'
@@ -260,8 +265,14 @@ const Editor = () => {
                         </Button>
                         <Button
                             variant='solid'
-                            colorScheme='blue'
+                            bg='black'
+                            color='white'
+                            _hover={{
+                                bg: 'rgb(50,50,50)'
+                            }}
                             onClick={handleSaveChanges}
+                            isLoading={isSaving}
+                            loadingText="Saving"
                         >
                             Save Changes
                         </Button>

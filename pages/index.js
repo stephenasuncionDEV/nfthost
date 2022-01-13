@@ -11,7 +11,7 @@ const Main = () => {
         <Box>
             <Header 
                 title="NFT Host"
-                description="NFT Host is a website where you can generate and host NFT collections. Upload your NFT collection and share it with anyone!!!"
+                description="NFT Host is a website where you can generate NFT collections and create NFT minting website."
                 keywords="NFT Host, Host NFT, Mint Website, Mint NFT Website Hosting, Mint NFT, NFT, Mint, Crypto Currency, Crypto, Ethereum"
                 robots={true}
                 language="English"
@@ -25,7 +25,7 @@ const Main = () => {
                 <Box className={style.featureVertical}>
                     <Text className={style.featureHeader}>Features</Text>
                     <Box className={style.featuresSubContainer}>
-                        <FeatureContainer icon={0} features={["Modify Logo", "Modify Title", "Modify Meta Tags", "Modify Description", "ThirdWeb Iframe Embed"]} />
+                        <FeatureContainer icon={0} features={["Website Editor", "Modify Logo", "Modify Title", "Modify Meta Tags", "Modify Description", "ThirdWeb Iframe Embed"]} />
                         <FeatureContainer icon={1} features={["No Watermark", "Unlimited Layers", "ETH & SOL Metadata", "Unique Combinations", "Change Rarity of Images"]} />
                     </Box>
                 </Box>
