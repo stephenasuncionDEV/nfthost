@@ -35,6 +35,7 @@ const Editor = () => {
         query.first()
         .then(res => {
             if (res.attributes.owner != user.attributes.ethAddress) throw new Error("Website ownership mismatch");
+            if (!res.attributes.isPremium) throw new Error("Website not premium");
             setEditable(true);
             setWebsiteData(res.attributes);
         })

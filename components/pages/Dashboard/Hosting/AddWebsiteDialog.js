@@ -76,6 +76,7 @@ const AddWebsiteDialog = (props, ref) => {
                 setImage(website.image);
                 setIsRobot(website.isRobot);
                 setLanguage(website.language);
+                setIsPremium(website.isPremium);
                 setKeywordsList(website.keywords.split(", "));
             }
             onOpen();
@@ -409,18 +410,20 @@ const AddWebsiteDialog = (props, ref) => {
                     </Button>
                     {isPreview ? (
                         <Box>
-                            <Button
-                                variant='solid'
-                                ml='2'
-                                bg='black'
-                                color='white'
-                                _hover={{
-                                    bg: 'rgb(50,50,50)'
-                                }}
-                                onClick={handleEditor}
-                            >
-                                Website Editor
-                            </Button>
+                            {isPremium && (
+                                <Button
+                                    variant='solid'
+                                    ml='2'
+                                    bg='black'
+                                    color='white'
+                                    _hover={{
+                                        bg: 'rgb(50,50,50)'
+                                    }}
+                                    onClick={handleEditor}
+                                >
+                                    Website Editor
+                                </Button>
+                            )}
                             <Button
                                 variant='solid'
                                 ml='2'
