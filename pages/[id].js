@@ -1,8 +1,9 @@
 import { useState, useEffect, } from "react"
-import { Box, Text, Button, Center } from '@chakra-ui/react'
+import { Box, Text, Button, Center, Image } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useMoralis } from 'react-moralis'
 import Header from '../components/Header'
+import MinterContainer from '../components//MintContainer'
 import parse from 'html-react-parser';
 
 const Website = () => {
@@ -46,20 +47,51 @@ const Website = () => {
                         language={websiteData.language}
                         image={websiteData.image}
                     />
-                    {websiteData.body ? (
-                        <Box>
-                            <style>
-                                {parse(websiteData.body.css)}
-                            </style>
-                            {parse(websiteData.body.html)}
-                        </Box>
+                    {websiteData.isPremium ? (
+                        <>
+                            {websiteData.body ? (
+                                <Box>
+                                    <style>
+                                        {parse(websiteData.body.css)}
+                                    </style>
+                                    {parse(websiteData.body.html)}
+                                </Box>
+                            ) : (
+                                <Center h='100vh' flexDir='column'>
+                                    <Text fontSize='32pt' textAlign='center'>Hello 👋,</Text>
+                                    <Text fontSize='14pt' textAlign='center'>{websiteData.title}</Text>
+                                    <Text textAlign='center'>If you are the owner, please update your website using the website editor.</Text>
+                                    <Text mt='4' textAlign='center'>- NFT Host</Text>
+                                </Center>
+                            )}
+                        </>
                     ) : (
-                        <Center h='100vh' flexDir='column'>
-                            <Text fontSize='32pt' textAlign='center'>Hello 👋,</Text>
-                            <Text fontSize='14pt' textAlign='center'>{websiteData.title}</Text>
-                            <Text textAlign='center'>If you are the owner, please update your website using the website editor.</Text>
-                            <Text mt='4' textAlign='center'>- NFT Host</Text>
-                        </Center>
+                        <>
+                            <Center h='100vh' flexDir='column'>
+                                <Image 
+                                    src={websiteData.image} 
+                                    alt={websiteData.header}
+                                    boxSize='240px'
+                                    objectFit='scale-down'
+                                />
+                                <Text 
+                                    fontSize='32pt'
+                                    lineHeight='32pt'
+                                >
+                                    {websiteData.header}
+                                </Text>
+                                <Text 
+                                    fontSize='14pt'
+                                >
+                                    {websiteData.description}
+                                </Text>
+                            </Center>
+                            <Center h='100vh' flexDir='column' bg='rgb(220,220,220)'>
+                                <MinterContainer 
+                                    iframe={websiteData.iframe}
+                                />
+                            </Center>
+                        </>
                     )}
                     <Box 
                         display='flex'

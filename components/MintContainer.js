@@ -3,7 +3,7 @@ import parse from 'html-react-parser';
 
 const MintContainer = ({iframe}) => {
     return (
-        <Box mt='1em'>
+        <Box>
             {parse(iframe)}
         </Box>
     )
