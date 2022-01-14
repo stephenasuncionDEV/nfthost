@@ -57,8 +57,9 @@ const Index = () => {
                         title: 'Error',
                         description: err.message,
                         status: 'error',
-                        duration: 3000,
+                        duration: 5000,
                     })
+                    location.href='/'
                 })
             }
         });

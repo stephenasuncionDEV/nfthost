@@ -1,8 +1,13 @@
-import { useToast, Box, Text, IconButton, List, ListItem, Avatar, Button, Input } from '@chakra-ui/react'
-import { MdLayers, MdClose, MdAdd } from 'react-icons/md'
+import { useRef } from "react";
+import { useToast, Box, Text, IconButton, List, ListItem, Avatar, Button, Input, Menu, MenuButton, MenuList, MenuItem, MenuDivider } from '@chakra-ui/react'
+import { MdLayers, MdAdd, MdSettings } from 'react-icons/md'
+import { AiOutlineDelete } from 'react-icons/ai'
+import { FaBalanceScale } from 'react-icons/fa'
+import RarityDialog from './RarityDialog';
 import style from "../../../../styles/Container.module.scss"
 
 const LayerContainer = ({layerList, layerIndex, setLayerList, setLayerIndex}) => {
+    const rarityDialogRef = useRef();
     const alert = useToast();
 
     const onTitleChange = (e) => {
@@ -12,9 +17,8 @@ const LayerContainer = ({layerList, layerIndex, setLayerList, setLayerIndex}) =>
     }
 
     const handleAddLayer = () => {
-        //if (layerList.length >= 6) return; 
         const newLayer = {
-            name: "New Layer",
+            name: `Layer ${layerList.length + 1}`,
             images: []
         }
         setLayerList([...layerList, newLayer]);
@@ -41,6 +45,20 @@ const LayerContainer = ({layerList, layerIndex, setLayerList, setLayerIndex}) =>
         setLayerIndex(layerList.length - 2);
     }
 
+    const handleSettings = (index) => {
+        if (layerList[index].images == 0) {
+            alert({
+                title: 'Error',
+                description: "Selected layer must have images",
+                status: 'error',
+                duration: 3000,
+            })
+            return;
+        }
+
+        rarityDialogRef.current.show(layerList, index);
+    }
+
     return (
         <Box
             maxW='300px'
@@ -51,6 +69,11 @@ const LayerContainer = ({layerList, layerIndex, setLayerList, setLayerIndex}) =>
             ml='4'
             className={style.box}
         >
+            <RarityDialog
+                ref={rarityDialogRef} 
+                layerList={layerList} 
+                setLayerList={setLayerList}
+            />
             <Text fontSize='16pt'>
                 Layers
             </Text>
@@ -105,13 +128,30 @@ const LayerContainer = ({layerList, layerIndex, setLayerList, setLayerIndex}) =>
                                 <Input variant='unstyled' value={layer.name} onChange={onTitleChange} />
                                 <Text fontSize='10pt'>{layer.images.length} Images</Text>
                             </Box>
-                            <IconButton
-                                icon={<MdClose />}
-                                onClick={(e) => {
-                                    e.stopPropagation(); 
-                                    handleDeleteLayer(idx);
-                                }}
-                            />
+                            <Menu>
+                                <MenuButton
+                                    as={IconButton}
+                                    aria-label='Layer Settings'
+                                    icon={<MdSettings />}
+                                    variant='outline'
+                                    onClick={(e) => e.stopPropagation()}
+                                />
+                                <MenuList>
+                                    <MenuItem icon={<FaBalanceScale />} onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleSettings(idx);
+                                    }}>
+                                        Rarity
+                                    </MenuItem>
+                                    <MenuDivider />
+                                    <MenuItem icon={<AiOutlineDelete />} onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleDeleteLayer(idx)
+                                    }}>
+                                        Delete
+                                    </MenuItem>
+                                </MenuList>
+                            </Menu>
                         </Button>
                     </ListItem>
                 ))}

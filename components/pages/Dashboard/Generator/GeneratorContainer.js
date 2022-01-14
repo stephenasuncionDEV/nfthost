@@ -8,7 +8,7 @@ const GeneratorContainer = () => {
     const [layerIndex, setLayerIndex] = useState(0);
     const [layerList, setLayerList] = useState([
         {
-            name: "New Layer",          
+            name: "Layer 1",          
             images: []
         },
     ]);

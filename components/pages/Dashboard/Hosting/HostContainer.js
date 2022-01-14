@@ -30,7 +30,6 @@ const HostContainer = () => {
 
     useEffect(() => {
         if (user == null) return;
-        
         // Initialize hostSize (for new users)
         if (user.attributes.websites == null) {
             setUserData({
@@ -218,9 +217,12 @@ const HostContainer = () => {
         let newWebsiteList = [...websiteArr];
         newWebsiteList.splice(websiteIndex, 1);
 
+        const hostSize = user.attributes.hostSize;
+
         // Update user data
         setUserData({
-            websites: newWebsiteList
+            websites: newWebsiteList,
+            hostSize: hostSize == 1 ? 1 : hostSize - 1
         })
         .then(res => {
             const websiteClass = Moralis.Object.extend("Website");

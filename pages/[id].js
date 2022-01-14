@@ -3,7 +3,7 @@ import { Box, Text, Button, Center, Image } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useMoralis } from 'react-moralis'
 import Header from '../components/Header'
-import MinterContainer from '../components//MintContainer'
+import MinterContainer from '../components/MintContainer'
 import parse from 'html-react-parser';
 
 const Website = () => {

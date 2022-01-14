@@ -187,10 +187,11 @@ const AddWebsiteDialog = (props, ref) => {
             }
 
             // Validate duplicate website title
+            const websiteArr = user.attributes.websites;
             if (!isSave) {
-                const websiteArr = user.attributes.websites;
-                const uniqueTitles = new Set(websiteArr.map(w => w.title));
-                if (uniqueTitles.has(title)) throw new Error("You cannot have a duplicated website");
+                if (websiteArr.findIndex(res => res.title == title) != -1) throw new Error("You cannot have a duplicated website");
+            } else {
+                if (websiteArr.findIndex(res => res.title == title) != websiteArr.findIndex(res => res.url == url)) throw new Error("You cannot have a duplicated website");
             }
 
             // Validate Iframe source code

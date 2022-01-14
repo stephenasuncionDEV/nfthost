@@ -63,62 +63,64 @@ const RarityDialog = (props, ref) => {
                 <ModalHeader>Rarity Settings</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
-                    <Box
-                        display='flex'
-                        justifyContent='space-between'
-                    >
-                        <List>
-                            {layerList[layerIndex].images.map((image, idx) => (
-                                <ListItem mt='2' key={idx}>
-                                    <Box
-                                        display='flex'
-                                        alignItems='center'
-                                    >
-                                        <Avatar
-                                            alt={image.name}
-                                            src={image.url}
-                                        />
-                                        <Text ml='2'>{image.name}</Text>
-                                    </Box>
-                                </ListItem>
-                            ))}
-                        </List>
-                        <List
-                            mt='2'
+                    {layerList[layerIndex] && (
+                        <Box
                             display='flex'
-                            flexDir='column'
                             justifyContent='space-between'
                         >
-                            {imageRarityList.map((data, idx) => (
-                                <ListItem 
-                                    key={idx} 
-                                    h='48px'
-                                >
-                                    <HStack
-                                        spacing='24px'
+                            <List>
+                                {layerList[layerIndex].images.map((image, idx) => (
+                                    <ListItem mt='2' key={idx}>
+                                        <Box
+                                            display='flex'
+                                            alignItems='center'
+                                        >
+                                            <Avatar
+                                                alt={image.name}
+                                                src={image.url}
+                                            />
+                                            <Text ml='2'>{image.name}</Text>
+                                        </Box>
+                                    </ListItem>
+                                ))}
+                            </List>
+                            <List
+                                mt='2'
+                                display='flex'
+                                flexDir='column'
+                                justifyContent='space-between'
+                            >
+                                {imageRarityList.map((data, idx) => (
+                                    <ListItem 
+                                        key={idx} 
+                                        h='48px'
                                     >
-                                        <Text w='70px'>
-                                            {data.value}%
-                                        </Text>
-                                        <NumberInput step={1} value={data.tempValue} min={1} onChange={(value) => onChangeValue(value, idx)} w='100px'>
-                                            <NumberInputField />
-                                            <NumberInputStepper>
-                                                <NumberIncrementStepper />
-                                                <NumberDecrementStepper />
-                                            </NumberInputStepper>
-                                        </NumberInput>
-                                        <Text>out of</Text>
-                                        <Input 
-                                            variant='outline' 
-                                            value={maxValue} 
-                                            disabled
-                                            w='80px'
-                                        />
-                                    </HStack>
-                                </ListItem>
-                            ))}
-                        </List>
-                    </Box>
+                                        <HStack
+                                            spacing='24px'
+                                        >
+                                            <Text w='70px'>
+                                                {data.value}%
+                                            </Text>
+                                            <NumberInput step={1} value={data.tempValue} min={1} onChange={(value) => onChangeValue(value, idx)} w='100px'>
+                                                <NumberInputField />
+                                                <NumberInputStepper>
+                                                    <NumberIncrementStepper />
+                                                    <NumberDecrementStepper />
+                                                </NumberInputStepper>
+                                            </NumberInput>
+                                            <Text>out of</Text>
+                                            <Input 
+                                                variant='outline' 
+                                                value={maxValue} 
+                                                disabled
+                                                w='80px'
+                                            />
+                                        </HStack>
+                                    </ListItem>
+                                ))}
+                            </List>
+                        </Box>
+                    )}
                 </ModalBody>
                 <ModalFooter>
                     <Button variant='solid' colorScheme='gray' onClick={onClose}>

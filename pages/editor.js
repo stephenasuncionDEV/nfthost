@@ -262,7 +262,7 @@ const Editor = () => {
                             variant='solid'
                             onClick={handleCancel}
                         >
-                            Cancel
+                            Go Back
                         </Button>
                         <Button
                             variant='solid'

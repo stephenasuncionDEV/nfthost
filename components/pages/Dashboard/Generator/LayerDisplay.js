@@ -1,9 +1,8 @@
 import { useState, useRef } from "react";
 import { useToast, Box, Text, Button, IconButton, Switch } from '@chakra-ui/react'
 import { BsImageFill } from 'react-icons/bs'
-import { MdSettings, MdCode } from 'react-icons/md'
+import { MdCode } from 'react-icons/md'
 import ImageDialog from "./ImageDialog";
-import RarityDialog from './RarityDialog';
 import ScriptDialog from "./ScriptDialog"
 import style from "../../../../styles/Container.module.scss"
 
@@ -11,7 +10,6 @@ const LayerDisplay = ({layerList, layerIndex, setLayerList}) => {
     const [fileOverState, setFileOverState] = useState(false);
     const [isEditable, setIsEditable] = useState(false);
     const imageDialogRef = useRef();
-    const rarityDialogRef = useRef();
     const scriptDialogRef = useRef();
     const alert = useToast();
 
@@ -85,20 +83,6 @@ const LayerDisplay = ({layerList, layerIndex, setLayerList}) => {
         imageDialogRef.current.show(index);
     }
 
-    const handleRaritySettingsClick = () => {
-        if (layerList[layerIndex].images == 0) {
-            alert({
-                title: 'Error',
-                description: "Selected layer must have images",
-                status: 'error',
-                duration: 3000,
-            })
-            return;
-        }
-
-        rarityDialogRef.current.show(layerList, layerIndex);
-    }
-
     const handleOpenScript = () => {
         scriptDialogRef.current.show();
     }
@@ -113,11 +97,6 @@ const LayerDisplay = ({layerList, layerIndex, setLayerList}) => {
         >
             <ScriptDialog 
                 ref={scriptDialogRef}
-                layerList={layerList} 
-                setLayerList={setLayerList}
-            />
-            <RarityDialog
-                ref={rarityDialogRef} 
                 layerList={layerList} 
                 setLayerList={setLayerList}
             />
@@ -137,12 +116,6 @@ const LayerDisplay = ({layerList, layerIndex, setLayerList}) => {
                         aria-label='Open script dialog' 
                         icon={<MdCode />}
                         onClick={handleOpenScript}
-                    />
-                    <IconButton
-                        aria-label='Open current layer rarity settings' 
-                        ml='2'
-                        icon={<MdSettings />}
-                        onClick={handleRaritySettingsClick}
                     />
                 </Box>
             </Box>
