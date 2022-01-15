@@ -40,7 +40,8 @@ const HostContainer = () => {
     }, [user])
 
     const handleAddSite = () => {
-        if (user.attributes.websites.length >= user.attributes.hostSize) {
+        const websiteArr = user.attributes.websites;
+        if (websiteArr.length >= user.attributes.hostSize && websiteArr.findIndex(res => res.isPremium == false) != -1) {
             paymentMethodDialogRef.current.show();
         } else {
             addWebsiteDialogRef.current.show();
@@ -218,11 +219,12 @@ const HostContainer = () => {
         newWebsiteList.splice(websiteIndex, 1);
 
         const hostSize = user.attributes.hostSize;
+        const onDeleteSize = data.isPremium == true ? hostSize - 1 : hostSize;
 
         // Update user data
         setUserData({
             websites: newWebsiteList,
-            hostSize: hostSize == 1 ? 1 : hostSize - 1
+            hostSize: hostSize == 1 ? 1 : onDeleteSize
         })
         .then(res => {
             const websiteClass = Moralis.Object.extend("Website");
@@ -323,7 +325,8 @@ const HostContainer = () => {
         const { keywordsList, ...relevantData } = data;
 
         // Check if website is premium
-        const isPremium = user.attributes.websites.length > 0 && user.attributes.hostSize > 1;
+        const websiteArr = user.attributes.websites;
+        const isPremium = websiteArr.length > 0 && user.attributes.hostSize > 1 && websiteArr.findIndex(res => res.isPremium == false) != -1;
 
         // Parse Keywords
         let keywords = "";
@@ -340,7 +343,6 @@ const HostContainer = () => {
 
         // Initialize new object when a user has a website
         let newWebsiteArr;
-        const websiteArr = user.attributes.websites;
         if (websiteArr.length > 0) {
             newWebsiteArr = [...websiteArr];
             newWebsiteArr.push(newWebsiteData);

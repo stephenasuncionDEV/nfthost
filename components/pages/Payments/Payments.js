@@ -80,7 +80,7 @@ const Payments = () => {
                                 <Th>Type</Th>
                                 <Th>Amount</Th>
                                 <Th>Status</Th>
-                                <Th>paymentDate</Th>
+                                <Th>Payment Date</Th>
                                 <Th>Actions</Th>
                             </Tr>
                         </Thead>
@@ -123,7 +123,7 @@ const Payments = () => {
                                 <Th>Type</Th>
                                 <Th>Amount</Th>
                                 <Th>Status</Th>
-                                <Th>paymentDate</Th>
+                                <Th>Payment Date</Th>
                                 <Th>Actions</Th>
                             </Tr>
                         </Tfoot>

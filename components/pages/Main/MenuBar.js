@@ -46,7 +46,6 @@ const MenuBar = () => {
             width='full'
             position='fixed'
             zIndex='2147483647'
-            className={style.menuBar}
         >
             <Link 
                 href='/' 
