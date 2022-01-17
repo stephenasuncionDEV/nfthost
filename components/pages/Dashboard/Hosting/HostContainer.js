@@ -30,6 +30,7 @@ const HostContainer = () => {
 
     useEffect(() => {
         if (user == null) return;
+        
         // Initialize hostSize (for new users)
         if (user.attributes.websites == null) {
             setUserData({

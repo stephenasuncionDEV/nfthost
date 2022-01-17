@@ -91,28 +91,28 @@ const Website = () => {
                                     iframe={websiteData.iframe}
                                 />
                             </Center>
+                            <Box 
+                                display='flex'
+                                flexDir='column'
+                                w='full'
+                                alignItems='center'
+                                p='2em'
+                            >
+                                <Text color='rgb(120, 120, 120)'>
+                                    NFT Collection Hosted By
+                                </Text>
+                                <Button
+                                    w='100px'
+                                    variant='solid'
+                                    colorScheme='gray'
+                                    color='rgb(120, 120, 120)'
+                                    onClick={handleNFTHost}
+                                >
+                                    NFT Host
+                                </Button>
+                            </Box>
                         </>
                     )}
-                    <Box 
-                        display='flex'
-                        flexDir='column'
-                        w='full'
-                        alignItems='center'
-                        p='2em'
-                    >
-                        <Text color='rgb(120, 120, 120)'>
-                            NFT Collection Hosted By
-                        </Text>
-                        <Button
-                            w='100px'
-                            variant='solid'
-                            colorScheme='gray'
-                            color='rgb(120, 120, 120)'
-                            onClick={handleNFTHost}
-                        >
-                            NFT Host
-                        </Button>
-                    </Box>
                 </Box>
             )}
         </>
