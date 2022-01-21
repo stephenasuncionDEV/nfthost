@@ -13,6 +13,10 @@ const IntroContainer = () => {
         window.open("https://www.youtube.com/watch?v=54MAbT-yiAY");
     }
 
+    const handleVideoFull = () => {
+        window.open("https://www.youtube.com/watch?v=DhBNDsOjluo");
+    }
+
     const handleConsole = () => {
         router.push('/console');
     }
@@ -91,7 +95,21 @@ const IntroContainer = () => {
                     _hover={{ bg: "transparent" }}
                 >
                     Generator Demo
-                </Button>               
+                </Button>
+                <Divider 
+                    orientation='vertical'
+                    borderColor='blackAlpha.500'
+                    height='3em'
+                    className={style.introBtnDivider}
+                />       
+                <Button
+                    variant='solid'
+                    bg='transparent'
+                    onClick={handleVideoFull}
+                    _hover={{ bg: "transparent" }}
+                >
+                    Full Demo
+                </Button>        
             </Box>
         </Box>
     )

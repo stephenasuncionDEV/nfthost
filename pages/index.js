@@ -33,6 +33,7 @@ const Main = () => {
             <Box id="pricing" className={style.pricingContainer}>
                 <Box className={style.pricingVertical}>
                     <Text className={style.pricingHeader}>Pricing</Text>
+                    <Text className={style.pricingSubHeader}>If you want subscription deals please message us through Discord.</Text>
                 </Box>
                 <Box className={style.pricingSubContainer}>
                     <PricesCard />
