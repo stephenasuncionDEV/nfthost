@@ -161,6 +161,7 @@ const LayerDisplay = ({layerList, layerIndex, setLayerList}) => {
                         onDragOver={onDragOver}
                         onDragLeave={onDragLeave}
                         onDrop={onDrop}
+                        cursor='pointer'
                     >
                         <BsImageFill />
                         <Text>Drag and drop images here!</Text>

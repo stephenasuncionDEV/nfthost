@@ -17,6 +17,16 @@ const Layout = ({children, currentPage}) => {
         })
     }
 
+    const handleCopyBalance = () => {
+        navigator.clipboard.writeText(user.attributes.balance);
+        alert({
+            title: 'Your balanace has been copied.',
+            description: "",
+            status: 'info',
+            duration: 3000,
+        })
+    }
+
     return (
         <Box
             h='full'
@@ -28,7 +38,7 @@ const Layout = ({children, currentPage}) => {
             <Box
                 w='full'
                 h='full'
-                ml='300px'
+                ml='100px'
                 display='flex'
                 flexDir='column'
             >
@@ -37,44 +47,53 @@ const Layout = ({children, currentPage}) => {
                     alignItems='center'
                     pl='4'
                     pr='4'
+                    justifyContent='space-between'
                 >
-                    <ButtonGroup 
-                        h='81px'
-                        variant='outlined' 
+                    <Box
+                        display='flex'
                         alignItems='center'
-                        color='black'
-                        isAttached
                     >
-                        <IconButton 
-                            variant='solid'
-                            aria-label='Copy account address' 
-                            icon={<Icon as={FiCopy} />} 
-                            borderWidth='1px' 
-                            borderRadius='20px' 
-                            size='sm'
-                            onClick={handleCopyAddress} 
-                        />
-                        <Button 
-                            variant='solid'
-                            ml='-px' 
-                            borderWidth='1px' 
-                            borderRadius='20px' 
-                            size='sm'
-                            onClick={handleCopyAddress}
+                        <ButtonGroup 
+                            h='81px'
+                            variant='outlined' 
+                            alignItems='center'
+                            color='black'
+                            isAttached
                         >
-                            <Text>{user.attributes.ethAddress}</Text>
-                        </Button>
+                            <IconButton 
+                                variant='solid'
+                                aria-label='Copy account address' 
+                                icon={<Icon as={FiCopy} />} 
+                                borderWidth='1px' 
+                                borderRadius='20px' 
+                                size='sm'
+                                onClick={handleCopyAddress} 
+                            />
+                            <Button 
+                                variant='solid'
+                                ml='-px' 
+                                borderWidth='1px' 
+                                borderRadius='20px' 
+                                size='sm'
+                                onClick={handleCopyAddress}
+                            >
+                                <Text>{user.attributes.ethAddress}</Text>
+                            </Button>
+                        </ButtonGroup>
                         <Button 
                             variant='solid'
-                            ml='-px' 
+                            ml='.5em' 
                             borderWidth='1px'
                             borderRadius='20px' 
                             size='sm'
-                            onClick={handleCopyAddress}
+                            onClick={handleCopyBalance}
                         >
                             <Text>{`${user.attributes.balance && user.attributes.balance.length > 6 ? user.attributes.balance.substring(0, 6) : user.attributes.balance} ETH`}</Text>
                         </Button>
-                    </ButtonGroup>
+                    </Box>
+                    <a href="https://www.producthunt.com/posts/nft-host?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-nft-host" target="_blank">
+                        <img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=326763&theme=light" alt='NFT Host - Generate and Host your NFT Collection in under 10 minutes | Product Hunt'/>
+                    </a>
                 </Box>
                 {children}
             </Box>

@@ -114,6 +114,7 @@ const LayerContainer = ({layerList, layerIndex, setLayerList, setLayerIndex}) =>
                             borderBottomWidth='3px'
                             borderBottomColor={idx === layerIndex ? 'blackAlpha.500' : 'black.500'}
                             onClick={() => handleLayerClick(idx)}
+                            cursor='pointer'
                         >
                             <Avatar
                                 icon={<MdLayers />}

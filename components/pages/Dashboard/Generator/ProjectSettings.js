@@ -5,17 +5,18 @@ import { useToast, Box, Text, Button,
     NumberDecrementStepper, NumberInput, FormControl, FormLabel,
     RadioGroup, Radio, Stack, TagCloseButton, Alert, AlertIcon, AlertDescription } from '@chakra-ui/react'
 import { MdChevronRight, MdDownload, MdAdd } from 'react-icons/md'
-import { getEthPriceNow } from "get-eth-price";
-import { useMoralis } from "react-moralis";
-import { ethers } from "ethers";
-import { saveAs } from 'file-saver';
-import { loadStripe } from '@stripe/stripe-js';
-import { Elements } from '@stripe/react-stripe-js';
+import { getEthPriceNow } from "get-eth-price"
+import { useMoralis } from "react-moralis"
+import { ethers } from "ethers"
+import { saveAs } from 'file-saver'
+import { loadStripe } from '@stripe/stripe-js'
+import { Elements } from '@stripe/react-stripe-js'
 import MD5 from "crypto-js/md5"
-import JSZip from "jszip";
-import PaymentDialog from "../PaymentDialog";
-import PaymentMethodDialog from "../PaymentMethodDialog";
+import JSZip from "jszip"
+import PaymentDialog from "../PaymentDialog"
+import PaymentMethodDialog from "../PaymentMethodDialog"
 import PaymentLoadingDialog from "../PaymentLoadingDialog"
+import RenderingModal from "./RenderingModal"
 import style from "../../../../styles/Container.module.scss"
 
 const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY);
@@ -60,6 +61,7 @@ const ProjectSettings = ({layerList}) => {
     const paymentDialogRef = useRef();
     const paymentMethodDialogRef = useRef();
     const paymentLoadingDialogRef = useRef();
+    const renderingModalRef = useRef();
     const alert = useToast();
 
     useEffect(() => {
@@ -275,6 +277,7 @@ const ProjectSettings = ({layerList}) => {
         let hashList = [];
         let currentHash = "";
 
+        renderingModalRef.current.show();
         localStorage.setItem("isRendering", true);
         setIsRendering(true);
         setMetadata([]);
@@ -336,6 +339,7 @@ const ProjectSettings = ({layerList}) => {
                     setMetadata(tempMetadata);
                     setIsRendering(false);
                     localStorage.setItem("isRendering", false);
+                    renderingModalRef.current.hide();
                 }
             })
             .catch(err => {
@@ -489,6 +493,9 @@ const ProjectSettings = ({layerList}) => {
             p='5'
             className={style.box}
         >
+            <RenderingModal 
+                ref={renderingModalRef}
+            />
             <PaymentMethodDialog 
                 ref={paymentMethodDialogRef}
                 onChange={handlePaymentMethodChange}
