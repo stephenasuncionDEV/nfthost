@@ -28,6 +28,7 @@ const IntroContainer = () => {
             alignItems='center'
             flexDir='column'
             className={style.mainBG}
+            mb='10em'
         >
             <Text
                 fontWeight='700'
