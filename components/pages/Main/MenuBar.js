@@ -42,10 +42,6 @@ const MenuBar = () => {
             display='flex'
             justifyContent='space-between'
             alignItems='center'
-            bg='white'
-            width='full'
-            position='fixed'
-            zIndex='2147483647'
         >
             <Link 
                 href='/' 
@@ -64,9 +60,8 @@ const MenuBar = () => {
                     />
                     <Text
                         ml='4'
-                        fontSize='24pt'
-                        fontWeight='500'
-                        fontFamily='sans-serif'
+                        fontSize='18pt'
+                        fontWeight='700'
                         className={style.logoTitle}
                     >
                         NFT Host
@@ -79,14 +74,14 @@ const MenuBar = () => {
                     <HStack>
                         <Button 
                             variant='solid'
-                            bg='white'
+                            bg='transparent'
                             onClick={handleFeatures}
                         >
                             Features
                         </Button>
                         <Button 
                             variant='solid' 
-                            bg='white'
+                            bg='transparent'
                             onClick={handlePricing}
                         >
                             Pricing
@@ -98,6 +93,7 @@ const MenuBar = () => {
                             icon={<FaTiktok />}
                             borderRadius='50%'
                             size='sm'
+                            bg='transparent'
                             onClick={handleTiktok}
                         />
                         <IconButton 
@@ -105,6 +101,7 @@ const MenuBar = () => {
                             icon={<FaDiscord />}
                             borderRadius='50%'
                             size='sm'
+                            bg='transparent'
                             onClick={handleDiscord}
                         />
                         <IconButton 
@@ -112,6 +109,7 @@ const MenuBar = () => {
                             icon={<FaGithub />}
                             borderRadius='50%'
                             size='sm'
+                            bg='transparent'
                             onClick={handleGithub}
                         />
                     </HStack>
@@ -132,7 +130,8 @@ const MenuBar = () => {
                                 Go to console
                             </Button>
                             <Button 
-                                variant='outline'
+                                variant='solid'
+                                bg='white'
                                 leftIcon={<FaHeart color='rgb(229,62,62)'/>}
                                 onClick={handleSponsor}
                             >
@@ -145,6 +144,7 @@ const MenuBar = () => {
                             <MenuButton 
                                 as={IconButton} 
                                 icon={<HiMenu />} 
+                                bg='white'
                             />
                             <MenuList>
                                 <MenuItem onClick={handleFeatures}>Features ✨</MenuItem>

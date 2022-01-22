@@ -6,15 +6,25 @@
     display: none;
 }
 
-.featureBox {
-    width: 365px;
+.introHeader {
+    font-size: 62pt;
 }
 
-.introHeader {
-    font-size: 42pt;
+.introHeaderTwo {
+    font-size: 62pt;
+    background-color: #f3ec78;
+    background-image: linear-gradient(45deg, #78eff3, #4268af);
+    background-size: 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent;
+    line-height: 60pt;
 }
 
 .introSubHeader {
+    margin-top: 1em;
     font-size: 18pt;
 }
 
@@ -47,8 +57,9 @@
 }
 
 .featureBox {
-    -webkit-box-shadow: 0px .5px 3px 0px #cecece, 0px 4px 5px 0px #e9e9e9; 
-    box-shadow: 0px .5px 3px 0px #cecece, 0px 4px 5px 0px #e9e9e9; 
+    width: 365px;
+    -webkit-box-shadow: 0px 0px 10em 1em rgba(0, 0, 0, 0.144);
+    box-shadow: 0px 0px 10em 1em rgba(0, 0, 0, 0.144);
     padding: 4em 2em 4em 2em;
     margin-left: .5em;
     margin-right: .5em;
@@ -117,6 +128,8 @@
     margin-left: .5em;
     margin-right: .5em;
     height: 430px;
+    -webkit-box-shadow: 0px 0px 10em 1em rgba(0, 0, 0, 0.144);
+    box-shadow: 0px 0px 10em 1em rgba(0, 0, 0, 0.144);
 }
 
 .pricingTitle {
@@ -206,6 +219,9 @@
         height: auto;
     }
     .introHeader {
+        font-size: 24pt;
+    }
+    .introHeaderTwo {
         font-size: 24pt;
     }
     .introSubHeader {

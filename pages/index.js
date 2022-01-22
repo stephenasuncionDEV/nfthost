@@ -17,8 +17,13 @@ const Main = () => {
                 language="English"
                 image="/logo.png"
             />
-            <MenuBar />
-            <Box className={style.introMainContainer}>
+            <Box
+                bg='linear-gradient(rgb(240, 251, 255), white)'
+                display='flex'
+                flexDir='column'
+                height='100vh'
+            >
+                <MenuBar />
                 <IntroContainer />
             </Box>
             <Box id="features" className={style.featuresContainer}>

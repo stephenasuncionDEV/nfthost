@@ -111,7 +111,7 @@ const Sidebar = ({currentPage}) => {
                     </ListItem>
                     <ListItem h='50'>
                         <Button variant='solid' w='100%' h='100%' borderBottomWidth='3px' borderBottomColor='black.500' onClick={logout}>
-                            <Flex align='center' w='100%'>
+                            <Flex align='center' w='100%' justifyContent='center'>
                                 <Icon as={MdLogout} w='6' h='6' />
                                 {/* <Flex direction='column' grow='1'>
                                     Logout

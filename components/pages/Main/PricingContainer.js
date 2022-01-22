@@ -5,7 +5,7 @@ import style from "../../../styles/Main.module.scss"
 const PricingContainer = ({data}) => {
     return (
         <Box
-            boxShadow='var(--chakra-shadows-2xl)'
+         
             className={style.pricingBox}
         >
             <Box

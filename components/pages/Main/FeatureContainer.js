@@ -10,7 +10,7 @@ const FeatureContainer = ({icon, features}) => {
             <HStack justifyContent='center'>
                 <Box
                     p='1em'
-                    bg='rgb(49,130,206)'
+                    bg='linear-gradient(45deg, #78eff3, #4268af)'
                     borderRadius='10px'
                 >
                     {icon === 0 && <FaServer size='3em'/>}

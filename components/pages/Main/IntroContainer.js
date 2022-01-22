@@ -30,7 +30,7 @@ const IntroContainer = () => {
             className={style.mainBG}
         >
             <Text
-                fontWeight='800'
+                fontWeight='700'
                 textAlign='center'
                 mt='2em'
                 mx='2em'
@@ -39,10 +39,10 @@ const IntroContainer = () => {
                 Generate and Host your
             </Text>
             <Text
-                fontWeight='800'
+                fontWeight='700'
                 textAlign='center'
                 mx='2em'
-                className={style.introHeader}
+                className={style.introHeaderTwo}
             >
                 NFT Collection
             </Text>
