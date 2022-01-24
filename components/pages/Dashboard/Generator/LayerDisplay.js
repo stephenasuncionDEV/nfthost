@@ -31,7 +31,8 @@ const LayerDisplay = ({layerList, layerIndex, setLayerList}) => {
                 name: file.name.substring(0, file.name.lastIndexOf('.')),
                 value: -1,
                 maxValue: -1,
-                percentage: -1
+                percentage: -1,
+                type: file.type.substring(file.type.indexOf('/') + 1)
             });
         }
         let newLayerList = [...layerList];
@@ -165,7 +166,7 @@ const LayerDisplay = ({layerList, layerIndex, setLayerList}) => {
                     >
                         <BsImageFill />
                         <Text>Drag and drop images here!</Text>
-                        <Text>(image/png, Max size: N/A)</Text>
+                        <Text>(image/png, Max size: 10MB)</Text>
                         <input type="file" accept="image/png" name='files[]' onChange={handleUploadClick} multiple hidden/>
                     </Button>
                 )}

@@ -1,4 +1,5 @@
 import { useState } from "react"
+import dynamic from 'next/dynamic';
 import { Box } from '@chakra-ui/react'
 import LayerDisplay from "./LayerDisplay"
 import LayerContainer from "./LayersContainer"

@@ -16,16 +16,14 @@ import JSZip from "jszip"
 import PaymentDialog from "../PaymentDialog"
 import PaymentMethodDialog from "../PaymentMethodDialog"
 import PaymentLoadingDialog from "../PaymentLoadingDialog"
-import RenderingModal from "./RenderingModal"
+import ScreenLockModal from "./ScreenLockModal"
 import style from "../../../../styles/Container.module.scss"
 
 const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY);
-
 const zip = new JSZip();
-const wait = ms => new Promise(res => setTimeout(res, ms));
 
-const getImageHeightAndWidth = dataURL => new Promise(resolve => {
-    const img = new Image()
+const getImageHeightAndWidth = (dataURL) => new Promise(resolve => {
+    const img = new Image();
     img.onload = () => {
       resolve({
         height: img.height,
@@ -61,7 +59,7 @@ const ProjectSettings = ({layerList}) => {
     const paymentDialogRef = useRef();
     const paymentMethodDialogRef = useRef();
     const paymentLoadingDialogRef = useRef();
-    const renderingModalRef = useRef();
+    const screenLockModalRef = useRef();
     const alert = useToast();
 
     useEffect(() => {
@@ -91,62 +89,6 @@ const ProjectSettings = ({layerList}) => {
 
     const onStartCountChange = (value) => {
         setStartCount(value);
-    }
-
-    const getLayerImageIndex = (layer) => {
-        let i;
-        let weights = [];
-
-        layer.images.forEach((image, idx) => {
-            weights.push(parseInt(image.value) + (weights[idx - 1] || 0));
-        });
-
-        const random = Math.random() * layer.images[0].maxValue;
-
-        for (i = 0; i < weights.length; i++) {
-            if (weights[i] > random) {
-                break;
-            }
-        }     
-
-        return i;
-    }
-
-    const stackLayers = (ctx) => {
-        let attributes = [];
-        return new Promise((resolve, reject) => {
-            layerList.forEach((layer, idx) => {
-                setTimeout(() => {
-                    let layerImage = new Image();
-                    const randomIndex = getLayerImageIndex(layer);
-                    layerImage.src = layer.images[randomIndex].url;
-                    layerImage.onload = () => {
-                        ctx.drawImage(layerImage, 0, 0, imgWidth, imgLength)
-                    }
-                    const newAttribute = {
-                        trait_type: layer.name,
-                        value: layer.images[randomIndex].name
-                    }
-                    attributes.push(newAttribute);
-                    if (idx === layerList.length - 1) resolve(attributes);
-                }, idx * 50);
-            });
-        });
-    }
-
-    const saveCanvas = (countStart) => {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                try {
-                    canvasRef.current.toBlob((blob) => {
-                        zip.folder("Images").file(`${countStart}.png`, blob);
-                        resolve();
-                    });
-                } catch (err) {
-                    // Ignore Error
-                }
-            }, 50);
-        })
     }
 
     const onMetadataTypeChange = (value) => {
@@ -262,6 +204,38 @@ const ProjectSettings = ({layerList}) => {
         }
     }
 
+    const loadImage = (image) => {
+        return new Promise(resolve => {
+            let layerImage = new Image();
+            layerImage.src = image.url;
+            layerImage.onload = () => {
+                resolve(layerImage);
+            }
+        })
+    }
+
+    const loadLayerImages = (layer) => {
+        return Promise.all(
+            layer.images.map((image, idx) => {
+                return loadImage(image)
+                .then(layerImages => {
+                    return layerImages;
+                })
+            })
+        )
+    }
+
+    const getLoadedImages = () => {
+        return Promise.all(
+            layerList.map((layer, idx) => {
+                return loadLayerImages(layer)
+                .then(res => {
+                    return res;
+                });
+            })
+        )
+    }
+
     const generateCollection = async () => {
         zip.remove("Metadata");
         zip.remove("Images");
@@ -275,28 +249,21 @@ const ProjectSettings = ({layerList}) => {
         let renderIndex = 1;
 
         let hashList = [];
-        let currentHash = "";
 
-        renderingModalRef.current.show();
+        screenLockModalRef.current.show();
         localStorage.setItem("isRendering", true);
         setIsRendering(true);
         setMetadata([]);
-        
+
         while (imageIndex != count) {
             setCurRenderIndex(renderIndex);
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            let attributes = [];
-            stackLayers(ctx)
-            .then(res => {
-                currentHash = MD5(JSON.stringify(res)).toString();
-                if (!hashList.includes(currentHash)) {
-                    attributes = [...res];
-                    return saveCanvas(countStart);
-                }
-                throw new Error(`${currentHash} is a duplicate.`);
-            })
-            .then(() => {
-                imageIndex++;
+            const loadedImages = await getLoadedImages(); // Load Images
+            const attributes = await stackLayers(ctx, loadedImages); // Stack Layers
+            const currentHash = MD5(JSON.stringify(attributes)).toString();
+            if (hashList.indexOf(currentHash) == -1) { // If image is unique
+                hashList.push(currentHash);
+                await saveCanvas(countStart); // Save canvas
                 let nftJson = {
                     name: `${name} #${renderIndex}`,
                     description: description,                
@@ -333,25 +300,68 @@ const ProjectSettings = ({layerList}) => {
                     }
                 }
                 tempMetadata.push(nftJson);
+                imageIndex++;
                 countStart++;
                 renderIndex++;
-                if (imageIndex == count) {
-                    setMetadata(tempMetadata);
-                    setIsRendering(false);
-                    localStorage.setItem("isRendering", false);
-                    renderingModalRef.current.hide();
-                }
-            })
-            .catch(err => {
-                alert({
-                    title: 'Error',
-                    description: err.message,
-                    status: 'error',
-                    duration: 3000,
-                })
-            })
-            await wait(500);
+            }
+            if (imageIndex == count) {
+                setMetadata(tempMetadata);
+                setIsRendering(false);
+                localStorage.setItem("isRendering", false);
+                screenLockModalRef.current.hide();
+            }
         }
+    }
+
+    const drawOnCanvas = (ctx, layer, idx, loadedImages) => {
+        return new Promise(resolve => {
+            const randomIndex = getLayerImageIndex(layer);
+            const newAttribute = {
+                trait_type: layer.name,
+                value: layer.images[randomIndex].name
+            }
+            ctx.drawImage(loadedImages[idx][randomIndex], 0, 0, imgWidth, imgLength);
+            resolve(newAttribute);
+        })
+    }
+
+    const stackLayers = (ctx, loadedImages) => {
+        return Promise.all(
+            layerList.map((layer, idx) => {
+                return drawOnCanvas(ctx, layer, idx, loadedImages)
+                .then(res => {
+                    return res;
+                });
+            })
+        )
+    }
+
+    const getLayerImageIndex = (layer) => {
+        let i;
+        let weights = [];
+
+        layer.images.forEach((image, idx) => {
+            weights.push(parseInt(image.value) + (weights[idx - 1] || 0));
+        });
+
+        const random = Math.random() * layer.images[0].maxValue;
+
+        for (i = 0; i < weights.length; i++) {
+            if (weights[i] > random) {
+                break;
+            }
+        }     
+
+        return i;
+    }
+
+    const saveCanvas = (countStart) => {
+        return new Promise((resolve, reject) => {
+            canvasRef.current.toBlob((blob) => {
+                zip.folder("Images").file(`${countStart}.png`, blob);
+                resolve();
+            });
+        })
     }
 
     const onDownload = () => {
@@ -367,6 +377,7 @@ const ProjectSettings = ({layerList}) => {
 
         // File name start count
         let countStart = startCount;
+        screenLockModalRef.current.show('Downloading...');
         setIsDownloading(true);
 
         // Add Metadata file in zip
@@ -385,6 +396,7 @@ const ProjectSettings = ({layerList}) => {
         .then(res => {
             saveAs(res, "NFT Host.zip");
             setIsDownloading(false);
+            screenLockModalRef.current.hide();
         })
         .catch(err => {
             alert({
@@ -493,8 +505,8 @@ const ProjectSettings = ({layerList}) => {
             p='5'
             className={style.box}
         >
-            <RenderingModal 
-                ref={renderingModalRef}
+            <ScreenLockModal 
+                ref={screenLockModalRef}
             />
             <PaymentMethodDialog 
                 ref={paymentMethodDialogRef}
