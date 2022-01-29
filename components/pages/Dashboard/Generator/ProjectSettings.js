@@ -196,6 +196,11 @@ const ProjectSettings = ({layerList}) => {
                 throw new Error(`Possible combination is under the desired collection count (${possibleCombination}/${count})`);
             }
 
+            // Checks for big files
+            if((imgWidth >= 3000 || imgLength >= 3000) && count > 500) {
+                throw new Error("Files are too big");
+            } 
+
             // Check if user needs to pay
             if (count > 100) {
                 paymentMethodDialogRef.current.show();
