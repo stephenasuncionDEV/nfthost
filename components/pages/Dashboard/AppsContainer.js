@@ -1,18 +1,19 @@
-import { Box, Text, IconButton } from '@chakra-ui/react'
+import { Box, Text, IconButton, useColorModeValue } from '@chakra-ui/react'
 import { FaServer } from 'react-icons/fa'
 import { GoCircuitBoard } from 'react-icons/go'
 import style from "../../../styles/Container.module.scss"
 
 const AppsContainer = ({onChange}) => {
+    const containerColor = useColorModeValue('rgb(255, 255, 255)', 'rgb(50, 55, 67)');
+
     return (
         <Box 
             maxW='1000px' 
             w='100%' 
-            bg='white' 
+            bg={containerColor} 
             borderRadius='5px'
             mt='6'
             p='5'
-            className={style.box}
         >
             <Text fontSize='16pt'>
                 Your Applications

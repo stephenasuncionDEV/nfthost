@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useToast, Box, Text } from '@chakra-ui/react'
+import { useToast, Box, Text, useColorModeValue } from '@chakra-ui/react'
 import axios from "axios";
 import LogsContainer from "./LogsContainer"
 import Log from "./Log"
@@ -7,6 +7,8 @@ import Log from "./Log"
 const Home = () => {
     const [logsData, setLogsData] = useState([]);
     const alert = useToast();
+    const bg = useColorModeValue('rgb(255, 255, 255)', 'rgb(33, 37, 41)');
+    const containerColor = useColorModeValue('rgb(255, 255, 255)', 'rgb(50, 55, 67)');
 
     useEffect(() => {
         axios.get("/api/webhook/get")
@@ -25,7 +27,7 @@ const Home = () => {
 
     return (
         <>
-            <div className="main-pane">
+            <div className="main-pane" style={{ backgroundColor: bg }}>
                 <Box
                     display='flex'
                     flexDir='column'

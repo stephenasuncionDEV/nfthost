@@ -3,7 +3,7 @@ import { useToast, Box, Text, Button,
     Tag, TagLabel, Input, NumberInputField, 
     NumberInputStepper, NumberIncrementStepper,
     NumberDecrementStepper, NumberInput, FormControl, FormLabel,
-    RadioGroup, Radio, Stack, TagCloseButton, Alert, AlertIcon, AlertDescription } from '@chakra-ui/react'
+    RadioGroup, Radio, Stack, TagCloseButton, Alert, AlertIcon, AlertDescription, useColorModeValue } from '@chakra-ui/react'
 import { MdChevronRight, MdDownload, MdAdd } from 'react-icons/md'
 import { getEthPriceNow } from "get-eth-price"
 import { useMoralis } from "react-moralis"
@@ -61,6 +61,7 @@ const ProjectSettings = ({layerList}) => {
     const paymentLoadingDialogRef = useRef();
     const screenLockModalRef = useRef();
     const alert = useToast();
+    const containerColor = useColorModeValue('transparent', 'rgb(50, 55, 67)');
 
     useEffect(() => {
         if (layerList[0].images.length == 0) return;
@@ -311,7 +312,7 @@ const ProjectSettings = ({layerList}) => {
                             ],
                             creators: creators
                         },
-                        compiler: "NFT Host"
+                        compiler: "https://nfthost.app/"
                     }
                 }
                 tempMetadata.push(nftJson);
@@ -516,9 +517,9 @@ const ProjectSettings = ({layerList}) => {
         <Box           
             flex='1'
             mt='4'
-            bg='white'
             p='5'
-            className={style.box}
+            borderRadius='5px'
+            bg={containerColor}
         >
             <ScreenLockModal 
                 ref={screenLockModalRef}

@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { useToast, Box, Text, IconButton, List, ListItem, Avatar, Button, Input, Menu, MenuButton, MenuList, MenuItem, MenuDivider } from '@chakra-ui/react'
+import { useToast, Box, Text, IconButton, List, ListItem, Avatar, Button, Input, Menu, MenuButton, MenuList, MenuItem, MenuDivider, useColorModeValue } from '@chakra-ui/react'
 import { MdLayers, MdAdd, MdSettings } from 'react-icons/md'
 import { AiOutlineDelete } from 'react-icons/ai'
 import { FaBalanceScale } from 'react-icons/fa'
@@ -9,6 +9,7 @@ import style from "../../../../styles/Container.module.scss"
 const LayerContainer = ({layerList, layerIndex, setLayerList, setLayerIndex}) => {
     const rarityDialogRef = useRef();
     const alert = useToast();
+    const containerColor = useColorModeValue('transparent', 'rgb(50, 55, 67)');
 
     const onTitleChange = (e) => {
         let newLayerList = [...layerList];
@@ -64,10 +65,10 @@ const LayerContainer = ({layerList, layerIndex, setLayerList, setLayerIndex}) =>
             maxW='300px'
             flex='1'
             mt='4'
-            bg='white' 
             p='5'
             ml='4'
-            className={style.box}
+            borderRadius='5px'
+            bg={containerColor}
         >
             <RarityDialog
                 ref={rarityDialogRef} 
@@ -85,7 +86,6 @@ const LayerContainer = ({layerList, layerIndex, setLayerList, setLayerIndex}) =>
                         variant='solid'
                         w='full'
                         h='70px'
-                        className={style.box}
                         onClick={handleAddLayer}
                     >
                         <Avatar
@@ -110,7 +110,6 @@ const LayerContainer = ({layerList, layerIndex, setLayerList, setLayerIndex}) =>
                             variant='solid'
                             w='full'
                             h='70px'
-                            className={style.box}
                             borderBottomWidth='3px'
                             borderBottomColor={idx === layerIndex ? 'blackAlpha.500' : 'black.500'}
                             onClick={() => handleLayerClick(idx)}

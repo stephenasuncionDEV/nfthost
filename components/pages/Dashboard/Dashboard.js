@@ -1,5 +1,5 @@
 import { useState, useRef } from "react"
-import { Box, Text } from '@chakra-ui/react'
+import { Box, Text, useColorModeValue } from '@chakra-ui/react'
 import AppsContainer from "./AppsContainer"
 import HostContainer from "./Hosting/HostContainer"
 import GeneratorContainer from "./Generator/GeneratorContainer"
@@ -8,6 +8,7 @@ import ConfirmationDialog from "../../ConfirmationDialog"
 const Dashboard = () => {
     const [currentApp, setCurrentApp] = useState(0);
     const confirmationDialogRef = useRef();
+    const bg = useColorModeValue('rgb(255, 255, 255)', 'rgb(33, 37, 41)');
 
     const handleChangeApp = (index) => {
         if (localStorage.getItem("isRendering") === "true") {
@@ -28,7 +29,7 @@ const Dashboard = () => {
     }
 
     return (
-        <div className="main-pane">
+        <div className="main-pane" style={{ backgroundColor: bg }}>
             <ConfirmationDialog 
                 ref={confirmationDialogRef}
                 onConfirm={onChangeApps}

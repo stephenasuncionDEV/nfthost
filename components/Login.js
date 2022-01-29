@@ -1,5 +1,5 @@
 import { useRef } from "react"
-import { useToast, Box, Button, Image, Text, Link } from '@chakra-ui/react'
+import { useToast, Box, Button, Image, Text, Link, useColorMode, useColorModeValue } from '@chakra-ui/react'
 import { useMoralis } from "react-moralis"
 import { IoMdWallet } from 'react-icons/io'
 import WalletDialog from "./WalletDialog";
@@ -8,6 +8,8 @@ const Login = () => {
     const { authenticate, authError } = useMoralis();
     const walletDialogRef = useRef();
     const alert = useToast();
+
+    const bg = useColorModeValue('rgb(255, 255, 255)', 'rgb(0, 0, 0)')
 
     // Check result of Wallet Dialog
     const handleWalletChange = (index) => {
@@ -42,6 +44,7 @@ const Login = () => {
             flexDirection='column'
             justifyContent='center'
             alignItems='center'
+            bg={bg}
         >
             <WalletDialog 
                 ref={walletDialogRef} 

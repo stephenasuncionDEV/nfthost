@@ -1,11 +1,15 @@
-import { Box, Text, HStack, List, ListItem, ListIcon } from '@chakra-ui/react'
+import { Box, Text, HStack, List, ListItem, ListIcon, useColorModeValue } from '@chakra-ui/react'
 import { FaCheck } from 'react-icons/fa'
 import style from "../../../styles/Main.module.scss"
 
 const PricingContainer = ({data}) => {
+    const bg = useColorModeValue('rgb(255, 255, 255)', 'rgb(0, 0, 0)');
+    const bg2 = useColorModeValue('rgb(250, 250, 250)', 'rgb(0, 0, 0)');
+
     return (
-        <Box
-         
+        <Box   
+            borderRadius='5px'
+            bg={bg}
             className={style.pricingBox}
         >
             <Box
@@ -40,7 +44,7 @@ const PricingContainer = ({data}) => {
                 p='2em'
                 w='full'
                 h='full'
-                bg='rgb(250, 250, 250)'
+                bg={bg2}
             >
                 <List>
                     {data.items.map((item, idx) => (

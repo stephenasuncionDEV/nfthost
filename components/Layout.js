@@ -1,11 +1,15 @@
-import { useToast, ButtonGroup, Button, IconButton, Icon, Text, Box } from '@chakra-ui/react'
+import { useToast, ButtonGroup, Button, IconButton, Icon, Text, Box, useColorModeValue, useColorMode } from '@chakra-ui/react'
 import { useMoralis } from "react-moralis";  
 import { FiCopy } from 'react-icons/fi'
+import { MdOutlineDarkMode } from 'react-icons/md'
 import Sidebar from "./Sidebar"
 
 const Layout = ({children, currentPage}) => {
     const { user } = useMoralis();
     const alert = useToast();
+    const bg = useColorModeValue('rgb(255, 255, 255)', 'rgb(65,71,85)');
+    const txt = useColorModeValue('rgb(0, 0, 0)', 'rgb(255, 255, 255)');
+    const { colorMode, toggleColorMode } = useColorMode();
 
     const handleCopyAddress = () => {
         navigator.clipboard.writeText(user.attributes.ethAddress);
@@ -31,6 +35,7 @@ const Layout = ({children, currentPage}) => {
         <Box
             h='full'
             display='flex'
+            bg={bg}
         >
             <Sidebar 
                 currentPage={currentPage}
@@ -57,7 +62,7 @@ const Layout = ({children, currentPage}) => {
                             h='81px'
                             variant='outlined' 
                             alignItems='center'
-                            color='black'
+                            color={txt}
                             isAttached
                         >
                             <IconButton 
@@ -90,9 +95,15 @@ const Layout = ({children, currentPage}) => {
                         >
                             <Text>{`${user.attributes.balance && user.attributes.balance.length > 6 ? user.attributes.balance.substring(0, 6) : user.attributes.balance} ETH`}</Text>
                         </Button>
+                        <IconButton 
+                            ml='.5em'
+                            aria-label='Toggle Color Mode' 
+                            icon={<MdOutlineDarkMode />} 
+                            onClick={toggleColorMode} 
+                        />
                     </Box>
                     <a href="https://www.producthunt.com/posts/nft-host?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-nft-host" target="_blank">
-                        <img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=326763&theme=light" alt='NFT Host - Generate and Host your NFT Collection in under 10 minutes | Product Hunt'/>
+                        <img src={`https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=326763&theme=${colorMode === 'light' ? "light" : "dark"}`} alt='NFT Host - Generate and Host your NFT Collection in under 10 minutes | Product Hunt'/>
                     </a>
                 </Box>
                 {children}

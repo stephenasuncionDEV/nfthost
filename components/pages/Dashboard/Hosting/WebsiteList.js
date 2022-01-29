@@ -1,5 +1,5 @@
 import { useState, useEffect, forwardRef, useImperativeHandle } from "react"
-import { useToast, Text, Table, TableCaption, Thead, Tr, Th, Td, Tbody, Tfoot, Link, HStack, Menu, MenuButton, MenuList, MenuItem, IconButton, MenuDivider, Tag, TagLabel } from '@chakra-ui/react'
+import { useColorModeValue, useToast, Text, Table, TableCaption, Thead, Tr, Th, Td, Tbody, Tfoot, Link, HStack, Menu, MenuButton, MenuList, MenuItem, IconButton, MenuDivider, Tag, TagLabel } from '@chakra-ui/react'
 import { useMoralis } from "react-moralis"
 import { HiExternalLink } from 'react-icons/hi'
 import { IoMdSettings } from 'react-icons/io'
@@ -15,6 +15,8 @@ const WebsiteList = (props, ref) => {
     const { Moralis, user } = useMoralis();
     const [websiteList, setWebsiteList] = useState([]);
     const alert = useToast();
+    const tableHead = useColorModeValue('rgb(248,249,250)', 'rgb(36, 40, 48)');
+    const containerColor = useColorModeValue('rgb(255, 255, 255)', 'rgb(50, 55, 67)');
 
     const getWebsiteList = () => {
         const websiteClass = Moralis.Object.extend("Website");
@@ -61,11 +63,10 @@ const WebsiteList = (props, ref) => {
         <Table
             mt='1.5em'
             variant='simple'
-            borderWidth='1px'
-            bg='white'
+            bg={containerColor}
         >
             <TableCaption>Website List ({websiteList.length}/{user ? user.attributes.hostSize : "--"})</TableCaption>
-            <Thead style={{ backgroundColor: 'rgb(248,249,250)' }}>
+            <Thead style={{ backgroundColor: tableHead }}>
                 <Tr>
                     <Th>Name</Th>
                     <Th>Type</Th>
@@ -82,7 +83,7 @@ const WebsiteList = (props, ref) => {
                         <Td>{website.attributes.title}</Td>
                         <Td>
                             <Tag bg={website.attributes.isPremium ? 'yellow.300' : 'gray.200'}>
-                                <TagLabel>{website.attributes.isPremium ? "Premium" : "Free"}</TagLabel>
+                                <TagLabel color='black'>{website.attributes.isPremium ? "Premium" : "Free"}</TagLabel>
                             </Tag>
                         </Td>
                         <Td color='#5D82BF'>
@@ -132,7 +133,7 @@ const WebsiteList = (props, ref) => {
                     </Tr>
                 ))}
             </Tbody>
-            <Tfoot style={{ backgroundColor: 'rgb(248,249,250)' }}>
+            <Tfoot style={{ backgroundColor: tableHead }}>
                 <Tr>
                     <Th>Name</Th>
                     <Th>Type</Th>

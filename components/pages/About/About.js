@@ -1,7 +1,9 @@
-import { Box, Text, Avatar } from '@chakra-ui/react'
+import { Box, Text, Avatar, useColorModeValue } from '@chakra-ui/react'
 import style from "../../../styles/Container.module.scss"
 
 const About = () => {
+    const bg = useColorModeValue('rgb(255, 255, 255)', 'rgb(33, 37, 41)');
+    const containerColor = useColorModeValue('rgb(255, 255, 255)', 'rgb(50, 55, 67)');
 
     // Go to my github profile in new tab
     const onGithub = () => {
@@ -9,7 +11,7 @@ const About = () => {
     }
  
     return (
-        <div className="main-pane">
+        <div className="main-pane" style={{ backgroundColor: bg }}>
             <Box
                 display='flex'
                 flexDir='column'
@@ -25,11 +27,10 @@ const About = () => {
                 <Box 
                     maxW='1200px' 
                     w='100%' 
-                    bg='white' 
+                    bg={containerColor} 
                     borderRadius='5px'
                     mt='6'
                     p='5'
-                    className={style.box}
                 >
                     <Text fontSize='16pt'>
                         NFT Host

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { useToast, Box, Text, Table, TableCaption, Thead, Tr, Th, Td, Tbody, Tfoot, Menu, MenuButton, MenuList, MenuItem, IconButton, Tag, TagLabel } from '@chakra-ui/react'
+import { useToast, Box, Text, Table, TableCaption, Thead, Tr, Th, Td, Tbody, Tfoot, Menu, MenuButton, MenuList, MenuItem, IconButton, Tag, TagLabel, useColorModeValue } from '@chakra-ui/react'
 import { useMoralis } from "react-moralis"
 import { HiExternalLink } from 'react-icons/hi'
 import { IoMdSettings } from 'react-icons/io'
@@ -11,6 +11,10 @@ const Payments = () => {
     const { Moralis, user } = useMoralis();
     const [transactions, setTransactions] = useState({});
     const alert = useToast();
+    const bg = useColorModeValue('rgb(255, 255, 255)', 'rgb(33, 37, 41)');
+    const tableHead = useColorModeValue('rgb(248,249,250)', 'rgb(36, 40, 48)');
+    const containerColor = useColorModeValue('rgb(255, 255, 255)', 'rgb(50, 55, 67)');
+    const txt = useColorModeValue('rgb(255, 255, 255)', 'rgb(0, 0, 0)');
 
     useEffect(() => {
         if (user == null) return;
@@ -36,7 +40,7 @@ const Payments = () => {
     }
 
     return (
-        <div className="main-pane">
+        <div className="main-pane" style={{ backgroundColor: bg }}>
                 <Box
                     display='flex'
                     flexDir='column'
@@ -70,11 +74,10 @@ const Payments = () => {
                     <Table
                         mt='1.5em'
                         variant='simple'
-                        borderWidth='1px'
-                        bg='white'
+                        bg={containerColor}
                     >
                         <TableCaption>Transaction List</TableCaption>
-                        <Thead style={{ backgroundColor: 'rgb(248,249,250)' }}>
+                        <Thead style={{ backgroundColor: tableHead }}>
                             <Tr>
                                 <Th>ID</Th>
                                 <Th>Type</Th>
@@ -117,7 +120,7 @@ const Payments = () => {
                             </Tr>
                         ))}
                         </Tbody>
-                        <Tfoot style={{ backgroundColor: 'rgb(248,249,250)' }}>
+                        <Tfoot style={{ backgroundColor: tableHead }}>
                             <Tr>
                                 <Th>ID</Th>
                                 <Th>Type</Th>

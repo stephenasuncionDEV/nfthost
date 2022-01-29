@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { useMoralis } from "react-moralis"
-import { Flex, Avatar, Text, Button, List, ListItem, Icon, Container, Box} from '@chakra-ui/react'
+import { Flex, Avatar, Text, Button, List, ListItem, Icon, Container, Box, useColorModeValue } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { AiFillHome } from 'react-icons/ai'
 import { MdDashboard, MdLogout, MdPayments } from 'react-icons/md'
@@ -18,6 +18,7 @@ const Sidebar = ({currentPage}) => {
     const { logout } = useMoralis();
     const router = useRouter();
     const confirmationDialogRef = useRef();
+    const bg = useColorModeValue('rgb(255, 255, 255)', 'rgb(65, 71, 85)');
 
     const handleTabClick = (tabName) => {
         if (localStorage.getItem("isRendering") === "true") {
@@ -61,6 +62,7 @@ const Sidebar = ({currentPage}) => {
             flexDir='column'
             alignItems='flex-start'
             pos='fixed'
+            bg={bg}
         >
             <ConfirmationDialog 
                 ref={confirmationDialogRef}

@@ -1,4 +1,4 @@
-import { Box, Text, Image, Button, HStack, IconButton, Link, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
+import { Box, Text, Image, Button, HStack, IconButton, Link, Menu, MenuButton, MenuItem, MenuList, useColorModeValue } from '@chakra-ui/react'
 import { FaHeart, FaTiktok, FaDiscord, FaGithub } from 'react-icons/fa'
 import { HiMenu } from 'react-icons/hi'
 import { useRouter } from 'next/router'
@@ -6,6 +6,7 @@ import style from '../../../styles/Main.module.scss'
 
 const MenuBar = () => {
     const router = useRouter();
+    const buttonBG = useColorModeValue('rgb(237,242,247)', 'rgb(0, 0, 0)')
 
     const handleTiktok = () => {
         window.open("https://www.tiktok.com/@nfthostofficial");
@@ -131,7 +132,7 @@ const MenuBar = () => {
                             </Button>
                             <Button 
                                 variant='solid'
-                                bg='white'
+                                bg={buttonBG}
                                 leftIcon={<FaHeart color='rgb(229,62,62)'/>}
                                 onClick={handleSponsor}
                             >

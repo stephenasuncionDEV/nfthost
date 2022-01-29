@@ -1,6 +1,7 @@
 import '../styles/globals.scss'
 import { MoralisProvider } from 'react-moralis'
-import { ChakraProvider } from '@chakra-ui/react'
+import { ChakraProvider, ColorModeScript } from '@chakra-ui/react'
+import theme from '../utils/theme'
 import 'grapesjs/dist/css/grapes.min.css';
 
 const MyApp = ({ Component, pageProps }) => {
@@ -10,6 +11,7 @@ const MyApp = ({ Component, pageProps }) => {
             serverUrl={process.env.MORALIS_SERVER_URL}
         >
             <ChakraProvider>
+                <ColorModeScript initialColorMode={theme.config.initialColorMode} />
                 <Component {...pageProps} />
             </ChakraProvider>
         </MoralisProvider>

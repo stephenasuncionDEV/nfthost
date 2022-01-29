@@ -1,4 +1,4 @@
-import { Box, Text } from '@chakra-ui/react'
+import { Box, Text, useColorModeValue } from '@chakra-ui/react'
 import MenuBar from "../components/pages/Main/MenuBar"
 import IntroContainer from "../components/pages/Main/IntroContainer"
 import FeatureContainer from "../components/pages/Main/FeatureContainer"
@@ -7,6 +7,9 @@ import Header from "../components/Header"
 import style from '../styles/Main.module.scss'
 
 const Main = () => {
+    const bg = useColorModeValue('linear-gradient(rgb(240, 251, 255), white)', 'rgb(0, 0, 0)');
+    const bg2 = useColorModeValue('rgb(255, 255, 255)', 'rgb(0, 0, 0)');
+
     return (
         <Box>
             <Header 
@@ -18,7 +21,7 @@ const Main = () => {
                 image="/logo.png"
             />
             <Box
-                bg='linear-gradient(rgb(240, 251, 255), white)'
+                bg={bg}
                 display='flex'
                 flexDir='column'
                 height='100vh'
@@ -26,7 +29,11 @@ const Main = () => {
                 <MenuBar />
                 <IntroContainer />
             </Box>
-            <Box id="features" className={style.featuresContainer}>
+            <Box 
+                id="features" 
+                className={style.featuresContainer}
+                bg={bg2}
+            >
                 <Box className={style.featureVertical}>
                     <Text className={style.featureHeader}>Features</Text>
                     <Box className={style.featuresSubContainer}>
@@ -35,7 +42,11 @@ const Main = () => {
                     </Box>
                 </Box>
             </Box>
-            <Box id="pricing" className={style.pricingContainer}>
+            <Box 
+                id="pricing" 
+                className={style.pricingContainer}
+                bg={bg2}
+            >
                 <Box className={style.pricingVertical}>
                     <Text className={style.pricingHeader}>Pricing</Text>
                     <Text className={style.pricingSubHeader}>If you want subscription deals please message us through Discord.</Text>

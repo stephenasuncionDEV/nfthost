@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { useToast, Box, Text, Button, IconButton, Switch } from '@chakra-ui/react'
+import { useToast, Box, Text, Button, IconButton, Switch, useColorModeValue } from '@chakra-ui/react'
 import { BsImageFill } from 'react-icons/bs'
 import { MdCode } from 'react-icons/md'
 import ImageDialog from "./ImageDialog";
@@ -12,6 +12,9 @@ const LayerDisplay = ({layerList, layerIndex, setLayerList}) => {
     const imageDialogRef = useRef();
     const scriptDialogRef = useRef();
     const alert = useToast();
+    const bg = useColorModeValue('transparent', 'rgb(33, 37, 41)');
+    const containerColor = useColorModeValue('transparent', 'rgb(50, 55, 67)');
+    const containerColor2 = useColorModeValue('rgb(243, 243, 243)', 'rgb(33, 37, 41)');
 
     const fileHandler = (files) => {
         let newImages = [];
@@ -92,9 +95,9 @@ const LayerDisplay = ({layerList, layerIndex, setLayerList}) => {
         <Box
             flex='1'
             mt='4'
-            bg='white' 
             p='5'
-            className={style.box}
+            borderRadius='5px'
+            bg={containerColor}
         >
             <ScriptDialog 
                 ref={scriptDialogRef}
@@ -129,7 +132,8 @@ const LayerDisplay = ({layerList, layerIndex, setLayerList}) => {
                     justifyContent='center'
                     flexWrap='wrap'
                     minH='11.7em'
-                    bg='rgb(243, 243, 243)'
+                    bg={containerColor2}
+                    borderRadius='5px'
                     p='1'
                 >
                     {layerList[layerIndex] && layerList[layerIndex].images.map((image, idx) => (
@@ -158,7 +162,8 @@ const LayerDisplay = ({layerList, layerIndex, setLayerList}) => {
                         flexDir='column'
                         as='label'
                         opacity='80%'
-                        className={style.box}
+                        bg={bg}
+                        borderRadius='5px'
                         onDragOver={onDragOver}
                         onDragLeave={onDragLeave}
                         onDrop={onDrop}
