@@ -186,6 +186,16 @@ const ProjectSettings = ({layerList}) => {
                 throw new Error("Image width or length must be greater than 0");
             }
 
+            // Check if collection has enough 
+            let possibleCombination = 1;
+            layerList.map((layer, idx) => {
+                const imgSize = layer.images.length;
+                possibleCombination *= imgSize;
+            })
+            if (possibleCombination < count) {
+                throw new Error(`Possible combination is under the desired collection count (${possibleCombination}/${count})`);
+            }
+
             // Check if user needs to pay
             if (count > 100) {
                 paymentMethodDialogRef.current.show();
