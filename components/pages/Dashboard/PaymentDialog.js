@@ -119,11 +119,12 @@ const PaymentDialog = (props, ref) => {
         let clientSecret;
         let paymentMethodReq;
 
-        axios.post("/api/payment", {
+        axios.post("http://localhost:8080/api/payment", {
             amount: price * 100,
             email: email
         })
         .then(res => {
+            console.log("secret")
             clientSecret = res.data;
             const cardElement = elements.getElement(CardElement);
             return stripe.createPaymentMethod({
@@ -133,12 +134,16 @@ const PaymentDialog = (props, ref) => {
             })
         })
         .then(res => {
+            console.log("method")
+            console.log(res)
             paymentMethodReq = res;
             return stripe.confirmCardPayment(clientSecret, {
                 payment_method: paymentMethodReq.paymentMethod.id
             })
         })
         .then(res => {
+            console.log("transaction")
+            console.log(res)
             const transactionsClass = Moralis.Object.extend("Transactions");
             const transaction = new transactionsClass();
             transaction.set('owner', user.attributes.ethAddress);
@@ -149,6 +154,7 @@ const PaymentDialog = (props, ref) => {
             return transaction.save();
         })
         .then(res => {
+            console.log("success")
             onSuccess();
             setIsProcessing(false);
             handleClear();
