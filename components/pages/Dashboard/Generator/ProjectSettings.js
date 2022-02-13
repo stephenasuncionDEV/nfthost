@@ -293,11 +293,11 @@ const ProjectSettings = ({layerList}) => {
                     name: `${name} #${renderIndex}`,
                     description: description,                
                     image: `${base}${countStart}.png`,
-                    hash: currentHash,
-                    edition: renderIndex,
-                    date: new Date().getTime(),
+                    //hash: currentHash,
+                    //edition: renderIndex,
+                    //date: new Date().getTime(),
                     attributes: attributes,
-                    compiler: "NFT Host"
+                    compiler: "https://nfthost.app/"
                 }
                 if (metadataType === "SOL") {
                     nftJson = {
@@ -307,9 +307,9 @@ const ProjectSettings = ({layerList}) => {
                         seller_fee_basis_points: sellerPoints,
                         image: `${countStart}.png`,
                         external_url: `${externalURL}${countStart}.png`,
-                        edition: nftJson.edition,
-                        hash: currentHash,
-                        date: new Date().getTime(),
+                        //edition: nftJson.edition,
+                        //hash: currentHash,
+                        //date: new Date().getTime(),
                         attributes: nftJson.attributes,
                         properties: {
                             category: "image",
