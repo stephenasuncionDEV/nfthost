@@ -33,7 +33,7 @@
     "jwt-decode": "^3.1.2",
     "mongoose": "^6.1.6",
     "moralis": "^0.0.184",
-    "next": "12.0.8",
+    "next": "12.0.9",
     "react": "17.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^4.3.1",
