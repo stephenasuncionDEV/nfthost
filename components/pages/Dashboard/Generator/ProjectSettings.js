@@ -17,6 +17,7 @@ import PaymentDialog from "../PaymentDialog"
 import PaymentMethodDialog from "../PaymentMethodDialog"
 import PaymentLoadingDialog from "../PaymentLoadingDialog"
 import ScreenLockModal from "./ScreenLockModal"
+import axios from "axios"
 import style from "../../../../styles/Container.module.scss"
 
 const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY);
@@ -34,7 +35,7 @@ const getImageHeightAndWidth = (dataURL) => new Promise(resolve => {
 })
 
 const ProjectSettings = ({layerList}) => {
-    const {user, Moralis, setUserData} = useMoralis();
+    const {account, user, Moralis, setUserData} = useMoralis();
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [base, setBase] = useState("");
@@ -158,7 +159,7 @@ const ProjectSettings = ({layerList}) => {
         })
     }
 
-    const onGenerateCollection = () => {
+    const onGenerateCollection = async () => {
         try {
             // Check if one of the layer(s) is empty
             layerList.forEach((layer, idx) => {
@@ -202,11 +203,19 @@ const ProjectSettings = ({layerList}) => {
                 throw new Error("Files are too big");
             } 
 
+            const user = await axios.get("/api/user/get", { params: { address: account } });
+            const freeGeneration = user.data[0].generationCount;
+            
             // Check if user needs to pay
-            if (count > 100) {
+            if (count > 100 && freeGeneration === 0) {
+                // lower generation count
                 paymentMethodDialogRef.current.show();
             } else {
-                onAddGenerateCount();
+                if (freeGeneration > 0) {
+                    const res = await axios.post("/api/user/update", { address: account, count: freeGeneration - 1 });
+                    console.log(res);
+                }
+                onAddGenerateCount();  
                 generateCollection();
             }
         }

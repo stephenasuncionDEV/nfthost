@@ -1,5 +1,5 @@
-const { Log } = require('../../models/Logs');
 const { NFTError } = require('../../middlewares/errorHandler');
+const { Log } = require('../../models/Logs');
 
 exports.receive = (req, res, next) => {
     try {

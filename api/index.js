@@ -5,7 +5,7 @@ const cors = require('cors');
 const router = require('../routes');
 const app = express();
 const {errorHandler} = require('../middlewares/errorHandler');
-const production = false;
+const production = true;
 
 // Database
 const connection = require('../db/connection');

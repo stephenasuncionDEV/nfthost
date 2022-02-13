@@ -1,14 +1,33 @@
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import { Box, Text, useColorModeValue } from '@chakra-ui/react'
+import { useMoralis } from "react-moralis"
 import AppsContainer from "./AppsContainer"
 import HostContainer from "./Hosting/HostContainer"
 import GeneratorContainer from "./Generator/GeneratorContainer"
 import ConfirmationDialog from "../../ConfirmationDialog"
+import axios from "axios"
 
 const Dashboard = () => {
+    const { account } = useMoralis();
     const [currentApp, setCurrentApp] = useState(0);
     const confirmationDialogRef = useRef();
     const bg = useColorModeValue('rgb(255, 255, 255)', 'rgb(33, 37, 41)');
+
+    useEffect(() => {
+        if (!account) return;
+        const updateUser = async () => {
+            try {
+                const res = await axios.post("/api/user", {
+                    address: account
+                })
+                console.log(account, res.data);
+            }
+            catch (err) {
+                console.log(err);
+            }
+        }
+        updateUser();
+    }, [account])
 
     const handleChangeApp = (index) => {
         if (localStorage.getItem("isRendering") === "true") {
