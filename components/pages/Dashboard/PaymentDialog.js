@@ -119,7 +119,7 @@ const PaymentDialog = (props, ref) => {
         let clientSecret;
         let paymentMethodReq;
 
-        axios.post("http://localhost:8080/api/payment", {
+        axios.post("/api/payment", {
             amount: price * 100,
             email: email
         })
