@@ -56,6 +56,7 @@ const ProjectSettings = ({layerList}) => {
         {address: user.attributes.ethAddress, share: 100}
     ]);
     const [isDownloading, setIsDownloading] = useState(false);
+    const [freeGeneration, setFreeGeneration] = useState(0);
     const canvasRef = useRef();
     const paymentDialogRef = useRef();
     const paymentMethodDialogRef = useRef();
@@ -72,6 +73,22 @@ const ProjectSettings = ({layerList}) => {
             setImgLength(res.height);
         });
     }, [layerList[0].images])
+
+    useEffect(() => {
+        if (!account) return;
+        const getUser = async () => {
+            try {
+                const user = await axios.get("/api/user/get", { params: { address: account } });
+                const freeGeneration = user.data[0].generationCount;
+                setFreeGeneration(freeGeneration);
+                console.log(user, freeGeneration);
+            }
+            catch (err) {
+                console.log(err);
+            }
+        }
+        getUser();
+    }, [account])
 
     const onNameChange = (e) => {
         setName(e.target.value);
@@ -203,9 +220,10 @@ const ProjectSettings = ({layerList}) => {
                 throw new Error("Files are too big");
             } 
 
-            const user = await axios.get("/api/user/get", { params: { address: account } });
-            const freeGeneration = user.data[0].generationCount;
-            
+            if((imgWidth >= 1250 || imgLength >= 1250) && count > 1000) {
+                throw new Error("Files are too big, reduce the dimension of your images");
+            } 
+
             // Check if user needs to pay
             if (count > 100 && freeGeneration === 0) {
                 // lower generation count
@@ -389,7 +407,7 @@ const ProjectSettings = ({layerList}) => {
         })
     }
 
-    const onDownload = () => {
+    const onDownload = async () => {
         if (metadata == null) {
             alert({
                 title: 'Error',
@@ -400,6 +418,8 @@ const ProjectSettings = ({layerList}) => {
             return;
         }
 
+        console.log("Downloading");
+
         // File name start count
         let countStart = startCount;
         screenLockModalRef.current.show('Downloading...');
@@ -408,29 +428,43 @@ const ProjectSettings = ({layerList}) => {
         // Add Metadata file in zip
         zip.folder("Metadata").file("metadata.json", JSON.stringify(metadata, null, 2));
 
+        console.log("Added Metadata");
+
         // Add each image's metadata in zip
         metadata.forEach(data => {
             zip.folder("Metadata").file(`${countStart}.json`, JSON.stringify(data, null, 2));
             countStart++;
         });
 
-        // Save the zip file
-        zip.generateAsync({
-            type: "blob", 
-        })
-        .then(res => {
-            saveAs(res, "NFT Host.zip");
+        console.log("Added JSON Files");
+
+        try {
+            // Save the zip file
+            const zipFile = await zip.generateAsync({
+                type: "blob",
+                compression: "DEFLATE",
+            }, (data) => {
+                console.log("Download Progress: " + data.percent.toFixed(2) + " %");
+            })
+
+            console.log(zipFile);
+            console.log("Added Images");
+
+            saveAs(zipFile, "NFT Host.zip");
+
+            console.log("Finished Downloading");
+
             setIsDownloading(false);
             screenLockModalRef.current.hide();
-        })
-        .catch(err => {
+        }
+        catch (err) {
             alert({
                 title: 'Error',
                 description: err.message,
                 status: 'error',
                 duration: 3000,
             })
-        });
+        }
     }
 
     const handleGenerateCSV = () => {

@@ -29,7 +29,7 @@
     "grapesjs-preset-webpage": "^0.1.11",
     "html-react-parser": "^1.4.5",
     "jsonwebtoken": "^8.5.1",
-    "jszip": "^3.7.1",
+    "jszip": "^3.2.0",
     "jwt-decode": "^3.1.2",
     "mongoose": "^6.1.6",
     "moralis": "^0.0.184",

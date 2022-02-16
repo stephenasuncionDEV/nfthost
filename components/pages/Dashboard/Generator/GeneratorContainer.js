@@ -1,11 +1,13 @@
-import { useState } from "react"
-import dynamic from 'next/dynamic';
+import { useState, useEffect } from "react"
 import { Box } from '@chakra-ui/react'
+import { useMoralis } from "react-moralis"
 import LayerDisplay from "./LayerDisplay"
 import LayerContainer from "./LayersContainer"
 import ProjectSettings from "./ProjectSettings"
+import axios from "axios"
 
 const GeneratorContainer = () => {
+    const { account } = useMoralis();
     const [layerIndex, setLayerIndex] = useState(0);
     const [layerList, setLayerList] = useState([
         {
@@ -13,6 +15,22 @@ const GeneratorContainer = () => {
             images: []
         },
     ]);
+
+    useEffect(() => {
+        if (!account) return;
+        const updateUser = async () => {
+            try {
+                const res = await axios.post("/api/user", {
+                    address: account
+                })
+                console.log(account, res.data);
+            }
+            catch (err) {
+                console.log(err);
+            }
+        }
+        updateUser();
+    }, [account])
 
     return (
         <Box
