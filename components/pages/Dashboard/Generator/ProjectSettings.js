@@ -219,7 +219,7 @@ const ProjectSettings = ({layerList}) => {
             }
 
             // Checks for big files
-            if((imgWidth >= 2000 || imgLength >= 2000)) {
+            if((imgWidth > 3000 || imgLength > 3000)) {
                 throw new Error("Files are too big, reduce the dimension of your images");
             } 
 
