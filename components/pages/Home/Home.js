@@ -11,7 +11,7 @@ const Home = () => {
     const containerColor = useColorModeValue('rgb(255, 255, 255)', 'rgb(50, 55, 67)');
 
     useEffect(() => {
-        axios.get("/api/webhook/get")
+        axios.get((location.hostname === 'localhost' ? "http://localhost:8080/api/webhook/get/" : "/api/webhook/get/"))
         .then(res => {
             setLogsData(res.data);
         })

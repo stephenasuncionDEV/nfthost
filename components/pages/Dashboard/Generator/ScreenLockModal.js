@@ -21,7 +21,7 @@ const ScreenLockModal = (props, ref) => {
             <ModalContent>
                 <ModalHeader>{title}</ModalHeader>
                 <ModalBody>
-                    <Text mb='2'>Please do not refresh this page</Text>
+                    <Text mb='2'>This may take a while, please do not refresh this page.</Text>
                     <Skeleton startColor='blue.500' endColor='green.500' height='15px' />
                 </ModalBody>
                 <ModalFooter>

@@ -20,10 +20,10 @@ const GeneratorContainer = () => {
         if (!account) return;
         const updateUser = async () => {
             try {
-                const res = await axios.post("/api/user", {
+                const res = await axios.post((location.hostname === 'localhost' ? "http://localhost:8080/api/user/" : "/api/user/"), {
                     address: account
                 })
-                console.log(account, res.data);
+                //console.log(account, res.data);
             }
             catch (err) {
                 console.log(err);

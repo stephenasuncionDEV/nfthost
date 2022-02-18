@@ -5,6 +5,7 @@ import { useToast, Box, Text, Button,
     NumberDecrementStepper, NumberInput, FormControl, FormLabel,
     RadioGroup, Radio, Stack, TagCloseButton, Alert, AlertIcon, AlertDescription, useColorModeValue } from '@chakra-ui/react'
 import { MdChevronRight, MdDownload, MdAdd } from 'react-icons/md'
+import { BiDna, BiImport } from 'react-icons/bi'
 import { getEthPriceNow } from "get-eth-price"
 import { useMoralis } from "react-moralis"
 import { ethers } from "ethers"
@@ -46,6 +47,7 @@ const ProjectSettings = ({layerList}) => {
     const [curRenderIndex, setCurRenderIndex] = useState(0);
     const [isRendering, setIsRendering] = useState(false);
     const [metadata, setMetadata] = useState([]);
+    const [DNA, setDNA] = useState([]);
     const [metadataType, setMetadataType] = useState("ETH");
     const [symbol, setSymbol] = useState("");
     const [sellerPoints, setSellerPoints] = useState(1000);
@@ -57,6 +59,7 @@ const ProjectSettings = ({layerList}) => {
     ]);
     const [isDownloading, setIsDownloading] = useState(false);
     const [freeGeneration, setFreeGeneration] = useState(0);
+    const [isGreaterThan1000, setIsGreaterThan1000] = useState(false);
     const canvasRef = useRef();
     const paymentDialogRef = useRef();
     const paymentMethodDialogRef = useRef();
@@ -78,10 +81,10 @@ const ProjectSettings = ({layerList}) => {
         if (!account) return;
         const getUser = async () => {
             try {
-                const user = await axios.get("/api/user/get", { params: { address: account } });
+                const user = await axios.get((location.hostname === 'localhost' ? "http://localhost:8080/api/user/get" : "/api/user/get"), { params: { address: account } });
                 const freeGeneration = user.data[0].generationCount;
                 setFreeGeneration(freeGeneration);
-                console.log(user, freeGeneration);
+                //console.log(user, freeGeneration);
             }
             catch (err) {
                 console.log(err);
@@ -216,11 +219,7 @@ const ProjectSettings = ({layerList}) => {
             }
 
             // Checks for big files
-            if((imgWidth >= 3000 || imgLength >= 3000) && count > 500) {
-                throw new Error("Files are too big");
-            } 
-
-            if((imgWidth >= 1250 || imgLength >= 1250) && count > 1000) {
+            if((imgWidth >= 2000 || imgLength >= 2000)) {
                 throw new Error("Files are too big, reduce the dimension of your images");
             } 
 
@@ -230,8 +229,8 @@ const ProjectSettings = ({layerList}) => {
                 paymentMethodDialogRef.current.show();
             } else {
                 if (freeGeneration > 0) {
-                    const res = await axios.post("/api/user/update", { address: account, count: freeGeneration - 1 });
-                    console.log(res);
+                    const res = await axios.post((location.hostname === 'localhost' ? "http://localhost:8080/api/user/update" : "/api/user/update"), { address: account, count: freeGeneration - 1 });
+                    //console.log(res);
                 }
                 onAddGenerateCount();  
                 generateCollection();
@@ -290,13 +289,28 @@ const ProjectSettings = ({layerList}) => {
         let countStart = startCount;
         let imageIndex = 0;
         let renderIndex = 1;
+        let autoSaveCount = 0;
 
         let hashList = [];
 
+        if (DNA.length > 0) {
+            hashList = [...DNA];
+        }
+
+        if (count >= 1000) {
+            setIsGreaterThan1000(true);
+        } else {
+            setIsGreaterThan1000(false);
+        }
+
         screenLockModalRef.current.show();
-        localStorage.setItem("isRendering", true);
+        //localStorage.setItem("isRendering", true);
         setIsRendering(true);
         setMetadata([]);
+        setDNA([]);
+
+        let t0 = performance.now();
+        let t1;
 
         while (imageIndex != count) {
             setCurRenderIndex(renderIndex);
@@ -307,6 +321,9 @@ const ProjectSettings = ({layerList}) => {
             if (hashList.indexOf(currentHash) == -1) { // If image is unique
                 hashList.push(currentHash);
                 await saveCanvas(countStart); // Save canvas
+                if (count >= 1000 && (renderIndex == count || renderIndex % 1000 == 0)) {
+                    await autoSave(++autoSaveCount); // auto save every 1000
+                }
                 let nftJson = {
                     name: `${name} #${renderIndex}`,
                     description: description,                
@@ -349,9 +366,12 @@ const ProjectSettings = ({layerList}) => {
             }
             if (imageIndex == count) {
                 setMetadata(tempMetadata);
+                setDNA(hashList);
                 setIsRendering(false);
-                localStorage.setItem("isRendering", false);
+               // localStorage.setItem("isRendering", false);
                 screenLockModalRef.current.hide();
+                t1 = performance.now();
+                console.log(`Call to doSomething took ${t1 - t0} milliseconds.`);
             }
         }
     }
@@ -407,53 +427,73 @@ const ProjectSettings = ({layerList}) => {
         })
     }
 
+    const autoSave = (autoSaveCount) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const content = await zip.generateAsync({
+                    type: "blob",
+                    streamFiles: true
+                }, (data) => {
+                    //console.log(data, window.performance.memory);
+                    console.log("Auto Download Progress: " + data.percent.toFixed(2) + "%");
+                })
+    
+                saveAs(content, `NFT Host Image Chunk ${autoSaveCount}.zip`);
+
+                zip.remove("Images");
+
+                resolve();
+            }
+            catch (e) {
+                console.log(e);
+                reject();
+            }
+        })
+    }
+
     const onDownload = async () => {
-        if (metadata == null) {
-            alert({
-                title: 'Error',
-                description: "Please generate your collection first",
-                status: 'error',
-                duration: 3000,
-            })
-            return;
-        }
-
-        console.log("Downloading");
-
-        // File name start count
-        let countStart = startCount;
-        screenLockModalRef.current.show('Downloading...');
-        setIsDownloading(true);
-
-        // Add Metadata file in zip
-        zip.folder("Metadata").file("metadata.json", JSON.stringify(metadata, null, 2));
-
-        console.log("Added Metadata");
-
-        // Add each image's metadata in zip
-        metadata.forEach(data => {
-            zip.folder("Metadata").file(`${countStart}.json`, JSON.stringify(data, null, 2));
-            countStart++;
-        });
-
-        console.log("Added JSON Files");
-
         try {
-            // Save the zip file
-            const zipFile = await zip.generateAsync({
+            if (metadata == null) throw new Error("Please generate your collection first");
+
+            console.log("Downloading");
+
+            // File name start count
+            let countStart = startCount;
+            screenLockModalRef.current.show('Downloading...');
+            setIsDownloading(true);
+
+            // Add Metadata file in zip
+            zip.folder("Metadata").file("metadata.json", JSON.stringify(metadata, null, 2));
+
+            console.log("Added Metadata");
+
+            // Add each image's metadata in zip
+            metadata.forEach(data => {
+                zip.folder("Metadata").file(`${countStart}.json`, JSON.stringify(data, null, 2));
+                countStart++;
+            });
+
+            console.log("Added JSON Files");
+
+            console.time('DownloadComplete')
+            // const content = await zip.generateInternalStream({type:"blob"}).accumulate((metadata) => {
+            //     //console.log("Download Progress: " + metadata.percent.toFixed(2) + " %");
+            // });
+            const content = await zip.generateAsync({
                 type: "blob",
-                compression: "DEFLATE",
+                streamFiles: true
+                // compression: "DEFLATE",
+                // compressionOptions: {
+                //     level: 9
+                // }
             }, (data) => {
-                console.log("Download Progress: " + data.percent.toFixed(2) + " %");
+                console.log(data, window.performance.memory);
+               // console.log("Download Progress: " + data.percent.toFixed(2) + " %");
             })
-
-            console.log(zipFile);
-            console.log("Added Images");
-
-            saveAs(zipFile, "NFT Host.zip");
-
+            console.timeEnd('DownloadComplete')
+            console.log(content);
+            saveAs(content, "NFT Host.zip");
             console.log("Finished Downloading");
-
             setIsDownloading(false);
             screenLockModalRef.current.hide();
         }
@@ -464,10 +504,11 @@ const ProjectSettings = ({layerList}) => {
                 status: 'error',
                 duration: 3000,
             })
+            console.log(err);
         }
     }
 
-    const handleGenerateCSV = () => {
+    const handleGenerateCSV = async () => {
         let csvData = [];
 
         // Get the columns
@@ -483,9 +524,6 @@ const ProjectSettings = ({layerList}) => {
             let row = [
                 data.name,
                 data.description,
-                data.hash,
-                data.edition,
-                data.date
             ]
             data.attributes.forEach((attribute, idx) => {
                 row.push(attribute.value);
@@ -493,7 +531,7 @@ const ProjectSettings = ({layerList}) => {
             csvData.push(row);
         })
 
-        console.log(csvData)
+        //console.log(csvData)
 
         let csv = "";
         csvData.forEach((row) => {  
@@ -554,6 +592,31 @@ const ProjectSettings = ({layerList}) => {
     const handlePaymentSuccess = () => {
         onAddGenerateCount();
         generateCollection();
+    }
+
+    const handleGenerateMetadata = async () => {
+
+        console.log("genrating metadata")
+        // File name start count
+        let countStart = startCount;
+
+        // Add Metadata file in zip
+        zip.folder("Metadata").file("metadata.json", JSON.stringify(metadata, null, 2));
+
+        // Add each image's metadata in zip
+        metadata.forEach(data => {
+            zip.folder("Metadata").file(`${countStart}.json`, JSON.stringify(data, null, 2));
+            countStart++;
+        });
+
+        const data = await zip.generateAsync({
+            type: "blob",
+            streamFiles: true
+        }, (data) => {
+            console.log(data, window.performance.memory);
+        })
+
+        saveAs(data, "NFT Host Metadata.zip");
     }
 
     return (
@@ -780,6 +843,17 @@ const ProjectSettings = ({layerList}) => {
                         >
                             Download
                         </Button>
+                        {isGreaterThan1000 && (
+                            <Button
+                                ml='2'
+                                variant='solid'
+                                colorScheme='gray'
+                                rightIcon={<MdDownload />}
+                                onClick={handleGenerateMetadata}
+                            >
+                                Get Metadata
+                            </Button>
+                        )}
                         <Button
                             ml='2'
                             variant='solid'
@@ -791,21 +865,31 @@ const ProjectSettings = ({layerList}) => {
                         </Button>
                     </Box>
                 )}
-                <Button
-                    isLoading={isRendering}
-                    loadingText='Generating'
+                <Box
                     ml='auto'
-                    variant='solid'
-                    bg='black' 
-                    color='white' 
-                    _hover={{
-                        bg: 'rgb(50,50,50)'
-                    }}
-                    rightIcon={<MdChevronRight />}
-                    onClick={onGenerateCollection}
+                    display='flex'
+                    flexDir='column'
                 >
-                    Generate Collection
-                </Button>
+                    <Button
+                        isLoading={isRendering}
+                        loadingText='Generating'
+                        variant='solid'
+                        bg='black' 
+                        color='white' 
+                        _hover={{
+                            bg: 'rgb(50,50,50)'
+                        }}
+                        rightIcon={<MdChevronRight />}
+                        onClick={onGenerateCollection}
+                    >
+                        Generate Collection
+                    </Button>
+                    {DNA && (
+                        <Text fontSize='10pt'>
+                            Hash Size: {DNA.length}
+                        </Text>
+                    )}
+                </Box>
             </Box>
             {isRendering && (
                 <Box

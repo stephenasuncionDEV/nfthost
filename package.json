@@ -29,11 +29,11 @@
     "grapesjs-preset-webpage": "^0.1.11",
     "html-react-parser": "^1.4.5",
     "jsonwebtoken": "^8.5.1",
-    "jszip": "^3.2.0",
+    "jszip": "^3.7.1",
     "jwt-decode": "^3.1.2",
     "mongoose": "^6.1.6",
     "moralis": "^0.0.184",
-    "next": "12.0.9",
+    "next": "^12.1.0",
     "react": "17.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^4.3.1",
@@ -43,8 +43,8 @@
     "uniqid": "^5.4.0"
   },
   "devDependencies": {
-    "eslint": "8.6.0",
-    "eslint-config-next": "12.0.8",
+    "eslint": "8.9.0",
+    "eslint-config-next": "12.0.10",
     "nodemon": "^2.0.15"
   }
 }

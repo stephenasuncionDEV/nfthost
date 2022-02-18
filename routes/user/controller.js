@@ -39,8 +39,6 @@ exports.getUser = async (req, res, next) => {
         
         const user = await User.find({ address });
 
-        console.log(address, user);
-
         res.status(200).json(user);
 
     } catch (err) {
