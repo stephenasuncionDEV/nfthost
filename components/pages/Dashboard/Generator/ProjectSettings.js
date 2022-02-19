@@ -84,6 +84,8 @@ const ProjectSettings = ({layerList}) => {
                 const user = await axios.get((location.hostname === 'localhost' ? "http://localhost:8080/api/user/get" : "/api/user/get"), { params: { address: account } });
                 const freeGeneration = user.data[0].generationCount;
                 setFreeGeneration(freeGeneration);
+
+                console.log(user);
                 //console.log(user, freeGeneration);
             }
             catch (err) {
