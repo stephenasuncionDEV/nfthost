@@ -77,23 +77,21 @@ const ProjectSettings = ({layerList}) => {
         });
     }, [layerList[0].images])
 
-    useEffect(() => {
-        if (!account) return;
-        const getUser = async () => {
-            try {
-                const user = await axios.get((location.hostname === 'localhost' ? "http://localhost:8080/api/user/get" : "/api/user/get"), { params: { address: account } });
-                const freeGeneration = user.data[0].generationCount;
-                setFreeGeneration(freeGeneration);
-
-                console.log(user);
-                //console.log(user, freeGeneration);
-            }
-            catch (err) {
-                console.log(err);
-            }
-        }
-        getUser();
-    }, [account])
+    // useEffect(() => {
+    //     console.log(user)
+    //     if (!user || !Object.keys(user).length) return;
+    //     const getUser = async () => {
+    //         try {
+    //             const user = await axios.get((location.hostname === 'localhost' ? "http://localhost:8080/api/user/get" : "/api/user/get"), { params: { address: user.attributes.ethAddress } });
+    //             const freeGeneration = user.data.generationCount;
+    //             setFreeGeneration(freeGeneration);
+    //         }
+    //         catch (err) {
+    //             console.log(err);
+    //         }
+    //     }
+    //     getUser();
+    // }, [user])
 
     const onNameChange = (e) => {
         setName(e.target.value);
@@ -225,13 +223,18 @@ const ProjectSettings = ({layerList}) => {
                 throw new Error("Files are too big, reduce the dimension of your images");
             } 
 
+            const user2 = await axios.get((location.hostname === 'localhost' ? "http://localhost:8080/api/user/get" : "/api/user/get"), { params: { address: user.attributes.ethAddress } });
+            const freeGeneration2 = user2.data.generationCount || 0;
+
+            console.log(freeGeneration2);
+
             // Check if user needs to pay
-            if (count > 100 && freeGeneration === 0) {
+            if (count > 100 && freeGeneration2 === 0) {
                 // lower generation count
                 paymentMethodDialogRef.current.show();
             } else {
-                if (freeGeneration > 0) {
-                    const res = await axios.post((location.hostname === 'localhost' ? "http://localhost:8080/api/user/update" : "/api/user/update"), { address: account, count: freeGeneration - 1 });
+                if (freeGeneration2 > 0) {
+                    const res = await axios.post((location.hostname === 'localhost' ? "http://localhost:8080/api/user/update" : "/api/user/update"), { address: user.attributes.ethAddress, count: freeGeneration2 - 1 });
                     //console.log(res);
                 }
                 onAddGenerateCount();  

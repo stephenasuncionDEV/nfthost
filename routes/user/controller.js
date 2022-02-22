@@ -37,7 +37,7 @@ exports.getUser = async (req, res, next) => {
     try {
         const { address } = req.query;
         
-        const user = await User.find({ address });
+        const user = await User.findOne({ address });
 
         res.status(200).json(user);
 
