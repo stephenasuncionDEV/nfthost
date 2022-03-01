@@ -517,7 +517,7 @@ const ProjectSettings = ({layerList}) => {
         let csvData = [];
 
         // Get the columns
-        let keys = Object.keys(metadata[0]).slice(0, 6);
+        let keys = Object.keys(metadata[0]).slice(0, 3);
         keys.splice(2, 1);
         const attributes = metadata[0].attributes.map((attribute, idx) => attribute.trait_type)
         const columns = [...keys, ...attributes];
