@@ -195,7 +195,7 @@ const AddWebsiteDialog = (props, ref) => {
             }
 
             // Validate Iframe source code
-            if (iframe.indexOf("iframe") == -1 || iframe.indexOf("src='https://cloudflare-ipfs.com/ipfs/") == -1) {
+            if (iframe.indexOf("iframe") == -1) {
                 throw new Error("You must use Thirdweb's iframe embed code");
             }
 
