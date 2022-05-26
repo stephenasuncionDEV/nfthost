@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { Box, HStack, Text, Flex, Button, VStack } from '@chakra-ui/react'
+import { Box, HStack, Text, Flex, Button, VStack, SlideFade } from '@chakra-ui/react'
 import { useUser } from '@/providers/UserProvider'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
@@ -42,54 +42,60 @@ const Main = () => {
                     maxW='1200px'
                     w='full'
                 >
-                    <Flex flexDir='column' alignItems='center' justifyContent='center' h='700px'>
-                        <Text fontSize='42pt' lineHeight='42pt' variant='content_title'>
-                            Generate and Host your
-                        </Text>
-                        <Text className={style.gradientBlue} fontSize='42pt' fontWeight='bold'>
-                            NFT Collection
-                        </Text>
-                        <Text fontSize='13pt' fontWeight='hairline' mt='1em'>
-                            Create and Show your NFT collection in under a minute!
-                        </Text>
-                        <Button mt='1em' w='150px'>
-                            Get Started 🎉
-                        </Button>
-                    </Flex>
-                    <HStack spacing='4em' justifyContent='space-between'>
-                        <Flex flexDir='column' maxW='550px'>
-                            <Text variant='content_intro'>
-                                The new way of generating NFTs
+                    <SlideFade in={true} offsetY='20px' delay={.45}>
+                        <Flex flexDir='column' alignItems='center' justifyContent='center' h='700px'>
+                            <Text fontSize='42pt' lineHeight='42pt' variant='content_title'>
+                                Generate and Host your
                             </Text>
-                            <Text variant='content_title' mt='0.25rem'>
-                                NFT Generator
+                            <Text className={style.gradientBlue} fontSize='42pt' fontWeight='bold'>
+                                NFT Collection
                             </Text>
-                            <Text variant='content_description' mt='1.25rem'>
-                                We provide the fastest and cheapest NFT generator in the market.
+                            <Text fontSize='13pt' fontWeight='hairline' mt='1em'>
+                                Create and Show your NFT collection in under a minute!
                             </Text>
-                            <Button w='200px' mt='1em' rightIcon={<AiOutlineArrowRight />}>
-                                Generate NFTs
+                            <Button mt='1em' w='150px'>
+                                Get Started 🎉
                             </Button>
                         </Flex>
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/54MAbT-yiAY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </HStack>
-                    <HStack spacing='4em' mt='10em' justifyContent='space-between'>
-                        <Flex flexDir='column' maxW='550px'>
-                            <Text variant='content_intro'>
-                                Easily create minting website
-                            </Text>
-                            <Text variant='content_title' mt='0.25rem'>
-                                NFT Host
-                            </Text>
-                            <Text variant='content_description' mt='1.25rem'>
-                                Sell your NFTs in under a minute. Create a minting website by a click of a button.
-                            </Text>
-                            <Button w='200px' mt='1em' rightIcon={<AiOutlineArrowRight />}>
-                                Host Mint Website
-                            </Button>
-                        </Flex>
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/GW8nvbWBYKM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </HStack>
+                    </SlideFade>
+                    <SlideFade in={true} offsetY='20px' delay={1}>
+                        <HStack spacing='4em' justifyContent='space-between'>
+                            <Flex flexDir='column' maxW='550px'>
+                                <Text variant='content_intro'>
+                                    The new way of generating NFTs
+                                </Text>
+                                <Text variant='content_title' mt='0.25rem'>
+                                    NFT Generator
+                                </Text>
+                                <Text variant='content_description' mt='1.25rem'>
+                                    We provide the fastest and cheapest NFT generator in the market.
+                                </Text>
+                                <Button w='200px' mt='1em' rightIcon={<AiOutlineArrowRight />}>
+                                    Generate NFTs
+                                </Button>
+                            </Flex>
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/54MAbT-yiAY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </HStack>
+                    </SlideFade>
+                    <SlideFade in={true} offsetY='20px' delay={1}>
+                        <HStack spacing='4em' mt='10em' justifyContent='space-between'>
+                            <Flex flexDir='column' maxW='550px'>
+                                <Text variant='content_intro'>
+                                    Easily create minting website
+                                </Text>
+                                <Text variant='content_title' mt='0.25rem'>
+                                    NFT Host
+                                </Text>
+                                <Text variant='content_description' mt='1.25rem'>
+                                    Sell your NFTs in under a minute. Create a minting website by a click of a button.
+                                </Text>
+                                <Button w='200px' mt='1em' rightIcon={<AiOutlineArrowRight />}>
+                                    Host Mint Website
+                                </Button>
+                            </Flex>
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/GW8nvbWBYKM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </HStack>
+                    </SlideFade>
                 </Flex>
             </Flex>
             <Footer />
