@@ -1,3 +1,4 @@
+import NextLink from 'next/link'
 import { useRouter } from 'next/router'
 import { Box, Text, HStack, Image, Avatar, Button, Flex, IconButton } from '@chakra-ui/react'
 import { useUser } from '@/providers/UserProvider'
@@ -23,17 +24,19 @@ const Navbar = () => {
                     justifyContent='space-between'
                     w='full'
                 >
-                    <HStack spacing='1em'>
-                        <Avatar 
-                            size='md'
-                            src='/logo.png' 
-                            name='NFT Host Logo' 
-                            bg='transparent'
-                        />
-                        <Text fontWeight='bold' fontSize='14pt'>
-                            NFT Host
-                        </Text>
-                    </HStack>
+                    <NextLink href='/' shallow passHref>
+                        <HStack spacing='1em' cursor='pointer'>
+                            <Avatar 
+                                size='md'
+                                src='/logo.png' 
+                                name='NFT Host Logo' 
+                                bg='transparent'
+                            />
+                            <Text fontWeight='bold' fontSize='14pt'>
+                                NFT Host
+                            </Text>
+                        </HStack>
+                    </NextLink>
                     <HStack spacing='2em'>
                         <HStack>
                             <IconButton 
