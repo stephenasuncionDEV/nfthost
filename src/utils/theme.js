@@ -48,6 +48,17 @@ const theme = extendTheme({
                     fontSize: '1.125rem',
                     fontWeight: '600'
                 }),
+                link: (props) => ({
+                    color: mode('#08BDD4', '#08BDD4')(props),
+                    fontWeight: 'bold',
+                    cursor: 'pointer'
+                }),
+                header_1: (props) => ({
+                    color: mode('rgb(34,34,34)', 'white')(props),
+                    fontSize: '42pt',
+                    lineHeight: '48pt',
+                    fontWeight: 'bold'
+                }),
             },        
         },
         Button: {
