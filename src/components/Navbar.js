@@ -1,6 +1,6 @@
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
-import { Box, Text, HStack, Image, Avatar, Button, Flex, IconButton } from '@chakra-ui/react'
+import { Box, Text, HStack, Avatar, Button, IconButton } from '@chakra-ui/react'
 import { useCore } from '@/providers/CoreProvider'
 import { FaHeart, FaTiktok, FaDiscord, FaGithub, FaTwitter } from 'react-icons/fa'
 import { useNavbar } from '@/hooks/useNavbar'

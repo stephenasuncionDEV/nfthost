@@ -1,6 +1,5 @@
 import Head from 'next/head'
-import { useRouter } from 'next/router'
-import { Box, Text, HStack, Image, Avatar, Button, Flex, IconButton, VStack } from '@chakra-ui/react'
+import { Box, Text, Flex, VStack } from '@chakra-ui/react'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 

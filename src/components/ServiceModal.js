@@ -1,16 +1,12 @@
 import NextLink from 'next/link'
-import Head from 'next/head'
 import { Box, HStack, 
     Text, Flex, Button, VStack, 
     Modal, ModalOverlay,
     ModalContent, ModalHeader,
     ModalFooter, ModalBody,
-    ModalCloseButton, Link } from '@chakra-ui/react'
-import { useUser } from '@/providers/UserProvider'
+    ModalCloseButton, Link 
+} from '@chakra-ui/react'
 import { useCore } from '@/providers/CoreProvider'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
-import style from '@/styles/Main.module.scss'
 import { GiGears } from 'react-icons/gi'
 import { CgWebsite } from 'react-icons/cg'
 

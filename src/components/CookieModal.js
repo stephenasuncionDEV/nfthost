@@ -1,10 +1,5 @@
-import NextLink from 'next/link'
-import { useRouter } from 'next/router'
-import { Box, Text, HStack, Image, Avatar, Button, Flex, IconButton, Link } from '@chakra-ui/react'
+import { Text, HStack, Button, Flex, IconButton, Link } from '@chakra-ui/react'
 import { useCore } from '@/providers/CoreProvider'
-import { FaHeart, FaTiktok, FaDiscord, FaGithub, FaTwitter } from 'react-icons/fa'
-import { useNavbar } from '@/hooks/useNavbar'
-import { AiOutlineArrowRight } from 'react-icons/ai'
 import { IoMdClose } from 'react-icons/io'
 import { useCookie } from '@/hooks/useCookie'
 
