@@ -1,17 +1,18 @@
-import { Flex, Text, VStack, Image, Link, HStack } from '@chakra-ui/react'
+import { Flex, Text, VStack, Image, Link, HStack, Avatar } from '@chakra-ui/react'
 import { BiLinkExternal } from 'react-icons/bi'
 
 const Footer = () => {
 
     return (
         <footer>
-            <Flex h='500px' bg='rgb(234,239,241)' justifyContent='center' alignItems='center'>
+            <Flex h='500px' bg='linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(218,223,255,1) 100%)' justifyContent='center' alignItems='center'>
                 <Flex maxW='8xl' w='full' px='24px' justifyContent='space-between' flexWrap='wrap'>
                     <VStack alignItems='center' flex='1' minW='249.5px' spacing='1em'>
-                        <Image
-                            src='/logo.png'
-                            alt='NFT Host Logo'
-                            w='100px'
+                        <Avatar 
+                            size='lg'
+                            src='/logo.png' 
+                            name='NFT Host Logo' 
+                            bg='transparent'
                         />
                         <Flex flexDir='column' alignItems='center'>
                             <Text >
@@ -48,9 +49,14 @@ const Footer = () => {
                             <Text fontWeight='bold'>
                                 NFT Host Team
                             </Text>
-                            <Text >
-                                Stephen Asuncion
-                            </Text>
+                            <Link href='https://twitter.com/Steb_01' color='white' isExternal>
+                                <HStack>
+                                    <Text>
+                                        Stephen Asuncion
+                                    </Text>
+                                    <BiLinkExternal color='rgb(34,34,34)'/>
+                                </HStack>
+                            </Link>
                         </VStack>
                     </Flex>
                 </Flex>
