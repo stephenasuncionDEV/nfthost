@@ -59,6 +59,12 @@ const theme = extendTheme({
                     lineHeight: '48pt',
                     fontWeight: 'bold'
                 }),
+                header_2: (props) => ({
+                    color: mode('rgb(34,34,34)', 'white')(props),
+                    fontSize: '28pt',
+                    lineHeight: '48pt',
+                    fontWeight: 'bold'
+                }),
             },        
         },
         Button: {
