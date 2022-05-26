@@ -64,7 +64,7 @@ const theme = extendTheme({
         Button: {
             baseStyle: (props) => ({
                 fontWeight: 'normal',
-            })
+            }),
         }
     }
 })

@@ -7,18 +7,18 @@ export const useNavbar = () => {
         window.open("https://discord.gg/BMZZXZMnmv");
     }
 
-    const onGithub = () => {
-        window.open("https://github.com/stephenasuncionDEV/nfthost");
-    }
-
     const onSponsor = () => {
         window.open("https://www.buymeacoffee.com/stephenasuncion");
+    }
+
+    const onTwitter = () => {
+        window.open("https://twitter.com/Steb_01");
     }
 
     return {
         onTiktok,
         onDiscord,
-        onGithub,
-        onSponsor
+        onSponsor,
+        onTwitter
     }
 }

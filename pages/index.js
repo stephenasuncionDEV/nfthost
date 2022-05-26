@@ -1,12 +1,17 @@
+import NextLink from 'next/link'
 import Head from 'next/head'
-import { Box, HStack, Text, Flex, Button, VStack, SlideFade } from '@chakra-ui/react'
+import { Box, HStack, Text, Flex, Button, VStack, SlideFade, Link } from '@chakra-ui/react'
 import { useUser } from '@/providers/UserProvider'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import style from '@/styles/Main.module.scss'
 import { AiOutlineArrowRight } from 'react-icons/ai'
+import { useCore } from '@/providers/CoreProvider'
+import ServiceModal from '@/components/ServiceModal'
 
 const Main = () => {
+    const { setIsServiceModal } = useCore();
+
     return (
         <main>
             <Head>
@@ -31,6 +36,7 @@ const Main = () => {
                 <meta property="twitter:image" content='https://www.nfthost.app/logo.png' />
             </Head>
             <Navbar />
+            <ServiceModal />
             <Flex 
                 w='full' 
                 p='2em'
@@ -44,7 +50,7 @@ const Main = () => {
                 >
                     <SlideFade in={true} offsetY='20px' delay={.45}>
                         <Flex flexDir='column' alignItems='center' justifyContent='center' h='700px'>
-                            <Text fontSize='42pt' lineHeight='42pt' variant='content_title'>
+                            <Text variant='header_1' fontSize='52pt' textAlign='center'>
                                 Generate and Host your
                             </Text>
                             <Text className={style.gradientBlue} fontSize='42pt' fontWeight='bold'>
@@ -53,47 +59,72 @@ const Main = () => {
                             <Text fontSize='13pt' fontWeight='hairline' mt='1em'>
                                 Create and Show your NFT collection in under a minute!
                             </Text>
-                            <Button mt='1em' w='150px'>
+                            <Button mt='1em' w='150px' onClick={() => setIsServiceModal(true)}>
                                 Get Started 🎉
                             </Button>
+
                         </Flex>
                     </SlideFade>
                     <SlideFade in={true} offsetY='20px' delay={1}>
-                        <HStack spacing='4em' justifyContent='space-between'>
+                        <HStack spacing='4em' justifyContent='space-between' flexWrap='wrap'>
                             <Flex flexDir='column' maxW='550px'>
                                 <Text variant='content_intro'>
                                     The new way of generating NFTs
                                 </Text>
                                 <Text variant='content_title' mt='0.25rem'>
-                                    NFT Generator
+                                    NFT Collection
+                                </Text>
+                                <Text variant='content_title' mt='0.25rem'>
+                                    Generator
                                 </Text>
                                 <Text variant='content_description' mt='1.25rem'>
-                                    We provide the fastest and cheapest NFT generator in the market.
+                                    We provide the fastest and cheapest NFT generator in the market. With $25, you can generate up to 10,000 unique NFTs.
                                 </Text>
-                                <Button w='200px' mt='1em' rightIcon={<AiOutlineArrowRight />}>
-                                    Generate NFTs
-                                </Button>
+                                <NextLink href='/service/generator' shallow passHref>
+                                    <Button w='200px' mt='1em' rightIcon={<AiOutlineArrowRight />}>
+                                        Generate NFTs
+                                    </Button>
+                                </NextLink>
                             </Flex>
-                            <iframe width="560" height="315" src="https://www.youtube.com/embed/54MAbT-yiAY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <VStack>
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/54MAbT-yiAY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                <Link href='https://www.youtube.com/watch?v=54MAbT-yiAY' isExternal>
+                                    <Text color='blackAlpha.600' fontSize='9pt' fontStyle='italic'>
+                                        source: https://www.youtube.com/watch?v=54MAbT-yiAY
+                                    </Text>
+                                </Link>
+                            </VStack>
                         </HStack>
                     </SlideFade>
                     <SlideFade in={true} offsetY='20px' delay={1}>
-                        <HStack spacing='4em' mt='10em' justifyContent='space-between'>
+                        <HStack spacing='4em' mt='20em' justifyContent='space-between' flexWrap='wrap'>
+                            <VStack>
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/GW8nvbWBYKM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                <Link href='https://www.youtube.com/watch?v=GW8nvbWBYKM' isExternal>
+                                    <Text color='blackAlpha.600' fontSize='9pt' fontStyle='italic'>
+                                    source: https://www.youtube.com/watch?v=GW8nvbWBYKM
+                                    </Text>
+                                </Link>
+                            </VStack>
                             <Flex flexDir='column' maxW='550px'>
                                 <Text variant='content_intro'>
                                     Easily create minting website
                                 </Text>
                                 <Text variant='content_title' mt='0.25rem'>
-                                    NFT Host
+                                    Mint Website
+                                </Text>
+                                <Text variant='content_title' mt='0.25rem'>
+                                    Hosting
                                 </Text>
                                 <Text variant='content_description' mt='1.25rem'>
-                                    Sell your NFTs in under a minute. Create a minting website by a click of a button.
+                                    Sell your NFTs in under a minute. Create a minting website by a click of a button. You can host your own minting website for free. Unlock special features by upgrading to premium for $15
                                 </Text>
-                                <Button w='200px' mt='1em' rightIcon={<AiOutlineArrowRight />}>
-                                    Host Mint Website
-                                </Button>
+                                <NextLink href='/service/website' shallow passHref>
+                                    <Button w='200px' mt='1em' rightIcon={<AiOutlineArrowRight />}>
+                                        Host Mint Website
+                                    </Button>
+                                </NextLink>
                             </Flex>
-                            <iframe width="560" height="315" src="https://www.youtube.com/embed/GW8nvbWBYKM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                         </HStack>
                     </SlideFade>
                 </Flex>

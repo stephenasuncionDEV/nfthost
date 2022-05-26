@@ -2,12 +2,12 @@ import NextLink from 'next/link'
 import { useRouter } from 'next/router'
 import { Box, Text, HStack, Image, Avatar, Button, Flex, IconButton } from '@chakra-ui/react'
 import { useUser } from '@/providers/UserProvider'
-import { FaHeart, FaTiktok, FaDiscord, FaGithub } from 'react-icons/fa'
+import { FaHeart, FaTiktok, FaDiscord, FaGithub, FaTwitter } from 'react-icons/fa'
 import { useNavbar } from '@/hooks/useNavbar'
 
 const Navbar = () => {
     const router = useRouter();
-    const { onTiktok, onDiscord, onGithub, onSponsor } = useNavbar();
+    const { onTwitter, onTiktok, onDiscord, onGithub, onSponsor } = useNavbar();
 
     return (
         <nav>
@@ -40,6 +40,14 @@ const Navbar = () => {
                     <HStack spacing='2em'>
                         <HStack>
                             <IconButton 
+                                aria-label='NFT Host Twitter'
+                                icon={<FaTwitter />}
+                                borderRadius='50%'
+                                size='sm'
+                                bg='transparent'
+                                onClick={onTwitter}
+                            />
+                            <IconButton 
                                 aria-label='NFT Host Tiktok'
                                 icon={<FaTiktok />}
                                 borderRadius='50%'
@@ -55,18 +63,12 @@ const Navbar = () => {
                                 bg='transparent'
                                 onClick={onDiscord}
                             />
-                            <IconButton 
-                                aria-label='NFT Host Github'
-                                icon={<FaGithub />}
-                                borderRadius='50%'
-                                size='sm'
-                                bg='transparent'
-                                onClick={onGithub}
-                            />
                         </HStack>
-                        <Button>
-                            Get Started
-                        </Button>
+                        <NextLink href='/hub' shallow passHref>
+                            <Button>
+                                Get Started
+                            </Button>
+                        </NextLink>
                     </HStack>
                 </Box>
             </Box>

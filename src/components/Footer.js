@@ -1,4 +1,4 @@
-import { Flex, Text, VStack, Image, Link, HStack, Avatar } from '@chakra-ui/react'
+import { Flex, Text, VStack, Link, HStack, Avatar } from '@chakra-ui/react'
 import { BiLinkExternal } from 'react-icons/bi'
 
 const Footer = () => {
