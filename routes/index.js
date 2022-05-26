@@ -1,10 +1,8 @@
 const router = require('express').Router();
 const payment = require('./payment');
-const webhook = require('./webhook');
-const user = require('./user');
+const member = require('./member');
 
 router.use('/payment', payment);
-router.use('/webhook', webhook);
-router.use('/user', user);
+router.use('/member', member);
 
 module.exports = router;
