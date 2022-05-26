@@ -13,10 +13,13 @@ export const CoreProvider = ({ children }) => {
     const toast = useToast();
     const router = useRouter();
     const [isServiceModal, setIsServiceModal] = useState(false);
+    const [isCookieModal, setIsCookieModal] = useState();
 
     const controllers = {
         isServiceModal,
-        setIsServiceModal
+        setIsServiceModal,
+        isCookieModal,
+        setIsCookieModal
     }
 
     return (

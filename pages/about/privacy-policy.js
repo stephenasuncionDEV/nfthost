@@ -98,7 +98,7 @@ const PrivacyPolicy = () => {
                                 Analytics Cookies - Through our service providers, we may use analytics to collect information about your use of the NFTHost.app website to create reports and statistics on the performance of the website. Analytics collect information such as your IP address, type of device, operating system, geolocation, referring URLs, time and date of page visits, and which pages you visit. The information allows us to quantify our audience size, see the overall patterns of usage on the platform, help us record any difficulties you have with the website, and show us whether our advertising is effective or not.
                             </Text>
                         </VStack>
-                        <VStack alignItems='flex-start' w='full'>
+                        <VStack alignItems='flex-start' w='full' id='cookies'>
                             <Text variant='header_1'>
                                 Managing your Cookies
                             </Text>

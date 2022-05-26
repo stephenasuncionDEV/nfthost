@@ -2,15 +2,18 @@ import NextLink from 'next/link'
 import Head from 'next/head'
 import { Box, HStack, Text, Flex, Button, VStack, SlideFade, Link } from '@chakra-ui/react'
 import { useUser } from '@/providers/UserProvider'
+import { useCore } from '@/providers/CoreProvider'
+import { useLanding } from '@/hooks/useLanding'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
-import style from '@/styles/Main.module.scss'
-import { AiOutlineArrowRight } from 'react-icons/ai'
-import { useCore } from '@/providers/CoreProvider'
 import ServiceModal from '@/components/ServiceModal'
+import CookieModal from '@/components/CookieModal'
+import { AiOutlineArrowRight } from 'react-icons/ai'
+import style from '@/styles/Main.module.scss'
 
 const Main = () => {
     const { setIsServiceModal } = useCore();
+    useLanding();
 
     return (
         <main>
@@ -37,6 +40,7 @@ const Main = () => {
             </Head>
             <Navbar />
             <ServiceModal />
+            <CookieModal />
             <Flex 
                 w='full' 
                 p='2em'
