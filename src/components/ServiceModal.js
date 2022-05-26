@@ -30,7 +30,7 @@ const ServiceModal = () => {
                 <HStack mt='2em' justifyContent='center' flexWrap='wrap'>
                     <Box>
                         <NextLink href='/service/generator' shallow passHref>
-                            <Button h='120px'>
+                            <Button h='120px' onClick={() => setIsServiceModal(false)}>
                                 <Flex flexDir='column' spacing='0' alignItems='center'>
                                     <GiGears fontSize='20pt' />
                                     <Text mt='.25em'>
@@ -45,7 +45,7 @@ const ServiceModal = () => {
                     </Box>
                     <Box>
                         <NextLink href='/service/website' shallow passHref>
-                            <Button h='120px'>
+                            <Button h='120px' onClick={() => setIsServiceModal(false)}>
                                 <Flex flexDir='column' spacing='0' alignItems='center'>
                                     <CgWebsite fontSize='20pt' />
                                     <Text mt='.25em'>

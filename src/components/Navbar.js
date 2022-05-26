@@ -1,13 +1,15 @@
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
 import { Box, Text, HStack, Image, Avatar, Button, Flex, IconButton } from '@chakra-ui/react'
-import { useUser } from '@/providers/UserProvider'
+import { useCore } from '@/providers/CoreProvider'
 import { FaHeart, FaTiktok, FaDiscord, FaGithub, FaTwitter } from 'react-icons/fa'
 import { useNavbar } from '@/hooks/useNavbar'
+import { AiOutlineArrowRight } from 'react-icons/ai'
 
 const Navbar = () => {
     const router = useRouter();
     const { onTwitter, onTiktok, onDiscord, onGithub, onSponsor } = useNavbar();
+    const { setIsServiceModal } = useCore();
 
     return (
         <nav>
@@ -64,11 +66,9 @@ const Navbar = () => {
                                 onClick={onDiscord}
                             />
                         </HStack>
-                        <NextLink href='/hub' shallow passHref>
-                            <Button>
-                                Get Started
-                            </Button>
-                        </NextLink>
+                        <Button onClick={() => setIsServiceModal(true)} rightIcon={<AiOutlineArrowRight />}>
+                            Get Started
+                        </Button>
                     </HStack>
                 </Box>
             </Box>
