@@ -34,7 +34,7 @@ const Website = () => {
                 <meta property="twitter:description" content='NFT Host is a website where you can generate NFT collections and create NFT minting website.' />
                 <meta property="twitter:image" content='https://www.nfthost.app/logo.png' />
             </Head>
-            <Navbar />
+            <Navbar isWallet />
             <CookieModal />
             <Footer />
         </main>

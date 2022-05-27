@@ -7,6 +7,8 @@ export const useProtectPage = () => {
     const router = useRouter();
 
     useEffect(() => {
+        if (isLoggedIn === undefined) return;
+        console.log(isLoggedIn)
         if (!isLoggedIn) router.push('/', undefined, { shallow: true }); 
-    }, [])
+    }, [isLoggedIn])
 }

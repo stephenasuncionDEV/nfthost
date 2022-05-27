@@ -28,6 +28,8 @@ export const useWeb3 = () => {
             }
 
             localStorage.setItem('nfthost-wallet', wallet);
+
+            return true;
         }
         catch (err) {
             toast({
@@ -38,6 +40,8 @@ export const useWeb3 = () => {
                 isClosable: true,
                 position: 'bottom-center'
             })
+            
+            return false;
         }
     }
 
