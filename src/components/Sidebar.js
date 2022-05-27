@@ -5,18 +5,24 @@ import { Box, Text, HStack, Avatar,
     MenuButton, MenuList, MenuItem,
     MenuItemOption, MenuGroup, MenuOptionGroup,
     MenuDivider, Image, Drawer, DrawerContent,
+    TagRightIcon, TagLabel
 } from '@chakra-ui/react'
 import { useCore } from '@/providers/CoreProvider'
 import { FaHeart, FaTiktok, FaDiscord, FaGithub, FaTwitter } from 'react-icons/fa'
 import { useNavbar } from '@/hooks/useNavbar'
-import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai'
-import { HiLogout } from 'react-icons/hi'
+import { MdOutlineContentCopy } from 'react-icons/md'
+import { HiOutlineChevronDown, HiLogout } from 'react-icons/hi'
 import { useUser } from '@/providers/UserProvider'
 import { useWeb3 } from '@/hooks/useWeb3'
+
+const sidebarItemArr = [
+    { name: '' }
+]
 
 const Sidebar = ({ children }) => {
     const { address } = useUser();
     const { onCopyAddress } = useNavbar();
+    const { onLogout } = useWeb3();
 
     return (
         <nav>
@@ -26,6 +32,8 @@ const Sidebar = ({ children }) => {
                     isOpen={true}
                     placement="left"
                     returnFocusOnClose={false}
+                    variant='alwaysOpen'
+                    size='sidebar'
                 >
                     <DrawerContent>
                         <HStack spacing='.5em' cursor='pointer' justifyContent='center' p='1.5em'>
@@ -39,14 +47,24 @@ const Sidebar = ({ children }) => {
                                 NFT Host
                             </Text>
                         </HStack>
-                        <Tag mt='1em' mx='1em' borderWidth='1px' size='md' cursor='pointer' onClick={onCopyAddress}>
-                            <Text noOfLines='1'>
-                                {address}
-                            </Text>
-                        </Tag>
+                        <Menu>
+                            <MenuButton as={Tag} mt='1em' mx='1em' borderWidth='1px' size='md' cursor='pointer'>
+                                <HStack>
+                                    <Text as={TagLabel} noOfLines='1'>
+                                        {address}
+                                    </Text>
+                                    <TagRightIcon as={HiOutlineChevronDown} />
+                                </HStack>
+                            </MenuButton>
+                            <MenuList>
+                                <MenuItem icon={<MdOutlineContentCopy />} onClick={onCopyAddress}>Copy Address</MenuItem>
+                                <MenuDivider />
+                                <MenuItem icon={<HiLogout />} onClick={onLogout}>Logout</MenuItem>
+                            </MenuList>
+                        </Menu>
                     </DrawerContent>
                 </Drawer>
-                <Box ml='4em' p='2em'>
+                <Box ml='18em' px='4em' pt='2em'>
                     {children}
                 </Box>
             </Box>

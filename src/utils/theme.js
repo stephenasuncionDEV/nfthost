@@ -76,7 +76,27 @@ const components = {
             isClosable: true,
             position: 'bottom-center'
         }
-    }
+    },
+    Drawer: {
+		variants: {
+			alwaysOpen: {
+				parts: ['dialog, dialogContainer'],
+				dialog: {
+					pointerEvents: 'auto',
+				},
+				dialogContainer: {
+					pointerEvents: 'none',
+				},
+			},
+		},
+        sizes: {
+            sidebar: { 
+                dialog: { 
+                    maxW: '260px' 
+                } 
+            }
+        },
+	},
 }
 
 const theme = extendTheme({ 

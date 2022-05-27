@@ -3,14 +3,13 @@ import { useRouter } from 'next/router'
 import { Box, Text, HStack, Avatar, 
     Button, IconButton, Tag, Menu,
     MenuButton, MenuList, MenuItem,
-    MenuItemOption, MenuGroup, MenuOptionGroup,
-    MenuDivider, Image
+    Image, TagRightIcon
 } from '@chakra-ui/react'
 import { useCore } from '@/providers/CoreProvider'
 import { FaHeart, FaTiktok, FaDiscord, FaGithub, FaTwitter } from 'react-icons/fa'
 import { useNavbar } from '@/hooks/useNavbar'
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai'
-import { HiLogout } from 'react-icons/hi'
+import { HiOutlineChevronDown, HiLogout } from 'react-icons/hi'
 import { useUser } from '@/providers/UserProvider'
 import { useWeb3 } from '@/hooks/useWeb3'
 
@@ -94,6 +93,7 @@ const Navbar = ({ isGetStarted, isSocial, isLanding, isWallet }) => {
                             <Menu>
                                 <MenuButton as={Tag} borderWidth='1px' size='md' cursor='pointer'>
                                     {isLoggedIn ? address : 'Connect Your Wallet'}
+                                    <TagRightIcon as={HiOutlineChevronDown} />
                                 </MenuButton>
                                 <MenuList>
                                     {isLoggedIn ? (

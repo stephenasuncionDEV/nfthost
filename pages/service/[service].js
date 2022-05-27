@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import { Box, HStack, Text, Flex, Button, VStack, SlideFade } from '@chakra-ui/react'
 import { useUser } from '@/providers/UserProvider'
 import Navbar from '@/components/Navbar'
@@ -9,14 +10,16 @@ import { AiOutlineArrowRight } from 'react-icons/ai'
 import { useProtectPage } from '@/hooks/useProtectPage'
 import { useReAuthenticate } from '@/hooks/useReAuthenticate'
 
-const Generator = () => {
+const Service = () => {
     const { isLoggedIn } = useUser();
+    const router = useRouter();
+    const { service } = router.query;
     useReAuthenticate(true);
 
     return isLoggedIn && (
         <main>
             <Head>
-                <title>Generator | NFT Host</title>
+                <title>Service | NFT Host</title>
                 <meta name="title" content='NFT Host' />
                 <meta name="description" content='NFT Host is a website where you can generate NFT collections and create NFT minting website.' />
                 <meta name="keywords" content='NFT Host, Host NFT, Mint Website, Mint NFT Website Hosting, Mint NFT, NFT, Mint, Crypto Currency, Crypto, Ethereum' />
@@ -39,11 +42,14 @@ const Generator = () => {
             <CookieModal />
             <Sidebar>
                 <Text variant='header_1'>
-                    Test
+                    {service && service.charAt(0).toUpperCase() + service.slice(1)}
                 </Text>
+                <Button>
+                    Test
+                </Button>
             </Sidebar>
         </main>
     )
 }
 
-export default Generator
+export default Service

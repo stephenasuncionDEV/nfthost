@@ -1,6 +1,10 @@
 import NextLink from 'next/link'
 import Head from 'next/head'
-import { HStack, Text, Flex, Button, VStack, SlideFade, Link } from '@chakra-ui/react'
+import { HStack, Text, Flex, Button, 
+    VStack, SlideFade, Link, Menu,
+    MenuButton, MenuList, MenuItem,
+    Image, TagRightIcon, Tag
+} from '@chakra-ui/react'
 import { useLanding } from '@/hooks/useLanding'
 import { useReAuthenticate } from '@/hooks/useReAuthenticate'
 import Navbar from '@/components/Navbar'
@@ -8,10 +12,15 @@ import Footer from '@/components/Footer'
 import ServiceModal from '@/components/ServiceModal'
 import CookieModal from '@/components/CookieModal'
 import { AiOutlineArrowRight } from 'react-icons/ai'
+import { HiOutlineChevronDown } from 'react-icons/hi'
 import style from '@/styles/Main.module.scss'
+import { useUser } from '@/providers/UserProvider'
+import { useWeb3 } from '@/hooks/useWeb3'
 
 const Main = () => {
     const { onGetStarted, onNavigate } = useLanding();
+    const { onConnect } = useWeb3();
+    const { isLoggedIn, address } = useUser();
     useReAuthenticate();
     
     return (
@@ -65,10 +74,48 @@ const Main = () => {
                             <Text fontSize='13pt' fontWeight='hairline' mt='1em'>
                                 Create and Show your NFT collection in under a minute!
                             </Text>
+                            <Menu>
+                                <MenuButton 
+                                    as={Tag} 
+                                    borderWidth='1px' 
+                                    size='md' 
+                                    cursor={isLoggedIn ? 'initial' : 'pointer'} 
+                                    mt='1.5em' 
+                                    pointerEvents={isLoggedIn ? 'none' : 'initial'}
+                                >
+                                    <HStack>
+                                        <Text noOfLines='1'>
+                                            {isLoggedIn ? address : 'Connect Your Wallet'}
+                                        </Text>
+                                        {!isLoggedIn && <TagRightIcon as={HiOutlineChevronDown} />}
+                                    </HStack>
+                                </MenuButton>
+                                <MenuList>
+                                    <MenuItem onClick={() => onConnect('metamask')}>
+                                        <Image
+                                            boxSize='2rem'
+                                            borderRadius='full'
+                                            src='https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/800px-MetaMask_Fox.svg.png'
+                                            alt='Metamask Wallet Logo from wikimedia.org'
+                                            mr='12px'
+                                        />
+                                        <span>Metamask</span>
+                                    </MenuItem>
+                                    <MenuItem onClick={() => onConnect('phantom')}>
+                                        <Image
+                                            boxSize='2rem'
+                                            borderRadius='full'
+                                            src='https://www.yadawallets.com/wp-content/uploads/2021/06/Phantom-wallet-logo.png'
+                                            alt='Phantom Wallet Logo from yadawallets.org'
+                                            mr='12px'
+                                        />
+                                        <span>Phantom</span>
+                                    </MenuItem>
+                                </MenuList>
+                            </Menu>
                             <Button mt='1em' w='150px' onClick={onGetStarted}>
                                 Get Started 🎉
                             </Button>
-
                         </Flex>
                     </SlideFade>
                     <SlideFade in={true} offsetY='20px' delay={1}>
