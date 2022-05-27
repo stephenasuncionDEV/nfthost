@@ -1,9 +1,8 @@
 import NextLink from 'next/link'
 import Head from 'next/head'
-import { Box, HStack, Text, Flex, Button, VStack, SlideFade, Link } from '@chakra-ui/react'
-import { useUser } from '@/providers/UserProvider'
-import { useCore } from '@/providers/CoreProvider'
+import { HStack, Text, Flex, Button, VStack, SlideFade, Link } from '@chakra-ui/react'
 import { useLanding } from '@/hooks/useLanding'
+import { useReAuthenticate } from '@/hooks/useReAuthenticate'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import ServiceModal from '@/components/ServiceModal'
@@ -12,9 +11,9 @@ import { AiOutlineArrowRight } from 'react-icons/ai'
 import style from '@/styles/Main.module.scss'
 
 const Main = () => {
-    const { setIsServiceModal } = useCore();
-    useLanding();
-
+    const { onGetStarted } = useLanding();
+    useReAuthenticate();
+    
     return (
         <main>
             <Head>
@@ -40,7 +39,7 @@ const Main = () => {
             </Head>
             <Navbar 
                 isSocial 
-                isGetStarted
+                isWallet
             />
             <ServiceModal />
             <CookieModal />
@@ -66,7 +65,7 @@ const Main = () => {
                             <Text fontSize='13pt' fontWeight='hairline' mt='1em'>
                                 Create and Show your NFT collection in under a minute!
                             </Text>
-                            <Button mt='1em' w='150px' onClick={() => setIsServiceModal(true)}>
+                            <Button mt='1em' w='150px' onClick={onGetStarted}>
                                 Get Started 🎉
                             </Button>
 

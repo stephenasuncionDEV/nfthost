@@ -3,10 +3,12 @@ import { Box, HStack, Text, Flex, Button, VStack, SlideFade } from '@chakra-ui/r
 import { useUser } from '@/providers/UserProvider'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
-import style from '@/styles/Main.module.scss'
+import CookieModal from '@/components/CookieModal'
 import { AiOutlineArrowRight } from 'react-icons/ai'
+import { useProtectPage } from '@/hooks/useProtectPage'
 
 const Generator = () => {
+
     return (
         <main>
             <Head>
@@ -30,8 +32,8 @@ const Generator = () => {
                 <meta property="twitter:description" content='NFT Host is a website where you can generate NFT collections and create NFT minting website.' />
                 <meta property="twitter:image" content='https://www.nfthost.app/logo.png' />
             </Head>
-            <Navbar />
-            
+            <Navbar isWallet />
+            <CookieModal />
             <Footer />
         </main>
     )

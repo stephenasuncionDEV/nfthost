@@ -1,3 +1,5 @@
+import CryptoJS from 'crypto-js'
+
 export const parseJwt = (token) => {
     try {
         if (!token) return;
@@ -15,3 +17,13 @@ export const parseJwt = (token) => {
         console.error(err);
     }
 };
+
+export const encrypt = (str) => {
+    const data = CryptoJS.AES.encrypt(str, CryptoJS.enc.Utf8.parse(process.env.ENCRYPT_KEY));
+    return data.toString();
+}
+
+export const decrypt = (str) => {
+    const data = CryptoJS.AES.decrypt(str, CryptoJS.enc.Utf8.parse(process.env.ENCRYPT_KEY));
+    return data.toString(CryptoJS.enc.Utf8);
+}

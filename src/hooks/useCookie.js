@@ -1,4 +1,4 @@
-import { useCore } from "@/providers/CoreProvider";
+import { useCore } from '@/providers/CoreProvider'
 
 export const useCookie = () => {
     const { setIsCookieModal } = useCore();

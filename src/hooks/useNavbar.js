@@ -1,4 +1,5 @@
 export const useNavbar = () => {
+
     const onTiktok = () => {
         window.open("https://www.tiktok.com/@nfthostofficial");
     }
@@ -19,6 +20,6 @@ export const useNavbar = () => {
         onTiktok,
         onDiscord,
         onSponsor,
-        onTwitter
+        onTwitter,
     }
 }
