@@ -3,22 +3,24 @@ import { useRouter } from 'next/router'
 import { Box, Text, HStack, Avatar, 
     Button, IconButton, Tag, Menu,
     MenuButton, MenuList, MenuItem,
-    Image, TagRightIcon
+    Image, TagRightIcon, useColorMode
 } from '@chakra-ui/react'
 import { useCore } from '@/providers/CoreProvider'
 import { FaHeart, FaTiktok, FaDiscord, FaGithub, FaTwitter } from 'react-icons/fa'
 import { useNavbar } from '@/hooks/useNavbar'
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai'
 import { HiOutlineChevronDown, HiLogout } from 'react-icons/hi'
+import { MdOutlineDarkMode, MdOutlineLightMode } from 'react-icons/md'
 import { useUser } from '@/providers/UserProvider'
 import { useWeb3 } from '@/hooks/useWeb3'
 
-const Navbar = ({ isGetStarted, isSocial, isLanding, isWallet }) => {
+const Navbar = ({ isGetStarted, isSocial, isLanding, isColorMode, isWallet }) => {
     const router = useRouter();
     const { onTwitter, onTiktok, onDiscord, onGithub, onSponsor } = useNavbar();
     const { onConnect, onLogout } = useWeb3();
     const { setIsServiceModal } = useCore();
     const { isLoggedIn, address } = useUser();
+    const { colorMode, toggleColorMode } = useColorMode();
 
     return (
         <nav>
@@ -28,12 +30,14 @@ const Navbar = ({ isGetStarted, isSocial, isLanding, isWallet }) => {
                 px='2em'
                 py='1.5em'
                 justifyContent='center'
+                bg='transparent'
             >
                 <Box
                     display='flex'
                     alignItems='center'
                     justifyContent='space-between'
                     w='full'
+                    bg='transparent'
                 >
                     <NextLink href='/' shallow passHref>
                         <HStack spacing='1em' cursor='pointer'>
@@ -88,6 +92,15 @@ const Navbar = ({ isGetStarted, isSocial, isLanding, isWallet }) => {
                                     Landing Page
                                 </Button>
                             </NextLink>
+                        )}
+                        {isColorMode && (
+                            <IconButton 
+                                ml='.5em'
+                                aria-label='Toggle Color Mode' 
+                                icon={colorMode === 'light' ? <MdOutlineDarkMode /> : <MdOutlineLightMode />} 
+                                bg='transparent'
+                                onClick={toggleColorMode} 
+                            />
                         )}
                         {isWallet && (
                             <Menu>

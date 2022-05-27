@@ -26,7 +26,7 @@ const Sidebar = ({ children }) => {
 
     return (
         <nav>
-            <Box minH='100vh' bg='white'>
+            <Box minH='100vh'>
                 <Drawer
                     autoFocus={false}
                     isOpen={true}
@@ -66,7 +66,7 @@ const Sidebar = ({ children }) => {
                         </Menu>
                     </DrawerContent>
                 </Drawer>
-                <Box ml='18em' px='4em' pt='2em'>
+                <Box ml='18em' px='4em' pt='2em' minH='100vh'>
                     {children}
                 </Box>
             </Box>

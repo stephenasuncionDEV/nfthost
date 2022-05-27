@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { HStack, Text, Flex, Button, 
     VStack, SlideFade, Link, Menu,
     MenuButton, MenuList, MenuItem,
-    Image, TagRightIcon, Tag
+    Image, TagRightIcon, Tag, useColorModeValue
 } from '@chakra-ui/react'
 import { useLanding } from '@/hooks/useLanding'
 import { useReAuthenticate } from '@/hooks/useReAuthenticate'
@@ -23,8 +23,11 @@ const Main = () => {
     const { isLoggedIn, address } = useUser();
     useReAuthenticate();
     
+    const bgColor = useColorModeValue('linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(249,250,250,1) 100%)', 'linear-gradient(0deg, rgba(26,32,44,1) 0%, rgba(17,21,28,1) 100%)');
+    const srcColor = useColorModeValue('blackAlpha.600', 'whiteAlpha.600');
+
     return (
-        <main>
+        <main style={{ background: bgColor }}>
             <Head>
                 <title>NFT Host</title>
                 <meta name="title" content='NFT Host' />
@@ -48,6 +51,7 @@ const Main = () => {
             </Head>
             <Navbar 
                 isSocial 
+                isColorMode
                 isWallet
             />
             <ServiceModal />
@@ -140,7 +144,7 @@ const Main = () => {
                             <VStack>
                                 <iframe width="560" height="315" src="https://www.youtube.com/embed/54MAbT-yiAY" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                                 <Link href='https://www.youtube.com/watch?v=54MAbT-yiAY' isExternal>
-                                    <Text color='blackAlpha.600' fontSize='9pt' fontStyle='italic'>
+                                    <Text color={srcColor} fontSize='9pt' fontStyle='italic'>
                                         source: https://www.youtube.com/watch?v=54MAbT-yiAY
                                     </Text>
                                 </Link>
@@ -152,8 +156,8 @@ const Main = () => {
                             <VStack>
                                 <iframe width="560" height="315" src="https://www.youtube.com/embed/GW8nvbWBYKM" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                                 <Link href='https://www.youtube.com/watch?v=GW8nvbWBYKM' isExternal>
-                                    <Text color='blackAlpha.600' fontSize='9pt' fontStyle='italic'>
-                                    source: https://www.youtube.com/watch?v=GW8nvbWBYKM
+                                    <Text color={srcColor} fontSize='9pt' fontStyle='italic'>
+                                        source: https://www.youtube.com/watch?v=GW8nvbWBYKM
                                     </Text>
                                 </Link>
                             </VStack>

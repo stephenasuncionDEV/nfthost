@@ -1,11 +1,13 @@
-import { Flex, Text, VStack, Link, HStack, Avatar } from '@chakra-ui/react'
+import { Flex, Text, VStack, Link, HStack, Avatar, useColorModeValue } from '@chakra-ui/react'
 import { BiLinkExternal } from 'react-icons/bi'
 
 const Footer = () => {
+    const bg = useColorModeValue('linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(218,223,255,1) 100%)', 'linear-gradient(180deg, rgb(24,30,41) 0%, rgba(17,21,28,1) 100%)');
+    const srcColor = useColorModeValue('rgb(34,34,34)', 'whiteAlpha.600');
 
     return (
         <footer>
-            <Flex h='500px' bg='linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(218,223,255,1) 100%)' justifyContent='center' alignItems='center'>
+            <Flex h='500px' bg={bg} justifyContent='center' alignItems='center'>
                 <Flex maxW='8xl' w='full' px='24px' justifyContent='space-between' flexWrap='wrap'>
                     <VStack alignItems='center' flex='1' minW='249.5px' spacing='1em'>
                         <Avatar 
@@ -33,7 +35,7 @@ const Footer = () => {
                                     <Text >
                                         Terms of Service
                                     </Text>
-                                    <BiLinkExternal color='rgb(34,34,34)'/>
+                                    <BiLinkExternal color={srcColor} />
                                 </HStack>
                             </Link>
                             <Link href='/about/privacy-policy' color='white' isExternal>
@@ -41,7 +43,7 @@ const Footer = () => {
                                     <Text >
                                         Privacy Policy
                                     </Text>
-                                    <BiLinkExternal color='rgb(34,34,34)'/>
+                                    <BiLinkExternal color={srcColor} />
                                 </HStack>
                             </Link>
                         </VStack>
@@ -54,7 +56,7 @@ const Footer = () => {
                                     <Text>
                                         Stephen Asuncion
                                     </Text>
-                                    <BiLinkExternal color='rgb(34,34,34)'/>
+                                    <BiLinkExternal color={srcColor} />
                                 </HStack>
                             </Link>
                         </VStack>
