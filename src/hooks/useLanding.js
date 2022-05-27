@@ -1,12 +1,14 @@
 import { useEffect } from 'react'
 import { useToast } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
 import { useUser } from '@/providers/UserProvider'
 import { useCore } from '@/providers/CoreProvider'
 
 export const useLanding = () => { 
+    const toast = useToast();
+    const router = useRouter();
     const { setIsCookieModal, setIsServiceModal } = useCore();
     const { isLoggedIn } = useUser();
-    const toast = useToast();
 
     useEffect(() => {
         // Check if user accepted cookie
@@ -17,7 +19,7 @@ export const useLanding = () => {
 
     const onGetStarted = () => {
         try {
-            if (!isLoggedIn) throw new Error('You must connect your wallet first (see top-right corner)');
+            if (!isLoggedIn) throw new Error('You must connect your wallet (see top-right corner)');
 
             setIsServiceModal(true);
         }
@@ -33,8 +35,27 @@ export const useLanding = () => {
         }
     }
 
+    const onNavigate = (route) => {
+        try {
+            if (!isLoggedIn) throw new Error('You must connect your wallet (see top-right corner)');
+
+            router.push(route, undefined, { shallow: true }); 
+        }
+        catch (err) {
+            toast({
+                title: 'Error',
+                description: err.message,
+                status: 'error',
+                duration: 3000,
+                isClosable: true,
+                position: 'bottom-center'
+            })
+        }
+    }
+
     return {
         setIsCookieModal,
-        onGetStarted
+        onGetStarted,
+        onNavigate,
     }
 }

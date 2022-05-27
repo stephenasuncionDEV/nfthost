@@ -8,8 +8,10 @@ import { AiOutlineArrowRight } from 'react-icons/ai'
 import { useProtectPage } from '@/hooks/useProtectPage'
 
 const Generator = () => {
+    const { isLoggedIn } = useUser();
+    useProtectPage();
 
-    return (
+    return isLoggedIn && (
         <main>
             <Head>
                 <title>Generator | NFT Host</title>

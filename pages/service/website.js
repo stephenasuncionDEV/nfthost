@@ -8,8 +8,10 @@ import { AiOutlineArrowRight } from 'react-icons/ai'
 import { useProtectPage } from '@/hooks/useProtectPage'
 
 const Website = () => {
+    const { isLoggedIn } = useUser();
+    useProtectPage();
 
-    return (
+    return isLoggedIn && (
         <main>
             <Head>
                 <title>Website | NFT Host</title>

@@ -11,7 +11,7 @@ import { AiOutlineArrowRight } from 'react-icons/ai'
 import style from '@/styles/Main.module.scss'
 
 const Main = () => {
-    const { onGetStarted } = useLanding();
+    const { onGetStarted, onNavigate } = useLanding();
     useReAuthenticate();
     
     return (
@@ -86,11 +86,9 @@ const Main = () => {
                                 <Text variant='content_description' mt='1.25rem'>
                                     We provide the fastest and cheapest NFT generator in the market. With $25, you can generate up to 10,000 unique NFTs.
                                 </Text>
-                                <NextLink href='/service/generator' shallow passHref>
-                                    <Button w='200px' mt='1em' rightIcon={<AiOutlineArrowRight />}>
-                                        Generate NFTs
-                                    </Button>
-                                </NextLink>
+                                <Button w='200px' mt='1em' rightIcon={<AiOutlineArrowRight />} onClick={() => onNavigate('/service/generator')}>
+                                    Generate NFTs
+                                </Button>
                             </Flex>
                             <VStack>
                                 <iframe width="560" height="315" src="https://www.youtube.com/embed/54MAbT-yiAY" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
@@ -125,11 +123,9 @@ const Main = () => {
                                 <Text variant='content_description' mt='1.25rem'>
                                     Sell your NFTs in under a minute. Create a minting website by a click of a button. You can host your own minting website for free. Unlock special features by upgrading to premium for $15
                                 </Text>
-                                <NextLink href='/service/website' shallow passHref>
-                                    <Button w='200px' mt='1em' rightIcon={<AiOutlineArrowRight />}>
-                                        Host Mint Website
-                                    </Button>
-                                </NextLink>
+                                <Button w='200px' mt='1em' rightIcon={<AiOutlineArrowRight />} onClick={() => onNavigate('/service/website')}>
+                                    Host Mint Website
+                                </Button>
                             </Flex>
                         </HStack>
                     </SlideFade>
