@@ -91,7 +91,7 @@ const Main = () => {
                                 </NextLink>
                             </Flex>
                             <VStack>
-                                <iframe width="560" height="315" src="https://www.youtube.com/embed/54MAbT-yiAY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/54MAbT-yiAY" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                                 <Link href='https://www.youtube.com/watch?v=54MAbT-yiAY' isExternal>
                                     <Text color='blackAlpha.600' fontSize='9pt' fontStyle='italic'>
                                         source: https://www.youtube.com/watch?v=54MAbT-yiAY
@@ -103,7 +103,7 @@ const Main = () => {
                     <SlideFade in={true} offsetY='20px' delay={1}>
                         <HStack spacing='4em' mt='20em' justifyContent='space-between' flexWrap='wrap'>
                             <VStack>
-                                <iframe width="560" height="315" src="https://www.youtube.com/embed/GW8nvbWBYKM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/GW8nvbWBYKM" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                                 <Link href='https://www.youtube.com/watch?v=GW8nvbWBYKM' isExternal>
                                     <Text color='blackAlpha.600' fontSize='9pt' fontStyle='italic'>
                                     source: https://www.youtube.com/watch?v=GW8nvbWBYKM
