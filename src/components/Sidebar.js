@@ -36,17 +36,19 @@ const Sidebar = ({ children }) => {
                     size='sidebar'
                 >
                     <DrawerContent>
-                        <HStack spacing='.5em' cursor='pointer' justifyContent='center' p='1.5em'>
-                            <Avatar 
-                                size='md'
-                                src='/logo.png' 
-                                name='NFT Host Logo' 
-                                bg='transparent'
-                            />
-                            <Text fontWeight='bold' fontSize='14pt'>
-                                NFT Host
-                            </Text>
-                        </HStack>
+                        <NextLink href='/' shallow passHref>
+                            <HStack spacing='.5em' cursor='pointer' justifyContent='center' p='1.5em'>
+                                <Avatar 
+                                    size='md'
+                                    src='/logo.png' 
+                                    name='NFT Host Logo' 
+                                    bg='transparent'
+                                />
+                                <Text fontWeight='bold' fontSize='14pt'>
+                                    NFT Host
+                                </Text>
+                            </HStack>
+                        </NextLink>
                         <Menu>
                             <MenuButton as={Tag} mt='1em' mx='1em' borderWidth='1px' size='md' cursor='pointer'>
                                 <HStack>
