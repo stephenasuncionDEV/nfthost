@@ -4,9 +4,9 @@ import { Box, Text, HStack, Avatar, Button, IconButton } from '@chakra-ui/react'
 import { useCore } from '@/providers/CoreProvider'
 import { FaHeart, FaTiktok, FaDiscord, FaGithub, FaTwitter } from 'react-icons/fa'
 import { useNavbar } from '@/hooks/useNavbar'
-import { AiOutlineArrowRight } from 'react-icons/ai'
+import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai'
 
-const Navbar = () => {
+const Navbar = ({ isGetStarted, isSocial, isLanding }) => {
     const router = useRouter();
     const { onTwitter, onTiktok, onDiscord, onGithub, onSponsor } = useNavbar();
     const { setIsServiceModal } = useCore();
@@ -40,35 +40,46 @@ const Navbar = () => {
                         </HStack>
                     </NextLink>
                     <HStack spacing='2em'>
-                        <HStack>
-                            <IconButton 
-                                aria-label='NFT Host Twitter'
-                                icon={<FaTwitter />}
-                                borderRadius='50%'
-                                size='sm'
-                                bg='transparent'
-                                onClick={onTwitter}
-                            />
-                            <IconButton 
-                                aria-label='NFT Host Tiktok'
-                                icon={<FaTiktok />}
-                                borderRadius='50%'
-                                size='sm'
-                                bg='transparent'
-                                onClick={onTiktok}
-                            />
-                            <IconButton 
-                                aria-label='NFT Host Discord'
-                                icon={<FaDiscord />}
-                                borderRadius='50%'
-                                size='sm'
-                                bg='transparent'
-                                onClick={onDiscord}
-                            />
-                        </HStack>
-                        <Button onClick={() => setIsServiceModal(true)} rightIcon={<AiOutlineArrowRight />}>
-                            Get Started
-                        </Button>
+                        {isSocial && (
+                            <HStack>
+                                <IconButton 
+                                    aria-label='NFT Host Twitter'
+                                    icon={<FaTwitter />}
+                                    borderRadius='50%'
+                                    size='sm'
+                                    bg='transparent'
+                                    onClick={onTwitter}
+                                />
+                                <IconButton 
+                                    aria-label='NFT Host Tiktok'
+                                    icon={<FaTiktok />}
+                                    borderRadius='50%'
+                                    size='sm'
+                                    bg='transparent'
+                                    onClick={onTiktok}
+                                />
+                                <IconButton 
+                                    aria-label='NFT Host Discord'
+                                    icon={<FaDiscord />}
+                                    borderRadius='50%'
+                                    size='sm'
+                                    bg='transparent'
+                                    onClick={onDiscord}
+                                />
+                            </HStack>
+                        )}
+                        {isGetStarted && (
+                            <Button onClick={() => setIsServiceModal(true)} rightIcon={<AiOutlineArrowRight />}>
+                                Get Started
+                            </Button>
+                        )}
+                        {isLanding && (
+                            <NextLink href='/' shallow passHref>
+                                <Button rightIcon={<AiOutlineArrowLeft />}>
+                                    Landing Page
+                                </Button>
+                            </NextLink>
+                        )}
                     </HStack>
                 </Box>
             </Box>

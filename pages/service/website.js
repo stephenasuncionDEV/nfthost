@@ -6,11 +6,11 @@ import Footer from '@/components/Footer'
 import style from '@/styles/Main.module.scss'
 import { AiOutlineArrowRight } from 'react-icons/ai'
 
-const Generator = () => {
+const Website = () => {
     return (
         <main>
             <Head>
-                <title>Generator | NFT Host</title>
+                <title>Website | NFT Host</title>
                 <meta name="title" content='NFT Host' />
                 <meta name="description" content='NFT Host is a website where you can generate NFT collections and create NFT minting website.' />
                 <meta name="keywords" content='NFT Host, Host NFT, Mint Website, Mint NFT Website Hosting, Mint NFT, NFT, Mint, Crypto Currency, Crypto, Ethereum' />
@@ -30,11 +30,8 @@ const Generator = () => {
                 <meta property="twitter:description" content='NFT Host is a website where you can generate NFT collections and create NFT minting website.' />
                 <meta property="twitter:image" content='https://www.nfthost.app/logo.png' />
             </Head>
-            <Navbar />
-            
-            <Footer />
         </main>
     )
 }
 
-export default Generator
+export default Website
