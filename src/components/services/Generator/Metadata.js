@@ -7,18 +7,11 @@ import { Box, HStack, Text, Flex, Button,
     Radio, RadioGroup, FormLabel, FormControl,
     Tag, TagCloseButton, TagLabel
 } from '@chakra-ui/react'
-import { useUser } from '@/providers/UserProvider'
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { useGenerate } from '@/hooks/useGenerate'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
-import Sidebar from '@/components/Sidebar'
-import CookieModal from '@/components/CookieModal'
-import { AiOutlineArrowRight } from 'react-icons/ai'
-import { useProtectPage } from '@/hooks/useProtectPage'
-import { useReAuthenticate } from '@/hooks/useReAuthenticate'
+import { AiOutlineInfoCircle } from 'react-icons/ai'
 
-const Generator = () => {
+const Metadata = ({ description }) => {
     const { 
         collectionName,
         setCollectionName,
@@ -44,12 +37,15 @@ const Generator = () => {
 
     return (
         <Box>
-            <Text variant='content_title'>
-                Collection Generator
+            <Text variant='content_subtitle'>
+                Metadata
             </Text>
-            <Text variant='content_description'>
-                Fill up all the required fields
-            </Text>
+            <HStack>
+                <AiOutlineInfoCircle />
+                <Text variant='content_description' mt='0'>
+                    {description}
+                </Text>
+            </HStack>
             <VStack alignItems='flex-start' mt='1em' maxW='700px'>
                 <Input 
                     id='collectionName' 
@@ -155,4 +151,4 @@ const Generator = () => {
     )
 }
 
-export default Generator
+export default Metadata
