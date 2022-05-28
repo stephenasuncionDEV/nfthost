@@ -17,6 +17,11 @@ export const GeneratorProvider = ({ children }) => {
     const [collectionURL, setCollectionURL] = useState('');
     const [collectionType, setCollectionType] = useState('eth');
     const [collectionSize, setCollectionSize] = useState(1);
+    const [collectionSymbol, setCollectionSymbol] = useState('');
+    const [collectionCreatorAddress, setCollectionCreatorAddress] = useState('');
+    const [collectionSellerFee, setCollectionSellerFee] = useState(1000);
+    const [collectionCreatorShare, setCollectionCreatorShare] = useState(100);
+    const [creators, setCreators] = useState([]);
 
     const controllers = {
         collectionName,
@@ -28,7 +33,17 @@ export const GeneratorProvider = ({ children }) => {
         collectionType,
         setCollectionType,
         collectionSize,
-        setCollectionSize
+        setCollectionSize,
+        collectionSymbol,
+        setCollectionSymbol,
+        collectionCreatorAddress,
+        setCollectionCreatorAddress,
+        collectionSellerFee,
+        setCollectionSellerFee,
+        collectionCreatorShare,
+        setCollectionCreatorShare,
+        creators,
+        setCreators
     }
 
     return (
