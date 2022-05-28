@@ -80,7 +80,6 @@ const components = {
     Drawer: {
 		variants: {
 			alwaysOpen: {
-				parts: ['dialog, dialogContainer'],
 				dialog: {
 					pointerEvents: 'auto',
 				},

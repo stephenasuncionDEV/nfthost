@@ -6,6 +6,7 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import Sidebar from '@/components/Sidebar'
 import CookieModal from '@/components/CookieModal'
+import Generator from '@/components/services/Generator'
 import { AiOutlineArrowRight } from 'react-icons/ai'
 import { useProtectPage } from '@/hooks/useProtectPage'
 import { useReAuthenticate } from '@/hooks/useReAuthenticate'
@@ -41,12 +42,7 @@ const Service = () => {
             </Head>
             <CookieModal />
             <Sidebar>
-                <Text variant='header_1'>
-                    {service && service.charAt(0).toUpperCase() + service.slice(1)}
-                </Text>
-                <Button>
-                    Test
-                </Button>
+                {service === 'generator' && <Generator />}
             </Sidebar>
         </main>
     )

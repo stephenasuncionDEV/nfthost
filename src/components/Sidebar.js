@@ -5,7 +5,7 @@ import { Box, Text, HStack, Avatar,
     MenuButton, MenuList, MenuItem,
     MenuItemOption, MenuGroup, MenuOptionGroup,
     MenuDivider, Image, Drawer, DrawerContent,
-    TagRightIcon, TagLabel
+    TagRightIcon, TagLabel, Flex
 } from '@chakra-ui/react'
 import { useCore } from '@/providers/CoreProvider'
 import { FaHeart, FaTiktok, FaDiscord, FaGithub, FaTwitter } from 'react-icons/fa'
@@ -27,15 +27,14 @@ const Sidebar = ({ children }) => {
     return (
         <nav>
             <Box minH='100vh'>
-                <Drawer
-                    autoFocus={false}
-                    isOpen={true}
-                    placement="left"
-                    returnFocusOnClose={false}
-                    variant='alwaysOpen'
-                    size='sidebar'
+                <Box
+                    position='fixed'
+                    maxW='260px'
+                    bg='white'
+                    h='100vh'
+                    boxShadow='lg'
                 >
-                    <DrawerContent>
+                    <Flex flexDir='column'>
                         <NextLink href='/' shallow passHref>
                             <HStack spacing='.5em' cursor='pointer' justifyContent='center' p='1.5em'>
                                 <Avatar 
@@ -64,8 +63,8 @@ const Sidebar = ({ children }) => {
                                 <MenuItem icon={<HiLogout />} onClick={onLogout}>Logout</MenuItem>
                             </MenuList>
                         </Menu>
-                    </DrawerContent>
-                </Drawer>
+                    </Flex>
+                </Box>
                 <Box ml='18em' px='4em' pt='2em' minH='100vh'>
                     {children}
                 </Box>
