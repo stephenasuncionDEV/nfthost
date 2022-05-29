@@ -3,7 +3,7 @@ import { useWeb3 } from '@/hooks/useWeb3'
 import { useRouter } from 'next/router'
 import { useUser } from '@/providers/UserProvider'
 
-export const useReAuthenticate = (protect = false) => {
+export const useReAuthenticate = (protect = false, disable = false) => {
     const { isLoggedIn } = useUser();
     const { onConnect } = useWeb3();
     const router = useRouter();
@@ -20,6 +20,7 @@ export const useReAuthenticate = (protect = false) => {
                 if (!isLoggedIn) router.push('/', undefined, { shallow: true });
             }
         }
+        if (disable) return;
         onReAuthenticate();
     }, [])
 }

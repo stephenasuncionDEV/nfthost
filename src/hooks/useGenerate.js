@@ -56,7 +56,9 @@ export const useGenerate = () => {
                 title: 'Error',
                 description: err.message,
                 status: 'error',
-                isClosable: true
+                duration: 3000,
+                isClosable: true,
+                position: 'bottom-center'
             })
         }
     }

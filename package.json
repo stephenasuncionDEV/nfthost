@@ -15,7 +15,6 @@
     "@emotion/styled": "^11.8.1",
     "@stripe/react-stripe-js": "^1.8.0",
     "@stripe/stripe-js": "^1.29.0",
-    "@walletconnect/web3-provider": "^1.7.8",
     "axios": "^0.27.2",
     "cors": "^2.8.5",
     "crypto-js": "^4.1.1",

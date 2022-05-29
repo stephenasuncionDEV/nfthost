@@ -26,7 +26,7 @@ export const useNavbar = () => {
 
         toast({
             title: 'Success',
-            description: 'Address has been copied to clipboard',
+            description: 'Wallet address has been copied to clipboard',
             status: 'success',
             duration: 3000,
             isClosable: true,
