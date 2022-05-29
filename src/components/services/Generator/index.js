@@ -19,7 +19,7 @@ import { useProtectPage } from '@/hooks/useProtectPage'
 import { useReAuthenticate } from '@/hooks/useReAuthenticate'
 import Metadata from './Metadata'
 import Assets from './Assets'
-import Layout from './Layout'
+import Pagination from './Pagination'
 
 const Generator = () => {
     const { 
@@ -33,10 +33,10 @@ const Generator = () => {
                 Collection Generator
             </Text>
             <VStack alignItems='flex-start' mt='1em' spacing='3em'>
-                <Layout>
+                <Pagination>
                     <Metadata description='General information of your new NFT collection' />
                     <Assets description='Resources neccessary to create your NFT collection' />
-                </Layout>
+                </Pagination>
             </VStack>
         </Box>
     )

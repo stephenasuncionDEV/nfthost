@@ -16,7 +16,7 @@ import { useUser } from '@/providers/UserProvider'
 import { useWeb3 } from '@/hooks/useWeb3'
 import { useGenerator } from '@/providers/GeneratorProvider'
 
-const Layout = ({ children }) => {
+const Pagination = ({ children }) => {
     const { step, setStep } = useGenerator();
 
     return (
@@ -51,4 +51,4 @@ const Layout = ({ children }) => {
     )
 }
 
-export default Layout
+export default Pagination
