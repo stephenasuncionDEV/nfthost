@@ -12,38 +12,41 @@ export const useGenerator = () => useContext(GeneratorContext)
 export const GeneratorProvider = ({ children }) => {
     const toast = useToast();
     const router = useRouter();
-    const [collectionName, setCollectionName] = useState('');
-    const [collectionDescription, setCollectionDescription] = useState('');
-    const [collectionURL, setCollectionURL] = useState('');
-    const [collectionType, setCollectionType] = useState('eth');
+    const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
+    const [externalURL, setExternalURL] = useState('');
+    const [standardType, setStandardType] = useState('eth');
     const [collectionSize, setCollectionSize] = useState(1);
-    const [collectionSymbol, setCollectionSymbol] = useState('');
-    const [collectionCreatorAddress, setCollectionCreatorAddress] = useState('');
-    const [collectionSellerFee, setCollectionSellerFee] = useState(1000);
-    const [collectionCreatorShare, setCollectionCreatorShare] = useState(100);
+    const [symbol, setSymbol] = useState('');
+    const [creatorAddress, setCreatorAddress] = useState('');
+    const [sellerFee, setSellerFee] = useState(1000);
+    const [creatorShare, setCreatorShare] = useState(100);
+    const [step, setStep] = useState(0);
     const [creators, setCreators] = useState([]);
 
     const controllers = {
-        collectionName,
-        setCollectionName,
-        collectionDescription,
-        setCollectionDescription,
-        collectionURL,
-        setCollectionURL,
-        collectionType,
-        setCollectionType,
+        name,
+        setName,
+        description,
+        setDescription,
+        externalURL,
+        setExternalURL,
+        standardType,
+        setStandardType,
         collectionSize,
         setCollectionSize,
-        collectionSymbol,
-        setCollectionSymbol,
-        collectionCreatorAddress,
-        setCollectionCreatorAddress,
-        collectionSellerFee,
-        setCollectionSellerFee,
-        collectionCreatorShare,
-        setCollectionCreatorShare,
+        symbol,
+        setSymbol,
+        creatorAddress,
+        setCreatorAddress,
+        sellerFee,
+        setSellerFee,
+        creatorShare,
+        setCreatorShare,
         creators,
-        setCreators
+        setCreators,
+        step,
+        setStep
     }
 
     return (

@@ -3,7 +3,8 @@ import { useToast } from '@chakra-ui/react'
 
 export const useGenerate = () => {
     const toast = useToast();
-    const { creators, 
+    const { 
+        creators, 
         setCreators, 
         collectionCreatorAddress, 
         collectionCreatorShare,

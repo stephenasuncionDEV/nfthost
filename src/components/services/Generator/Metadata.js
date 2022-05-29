@@ -13,24 +13,24 @@ import { AiOutlineInfoCircle } from 'react-icons/ai'
 
 const Metadata = ({ description }) => {
     const { 
-        collectionName,
-        setCollectionName,
-        collectionDescription,
-        setCollectionDescription,
-        collectionURL,
-        setCollectionURL,
-        collectionType, 
-        setCollectionType,
+        name,
+        setName,
+        description: desc,
+        setDescription,
+        externalURL,
+        setExternalURL,
+        standardType,
+        setStandardType,
         collectionSize,
         setCollectionSize,
-        collectionSymbol,
-        setCollectionSymbol,
-        collectionSellerFee,
-        setCollectionSellerFee,
-        collectionCreatorAddress,
-        setCollectionCreatorAddress,
-        collectionCreatorShare,
-        setCollectionCreatorShare,
+        symbol,
+        setSymbol,
+        creatorAddress,
+        setCreatorAddress,
+        sellerFee,
+        setSellerFee,
+        creatorShare,
+        setCreatorShare,
         creators
     } = useGenerator();
     const { onAddCreator, onDeleteCreator } = useGenerate();
@@ -46,55 +46,53 @@ const Metadata = ({ description }) => {
                     {description}
                 </Text>
             </HStack>
-            <VStack alignItems='flex-start' mt='1em' maxW='700px'>
+            <VStack alignItems='flex-start' mt='1em' w='700px'>
                 <Input 
                     id='collectionName' 
                     placeholder='Name'
                     maxW='265px' 
-                    value={collectionName} 
-                    onChange={(e) => setCollectionName(e.target.value)} 
+                    value={name} 
+                    onChange={(e) => setName(e.target.value)} 
                 />
-                <Textarea id='collectionDescription' placeholder='Description' w='full' rows='7' value={collectionDescription} onChange={(e) =>  setCollectionDescription(e.target.value)}/>
-                <Input id='collectionUrl' placeholder='Image Storage URL' w='full' value={collectionURL} onChange={(e) => setCollectionURL(e.target.value)}/>
-                <HStack w='full' justifyContent='space-between'>
-                    <HStack spacing='1em'>
-                        <Text>
-                            Collection Size
-                        </Text>
-                        <NumberInput min={1} max={10000} maxW='110px' value={collectionSize} onChange={setCollectionSize}>
-                            <NumberInputField />
-                            <NumberInputStepper>
-                                <NumberIncrementStepper />
-                                <NumberDecrementStepper />
-                            </NumberInputStepper>
-                        </NumberInput>
-                    </HStack>
-                    <HStack spacing='1em'>
-                        <Text>
-                            Collection Type
-                        </Text>
-                        <RadioGroup onChange={setCollectionType} value={collectionType}>
-                            <HStack>
-                                <Radio value='eth'>Ethereum/Polygon</Radio>
-                                <Radio value='sol'>Solana</Radio>
-                            </HStack>
-                        </RadioGroup>
-                    </HStack>
+                <Textarea id='collectionDescription' placeholder='Description' w='full' rows='7' value={desc} onChange={(e) =>  setDescription(e.target.value)}/>
+                <Input id='collectionUrl' placeholder='Image Storage URL' w='full' value={externalURL} onChange={(e) => setExternalURL(e.target.value)}/>
+                <HStack spacing='1em' justifyContent='space-between' w='full'>
+                    <Text>
+                        Collection Size:
+                    </Text>
+                    <NumberInput min={1} max={10000} maxW='110px' value={collectionSize} onChange={setCollectionSize}>
+                        <NumberInputField />
+                        <NumberInputStepper>
+                            <NumberIncrementStepper />
+                            <NumberDecrementStepper />
+                        </NumberInputStepper>
+                    </NumberInput>
+                </HStack>
+                <HStack spacing='1em' justifyContent='space-between' w='full'>
+                    <Text>
+                        Collection Type:
+                    </Text>
+                    <RadioGroup id='collectionStandardType' value={standardType} onChange={setStandardType}>
+                        <HStack>
+                            <Radio value='eth'>Ethereum/Polygon</Radio>
+                            <Radio value='sol'>Solana</Radio>
+                        </HStack>
+                    </RadioGroup>
                 </HStack>
             </VStack>
-            {collectionType === 'sol' && (
+            {standardType === 'sol' && (
                 <VStack alignItems='flex-start' mt='2em' maxW='700px'>
                     <HStack alignItems='flex-end' w='full'>
                         <Input 
                             id='collectionSymbol' 
                             placeholder='Symbol'
-                            value={collectionSymbol} 
-                            onChange={(e) => setCollectionSymbol(e.target.value)}
+                            value={symbol} 
+                            onChange={(e) => setSymbol(e.target.value)}
                             flex='1'
                         />
                         <FormControl isRequired flex='1'>
                             <FormLabel htmlFor='collectionSellerFee'>Seller Fee Basis Points</FormLabel>
-                            <NumberInput min={1} max={1000} value={collectionSellerFee} onChange={setCollectionSellerFee}>
+                            <NumberInput id='collectionSellerFee' min={1} max={1000} value={sellerFee} onChange={setSellerFee}>
                                 <NumberInputField />
                                 <NumberInputStepper>
                                     <NumberIncrementStepper />
@@ -107,12 +105,12 @@ const Metadata = ({ description }) => {
                         <Input 
                             id='collectionCreatorAddress' 
                             placeholder='Creator Wallet Address'
-                            value={collectionCreatorAddress} 
-                            onChange={(e) => setCollectionCreatorAddress(e.target.value)} 
+                            value={creatorAddress} 
+                            onChange={(e) => setCreatorAddress(e.target.value)} 
                             flex='1'
                         />
                         <HStack>
-                            <NumberInput min={1} max={1000} w='100px' value={collectionCreatorShare} onChange={setCollectionCreatorShare}>
+                            <NumberInput id='collectionCreatorShare' min={1} max={1000} w='100px' value={creatorShare} onChange={setCreatorShare}>
                                 <NumberInputField />
                                 <NumberInputStepper>
                                     <NumberIncrementStepper />
