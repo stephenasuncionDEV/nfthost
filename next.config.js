@@ -1,4 +1,4 @@
-const isDev = process.env.NODE_ENV === 'development'
+//const isDev = process.env.NODE_ENV === 'development'
 
 module.exports = {
     reactStrictMode: true,
@@ -13,17 +13,18 @@ module.exports = {
         config.plugins.push(new webpack.IgnorePlugin({
             resourceRegExp: /^electron$/
         }));
-
-        if (isDev) {
-            return config;
-        }
+        return config;
+        
+        // if (isDev) {
+        //     return config;
+        // }
     
-        return {
-            ...config,
-            externals: {
-                react: 'React',
-                'react-dom': 'ReactDOM',
-            },
-        };
+        // return {
+        //     ...config,
+        //     externals: {
+        //         react: 'React',
+        //         'react-dom': 'ReactDOM',
+        //     },
+        // };
     },
 }
