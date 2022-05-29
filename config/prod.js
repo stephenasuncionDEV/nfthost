@@ -1,3 +1,3 @@
 export default {
-	serverUrl: 'https://swiftnft.io',
+	serverUrl: 'https://www.nfthost.app/',
 }
