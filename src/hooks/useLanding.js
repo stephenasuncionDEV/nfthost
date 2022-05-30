@@ -19,7 +19,10 @@ export const useLanding = () => {
 
     const onGetStarted = () => {
         try {
-            if (!isLoggedIn) throw new Error('You must connect your wallet');
+            if (!isLoggedIn) {
+                router.push('/#connect', undefined, { shallow: true });
+                throw new Error('You must connect your wallet');
+            }
 
             setIsServiceModal(true);
         }
@@ -37,7 +40,10 @@ export const useLanding = () => {
 
     const onNavigate = (route) => {
         try {
-            if (!isLoggedIn) throw new Error('You must connect your wallet');
+            if (!isLoggedIn) {
+                router.push('/#connect', undefined, { shallow: true });
+                throw new Error('You must connect your wallet');
+            }
 
             router.push(route, undefined, { shallow: true }); 
         }

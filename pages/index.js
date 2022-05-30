@@ -63,6 +63,7 @@ const Main = () => {
                 mb='8em'
             >
                 <Flex
+                    id='connect'
                     flexDir='column'
                     maxW='1200px'
                     w='full'
