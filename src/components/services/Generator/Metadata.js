@@ -1,7 +1,5 @@
-import Head from 'next/head'
-import { useRouter } from 'next/router'
 import { Box, HStack, Text, Flex, Button, 
-    VStack, SlideFade, Input, Textarea,
+    VStack, Input, Textarea,
     NumberInput, NumberInputField, NumberInputStepper,
     NumberIncrementStepper, NumberDecrementStepper,
     Radio, RadioGroup, FormLabel, FormControl,
@@ -110,7 +108,7 @@ const Metadata = ({ description }) => {
                             flex='1'
                         />
                         <HStack>
-                            <NumberInput id='collectionCreatorShare' min={1} max={1000} w='100px' value={creatorShare} onChange={setCreatorShare}>
+                            <NumberInput id='collectionCreatorShare' min={1} max={100} w='100px' value={creatorShare} onChange={setCreatorShare}>
                                 <NumberInputField />
                                 <NumberInputStepper>
                                     <NumberIncrementStepper />

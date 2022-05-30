@@ -6,33 +6,33 @@ export const useGenerate = () => {
     const { 
         creators, 
         setCreators, 
-        collectionCreatorAddress, 
-        collectionCreatorShare,
-        setCollectionCreatorAddress,
-        setCollectionCreatorShare
+        creatorAddress, 
+        creatorShare,
+        setCreatorAddress,
+        setCreatorShare
     } = useGenerator();
 
     const onAddCreator = () => {
         try {
-            if (!collectionCreatorAddress.length) throw new Error('You must enter a creator address');
-            if (!collectionCreatorShare) throw new Error('Creator share must be greater than 0');
-            if (collectionCreatorShare > 100) throw new Error('Creator share must be less than or equal to 100');
+            if (!creatorAddress.trim().length) throw new Error('You must enter a creator address');
+            if (!creatorShare) throw new Error('Creator share must be greater than 0');
+            if (creatorShare > 100) throw new Error('Creator share must be less than or equal to 100');
 
             let maxShare = 0;
             creators.forEach((creator) => {
                 maxShare += parseInt(creator.share);
             })
 
-            if ((maxShare + parseInt(collectionCreatorShare)) > 100) throw new Error('All creator share must add up to 100%');
+            if ((maxShare + parseInt(creatorShare)) > 100) throw new Error('All creator share must add up to 100%');
 
             const newCreator = {
-                address: collectionCreatorAddress,
-                share: collectionCreatorShare
+                address: creatorAddress,
+                share: creatorShare
             }
 
             setCreators([...creators, newCreator]);
-            setCollectionCreatorAddress('');
-            setCollectionCreatorShare(100);
+            setCreatorAddress('');
+            setCreatorShare(100);
         }
         catch (err) {
             toast({

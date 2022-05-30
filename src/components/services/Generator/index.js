@@ -1,31 +1,9 @@
-import Head from 'next/head'
-import { useRouter } from 'next/router'
-import { Box, HStack, Text, Flex, Button, 
-    VStack, SlideFade, Input, Textarea,
-    NumberInput, NumberInputField, NumberInputStepper,
-    NumberIncrementStepper, NumberDecrementStepper,
-    Radio, RadioGroup, FormLabel, FormControl,
-    Tag, TagCloseButton, TagLabel
-} from '@chakra-ui/react'
-import { useUser } from '@/providers/UserProvider'
-import { useGenerator } from '@/providers/GeneratorProvider'
-import { useGenerate } from '@/hooks/useGenerate'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
-import Sidebar from '@/components/Sidebar'
-import CookieModal from '@/components/CookieModal'
-import { AiOutlineArrowRight } from 'react-icons/ai'
-import { useProtectPage } from '@/hooks/useProtectPage'
-import { useReAuthenticate } from '@/hooks/useReAuthenticate'
+import { Box, Text, VStack} from '@chakra-ui/react'
 import Metadata from './Metadata'
 import Assets from './Assets'
 import Pagination from './Pagination'
 
 const Generator = () => {
-    const { 
-        
-    } = useGenerator();
-    const {  } = useGenerate();
 
     return (
         <Box>

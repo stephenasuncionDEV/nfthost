@@ -16,7 +16,7 @@ export const GeneratorProvider = ({ children }) => {
     const [description, setDescription] = useState('');
     const [externalURL, setExternalURL] = useState('');
     const [standardType, setStandardType] = useState('eth');
-    const [collectionSize, setCollectionSize] = useState(1);
+    const [collectionSize, setCollectionSize] = useState(100);
     const [symbol, setSymbol] = useState('');
     const [creatorAddress, setCreatorAddress] = useState('');
     const [sellerFee, setSellerFee] = useState(1000);

@@ -20,7 +20,7 @@ const Service = () => {
     return isLoggedIn && (
         <main>
             <Head>
-                <title>Service | NFT Host</title>
+                <title>{service?.charAt(0).toUpperCase() + service?.slice(1)} | NFT Host</title>
                 <meta name="title" content='NFT Host' />
                 <meta name="description" content='NFT Host is a website where you can generate NFT collections and create NFT minting website.' />
                 <meta name="keywords" content='NFT Host, Host NFT, Mint Website, Mint NFT Website Hosting, Mint NFT, NFT, Mint, Crypto Currency, Crypto, Ethereum' />
