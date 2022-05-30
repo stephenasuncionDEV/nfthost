@@ -5,7 +5,7 @@ import { Box, Text, HStack, Avatar,
     MenuButton, MenuList, MenuItem,
     MenuItemOption, MenuGroup, MenuOptionGroup,
     MenuDivider, Image, Drawer, DrawerContent,
-    TagRightIcon, TagLabel, Flex
+    TagRightIcon, TagLabel, Flex, useColorModeValue
 } from '@chakra-ui/react'
 import { useCore } from '@/providers/CoreProvider'
 import { FaHeart, FaTiktok, FaDiscord, FaGithub, FaTwitter } from 'react-icons/fa'
@@ -24,13 +24,15 @@ const Sidebar = ({ children }) => {
     const { onCopyAddress } = useNavbar();
     const { onLogout } = useWeb3();
 
+    const sidebarColor = useColorModeValue('white', 'rgb(12, 15, 20)');
+
     return (
         <nav>
             <Box minH='100vh'>
                 <Box
                     position='fixed'
                     maxW='260px'
-                    bg='white'
+                    bg={sidebarColor}
                     h='100vh'
                     boxShadow='lg'
                 >
