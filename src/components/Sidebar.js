@@ -40,7 +40,7 @@ const Sidebar = ({ children }) => {
                     >
                         <Box 
                             position='absolute' 
-                            top='10px' 
+                            top='15px'
                             left='250px' 
                             p='.5em' 
                             cursor='pointer' 
@@ -83,22 +83,22 @@ const Sidebar = ({ children }) => {
                         </Flex>
                     </Box>
                 </Slide>
-                <Box ml={isSidebar ? '18em' : '0'} px='4em' pt='2em' minH='100vh' position='relative'>
-                    {!isSidebar && (
-                        <Box 
-                            position='absolute' 
-                            top='10px'
-                            left='-5px'
-                            p='.5em' 
-                            cursor='pointer' 
-                            borderRadius='5px' 
-                            bg={sidebarColor} 
-                            boxShadow='md'
-                            onClick={() => setIsSidebar(true)}
-                        >
-                            <GiHamburgerMenu />
-                        </Box>
-                    )}
+                {!isSidebar && (
+                    <Box 
+                        position='absolute' 
+                        top='15px'
+                        left='-5px'
+                        p='.5em' 
+                        cursor='pointer' 
+                        borderRadius='5px' 
+                        bg={sidebarColor} 
+                        boxShadow='md'
+                        onClick={() => setIsSidebar(true)}
+                    >
+                        <GiHamburgerMenu />
+                    </Box>
+                )}
+                <Box ml={isSidebar ? '18em' : '0'} px='4em' pt='2em' minH='100vh'>
                     {children}
                 </Box>
             </Box>
