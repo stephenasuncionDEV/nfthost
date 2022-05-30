@@ -68,7 +68,7 @@ const Metadata = ({ description }) => {
                 </HStack>
                 <HStack spacing='1em' justifyContent='space-between' w='full'>
                     <Text>
-                        Collection Type:
+                        Metadata Type:
                     </Text>
                     <RadioGroup id='collectionStandardType' value={standardType} onChange={setStandardType}>
                         <HStack>

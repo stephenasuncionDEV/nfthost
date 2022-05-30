@@ -28,6 +28,9 @@ const Assets = ({ description }) => {
                     {description}
                 </Text>
             </HStack>
+            <Box p='1em' mt='2em'>
+                
+            </Box>
         </Box>
     )
 }

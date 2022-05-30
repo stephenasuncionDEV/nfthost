@@ -7,9 +7,7 @@ const Generator = () => {
 
     return (
         <Box>
-            <Text variant='content_title'>
-                Collection Generator
-            </Text>
+            
             <VStack alignItems='flex-start' mt='1em' spacing='3em'>
                 <Pagination>
                     <Metadata description='General information of your new NFT collection' />
