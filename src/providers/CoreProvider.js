@@ -14,7 +14,7 @@ export const CoreProvider = ({ children }) => {
     const router = useRouter();
     const [isServiceModal, setIsServiceModal] = useState(false);
     const [isCookieModal, setIsCookieModal] = useState();
-    const [isSidebar, setIsSidebar] = useState(false);
+    const [isSidebar, setIsSidebar] = useState(true);
 
     const controllers = {
         isServiceModal,

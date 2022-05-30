@@ -34,7 +34,7 @@ const Metadata = ({ description }) => {
     const { onAddCreator, onDeleteCreator } = useGenerate();
 
     return (
-        <Box>
+        <Box >
             <Text variant='content_subtitle'>
                 Metadata
             </Text>

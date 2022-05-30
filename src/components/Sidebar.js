@@ -98,7 +98,7 @@ const Sidebar = ({ children }) => {
                         <GiHamburgerMenu />
                     </Box>
                 )}
-                <Box ml={isSidebar ? '18em' : '0'} px='4em' pt='2em' minH='100vh'>
+                <Box ml={isSidebar ? '16em' : '0'} minH='100vh'>
                     {children}
                 </Box>
             </Box>
