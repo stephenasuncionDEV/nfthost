@@ -3,7 +3,7 @@ import { Box, HStack, Text, Flex, Button,
     NumberInput, NumberInputField, NumberInputStepper,
     NumberIncrementStepper, NumberDecrementStepper,
     Radio, RadioGroup, FormLabel, FormControl,
-    Tag, TagCloseButton, TagLabel
+    Tag, TagCloseButton
 } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { useGenerate } from '@/hooks/useGenerate'
@@ -52,7 +52,7 @@ const Metadata = ({ description }) => {
                     value={name} 
                     onChange={(e) => setName(e.target.value)} 
                 />
-                <Textarea id='collectionDescription' placeholder='Description' w='full' rows='7' value={desc} onChange={(e) =>  setDescription(e.target.value)}/>
+                <Textarea id='collectionDescription' placeholder='Description' w='full' rows='7' value={desc} onChange={(e) => setDescription(e.target.value)}/>
                 <Input id='collectionUrl' placeholder='Image Storage URL' w='full' value={externalURL} onChange={(e) => setExternalURL(e.target.value)}/>
                 <HStack spacing='1em' justifyContent='space-between' w='full'>
                     <Text>
@@ -70,7 +70,7 @@ const Metadata = ({ description }) => {
                     <Text>
                         Metadata Type:
                     </Text>
-                    <RadioGroup id='collectionStandardType' value={standardType} onChange={setStandardType}>
+                    <RadioGroup id='collectionStandardType' value={standardType} onChange={setStandardType} position='relative'>
                         <HStack>
                             <Radio value='eth'>Ethereum/Polygon</Radio>
                             <Radio value='sol'>Solana</Radio>

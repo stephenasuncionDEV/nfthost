@@ -1,4 +1,3 @@
-import NextLink from 'next/link'
 import Head from 'next/head'
 import { HStack, Text, Flex, Button, 
     VStack, SlideFade, Link, Menu,

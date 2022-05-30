@@ -20,7 +20,7 @@ const Assets = ({ description }) => {
     return (
         <Box>
             <Text variant='content_subtitle'>
-                Assets
+                Assets 
             </Text>
             <HStack>
                 <AiOutlineInfoCircle />
