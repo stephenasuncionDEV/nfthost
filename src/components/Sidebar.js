@@ -28,8 +28,8 @@ const Sidebar = ({ children }) => {
     const sidebarColor = useColorModeValue('white', 'rgb(12, 15, 20)');
 
     return (
-        <nav>
-            <Box minH='100vh'>
+        <Box minH='100vh'>
+            <nav>
                 <Slide in={isSidebar} direction='left' unmountOnExit>
                     <Box
                         position='fixed'
@@ -83,26 +83,26 @@ const Sidebar = ({ children }) => {
                         </Flex>
                     </Box>
                 </Slide>
-                {!isSidebar && (
-                    <Box 
-                        position='absolute' 
-                        top='15px'
-                        left='-5px'
-                        p='.5em' 
-                        cursor='pointer' 
-                        borderRadius='5px' 
-                        bg={sidebarColor} 
-                        boxShadow='md'
-                        onClick={() => setIsSidebar(true)}
-                    >
-                        <GiHamburgerMenu />
-                    </Box>
-                )}
-                <Box ml={isSidebar ? '16em' : '0'} minH='100vh'>
-                    {children}
+            </nav>
+            {!isSidebar && (
+                <Box 
+                    position='absolute' 
+                    top='15px'
+                    left='-5px'
+                    p='.5em' 
+                    cursor='pointer' 
+                    borderRadius='5px' 
+                    bg={sidebarColor} 
+                    boxShadow='md'
+                    onClick={() => setIsSidebar(true)}
+                >
+                    <GiHamburgerMenu />
                 </Box>
+            )}
+            <Box ml={isSidebar ? '16em' : '0'} minH='100vh'>
+                {children}
             </Box>
-        </nav>
+        </Box>
     )
 }
 

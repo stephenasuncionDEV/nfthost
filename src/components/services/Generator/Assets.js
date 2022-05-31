@@ -46,7 +46,7 @@ const Assets = ({ description }) => {
                             Add Layer
                         </Button>
                     </HStack>
-                    <VStack>
+                    <VStack spacing='1em'>
                         {layers?.map((layer, idx) => (
                             <Box position='relative' key={idx}>
                                 <Button 

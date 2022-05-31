@@ -24,7 +24,7 @@ export const useLayer = () => {
             if (idx === 0 && layers.length === 1) throw new Error('You must have atleast 1 layer');
             
             setLayers(prevState => {
-                return prevState.filter((index) => index !== idx);
+                return prevState.filter((layer, index) => index !== idx);
             })
 
             onPreviewLayer(layers[layers.length - 2], layers.length - 2);
