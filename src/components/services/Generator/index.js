@@ -37,10 +37,8 @@ const Generator = () => {
                 </HStack>
             </HStack>
             <VStack alignItems='flex-start' mt='1em' spacing='3em'>
-                <Pagination>
-                    <Metadata description='General information of your new NFT collection' />
-                    <Assets description='Resources neccessary to create your NFT collection' />
-                </Pagination>
+                <Assets description='Resources neccessary to create your NFT collection' />
+                <Metadata description='General information of your new NFT collection' />
             </VStack>
         </Box>
     )

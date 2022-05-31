@@ -100,6 +100,6 @@ export const useGenerate = () => {
         onAddCreator,
         onDeleteCreator,
         onOpen,
-        onSave
+        onSave,
     }
 }

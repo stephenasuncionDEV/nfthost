@@ -23,6 +23,8 @@ export const GeneratorProvider = ({ children }) => {
     const [creatorShare, setCreatorShare] = useState(100);
     const [step, setStep] = useState(0);
     const [creators, setCreators] = useState([]);
+    const [layers, setLayers] = useState([{ name: 'Background', images: [] }]);
+    const [currentLayer, setCurrentLayer] = useState();
 
     const controllers = {
         name,
@@ -46,7 +48,11 @@ export const GeneratorProvider = ({ children }) => {
         creators,
         setCreators,
         step,
-        setStep
+        setStep,
+        layers,
+        setLayers,
+        currentLayer,
+        setCurrentLayer
     }
 
     return (
