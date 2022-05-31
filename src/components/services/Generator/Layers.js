@@ -14,7 +14,15 @@ const Layers = () => {
     } = useLayer();
 
     return (
-        <VStack id='layers' spacing='1.5em' p='1em' bg='whiteAlpha.900' borderRadius='10px' boxShadow='md'>
+        <VStack 
+            id='layers'
+            spacing='1.5em'
+            p='1em' 
+            bg='whiteAlpha.900' 
+            borderRadius='10px'
+            boxShadow='md'
+            h='100%'
+        >
             <HStack spacing='2em'>
                 <Text variant='content_subtitle' mt='0'>
                     Layers
