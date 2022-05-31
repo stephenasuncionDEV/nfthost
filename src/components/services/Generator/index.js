@@ -1,14 +1,10 @@
 import { Box, HStack, Text, Flex } from '@chakra-ui/react'
-import { useGenerator } from '@/providers/GeneratorProvider'
-import { useGenerate } from '@/hooks/useGenerate'
 import MetadataModal from './MetadataModal'
 import Layers from './Layers'
 import Toolbar from './Toolbar'
 import style from '@/styles/Main.module.scss'
 
 const Generator = () => {
-    const { setIsMetadataModal } = useGenerator();
-    const { onOpen, onSave } = useGenerate();
 
     return (
         <Box px='4em' pt='2em'>

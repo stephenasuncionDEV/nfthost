@@ -1,10 +1,8 @@
 import { Box, HStack, Text, Flex, Button, 
-    VStack, Input, Textarea,
-    NumberInput, NumberInputField, NumberInputStepper,
-    NumberIncrementStepper, NumberDecrementStepper,
-    Radio, RadioGroup, FormLabel, FormControl,
-    Tag, TagCloseButton, Modal, ModalOverlay,
-    ModalContent, ModalHeader, ModalFooter, ModalBody,
+    VStack, Input, Textarea, NumberInput, NumberInputField, 
+    NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper,
+    Radio, RadioGroup, FormLabel, FormControl, Tag, TagCloseButton, 
+    Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody,
     ModalCloseButton,
 } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
