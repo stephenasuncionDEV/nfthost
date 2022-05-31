@@ -11,12 +11,14 @@ const Toolbar = () => {
     return (
         <HStack 
             id='toolbar'
+            position='absolute'
+            right='0'
+            mr='1em'
             px='.75em'
             py='.5em'
             bg='whiteAlpha.900' 
             borderRadius='10px'
             boxShadow='md'
-            h='100%'
         >
             <Menu>
                 <MenuButton as={Button} rightIcon={<HiOutlineChevronDown />} size='sm'>
