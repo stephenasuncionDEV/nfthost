@@ -69,6 +69,12 @@ const components = {
         baseStyle: (props) => ({
             fontWeight: 'normal',
         }),
+        variants: {
+            main: (props) => ({
+                bg: mode('rgb(20,20,20)', '#08BDD4')(props),
+                color: mode('white', 'black')(props),
+            }),
+        }
     },
     Toast: {
         defaultProps: {

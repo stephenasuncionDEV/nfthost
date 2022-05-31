@@ -14,7 +14,7 @@ import { AiOutlineInfoCircle } from 'react-icons/ai'
 import { GrFormAdd } from 'react-icons/gr'
 import { FaTrashAlt } from 'react-icons/fa'
 
-const Assets = ({ description }) => {
+const Assets = () => {
     const { 
         layers
     } = useGenerator();
@@ -27,19 +27,10 @@ const Assets = ({ description }) => {
 
     return (
         <Box w='full'>
-            <Text variant='content_subtitle'>
-                Assets 
-            </Text>
-            <HStack>
-                <AiOutlineInfoCircle />
-                <Text variant='content_description' mt='0'>
-                    {description}
-                </Text>
-            </HStack>
-            <Flex p='1em' mt='1.5em' bg='blackAlpha.100' borderRadius='10px' w='full' justifyContent='space-between'>
+            <Flex p='1em' mt='1.5em' bg='blackAlpha.900' borderRadius='10px' w='full' justifyContent='space-between' minH='60vh' boxShadow='lg'>
                 <VStack spacing='1.5em'>
                     <HStack spacing='2em'>
-                        <Text variant='content_subtitle' mt='0'>
+                        <Text variant='content_subtitle' mt='0' color='white'>
                             Layers
                         </Text>
                         <Button size='sm' rightIcon={<GrFormAdd />} onClick={onAddLayer}>
@@ -51,8 +42,8 @@ const Assets = ({ description }) => {
                             <Box position='relative' key={idx}>
                                 <Button 
                                     key={idx} w='170px' h='55px' 
-                                    borderLeftWidth={idx === 0 || idx === layers.length - 1 ? '2px' : '0'} 
-                                    borderColor={idx === 0 ? '#08BDD4' : 'rgb(228,69,151)'}
+                                    borderLeftWidth={idx === 0 || idx === layers.length - 1 ? '4px' : '0'} 
+                                    borderColor={idx === 0 ? '#08BDD4' : 'orange'}
                                     onClick={() => onPreviewLayer(layer)}
                                 >
                                     <Flex flexDir='column'>
@@ -75,9 +66,6 @@ const Assets = ({ description }) => {
                             </Box>
                         ))}
                     </VStack>
-                </VStack>
-                <VStack>
-
                 </VStack>
             </Flex>
         </Box>

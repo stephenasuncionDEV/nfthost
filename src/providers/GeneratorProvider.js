@@ -25,6 +25,7 @@ export const GeneratorProvider = ({ children }) => {
     const [creators, setCreators] = useState([]);
     const [layers, setLayers] = useState([{ name: 'Background', images: [] }]);
     const [currentLayer, setCurrentLayer] = useState();
+    const [isMetadataModal, setIsMetadataModal] = useState(false);
 
     const controllers = {
         name,
@@ -52,7 +53,9 @@ export const GeneratorProvider = ({ children }) => {
         layers,
         setLayers,
         currentLayer,
-        setCurrentLayer
+        setCurrentLayer,
+        isMetadataModal,
+        setIsMetadataModal
     }
 
     return (

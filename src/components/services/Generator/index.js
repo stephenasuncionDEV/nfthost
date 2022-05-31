@@ -2,13 +2,15 @@ import { Box, HStack, Text, VStack,
     Button, Menu, MenuButton, MenuList, MenuItem,
     MenuItemOption, MenuGroup, MenuOptionGroup,
     MenuDivider, } from '@chakra-ui/react'
-import Metadata from './Metadata'
+import MetadataModal from './MetadataModal'
 import Assets from './Assets'
-import Pagination from './Pagination'
-import { HiOutlineChevronDown, HiOutlineDesktopComputer } from 'react-icons/hi'
 import { useGenerate } from '@/hooks/useGenerate'
+import { HiOutlineChevronDown, HiOutlineDesktopComputer } from 'react-icons/hi'
+import { MdSettings } from 'react-icons/md'
+import { useGenerator } from '@/providers/GeneratorProvider'
 
 const Generator = () => {
+    const { setIsMetadataModal } = useGenerator();
     const { onOpen, onSave } = useGenerate();
 
     return (
@@ -34,11 +36,17 @@ const Generator = () => {
                             <MenuItem icon={<HiOutlineDesktopComputer />} onClick={() => onSave()}>Computer</MenuItem>
                         </MenuList>
                     </Menu>
+                    <Button rightIcon={<MdSettings />} size='sm' onClick={() => setIsMetadataModal(true)}>
+                        Metadata
+                    </Button>
+                    <Button rightIcon={<MdSettings />} size='sm'>
+                        Rarity
+                    </Button>
                 </HStack>
             </HStack>
             <VStack alignItems='flex-start' mt='1em' spacing='3em'>
-                <Assets description='Resources neccessary to create your NFT collection' />
-                <Metadata description='General information of your new NFT collection' />
+                <Assets />
+                <MetadataModal />
             </VStack>
         </Box>
     )
