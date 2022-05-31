@@ -34,7 +34,8 @@ export const useLayer = () => {
                 title: 'Error',
                 description: err.message,
                 status: 'error',
-                isClosable: true
+                isClosable: true,
+                position: 'bottom-center'
             })
         }
     }

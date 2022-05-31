@@ -1,13 +1,14 @@
-import { Box, HStack, Text, VStack, 
+import { Box, HStack, Text, Flex, 
     Button, Menu, MenuButton, MenuList, MenuItem,
     MenuItemOption, MenuGroup, MenuOptionGroup,
     MenuDivider, } from '@chakra-ui/react'
 import MetadataModal from './MetadataModal'
-import Assets from './Assets'
+import Layers from './Layers'
 import { useGenerate } from '@/hooks/useGenerate'
 import { HiOutlineChevronDown, HiOutlineDesktopComputer } from 'react-icons/hi'
 import { MdSettings } from 'react-icons/md'
 import { useGenerator } from '@/providers/GeneratorProvider'
+import style from '@/styles/Main.module.scss'
 
 const Generator = () => {
     const { setIsMetadataModal } = useGenerator();
@@ -44,10 +45,12 @@ const Generator = () => {
                     </Button>
                 </HStack>
             </HStack>
-            <VStack alignItems='flex-start' mt='1em' spacing='3em'>
-                <Assets />
-                <MetadataModal />
-            </VStack>
+            <Box w='full'>
+                <Flex p='1em' mt='1.5em' borderRadius='10px' w='full' minH='60vh' flexDir='column' alignItems='flex-start' borderWidth='1px' className={style.blueprint}>
+                    <Layers />
+                </Flex>
+            </Box>
+            <MetadataModal />
         </Box>
     )
 }

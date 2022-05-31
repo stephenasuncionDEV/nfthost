@@ -158,16 +158,7 @@ const Metadata = () => {
                         )}
                     </Box>
                 </ModalBody>
-                <ModalFooter>
-                    <HStack>
-                        <Button onClick={() => setIsMetadataModal(false)}>
-                            Cancel
-                        </Button>
-                        <Button variant='main'>
-                            Save
-                        </Button>
-                    </HStack>
-                </ModalFooter>
+                <ModalFooter />
             </ModalContent>
         </Modal>
     )

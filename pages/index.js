@@ -12,9 +12,9 @@ import ServiceModal from '@/components/ServiceModal'
 import CookieModal from '@/components/CookieModal'
 import { AiOutlineArrowRight } from 'react-icons/ai'
 import { HiOutlineChevronDown } from 'react-icons/hi'
-import style from '@/styles/Main.module.scss'
 import { useUser } from '@/providers/UserProvider'
 import { useWeb3 } from '@/hooks/useWeb3'
+import style from '@/styles/Main.module.scss'
 
 const Main = () => {
     const { onGetStarted, onNavigate } = useLanding();
