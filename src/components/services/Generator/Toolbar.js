@@ -1,4 +1,4 @@
-import { HStack, Button, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react'
+import { HStack, Button, Menu, MenuButton, MenuList, MenuItem, useColorModeValue } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { useGenerate } from '@/hooks/useGenerate'
 import { HiOutlineChevronDown, HiOutlineDesktopComputer } from 'react-icons/hi'
@@ -8,6 +8,8 @@ const Toolbar = () => {
     const { setIsMetadataModal } = useGenerator();
     const { onOpen, onSave } = useGenerate();
 
+    const containerColor = useColorModeValue('whiteAlpha.500', 'blackAlpha.500');
+
     return (
         <HStack 
             id='toolbar'
@@ -16,7 +18,7 @@ const Toolbar = () => {
             mr='1em'
             px='.75em'
             py='.5em'
-            bg='whiteAlpha.900' 
+            bg={containerColor}
             borderRadius='10px'
             boxShadow='md'
         >
