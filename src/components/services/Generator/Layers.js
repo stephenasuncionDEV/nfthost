@@ -1,6 +1,4 @@
-import { Box, HStack, Text, Flex, Button, 
-    VStack, Input, IconButton, useColorModeValue 
-} from '@chakra-ui/react'
+import { Box, HStack, Text, Flex, Button, VStack, Input, IconButton, useColorModeValue } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { useLayer } from '@/hooks/useLayer'
 import { MdOutlineAdd  } from 'react-icons/md'

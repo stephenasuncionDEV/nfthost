@@ -1,5 +1,4 @@
 import NextLink from 'next/link'
-import { useRouter } from 'next/router'
 import { Box, Text, HStack, Avatar, Button, IconButton, useColorMode } from '@chakra-ui/react'
 import { useCore } from '@/providers/CoreProvider'
 import { FaTiktok, FaDiscord, FaTwitter } from 'react-icons/fa'
@@ -9,8 +8,7 @@ import { MdOutlineDarkMode, MdOutlineLightMode } from 'react-icons/md'
 import ConnectWalletTag from '@/components/ConnectWalletTag'
 
 const Navbar = ({ isGetStarted, isSocial, isLanding, isColorMode, isWallet }) => {
-    const router = useRouter();
-    const { Twitter, Tiktok, Discord, Github, Sponsor } = useNavbar();
+    const { Twitter, Tiktok, Discord } = useNavbar();
     const { setIsServiceModal } = useCore();
     const { colorMode, toggleColorMode } = useColorMode();
 

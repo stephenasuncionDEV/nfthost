@@ -1,6 +1,4 @@
-import { Box, Text, Flex, VStack, IconButton, 
-    useColorModeValue, Wrap, Icon, Image
-} from '@chakra-ui/react'
+import { Box, Text, Flex, VStack, IconButton, useColorModeValue, Wrap, Icon, Image } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { useAssets } from '@/hooks/useAssets'
 import { FaTrashAlt } from 'react-icons/fa'

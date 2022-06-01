@@ -1,8 +1,4 @@
-import { HStack, Button, Menu, MenuButton, Tag,
-    MenuList, MenuItem, useColorModeValue, TagLabel,
-    TagRightIcon, MenuDivider, Text, useColorMode,
-    IconButton
-} from '@chakra-ui/react'
+import { HStack, Button, Menu, MenuButton, MenuList, MenuItem, useColorModeValue, useColorMode, IconButton } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { useGenerate } from '@/hooks/useGenerate'
 import { HiOutlineChevronDown, HiOutlineDesktopComputer, HiLogout } from 'react-icons/hi'
