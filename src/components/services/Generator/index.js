@@ -37,7 +37,11 @@ const Generator = () => {
                 width={width - 25}
                 height={height - 25}
                 run={isConfetti}
-                recycle={true}
+                recycle={isConfetti}
+                onConfettiComplete={(confetti) => {
+                    confetti.reset();
+                    confetti.context.clearRect(0, 0, confetti.canvas.width, confetti.canvas.height);
+                }}
             />
             <MetadataModal />
             <RarityModal />

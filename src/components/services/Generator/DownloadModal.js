@@ -11,6 +11,7 @@ const DownloadModal = () => {
     const { 
         isDownloadModal,
         setIsDownloadModal,
+        setIsConfetti,
         isGenerated,
         generateSpeed,
         isAutoSave,
@@ -24,7 +25,15 @@ const DownloadModal = () => {
     } = useGenerate();
 
     return isGenerated && (
-        <Modal onClose={() => setIsDownloadModal(false)} isOpen={isDownloadModal} isCentered size='4xl'>
+        <Modal 
+            onClose={() => {
+                setIsConfetti(false);
+                setIsDownloadModal(false);
+            }} 
+            isOpen={isDownloadModal} 
+            isCentered 
+            size='4xl'
+        >
             <ModalOverlay />
             <ModalContent>
                 <ModalHeader>
