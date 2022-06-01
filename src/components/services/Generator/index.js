@@ -27,6 +27,7 @@ const Generator = () => {
                     backgroundPosition='-2px -2px, -2px -2px, -1px -1px, -1px '
                     justifyContent='space-between'
                     flexWrap='wrap'
+                    overflow='clip'
                 >
                     <Layers />
                     <Toolbar />
