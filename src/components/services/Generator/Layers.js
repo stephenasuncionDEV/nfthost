@@ -5,7 +5,7 @@ import { MdOutlineAdd  } from 'react-icons/md'
 import { FaTrashAlt } from 'react-icons/fa'
 
 const Layers = () => {
-    const { layers } = useGenerator();
+    const { layers, currentLayer } = useGenerator();
     const { 
         onChangeLayerName, 
         onPreviewLayer, 
@@ -54,10 +54,16 @@ const Layers = () => {
                             key={idx} w='170px' h='55px' 
                             borderLeftWidth={idx === 0 || idx === layers.length - 1 ? '4px' : '0'} 
                             borderColor={idx === 0 ? '#08BDD4' : 'orange'}
-                            onClick={() => onPreviewLayer(layer)}
+                            onClick={() => onPreviewLayer(idx)}
                         >
                             <Flex flexDir='column'>
-                                <Input variant='unstyled' value={layer.name} fontSize='10pt' onChange={(e) => onChangeLayerName(e, idx)} />
+                                <Input 
+                                    variant='unstyled' 
+                                    value={layer.name} 
+                                    fontSize='10pt' 
+                                    onChange={(e) => onChangeLayerName(e, idx)} 
+                                    fontWeight={currentLayer === idx ? 'bold' : 'normal'}
+                                />
                                 <Text fontSize='8pt' textAlign='left' fontWeight='500' mt='.25em'>
                                     Images: {layer.images.length}
                                 </Text>

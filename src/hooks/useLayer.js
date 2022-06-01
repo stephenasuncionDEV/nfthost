@@ -15,8 +15,8 @@ export const useLayer = () => {
         setLayers(newLayers);
     }
 
-    const onPreviewLayer = (layer) => {
-        setCurrentLayer(layer);
+    const onPreviewLayer = (idx) => {
+        setCurrentLayer(idx);
     }
 
     const onDeleteLayer = (idx) => {
@@ -27,7 +27,7 @@ export const useLayer = () => {
                 return prevState.filter((layer, index) => index !== idx);
             })
 
-            onPreviewLayer(layers[layers.length - 2], layers.length - 2);
+            onPreviewLayer(layers.length - 2);
         }
         catch (err) {
             toast({
@@ -46,7 +46,7 @@ export const useLayer = () => {
             images: []
         }
         setLayers([...layers, newLayer]);
-        onPreviewLayer(newLayer, layers.length);
+        onPreviewLayer(layers.length);
     }
 
     return {
