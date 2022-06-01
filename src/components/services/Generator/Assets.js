@@ -30,7 +30,7 @@ const Assets = () => {
                 Assets
             </Text>
             <Text fontSize='10pt'>
-                Current Layer: <span style={{ color: 'orange' }}>{layers[currentLayer]?.name}</span>
+                Current Layer: <span style={{ color: '#08BDD4', fontWeight: 'bold' }}>{layers[currentLayer]?.name}</span>
             </Text>
             {layers[currentLayer]?.images.length > 0 && (
                 <Wrap spacing='1em' mt='1em' mb='2em' p='1em'>
