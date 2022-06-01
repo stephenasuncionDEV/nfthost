@@ -42,8 +42,8 @@ const ConnectWalletTag = ({ isCopyAddress }) => {
                         <Image
                             boxSize='2rem'
                             borderRadius='full'
-                            src='https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/800px-MetaMask_Fox.svg.png'
-                            alt='Metamask Wallet Logo from wikimedia.org'
+                            src='/assets/metamask.png'
+                            alt='Metamask Wallet Logo'
                             mr='12px'
                         />
                         <span>Metamask</span>
@@ -52,8 +52,8 @@ const ConnectWalletTag = ({ isCopyAddress }) => {
                         <Image
                             boxSize='2rem'
                             borderRadius='full'
-                            src='https://www.yadawallets.com/wp-content/uploads/2021/06/Phantom-wallet-logo.png'
-                            alt='Phantom Wallet Logo from yadawallets.org'
+                            src='/assets/phantom.png'
+                            alt='Phantom Wallet Logo'
                             mr='12px'
                         />
                         <span>Phantom</span>

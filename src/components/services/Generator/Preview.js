@@ -31,7 +31,8 @@ const Preview = () => {
                 {layers?.map((layer, idx) => (
                     <Image 
                         position='absolute' 
-                        src={layer.images[Math.floor(Math.random() * layer.images.length)].preview} 
+                        src={layer.images[Math.floor(Math.random() * layer.images.length)]?.preview} 
+                        fallbackSrc='/assets/transparent.png'
                         alt={`Preview ${idx}`} 
                         boxSize='225px'
                         top='12.5'

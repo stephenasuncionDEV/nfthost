@@ -1,7 +1,7 @@
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { useToast } from '@chakra-ui/react'
 
-export const useAssets = () => {
+export const useTraits = () => {
     const toast = useToast();
     const { currentLayer, imageDimension, setImageDimension, setLayers } = useGenerator();
 

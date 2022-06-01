@@ -1,20 +1,20 @@
 import { Box, Text, Flex, VStack, IconButton, useColorModeValue, Wrap, Icon, Image } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
-import { useAssets } from '@/hooks/useAssets'
+import { useTraits } from '@/hooks/useTraits'
 import { FaTrashAlt } from 'react-icons/fa'
 import { BsFillImageFill } from 'react-icons/bs'
 import Dropzone from 'react-dropzone'
 
-const Assets = () => {
+const Traits = () => {
     const { layers, currentLayer } = useGenerator();
-    const { DeleteTrait, UploadAssets } = useAssets();
+    const { DeleteTrait, UploadAssets } = useTraits();
 
     const containerColor = useColorModeValue('whiteAlpha.500', 'blackAlpha.500');
     const dropContainerColor = useColorModeValue('rgba(0,0,0,0.1)', 'rgba(0,0,0,0.5)');
 
     return (
         <Flex
-            id='assets'
+            id='traits'
             p='1em'
             bg={containerColor}
             borderRadius='10px'
@@ -25,7 +25,7 @@ const Assets = () => {
             h='100%'
         >
             <Text variant='content_subtitle'>
-                Assets
+                Traits
             </Text>
             <Text fontSize='10pt'>
                 Current Layer: <span style={{ color: '#08BDD4', fontWeight: 'bold' }}>{layers[currentLayer]?.name}</span>
@@ -93,4 +93,4 @@ const Assets = () => {
     )
 }
 
-export default Assets
+export default Traits

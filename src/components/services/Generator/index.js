@@ -2,7 +2,7 @@ import { Box, Text, useColorModeValue, Wrap, Flex } from '@chakra-ui/react'
 import MetadataModal from './MetadataModal'
 import Layers from './Layers'
 import Toolbar from './Toolbar'
-import Assets from './Assets'
+import Traits from './Traits'
 import Preview from './Preview'
 
 const Generator = () => {
@@ -28,7 +28,7 @@ const Generator = () => {
             <Toolbar />
             <Wrap spacing='1em' mt='1em'>
                 <Layers />
-                <Assets />
+                <Traits />
                 <Preview />
             </Wrap>
             <Box position='absolute' bottom='0' right='0' p='1em' opacity='.1'>
