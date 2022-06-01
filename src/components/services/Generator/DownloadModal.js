@@ -1,6 +1,7 @@
 import { HStack, Text, Button, Modal, ModalOverlay,
     ModalContent, ModalHeader, ModalFooter, ModalBody,
-    ModalCloseButton, Progress, 
+    ModalCloseButton, Progress, Box, Flex, VStack,
+    useColorModeValue
 } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { useGenerate } from '@/hooks/useGenerate'
@@ -24,6 +25,8 @@ const DownloadModal = () => {
         DownloadMetadata
     } = useGenerate();
 
+    const dropContainerColor = useColorModeValue('rgba(0,0,0,0.1)', 'rgba(0,0,0,0.2)');
+
     return isGenerated && (
         <Modal 
             onClose={() => {
@@ -38,21 +41,46 @@ const DownloadModal = () => {
             <ModalContent>
                 <ModalHeader>
                     Download
-                    <Text fontSize='10pt' fontWeight='normal' mt='.5em'>
-                        {!isAutoSave ? 'Download your NFT Collection' : 'Download your NFT Collection Metadata'}
-                    </Text>
                 </ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
-                    {!isAutoSave ? (
-                        <Button disabled={isDownloading} onClick={DownloadCollection} rightIcon={<FaDownload />}>
-                            Download Collection
-                        </Button>
-                    ) : (
-                        <Button disabled={isDownloading} onClick={DownloadMetadata} rightIcon={<FaDownload />}>
-                            Download Metadata
-                        </Button>
-                    )}
+                    <Flex justifyContent='center' alignItems='center'>
+                        <HStack spacing='2em'>
+                            <VStack alignItems='flex-end'>
+                                <Text variant='content_subtitle'>
+                                    Collection Preview
+                                </Text>
+                                <Text fontSize='10pt'>
+                                    We will show you part of your collection as a preview
+                                </Text>
+                                <Button rightIcon={<FaDownload />} size='sm'>
+                                    Download Preview
+                                </Button>
+                            </VStack>
+                            <Box 
+                                h='170px'
+                                w='2px'
+                                bg={dropContainerColor}
+                            />
+                            <VStack alignItems='flex-start'>
+                                <Text variant='content_subtitle'>
+                                    NFT Collection
+                                </Text>
+                                <Text fontSize='10pt' fontWeight='normal' mt='.5em'>
+                                    {!isAutoSave ? 'Download your NFT Collection' : 'Download your NFT Collection Metadata'}
+                                </Text>
+                                {!isAutoSave ? (
+                                    <Button disabled={isDownloading} onClick={DownloadCollection} rightIcon={<FaDownload />} size='sm'>
+                                        Download Collection
+                                    </Button>
+                                ) : (
+                                    <Button disabled={isDownloading} onClick={DownloadMetadata} rightIcon={<FaDownload />} size='sm'>
+                                        Download Metadata
+                                    </Button>
+                                )}
+                            </VStack>
+                        </HStack>
+                    </Flex>
                     {isDownloading && (
                         <>
                             <Text textAlign='left' mt='1em' fontSize='14pt'>
