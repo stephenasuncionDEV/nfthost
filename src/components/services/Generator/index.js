@@ -1,4 +1,4 @@
-import { Box, HStack, Text, Avatar, useColorModeValue, Wrap } from '@chakra-ui/react'
+import { Box, Text, useColorModeValue, Wrap, Flex } from '@chakra-ui/react'
 import MetadataModal from './MetadataModal'
 import Layers from './Layers'
 import Toolbar from './Toolbar'
@@ -29,13 +29,15 @@ const Generator = () => {
                 <Layers />
                 <Assets />
             </Wrap>
-            <Box position='absolute' bottom='0' right='0' p='1em' opacity='.75'>
-                <HStack>
-                    <Text fontSize='12pt' color={blueprintSponsorColor}>
+            <Box position='absolute' bottom='0' right='0' p='1em' opacity='.1'>
+                <Flex flexDir='column' alignItems='flex-end'>
+                    <Text fontSize='10pt' color={blueprintSponsorColor}>
                         Powered by NFT Host
                     </Text>
-                    <Avatar src='/logo.png' name='NFT Host Logo' bg='transparent' size='sm' />
-                </HStack>
+                    <Text fontSize='10pt'>
+                        Version 2.0 BETA
+                    </Text>
+                </Flex>
             </Box>
         </Box>
     )
