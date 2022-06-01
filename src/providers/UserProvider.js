@@ -9,11 +9,14 @@ export const UserProvider = ({ children }) => {
     const toast = useToast();
     const router = useRouter();
     const [address, setAddress] = useState('');
+    const [user, setUser] = useState();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const controllers = {
         address,
         setAddress,
+        user,
+        setUser,
         isLoggedIn,
         setIsLoggedIn
     }

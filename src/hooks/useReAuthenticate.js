@@ -17,6 +17,10 @@ export const useReAuthenticate = (protect = false, disable = false) => {
             if (!storageToken) return;
 
             const userData = decryptToken(storageToken);
+
+            //TODO: check if user is connected already, if not, use Connect function, else, setAddress, setIsLoggedIn, setUser
+            // so that we dont get new access token everytime
+
             const isConnected = await Connect(userData.wallet);
 
             if (protect && !isConnected) {

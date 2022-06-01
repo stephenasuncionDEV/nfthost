@@ -1,6 +1,8 @@
 import { useRouter } from 'next/router'
+import { useUser } from '@/providers/UserProvider';
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { useToast } from '@chakra-ui/react'
+import { useWeb3 } from './useWeb3';
 
 export const useGenerate = () => {
     const toast = useToast();
@@ -10,6 +12,8 @@ export const useGenerate = () => {
         collectionSize, 
         imageDimension 
     } = useGenerator();
+    const { address } = useUser();
+    const { getUserByAddress } = useWeb3();
 
     const RandomPreview = () => {
         try {
@@ -31,7 +35,7 @@ export const useGenerate = () => {
         }
     }
 
-    const Generate = () => {
+    const Generate = async () => {
         try {
             layers.forEach((layer) => {
                 if (!layer.images.length) throw new Error(`Layer ${layer.name} cannot have 0 traits. Please add a trait or remove the layer`);
@@ -43,6 +47,10 @@ export const useGenerate = () => {
             layers.forEach((layer) => possibleCombination *= layer.images.length);
 
             if (possibleCombination < collectionSize) throw new Error(`Possible combination is under the desired collection count (${possibleCombination}/${collectionSize}). You must add more images to your layer(s).`);
+        
+            const user = await getUserByAddress(address);
+
+            console.log(user)
         }
         catch (err) {
             toast({

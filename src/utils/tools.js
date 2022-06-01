@@ -67,10 +67,14 @@ export const decrypt = (encryptedStr) => {
     }
 }
 
-export const decryptToken = (encryptedToken) => {
+export const decryptToken = (encryptedToken, tokenOnly = false) => {
     try {
         const token = JSON.parse(decrypt(encryptedToken));
+
+        if (tokenOnly) return token;
+
         const data = parseJwt(token.accessToken);
+        
         return data;
     }
     catch (err) {

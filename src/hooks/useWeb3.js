@@ -10,7 +10,7 @@ import { encrypt, decryptToken } from '@/utils/tools'
 export const useWeb3 = () => {
     const toast = useToast();
     const router = useRouter();
-    const { setAddress, setIsLoggedIn } = useUser();
+    const { setAddress, setIsLoggedIn, setUser } = useUser();
 
     const Connect = async (wallet) => {
         try {
@@ -29,17 +29,22 @@ export const useWeb3 = () => {
                 address = sol.publicKey.toString();
             }
 
-            const res = await axios.post(`${config.serverUrl}/api/member/walletLogin`, {
+            const token = await axios.post(`${config.serverUrl}/api/member/walletLogin`, {
                 address,
                 wallet
             })
 
-            const encrypted = encrypt(JSON.stringify(res.data));
+            const encrypted = encrypt(JSON.stringify(token.data));
 
             localStorage.setItem('nfthost-user', encrypted);
 
-            if (res.status !== 200) throw new Error('Something wrong occured logging in');
+            if (token.status !== 200) throw new Error('Login Error Code: 0x1');
 
+            const userData = await getUserByAddress(address);
+
+            if (!userData) throw new Error('Login Error Code: 0x2');
+
+            setUser(userData);
             setAddress(address);
             setIsLoggedIn(true);
 
@@ -90,8 +95,43 @@ export const useWeb3 = () => {
         }
     }
 
+    const getUserByAddress = async (address) => {
+        try {
+            const storageToken = localStorage.getItem('nfthost-user');
+            if (!storageToken) return;
+
+            const token = decryptToken(storageToken, true);
+
+            const res = await axios.get(`${config.serverUrl}/api/member/getByAddress`, {
+                params: {
+                    address
+                },
+                headers: { 
+                    Authorization: `Bearer ${token.accessToken}` 
+                }
+            })
+
+            if (res.status === 200) {
+                setUser(res.data);
+            }
+
+            return res.data;
+        }
+        catch (err) {
+            toast({
+                title: 'Error',
+                description: err.message,
+                status: 'error',
+                duration: 3000,
+                isClosable: true,
+                position: 'bottom-center'
+            })
+        }
+    }
+
     return {
         Connect,
-        Logout
+        Logout,
+        getUserByAddress
     }
 }
