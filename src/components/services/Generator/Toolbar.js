@@ -43,14 +43,14 @@ const Toolbar = () => {
                         <MenuItem icon={<HiOutlineDesktopComputer />} onClick={() => Save()}>Computer</MenuItem>
                     </MenuList>
                 </Menu>
+                <Button size='sm' leftIcon={<FaPlay />} color='green.500' onClick={Generate}>
+                    Generate
+                </Button>
                 <Button rightIcon={<MdSettings />} size='sm' onClick={() => setIsMetadataModal(true)}>
                     Metadata
                 </Button>
                 <Button rightIcon={<MdSettings />} size='sm' onClick={OpenRarityModal}>
                     Rarity
-                </Button>
-                <Button size='sm' leftIcon={<FaPlay />} color='green.500' onClick={Generate}>
-                    Generate
                 </Button>
             </HStack>
             <HStack>

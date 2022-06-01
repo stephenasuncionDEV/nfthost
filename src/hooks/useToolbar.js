@@ -7,7 +7,9 @@ export const useToolbar = () => {
 
     const Open = (type = 'computer') => {
         try {
+            if (type === 'computer') {
 
+            }
         }
         catch (err) {
             toast({
@@ -23,7 +25,9 @@ export const useToolbar = () => {
 
     const Save = (type = 'computer') => {
         try {
-
+            if (type === 'computer') {
+                
+            }
         }
         catch (err) {
             toast({
