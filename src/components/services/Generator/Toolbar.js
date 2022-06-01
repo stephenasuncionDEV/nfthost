@@ -54,7 +54,7 @@ const Toolbar = () => {
                 </Button>
             </HStack>
             <HStack>
-                <ConnectWalletTag isCopyAddress />
+                <ConnectWalletTag isCopyAddress isUserProfile />
                 <IconButton 
                     ml='.5em'
                     aria-label='Toggle Color Mode' 

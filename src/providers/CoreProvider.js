@@ -11,6 +11,7 @@ export const CoreProvider = ({ children }) => {
     const [isServiceModal, setIsServiceModal] = useState(false);
     const [isCookieModal, setIsCookieModal] = useState();
     const [isSidebar, setIsSidebar] = useState(false);
+    const [paymentData, setPaymentData] = useState();
 
     const controllers = {
         isServiceModal,
@@ -18,7 +19,9 @@ export const CoreProvider = ({ children }) => {
         isCookieModal,
         setIsCookieModal,
         isSidebar,
-        setIsSidebar
+        setIsSidebar,
+        paymentData,
+        setPaymentData
     }
 
     return (

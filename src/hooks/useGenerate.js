@@ -1,12 +1,14 @@
 import { useRouter } from 'next/router'
-import { useUser } from '@/providers/UserProvider';
+import { useCore } from '@/providers/CoreProvider'
+import { useUser } from '@/providers/UserProvider'
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { useToast } from '@chakra-ui/react'
-import { useWeb3 } from './useWeb3';
+import { useWeb3 } from './useWeb3'
 
 export const useGenerate = () => {
     const toast = useToast();
     const router = useRouter();
+    const { setPaymentData } = useCore();
     const { 
         layers, 
         collectionSize, 
@@ -50,7 +52,20 @@ export const useGenerate = () => {
         
             const user = await getUserByAddress(address);
 
-            console.log(user)
+            const generationCount = user.services.generator.generationCount;
+            const freeGeneration = user.services.generator.freeGeneration;
+
+            if (collectionSize > 100 && freeGeneration === 0) {
+                setPaymentData({
+                    service: 'generator'
+                })
+                return;
+            }
+            else if(collectionSize > 100 && freeGeneration > 0) {
+                // await DeductPoints(collectionSize);
+            }
+            
+
         }
         catch (err) {
             toast({
