@@ -1,11 +1,10 @@
-import { Modal, ModalOverlay, ModalContent, 
-    ModalHeader, ModalBody, ModalCloseButton, 
-    Text, Avatar, Box, Grid, GridItem, NumberInput, NumberIncrementStepper, 
+import { Modal, ModalOverlay, ModalContent, ModalFooter,
+    ModalHeader, ModalBody, ModalCloseButton, Text, Avatar, 
+    Box, Grid, GridItem, NumberInput, NumberIncrementStepper, 
     NumberDecrementStepper, NumberInputStepper, NumberInputField
 } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { FixedSizeList as List } from 'react-window'
-import { useGenerate } from '@/hooks/useGenerate'
 import AutoSizer from '@/components/AutoSizer'
 import { useRarity } from '@/hooks/useRarity'
 
@@ -80,6 +79,7 @@ const RarityModal = () => {
                         </AutoSizer>
                     </Box>
                 </ModalBody>
+                <ModalFooter />
             </ModalContent>
         </Modal>
     )

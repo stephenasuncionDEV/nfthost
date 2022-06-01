@@ -1,18 +1,42 @@
+import { useRef } from 'react'
 import { useRouter } from 'next/router'
 import { useCore } from '@/providers/CoreProvider'
 import { useUser } from '@/providers/UserProvider'
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { useToast } from '@chakra-ui/react'
 import { useWeb3 } from './useWeb3'
+import posthog from 'posthog-js'
+import MD5 from 'crypto-js/md5'
+import JSZip from 'jszip'
+import { saveAs } from 'file-saver'
+
+const zip = new JSZip();
 
 export const useGenerate = () => {
     const toast = useToast();
     const router = useRouter();
     const { setPaymentData } = useCore();
-    const { 
+    const {
+        name,
+        description,
+        externalURL,
+        standardType,
+        symbol,
+        creators,
         layers, 
         collectionSize, 
-        imageDimension 
+        imageDimension,
+        sellerFee,
+        setIsAutoSave,
+        setIsGenerating,
+        setIsGenerateModal,
+        setIsGenerated,
+        setAutoSavePercentage,
+        setMetadata,
+        setCurMetadata,
+        setRenderIndex,
+        setGenerateSpeed,
+        canvasRef
     } = useGenerator();
     const { address } = useUser();
     const { getUserByAddress, AddGenerationCount, DeductGeneration } = useWeb3();
@@ -37,6 +61,99 @@ export const useGenerate = () => {
         }
     }
 
+    const getCanvas = () => {
+		return new Promise((resolve, reject) => {
+			const waitForCurrentShit = () => {
+				if (canvasRef.current) return resolve(canvasRef.current);
+				setTimeout(waitForCurrentShit, 30);
+			}
+			waitForCurrentShit();
+		});
+	}
+
+    // Get weighted random image index
+    const getLayerImageIndex = (layer) => {
+        let weights = [];
+        layer.images.forEach((image, idx) => {
+            weights.push(parseInt(image.rarity.value) + (weights[idx - 1] || 0));
+        });
+        const random = Math.random() * layer.images[0].rarity.max;
+        let randomIndex = 0;
+        for (let i = 0; i < weights.length; i++) {
+            if (weights[i] > random) {
+                randomIndex = i;
+                break;
+            }
+        }     
+        return randomIndex;
+    }
+
+    // Draws image on canvas
+    const drawOnCanvas = (ctx, layer) => {
+        return new Promise(resolve => {
+            try {
+                const randomIndex = getLayerImageIndex(layer);
+                const newAttribute = {
+                    trait_type: layer.name,
+                    value: layer.images[randomIndex].name
+                }
+                if (imageDimension) {
+                    ctx.drawImage(layer.images[randomIndex].image, 0, 0, imageDimension.width, imageDimension.height);
+                }
+                resolve(newAttribute);
+            }
+            catch (err) {
+                console.log('drawOnCanvas', err);
+            }
+        })
+    }
+
+    // Stack all layers together
+    const stackLayers = (ctx) => {
+        return Promise.all(
+            layers.map(async (layer) => {
+                return await drawOnCanvas(ctx, layer);
+            })
+        )
+    }
+
+    // Save the canvas to zip
+	const saveCanvas = (curRenderIndex) => {
+        return new Promise((resolve, reject) => {
+            try {
+                canvasRef?.current?.toBlob((blob) => {
+                    zip.folder("Images")?.file(`${curRenderIndex}.png`, blob);
+                    resolve();
+                });
+            }
+            catch (err) {
+                console.log(err);
+                reject();
+            }
+        })
+    }
+
+    // Auto save chunks
+	const autoSave = (chunkCount) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const content = await zip.generateAsync({
+                    type: "blob",
+                    streamFiles: true
+                }, (data) => {
+					setAutoSavePercentage(data.percent);
+                })
+                saveAs(content, `SwiftNFT Image Chunk ${chunkCount}.zip`);
+                zip.remove("Images");
+                resolve();
+            }
+            catch (err) {
+                console.log(err);
+                reject();
+            }
+        })
+    }
+
     const Generate = async () => {
         try {
             layers.forEach((layer) => {
@@ -52,7 +169,6 @@ export const useGenerate = () => {
         
             const user = await getUserByAddress(address);
 
-            const generationCount = user.services.generator.generationCount;
             const freeGeneration = user.services.generator.freeGeneration;
 
             if (collectionSize > 100 && freeGeneration === 0) {
@@ -66,10 +182,98 @@ export const useGenerate = () => {
                 await DeductGeneration(DECREMENT_VALUE);
             }
             
-            const INCREMENT_VALUE = 1;
-            await AddGenerationCount(INCREMENT_VALUE);
+            if (collectionSize > 100) {
+                const INCREMENT_VALUE = 1;
+                await AddGenerationCount(INCREMENT_VALUE);
+            }
 
-            console.log('generate bitch')
+            // posthog.capture('User started generating', {
+            //     standardType,
+            //     collectionSize
+            // });
+
+            setIsGenerateModal(true);
+
+            const canvas = await getCanvas();
+			const ctx = canvas.getContext('2d');
+
+            zip.remove('Metadata');
+			zip.remove('Images');
+            zip.remove('NFTHost CSV for ThirdWeb Only.csv');
+
+            let chunkCount = 1;
+			let curRenderIndex = 1;
+            let startCount = 0;
+			let hashList = [];
+			let curMetadata = [];
+
+            const externalStorage = externalURL.charAt(externalURL.length - 1) === '/' ? externalURL.substring(0, externalURL.length - 1) : externalURL;
+            const t0 = performance.now();
+			let t1;
+
+            setIsGenerated(false);
+            setIsAutoSave(false);
+            setIsGenerating(true);
+            setMetadata([]);
+            setCurMetadata('');
+
+            while (startCount != collectionSize) {
+                setRenderIndex(curRenderIndex);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                const attributes = await stackLayers(ctx);
+                const currentHash = MD5(JSON.stringify(attributes)).toString();
+                if (!hashList.includes(currentHash)) {
+                    hashList.push(currentHash);
+                    await saveCanvas(startCount);
+                    let nftJson = {
+						name: `${name.trim()} #${curRenderIndex}`,
+						description: description.trim(),                
+						image: `${startCount}.png`,
+						attributes: attributes,
+						compiler: "https://nfthost.app/"
+					}
+                    if (standardType == "sol") {
+						nftJson = {
+							name: nftJson.name,
+							symbol: symbol,
+							description: nftJson.description,
+							seller_fee_basis_points: sellerFee,
+							image: `${startCount}.png`,
+							external_url: `${externalStorage}/${startCount}.png`,
+							attributes: nftJson.attributes,
+							properties: {
+								category: "image",
+								files: [
+									{
+										uri: `${startCount}.png`,
+										type: "image/png"
+									}
+								],
+								creators: creators
+							},
+							compiler: "https://nfthost.app/"
+						}
+					}
+                    curMetadata.push(nftJson);
+                    setCurMetadata(JSON.stringify(nftJson, null, 2));
+                    if (collectionSize >= 1000 && (curRenderIndex == collectionSize || curRenderIndex % 1000 == 0)) {
+						setIsAutoSave(true);
+						setIsDownloading(true);
+						await autoSave(chunkCount++);
+						setIsDownloading(false);
+					}
+                    curRenderIndex++;
+                    startCount++;
+                    if (startCount == collectionSize) {
+                        t1 = performance.now();
+                        setGenerateSpeed(t1 - t0);
+						setMetadata(curMetadata);
+						setIsGenerating(false);
+                        setIsGenerated(true);
+						console.log(`[NFTHost] It took ${t1 - t0} milliseconds to generate this collection.`);
+					}
+                }
+            }
         }
         catch (err) {
             toast({
@@ -84,6 +288,7 @@ export const useGenerate = () => {
     }
 
     return {
+        getCanvas,
         RandomPreview,
         Generate
     }

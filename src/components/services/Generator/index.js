@@ -1,12 +1,18 @@
 import { Box, Text, useColorModeValue, Wrap, Flex } from '@chakra-ui/react'
+import { useGenerator } from '@/providers/GeneratorProvider'
+import Confetti from 'react-confetti'
 import MetadataModal from './MetadataModal'
 import Layers from './Layers'
 import Toolbar from './Toolbar'
 import Traits from './Traits'
 import Preview from './Preview'
 import RarityModal from './RarityModal'
+import GenerateModal from './GenerateModal'
+import useWindowSize from 'react-use/lib/useWindowSize'
 
 const Generator = () => {
+    const { width, height } = useWindowSize();
+    const { isGenerated } = useGenerator();
 
     const blueprintBGColor = useColorModeValue('rgb(238,238,238)', 'rgb(12,15,20)');
     const blueprintGridColor = useColorModeValue('linear-gradient(rgba(255,255,255,.5) 2px, transparent 2px), linear-gradient(90deg, rgba(255,255,255,.5) 2px, transparent 2px), linear-gradient(rgba(255,255,255,.28) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.28) 1px, transparent 1px)', 'linear-gradient(rgba(0,0,0,.5) 2px, transparent 2px), linear-gradient(90deg, rgba(0,0,0,.5) 2px, transparent 2px), linear-gradient(rgba(0,0,0,.28) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,.28) 1px, transparent 1px)');
@@ -25,8 +31,16 @@ const Generator = () => {
             backgroundSize='100px 100px, 100px 100px, 20px 20px, 20px 20px'
             backgroundPosition='-2px -2px, -2px -2px, -1px -1px, -1px '
         >
+            <Confetti
+                numberOfPieces={200}
+                width={width - 25}
+                height={height - 25}
+                run={isGenerated}
+                recycle={true}
+            />
             <MetadataModal />
             <RarityModal />
+            <GenerateModal />
             <Toolbar />
             <Wrap spacing='1em' mt='1em'>
                 <Layers />
