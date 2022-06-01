@@ -27,15 +27,20 @@ export const useGenerate = () => {
         collectionSize, 
         imageDimension,
         sellerFee,
+        metadata,
         setIsAutoSave,
         setIsGenerating,
+        setIsDownloading,
         setIsGenerateModal,
+        setIsDownloadModal,
         setIsGenerated,
         setAutoSavePercentage,
+        setDownloadPercentage,
         setMetadata,
         setCurMetadata,
         setRenderIndex,
         setGenerateSpeed,
+        setIsConfetti,
         canvasRef
     } = useGenerator();
     const { address } = useUser();
@@ -154,6 +159,7 @@ export const useGenerate = () => {
         })
     }
 
+    // Generate NFTs
     const Generate = async () => {
         try {
             layers.forEach((layer) => {
@@ -269,7 +275,10 @@ export const useGenerate = () => {
                         setGenerateSpeed(t1 - t0);
 						setMetadata(curMetadata);
 						setIsGenerating(false);
+                        setIsGenerateModal(false);
                         setIsGenerated(true);
+                        setIsConfetti(true);
+                        setIsDownloadModal(true);
 						console.log(`[NFTHost] It took ${t1 - t0} milliseconds to generate this collection.`);
 					}
                 }
@@ -287,9 +296,163 @@ export const useGenerate = () => {
         }
     }
 
+    // Download collection including images and metadata
+	const DownloadCollection = async () => {
+		try {
+			if (!metadata.length) throw new Error('Please generate your collection first');
+
+			setIsDownloading(true);
+
+            // Save Json Metadata
+
+			let fileIndex = 0;
+
+			zip.folder("Metadata")?.file("metadata.json", JSON.stringify(metadata, null, 2));
+
+			metadata.forEach((data) => {
+				zip.folder("Metadata")?.file(`${fileIndex}.json`, JSON.stringify(data, null, 2));
+				fileIndex++;
+			});
+
+            // Save Csv Metadata
+
+            if (standardType === 'eth') {
+                let csvData = [];           
+                let keys = Object.keys(metadata[0]).slice(0, 3);
+
+                keys.splice(2, 1);
+
+                const attributes = metadata[0].attributes.map((attribute) => attribute.trait_type)
+                const columns = [...keys, ...attributes];        
+
+                csvData.push(columns);
+
+                // Get Rows
+                metadata.forEach((data) => {
+                    let row = [
+                        data.name,
+                        data.description,
+                    ]
+                    data.attributes.forEach((attribute) => {
+                        row.push(attribute.value);
+                    })
+                    csvData.push(row);
+                })
+
+                let csv = "";
+                csvData.forEach((row) => {  
+                    csv += row.join(',');  
+                    csv += "\n";
+                }); 
+
+                const csvBlob = new Blob([csv], {type: "text/csv;charset=utf-8"});
+                zip.file("CSV metadata.csv", csvBlob);
+            }
+
+			const content = await zip.generateAsync({
+				type: "blob",
+				streamFiles: true
+			}, (data) => {
+				setDownloadPercentage(data.percent);
+			})
+
+			saveAs(content, "NFTHost Collection.zip");
+			setIsDownloading(false);
+		}
+		catch (err) {
+			console.error(err);
+            toast({
+                title: 'Error',
+                description: err.message,
+                status: 'error',
+                isClosable: true,
+                position: 'bottom-center'
+            })
+		}
+	}
+
+    // Download metadata including json and csv metadata
+    const DownloadMetadata = async () => {
+        try {
+			if (!metadata.length) throw new Error('Please generate your collection first');
+
+			setIsDownloading(true);
+
+            // Save Json Metadata
+
+			let fileIndex = 0;
+
+			zip.remove("Images"); // delete images first
+
+			zip.folder("Metadata")?.file("metadata.json", JSON.stringify(metadata, null, 2));
+
+			metadata.forEach(data => {
+				zip.folder("Metadata")?.file(`${fileIndex}.json`, JSON.stringify(data, null, 2));
+				fileIndex++;
+			});
+
+            // Save Csv Metadata
+
+            if (standardType === 'eth') {
+                let csvData = [];           
+                let keys = Object.keys(metadata[0]).slice(0, 3);
+
+                keys.splice(2, 1);
+
+                const attributes = metadata[0].attributes.map((attribute ) => attribute.trait_type)
+                const columns = [...keys, ...attributes];        
+
+                csvData.push(columns);
+
+                // Get Rows
+                metadata.forEach((data ) => {
+                    let row = [
+                        data.name,
+                        data.description,
+                    ]
+                    data.attributes.forEach((attribute) => {
+                        row.push(attribute.value);
+                    })
+                    csvData.push(row);
+                })
+
+                let csv = "";
+                csvData.forEach((row) => {  
+                    csv += row.join(',');  
+                    csv += "\n";
+                }); 
+
+                const csvBlob = new Blob([csv], {type: "text/csv;charset=utf-8"});
+                zip.file("CSV metadata.csv", csvBlob);
+            }
+            
+			const content = await zip.generateAsync({
+				type: "blob",
+				streamFiles: true
+			}, (data) => {
+				setDownloadPercentage(data.percent);
+			})
+
+			saveAs(content, "NFTHost Metadata.zip");
+			setIsDownloading(false);
+		}
+		catch (err) {
+			console.error(err);
+            toast({
+                title: 'Error',
+                description: err.message,
+                status: 'error',
+                isClosable: true,
+                position: 'bottom-center'
+            })
+		}
+    }
+
     return {
         getCanvas,
         RandomPreview,
-        Generate
+        Generate,
+        DownloadCollection,
+        DownloadMetadata
     }
 }

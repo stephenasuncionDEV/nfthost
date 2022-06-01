@@ -20,9 +20,6 @@ export const GeneratorProvider = ({ children }) => {
     const [creators, setCreators] = useState([]);
     const [layers, setLayers] = useState([{ name: 'Background', images: [] }]);
     const [currentLayer, setCurrentLayer] = useState(0);
-    const [isMetadataModal, setIsMetadataModal] = useState(false);
-    const [isRarityModal, setIsRarityModal] = useState(false);
-    const [isGenerateModal, setIsGenerateModal] = useState(false);
     const [imageDimension, setImageDimension] = useState();
     const [isConfetti, setIsConfetti] = useState(false);
     const [isAutoSave, setIsAutoSave] = useState(false);
@@ -35,6 +32,10 @@ export const GeneratorProvider = ({ children }) => {
     const [curMetadata, setCurMetadata] = useState('');
     const [renderIndex, setRenderIndex] = useState(1);
     const [generateSpeed, setGenerateSpeed] = useState(0);
+    const [isMetadataModal, setIsMetadataModal] = useState(false);
+    const [isRarityModal, setIsRarityModal] = useState(false);
+    const [isGenerateModal, setIsGenerateModal] = useState(false);
+    const [isDownloadModal, setIsDownloadModal] = useState(false);
     const canvasRef = useRef();
 
     const controllers = {
@@ -92,7 +93,9 @@ export const GeneratorProvider = ({ children }) => {
         setGenerateSpeed,
         canvasRef,
         isConfetti,
-        setIsConfetti
+        setIsConfetti,
+        isDownloadModal,
+        setIsDownloadModal
     }
 
     return (

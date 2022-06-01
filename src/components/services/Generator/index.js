@@ -9,10 +9,11 @@ import Preview from './Preview'
 import RarityModal from './RarityModal'
 import GenerateModal from './GenerateModal'
 import useWindowSize from 'react-use/lib/useWindowSize'
+import DownloadModal from './DownloadModal'
 
 const Generator = () => {
     const { width, height } = useWindowSize();
-    const { isGenerated } = useGenerator();
+    const { isConfetti } = useGenerator();
 
     const blueprintBGColor = useColorModeValue('rgb(238,238,238)', 'rgb(12,15,20)');
     const blueprintGridColor = useColorModeValue('linear-gradient(rgba(255,255,255,.5) 2px, transparent 2px), linear-gradient(90deg, rgba(255,255,255,.5) 2px, transparent 2px), linear-gradient(rgba(255,255,255,.28) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.28) 1px, transparent 1px)', 'linear-gradient(rgba(0,0,0,.5) 2px, transparent 2px), linear-gradient(90deg, rgba(0,0,0,.5) 2px, transparent 2px), linear-gradient(rgba(0,0,0,.28) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,.28) 1px, transparent 1px)');
@@ -35,19 +36,20 @@ const Generator = () => {
                 numberOfPieces={200}
                 width={width - 25}
                 height={height - 25}
-                run={isGenerated}
+                run={isConfetti}
                 recycle={true}
             />
             <MetadataModal />
             <RarityModal />
             <GenerateModal />
+            <DownloadModal />
             <Toolbar />
             <Wrap spacing='1em' mt='1em'>
                 <Layers />
                 <Traits />
                 <Preview />
             </Wrap>
-            <Box position='absolute' bottom='0' right='0' p='1em' opacity='.1'>
+            <Box position='absolute' bottom='0' right='0' p='1em' opacity='.2'>
                 <Flex flexDir='column' alignItems='flex-end'>
                     <Text fontSize='10pt' color={blueprintSponsorColor}>
                         Powered by NFT Host

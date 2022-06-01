@@ -1,14 +1,8 @@
-import { Box, HStack, Text, Flex, Button, 
-    VStack, Input, Textarea, NumberInput, NumberInputField, 
-    NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper,
-    Radio, RadioGroup, FormLabel, FormControl, Tag, TagCloseButton, 
-    Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody,
+import { Box, HStack, Text, Flex, Textarea, Modal, ModalOverlay, 
+    ModalContent, ModalHeader, ModalFooter, ModalBody,
     ModalCloseButton, Progress, useColorModeValue
 } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
-import { useLayer } from '@/hooks/useLayer'
-import { MdOutlineAdd  } from 'react-icons/md'
-import { FaTrashAlt } from 'react-icons/fa'
 
 const GenerateModal = () => {
     const { 
