@@ -33,7 +33,7 @@ const Navbar = ({ isGetStarted, isSocial, isLanding, isColorMode, isWallet }) =>
                         <HStack spacing='1em' cursor='pointer'>
                             <Avatar 
                                 size='md'
-                                src='/logo.png' 
+                                src='/assets/logo.png' 
                                 name='NFT Host Logo' 
                                 bg='transparent'
                             />

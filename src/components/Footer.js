@@ -12,7 +12,7 @@ const Footer = () => {
                     <VStack alignItems='center' flex='1' minW='249.5px' spacing='1em'>
                         <Avatar 
                             size='lg'
-                            src='/logo.png' 
+                            src='/assets/logo.png' 
                             name='NFT Host Logo' 
                             bg='transparent'
                         />
