@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 module.exports.generateAccessToken = (data) => {
-    return jwt.sign(data, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1d' });
+    return jwt.sign(data, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '7d' });
 }
 
 module.exports.generateRefreshToken = (data) => {

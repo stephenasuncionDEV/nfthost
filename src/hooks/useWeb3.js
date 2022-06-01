@@ -2,6 +2,10 @@ import { useToast } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useUser } from '@/providers/UserProvider'
 import Web3 from 'web3'
+import posthog from 'posthog-js'
+import axios from 'axios'
+import config from '@/config/index'
+import { encrypt, decryptToken } from '@/utils/tools'
 
 export const useWeb3 = () => {
     const toast = useToast();
@@ -10,24 +14,38 @@ export const useWeb3 = () => {
 
     const Connect = async (wallet) => {
         try {
+            let address = '';
+
             if (wallet === 'metamask') {
                 if (typeof window.ethereum === 'undefined' || (typeof window.web3 === 'undefined')) throw new Error('Metamask is not installed');
                 window.web3 = new Web3(window.ethereum) || new Web3(window.web3.currentProvider);
                 const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                localStorage.setItem('nfthost-address', accounts[0]);
-                setAddress(accounts[0]);
-                setIsLoggedIn(true);
+                address = accounts[0];
             }
             else if (wallet === 'phantom') {
                 const provider = window.solana;
                 if (!provider.isPhantom) throw new Error('Phantom is not installed');
                 const sol = await window.solana.connect();
-                localStorage.setItem('nfthost-address', sol.publicKey.toString());
-                setAddress(sol.publicKey.toString());
-                setIsLoggedIn(true);
+                address = sol.publicKey.toString();
             }
 
-            localStorage.setItem('nfthost-wallet', wallet);
+            const res = await axios.post(`${config.serverUrl}/api/member/walletLogin`, {
+                address,
+                wallet
+            })
+
+            const encrypted = encrypt(JSON.stringify(res.data));
+
+            localStorage.setItem('nfthost-user', encrypted);
+
+            if (res.status !== 200) throw new Error('Something wrong occured logging in');
+
+            setAddress(address);
+            setIsLoggedIn(true);
+
+            // posthog.capture('User logged in with crypto wallet', {
+            //     wallet
+            // });
 
             return true;
         }
@@ -47,11 +65,16 @@ export const useWeb3 = () => {
 
     const Logout = async () => {
         try {
+            const storageToken = localStorage.getItem('nfthost-user');
+            if (!storageToken) return;
+
+            const userData = decryptToken(storageToken);
+            if (userData.wallet === 'phantom') window.solana.disconnect();
+
+            localStorage.removeItem('nfthost-user');
+
             setAddress('');
             setIsLoggedIn(false);
-            localStorage.setItem('nfthost-address', '');
-            localStorage.setItem('nfthost-wallet', '');
-            router.push('/', undefined, { shallow: true }); 
         }
         catch (err) {
             toast({

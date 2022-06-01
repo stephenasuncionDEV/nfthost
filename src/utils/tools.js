@@ -19,11 +19,61 @@ export const parseJwt = (token) => {
 };
 
 export const encrypt = (str) => {
-    const data = CryptoJS.AES.encrypt(str, CryptoJS.enc.Utf8.parse(process.env.ENCRYPT_KEY));
-    return data.toString();
+    try {
+        const salt = CryptoJS.lib.WordArray.random(128/8);
+        const iv = CryptoJS.lib.WordArray.random(128/8);
+
+        const key = CryptoJS.PBKDF2(process.env.ENCRYPT_KEY, salt, {
+            keySize: 256 / 32,
+            iterations: 100
+        });
+
+        const encrypted = CryptoJS.AES.encrypt(str, key, { 
+            iv: iv, 
+            padding: CryptoJS.pad.Pkcs7,
+            mode: CryptoJS.mode.CBC 
+        });
+
+        const ret = salt.toString() + iv.toString() + encrypted.toString();
+
+        return ret;
+    }
+    catch (err) {
+        console.error(err);
+    }
 }
 
-export const decrypt = (str) => {
-    const data = CryptoJS.AES.decrypt(str, CryptoJS.enc.Utf8.parse(process.env.ENCRYPT_KEY));
-    return data.toString(CryptoJS.enc.Utf8);
+export const decrypt = (encryptedStr) => {
+    try {
+        const salt = CryptoJS.enc.Hex.parse(encryptedStr.substr(0, 32));
+        const iv = CryptoJS.enc.Hex.parse(encryptedStr.substr(32, 32));
+        const encrypted = encryptedStr.substring(64);
+
+        const key = CryptoJS.PBKDF2(process.env.ENCRYPT_KEY, salt, {
+            keySize: 256 / 32,
+            iterations: 100
+        })
+      
+        const decrypted = CryptoJS.AES.decrypt(encrypted, key, { 
+            iv: iv, 
+            padding: CryptoJS.pad.Pkcs7,
+            mode: CryptoJS.mode.CBC
+        })
+
+        return decrypted.toString(CryptoJS.enc.Utf8);
+    }
+    catch (err) {
+        console.error(err);
+    }
+}
+
+export const decryptToken = (encryptedToken) => {
+    try {
+        const token = JSON.parse(decrypt(encryptedToken));
+        const data = parseJwt(token.accessToken);
+        return data;
+    }
+    catch (err) {
+        console.error(err);
+    }
 }

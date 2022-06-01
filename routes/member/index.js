@@ -1,10 +1,9 @@
 const router = require('express').Router();
 const controller = require('./controller');
-// const { WalletLoginValidator } = require('../../middlewares/validators');
+const { WalletLoginValidator, GetMemberByAddressValidator } = require('../../middlewares/validators');
 const { authenticateToken } = require('../../middlewares/jwt');
 
-// router.post('/', controller.createUser);
-// router.post('/update', controller.updateUser);
-// router.get('/get', controller.getUser);
+router.post('/walletLogin', WalletLoginValidator, controller.walletLogin);
+router.get('/getByAddress', authenticateToken, GetMemberByAddressValidator, controller.getMemberByAddress);
 
 module.exports = router;
