@@ -33,6 +33,20 @@ const Layers = () => {
                     Add Layer
                 </Button>
             </HStack>
+            <VStack alignItems='flex-start' w='full'>
+                <HStack>
+                    <Box borderRadius='5px' bg='orange' p='.25em' />
+                    <Text>
+                        Top Layer
+                    </Text>
+                </HStack>
+                <HStack>
+                    <Box borderRadius='5px' bg='#08BDD4' p='.25em' />
+                    <Text>
+                        Bottom Layer
+                    </Text>
+                </HStack>
+            </VStack>
             <VStack spacing='1em'>
                 {layers?.map((layer, idx) => (
                     <Box position='relative' key={idx}>
