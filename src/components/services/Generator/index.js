@@ -3,6 +3,7 @@ import MetadataModal from './MetadataModal'
 import Layers from './Layers'
 import Toolbar from './Toolbar'
 import Assets from './Assets'
+import Preview from './Preview'
 
 const Generator = () => {
 
@@ -28,6 +29,7 @@ const Generator = () => {
             <Wrap spacing='1em' mt='1em'>
                 <Layers />
                 <Assets />
+                <Preview />
             </Wrap>
             <Box position='absolute' bottom='0' right='0' p='1em' opacity='.1'>
                 <Flex flexDir='column' alignItems='flex-end'>

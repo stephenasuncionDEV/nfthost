@@ -1,8 +1,10 @@
+import { useRouter } from 'next/router'
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { useToast } from '@chakra-ui/react'
 
 export const useGenerate = () => {
     const toast = useToast();
+    const router = useRouter();
     const { 
         
     } = useGenerator();
@@ -39,8 +41,13 @@ export const useGenerate = () => {
         }
     }
 
+    const RandomPreview = () => {
+        router.push('/service/generator', undefined, { shallow: true });
+    }
+
     return {
         Open,
         Save,
+        RandomPreview
     }
 }

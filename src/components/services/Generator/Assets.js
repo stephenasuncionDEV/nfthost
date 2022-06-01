@@ -24,7 +24,7 @@ const Assets = () => {
             flexDir='column'
             h='100%'
         >
-            <Text variant='content_subtitle' mt='0'>
+            <Text variant='content_subtitle'>
                 Assets
             </Text>
             <Text fontSize='10pt'>
