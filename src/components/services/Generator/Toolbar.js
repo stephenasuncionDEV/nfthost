@@ -1,12 +1,18 @@
-import { HStack, Button, Menu, MenuButton, MenuList, MenuItem, useColorModeValue } from '@chakra-ui/react'
+import { HStack, Button, Menu, MenuButton, Tag,
+    MenuList, MenuItem, useColorModeValue, TagLabel,
+    TagRightIcon, MenuDivider, Text, useColorMode,
+    IconButton
+} from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { useGenerate } from '@/hooks/useGenerate'
-import { HiOutlineChevronDown, HiOutlineDesktopComputer } from 'react-icons/hi'
-import { MdSettings } from 'react-icons/md'
+import { HiOutlineChevronDown, HiOutlineDesktopComputer, HiLogout } from 'react-icons/hi'
+import { MdSettings, MdOutlineDarkMode, MdOutlineLightMode } from 'react-icons/md'
+import ConnectWalletTag from '@/components/ConnectWalletTag'
 
 const Toolbar = () => {
     const { setIsMetadataModal } = useGenerator();
     const { Open, Save } = useGenerate();
+    const { colorMode, toggleColorMode } = useColorMode();
 
     const containerColor = useColorModeValue('whiteAlpha.500', 'blackAlpha.500');
 
@@ -17,29 +23,42 @@ const Toolbar = () => {
             py='.5em'
             bg={containerColor}
             borderRadius='10px'
+            justifyContent='space-between'
         >
-            <Menu>
-                <MenuButton as={Button} rightIcon={<HiOutlineChevronDown />} size='sm'>
-                    Open
-                </MenuButton>
-                <MenuList>
-                    <MenuItem icon={<HiOutlineDesktopComputer />} onClick={() => Open()}>Computer</MenuItem>
-                </MenuList>
-            </Menu>
-            <Menu>
-                <MenuButton as={Button} rightIcon={<HiOutlineChevronDown />} size='sm'>
-                    Save
-                </MenuButton>
-                <MenuList>
-                    <MenuItem icon={<HiOutlineDesktopComputer />} onClick={() => Save()}>Computer</MenuItem>
-                </MenuList>
-            </Menu>
-            <Button rightIcon={<MdSettings />} size='sm' onClick={() => setIsMetadataModal(true)}>
-                Metadata
-            </Button>
-            <Button rightIcon={<MdSettings />} size='sm'>
-                Rarity
-            </Button>
+            <HStack>
+                <Menu>
+                    <MenuButton as={Button} rightIcon={<HiOutlineChevronDown />} size='sm'>
+                        Open
+                    </MenuButton>
+                    <MenuList>
+                        <MenuItem icon={<HiOutlineDesktopComputer />} onClick={() => Open()}>Computer</MenuItem>
+                    </MenuList>
+                </Menu>
+                <Menu>
+                    <MenuButton as={Button} rightIcon={<HiOutlineChevronDown />} size='sm'>
+                        Save
+                    </MenuButton>
+                    <MenuList>
+                        <MenuItem icon={<HiOutlineDesktopComputer />} onClick={() => Save()}>Computer</MenuItem>
+                    </MenuList>
+                </Menu>
+                <Button rightIcon={<MdSettings />} size='sm' onClick={() => setIsMetadataModal(true)}>
+                    Metadata
+                </Button>
+                <Button rightIcon={<MdSettings />} size='sm'>
+                    Rarity
+                </Button>
+            </HStack>
+            <HStack>
+                <ConnectWalletTag isCopyAddress />
+                <IconButton 
+                    ml='.5em'
+                    aria-label='Toggle Color Mode' 
+                    icon={colorMode === 'light' ? <MdOutlineDarkMode /> : <MdOutlineLightMode />} 
+                    onClick={toggleColorMode} 
+                    size='sm'
+                />
+            </HStack>
         </HStack>
     )
 }

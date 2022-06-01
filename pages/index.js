@@ -10,6 +10,7 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import ServiceModal from '@/components/ServiceModal'
 import CookieModal from '@/components/CookieModal'
+import ConnectWalletTag from '@/components/ConnectWalletTag'
 import { AiOutlineArrowRight } from 'react-icons/ai'
 import { HiOutlineChevronDown } from 'react-icons/hi'
 import { useUser } from '@/providers/UserProvider'
@@ -75,48 +76,10 @@ const Main = () => {
                             <Text className={style.gradientBlue} fontSize='42pt' fontWeight='bold'>
                                 NFT Collection
                             </Text>
-                            <Text fontSize='13pt' fontWeight='hairline' mt='1em'>
+                            <Text fontSize='13pt' fontWeight='hairline' my='1em'>
                                 Create and Show your NFT collection in under a minute!
                             </Text>
-                            <Menu>
-                                <MenuButton 
-                                    as={Tag} 
-                                    borderWidth='1px' 
-                                    size='md' 
-                                    cursor={isLoggedIn ? 'initial' : 'pointer'} 
-                                    mt='1.5em' 
-                                    pointerEvents={isLoggedIn ? 'none' : 'initial'}
-                                >
-                                    <HStack>
-                                        <Text noOfLines='1'>
-                                            {isLoggedIn ? address : 'Connect Your Wallet'}
-                                        </Text>
-                                        {!isLoggedIn && <TagRightIcon as={HiOutlineChevronDown} />}
-                                    </HStack>
-                                </MenuButton>
-                                <MenuList>
-                                    <MenuItem onClick={() => Connect('metamask')}>
-                                        <Image
-                                            boxSize='2rem'
-                                            borderRadius='full'
-                                            src='https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/800px-MetaMask_Fox.svg.png'
-                                            alt='Metamask Wallet Logo from wikimedia.org'
-                                            mr='12px'
-                                        />
-                                        <span>Metamask</span>
-                                    </MenuItem>
-                                    <MenuItem onClick={() => Connect('phantom')}>
-                                        <Image
-                                            boxSize='2rem'
-                                            borderRadius='full'
-                                            src='https://www.yadawallets.com/wp-content/uploads/2021/06/Phantom-wallet-logo.png'
-                                            alt='Phantom Wallet Logo from yadawallets.org'
-                                            mr='12px'
-                                        />
-                                        <span>Phantom</span>
-                                    </MenuItem>
-                                </MenuList>
-                            </Menu>
+                            <ConnectWalletTag />
                             <Button mt='1em' w='150px' onClick={GetStarted}>
                                 Get Started 🎉
                             </Button>

@@ -12,6 +12,7 @@ const Assets = () => {
     const { DeleteTrait, UploadAssets } = useAssets();
 
     const containerColor = useColorModeValue('whiteAlpha.500', 'blackAlpha.500');
+    const dropContainerColor = useColorModeValue('rgba(0,0,0,0.1)', 'rgba(0,0,0,0.5)');
 
     return (
         <Flex
@@ -29,31 +30,33 @@ const Assets = () => {
                 Assets
             </Text>
             <Text fontSize='10pt'>
-                Current Layer: {layers[currentLayer]?.name}
+                Current Layer: <span style={{ color: 'orange' }}>{layers[currentLayer]?.name}</span>
             </Text>
-            <Wrap spacing='1em' mt='1em' mb='2em' p='1em'>
-                {layers[currentLayer]?.images?.map((image, idx) => (
-                    <Box p='1em' key={idx} bg='rgba(0,0,0,0.2)' borderRadius='10px' position='relative'>
-                        <VStack>
-                            <Image src={image.preview} alt={image.name} w='85px' h='85px' />
-                            <Text fontSize='10pt' w='85px' noOfLines='1'>
-                                {image.name}
-                            </Text>
-                        </VStack>
-                        <IconButton 
-                            aria-label='Delete Trait' 
-                            position='absolute'
-                            top='-2.5'
-                            right='-2.5'
-                            isRound
-                            icon={<FaTrashAlt />}
-                            bg='rgba(0,0,0,0.2)'
-                            size='sm'
-                            onClick={() => DeleteTrait(image.name)}
-                        />
-                    </Box>
-                ))}
-            </Wrap>
+            {layers[currentLayer]?.images.length > 0 && (
+                <Wrap spacing='1em' mt='1em' mb='2em' p='1em'>
+                    {layers[currentLayer]?.images?.map((image, idx) => (
+                        <Box p='1em' key={idx} bg={dropContainerColor} borderRadius='10px' position='relative'>
+                            <VStack>
+                                <Image src={image.preview} alt={image.name} w='85px' h='85px' />
+                                <Text fontSize='10pt' w='85px' noOfLines='1'>
+                                    {image.name}
+                                </Text>
+                            </VStack>
+                            <IconButton 
+                                aria-label='Delete Trait' 
+                                position='absolute'
+                                top='-2.5'
+                                right='-2.5'
+                                isRound
+                                icon={<FaTrashAlt />}
+                                bg='rgba(0,0,0,0.2)'
+                                size='sm'
+                                onClick={() => DeleteTrait(image.name)}
+                            />
+                        </Box>
+                    ))}
+                </Wrap>
+            )}
             <Dropzone 
                 accept={{
                     'image/png': [],
@@ -67,7 +70,7 @@ const Assets = () => {
                         w='full' 
                         h='200px' 
                         mt='1em' 
-                        bg='rgba(0,0,0,0.2)' 
+                        bg={dropContainerColor}
                         borderRadius='10px' 
                         justifyContent='center' 
                         alignItems='center' 

@@ -12,38 +12,31 @@ const Generator = () => {
     const blueprintSponsorColor = useColorModeValue('black', 'white');
 
     return (
-        <Box px='4em' pt='2em' pb='4em'>
-            <Box>
-                <Box 
-                    position='relative'
-                    p='1em' 
-                    mt='1.5em' 
-                    borderRadius='10px' 
-                    minH='80vh' 
-                    borderWidth='1px' 
-                    bgColor={blueprintBGColor}
-                    bgImage={blueprintGridColor}
-                    borderColor={blueprintBorderColor}
-                    backgroundSize='100px 100px, 100px 100px, 20px 20px, 20px 20px'
-                    backgroundPosition='-2px -2px, -2px -2px, -1px -1px, -1px '
-                    overflow='clip'
-                >
-                    <Toolbar />
-                    <Wrap spacing='1em' mt='1em'>
-                        <Layers />
-                        <Assets />
-                    </Wrap>
-                    <Box position='absolute' bottom='0' right='0' p='1em' opacity='.75'>
-                        <HStack>
-                            <Text fontSize='12pt' color={blueprintSponsorColor}>
-                                Powered by NFT Host
-                            </Text>
-                            <Avatar src='/logo.png' name='NFT Host Logo' bg='transparent' size='sm' />
-                        </HStack>
-                    </Box>
-                </Box>
-            </Box>
+        <Box 
+            minH='100vh'
+            position='relative'
+            p='1em'
+            borderWidth='1px' 
+            bgColor={blueprintBGColor}
+            bgImage={blueprintGridColor}
+            borderColor={blueprintBorderColor}
+            backgroundSize='100px 100px, 100px 100px, 20px 20px, 20px 20px'
+            backgroundPosition='-2px -2px, -2px -2px, -1px -1px, -1px '
+        >
             <MetadataModal />
+            <Toolbar />
+            <Wrap spacing='1em' mt='1em'>
+                <Layers />
+                <Assets />
+            </Wrap>
+            <Box position='absolute' bottom='0' right='0' p='1em' opacity='.75'>
+                <HStack>
+                    <Text fontSize='12pt' color={blueprintSponsorColor}>
+                        Powered by NFT Host
+                    </Text>
+                    <Avatar src='/logo.png' name='NFT Host Logo' bg='transparent' size='sm' />
+                </HStack>
+            </Box>
         </Box>
     )
 }

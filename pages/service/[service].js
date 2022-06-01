@@ -1,14 +1,8 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { Box, HStack, Text, Flex, Button, VStack, SlideFade } from '@chakra-ui/react'
 import { useUser } from '@/providers/UserProvider'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
-import Sidebar from '@/components/Sidebar'
 import CookieModal from '@/components/CookieModal'
 import Generator from '@/components/services/Generator'
-import { AiOutlineArrowRight } from 'react-icons/ai'
-import { useProtectPage } from '@/hooks/useProtectPage'
 import { useReAuthenticate } from '@/hooks/useReAuthenticate'
 
 const Service = () => {
@@ -41,9 +35,7 @@ const Service = () => {
                 <meta property="twitter:image" content='https://www.nfthost.app/logo.png' />
             </Head>
             <CookieModal />
-            <Sidebar>
-                {service === 'generator' && <Generator />}
-            </Sidebar>
+            {service === 'generator' && <Generator />}
         </main>
     )
 }

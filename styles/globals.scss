@@ -2,14 +2,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 
 html,
-body,
-body > div:first-child,
-div#__next,
-div#__next > div {
-    height: 100%;
-}
-
-html,
 body {
     padding: 0;
     margin: 0;

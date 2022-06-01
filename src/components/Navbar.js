@@ -1,25 +1,17 @@
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
-import { Box, Text, HStack, Avatar, 
-    Button, IconButton, Tag, Menu,
-    MenuButton, MenuList, MenuItem,
-    Image, TagRightIcon, useColorMode
-} from '@chakra-ui/react'
+import { Box, Text, HStack, Avatar, Button, IconButton, useColorMode } from '@chakra-ui/react'
 import { useCore } from '@/providers/CoreProvider'
-import { FaHeart, FaTiktok, FaDiscord, FaGithub, FaTwitter } from 'react-icons/fa'
+import { FaTiktok, FaDiscord, FaTwitter } from 'react-icons/fa'
 import { useNavbar } from '@/hooks/useNavbar'
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai'
-import { HiOutlineChevronDown, HiLogout } from 'react-icons/hi'
 import { MdOutlineDarkMode, MdOutlineLightMode } from 'react-icons/md'
-import { useUser } from '@/providers/UserProvider'
-import { useWeb3 } from '@/hooks/useWeb3'
+import ConnectWalletTag from '@/components/ConnectWalletTag'
 
 const Navbar = ({ isGetStarted, isSocial, isLanding, isColorMode, isWallet }) => {
     const router = useRouter();
     const { Twitter, Tiktok, Discord, Github, Sponsor } = useNavbar();
-    const { Connect, Logout } = useWeb3();
     const { setIsServiceModal } = useCore();
-    const { isLoggedIn, address } = useUser();
     const { colorMode, toggleColorMode } = useColorMode();
 
     return (
@@ -103,40 +95,7 @@ const Navbar = ({ isGetStarted, isSocial, isLanding, isColorMode, isWallet }) =>
                             />
                         )}
                         {isWallet && (
-                            <Menu>
-                                <MenuButton as={Tag} borderWidth='1px' size='md' cursor='pointer'>
-                                    {isLoggedIn ? address : 'Connect Your Wallet'}
-                                    <TagRightIcon as={HiOutlineChevronDown} />
-                                </MenuButton>
-                                <MenuList>
-                                    {isLoggedIn ? (
-                                        <MenuItem icon={<HiLogout />} onClick={Logout}>Logout</MenuItem>
-                                    ) : (
-                                        <>
-                                        <MenuItem onClick={() => Connect('metamask')}>
-                                            <Image
-                                                boxSize='2rem'
-                                                borderRadius='full'
-                                                src='https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/800px-MetaMask_Fox.svg.png'
-                                                alt='Metamask Wallet Logo from wikimedia.org'
-                                                mr='12px'
-                                            />
-                                            <span>Metamask</span>
-                                        </MenuItem>
-                                        <MenuItem onClick={() => Connect('phantom')}>
-                                            <Image
-                                                boxSize='2rem'
-                                                borderRadius='full'
-                                                src='https://www.yadawallets.com/wp-content/uploads/2021/06/Phantom-wallet-logo.png'
-                                                alt='Phantom Wallet Logo from yadawallets.org'
-                                                mr='12px'
-                                            />
-                                            <span>Phantom</span>
-                                        </MenuItem>
-                                        </>
-                                    )}
-                                </MenuList>
-                            </Menu>
+                            <ConnectWalletTag />
                         )}
                     </HStack>
                 </Box>

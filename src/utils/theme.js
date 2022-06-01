@@ -102,6 +102,11 @@ const components = {
             }
         },
 	},
+    Tag: {
+        baseStyle: (props) => ({
+            borderColor: mode('gray.200', 'black')(props),
+        })
+    }
 }
 
 const theme = extendTheme({ 
