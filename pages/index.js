@@ -1,9 +1,5 @@
 import Head from 'next/head'
-import { HStack, Text, Flex, Button, 
-    VStack, SlideFade, Link, Menu,
-    MenuButton, MenuList, MenuItem,
-    Image, TagRightIcon, Tag, useColorModeValue
-} from '@chakra-ui/react'
+import { HStack, Text, Flex, Button, VStack, SlideFade, Link, useColorModeValue} from '@chakra-ui/react'
 import { useLanding } from '@/hooks/useLanding'
 import { useReAuthenticate } from '@/hooks/useReAuthenticate'
 import Navbar from '@/components/Navbar'
@@ -12,15 +8,10 @@ import ServiceModal from '@/components/ServiceModal'
 import CookieModal from '@/components/CookieModal'
 import ConnectWalletTag from '@/components/ConnectWalletTag'
 import { AiOutlineArrowRight } from 'react-icons/ai'
-import { HiOutlineChevronDown } from 'react-icons/hi'
-import { useUser } from '@/providers/UserProvider'
-import { useWeb3 } from '@/hooks/useWeb3'
 import style from '@/styles/Main.module.scss'
 
 const Main = () => {
     const { GetStarted, NavigateFeature } = useLanding();
-    const { Connect } = useWeb3();
-    const { isLoggedIn, address } = useUser();
     useReAuthenticate();
     
     const bgColor = useColorModeValue('linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(249,250,250,1) 100%)', 'linear-gradient(0deg, rgba(26,32,44,1) 0%, rgba(17,21,28,1) 100%)');
