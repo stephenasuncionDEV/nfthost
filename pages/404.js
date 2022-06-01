@@ -1,6 +1,6 @@
 import NextLink from 'next/link'
 import Head from 'next/head'
-import { Box, HStack, Text, Flex, Button, VStack, SlideFade, Link } from '@chakra-ui/react'
+import { Text, Flex, Button } from '@chakra-ui/react'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
