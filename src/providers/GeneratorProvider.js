@@ -26,6 +26,7 @@ export const GeneratorProvider = ({ children }) => {
     const [layers, setLayers] = useState([{ name: 'Background', images: [] }]);
     const [currentLayer, setCurrentLayer] = useState(0);
     const [isMetadataModal, setIsMetadataModal] = useState(false);
+    const [isRarityModal, setIsRarityModal] = useState(false);
     const [imageDimension, setImageDimension] = useState();
 
     const controllers = {
@@ -58,7 +59,9 @@ export const GeneratorProvider = ({ children }) => {
         isMetadataModal,
         setIsMetadataModal,
         imageDimension,
-        setImageDimension
+        setImageDimension,
+        isRarityModal,
+        setIsRarityModal
     }
 
     return (

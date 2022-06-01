@@ -38,6 +38,7 @@
     "react-dom": "^18.1.0",
     "react-dropzone": "^14.2.1",
     "react-icons": "^4.3.1",
+    "react-window": "^1.8.7",
     "sass": "^1.52.0",
     "stripe": "^9.2.0",
     "uniqid": "^5.4.0",

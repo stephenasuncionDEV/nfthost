@@ -4,6 +4,7 @@ import Layers from './Layers'
 import Toolbar from './Toolbar'
 import Traits from './Traits'
 import Preview from './Preview'
+import RarityModal from './RarityModal'
 
 const Generator = () => {
 
@@ -25,6 +26,7 @@ const Generator = () => {
             backgroundPosition='-2px -2px, -2px -2px, -1px -1px, -1px '
         >
             <MetadataModal />
+            <RarityModal />
             <Toolbar />
             <Wrap spacing='1em' mt='1em'>
                 <Layers />

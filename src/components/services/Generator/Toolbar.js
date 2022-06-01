@@ -1,13 +1,18 @@
 import { HStack, Button, Menu, MenuButton, MenuList, MenuItem, useColorModeValue, useColorMode, IconButton } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { useGenerate } from '@/hooks/useGenerate'
-import { HiOutlineChevronDown, HiOutlineDesktopComputer, HiLogout } from 'react-icons/hi'
+import { useToolbar } from '@/hooks/useToolbar'
+import { HiOutlineChevronDown, HiOutlineDesktopComputer } from 'react-icons/hi'
 import { MdSettings, MdOutlineDarkMode, MdOutlineLightMode } from 'react-icons/md'
+import { FaPlay } from 'react-icons/fa'
 import ConnectWalletTag from '@/components/ConnectWalletTag'
+import { useRarity } from '@/hooks/useRarity'
 
 const Toolbar = () => {
     const { setIsMetadataModal } = useGenerator();
-    const { Open, Save } = useGenerate();
+    const { Generate } = useGenerate();
+    const { Open, Save } = useToolbar();
+    const { OpenRarityModal } = useRarity();
     const { colorMode, toggleColorMode } = useColorMode();
 
     const containerColor = useColorModeValue('whiteAlpha.500', 'blackAlpha.500');
@@ -41,8 +46,11 @@ const Toolbar = () => {
                 <Button rightIcon={<MdSettings />} size='sm' onClick={() => setIsMetadataModal(true)}>
                     Metadata
                 </Button>
-                <Button rightIcon={<MdSettings />} size='sm'>
+                <Button rightIcon={<MdSettings />} size='sm' onClick={OpenRarityModal}>
                     Rarity
+                </Button>
+                <Button size='sm' leftIcon={<FaPlay />} color='green.500' onClick={Generate}>
+                    Generate
                 </Button>
             </HStack>
             <HStack>
