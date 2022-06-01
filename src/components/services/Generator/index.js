@@ -1,4 +1,4 @@
-import { Box, HStack, Text, Flex, Avatar, useColorModeValue, VStack, Wrap } from '@chakra-ui/react'
+import { Box, HStack, Text, Avatar, useColorModeValue, Wrap } from '@chakra-ui/react'
 import MetadataModal from './MetadataModal'
 import Layers from './Layers'
 import Toolbar from './Toolbar'

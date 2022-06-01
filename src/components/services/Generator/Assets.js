@@ -1,6 +1,5 @@
-import { Box, HStack, Text, Flex, Button, 
-    VStack, Input, IconButton, useColorModeValue, Wrap,
-    Icon, Image
+import { Box, Text, Flex, VStack, IconButton, 
+    useColorModeValue, Wrap, Icon, Image
 } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { useAssets } from '@/hooks/useAssets'
