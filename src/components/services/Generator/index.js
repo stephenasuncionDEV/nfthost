@@ -2,6 +2,7 @@ import { Box, HStack, Text, Flex, Avatar, useColorModeValue } from '@chakra-ui/r
 import MetadataModal from './MetadataModal'
 import Layers from './Layers'
 import Toolbar from './Toolbar'
+import Assets from './Assets'
 
 const Generator = () => {
 
@@ -25,11 +26,11 @@ const Generator = () => {
                     borderColor={blueprintBorderColor}
                     backgroundSize='100px 100px, 100px 100px, 20px 20px, 20px 20px'
                     backgroundPosition='-2px -2px, -2px -2px, -1px -1px, -1px '
-                    justifyContent='space-between'
                     flexWrap='wrap'
                     overflow='clip'
                 >
                     <Layers />
+                    <Assets />
                     <Toolbar />
                     <Box position='absolute' bottom='0' right='0' p='1em' opacity='.75'>
                         <HStack>

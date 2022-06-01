@@ -36,6 +36,7 @@
     "posthog-js": "^1.21.1",
     "react": "18.1.0",
     "react-dom": "^18.1.0",
+    "react-dropzone": "^14.2.1",
     "react-icons": "^4.3.1",
     "sass": "^1.52.0",
     "stripe": "^9.2.0",
