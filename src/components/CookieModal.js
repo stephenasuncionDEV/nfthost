@@ -1,4 +1,4 @@
-import { Text, HStack, Button, Flex, IconButton, Link } from '@chakra-ui/react'
+import { Text, HStack, Button, Flex, IconButton, Link, useColorModeValue } from '@chakra-ui/react'
 import { useCore } from '@/providers/CoreProvider'
 import { IoMdClose } from 'react-icons/io'
 import { useCookie } from '@/hooks/useCookie'
@@ -7,13 +7,15 @@ const CookieModal = () => {
     const { isCookieModal, setIsCookieModal } = useCore();
     const { Accept } = useCookie();
 
+    const containerColor = useColorModeValue('white', 'blackAlpha.800');
+
     return isCookieModal && (
         <Flex 
             position='fixed' 
             bottom='3em' 
             right='3em'
             h='250px' 
-            bg='white' 
+            bg={containerColor}
             w='400px'
             p='2em'
             fontWeight='bold'

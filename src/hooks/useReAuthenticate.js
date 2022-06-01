@@ -10,8 +10,10 @@ export const useReAuthenticate = (protect = false, disable = false) => {
     const router = useRouter();
 
     useEffect(() => {
+        if (disable) return;
+        const storageToken = localStorage.getItem('nfthost-user');
+
         const ReAuthenticate = async () => {
-            const storageToken = localStorage.getItem('nfthost-user');
             if (!storageToken) return;
 
             const userData = decryptToken(storageToken);
@@ -21,7 +23,11 @@ export const useReAuthenticate = (protect = false, disable = false) => {
                 if (!isLoggedIn) router.push('/', undefined, { shallow: true });
             }
         }
-        if (disable) return;
+
+        if (!storageToken && protect) {
+            if (!isLoggedIn) router.push('/', undefined, { shallow: true });
+        }
+
         ReAuthenticate();
     }, [])
 }

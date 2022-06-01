@@ -75,6 +75,8 @@ export const useWeb3 = () => {
 
             setAddress('');
             setIsLoggedIn(false);
+
+            router.push('/', undefined, { shallow: true });
         }
         catch (err) {
             toast({
