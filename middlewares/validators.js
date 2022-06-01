@@ -19,3 +19,39 @@ exports.GetMemberByAddressValidator = [
     .notEmpty(),
     
 ];
+
+exports.AddGenerationCountValidator = [
+
+    // Address Validator
+    check('address', 'Address is empty')
+    .notEmpty(),
+    
+    // Value Validator
+    check('value', 'Value is empty')
+    .notEmpty(),
+
+];
+
+exports.AddGenerationValidator = [
+
+    // Address Validator
+    check('address', 'Address is empty')
+    .notEmpty(),
+    
+    // Value Validator
+    check('value', 'Value is empty')
+    .notEmpty(),
+
+];
+
+exports.DeductGenerationValidator = [
+
+    // Address Validator
+    check('address', 'Address is empty')
+    .notEmpty(),
+    
+    // Value Validator
+    check('value', 'Value is empty')
+    .notEmpty(),
+
+];

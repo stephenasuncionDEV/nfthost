@@ -51,15 +51,62 @@ exports.getMemberByAddress = async (req, res, next) => {
     }
 }
 
-// exports.updateUser = async (req, res, next) => {
-//     try {
-//         const { address, count } = req.body;
-//         await User.updateOne({ address }, {
-//             generationCount: count
-//         });
-//         res.status(200).json({message: "User successfully updated"});
+exports.addGenerationCount = async (req, res, next) => {
+    try {
+        const errors = validationResult(req).errors;
+        if (errors.length > 0) throw new Error(errors[0].msg);
 
-//     } catch (err) {
-//         next(err);
-//     }
-// }
+        const { address, value } = req.body;
+
+        await Member.updateOne({ address }, {
+            $inc: { 
+                ['services.generator.generationCount']: value
+            }
+        });
+
+        res.status(200).json({message: "Succesfully added generation count to user"});
+
+    } catch (err) {
+        next(err);
+    }
+}
+
+exports.addGeneration = async (req, res, next) => {
+    try {
+        const errors = validationResult(req).errors;
+        if (errors.length > 0) throw new Error(errors[0].msg);
+
+        const { address, value } = req.body;
+
+        await Member.updateOne({ address }, {
+            $inc: { 
+                ['services.generator.freeGeneration']: value
+            }
+        });
+
+        res.status(200).json({message: "Succesfully added points to user"});
+
+    } catch (err) {
+        next(err);
+    }
+}
+
+exports.deductGeneration = async (req, res, next) => {
+    try {
+        const errors = validationResult(req).errors;
+        if (errors.length > 0) throw new Error(errors[0].msg);
+
+        const { address, value } = req.body;
+
+        await Member.updateOne({ address }, {
+            $inc: { 
+                ['services.generator.freeGeneration']: value * -1
+            }
+        });
+
+        res.status(200).json({message: "Succesfully deducted points from user"});
+
+    } catch (err) {
+        next(err);
+    }
+}

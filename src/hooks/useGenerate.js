@@ -15,7 +15,7 @@ export const useGenerate = () => {
         imageDimension 
     } = useGenerator();
     const { address } = useUser();
-    const { getUserByAddress } = useWeb3();
+    const { getUserByAddress, AddGenerationCount, DeductGeneration } = useWeb3();
 
     const RandomPreview = () => {
         try {
@@ -62,10 +62,14 @@ export const useGenerate = () => {
                 return;
             }
             else if(collectionSize > 100 && freeGeneration > 0) {
-                // await DeductPoints(collectionSize);
+                const DECREMENT_VALUE = 1;
+                await DeductGeneration(DECREMENT_VALUE);
             }
             
+            const INCREMENT_VALUE = 1;
+            await AddGenerationCount(INCREMENT_VALUE);
 
+            console.log('generate bitch')
         }
         catch (err) {
             toast({

@@ -10,7 +10,7 @@ import { encrypt, decryptToken } from '@/utils/tools'
 export const useWeb3 = () => {
     const toast = useToast();
     const router = useRouter();
-    const { setAddress, setIsLoggedIn, setUser } = useUser();
+    const { setAddress, setIsLoggedIn, setUser, address: userAddress } = useUser();
 
     const Connect = async (wallet) => {
         try {
@@ -129,9 +129,122 @@ export const useWeb3 = () => {
         }
     }
 
+    const AddGenerationCount = async (value) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const storageToken = localStorage.getItem('nfthost-user');
+                if (!storageToken) return;
+
+                const token = decryptToken(storageToken, true);
+    
+                const res = await axios.patch(`${config.serverUrl}/api/member/addGenerationCount`, {
+                    address: userAddress,
+                    value
+                }, {
+                    headers: { 
+                        Authorization: `Bearer ${token.accessToken}` 
+                    }
+                })
+
+                if (res.status === 200) {
+                    await getUserByAddress(userAddress);
+                    resolve();
+                }
+            }
+            catch (err) {
+                reject(err);
+
+                console.error(err);
+                toast({
+                    title: 'Error',
+                    description: err.message,
+                    status: 'error',
+                    isClosable: true,
+                    position: 'bottom-center'
+                })
+            }
+        });
+    }
+
+    const AddGeneration = async (value) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const storageToken = localStorage.getItem('nfthost-user');
+                if (!storageToken) return;
+
+                const token = decryptToken(storageToken, true);
+    
+                const res = await axios.patch(`${config.serverUrl}/api/member/addGeneration`, {
+                    address: userAddress,
+                    value
+                }, {
+                    headers: { 
+                        Authorization: `Bearer ${token.accessToken}` 
+                    }
+                })
+
+                if (res.status === 200) {
+                    await getUserByAddress(userAddress);
+                    resolve();
+                }
+            }
+            catch (err) {
+                reject(err);
+
+                console.error(err);
+                toast({
+                    title: 'Error',
+                    description: err.message,
+                    status: 'error',
+                    isClosable: true,
+                    position: 'bottom-center'
+                })
+            }
+        });
+    }
+
+    const DeductGeneration = async (value) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const storageToken = localStorage.getItem('nfthost-user');
+                if (!storageToken) return;
+
+                const token = decryptToken(storageToken, true);
+    
+                const res = await axios.patch(`${config.serverUrl}/api/member/deductGeneration`, {
+                    address: userAddress,
+                    value
+                }, {
+                    headers: { 
+                        Authorization: `Bearer ${token.accessToken}` 
+                    }
+                })
+
+                if (res.status === 200) {
+                    await getUserByAddress(userAddress);
+                    resolve();
+                }
+            }
+            catch (err) {
+                reject(err);
+                console.error(err);
+                toast({
+                    title: 'Error',
+                    description: err.message,
+                    status: 'error',
+                    isClosable: true,
+                    position: 'bottom-center'
+                })
+            }
+        });
+    }
+
     return {
         Connect,
         Logout,
-        getUserByAddress
+        getUserByAddress,
+        AddGenerationCount,
+        AddGeneration,
+        DeductGeneration
     }
 }
