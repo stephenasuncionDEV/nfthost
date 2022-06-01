@@ -1,4 +1,3 @@
-import { useRef } from 'react'
 import { useRouter } from 'next/router'
 import { useCore } from '@/providers/CoreProvider'
 import { useUser } from '@/providers/UserProvider'
