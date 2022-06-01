@@ -58,7 +58,7 @@ const RarityModal = () => {
             <ModalContent>
                 <ModalHeader>
                     Rarity Configuration
-                    <Text fontSize='10pt' fontWeight='normal' color='whiteAlpha.600' mt='.5em'>
+                    <Text fontSize='10pt' fontWeight='normal' mt='.5em'>
                         This will change the probability your trait will be used. It does not set how many times your trait will appear.
                     </Text>
                 </ModalHeader>
