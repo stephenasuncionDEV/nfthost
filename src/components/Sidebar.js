@@ -22,8 +22,8 @@ const sidebarItemArr = [
 const Sidebar = ({ children }) => {
     const { isSidebar, setIsSidebar } = useCore();
     const { address } = useUser();
-    const { onCopyAddress } = useNavbar();
-    const { onLogout } = useWeb3();
+    const { CopyAddress } = useNavbar();
+    const { Logout } = useWeb3();
 
     const sidebarColor = useColorModeValue('white', 'rgb(12, 15, 20)');
 
@@ -75,9 +75,9 @@ const Sidebar = ({ children }) => {
                                     </HStack>
                                 </MenuButton>
                                 <MenuList>
-                                    <MenuItem icon={<MdOutlineContentCopy />} onClick={onCopyAddress}>Copy Address</MenuItem>
+                                    <MenuItem icon={<MdOutlineContentCopy />} onClick={CopyAddress}>Copy Address</MenuItem>
                                     <MenuDivider />
-                                    <MenuItem icon={<HiLogout />} onClick={onLogout}>Logout</MenuItem>
+                                    <MenuItem icon={<HiLogout />} onClick={Logout}>Logout</MenuItem>
                                 </MenuList>
                             </Menu>
                         </Flex>

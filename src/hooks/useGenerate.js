@@ -7,7 +7,7 @@ export const useGenerate = () => {
         
     } = useGenerator();
 
-    const onOpen = (type = 'computer') => {
+    const Open = (type = 'computer') => {
         try {
 
         }
@@ -23,7 +23,7 @@ export const useGenerate = () => {
         }
     }
 
-    const onSave = (type = 'computer') => {
+    const Save = (type = 'computer') => {
         try {
 
         }
@@ -40,7 +40,7 @@ export const useGenerate = () => {
     }
 
     return {
-        onOpen,
-        onSave,
+        Open,
+        Save,
     }
 }

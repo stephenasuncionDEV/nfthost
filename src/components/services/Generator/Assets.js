@@ -1,6 +1,6 @@
 import { Box, HStack, Text, Flex, Button, 
     VStack, Input, IconButton, useColorModeValue, Wrap,
-    Icon
+    Icon, Image
 } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { useAssets } from '@/hooks/useAssets'
@@ -15,14 +15,16 @@ const Assets = () => {
     const containerColor = useColorModeValue('whiteAlpha.500', 'blackAlpha.500');
 
     return (
-        <Box
+        <Flex
             id='assets'
             p='1em'
             bg={containerColor}
             borderRadius='10px'
             boxShadow='md'
+            flex='1'
+            minW='180px'
+            flexDir='column'
             h='100%'
-            ml='1em'
         >
             <Text variant='content_subtitle' mt='0'>
                 Assets
@@ -30,12 +32,12 @@ const Assets = () => {
             <Text fontSize='10pt'>
                 Current Layer: {layers[currentLayer]?.name}
             </Text>
-            <Wrap spacing='1em' mt='2em' mb='2em'>
+            <Wrap spacing='1em' mt='1em' mb='2em' p='1em'>
                 {layers[currentLayer]?.images?.map((image, idx) => (
                     <Box p='1em' key={idx} bg='rgba(0,0,0,0.2)' borderRadius='10px' position='relative'>
                         <VStack>
                             <Image src={image.preview} alt={image.name} w='85px' h='85px' />
-                            <Text fontSize='10pt' isTruncated w='85px'>
+                            <Text fontSize='10pt' w='85px' noOfLines='1'>
                                 {image.name}
                             </Text>
                         </VStack>
@@ -53,11 +55,29 @@ const Assets = () => {
                     </Box>
                 ))}
             </Wrap>
-            <Dropzone accept={['image/png', 'image/webp']} multiple onDrop={files => UploadAssets(files)}>
+            <Dropzone 
+                accept={{
+                    'image/png': [],
+                    'image/webp': []
+                }}
+                multiple 
+                onDrop={files => UploadAssets(files)}
+            >
                 {({getRootProps, getInputProps}) => (
-                    <Flex w='full' h='200px' mt='1em' bg='rgba(0,0,0,0.2)' borderRadius='10px' justifyContent='center' alignItems='center' flexDir='column' {...getRootProps()}>
+                    <Flex 
+                        w='full' 
+                        h='200px' 
+                        mt='1em' 
+                        bg='rgba(0,0,0,0.2)' 
+                        borderRadius='10px' 
+                        justifyContent='center' 
+                        alignItems='center' 
+                        flexDir='column'
+                        cursor='pointer'
+                        {...getRootProps()}
+                    >
                         <input {...getInputProps()} />
-                        <VStack opacity='40%'>
+                        <VStack>
                             <Icon as={BsFillImageFill} fontSize='18pt' />
                             <Text>
                                 Drag and drop images here
@@ -69,7 +89,7 @@ const Assets = () => {
                     </Flex>
                 )}
             </Dropzone>
-        </Box>
+        </Flex>
     )
 }
 

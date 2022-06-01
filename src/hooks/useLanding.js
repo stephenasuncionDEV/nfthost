@@ -17,7 +17,7 @@ export const useLanding = () => {
         }
     }, [])
 
-    const onGetStarted = () => {
+    const GetStarted = () => {
         try {
             if (!isLoggedIn) {
                 router.push('/#connect', undefined, { shallow: true });
@@ -38,7 +38,7 @@ export const useLanding = () => {
         }
     }
 
-    const onNavigate = (route) => {
+    const NavigateFeature = (route) => {
         try {
             if (!isLoggedIn) {
                 router.push('/#connect', undefined, { shallow: true });
@@ -61,7 +61,7 @@ export const useLanding = () => {
 
     return {
         setIsCookieModal,
-        onGetStarted,
-        onNavigate,
+        GetStarted,
+        NavigateFeature,
     }
 }

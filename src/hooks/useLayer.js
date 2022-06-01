@@ -9,17 +9,17 @@ export const useLayer = () => {
         setCurrentLayer
     } = useGenerator();
 
-    const onChangeLayerName = (e, idx) => {
+    const ChangeLayerName = (e, idx) => {
         let newLayers = [...layers];
         newLayers[idx].name = e.target.value;
         setLayers(newLayers);
     }
 
-    const onPreviewLayer = (idx) => {
+    const PreviewLayer = (idx) => {
         setCurrentLayer(idx);
     }
 
-    const onDeleteLayer = (idx) => {
+    const DeleteLayer = (idx) => {
         try {
             if (idx === 0 && layers.length === 1) throw new Error('You must have atleast 1 layer');
             
@@ -27,7 +27,7 @@ export const useLayer = () => {
                 return prevState.filter((layer, index) => index !== idx);
             })
 
-            onPreviewLayer(layers.length - 2);
+            PreviewLayer(layers.length - 2);
         }
         catch (err) {
             toast({
@@ -40,19 +40,19 @@ export const useLayer = () => {
         }
     }
 
-    const onAddLayer = () => {
+    const AddLayer = () => {
         const newLayer = {
             name: `Layer ${layers.length + 1}`,
             images: []
         }
         setLayers([...layers, newLayer]);
-        onPreviewLayer(layers.length);
+        PreviewLayer(layers.length);
     }
 
     return {
-        onChangeLayerName,
-        onPreviewLayer,
-        onDeleteLayer,
-        onAddLayer,
+        ChangeLayerName,
+        PreviewLayer,
+        DeleteLayer,
+        AddLayer,
     }
 }

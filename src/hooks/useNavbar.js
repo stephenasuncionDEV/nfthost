@@ -5,23 +5,23 @@ export const useNavbar = () => {
     const toast = useToast();
     const { address } = useUser();
 
-    const onTiktok = () => {
+    const Tiktok = () => {
         window.open("https://www.tiktok.com/@nfthostofficial");
     }
 
-    const onDiscord = () => {
+    const Discord = () => {
         window.open("https://discord.gg/BMZZXZMnmv");
     }
 
-    const onSponsor = () => {
+    const Sponsor = () => {
         window.open("https://www.buymeacoffee.com/stephenasuncion");
     }
 
-    const onTwitter = () => {
+    const Twitter = () => {
         window.open("https://twitter.com/Steb_01");
     }
 
-    const onCopyAddress = () => {
+    const CopyAddress = () => {
         navigator.clipboard.writeText(address);
 
         toast({
@@ -35,10 +35,10 @@ export const useNavbar = () => {
     }
 
     return {
-        onTiktok,
-        onDiscord,
-        onSponsor,
-        onTwitter,
-        onCopyAddress
+        Tiktok,
+        Discord,
+        Sponsor,
+        Twitter,
+        CopyAddress
     }
 }

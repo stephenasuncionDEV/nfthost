@@ -5,22 +5,22 @@ import { useUser } from '@/providers/UserProvider'
 
 export const useReAuthenticate = (protect = false, disable = false) => {
     const { isLoggedIn } = useUser();
-    const { onConnect } = useWeb3();
+    const { Connect } = useWeb3();
     const router = useRouter();
 
     useEffect(() => {
-        const onReAuthenticate = async () => {
+        const ReAuthenticate = async () => {
             const storageAddress = localStorage.getItem('nfthost-address');
             const storageWallet = localStorage.getItem('nfthost-wallet');
             if (!storageAddress || !storageWallet) return;
 
-            const isConnected = await onConnect(storageWallet);
+            const isConnected = await Connect(storageWallet);
 
             if (protect && !isConnected) {
                 if (!isLoggedIn) router.push('/', undefined, { shallow: true });
             }
         }
         if (disable) return;
-        onReAuthenticate();
+        ReAuthenticate();
     }, [])
 }

@@ -8,7 +8,7 @@ export const useWeb3 = () => {
     const router = useRouter();
     const { setAddress, setIsLoggedIn } = useUser();
 
-    const onConnect = async (wallet) => {
+    const Connect = async (wallet) => {
         try {
             if (wallet === 'metamask') {
                 if (typeof window.ethereum === 'undefined' || (typeof window.web3 === 'undefined')) throw new Error('Metamask is not installed');
@@ -45,7 +45,7 @@ export const useWeb3 = () => {
         }
     }
 
-    const onLogout = async () => {
+    const Logout = async () => {
         try {
             setAddress('');
             setIsLoggedIn(false);
@@ -66,7 +66,7 @@ export const useWeb3 = () => {
     }
 
     return {
-        onConnect,
-        onLogout
+        Connect,
+        Logout
     }
 }

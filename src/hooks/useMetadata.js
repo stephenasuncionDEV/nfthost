@@ -12,7 +12,7 @@ export const useMetadata = () => {
         setCreatorShare
     } = useGenerator();
 
-    const onAddCreator = () => {
+    const AddCreator = () => {
         try {
             if (!creatorAddress.trim().length) throw new Error('You must enter a creator address');
             if (!creatorShare) throw new Error('Creator share must be greater than 0');
@@ -46,7 +46,7 @@ export const useMetadata = () => {
         }
     }
 
-    const onDeleteCreator = (creatorIdx) => {
+    const DeleteCreator = (creatorIdx) => {
         try {
             let newCreators = [...creators];
             newCreators.splice(creatorIdx, 1);
@@ -65,7 +65,7 @@ export const useMetadata = () => {
     }
 
     return {
-        onAddCreator,
-        onDeleteCreator,
+        AddCreator,
+        DeleteCreator,
     }
 }

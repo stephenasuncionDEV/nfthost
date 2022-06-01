@@ -7,10 +7,10 @@ import { FaTrashAlt } from 'react-icons/fa'
 const Layers = () => {
     const { layers, currentLayer } = useGenerator();
     const { 
-        onChangeLayerName, 
-        onPreviewLayer, 
-        onDeleteLayer, 
-        onAddLayer 
+        ChangeLayerName, 
+        PreviewLayer, 
+        DeleteLayer, 
+        AddLayer 
     } = useLayer();
 
     const containerColor = useColorModeValue('whiteAlpha.500', 'blackAlpha.500');
@@ -29,7 +29,7 @@ const Layers = () => {
                 <Text variant='content_subtitle' mt='0'>
                     Layers
                 </Text>
-                <Button size='sm' rightIcon={<MdOutlineAdd />} onClick={onAddLayer}>
+                <Button size='sm' rightIcon={<MdOutlineAdd />} onClick={AddLayer}>
                     Add Layer
                 </Button>
             </HStack>
@@ -54,14 +54,14 @@ const Layers = () => {
                             key={idx} w='170px' h='55px' 
                             borderLeftWidth={idx === 0 || idx === layers.length - 1 ? '4px' : '0'} 
                             borderColor={idx === 0 ? '#08BDD4' : 'orange'}
-                            onClick={() => onPreviewLayer(idx)}
+                            onClick={() => PreviewLayer(idx)}
                         >
                             <Flex flexDir='column'>
                                 <Input 
                                     variant='unstyled' 
                                     value={layer.name} 
                                     fontSize='10pt' 
-                                    onChange={(e) => onChangeLayerName(e, idx)} 
+                                    onChange={(e) => ChangeLayerName(e, idx)} 
                                     fontWeight={currentLayer === idx ? 'bold' : 'normal'}
                                 />
                                 <Text fontSize='8pt' textAlign='left' fontWeight='500' mt='.25em'>
@@ -77,7 +77,7 @@ const Layers = () => {
                             isRound
                             icon={<FaTrashAlt />}
                             size='sm'
-                            onClick={() => onDeleteLayer(idx)}
+                            onClick={() => DeleteLayer(idx)}
                         />
                     </Box>
                 )).reverse()}

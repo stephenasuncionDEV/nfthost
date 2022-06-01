@@ -16,8 +16,8 @@ import { useWeb3 } from '@/hooks/useWeb3'
 
 const Navbar = ({ isGetStarted, isSocial, isLanding, isColorMode, isWallet }) => {
     const router = useRouter();
-    const { onTwitter, onTiktok, onDiscord, onGithub, onSponsor } = useNavbar();
-    const { onConnect, onLogout } = useWeb3();
+    const { Twitter, Tiktok, Discord, Github, Sponsor } = useNavbar();
+    const { Connect, Logout } = useWeb3();
     const { setIsServiceModal } = useCore();
     const { isLoggedIn, address } = useUser();
     const { colorMode, toggleColorMode } = useColorMode();
@@ -61,7 +61,7 @@ const Navbar = ({ isGetStarted, isSocial, isLanding, isColorMode, isWallet }) =>
                                     borderRadius='50%'
                                     size='sm'
                                     bg='transparent'
-                                    onClick={onTwitter}
+                                    onClick={Twitter}
                                 />
                                 <IconButton 
                                     aria-label='NFT Host Tiktok'
@@ -69,7 +69,7 @@ const Navbar = ({ isGetStarted, isSocial, isLanding, isColorMode, isWallet }) =>
                                     borderRadius='50%'
                                     size='sm'
                                     bg='transparent'
-                                    onClick={onTiktok}
+                                    onClick={Tiktok}
                                 />
                                 <IconButton 
                                     aria-label='NFT Host Discord'
@@ -77,7 +77,7 @@ const Navbar = ({ isGetStarted, isSocial, isLanding, isColorMode, isWallet }) =>
                                     borderRadius='50%'
                                     size='sm'
                                     bg='transparent'
-                                    onClick={onDiscord}
+                                    onClick={Discord}
                                 />
                             </HStack>
                         )}
@@ -110,10 +110,10 @@ const Navbar = ({ isGetStarted, isSocial, isLanding, isColorMode, isWallet }) =>
                                 </MenuButton>
                                 <MenuList>
                                     {isLoggedIn ? (
-                                        <MenuItem icon={<HiLogout />} onClick={onLogout}>Logout</MenuItem>
+                                        <MenuItem icon={<HiLogout />} onClick={Logout}>Logout</MenuItem>
                                     ) : (
                                         <>
-                                        <MenuItem onClick={() => onConnect('metamask')}>
+                                        <MenuItem onClick={() => Connect('metamask')}>
                                             <Image
                                                 boxSize='2rem'
                                                 borderRadius='full'
@@ -123,7 +123,7 @@ const Navbar = ({ isGetStarted, isSocial, isLanding, isColorMode, isWallet }) =>
                                             />
                                             <span>Metamask</span>
                                         </MenuItem>
-                                        <MenuItem onClick={() => onConnect('phantom')}>
+                                        <MenuItem onClick={() => Connect('phantom')}>
                                             <Image
                                                 boxSize='2rem'
                                                 borderRadius='full'

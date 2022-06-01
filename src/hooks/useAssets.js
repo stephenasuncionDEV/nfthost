@@ -3,12 +3,12 @@ import { useToast } from '@chakra-ui/react'
 
 export const useAssets = () => {
     const toast = useToast();
-    const { setImageDimension, setLayers } = useGenerator();
+    const { currentLayer, imageDimension, setImageDimension, setLayers } = useGenerator();
 
     const DeleteTrait = (imageName) => {
         setLayers(prevState => {
-			const filteredImages = prevState[currentLayer.index].images.filter(image => image.name !== imageName);
-            prevState[currentLayer.index].images = filteredImages;
+			const filteredImages = prevState[currentLayer].images.filter(image => image.name !== imageName);
+            prevState[currentLayer].images = filteredImages;
 			return [...prevState];
 		})
     }
@@ -27,7 +27,7 @@ export const useAssets = () => {
                     image.rarity.percentage = 100 / array.length;
                     return image;
                 })
-                prevLayers[currentLayer.index].images = newImages2;
+                prevLayers[currentLayer].images = newImages2;
                 return [...prevLayers];
             })
         }

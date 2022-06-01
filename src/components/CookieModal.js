@@ -5,7 +5,7 @@ import { useCookie } from '@/hooks/useCookie'
 
 const CookieModal = () => {
     const { isCookieModal, setIsCookieModal } = useCore();
-    const { onAccept } = useCookie();
+    const { Accept } = useCookie();
 
     return isCookieModal && (
         <Flex 
@@ -42,7 +42,7 @@ const CookieModal = () => {
                         More Information
                     </Text>
                 </Link>
-                <Button ml='1em' onClick={onAccept}>
+                <Button ml='1em' onClick={Accept}>
                     Accept
                 </Button>
             </Flex>

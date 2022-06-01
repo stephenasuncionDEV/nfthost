@@ -33,7 +33,7 @@ const Metadata = () => {
         isMetadataModal,
         setIsMetadataModal
     } = useGenerator();
-    const { onAddCreator, onDeleteCreator } = useMetadata();
+    const { AddCreator, DeleteCreator } = useMetadata();
 
     return (
         <Modal isOpen={isMetadataModal} onClose={() => setIsMetadataModal(false)} isCentered size='3xl'>
@@ -130,7 +130,7 @@ const Metadata = () => {
                                             %
                                         </Text>
                                     </HStack>
-                                    <Button w='80px' onClick={onAddCreator}>
+                                    <Button w='80px' onClick={AddCreator}>
                                         Add
                                     </Button>
                                 </HStack>
@@ -148,7 +148,7 @@ const Metadata = () => {
                                                     Share: {creator.share}%
                                                 </Text>
                                             </HStack>
-                                            <TagCloseButton onClick={() => onDeleteCreator(idx)}/>
+                                            <TagCloseButton onClick={() => DeleteCreator(idx)}/>
                                         </Tag>
                                     ))}
                                 </Flex>

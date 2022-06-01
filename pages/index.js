@@ -17,8 +17,8 @@ import { useWeb3 } from '@/hooks/useWeb3'
 import style from '@/styles/Main.module.scss'
 
 const Main = () => {
-    const { onGetStarted, onNavigate } = useLanding();
-    const { onConnect } = useWeb3();
+    const { GetStarted, NavigateFeature } = useLanding();
+    const { Connect } = useWeb3();
     const { isLoggedIn, address } = useUser();
     useReAuthenticate();
     
@@ -95,7 +95,7 @@ const Main = () => {
                                     </HStack>
                                 </MenuButton>
                                 <MenuList>
-                                    <MenuItem onClick={() => onConnect('metamask')}>
+                                    <MenuItem onClick={() => Connect('metamask')}>
                                         <Image
                                             boxSize='2rem'
                                             borderRadius='full'
@@ -105,7 +105,7 @@ const Main = () => {
                                         />
                                         <span>Metamask</span>
                                     </MenuItem>
-                                    <MenuItem onClick={() => onConnect('phantom')}>
+                                    <MenuItem onClick={() => Connect('phantom')}>
                                         <Image
                                             boxSize='2rem'
                                             borderRadius='full'
@@ -117,7 +117,7 @@ const Main = () => {
                                     </MenuItem>
                                 </MenuList>
                             </Menu>
-                            <Button mt='1em' w='150px' onClick={onGetStarted}>
+                            <Button mt='1em' w='150px' onClick={GetStarted}>
                                 Get Started 🎉
                             </Button>
                         </Flex>
@@ -137,7 +137,7 @@ const Main = () => {
                                 <Text variant='content_description' mt='1.25rem'>
                                     We provide the fastest and cheapest NFT generator in the market. With $25, you can generate up to 10,000 unique NFTs.
                                 </Text>
-                                <Button w='200px' mt='1em' rightIcon={<AiOutlineArrowRight />} onClick={() => onNavigate('/service/generator')}>
+                                <Button w='200px' mt='1em' rightIcon={<AiOutlineArrowRight />} onClick={() => NavigateFeature('/service/generator')}>
                                     Generate NFTs
                                 </Button>
                             </Flex>
@@ -174,7 +174,7 @@ const Main = () => {
                                 <Text variant='content_description' mt='1.25rem'>
                                     Sell your NFTs in under a minute. Create a minting website by a click of a button. You can host your own minting website for free. Unlock special features by upgrading to premium for $15
                                 </Text>
-                                <Button w='200px' mt='1em' rightIcon={<AiOutlineArrowRight />} onClick={() => onNavigate('/service/website')}>
+                                <Button w='200px' mt='1em' rightIcon={<AiOutlineArrowRight />} onClick={() => NavigateFeature('/service/website')}>
                                     Host Mint Website
                                 </Button>
                             </Flex>
