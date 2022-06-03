@@ -11,7 +11,11 @@ export const CoreProvider = ({ children }) => {
     const [isServiceModal, setIsServiceModal] = useState(false);
     const [isCookieModal, setIsCookieModal] = useState();
     const [isSidebar, setIsSidebar] = useState(false);
-    const [paymentData, setPaymentData] = useState();
+    const [paymentData, setPaymentData] = useState({
+        service: 'Generator',
+        price: '25.00',
+        due: new Date()
+    });
 
     const controllers = {
         isServiceModal,

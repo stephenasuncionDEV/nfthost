@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import { useCore } from '@/providers/CoreProvider'
 import { useUser } from '@/providers/UserProvider'
 import { useGenerator } from '@/providers/GeneratorProvider'
@@ -12,6 +13,7 @@ const zip = new JSZip();
 
 export const useGenerate = () => {
     const toast = useToast();
+    const router = useRouter();
     const { setPaymentData } = useCore();
     const {
         name,
@@ -185,8 +187,11 @@ export const useGenerate = () => {
 
             if (collectionSize > 100 && freeGeneration === 0) {
                 setPaymentData({
-                    service: 'generator'
+                    service: 'Generator',
+                    price: '25.00',
+                    due: new Date()
                 })
+                router.push('/payment', undefined, { shallow: true }); 
                 return;
             }
             else if(collectionSize > 100 && freeGeneration > 0) {
