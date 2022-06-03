@@ -15,12 +15,15 @@ import { AiOutlineArrowRight } from 'react-icons/ai'
 import { FiMail } from 'react-icons/fi'
 import { HiChevronRight } from 'react-icons/hi'
 import { useCore } from '@/providers/CoreProvider'
+import { useUser } from '@/providers/UserProvider'
 
 const month = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
 
 const Payment = () => {
     const { paymentData } = useCore();
-
+    const { address } = useUser();
+    useReAuthenticate(true);
+    
     const containerColor = useColorModeValue('whiteAlpha.500', 'blackAlpha.500');
 
     return (
@@ -79,7 +82,7 @@ const Payment = () => {
                                 <Text>Service</Text>
                             </VStack>
                             <VStack spacing='.5em' alignItems='flex-start'>
-                                <Text>0x8C866ac477EE770bDCe228E1B5DE92BCCf365D06</Text>
+                                <Text>{address}</Text>
                                 <Text>{paymentData?.service}</Text>
                             </VStack>
                         </HStack>

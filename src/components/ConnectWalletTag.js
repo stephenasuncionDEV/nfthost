@@ -1,3 +1,4 @@
+import NextLink from 'next/link'
 import { Box, HStack, Menu, MenuButton, Tag,
     MenuList, MenuItem, useColorModeValue, TagLabel,
     TagRightIcon, MenuDivider, Text, Image, Avatar, VStack
@@ -6,9 +7,9 @@ import { useUser } from '@/providers/UserProvider'
 import { useWeb3 } from '@/hooks/useWeb3'
 import { useNavbar } from '@/hooks/useNavbar'
 import { HiOutlineChevronDown, HiLogout } from 'react-icons/hi'
-import { MdOutlineContentCopy } from 'react-icons/md'
+import { MdOutlineContentCopy, MdPayment } from 'react-icons/md'
 
-const ConnectWalletTag = ({ isCopyAddress, isUserProfile }) => {
+const ConnectWalletTag = ({ isCopyAddress, isUserProfile, isPayments }) => {
     const { address, isLoggedIn, user } = useUser();
     const { CopyAddress } = useNavbar();
     const { Connect, Logout } = useWeb3();
@@ -46,12 +47,17 @@ const ConnectWalletTag = ({ isCopyAddress, isUserProfile }) => {
                             </HStack>
                         </MenuItem>
                     )}
-                    {isCopyAddress && (
-                        <>
-                        {isUserProfile && <MenuDivider />}
-                        <MenuItem icon={<MdOutlineContentCopy />} onClick={CopyAddress}>Copy Address</MenuItem>
-                        </>
+                    {isPayments && (
+                        <MenuItem icon={<MdPayment />}>
+                            <NextLink href='/payment' shallow passHref>
+                                Payments
+                            </NextLink>
+                        </MenuItem>
                     )}
+                    {isCopyAddress && (
+                        <MenuItem icon={<MdOutlineContentCopy />} onClick={CopyAddress}>Copy Address</MenuItem>
+                    )}
+                    {isUserProfile && <MenuDivider />}
                     <MenuItem icon={<HiLogout />} onClick={Logout}>Logout</MenuItem>
                     </>
                 ) : (
