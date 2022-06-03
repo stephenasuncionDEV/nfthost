@@ -11,6 +11,10 @@ export const CoreProvider = ({ children }) => {
         service: 'Generator',
         price: 25,
         product: '1 NFT collection generation',
+        redirect: {
+            origin: '/service/generator',
+            title: 'Generator'
+        },
         due: new Date()
     });
     const [paymentMethodStep, setPaymentMethodStep] = useState('metamask');

@@ -188,8 +188,12 @@ export const useGenerate = () => {
             if (collectionSize > 100 && freeGeneration === 0) {
                 setPaymentData({
                     service: 'Generator',
-                    product: '1 NFT collection generation',
                     price: 25,
+                    product: '1 NFT collection generation',
+                    redirect: {
+                        origin: '/service/generator',
+                        title: 'Generator'
+                    },
                     due: new Date()
                 })
                 router.push('/payment', undefined, { shallow: true }); 

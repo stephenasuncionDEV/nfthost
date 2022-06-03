@@ -16,8 +16,7 @@ import ServiceModal from '@/components/ServiceModal'
 import CookieModal from '@/components/CookieModal'
 import ConnectWalletTag from '@/components/ConnectWalletTag'
 import CardInput from '@/components/CardInput'
-import { AiOutlineArrowRight } from 'react-icons/ai'
-import { FiMail } from 'react-icons/fi'
+import { AiOutlineArrowLeft } from 'react-icons/ai'
 import { FaWallet, FaEthereum } from 'react-icons/fa'
 import { HiChevronRight } from 'react-icons/hi'
 import { loadStripe } from '@stripe/stripe-js'
@@ -77,19 +76,26 @@ const Payment = () => {
             </Head>
             <Flex minH='100vh' justifyContent='center' alignItems='center' py='4em'>
                 <Flex flexDir='column'>
-                    <NextLink href='/' shallow passHref>
-                        <HStack spacing='1em' cursor='pointer'>
-                            <Avatar 
-                                size='md'
-                                src='/assets/logo.png' 
-                                name='NFT Host Logo' 
-                                bg='transparent'
-                            />
-                            <Text fontWeight='bold' fontSize='14pt'>
-                                NFT Host
-                            </Text>
-                        </HStack>
-                    </NextLink>
+                    <Flex justifyContent='space-between' alignItems='center'>
+                        <NextLink href='/' shallow passHref>
+                            <HStack spacing='1em' cursor='pointer'>
+                                <Avatar 
+                                    size='md'
+                                    src='/assets/logo.png' 
+                                    name='NFT Host Logo' 
+                                    bg='transparent'
+                                />
+                                <Text fontWeight='bold' fontSize='14pt'>
+                                    NFT Host
+                                </Text>
+                            </HStack>
+                        </NextLink>
+                        <NextLink href={paymentData?.redirect?.origin} shallow passHref>
+                            <Button bg='transparent' leftIcon={<AiOutlineArrowLeft />} size='sm'>
+                                Go back to {paymentData?.redirect?.title}
+                            </Button>
+                        </NextLink>
+                    </Flex>
                     <Flex flexDir='column' p='2em' mt='1.5em' bg={containerColor} borderRadius='10px' minW='470px'>
                         <Flex justifyContent='space-between'>
                             <Flex flexDir='column'>
