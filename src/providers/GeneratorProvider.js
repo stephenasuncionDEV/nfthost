@@ -36,6 +36,7 @@ export const GeneratorProvider = ({ children }) => {
     const [isRarityModal, setIsRarityModal] = useState(false);
     const [isGenerateModal, setIsGenerateModal] = useState(false);
     const [isDownloadModal, setIsDownloadModal] = useState(false);
+    const [previewLayers, setPreviewLayers] = useState();
     const canvasRef = useRef();
 
     const controllers = {
@@ -95,7 +96,9 @@ export const GeneratorProvider = ({ children }) => {
         isConfetti,
         setIsConfetti,
         isDownloadModal,
-        setIsDownloadModal
+        setIsDownloadModal,
+        previewLayers,
+        setPreviewLayers
     }
 
     return (

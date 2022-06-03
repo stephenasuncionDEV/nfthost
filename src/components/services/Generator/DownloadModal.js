@@ -1,7 +1,7 @@
 import { HStack, Text, Button, Modal, ModalOverlay,
     ModalContent, ModalHeader, ModalFooter, ModalBody,
     ModalCloseButton, Progress, Box, Flex, VStack,
-    useColorModeValue, Image
+    useColorModeValue
 } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { useGenerate } from '@/hooks/useGenerate'

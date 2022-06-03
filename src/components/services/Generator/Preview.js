@@ -4,7 +4,7 @@ import { useGenerate } from '@/hooks/useGenerate'
 import { FaRedo } from 'react-icons/fa'
 
 const Preview = () => {
-    const { layers } = useGenerator();
+    const { previewLayers } = useGenerator();
     const { RandomPreview } = useGenerate();
 
     const containerColor = useColorModeValue('whiteAlpha.500', 'blackAlpha.500');
@@ -28,10 +28,10 @@ const Preview = () => {
                 A preview of one of your NFT
             </Text>
             <Box position='relative' w='250px' h='250px' bg={dropContainerColor} borderRadius='10px' mt='1em'>
-                {layers?.map((layer, idx) => (
+                {previewLayers?.map((layer, idx) => (
                     <Image 
                         position='absolute' 
-                        src={layer.images[Math.floor(Math.random() * layer.images.length)]?.preview} 
+                        src={layer} 
                         fallbackSrc='/assets/transparent.png'
                         alt={`Preview ${idx}`} 
                         boxSize='225px'

@@ -3,7 +3,12 @@ import { useToast } from '@chakra-ui/react'
 
 export const useTraits = () => {
     const toast = useToast();
-    const { currentLayer, imageDimension, setImageDimension, setLayers } = useGenerator();
+    const { 
+        currentLayer, 
+        imageDimension, 
+        setImageDimension, 
+        setLayers
+    } = useGenerator();
 
     const DeleteTrait = (imageName) => {
         setLayers(prevState => {

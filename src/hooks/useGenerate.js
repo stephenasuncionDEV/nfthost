@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import { useCore } from '@/providers/CoreProvider'
 import { useUser } from '@/providers/UserProvider'
 import { useGenerator } from '@/providers/GeneratorProvider'
@@ -13,7 +12,6 @@ const zip = new JSZip();
 
 export const useGenerate = () => {
     const toast = useToast();
-    const router = useRouter();
     const { setPaymentData } = useCore();
     const {
         name,
@@ -40,18 +38,27 @@ export const useGenerate = () => {
         setRenderIndex,
         setGenerateSpeed,
         setIsConfetti,
-        canvasRef
+        canvasRef,
+        setPreviewLayers
     } = useGenerator();
     const { address } = useUser();
     const { getUserByAddress, AddGenerationCount, DeductGeneration } = useWeb3();
 
-    const RandomPreview = () => {
+    const RandomPreview = (silent = false) => {
         try {
+            if (!silent) {
+                layers.forEach((layer) => {
+                    if (!layer.images.length) throw new Error(`Layer ${layer.name} cannot have 0 traits. Please add trait(s) or remove the layer`);
+                })
+            }
+
+            let retPreviewLayers = [];
+
             layers.forEach((layer) => {
-                if (!layer.images.length) throw new Error(`Layer ${layer.name} cannot have 0 traits. Please add a trait or remove the layer`);
+                retPreviewLayers.push(layer.images[Math.floor(Math.random() * layer.images.length)]?.preview);
             })
 
-            router.push('/service/generator', undefined, { shallow: true });
+            setPreviewLayers(retPreviewLayers);
         }
         catch (err) {
             toast({
