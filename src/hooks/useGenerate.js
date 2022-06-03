@@ -189,7 +189,7 @@ export const useGenerate = () => {
                 setPaymentData({
                     service: 'Generator',
                     product: '1 NFT collection generation',
-                    price: '25.00',
+                    price: 25,
                     due: new Date()
                 })
                 router.push('/payment', undefined, { shallow: true }); 

@@ -9,11 +9,18 @@ export const CoreProvider = ({ children }) => {
     const [isSidebar, setIsSidebar] = useState(false);
     const [paymentData, setPaymentData] = useState({
         service: 'Generator',
-        price: '25.00',
+        price: 25,
         product: '1 NFT collection generation',
         due: new Date()
     });
     const [paymentMethodStep, setPaymentMethodStep] = useState('metamask');
+    const [paymentName, setPaymentName] = useState('');
+    const [paymentEmail, setPaymentEmail] = useState('');
+    const [paymentAddress, setPaymentAddress] = useState('');
+    const [paymentCity, setPaymentCity] = useState('');
+    const [paymentState, setPaymentState] = useState('');
+    const [paymentZip, setPaymentZip] = useState('');
+    const [isPaying, setIsPaying] = useState(false);
 
     const controllers = {
         isServiceModal,
@@ -25,7 +32,21 @@ export const CoreProvider = ({ children }) => {
         paymentData,
         setPaymentData,
         paymentMethodStep,
-        setPaymentMethodStep
+        setPaymentMethodStep,
+        paymentName,
+        setPaymentName,
+        paymentEmail,
+        setPaymentEmail,
+        paymentAddress,
+        setPaymentAddress,
+        paymentCity,
+        setPaymentCity,
+        paymentState,
+        setPaymentState,
+        paymentZip,
+        setPaymentZip,
+        isPaying,
+        setIsPaying
     }
 
     return (

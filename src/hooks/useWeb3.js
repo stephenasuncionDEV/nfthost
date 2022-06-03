@@ -239,12 +239,29 @@ export const useWeb3 = () => {
         });
     }
 
+    // Get current metamask chain id
+    const getChainId = () => {
+        return `0x${parseInt(window.ethereum.networkVersion).toString(16)}`;
+    }
+
+    // Make sure user is on ETH network
+    const isNetworkProtected = async () => {
+        const id = getChainId();
+        if (id !== '0x1') {
+            await window.ethereum.request({
+                method: 'wallet_switchEthereumChain',
+                params: [{ chainId: '0x1' }],
+            });
+        }
+    }
+
     return {
         Connect,
         Logout,
         getUserByAddress,
         AddGenerationCount,
         AddGeneration,
-        DeductGeneration
+        DeductGeneration,
+        isNetworkProtected
     }
 }

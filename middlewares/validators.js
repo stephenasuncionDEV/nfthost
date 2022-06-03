@@ -55,3 +55,15 @@ exports.DeductGenerationValidator = [
     .notEmpty(),
 
 ];
+
+exports.PaymentRequestValidator = [
+
+    // Email Validator
+    check('email', 'Email is empty')
+    .notEmpty(),
+    
+    // Amount Validator
+    check('amount', 'Amount is empty')
+    .notEmpty(),
+
+];

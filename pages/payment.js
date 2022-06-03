@@ -6,6 +6,10 @@ import { Box, HStack, Text, Flex, Button, VStack, Avatar,
 } from '@chakra-ui/react'
 import { useLanding } from '@/hooks/useLanding'
 import { useReAuthenticate } from '@/hooks/useReAuthenticate'
+import { useWeb3 } from '@/hooks/useWeb3'
+import { useCore } from '@/providers/CoreProvider'
+import { useUser } from '@/providers/UserProvider'
+import { usePayment } from '@/hooks/usePayment'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import ServiceModal from '@/components/ServiceModal'
@@ -16,8 +20,6 @@ import { AiOutlineArrowRight } from 'react-icons/ai'
 import { FiMail } from 'react-icons/fi'
 import { FaWallet, FaEthereum } from 'react-icons/fa'
 import { HiChevronRight } from 'react-icons/hi'
-import { useCore } from '@/providers/CoreProvider'
-import { useUser } from '@/providers/UserProvider'
 import { loadStripe } from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
 import config from '@/config/index'
@@ -26,8 +28,26 @@ const month = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept",
 const stripePromise = loadStripe(config.stripe.publicKey);
 
 const Payment = () => {
-    const { paymentData, paymentMethodStep, setPaymentMethodStep } = useCore();
+    const { 
+        paymentData, 
+        paymentMethodStep, 
+        setPaymentMethodStep,
+        paymentName,
+        setPaymentName,
+        paymentEmail,
+        setPaymentEmail,
+        paymentAddress,
+        setPaymentAddress,
+        paymentCity,
+        setPaymentCity,
+        paymentState,
+        setPaymentState,
+        paymentZip,
+        setPaymentZip,
+        isPaying
+    } = useCore();
     const { address } = useUser();
+    const { PayWithCrypto } = usePayment();
     useReAuthenticate(true);
 
     const containerColor = useColorModeValue('whiteAlpha.500', 'blackAlpha.500');
@@ -55,7 +75,7 @@ const Payment = () => {
                 <meta property="twitter:description" content='NFT Host is a website where you can generate NFT collections and create NFT minting website.' />
                 <meta property="twitter:image" content='https://www.nfthost.app/assets/logo.png' />
             </Head>
-            <Flex minH='100vh' justifyContent='center' alignItems='center'>
+            <Flex minH='100vh' justifyContent='center' alignItems='center' py='4em'>
                 <Flex flexDir='column'>
                     <NextLink href='/' shallow passHref>
                         <HStack spacing='1em' cursor='pointer'>
@@ -73,9 +93,14 @@ const Payment = () => {
                     <Flex flexDir='column' p='2em' mt='1.5em' bg={containerColor} borderRadius='10px' minW='470px'>
                         <Flex justifyContent='space-between'>
                             <Flex flexDir='column'>
-                                <Text variant='content_title'>
-                                    ${paymentData?.price}
-                                </Text>
+                                <Flex alignItems='flex-end'>
+                                    <Text variant='content_title'>
+                                        ${parseInt(paymentData?.price).toFixed(2)}
+                                    </Text>
+                                    <Text fontSize='8pt' ml='.5em'>
+                                        USD
+                                    </Text>
+                                </Flex>
                                 <Text fontSize='10pt' mt='.75em' opacity='.6'>
                                     Due {`${month[paymentData?.due.getMonth()]} ${paymentData?.due.getDate()}, ${paymentData?.due.getFullYear()}`}
                                 </Text>
@@ -123,19 +148,34 @@ const Payment = () => {
                         </HStack>
                         <Box mt='1em'>
                             {paymentMethodStep === 'metamask' && (
-                                <Button w='full' bg='orange.500'>
-                                    Pay 0.00055 ETH
+                                <Button w='full' bg='orange.500' onClick={PayWithCrypto}>
+                                    Pay 0.014 ETH
                                 </Button>
                             )}
                             {paymentMethodStep === 'card' && (
-                                <Box>
-                                    <Text fontSize='10pt' mb='.25em'>
-                                        Card Information
-                                    </Text>
-                                    <Elements stripe={stripePromise}>
-                                        <CardInput />
-                                    </Elements>
-                                </Box>
+                                <VStack spacing='1em'>
+                                    <VStack alignItems='flex-start' w='full'>
+                                        <Text fontSize='10pt' mb='.25em'>
+                                            Customer Information
+                                        </Text>
+                                        <Input placeholder='name' name='name' id='name' value={paymentName} onChange={(e) => setPaymentName(e.target.value)} />
+                                        <Input type='email' placeholder='email' name='email' id='email' value={paymentEmail} onChange={(e) => setPaymentEmail(e.target.value)}/>
+                                        <Input placeholder='address' name='address' id='address' value={paymentAddress} onChange={(e) => setPaymentAddress(e.target.value)}/>
+                                        <HStack>
+                                            <Input placeholder='city' name='city' id='city' value={paymentCity} onChange={(e) => setPaymentCity(e.target.value)}/>
+                                            <Input placeholder='state' name='state' id='state' value={paymentState} onChange={(e) => setPaymentState(e.target.value)}/>
+                                            <Input placeholder='zip' name='zip' id='zip' value={paymentZip} onChange={(e) => setPaymentZip(e.target.value)}/>
+                                        </HStack>
+                                    </VStack>
+                                    <VStack alignItems='flex-start' w='full'>
+                                        <Text fontSize='10pt' mb='.25em'>
+                                            Card Information
+                                        </Text>
+                                        <Elements stripe={stripePromise}>
+                                            <CardInput />
+                                        </Elements>
+                                    </VStack>
+                                </VStack>
                             )}
                         </Box>
                     </Flex>

@@ -1,26 +1,27 @@
-const { NFTError } = require('../../middlewares/errorHandler');
 const Stripe = require('stripe');
 
 const stripe = new Stripe(process.env.STRIPE_SECRET);
 
-exports.requestPayment = (req, res, next) => {
+// Request a payment
+exports.requestPayment = async (req, res, next) => {
     try {
-        const { amount, email } = req.body;
+        const { email, amount: service } = req.body;
         
-        stripe.paymentIntents.create({
-            amount,
+        const price = {
+            generator: 25 * 100,
+            website: 15 * 100
+        }[service]
+
+        const paymentIntent = await stripe.paymentIntents.create({
+            amount: price,
             currency: 'usd',
             metadata: {
                 integration_check: 'accept_a_payment'
             },
             receipt_email: email
         })
-        .then(response => {
-            res.status(200).send(response.client_secret);
-        })
-        .catch(err => {
-            throw new NFTError(err.message, 400);
-        })
+
+        res.status(200).send({ secret: paymentIntent.client_secret });
 
     } catch (err) {
         next(err);
