@@ -26,13 +26,13 @@ const Service = () => {
                 <meta property="og:url" content='https://www.nfthost.app/' />
                 <meta property="og:title" content='NFT Host' />
                 <meta property="og:description" content='NFT Host is a website where you can generate NFT collections and create NFT minting website.' />
-                <meta property="og:image" content='https://www.nfthost.app/logo.png' />
+                <meta property="og:image" content='https://www.nfthost.app/assets/logo.png' />
 
                 <meta property="twitter:card" content="summary_large_image" />
                 <meta property="twitter:url" content='https://www.nfthost.app/' />
                 <meta property="twitter:title" content='NFT Host' />
                 <meta property="twitter:description" content='NFT Host is a website where you can generate NFT collections and create NFT minting website.' />
-                <meta property="twitter:image" content='https://www.nfthost.app/logo.png' />
+                <meta property="twitter:image" content='https://www.nfthost.app/assets/logo.png' />
             </Head>
             <CookieModal />
             {service === 'generator' && <Generator />}
