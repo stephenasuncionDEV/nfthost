@@ -48,9 +48,9 @@ export const useWeb3 = () => {
             setAddress(address);
             setIsLoggedIn(true);
 
-            // posthog.capture('User logged in with crypto wallet', {
-            //     wallet
-            // });
+            posthog.capture('User logged in with crypto wallet', {
+                wallet
+            });
 
             return true;
         }

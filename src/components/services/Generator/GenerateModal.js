@@ -1,8 +1,9 @@
 import { Box, HStack, Text, Flex, Textarea, Modal, ModalOverlay, 
     ModalContent, ModalHeader, ModalFooter, ModalBody,
-    ModalCloseButton, Progress, useColorModeValue
+    Progress, useColorModeValue
 } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
+import { AiOutlineInfoCircle } from 'react-icons/ai'
 
 const GenerateModal = () => {
     const { 
@@ -20,16 +21,24 @@ const GenerateModal = () => {
     const dropContainerColor = useColorModeValue('rgba(0,0,0,0.1)', 'rgba(0,0,0,0.5)');
 
     return (
-        <Modal onClose={() => setIsGenerateModal(false)} isOpen={isGenerateModal} isCentered size='4xl'>
+        <Modal 
+            onClose={() => setIsGenerateModal(false)} 
+            isOpen={isGenerateModal} 
+            isCentered 
+            size='4xl'
+            closeOnOverlayClick={false}
+        >
             <ModalOverlay />
             <ModalContent>
                 <ModalHeader>
                     Generating...
-                    <Text fontSize='10pt' fontWeight='normal' mt='.5em'>
-                        This may take awhile. Please do not refresh the page.
-                    </Text>
+                    <HStack fontSize='11pt'>
+                        <AiOutlineInfoCircle />
+                        <Text fontWeight='normal'>
+                            This may take awhile. Please do not refresh the page.
+                        </Text>
+                    </HStack>
                 </ModalHeader>
-                <ModalCloseButton />
                 <ModalBody>
                     <Flex justifyContent='space-evenly'>
                         <Box p='1em' bg={dropContainerColor} borderRadius='10px' mt='2em' w='385px' h='385px'>

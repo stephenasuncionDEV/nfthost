@@ -1,12 +1,13 @@
 import { HStack, Text, Button, Modal, ModalOverlay,
     ModalContent, ModalHeader, ModalFooter, ModalBody,
     ModalCloseButton, Progress, Box, Flex, VStack,
-    useColorModeValue
+    useColorModeValue, Image
 } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { useGenerate } from '@/hooks/useGenerate'
 import { BiInfoCircle } from 'react-icons/bi'
 import { FaDownload } from 'react-icons/fa'
+import { AiOutlineArrowRight, AiOutlineInfoCircle } from 'react-icons/ai'
 
 const DownloadModal = () => {
     const { 
@@ -41,22 +42,17 @@ const DownloadModal = () => {
             <ModalContent>
                 <ModalHeader>
                     Download
+                    <HStack fontSize='11pt'>
+                        <AiOutlineInfoCircle />
+                        <Text fontWeight='normal'>
+                            Download your entire collection or metadata.
+                        </Text>
+                    </HStack>
                 </ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
                     <Flex justifyContent='center' alignItems='center'>
                         <HStack spacing='2em'>
-                            <VStack alignItems='flex-end'>
-                                <Text variant='content_subtitle'>
-                                    Collection Preview
-                                </Text>
-                                <Text fontSize='10pt'>
-                                    We will show you part of your collection as a preview
-                                </Text>
-                                <Button rightIcon={<FaDownload />} size='sm'>
-                                    Download Preview
-                                </Button>
-                            </VStack>
                             <Box 
                                 h='170px'
                                 w='2px'
@@ -64,7 +60,7 @@ const DownloadModal = () => {
                             />
                             <VStack alignItems='flex-start'>
                                 <Text variant='content_subtitle'>
-                                    NFT Collection
+                                    {!isAutoSave ? 'NFT Collection' : 'Collection Metadata'}
                                 </Text>
                                 <Text fontSize='10pt' fontWeight='normal' mt='.5em'>
                                     {!isAutoSave ? 'Download your NFT Collection' : 'Download your NFT Collection Metadata'}
@@ -97,23 +93,32 @@ const DownloadModal = () => {
                             </HStack>
                         </>
                     )}
-                    <Text fontSize='14pt' mt='2em'>
-                        Generation Speed
-                    </Text>
-                    <Text fontSize='10pt'>
-                        Generation speed in hours, minutes, seconds, and milliseconds
-                    </Text>
-                    <HStack mt='1em'>
-                        <BiInfoCircle />
-                        <Text fontSize='10pt'>
-                            It took <span style={{ color: 'rgb(40, 252, 3)' }}>{(generateSpeed / 3600000).toFixed(2)} hours</span> or &nbsp;
-                            <span style={{ color: 'rgb(40, 252, 3)' }}>{(generateSpeed / 60000).toFixed(2)} minutes</span> or &nbsp;
-                            <span style={{ color: 'rgb(40, 252, 3)' }}>{(generateSpeed * 0.001).toFixed(2)} seconds</span> or &nbsp;
-                            <span style={{ color: 'rgb(40, 252, 3)' }}>{generateSpeed.toFixed(2)} milliseconds</span> to generate your collection.
-                        </Text>
-                    </HStack>
                 </ModalBody>
-                <ModalFooter />
+                <ModalFooter justifyContent='space-between'>
+                    <Box mt='1em' opacity='.8'>
+                        <Text fontSize='10pt'>
+                            Generation Speed
+                        </Text>
+                        <Text fontSize='8pt'>
+                            Generation speed in hours, minutes, seconds, and milliseconds
+                        </Text>
+                        <HStack mt='.25em'>
+                            <BiInfoCircle fontSize='8pt' />
+                            <Text fontSize='8pt'>
+                                It took <span style={{ color: 'rgb(40, 252, 3)' }}>{(generateSpeed / 3600000).toFixed(2)} hours</span> or &nbsp;
+                                <span style={{ color: 'rgb(40, 252, 3)' }}>{(generateSpeed / 60000).toFixed(2)} minutes</span> or &nbsp;
+                                <span style={{ color: 'rgb(40, 252, 3)' }}>{(generateSpeed * 0.001).toFixed(2)} seconds</span> or &nbsp;
+                                <span style={{ color: 'rgb(40, 252, 3)' }}>{generateSpeed.toFixed(2)} milliseconds</span> to generate your collection.
+                            </Text>
+                        </HStack>
+                    </Box>
+                    <Button rightIcon={<AiOutlineArrowRight />} onClick={() => {
+                        setIsConfetti(false);
+                        setIsDownloadModal(false);
+                    }}>
+                        Finish
+                    </Button>
+                </ModalFooter>
             </ModalContent>
         </Modal>
     )

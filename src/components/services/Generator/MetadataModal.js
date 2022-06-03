@@ -40,20 +40,19 @@ const Metadata = () => {
         <Modal isOpen={isMetadataModal} onClose={() => setIsMetadataModal(false)} isCentered size='3xl'>
             <ModalOverlay />
             <ModalContent>
-                <ModalHeader>Choose a service</ModalHeader>
+                <ModalHeader>
+                    Metadata Settings
+                    <HStack fontSize='11pt'>
+                        <AiOutlineInfoCircle />
+                        <Text fontWeight='normal'>
+                            General information of your new NFT collection
+                        </Text>
+                    </HStack>
+                </ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
                     <Box>
-                        <Text variant='content_subtitle'>
-                            Metadata
-                        </Text>
-                        <HStack>
-                            <AiOutlineInfoCircle />
-                            <Text variant='content_description' mt='0'>
-                                General information of your new NFT collection
-                            </Text>
-                        </HStack>
-                        <VStack alignItems='flex-start' mt='1em'>
+                        <VStack alignItems='flex-start'>
                             <Input 
                                 id='collectionName' 
                                 placeholder='Name'

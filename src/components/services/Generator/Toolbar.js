@@ -2,14 +2,14 @@ import { HStack, Button, Menu, MenuButton, MenuList, MenuItem, useColorModeValue
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { useGenerate } from '@/hooks/useGenerate'
 import { useToolbar } from '@/hooks/useToolbar'
+import ConnectWalletTag from '@/components/ConnectWalletTag'
 import { HiOutlineChevronDown, HiOutlineDesktopComputer } from 'react-icons/hi'
 import { MdSettings, MdOutlineDarkMode, MdOutlineLightMode } from 'react-icons/md'
-import { FaPlay } from 'react-icons/fa'
-import ConnectWalletTag from '@/components/ConnectWalletTag'
+import { FaPlay, FaDownload } from 'react-icons/fa'
 import { useRarity } from '@/hooks/useRarity'
 
 const Toolbar = () => {
-    const { setIsMetadataModal } = useGenerator();
+    const { setIsMetadataModal, isGenerated, setIsDownloadModal } = useGenerator();
     const { Generate } = useGenerate();
     const { Open, Save } = useToolbar();
     const { OpenRarityModal } = useRarity();
@@ -52,6 +52,11 @@ const Toolbar = () => {
                 <Button rightIcon={<MdSettings />} size='sm' onClick={OpenRarityModal}>
                     Rarity
                 </Button>
+                {isGenerated && (
+                    <Button rightIcon={<FaDownload />} size='sm' onClick={() => setIsDownloadModal(true)}>
+                        Download
+                    </Button>
+                )}
             </HStack>
             <HStack>
                 <ConnectWalletTag isCopyAddress isUserProfile />

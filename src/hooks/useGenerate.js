@@ -147,7 +147,7 @@ export const useGenerate = () => {
                 }, (data) => {
 					setAutoSavePercentage(data.percent);
                 })
-                saveAs(content, `SwiftNFT Image Chunk ${chunkCount}.zip`);
+                saveAs(content, `NFTHost Image Chunk ${chunkCount}.zip`);
                 zip.remove("Images");
                 resolve();
             }
@@ -191,11 +191,6 @@ export const useGenerate = () => {
                 const INCREMENT_VALUE = 1;
                 await AddGenerationCount(INCREMENT_VALUE);
             }
-
-            // posthog.capture('User started generating', {
-            //     standardType,
-            //     collectionSize
-            // });
 
             setIsGenerateModal(true);
 
@@ -279,6 +274,9 @@ export const useGenerate = () => {
                         setIsConfetti(true);
                         setIsDownloadModal(true);
 						console.log(`[NFTHost] It took ${t1 - t0} milliseconds to generate this collection.`);
+                        posthog.capture('User generated collection', {
+                            standardType
+                        });
 					}
                 }
             }
@@ -357,6 +355,8 @@ export const useGenerate = () => {
 
 			saveAs(content, "NFTHost Collection.zip");
 			setIsDownloading(false);
+
+            posthog.capture('User downloaded collection');
 		}
 		catch (err) {
 			console.error(err);
@@ -434,6 +434,8 @@ export const useGenerate = () => {
 
 			saveAs(content, "NFTHost Metadata.zip");
 			setIsDownloading(false);
+
+            posthog.capture('User downloaded metadata');
 		}
 		catch (err) {
 			console.error(err);
