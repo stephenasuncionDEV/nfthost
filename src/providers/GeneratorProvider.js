@@ -1,13 +1,9 @@
 import { useState, useContext, createContext, useRef } from 'react'
-import { useRouter } from 'next/router'
-import { useToast } from '@chakra-ui/react'
 
 export const GeneratorContext = createContext({})
 export const useGenerator = () => useContext(GeneratorContext)
 
 export const GeneratorProvider = ({ children }) => {
-    const toast = useToast();
-    const router = useRouter();
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [externalURL, setExternalURL] = useState('');

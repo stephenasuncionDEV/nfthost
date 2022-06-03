@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import NextLink from 'next/link'
-import { HStack, Text, Flex, Button, VStack, Avatar,
+import { Box, HStack, Text, Flex, Button, VStack, Avatar,
     SlideFade, Link, useColorModeValue, Input, Divider,
     Image
 } from '@chakra-ui/react'
@@ -11,19 +11,25 @@ import Footer from '@/components/Footer'
 import ServiceModal from '@/components/ServiceModal'
 import CookieModal from '@/components/CookieModal'
 import ConnectWalletTag from '@/components/ConnectWalletTag'
+import CardInput from '@/components/CardInput'
 import { AiOutlineArrowRight } from 'react-icons/ai'
 import { FiMail } from 'react-icons/fi'
+import { FaWallet, FaEthereum } from 'react-icons/fa'
 import { HiChevronRight } from 'react-icons/hi'
 import { useCore } from '@/providers/CoreProvider'
 import { useUser } from '@/providers/UserProvider'
+import { loadStripe } from '@stripe/stripe-js'
+import { Elements } from '@stripe/react-stripe-js'
+import config from '@/config/index'
 
 const month = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
+const stripePromise = loadStripe(config.stripe.publicKey);
 
 const Payment = () => {
-    const { paymentData } = useCore();
+    const { paymentData, paymentMethodStep, setPaymentMethodStep } = useCore();
     const { address } = useUser();
     useReAuthenticate(true);
-    
+
     const containerColor = useColorModeValue('whiteAlpha.500', 'blackAlpha.500');
 
     return (
@@ -80,10 +86,12 @@ const Payment = () => {
                             <VStack spacing='.5em' alignItems='flex-start' opacity='.6'>
                                 <Text>Address</Text>
                                 <Text>Service</Text>
+                                <Text>Product</Text>
                             </VStack>
                             <VStack spacing='.5em' alignItems='flex-start'>
                                 <Text>{address}</Text>
                                 <Text>{paymentData?.service}</Text>
+                                <Text fontStyle='italic'>{paymentData?.product}</Text>
                             </VStack>
                         </HStack>
                         <Divider mt='2em' />
@@ -95,7 +103,54 @@ const Payment = () => {
                         <Text>
                             Select a payment method
                         </Text>
+                        <HStack my='1em'>
+                            <Button h='60px' w='120px' justifyContent='flex-start' onClick={() => setPaymentMethodStep('metamask')}>
+                                <Flex flexDir='column' w='full'>
+                                    <FaEthereum />
+                                    <Text fontSize='10pt' textAlign='start'>
+                                        Metamask
+                                    </Text>
+                                </Flex>
+                            </Button>
+                            <Button h='60px' w='120px' justifyContent='flex-start' onClick={() => setPaymentMethodStep('card')}>
+                                <Flex flexDir='column' w='full'>
+                                    <FaWallet />
+                                    <Text fontSize='10pt' textAlign='start'>
+                                        Card
+                                    </Text>
+                                </Flex>
+                            </Button>
+                        </HStack>
+                        <Box mt='1em'>
+                            {paymentMethodStep === 'metamask' && (
+                                <Button w='full' bg='orange.500'>
+                                    Pay 0.00055 ETH
+                                </Button>
+                            )}
+                            {paymentMethodStep === 'card' && (
+                                <Box>
+                                    <Text fontSize='10pt' mb='.25em'>
+                                        Card Information
+                                    </Text>
+                                    <Elements stripe={stripePromise}>
+                                        <CardInput />
+                                    </Elements>
+                                </Box>
+                            )}
+                        </Box>
                     </Flex>
+                    <HStack justifyContent='center' mt='2em' spacing='1em' opacity='.3'>
+                        <Link href='/about/terms' color='white' isExternal>
+                            <Text fontSize='10pt'>
+                                Terms
+                            </Text>
+                        </Link>
+                        <Link href='/about/privacy-policy' color='white' isExternal>
+                            <Text fontSize='10pt'>
+                                Privacy
+                            </Text>
+                        </Link>
+                    </HStack>
                 </Flex>
             </Flex>
         </main>

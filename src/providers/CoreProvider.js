@@ -1,21 +1,19 @@
 import { useState, useContext, createContext } from 'react'
-import { useRouter } from 'next/router'
-import { useToast } from '@chakra-ui/react'
 
 export const CoreContext = createContext({})
 export const useCore = () => useContext(CoreContext)
 
 export const CoreProvider = ({ children }) => {
-    const toast = useToast();
-    const router = useRouter();
     const [isServiceModal, setIsServiceModal] = useState(false);
     const [isCookieModal, setIsCookieModal] = useState();
     const [isSidebar, setIsSidebar] = useState(false);
     const [paymentData, setPaymentData] = useState({
         service: 'Generator',
         price: '25.00',
+        product: '1 NFT collection generation',
         due: new Date()
     });
+    const [paymentMethodStep, setPaymentMethodStep] = useState('metamask');
 
     const controllers = {
         isServiceModal,
@@ -25,7 +23,9 @@ export const CoreProvider = ({ children }) => {
         isSidebar,
         setIsSidebar,
         paymentData,
-        setPaymentData
+        setPaymentData,
+        paymentMethodStep,
+        setPaymentMethodStep
     }
 
     return (

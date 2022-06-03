@@ -188,6 +188,7 @@ export const useGenerate = () => {
             if (collectionSize > 100 && freeGeneration === 0) {
                 setPaymentData({
                     service: 'Generator',
+                    product: '1 NFT collection generation',
                     price: '25.00',
                     due: new Date()
                 })
