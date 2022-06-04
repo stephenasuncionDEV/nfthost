@@ -37,6 +37,7 @@ const DownloadModal = () => {
             isOpen={isDownloadModal} 
             isCentered 
             size='4xl'
+            closeOnOverlayClick={false}
         >
             <ModalOverlay />
             <ModalContent>
@@ -66,11 +67,11 @@ const DownloadModal = () => {
                                     {!isAutoSave ? 'Download your NFT Collection' : 'Download your NFT Collection Metadata'}
                                 </Text>
                                 {!isAutoSave ? (
-                                    <Button disabled={isDownloading} onClick={DownloadCollection} rightIcon={<FaDownload />} size='sm'>
+                                    <Button disabled={isDownloading} onClick={DownloadCollection} rightIcon={<FaDownload />} size='sm' bg='orange'>
                                         Download Collection
                                     </Button>
                                 ) : (
-                                    <Button disabled={isDownloading} onClick={DownloadMetadata} rightIcon={<FaDownload />} size='sm'>
+                                    <Button disabled={isDownloading} onClick={DownloadMetadata} rightIcon={<FaDownload />} size='sm' bg='orange'>
                                         Download Metadata
                                     </Button>
                                 )}

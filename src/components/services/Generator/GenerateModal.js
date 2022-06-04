@@ -68,7 +68,7 @@ const GenerateModal = () => {
                                 Auto Download
                             </Text>
                             <Text textAlign='left' fontSize='10pt'>
-                                Collection size greater than or equal to 1000 will auto download every 1000 render index.
+                                Collection size greater than 100 will auto download every 1000th render index.
                             </Text>
                             <HStack w='full'>
                                 <Progress flex='1' hasStripe value={autoSavePercentage} colorScheme='red' />

@@ -216,7 +216,7 @@ export const useGenerate = () => {
 
             zip.remove('Metadata');
 			zip.remove('Images');
-            zip.remove('NFTHost CSV for ThirdWeb Only.csv');
+            zip.remove('CSV metadata.csv');
 
             let chunkCount = 1;
 			let curRenderIndex = 1;

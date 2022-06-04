@@ -89,7 +89,7 @@ const Main = () => {
                                     Generator
                                 </Text>
                                 <Text variant='content_description' mt='1.25rem'>
-                                    We provide the fastest and cheapest NFT generator in the market. With $25, you can generate up to 10,000 unique NFTs.
+                                    We provide the fastest and cheapest NFT generator in the market. With a fixed price of $25 USD, you can generate up to 10,000 unique NFTs.
                                 </Text>
                                 <Button w='200px' mt='1em' rightIcon={<AiOutlineArrowRight />} onClick={() => NavigateFeature('/service/generator')}>
                                     Generate NFTs
@@ -126,7 +126,7 @@ const Main = () => {
                                     Hosting
                                 </Text>
                                 <Text variant='content_description' mt='1.25rem'>
-                                    Sell your NFTs in under a minute. Create a minting website by a click of a button. You can host your own minting website for free. Unlock special features by upgrading to premium for $15
+                                    Sell your NFTs in under a minute. Create a minting website by a click of a button. You can host your own minting website for free. Unlock special features by upgrading to premium for $15 USD
                                 </Text>
                                 <Button w='200px' mt='1em' rightIcon={<AiOutlineArrowRight />} onClick={() => NavigateFeature('/service/website')}>
                                     Host Mint Website

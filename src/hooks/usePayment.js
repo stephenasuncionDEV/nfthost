@@ -42,6 +42,9 @@ export const usePayment = () => {
                     value: Web3.utils.toWei(PRICE.toFixed(7).toString(), "ether")
                 })
 
+                const ADD_GENERATION_INDEX = 1;
+                await AddGeneration(ADD_GENERATION_INDEX);
+
                 // TODO: Add to payments data
 
                 setIsPaying(false);
