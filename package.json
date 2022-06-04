@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "backend": "nodemon ./api",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

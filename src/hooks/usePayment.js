@@ -33,11 +33,24 @@ export const usePayment = () => {
             if (wallet === 'metamask') {
                 await isNetworkProtected();
 
+                setIsPaying(true);
+
                 const txHash = await window.web3.eth.sendTransaction({
                     from: window.ethereum.selectedAddress,
                     to: config.nfthost.wallet_metamask,
                     value: Web3.utils.toWei(PRICE.toFixed(7).toString(), "ether")
                 })
+
+                toast({
+                    title: 'Success',
+                    description: 'Successfuly purchased 1 NFT collection generation',
+                    status: 'success',
+                    duration: 3000,
+                    isClosable: true,
+                    position: 'bottom-center'
+                })
+
+                setIsPaying(false);
 
                 posthog.capture('User paid with metamask wallet', {
                     price: 25
@@ -45,6 +58,8 @@ export const usePayment = () => {
             }
         }
         catch (err) {
+            console.error(err);
+            setIsPaying(false);
             toast({
                 title: 'Error',
                 description: err.message,
@@ -120,7 +135,6 @@ export const usePayment = () => {
 
             setIsPaying(false);
 
-            //sucess
             toast({
                 title: 'Success',
                 description: 'Successfuly purchased 1 NFT collection generation',

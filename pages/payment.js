@@ -154,7 +154,7 @@ const Payment = () => {
                         </HStack>
                         <Box mt='1em'>
                             {paymentMethodStep === 'metamask' && (
-                                <Button w='full' bg='orange.500' onClick={PayWithCrypto}>
+                                <Button w='full' bg='orange.500' onClick={PayWithCrypto} disabled={isPaying}>
                                     Pay 0.014 ETH
                                 </Button>
                             )}
