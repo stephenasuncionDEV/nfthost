@@ -11,7 +11,7 @@ import { useRarity } from '@/hooks/useRarity'
 const Toolbar = () => {
     const { setIsMetadataModal, isGenerated, setIsDownloadModal } = useGenerator();
     const { Generate } = useGenerate();
-    const { Open, Save } = useToolbar();
+    const { OpenComputer, Save } = useToolbar();
     const { OpenRarityModal } = useRarity();
     const { colorMode, toggleColorMode } = useColorMode();
 
@@ -32,7 +32,19 @@ const Toolbar = () => {
                         Open
                     </MenuButton>
                     <MenuList>
-                        <MenuItem icon={<HiOutlineDesktopComputer />} onClick={() => Open()}>Computer</MenuItem>
+                        <Button leftIcon={<HiOutlineDesktopComputer />} w='full' justifyContent='flex-start' bg='transparent' cursor='pointer' borderRadius='0'>
+                            <input 
+                                type="file" 
+                                id="my-file" 
+                                onClick={(e) => e.target.value = null}
+                                onChange={OpenComputer} 
+                                hidden 
+                                accept='application/JSON'
+                            /> 
+                            <label htmlFor="my-file" style={{ cursor: 'pointer' }}>
+                                Computer
+                            </label>
+                        </Button>
                     </MenuList>
                 </Menu>
                 <Menu>

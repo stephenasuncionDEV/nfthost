@@ -3,28 +3,28 @@ import { useToast } from '@chakra-ui/react'
 
 export const useToolbar = () => {
     const toast = useToast();
-    const { layers } = useGenerator();
+    const { layers, setLayers } = useGenerator();
 
-    const Open = (type = 'computer') => {
+    const OpenComputer = (e) => {
         try {
-            if (type === 'computer') {
-                const fileReader = new FileReader();
-                fileReader.onload = () => {
+            const fileReader = new FileReader();
+            fileReader.onload = () => {
+                try {
                     const projectJson = JSON.parse(fileReader.result);
 
                     if (projectJson.layers.length != layers.length) throw new Error('Imported Rarity Setting does not match current layers');
 
-                    projectJson.forEach((data, idx) => {
+                    projectJson.rarity.forEach((data, idx) => {
                         if(data.length != layers[idx].images.length) throw new Error('Imported Rarity Setting does not match current layer images');
                     })
 
                     const newLayers = layers.map((layer, layerIdx) => {
                         return {
-                            name: projectJson.layers[layerIdx].name,
+                            name: projectJson.layers[layerIdx],
                             images: layer.images.map((image, imageIdx) => {
                                 return {
                                     ...image,
-                                    rarity: raritySettingJson[layerIdx][imageIdx]
+                                    rarity: projectJson.rarity[layerIdx][imageIdx]
                                 }
                             })
                         }
@@ -39,9 +39,20 @@ export const useToolbar = () => {
                         isClosable: true,
                         position: 'bottom-center'
                     })
-                };
-                fileReader.readAsText(e.target.files[0]);
+                }
+                catch (err) {
+                    toast({
+                        title: 'Error',
+                        description: err.message,
+                        status: 'error',
+                        duration: 3000,
+                        isClosable: true,
+                        position: 'bottom-center'
+                    })
+                }
             }
+
+            fileReader.readAsText(e.target.files[0]);
         }
         catch (err) {
             toast({
@@ -91,7 +102,7 @@ export const useToolbar = () => {
     }
 
     return {
-        Open,
+        OpenComputer,
         Save
     }
 }
