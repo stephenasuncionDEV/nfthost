@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { useUser } from '@/providers/UserProvider'
 import CookieModal from '@/components/CookieModal'
 import Generator from '@/components/services/Generator'
+import Website from '@/components/services/Website'
 import { useReAuthenticate } from '@/hooks/useReAuthenticate'
 
 const Service = () => {
@@ -36,6 +37,7 @@ const Service = () => {
             </Head>
             <CookieModal />
             {service === 'generator' && <Generator />}
+            {service === 'website' && <Website />}
         </main>
     )
 }
