@@ -18,7 +18,8 @@ export const usePayment = () => {
         paymentCity,
         paymentState,
         paymentZip,
-        setIsPaying
+        setIsPaying,
+        setIsKeepWorkingModal
     } = useCore();
 
     const PayWithCrypto = async () => {
@@ -41,6 +42,11 @@ export const usePayment = () => {
                     value: Web3.utils.toWei(PRICE.toFixed(7).toString(), "ether")
                 })
 
+                // TODO: Add to payments data
+
+                setIsPaying(false);
+                setIsKeepWorkingModal(true);
+
                 toast({
                     title: 'Success',
                     description: 'Successfuly purchased 1 NFT collection generation',
@@ -49,8 +55,6 @@ export const usePayment = () => {
                     isClosable: true,
                     position: 'bottom-center'
                 })
-
-                setIsPaying(false);
 
                 posthog.capture('User paid with metamask wallet', {
                     price: 25
@@ -134,6 +138,7 @@ export const usePayment = () => {
             // TODO: Add to payments data
 
             setIsPaying(false);
+            setIsKeepWorkingModal(true);
 
             toast({
                 title: 'Success',

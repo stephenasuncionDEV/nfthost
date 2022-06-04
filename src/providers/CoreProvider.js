@@ -5,7 +5,8 @@ export const useCore = () => useContext(CoreContext)
 
 export const CoreProvider = ({ children }) => {
     const [isServiceModal, setIsServiceModal] = useState(false);
-    const [isCookieModal, setIsCookieModal] = useState();
+    const [isCookieModal, setIsCookieModal] = useState(false);
+    const [isKeepWorkingModal, setIsKeepWorkingModal] = useState(false);
     const [isSidebar, setIsSidebar] = useState(false);
     const [paymentData, setPaymentData] = useState({
         service: 'Generator',
@@ -50,7 +51,9 @@ export const CoreProvider = ({ children }) => {
         paymentZip,
         setPaymentZip,
         isPaying,
-        setIsPaying
+        setIsPaying,
+        isKeepWorkingModal,
+        setIsKeepWorkingModal
     }
 
     return (

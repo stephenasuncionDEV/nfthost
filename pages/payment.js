@@ -16,6 +16,7 @@ import ServiceModal from '@/components/ServiceModal'
 import CookieModal from '@/components/CookieModal'
 import ConnectWalletTag from '@/components/ConnectWalletTag'
 import CardInput from '@/components/CardInput'
+import KeepWorkingModal from '@/components/KeepWorkingModal'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
 import { FaWallet, FaEthereum } from 'react-icons/fa'
 import { HiChevronRight } from 'react-icons/hi'
@@ -74,6 +75,7 @@ const Payment = () => {
                 <meta property="twitter:description" content='NFT Host is a website where you can generate NFT collections and create NFT minting website.' />
                 <meta property="twitter:image" content='https://www.nfthost.app/assets/logo.png' />
             </Head>
+            <KeepWorkingModal />
             <Flex minH='100vh' justifyContent='center' alignItems='center' py='4em'>
                 <Flex flexDir='column'>
                     <Flex justifyContent='space-between' alignItems='center'>
