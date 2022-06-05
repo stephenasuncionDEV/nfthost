@@ -67,11 +67,11 @@ const DownloadModal = () => {
                                     {!isAutoSave ? 'Download your NFT Collection' : 'Download your NFT Collection Metadata'}
                                 </Text>
                                 {!isAutoSave ? (
-                                    <Button disabled={isDownloading} onClick={DownloadCollection} rightIcon={<FaDownload />} size='sm' bg='orange'>
+                                    <Button disabled={isDownloading} onClick={DownloadCollection} rightIcon={<FaDownload />} size='sm' bg='orange.500'>
                                         Download Collection
                                     </Button>
                                 ) : (
-                                    <Button disabled={isDownloading} onClick={DownloadMetadata} rightIcon={<FaDownload />} size='sm' bg='orange'>
+                                    <Button disabled={isDownloading} onClick={DownloadMetadata} rightIcon={<FaDownload />} size='sm' bg='orange.500'>
                                         Download Metadata
                                     </Button>
                                 )}
