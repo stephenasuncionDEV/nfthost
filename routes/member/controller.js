@@ -101,6 +101,31 @@ exports.addFree = async (req, res, next) => {
     }
 }
 
+exports.deductCount = async (req, res, next) => {
+    try {
+        const errors = validationResult(req).errors;
+        if (errors.length > 0) throw new Error(errors[0].msg);
+
+        const { address, service, value } = req.body;
+
+        const child = {
+            generator: 'generationCount',
+            website: 'websiteCount'
+        }[service];
+
+        await Member.updateOne({ address }, {
+            $inc: { 
+                [`services.${service}.${child}`]: value * -1
+            }
+        });
+
+        res.status(200).json({message: "Succesfully deducted points from user"});
+
+    } catch (err) {
+        next(err);
+    }
+}
+
 exports.deductFree = async (req, res, next) => {
     try {
         const errors = validationResult(req).errors;

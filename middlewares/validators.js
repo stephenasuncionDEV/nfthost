@@ -111,3 +111,27 @@ exports.UpdateWebsiteValidator = [
     .notEmpty(),
 
 ]
+
+exports.DeductCountValidator = [
+
+    // Address Validator
+    check('address', 'address is empty')
+    .notEmpty(),
+
+    // Service Validator
+    check('service', 'service is empty')
+    .notEmpty(),
+    
+    // Value Validator
+    check('value', 'value is empty')
+    .notEmpty(),
+
+]
+
+exports.DeleteWebsiteValidator = [
+
+    // websiteId Validator
+    check('websiteId', 'websiteId is empty')
+    .notEmpty(),
+
+]

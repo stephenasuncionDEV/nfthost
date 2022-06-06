@@ -205,6 +205,43 @@ export const useWeb3 = () => {
         });
     }
 
+    const DeductCount = async (value, service) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const storageToken = localStorage.getItem('nfthost-user');
+                if (!storageToken) return;
+
+                const token = decryptToken(storageToken, true);
+    
+                const res = await axios.patch(`${config.serverUrl}/api/member/deductCount`, {
+                    address: userAddress,
+                    service,
+                    value
+                }, {
+                    headers: { 
+                        Authorization: `Bearer ${token.accessToken}` 
+                    }
+                })
+
+                if (res.status === 200) {
+                    await getUserByAddress(userAddress);
+                    resolve();
+                }
+            }
+            catch (err) {
+                reject(err);
+                console.error(err);
+                toast({
+                    title: 'Error',
+                    description: err.message,
+                    status: 'error',
+                    isClosable: true,
+                    position: 'bottom-center'
+                })
+            }
+        });
+    }
+
     const DeductFree = async (value, service) => {
         return new Promise(async (resolve, reject) => {
             try {
@@ -264,7 +301,8 @@ export const useWeb3 = () => {
         getUserByAddress,
         AddCount,
         AddFree,
+        DeductCount,
         DeductFree,
-        isNetworkProtected
+        isNetworkProtected,
     }
 }

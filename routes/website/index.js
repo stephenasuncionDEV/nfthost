@@ -5,12 +5,14 @@ const {
     CreateWebsiteValidator, 
     GetWebsiteValidator,
     GetWebsitesValidator,
-    UpdateWebsiteValidator
+    UpdateWebsiteValidator,
+    DeleteWebsiteValidator
 } = require('../../middlewares/validators');
 
 router.post('/create', authenticateToken, CreateWebsiteValidator, controller.createWebsite);
 router.get('/get', authenticateToken, GetWebsiteValidator, controller.getWebsite);
 router.get('/getMany', authenticateToken, GetWebsitesValidator, controller.getWebsites);
 router.put('/update', authenticateToken, UpdateWebsiteValidator, controller.updateWebsite);
+router.delete('/delete', authenticateToken, DeleteWebsiteValidator, controller.deleteWebsite);
 
 module.exports = router;

@@ -19,6 +19,7 @@ export const WebsiteProvider = ({ children }) => {
     const [isRefreshing, setIsRefreshing] = useState(false);
     const [isUpdating, setIsUpdating] = useState(false);
     const [isEditWebsite, setIsEditWebsite] = useState(false);
+    const [isDeletingWebsite, setIsDeletingWebsite] = useState(false);
     const [currentEditWebsite, setCurrentEditWebsite] = useState();
 
     const controllers = {
@@ -54,6 +55,8 @@ export const WebsiteProvider = ({ children }) => {
         setIsEditWebsite,
         currentEditWebsite,
         setCurrentEditWebsite,
+        isDeletingWebsite,
+        setIsDeletingWebsite
     }
 
     return (

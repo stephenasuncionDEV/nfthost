@@ -41,9 +41,10 @@ export const useSites = () => {
         setIsEditWebsite,
         setIsUpdating,
         currentEditWebsite,
-        setCurrentEditWebsite
+        setCurrentEditWebsite,
+        setIsDeletingWebsite
     } = useWebsite();
-    const { DeductFree, getUserByAddress, AddCount } = useWeb3();
+    const { DeductFree, getUserByAddress, AddCount, DeductCount } = useWeb3();
 
     useEffect(() => {   
         GetWebsites();
@@ -198,6 +199,7 @@ export const useSites = () => {
     }
 
     const EditWebsite = (websiteIdx) => {
+        setNewErrors(null);
         setCurrentEditWebsite(websites[websiteIdx]);
         setIsEditWebsite(true);
         setNewSubscription(websites[websiteIdx].isPremium ? 'premium' : 'free');
@@ -321,11 +323,65 @@ export const useSites = () => {
         }
     }
 
+    const DeleteWebsite = async () => {
+        try {
+            setNewErrors(null);
+
+            if (!currentEditWebsite) throw new Error('Select a mint website');
+
+            const storageToken = localStorage.getItem('nfthost-user');
+            if (!storageToken) return;
+
+            setIsDeletingWebsite(true);
+
+            const token = decryptToken(storageToken, true);
+
+            const res = await axios.delete(`${config.serverUrl}/api/website/delete`, {
+                data: {
+                    websiteId: currentEditWebsite._id
+                },
+                headers: { 
+                    Authorization: `Bearer ${token.accessToken}` 
+                }
+            })
+
+            const DEDUCT_INDEX = 1;
+            await DeductCount(DEDUCT_INDEX, 'website');
+            await GetWebsites();
+            
+            clearFields();
+
+            setIsDeletingWebsite(false);
+
+            toast({
+                title: 'Success',
+                description: 'Successfuly deleted your website',
+                status: 'success',
+                duration: 3000,
+                isClosable: true,
+                position: 'bottom-center'
+            })
+        }
+        catch (err) {
+            console.error(err);
+            setIsDeletingWebsite(false);
+            toast({
+                title: 'Error',
+                description: err.message,
+                status: 'error',
+                duration: 3000,
+                isClosable: true,
+                position: 'bottom-center'
+            })
+        }
+    }
+
     return {
         GetWebsites,
         CreateWebsite,
         EditWebsite,
         UpdateWebsite,
-        clearFields
+        clearFields,
+        DeleteWebsite
     }
 }

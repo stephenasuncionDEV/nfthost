@@ -69,3 +69,19 @@ exports.updateWebsite = async (req, res, next) => {
         next(err);
     }
 }
+
+exports.deleteWebsite = async (req, res, next) => {
+    try {
+        const errors = validationResult(req).errors;
+        if (errors.length > 0) throw new Error(errors[0].msg);
+
+        const { websiteId } = req.body;
+
+        const result = await Website.remove({ _id: websiteId });
+
+        res.status(200).json(result);
+
+    } catch (err) {
+        next(err);
+    }
+}

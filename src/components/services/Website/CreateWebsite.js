@@ -6,7 +6,7 @@ import { HStack, Text, Button, Flex, VStack,
 import { GiCutDiamond } from 'react-icons/gi'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useSites } from '@/hooks/useSites'
-import { MdOutlineAdd, MdSave } from 'react-icons/md'
+import { MdOutlineAdd, MdSave, MdDeleteOutline } from 'react-icons/md'
 
 const CreateWebsite = () => {
     const {
@@ -32,7 +32,7 @@ const CreateWebsite = () => {
         isEditWebsite,
         currentEditWebsite
     } = useWebsite();
-    const { CreateWebsite, UpdateWebsite, clearFields } = useSites();
+    const { CreateWebsite, UpdateWebsite, clearFields, DeleteWebsite } = useSites();
     const containerColor = useColorModeValue('whiteAlpha.500', 'blackAlpha.500');
 
     return (
@@ -53,7 +53,7 @@ const CreateWebsite = () => {
                     {!isEditWebsite ? 'Create Mint Website' : currentEditWebsite?.components?.title}
                 </Text>
                 <Text fontSize='10pt'>
-                    {!isEditWebsite ? 'Create a Mint Website' : `Currently viewing: ${currentEditWebsite?.components?.title}`}
+                    {!isEditWebsite ? 'Create a Mint Website' : <p>Currently viewing: <span style={{ color: 'orange' }}>{currentEditWebsite?.components?.title}</span></p>}
                 </Text>
             </Flex>
             <Flex flexDir='column' alignItems='flex-start' w='full'>
@@ -210,14 +210,19 @@ const CreateWebsite = () => {
                 </VStack>
                 <HStack mt='2em' justifyContent='flex-end' w='full'>
                     {isEditWebsite ? (
-                        <>
-                        <Button size='lg' onClick={clearFields}>
-                            Cancel
-                        </Button>
-                        <Button rightIcon={<MdSave />} size='lg' onClick={UpdateWebsite} disabled={isUpdating}>
-                            Save
-                        </Button>
-                        </>
+                        <Flex justifyContent='space-between' w='full'>
+                            <Button rightIcon={<MdDeleteOutline />} size='lg' onClick={DeleteWebsite} bg='red.500' _hover={{ bg: 'red.700' }}>
+                                Delete
+                            </Button>
+                            <HStack>
+                                <Button size='lg' onClick={clearFields}>
+                                    Cancel
+                                </Button>
+                                <Button rightIcon={<MdSave />} size='lg' onClick={UpdateWebsite} disabled={isUpdating}>
+                                    Save
+                                </Button>
+                            </HStack>
+                        </Flex>
                     ) : (
                         <Button rightIcon={<MdOutlineAdd />} size='lg' onClick={CreateWebsite} disabled={isCreating}>
                             Create
