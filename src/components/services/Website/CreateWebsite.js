@@ -50,21 +50,11 @@ const CreateWebsite = () => {
         >
             <Flex flexDir='column'>
                 <Text variant='content_subtitle' mt='0'>
-                    Create Mint Website
+                    {!isEditWebsite ? 'Create Mint Website' : currentEditWebsite?.components?.title}
                 </Text>
                 <Text fontSize='10pt'>
-                    {!isEditWebsite ? 'Create a new mint website' : <span style={{ color: 'orange' }}>{currentEditWebsite?.components?.title}</span>}
+                    {!isEditWebsite ? 'Create a Mint Website' : `Currently viewing: ${currentEditWebsite?.components?.title}`}
                 </Text>
-                {isEditWebsite && currentEditWebsite?.isPremium && (
-                    <Box mt='.5em'>
-                        <Tag>
-                            <TagLeftIcon as={GiCutDiamond} color='skyblue' />
-                            <Text>
-                                Premium
-                            </Text>
-                        </Tag>
-                    </Box>
-                )}
             </Flex>
             <Flex flexDir='column' alignItems='flex-start' w='full'>
                 <HStack w='full'>
@@ -190,34 +180,32 @@ const CreateWebsite = () => {
                             </RadioGroup>
                             {!newErrors?.robot?.status ? <FormHelperText>Tells search engines what to follow and what not to follow</FormHelperText> : <FormErrorMessage>{newErrors?.robot?.message}</FormErrorMessage>}
                         </FormControl>
-                        {!isEditWebsite && (
-                            <Flex justifyContent='flex-end' flex='1'>
-                                <VStack alignItems='flex-start'>
-                                    <Text mb='.5em'>
-                                        Subscription
-                                    </Text>
-                                    <RadioGroup onChange={setNewSubscription} value={newSubcription}>
-                                        <VStack alignItems='flex-start'>
-                                            <Radio value='free'>Free</Radio>
-                                            <VStack p='.5em' bg={containerColor} borderRadius='10px' alignItems='flex-start' pr='1em'>
-                                                <Radio value='premium'>
-                                                    <HStack>
-                                                        <GiCutDiamond color='orange' />
-                                                        <Text color='yellow.500'>
-                                                            Premium
-                                                        </Text>
-                                                    </HStack>
-                                                </Radio>
-                                                <Flex flexDir='column' fontSize='10pt' pl='2em'>
-                                                    <Text>- Website Editor</Text>
-                                                    <Text>- No Watermark</Text>
-                                                </Flex>
-                                            </VStack>
+                        <Flex justifyContent='flex-end' flex='1'>
+                            <VStack alignItems='flex-start'>
+                                <Text mb='.5em'>
+                                    Subscription
+                                </Text>
+                                <RadioGroup onChange={setNewSubscription} value={newSubcription}>
+                                    <VStack alignItems='flex-start'>
+                                        <Radio value='free'>Free</Radio>
+                                        <VStack p='.5em' bg={containerColor} borderRadius='10px' alignItems='flex-start' pr='1em'>
+                                            <Radio value='premium'>
+                                                <HStack>
+                                                    <GiCutDiamond color='orange' />
+                                                    <Text color='yellow.500'>
+                                                        Premium
+                                                    </Text>
+                                                </HStack>
+                                            </Radio>
+                                            <Flex flexDir='column' fontSize='10pt' pl='2em'>
+                                                <Text>- Website Editor</Text>
+                                                <Text>- No Watermark</Text>
+                                            </Flex>
                                         </VStack>
-                                    </RadioGroup>
-                                </VStack>
-                            </Flex>
-                        )}
+                                    </VStack>
+                                </RadioGroup>
+                            </VStack>
+                        </Flex>
                     </Wrap>
                 </VStack>
                 <HStack mt='2em' justifyContent='flex-end' w='full'>

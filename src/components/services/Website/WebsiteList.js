@@ -1,9 +1,10 @@
 import { HStack, Text, Flex, Button, VStack, 
-    useColorModeValue, Image, Wrap
+    useColorModeValue, Image, Wrap, Tag, TagLeftIcon
 } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useSites } from '@/hooks/useSites'
 import { MdRefresh } from 'react-icons/md'
+import { GiCutDiamond } from 'react-icons/gi'
 
 const Sites = () => {
     const { websites, isRefreshing } = useWebsite();
@@ -57,6 +58,17 @@ const Sites = () => {
                             boxSize='250px'
                             transform='rotate(10deg)'
                         />
+                        {website.isPremium && (
+                            <Tag
+                                position='absolute'
+                                bottom='0'
+                            >
+                                <TagLeftIcon as={GiCutDiamond} color='skyblue' />
+                                <Text>
+                                    Premium
+                                </Text>
+                            </Tag>
+                        )}
                         {website.components.title}
                     </Button>
                 ))}

@@ -44,7 +44,7 @@ export const useSites = () => {
         currentEditWebsite,
         setCurrentEditWebsite
     } = useWebsite();
-    const { DeductFree, getUserByAddress } = useWeb3();
+    const { DeductFree, getUserByAddress, AddCount } = useWeb3();
 
     useEffect(() => {   
         GetWebsites();
@@ -117,11 +117,13 @@ export const useSites = () => {
 
             const member = await getUserByAddress(address);
 
+            if (!member) throw new Error('Cannot fetch member');
+
             if (newSubcription === 'premium' && member.services.website.freeWebsite === 0) {
                 setPaymentData({
                     service: 'Website',
                     price: 15,
-                    product: '1 NFT mint website',
+                    product: '1 NFT mint website (premium)',
                     redirect: {
                         origin: '/service/website',
                         title: 'Website'
@@ -163,6 +165,8 @@ export const useSites = () => {
                 }
             })
 
+            const INCREMENT_INDEX = 1;
+            await AddCount(INCREMENT_INDEX, 'website');
             await GetWebsites();
 
             setIsCreating(false);
@@ -193,7 +197,7 @@ export const useSites = () => {
     const EditWebsite = (websiteIdx) => {
         setCurrentEditWebsite(websites[websiteIdx]);
         setIsEditWebsite(true);
-        setNewSubscription(websites[websiteIdx].isPremium);
+        setNewSubscription(websites[websiteIdx].isPremium ? 'premium' : 'free');
         setNewComponentTitle(websites[websiteIdx].components.title);
         setNewComponentImage(websites[websiteIdx].components.unrevealedImage);
         setNewComponentDescription(websites[websiteIdx].components.description);
@@ -237,6 +241,29 @@ export const useSites = () => {
 
             if (!currentEditWebsite) throw new Error('Select a mint website');
 
+            const member = await getUserByAddress(address);
+
+            if (!member) throw new Error('Cannot fetch member');
+
+            if (!currentEditWebsite.isPremium && newSubcription === 'premium' && member.services.website.freeWebsite === 0) {
+                setPaymentData({
+                    service: 'Website',
+                    price: 15,
+                    product: '1 NFT mint website (premium)',
+                    redirect: {
+                        origin: '/service/website',
+                        title: 'Website'
+                    },
+                    due: new Date()
+                })
+                router.push('/payment', undefined, { shallow: true }); 
+                return;
+            }
+            else if (!currentEditWebsite.isPremium && newSubcription === 'premium' && member.services.website.freeWebsite > 0) {
+                const DEDUCT_INDEX = 1;
+                await DeductFree(DEDUCT_INDEX, 'website');
+            }
+
             const storageToken = localStorage.getItem('nfthost-user');
             if (!storageToken) return;
 
@@ -246,6 +273,7 @@ export const useSites = () => {
 
             const res = await axios.put(`${config.serverUrl}/api/website/update`, {
                 websiteId: currentEditWebsite._id,
+                isPremium: newSubcription === 'premium',
                 components: {
                     title: newComponentTitle,
                     unrevealedImage: newComponentImage,
