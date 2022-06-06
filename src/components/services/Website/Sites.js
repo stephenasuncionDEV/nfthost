@@ -1,10 +1,10 @@
 import { Box, HStack, Text, Flex, Button, VStack, Input, IconButton, useColorModeValue } from '@chakra-ui/react'
-import { useGenerator } from '@/providers/GeneratorProvider'
+import { useWebsite } from '@/providers/WebsiteProvider'
 import { useLayer } from '@/hooks/useLayer'
 import { MdOutlineAdd  } from 'react-icons/md'
 import { FaTrashAlt } from 'react-icons/fa'
 
-const WebsiteList = () => {
+const Sites = () => {
 
     const containerColor = useColorModeValue('whiteAlpha.500', 'blackAlpha.500');
 
@@ -17,6 +17,7 @@ const WebsiteList = () => {
             borderRadius='10px'
             boxShadow='md'
             h='100%'
+            alignItems='flex-start'
         >
             <VStack spacing='0' alignItems='flex-start'>
                 <Text variant='content_subtitle' mt='0'>
@@ -30,4 +31,4 @@ const WebsiteList = () => {
     )
 }
 
-export default WebsiteList
+export default Sites
