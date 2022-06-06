@@ -3,11 +3,11 @@ const { check } = require("express-validator");
 exports.WalletLoginValidator = [
 
     // Address Validator
-    check('address', 'Address is empty')
+    check('address', 'address is empty')
     .notEmpty(),
 
     // Wallet Validator
-    check('wallet', 'Wallet is empty')
+    check('wallet', 'wallet is empty')
     .notEmpty(),
     
 ];
@@ -15,43 +15,55 @@ exports.WalletLoginValidator = [
 exports.GetMemberByAddressValidator = [
 
     // Address Validator
-    check('address', 'Address is empty')
+    check('address', 'address is empty')
     .notEmpty(),
     
 ];
 
-exports.AddGenerationCountValidator = [
+exports.AddCountValidator = [
 
     // Address Validator
-    check('address', 'Address is empty')
+    check('address', 'address is empty')
+    .notEmpty(),
+
+    // Service Validator
+    check('service', 'service is empty')
     .notEmpty(),
     
     // Value Validator
-    check('value', 'Value is empty')
+    check('value', 'value is empty')
     .notEmpty(),
 
 ];
 
-exports.AddGenerationValidator = [
+exports.AddFreeValidator = [
 
     // Address Validator
-    check('address', 'Address is empty')
+    check('address', 'address is empty')
+    .notEmpty(),
+
+    // Service Validator
+    check('service', 'service is empty')
     .notEmpty(),
     
     // Value Validator
-    check('value', 'Value is empty')
+    check('value', 'value is empty')
     .notEmpty(),
 
 ];
 
-exports.DeductGenerationValidator = [
+exports.DeductFreeValidator = [
 
     // Address Validator
-    check('address', 'Address is empty')
+    check('address', 'address is empty')
+    .notEmpty(),
+
+    // Service Validator
+    check('service', 'service is empty')
     .notEmpty(),
     
     // Value Validator
-    check('value', 'Value is empty')
+    check('value', 'value is empty')
     .notEmpty(),
 
 ];
@@ -59,11 +71,43 @@ exports.DeductGenerationValidator = [
 exports.PaymentRequestValidator = [
 
     // Email Validator
-    check('email', 'Email is empty')
+    check('email', 'email is empty')
     .notEmpty(),
     
     // Amount Validator
-    check('amount', 'Amount is empty')
+    check('amount', 'amount is empty')
     .notEmpty(),
 
 ];
+
+exports.CreateWebsiteValidator = [
+
+    // Id Validator
+    check('memberId', 'memberId is empty')
+    .notEmpty(),
+
+];
+
+exports.GetWebsiteValidator = [
+
+    // websiteId Validator
+    check('websiteId', 'websiteId is empty')
+    .notEmpty(),
+    
+]
+
+exports.GetWebsitesValidator = [
+
+    // memberId Validator
+    check('memberId', 'memberId is empty')
+    .notEmpty(),
+    
+]
+
+exports.UpdateWebsiteValidator = [
+
+    // websiteId Validator
+    check('websiteId', 'websiteId is empty')
+    .notEmpty(),
+
+]

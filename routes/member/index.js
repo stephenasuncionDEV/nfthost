@@ -3,16 +3,16 @@ const controller = require('./controller');
 const { 
     WalletLoginValidator, 
     GetMemberByAddressValidator,
-    AddGenerationCountValidator, 
-    AddGenerationValidator,
-    DeductGenerationValidator
+    AddCountValidator, 
+    AddFreeValidator,
+    DeductFreeValidator
 } = require('../../middlewares/validators');
 const { authenticateToken } = require('../../middlewares/jwt');
 
 router.post('/walletLogin', WalletLoginValidator, controller.walletLogin);
 router.get('/getByAddress', authenticateToken, GetMemberByAddressValidator, controller.getMemberByAddress);
-router.patch('/addGenerationCount', authenticateToken, AddGenerationCountValidator, controller.addGenerationCount);
-router.patch('/addGeneration', authenticateToken, AddGenerationValidator, controller.addGeneration);
-router.patch('/deductGeneration', authenticateToken, DeductGenerationValidator, controller.deductGeneration);
+router.patch('/addCount', authenticateToken, AddCountValidator, controller.addCount);
+router.patch('/addFree', authenticateToken, AddFreeValidator, controller.addFree);
+router.patch('/deductFree', authenticateToken, DeductFreeValidator, controller.deductFree);
 
 module.exports = router;

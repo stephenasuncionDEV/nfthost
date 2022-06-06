@@ -9,7 +9,7 @@ import { decryptToken } from '@/utils/tools'
 
 export const usePayment = () => {
     const toast = useToast();
-    const { isNetworkProtected, AddGeneration } = useWeb3();
+    const { isNetworkProtected, AddFree } = useWeb3();
     const { 
         paymentData,
         paymentName,
@@ -29,7 +29,11 @@ export const usePayment = () => {
 
             const userData = decryptToken(storageToken);
             const wallet = userData.wallet;
-            const PRICE = 0.014;
+            const service = paymentData.service.toLowerCase();
+            const PRICE = {
+                generator: 0.014,
+                website: 0.0085
+            }[service];
 
             if (wallet === 'metamask') {
                 await isNetworkProtected();
@@ -39,11 +43,11 @@ export const usePayment = () => {
                 const txHash = await window.web3.eth.sendTransaction({
                     from: window.ethereum.selectedAddress,
                     to: config.nfthost.wallet_metamask,
-                    value: Web3.utils.toWei(PRICE.toFixed(7).toString(), "ether")
+                    value: Web3.utils.toWei(PRICE.toFixed(7).toString(), 'ether')
                 })
 
-                const ADD_GENERATION_INDEX = 1;
-                await AddGeneration(ADD_GENERATION_INDEX);
+                const INCREMENT_INDEX = 1;
+                await AddFree(INCREMENT_INDEX, service);
 
                 // TODO: Add to payments data
 
@@ -109,10 +113,11 @@ export const usePayment = () => {
             if (!storageToken) return;
 
             const token = decryptToken(storageToken, true);
+            const service = paymentData.service.toLowerCase();
 
             const clientData = await axios.post(`${config.serverUrl}/api/payment/`, {
                 email: paymentEmail,
-                amount: 'generator'
+                amount: service
             }, {
                 headers: { 
                     Authorization: `Bearer ${token.accessToken}` 
@@ -135,10 +140,10 @@ export const usePayment = () => {
 
             if (transaction.error) throw new Error(transaction.error.code);
 
-            const ADD_GENERATION_INDEX = 1;
-            await AddGeneration(ADD_GENERATION_INDEX);
+            const INCREMENT_INDEX = 1;
+            await AddFree(INCREMENT_INDEX, service);
 
-            // TODO: Add to payments data
+            // TODO: Add to payments data and Save email in user data
 
             setIsPaying(false);
             setIsKeepWorkingModal(true);

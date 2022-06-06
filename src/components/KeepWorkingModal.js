@@ -27,13 +27,13 @@ const KeepWorkingModal = () => {
                             If you want to keep working on your&nbsp;
                             {paymentData?.service === 'Generator' && 'nft collection'}
                             &nbsp;{paymentData?.service === 'Website' && 'mint website'}
-                            press the button below:
+                            &nbsp;press the button below:
                         </Text>
                     </Flex>
                 </ModalBody>
                 <ModalFooter justifyContent='center'>
                     <NextLink href={paymentData?.redirect?.origin} shallow passHref>
-                        <Button leftIcon={<AiOutlineArrowLeft />} size='sm'>
+                        <Button leftIcon={<AiOutlineArrowLeft />} size='sm' onClick={() => setIsKeepWorkingModal(false)}>
                             Go back to {paymentData?.redirect?.title}
                         </Button>
                     </NextLink>

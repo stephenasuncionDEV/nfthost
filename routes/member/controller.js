@@ -51,16 +51,21 @@ exports.getMemberByAddress = async (req, res, next) => {
     }
 }
 
-exports.addGenerationCount = async (req, res, next) => {
+exports.addCount = async (req, res, next) => {
     try {
         const errors = validationResult(req).errors;
         if (errors.length > 0) throw new Error(errors[0].msg);
 
-        const { address, value } = req.body;
+        const { address, service, value } = req.body;
+
+        const child = {
+            generator: 'generationCount',
+            website: 'websiteCount'
+        }[service];
 
         await Member.updateOne({ address }, {
             $inc: { 
-                ['services.generator.generationCount']: value
+                [`services.${service}.${child}`]: value
             }
         });
 
@@ -71,16 +76,21 @@ exports.addGenerationCount = async (req, res, next) => {
     }
 }
 
-exports.addGeneration = async (req, res, next) => {
+exports.addFree = async (req, res, next) => {
     try {
         const errors = validationResult(req).errors;
         if (errors.length > 0) throw new Error(errors[0].msg);
 
-        const { address, value } = req.body;
+        const { address, service, value } = req.body;
+
+        const child = {
+            generator: 'freeGeneration',
+            website: 'freeWebsite'
+        }[service];
 
         await Member.updateOne({ address }, {
             $inc: { 
-                ['services.generator.freeGeneration']: value
+                [`services.${service}.${child}`]: value
             }
         });
 
@@ -91,16 +101,21 @@ exports.addGeneration = async (req, res, next) => {
     }
 }
 
-exports.deductGeneration = async (req, res, next) => {
+exports.deductFree = async (req, res, next) => {
     try {
         const errors = validationResult(req).errors;
         if (errors.length > 0) throw new Error(errors[0].msg);
 
-        const { address, value } = req.body;
+        const { address, service, value } = req.body;
+
+        const child = {
+            generator: 'freeGeneration',
+            website: 'freeWebsite'
+        }[service];
 
         await Member.updateOne({ address }, {
             $inc: { 
-                ['services.generator.freeGeneration']: value * -1
+                [`services.${service}.${child}`]: value * -1
             }
         });
 

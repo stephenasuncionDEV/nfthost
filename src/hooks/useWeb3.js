@@ -129,7 +129,7 @@ export const useWeb3 = () => {
         }
     }
 
-    const AddGenerationCount = async (value) => {
+    const AddCount = async (value, service) => {
         return new Promise(async (resolve, reject) => {
             try {
                 const storageToken = localStorage.getItem('nfthost-user');
@@ -137,8 +137,9 @@ export const useWeb3 = () => {
 
                 const token = decryptToken(storageToken, true);
     
-                const res = await axios.patch(`${config.serverUrl}/api/member/addGenerationCount`, {
+                const res = await axios.patch(`${config.serverUrl}/api/member/addCount`, {
                     address: userAddress,
+                    service,
                     value
                 }, {
                     headers: { 
@@ -166,7 +167,7 @@ export const useWeb3 = () => {
         });
     }
 
-    const AddGeneration = async (value) => {
+    const AddFree = async (value, service) => {
         return new Promise(async (resolve, reject) => {
             try {
                 const storageToken = localStorage.getItem('nfthost-user');
@@ -174,8 +175,9 @@ export const useWeb3 = () => {
 
                 const token = decryptToken(storageToken, true);
     
-                const res = await axios.patch(`${config.serverUrl}/api/member/addGeneration`, {
+                const res = await axios.patch(`${config.serverUrl}/api/member/addFree`, {
                     address: userAddress,
+                    service,
                     value
                 }, {
                     headers: { 
@@ -203,7 +205,7 @@ export const useWeb3 = () => {
         });
     }
 
-    const DeductGeneration = async (value) => {
+    const DeductFree = async (value, service) => {
         return new Promise(async (resolve, reject) => {
             try {
                 const storageToken = localStorage.getItem('nfthost-user');
@@ -211,8 +213,9 @@ export const useWeb3 = () => {
 
                 const token = decryptToken(storageToken, true);
     
-                const res = await axios.patch(`${config.serverUrl}/api/member/deductGeneration`, {
+                const res = await axios.patch(`${config.serverUrl}/api/member/deductFree`, {
                     address: userAddress,
+                    service,
                     value
                 }, {
                     headers: { 
@@ -259,9 +262,9 @@ export const useWeb3 = () => {
         Connect,
         Logout,
         getUserByAddress,
-        AddGenerationCount,
-        AddGeneration,
-        DeductGeneration,
+        AddCount,
+        AddFree,
+        DeductFree,
         isNetworkProtected
     }
 }

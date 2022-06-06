@@ -157,7 +157,10 @@ const Payment = () => {
                         <Box mt='1em'>
                             {paymentMethodStep === 'metamask' && (
                                 <Button w='full' bg='orange.500' onClick={PayWithCrypto} disabled={isPaying}>
-                                    Pay 0.014 ETH
+                                    Pay 
+                                    {paymentData?.service === 'Generator' && '0.015'}&nbsp;
+                                    {paymentData?.service === 'Website' && '0.0085'}
+                                    &nbsp;ETH
                                 </Button>
                             )}
                             {paymentMethodStep === 'card' && (

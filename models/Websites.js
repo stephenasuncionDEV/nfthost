@@ -3,10 +3,17 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const WebsitesSchema = new Schema({
+    data: {
+        type:String,
+        default: ''
+    },
     memberId: {
-        type:String, 
-        required:true,
-        unique:true
+        type:Schema.ObjectId, 
+        required:true
+    },
+    isPremium : {
+        type:Boolean,
+        default: false
     },
     components: {
         title: {
@@ -15,7 +22,7 @@ const WebsitesSchema = new Schema({
         },
         unrevealedImage: {
             type:String,
-            default: ''
+            default: 'https://www.nfthost.app/assets/logo.png'
         },
         description: {
             type:String,
@@ -25,47 +32,35 @@ const WebsitesSchema = new Schema({
             type:String,
             default: ''
         },
-        isPremium : {
-            type:Boolean,
-            default: false
+    },
+    meta: {
+        robot: {
+            type:String,
+            default: 'if'
         },
-        meta: {
-            title: {
-                type:String,
-                default: ''
-            },
-            description: {
-                type:String,
-                default: ''
-            },
-            robot: {
-                type:String,
-                default: ''
-            },
-            favicon: {
-                type:String,
-                default: ''
-            },
-            language: {
-                type:String,
-                default: ''
-            }
+        favicon: {
+            type:String,
+            default: 'https://www.nfthost.app/favicon.ico'
         },
-        analytics: {
-            uniqueVisits : {
-                type:Number,
-                default: 0
-            },
-            clickedOnEmbed : {
-                type:Number,
-                default: 0
-            },
-            referrers : {
-                type:Array,
-                default: []
-            }
+        language: {
+            type:String,
+            default: 'EN'
         }
     },
+    analytics: {
+        uniqueVisits : {
+            type:Number,
+            default: 0
+        },
+        clickedOnEmbed : {
+            type:Number,
+            default: 0
+        },
+        referrers : {
+            type:Array,
+            default: []
+        }
+    }
 }, { timestamps: true });
 
 exports.Website = mongoose.model('website', WebsitesSchema);

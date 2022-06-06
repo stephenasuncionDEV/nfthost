@@ -44,7 +44,7 @@ export const useGenerate = () => {
         setPreviewLayers
     } = useGenerator();
     const { address } = useUser();
-    const { getUserByAddress, AddGenerationCount, DeductGeneration } = useWeb3();
+    const { getUserByAddress, AddCount, DeductFree } = useWeb3();
 
     const RandomPreview = (silent = false) => {
         try {
@@ -201,12 +201,12 @@ export const useGenerate = () => {
             }
             else if(collectionSize > 100 && freeGeneration > 0) {
                 const DECREMENT_VALUE = 1;
-                await DeductGeneration(DECREMENT_VALUE);
+                await DeductFree(DECREMENT_VALUE, 'generator');
             }
             
             if (collectionSize > 100) {
                 const INCREMENT_VALUE = 1;
-                await AddGenerationCount(INCREMENT_VALUE);
+                await AddCount(INCREMENT_VALUE, 'generator');
             }
 
             setIsGenerateModal(true);
