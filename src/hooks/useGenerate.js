@@ -291,7 +291,7 @@ export const useGenerate = () => {
                         setIsConfetti(true);
                         setIsDownloadModal(true);
 						console.log(`[NFTHost] It took ${t1 - t0} milliseconds to generate this collection.`);
-                        posthog.capture('User generated collection', {
+                        posthog.capture('User generated a collection', {
                             standardType
                         });
 					}

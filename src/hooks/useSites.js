@@ -9,7 +9,6 @@ import { decryptToken } from '@/utils/tools'
 import { useUser } from '@/providers/UserProvider'
 import { useCore } from '@/providers/CoreProvider'
 import { useWeb3 } from '@/hooks/useWeb3'
-import { getWebsites } from 'routes/website/controller'
 
 export const useSites = () => {
     const toast = useToast();
@@ -170,6 +169,10 @@ export const useSites = () => {
             await GetWebsites();
 
             setIsCreating(false);
+
+            posthog.capture('User created a mint website', {
+                subscription: newSubcription
+            });
 
             toast({
                 title: 'Success',
