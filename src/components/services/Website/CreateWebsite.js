@@ -46,7 +46,7 @@ const CreateWebsite = () => {
             h='100%'
             alignItems='flex-start'
             mt='1em'
-            maxW='1000px'
+            maxW='900px'
         >
             <Flex flexDir='column'>
                 <Text variant='content_subtitle' mt='0'>
