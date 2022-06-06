@@ -294,6 +294,7 @@ export const useSites = () => {
         GetWebsites,
         CreateWebsite,
         EditWebsite,
-        UpdateWebsite
+        UpdateWebsite,
+        clearFields
     }
 }

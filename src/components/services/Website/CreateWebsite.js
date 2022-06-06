@@ -32,7 +32,7 @@ const CreateWebsite = () => {
         isEditWebsite,
         currentEditWebsite
     } = useWebsite();
-    const { CreateWebsite, UpdateWebsite } = useSites();
+    const { CreateWebsite, UpdateWebsite, clearFields } = useSites();
     const containerColor = useColorModeValue('whiteAlpha.500', 'blackAlpha.500');
 
     return (
@@ -46,6 +46,7 @@ const CreateWebsite = () => {
             h='100%'
             alignItems='flex-start'
             mt='1em'
+            maxW='1000px'
         >
             <Flex flexDir='column'>
                 <Text variant='content_subtitle' mt='0'>
@@ -72,7 +73,7 @@ const CreateWebsite = () => {
                     </Text>
                     <Divider flex='1' />
                 </HStack>
-                <VStack spacing='.75em' w='full' alignItems='flex-start' maxW='800px' mt='1em'>
+                <VStack spacing='.75em' w='full' alignItems='flex-start' mt='1em'>
                     <Wrap w='full'>
                         <FormControl isInvalid={newErrors?.title?.status} flex='1'>
                             <Input placeholder='Title' value={newComponentTitle} onChange={(e) => setNewComponentTitle(e.target.value)} />
@@ -167,11 +168,11 @@ const CreateWebsite = () => {
                         </FormControl>
                     </Wrap>
                     <FormControl isInvalid={newErrors?.description?.status}>
-                        <Textarea placeholder='Description' value={newComponentDescription} onChange={(e) => setNewComponentDescription(e.target.value)} rows='5' />
+                        <Textarea placeholder='Description' value={newComponentDescription} onChange={(e) => setNewComponentDescription(e.target.value)} rows='8' />
                         {!newErrors?.description?.status ? <FormHelperText>Short description of your mint website</FormHelperText> : <FormErrorMessage>{newErrors?.description?.message}</FormErrorMessage>}
                     </FormControl>
                     <FormControl isInvalid={newErrors?.embed?.status}>
-                        <Textarea placeholder='Embed' value={newComponentEmbed} onChange={(e) => setNewComponentEmbed(e.target.value)} rows='5' />
+                        <Textarea placeholder='Embed' value={newComponentEmbed} onChange={(e) => setNewComponentEmbed(e.target.value)} rows='8' />
                         {!newErrors?.embed?.status ? <FormHelperText>Embed code of a Thirdparty website</FormHelperText> : <FormErrorMessage>{newErrors?.embed?.message}</FormErrorMessage>}
                     </FormControl>
                     <Wrap w='full'>
@@ -219,17 +220,22 @@ const CreateWebsite = () => {
                         )}
                     </Wrap>
                 </VStack>
-                <Flex maxW='800px' mt='2em' justifyContent='flex-end' w='full'>
+                <HStack mt='2em' justifyContent='flex-end' w='full'>
                     {isEditWebsite ? (
+                        <>
+                        <Button size='lg' onClick={clearFields}>
+                            Cancel
+                        </Button>
                         <Button rightIcon={<MdSave />} size='lg' onClick={UpdateWebsite} disabled={isUpdating}>
                             Save
                         </Button>
+                        </>
                     ) : (
                         <Button rightIcon={<MdOutlineAdd />} size='lg' onClick={CreateWebsite} disabled={isCreating}>
                             Create
                         </Button>
                     )}
-                </Flex>
+                </HStack>
             </Flex>
         </VStack>
     )
