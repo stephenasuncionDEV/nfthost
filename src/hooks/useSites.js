@@ -86,22 +86,15 @@ export const useSites = () => {
         }
     }
 
-    const pushError = (errorsObj, { component, status, message }) => {
-        errorsObj[component] = {
-            status,
-            message
-        }
-    }
-
     const CreateWebsite = async () => {
         try {
             setNewErrors(null);
 
             let errorsObj = {};
 
-            if (!newComponentTitle.length) pushError(errorsObj, { component: 'title', status: true, message: 'Title field must be filled in' });
-            if (!newComponentDescription.length) pushError(errorsObj, { component: 'description', status: true, message: 'Description field must be filled in' });
-            if (!newComponentEmbed.length) pushError(errorsObj, { component: 'embed', status: true, message: 'Embed field must be filled in' });
+            if (!newComponentTitle.length) errorsObj.title = { status: true, message: 'Title field must be filled in' };
+            if (!newComponentDescription.length) errorsObj.description = { status: true, message: 'Description field must be filled in' };
+            if (!newComponentEmbed.length) errorsObj.embed = { status: true, message: 'Embed field must be filled in' };
 
             if (Object.keys(errorsObj).length > 0) {
                 setNewErrors(errorsObj);
@@ -225,9 +218,9 @@ export const useSites = () => {
 
             let errorsObj = {};
 
-            if (!newComponentTitle.length) pushError(errorsObj, { component: 'title', status: true, message: 'Title field must be filled in' });
-            if (!newComponentDescription.length) pushError(errorsObj, { component: 'description', status: true, message: 'Description field must be filled in' });
-            if (!newComponentEmbed.length) pushError(errorsObj, { component: 'embed', status: true, message: 'Embed field must be filled in' });
+            if (!newComponentTitle.length) errorsObj.title = { status: true, message: 'Title field must be filled in' };
+            if (!newComponentDescription.length) errorsObj.description = { status: true, message: 'Description field must be filled in' };
+            if (!newComponentEmbed.length) errorsObj.embed = { status: true, message: 'Embed field must be filled in' };
 
             if (Object.keys(errorsObj).length > 0) {
                 setNewErrors(errorsObj);
