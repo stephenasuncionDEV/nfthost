@@ -36,7 +36,6 @@ export const useSites = () => {
         setNewMetaFavicon,
         newMetaLanguage,
         setNewMetaLanguage,
-        newErrors,
         setNewErrors,
         setIsEditWebsite,
         setIsUpdating,
@@ -156,6 +155,7 @@ export const useSites = () => {
             await GetWebsites();
 
             setIsCreating(false);
+            clearFields();
 
             posthog.capture('User created a mint website', {
                 subscription: newSubcription
