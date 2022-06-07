@@ -9,7 +9,7 @@ const WebsitesSchema = new Schema({
     },
     memberId: {
         type:Schema.ObjectId, 
-        required:true
+        default: null
     },
     isPremium: {
         type:Boolean,
@@ -26,19 +26,23 @@ const WebsitesSchema = new Schema({
     components: {
         title: {
             type:String,
-            default: ''
+            default: '',
+            required: true
         },
         unrevealedImage: {
             type:String,
-            default: 'https://www.nfthost.app/assets/logo.png'
+            default: 'https://www.nfthost.app/assets/logo.png',
+            required: true
         },
         description: {
             type:String,
-            default: ''
+            default: '',
+            required: true
         },
         embed: {
             type:String,
-            default: ''
+            default: '',
+            required: true
         },
         script: {
             type:String,

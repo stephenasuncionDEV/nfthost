@@ -97,7 +97,7 @@ export const useSites = () => {
             if (!newComponentTitle.length) errorsObj.title = { status: true, message: 'Title field must be filled in' };
             if (!newComponentDescription.length) errorsObj.description = { status: true, message: 'Description field must be filled in' };
             if (!newComponentEmbed.length) errorsObj.embed = { status: true, message: 'Embed field must be filled in' };
-            if (!newComponentScript.length) errorsObj.script = { status: true, message: 'Script field must be filled in' };
+            if (!newComponentImage.length) errorsObj.image = { status: true, message: 'Unrevealed Image Link field must be filled in' };
 
             if (Object.keys(errorsObj).length > 0) {
                 setNewErrors(errorsObj);
@@ -243,8 +243,8 @@ export const useSites = () => {
             if (!newComponentTitle.length) errorsObj.title = { status: true, message: 'Title field must be filled in' };
             if (!newComponentDescription.length) errorsObj.description = { status: true, message: 'Description field must be filled in' };
             if (!newComponentEmbed.length) errorsObj.embed = { status: true, message: 'Embed field must be filled in' };
-            if (!newComponentScript.length) errorsObj.script = { status: true, message: 'Script field must be filled in' };
-
+            if (!newComponentImage.length) errorsObj.image = { status: true, message: 'Unrevealed Image Link field must be filled in' };
+            
             if (Object.keys(errorsObj).length > 0) {
                 setNewErrors(errorsObj);
                 return;

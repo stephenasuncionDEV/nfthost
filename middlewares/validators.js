@@ -82,10 +82,21 @@ exports.PaymentRequestValidator = [
 
 exports.CreateWebsiteValidator = [
 
-    // Id Validator
-    check('memberId', 'memberId is empty')
+    // components.title Validator
+    check('components.title', 'components.title is empty')
     .notEmpty(),
 
+    // components.unrevealedImage Validator
+    check('components.unrevealedImage', 'components.unrevealedImage is empty')
+    .notEmpty(),
+
+    // components.description Validator
+    check('components.description', 'components.description is empty')
+    .notEmpty(),
+
+    // components.embed Validator
+    check('components.embed', 'components.embed is empty')
+    .notEmpty(),
 ];
 
 exports.GetWebsiteValidator = [
