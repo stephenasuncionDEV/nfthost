@@ -23,7 +23,7 @@ exports.getWebsite = async (req, res, next) => {
         
         const { websiteId } = req.query;
         
-        const result = await Website.find({ _id: websiteId });
+        const result = await Website.findOne({ _id: websiteId });
 
         res.status(200).json(result);
 

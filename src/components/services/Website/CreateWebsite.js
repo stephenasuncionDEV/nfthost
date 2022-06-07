@@ -21,6 +21,8 @@ const CreateWebsite = () => {
         setNewComponentDescription,
         newComponentEmbed,
         setNewComponentEmbed,
+        newComponentScript,
+        setNewComponentScript,
         newMetaRobot,
         setNewMetaRobot,
         newMetaFavicon,
@@ -162,10 +164,16 @@ const CreateWebsite = () => {
                         <Textarea placeholder='Description' value={newComponentDescription} onChange={(e) => setNewComponentDescription(e.target.value)} rows='8' />
                         {!newErrors?.description?.status ? <FormHelperText>Short description of your mint website</FormHelperText> : <FormErrorMessage>{newErrors?.description?.message}</FormErrorMessage>}
                     </FormControl>
-                    <FormControl isInvalid={newErrors?.embed?.status}>
-                        <Textarea placeholder='Embed' value={newComponentEmbed} onChange={(e) => setNewComponentEmbed(e.target.value)} rows='8' />
-                        {!newErrors?.embed?.status ? <FormHelperText>Embed code of a Thirdparty website</FormHelperText> : <FormErrorMessage>{newErrors?.embed?.message}</FormErrorMessage>}
-                    </FormControl>
+                    <Wrap w='full'>
+                        <FormControl isInvalid={newErrors?.script?.status} flex='1'>
+                            <Textarea placeholder='Script' value={newComponentScript} onChange={(e) => setNewComponentScript(e.target.value)} rows='8' />
+                            {!newErrors?.script?.status ? <FormHelperText>Script code of a third-party website</FormHelperText> : <FormErrorMessage>{newErrors?.script?.message}</FormErrorMessage>}
+                        </FormControl>
+                        <FormControl isInvalid={newErrors?.embed?.status} flex='1'>
+                            <Textarea placeholder='Embed' value={newComponentEmbed} onChange={(e) => setNewComponentEmbed(e.target.value)} rows='8' />
+                            {!newErrors?.embed?.status ? <FormHelperText>Embed code of a third-party website</FormHelperText> : <FormErrorMessage>{newErrors?.embed?.message}</FormErrorMessage>}
+                        </FormControl>
+                    </Wrap>
                     <Wrap w='full'>
                         <FormControl isInvalid={newErrors?.robot?.status} flex='1'>
                             <Text mb='.5em'>
@@ -199,7 +207,7 @@ const CreateWebsite = () => {
                                                 </HStack>
                                             </Radio>
                                             <Flex flexDir='column' fontSize='10pt' pl='2em'>
-                                                <Text>- Website Editor</Text>
+                                                <Text>- Website Templates</Text>
                                                 <Text>- No Watermark</Text>
                                             </Flex>
                                         </VStack>

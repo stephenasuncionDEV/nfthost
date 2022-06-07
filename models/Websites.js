@@ -36,7 +36,11 @@ const WebsitesSchema = new Schema({
             type:String,
             default: ''
         },
-        embed : {
+        embed: {
+            type:String,
+            default: ''
+        },
+        script: {
             type:String,
             default: ''
         },

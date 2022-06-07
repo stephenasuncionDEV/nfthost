@@ -12,6 +12,7 @@ export const WebsiteProvider = ({ children }) => {
     const [newComponentImage, setNewComponentImage] = useState('https://www.nfthost.app/assets/logo.png');
     const [newComponentDescription, setNewComponentDescription] = useState('');
     const [newComponentEmbed, setNewComponentEmbed] = useState('');
+    const [newComponentScript, setNewComponentScript] = useState('');
     const [newMetaRobot, setNewMetaRobot] = useState('if');
     const [newMetaFavicon, setNewMetaFavicon] = useState('https://www.nfthost.app/favicon.ico');
     const [newMetaLanguage, setNewMetaLanguage] = useState('EN');
@@ -40,6 +41,8 @@ export const WebsiteProvider = ({ children }) => {
         setNewComponentDescription,
         newComponentEmbed,
         setNewComponentEmbed,
+        newComponentScript,
+        setNewComponentScript,
         newMetaRobot,
         setNewMetaRobot,
         newMetaFavicon,

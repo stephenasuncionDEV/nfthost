@@ -31,6 +31,8 @@ export const useSites = () => {
         setNewComponentDescription,
         newComponentEmbed,
         setNewComponentEmbed,
+        newComponentScript,
+        setNewComponentScript,
         newMetaRobot,
         setNewMetaRobot,
         newMetaFavicon,
@@ -95,6 +97,7 @@ export const useSites = () => {
             if (!newComponentTitle.length) errorsObj.title = { status: true, message: 'Title field must be filled in' };
             if (!newComponentDescription.length) errorsObj.description = { status: true, message: 'Description field must be filled in' };
             if (!newComponentEmbed.length) errorsObj.embed = { status: true, message: 'Embed field must be filled in' };
+            if (!newComponentScript.length) errorsObj.script = { status: true, message: 'Script field must be filled in' };
 
             if (Object.keys(errorsObj).length > 0) {
                 setNewErrors(errorsObj);
@@ -140,6 +143,7 @@ export const useSites = () => {
                     unrevealedImage: newComponentImage,
                     description: newComponentDescription,
                     embed: newComponentEmbed,
+                    script: newComponentScript
                 },
                 meta: {
                     robot: newMetaRobot,
@@ -195,6 +199,7 @@ export const useSites = () => {
         setNewComponentImage(websites[websiteIdx].components.unrevealedImage);
         setNewComponentDescription(websites[websiteIdx].components.description);
         setNewComponentEmbed(websites[websiteIdx].components.embed);
+        setNewComponentScript(websites[websiteIdx].components.script);
         setNewMetaRobot(websites[websiteIdx].meta.robot);
         setNewMetaFavicon(websites[websiteIdx].meta.favicon);
         setNewMetaLanguage(websites[websiteIdx].meta.language);
@@ -209,6 +214,7 @@ export const useSites = () => {
         setNewComponentImage('https://www.nfthost.app/assets/logo.png');
         setNewComponentDescription('');
         setNewComponentEmbed('');
+        setNewComponentScript('');
         setNewMetaRobot('if');
         setNewMetaFavicon('https://www.nfthost.app/favicon.ico');
         setNewMetaLanguage('EN');
@@ -237,6 +243,7 @@ export const useSites = () => {
             if (!newComponentTitle.length) errorsObj.title = { status: true, message: 'Title field must be filled in' };
             if (!newComponentDescription.length) errorsObj.description = { status: true, message: 'Description field must be filled in' };
             if (!newComponentEmbed.length) errorsObj.embed = { status: true, message: 'Embed field must be filled in' };
+            if (!newComponentScript.length) errorsObj.script = { status: true, message: 'Script field must be filled in' };
 
             if (Object.keys(errorsObj).length > 0) {
                 setNewErrors(errorsObj);
@@ -247,6 +254,7 @@ export const useSites = () => {
                 title: newComponentTitle,
                 unrevealedImage: newComponentImage,
                 embed: newComponentEmbed,
+                script: newComponentScript,
                 description: newComponentDescription,
                 robot: newMetaRobot,
                 favicon: newMetaFavicon,
@@ -297,6 +305,7 @@ export const useSites = () => {
                     unrevealedImage: newComponentImage,
                     description: newComponentDescription,
                     embed: newComponentEmbed,
+                    script: newComponentScript
                 },
                 meta: {
                     robot: newMetaRobot,

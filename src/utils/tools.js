@@ -83,16 +83,28 @@ export const decryptToken = (encryptedToken, tokenOnly = false) => {
 }
 
 export const getPriceFromService = (service, inETH = false) => {
-    try {
-        const price = {
-            generator: inETH ? 0.014 : 25,
-            website: inETH ? 0.0085 : 15
-        }[service];
+    const price = {
+        generator: inETH ? 0.014 : 25,
+        website: inETH ? 0.0085 : 15
+    }[service];
 
-        return price;
+    return price;
+}
+
+export const formatRobot = (robot) => {
+    let ret = 'index, follow'
+    switch (robot) {
+        case 'if':
+            ret = 'index, follow'
+            break;
+        case 'nf':
+            ret = 'noindex, follow'
+            break;
+        case 'in':
+            ret = 'index, nofollow'
+            break;
+        case 'nn':
+            ret = 'noindex, nofollow'
     }
-    catch (err) {
-        console.error(err);
-        return 25;
-    }
+    return ret;
 }

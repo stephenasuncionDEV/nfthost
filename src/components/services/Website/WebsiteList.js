@@ -51,7 +51,7 @@ const Sites = () => {
                     >
                         <Image 
                             position='absolute'
-                            src='https://i.postimg.cc/nLCCLF4c/Screenshot-1.png'
+                            src={website?.components?.unrevealedImage}
                             alt='Website Logo' 
                             objectFit='cover' 
                             opacity='.1' 
