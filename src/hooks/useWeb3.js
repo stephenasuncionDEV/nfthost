@@ -34,6 +34,12 @@ export const useWeb3 = () => {
                 wallet
             })
 
+            if (!localStorage.getItem('nfthost-user')) {
+                posthog.capture('User logged in with crypto wallet', {
+                    wallet
+                });
+            }
+
             const encrypted = encrypt(JSON.stringify(token.data));
             localStorage.setItem('nfthost-user', encrypted);
 
@@ -44,10 +50,6 @@ export const useWeb3 = () => {
             setUser(userData);
             setAddress(address);
             setIsLoggedIn(true);
-
-            posthog.capture('User logged in with crypto wallet', {
-                wallet
-            });
 
             return true;
         }
