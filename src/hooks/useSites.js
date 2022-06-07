@@ -16,7 +16,7 @@ export const useSites = () => {
     const { setPaymentData } = useCore();
     const { address, user } = useUser();
     const {
-        website,
+        userWebsite,
         websites,
         setWebsites, 
         setIsCreating, 
@@ -314,6 +314,10 @@ export const useSites = () => {
             setCurrentEditWebsite(res.data);
             setIsUpdating(false);
 
+            posthog.capture('User updated a mint website', {
+                subscription: newSubcription
+            });
+
             toast({
                 title: 'Success',
                 description: 'Successfuly updated your mint website',
@@ -367,6 +371,10 @@ export const useSites = () => {
 
             setIsDeletingWebsite(false);
 
+            posthog.capture('User deleted a mint website', {
+                subscription: currentEditWebsite.isPremium
+            });
+
             toast({
                 title: 'Success',
                 description: 'Successfuly deleted your website',
@@ -398,7 +406,7 @@ export const useSites = () => {
             const token = decryptToken(storageToken, true);
 
             await axios.patch(`${config.serverUrl}/api/website/updateExpiration`, {
-                websiteId: website._id,
+                websiteId: userWebsite._id,
                 isExpired
             }, {
                 headers: { 

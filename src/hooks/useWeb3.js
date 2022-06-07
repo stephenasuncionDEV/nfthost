@@ -294,6 +294,8 @@ export const useWeb3 = () => {
                     Authorization: `Bearer ${token.accessToken}` 
                 }
             })
+
+            posthog.capture('User email has been updated');
         }
         catch (err) {
             console.error(err);

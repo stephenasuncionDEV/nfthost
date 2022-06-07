@@ -4,7 +4,7 @@ export const WebsiteContext = createContext({})
 export const useWebsite = () => useContext(WebsiteContext)
 
 export const WebsiteProvider = ({ children }) => {
-    const [website, setWebsite] = useState();
+    const [userWebsite, setUserWebsite] = useState();
     const [websites, setWebsites] = useState();
     const [currentDashboard, setCurrentDashboard] = useState('sites');
     const [newSubcription, setNewSubscription] = useState('free');
@@ -24,8 +24,8 @@ export const WebsiteProvider = ({ children }) => {
     const [currentEditWebsite, setCurrentEditWebsite] = useState();
 
     const controllers = {
-        website,
-        setWebsite,
+        userWebsite,
+        setUserWebsite,
         websites,
         setWebsites,
         currentDashboard,
