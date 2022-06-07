@@ -7,6 +7,7 @@ import { GiCutDiamond } from 'react-icons/gi'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useSites } from '@/hooks/useSites'
 import { MdOutlineAdd, MdSave, MdDeleteOutline } from 'react-icons/md'
+import { FaRedo } from 'react-icons/fa'
 
 const CreateWebsite = () => {
     const {
@@ -53,7 +54,7 @@ const CreateWebsite = () => {
                     {!isEditWebsite ? 'Create Mint Website' : currentEditWebsite?.components?.title}
                 </Text>
                 <Text fontSize='10pt'>
-                    {!isEditWebsite ? 'Create a Mint Website' : <p>Currently viewing: <span style={{ color: 'orange' }}>{currentEditWebsite?.components?.title}</span></p>}
+                    {!isEditWebsite ? 'Create a Mint Website' : <span>Currently viewing: <span style={{ color: 'orange' }}>{currentEditWebsite?.components?.title}</span></span>}
                 </Text>
             </Flex>
             <Flex flexDir='column' alignItems='flex-start' w='full'>
@@ -224,9 +225,14 @@ const CreateWebsite = () => {
                             </HStack>
                         </Flex>
                     ) : (
-                        <Button rightIcon={<MdOutlineAdd />} size='lg' onClick={CreateWebsite} disabled={isCreating}>
-                            Create
-                        </Button>
+                        <HStack>
+                            <Button rightIcon={<FaRedo />} size='lg' onClick={clearFields}>
+                                Reset
+                            </Button>
+                            <Button rightIcon={<MdOutlineAdd />} size='lg' onClick={CreateWebsite} disabled={isCreating}>
+                                Create
+                            </Button>
+                        </HStack>
                     )}
                 </HStack>
             </Flex>

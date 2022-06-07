@@ -86,33 +86,26 @@ export const useSites = () => {
         }
     }
 
-    const triggerError = (component, { status, message }) => {
-        setNewErrors({
-            ...newErrors,
-            [`${component}`]: {
-                status,
-                message
-            }
-        })
+    const pushError = (errorsObj, { component, status, message }) => {
+        errorsObj[component] = {
+            status,
+            message
+        }
     }
 
     const CreateWebsite = async () => {
         try {
             setNewErrors(null);
 
-            if (!newComponentTitle.length) {
-                triggerError('title', { status: true, message: 'Title field must be filled in' });
-                throw new Error('Title field must be filled in');
-            }
+            let errorsObj = {};
 
-            if (!newComponentDescription.length) {
-                triggerError('description', { status: true, message: 'Description field must be filled in' });
-                throw new Error('Description field must be filled in');
-            }
+            if (!newComponentTitle.length) pushError(errorsObj, { component: 'title', status: true, message: 'Title field must be filled in' });
+            if (!newComponentDescription.length) pushError(errorsObj, { component: 'description', status: true, message: 'Description field must be filled in' });
+            if (!newComponentEmbed.length) pushError(errorsObj, { component: 'embed', status: true, message: 'Embed field must be filled in' });
 
-            if (!newComponentEmbed.length) {
-                triggerError('embed', { status: true, message: 'Embed field must be filled in' });
-                throw new Error('Embed field must be filled in');
+            if (Object.keys(errorsObj).length > 0) {
+                setNewErrors(errorsObj);
+                return;
             }
 
             const member = await getUserByAddress(address);
@@ -213,6 +206,7 @@ export const useSites = () => {
     }
 
     const clearFields = () => {
+        setNewErrors(null);
         setCurrentEditWebsite(null);
         setIsEditWebsite(false);
         setNewSubscription('free');
@@ -229,19 +223,15 @@ export const useSites = () => {
         try {
             setNewErrors(null);
 
-            if (!newComponentTitle.length) {
-                triggerError('title', { status: true, message: 'Title field must be filled in' });
-                throw new Error('Title field must be filled in');
-            }
+            let errorsObj = {};
 
-            if (!newComponentDescription.length) {
-                triggerError('description', { status: true, message: 'Description field must be filled in' });
-                throw new Error('Description field must be filled in');
-            }
+            if (!newComponentTitle.length) pushError(errorsObj, { component: 'title', status: true, message: 'Title field must be filled in' });
+            if (!newComponentDescription.length) pushError(errorsObj, { component: 'description', status: true, message: 'Description field must be filled in' });
+            if (!newComponentEmbed.length) pushError(errorsObj, { component: 'embed', status: true, message: 'Embed field must be filled in' });
 
-            if (!newComponentEmbed.length) {
-                triggerError('embed', { status: true, message: 'Embed field must be filled in' });
-                throw new Error('Embed field must be filled in');
+            if (Object.keys(errorsObj).length > 0) {
+                setNewErrors(errorsObj);
+                return;
             }
 
             if (!currentEditWebsite) throw new Error('Select a mint website');
@@ -348,7 +338,7 @@ export const useSites = () => {
             const DEDUCT_INDEX = 1;
             await DeductCount(DEDUCT_INDEX, 'website');
             await GetWebsites();
-            
+
             clearFields();
 
             setIsDeletingWebsite(false);
