@@ -1,20 +1,20 @@
-import NextLink from 'next/link'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { Text, Flex, Tag, TagLeftIcon, Link, Image, VStack } from '@chakra-ui/react'
+import { Text, Flex, Tag, TagLeftIcon, Link, Image, VStack, Button } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useUserWebsite } from '@/hooks/useUserWebsite'
 import CookieModal from '@/components/CookieModal'
 import parse from 'html-react-parser'
 import { CgCopyright } from 'react-icons/cg'
+import { GiCutDiamond } from 'react-icons/gi'
 
 const Service = () => {
     const router = useRouter();
     const { userWebsite } = useWebsite();
-    const {  } = useUserWebsite();
     const { websiteId } = router.query;
+    useUserWebsite();
 
-    return userWebsite && (
+    return userWebsite && !userWebsite?.isExpired && (
         <main>
             <Head>
                 <title>{userWebsite?.components?.title}</title>
@@ -63,6 +63,14 @@ const Service = () => {
                         <Text>
                             {userWebsite?.components?.description}
                         </Text>
+                        {userWebsite?.isPremium && (
+                            <Tag>
+                                <TagLeftIcon as={GiCutDiamond} color='skyblue' />
+                                <Text>
+                                    Premium
+                                </Text>
+                            </Tag>
+                        )}
                     </VStack>
                     {parse(userWebsite?.components?.embed)}
                     <Link href='https://www.nfthost.app/' isExternal>

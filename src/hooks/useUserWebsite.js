@@ -27,7 +27,7 @@ export const useUserWebsite = () => {
         GetUserWebsite();
     }, [router])
 
-    const GetUserWebsite = async () => {
+    const GetUserWebsite = async (checkExpiration = true) => {
         try {
             const storageToken = localStorage.getItem('nfthost-user');
             if (!storageToken) return;
@@ -43,10 +43,11 @@ export const useUserWebsite = () => {
                 }
             })
 
-            //@TODO: Check expiration if premium
-            //@TODO: Analytics
-
             if (!res.data) throw new Error('Invalid website Id');
+
+            if (checkExpiration) await CheckExpiration(res.data);
+
+            //@TODO: Analytics
 
             setUserWebsite({
                 ...res.data,
@@ -55,6 +56,43 @@ export const useUserWebsite = () => {
                     robot: formatRobot(res.data.meta.robot)
                 }
             })
+        }
+        catch (err) {
+            console.error(err);
+            router.push('/', undefined, { shallow: true });
+            toast({
+                title: 'Error',
+                description: err.message,
+                status: 'error',
+                isClosable: true,
+                position: 'bottom-center'
+            })
+        }
+    }
+
+    const CheckExpiration = async (websiteData) => {
+        try {
+            if (!websiteData) return;
+
+            const isExpired = new Date(websiteData.premiumStartDate) > new Date();
+
+            if (isExpired) {
+                const storageToken = localStorage.getItem('nfthost-user');
+                if (!storageToken) return;
+    
+                const token = decryptToken(storageToken, true);
+    
+                const res = await axios.patch(`${config.serverUrl}/api/website/updateExpiration`, {
+                    websiteId: websiteData._id,
+                    isExpired: true
+                }, {
+                    headers: { 
+                        Authorization: `Bearer ${token.accessToken}` 
+                    }
+                })
+
+                router.push('/', undefined, { shallow: true });
+            }
         }
         catch (err) {
             console.error(err);
