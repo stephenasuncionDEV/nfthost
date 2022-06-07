@@ -188,7 +188,7 @@ const CreateWebsite = () => {
                                 </Text>
                                 <RadioGroup onChange={setNewSubscription} value={newSubcription}>
                                     <VStack alignItems='flex-start'>
-                                        <Radio value='free'>Free</Radio>
+                                        {!currentEditWebsite?.isPremium && <Radio value='free'>Free</Radio>}
                                         <VStack p='.5em' bg={containerColor} borderRadius='10px' alignItems='flex-start' pr='1em'>
                                             <Radio value='premium'>
                                                 <HStack>

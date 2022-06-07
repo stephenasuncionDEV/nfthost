@@ -11,9 +11,17 @@ const WebsitesSchema = new Schema({
         type:Schema.ObjectId, 
         required:true
     },
-    isPremium : {
+    isPremium: {
         type:Boolean,
         default: false
+    },
+    isExpired: {
+        type:Boolean,
+        default: false
+    },
+    premiumStartDate: {
+        type:Date,
+        default: null
     },
     components: {
         title: {

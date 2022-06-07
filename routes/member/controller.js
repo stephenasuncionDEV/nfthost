@@ -1,9 +1,6 @@
 const { generateAccessToken, generateRefreshToken } = require('../../middlewares/jwt');
 const { validationResult } = require('express-validator');
 const { Member } = require('../../models/Members');
-// const bcrypt = require ('bcrypt');
-// const jwt = require('jsonwebtoken');
-// const axios = require('axios');
 
 exports.walletLogin = async (req, res, next) => {
     try {
@@ -158,7 +155,7 @@ exports.updateEmail = async (req, res, next) => {
 
         const { memberId, email } = req.body;
 
-        const result = await Member.updateOne({ memberId }, {
+        const result = await Member.updateOne({ _id: memberId }, {
             $set: { 
                 email
             }

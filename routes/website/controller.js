@@ -1,9 +1,5 @@
-const { generateAccessToken, generateRefreshToken } = require('../../middlewares/jwt');
 const { validationResult } = require('express-validator');
 const { Website } = require('../../models/Websites');
-// const bcrypt = require ('bcrypt');
-// const jwt = require('jsonwebtoken');
-// const axios = require('axios');
 
 exports.createWebsite = async (req, res, next) => {
     try {
@@ -78,6 +74,20 @@ exports.deleteWebsite = async (req, res, next) => {
         const { websiteId } = req.body;
 
         const result = await Website.remove({ _id: websiteId });
+
+        res.status(200).json(result);
+
+    } catch (err) {
+        next(err);
+    }
+}
+
+exports.deleteExpired = async (req, res, next) => {
+    try {
+        const errors = validationResult(req).errors;
+        if (errors.length > 0) throw new Error(errors[0].msg);
+
+        //const result = await Website.remove({ _id: websiteId });
 
         res.status(200).json(result);
 

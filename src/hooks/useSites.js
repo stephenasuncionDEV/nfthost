@@ -2,13 +2,13 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useToast } from '@chakra-ui/react'
+import { useUser } from '@/providers/UserProvider'
+import { useCore } from '@/providers/CoreProvider'
+import { useWeb3 } from '@/hooks/useWeb3'
 import posthog from 'posthog-js'
 import axios from 'axios'
 import config from '@/config/index'
 import { decryptToken } from '@/utils/tools'
-import { useUser } from '@/providers/UserProvider'
-import { useCore } from '@/providers/CoreProvider'
-import { useWeb3 } from '@/hooks/useWeb3'
 
 export const useSites = () => {
     const toast = useToast();
@@ -133,6 +133,7 @@ export const useSites = () => {
             const res = await axios.post(`${config.serverUrl}/api/website/create`, {
                 memberId: user._id,
                 isPremium: newSubcription === 'premium',
+                premiumStartDate: newSubcription === 'premium' ? new Date() : null,
                 components: {
                     title: newComponentTitle,
                     unrevealedImage: newComponentImage,
@@ -212,6 +213,23 @@ export const useSites = () => {
         setNewMetaLanguage('EN');
     }
 
+    const areTwoFieldsArrSame = (currentEditWebsite, newFields) => {
+        const newOldFields = {
+            title: currentEditWebsite.components.title,
+            image: currentEditWebsite.components.unrevealedImage,
+            embed: currentEditWebsite.components.embed,
+            description: currentEditWebsite.components.description,
+            robot: currentEditWebsite.meta.robot,
+            favicon: currentEditWebsite.meta.favicon,
+            language: currentEditWebsite.meta.language,
+            isPremium: currentEditWebsite.isPremium
+        }
+        
+        return !Object.keys(newOldFields).some((key) => {
+            return newOldFields[key] !== newFields[key];
+        });
+    }
+
     const UpdateWebsite = async () => {
         try {
             setNewErrors(null);
@@ -227,13 +245,26 @@ export const useSites = () => {
                 return;
             }
 
+            if (areTwoFieldsArrSame(currentEditWebsite, { 
+                title: newComponentTitle,
+                image: newComponentImage,
+                embed: newComponentEmbed,
+                description: newComponentDescription,
+                robot: newMetaRobot,
+                favicon: newMetaFavicon,
+                language: newMetaLanguage,
+                isPremium: newSubcription === 'premium'
+            })) throw new Error('No changes detected');
+
             if (!currentEditWebsite) throw new Error('Select a mint website');
 
             const member = await getUserByAddress(address);
 
             if (!member) throw new Error('Cannot fetch member');
 
-            if (!currentEditWebsite.isPremium && newSubcription === 'premium' && member.services.website.freeWebsite === 0) {
+            const isUpdatedToPremium = !currentEditWebsite.isPremium && newSubcription === 'premium';
+
+            if (isUpdatedToPremium && member.services.website.freeWebsite === 0) {
                 setPaymentData({
                     service: 'Website',
                     price: 15,
@@ -247,7 +278,7 @@ export const useSites = () => {
                 router.push('/payment', undefined, { shallow: true }); 
                 return;
             }
-            else if (!currentEditWebsite.isPremium && newSubcription === 'premium' && member.services.website.freeWebsite > 0) {
+            else if (isUpdatedToPremium && member.services.website.freeWebsite > 0) {
                 const DEDUCT_INDEX = 1;
                 await DeductFree(DEDUCT_INDEX, 'website');
             }
@@ -262,6 +293,7 @@ export const useSites = () => {
             const res = await axios.put(`${config.serverUrl}/api/website/update`, {
                 websiteId: currentEditWebsite._id,
                 isPremium: newSubcription === 'premium',
+                premiumStartDate: isUpdatedToPremium ? new Date() : currentEditWebsite.premiumStartDate,
                 components: {
                     title: newComponentTitle,
                     unrevealedImage: newComponentImage,

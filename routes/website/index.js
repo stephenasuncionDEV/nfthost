@@ -14,5 +14,6 @@ router.get('/get', authenticateToken, GetWebsiteValidator, controller.getWebsite
 router.get('/getMany', authenticateToken, GetWebsitesValidator, controller.getWebsites);
 router.put('/update', authenticateToken, UpdateWebsiteValidator, controller.updateWebsite);
 router.delete('/delete', authenticateToken, DeleteWebsiteValidator, controller.deleteWebsite);
+router.delete('/deleteExpired', authenticateToken, controller.deleteExpired);
 
 module.exports = router;
