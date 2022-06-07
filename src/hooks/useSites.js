@@ -214,17 +214,14 @@ export const useSites = () => {
     }
 
     const areTwoFieldsArrSame = (currentEditWebsite, newFields) => {
+        const {components: {...components}, meta: {...meta}, isPremium} = currentEditWebsite;
+
         const newOldFields = {
-            title: currentEditWebsite.components.title,
-            image: currentEditWebsite.components.unrevealedImage,
-            embed: currentEditWebsite.components.embed,
-            description: currentEditWebsite.components.description,
-            robot: currentEditWebsite.meta.robot,
-            favicon: currentEditWebsite.meta.favicon,
-            language: currentEditWebsite.meta.language,
-            isPremium: currentEditWebsite.isPremium
+            ...components,
+            ...meta,
+            isPremium: isPremium
         }
-        
+
         return !Object.keys(newOldFields).some((key) => {
             return newOldFields[key] !== newFields[key];
         });
@@ -247,7 +244,7 @@ export const useSites = () => {
 
             if (areTwoFieldsArrSame(currentEditWebsite, { 
                 title: newComponentTitle,
-                image: newComponentImage,
+                unrevealedImage: newComponentImage,
                 embed: newComponentEmbed,
                 description: newComponentDescription,
                 robot: newMetaRobot,
@@ -313,6 +310,7 @@ export const useSites = () => {
 
             await GetWebsites();
 
+            setCurrentEditWebsite(res.data);
             setIsUpdating(false);
 
             toast({

@@ -55,11 +55,14 @@ exports.updateWebsite = async (req, res, next) => {
 
         const { websiteId, ...websiteData} = req.body;
 
-        const result = await Website.updateOne({ _id: websiteId }, {
+        await Website.updateOne({ _id: websiteId }, {
             ...websiteData
         })
 
-        res.status(200).json(result);
+        res.status(200).json({
+            _id: websiteId,
+            ...websiteData
+        });
 
     } catch (err) {
         next(err);
