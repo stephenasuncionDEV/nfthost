@@ -169,3 +169,14 @@ exports.UpdateEmailValidator = [
     check('email', 'email is invalid')
     .isEmail(),
 ]
+
+exports.UpdateExpirationValidator = [
+
+    // websiteId Validator
+    check('websiteId', 'websiteId is empty')
+    .notEmpty(),
+
+    // isExpired Validator
+    check('isExpired', 'isExpired is empty')
+    .notEmpty(),
+]

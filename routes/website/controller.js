@@ -85,14 +85,21 @@ exports.deleteWebsite = async (req, res, next) => {
     }
 }
 
-exports.deleteExpired = async (req, res, next) => {
+exports.updateExpiration = async (req, res, next) => {
     try {
         const errors = validationResult(req).errors;
         if (errors.length > 0) throw new Error(errors[0].msg);
 
-        //const result = await Website.remove({ _id: websiteId });
+        const { websiteId, isExpired } = req.body;
 
-        res.status(200).json(result);
+        await Website.updateOne({ _id: websiteId }, {
+            $set: { 
+                isExpired
+            }
+        });
+
+        res.status(200).json({message: "Succesfully updated website expiration"});
+
 
     } catch (err) {
         next(err);

@@ -15,7 +15,8 @@ export const useSites = () => {
     const router = useRouter();
     const { setPaymentData } = useCore();
     const { address, user } = useUser();
-    const { 
+    const {
+        website,
         websites,
         setWebsites, 
         setIsCreating, 
@@ -389,12 +390,41 @@ export const useSites = () => {
         }
     }
 
+    const UpdateExpiration = async (isExpired) => {
+        try {
+            const storageToken = localStorage.getItem('nfthost-user');
+            if (!storageToken) return;
+
+            const token = decryptToken(storageToken, true);
+
+            await axios.patch(`${config.serverUrl}/api/website/updateExpiration`, {
+                websiteId: website._id,
+                isExpired
+            }, {
+                headers: { 
+                    Authorization: `Bearer ${token.accessToken}` 
+                }
+            })
+        }
+        catch (err) {
+            console.error(err);
+            toast({
+                title: 'Error',
+                description: err.message,
+                status: 'error',
+                isClosable: true,
+                position: 'bottom-center'
+            })
+        }
+    }
+
     return {
         GetWebsites,
         CreateWebsite,
         EditWebsite,
         UpdateWebsite,
         clearFields,
-        DeleteWebsite
+        DeleteWebsite,
+        UpdateExpiration
     }
 }
