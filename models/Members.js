@@ -20,6 +20,10 @@ const MembersSchema = new Schema({
         type:String, 
         default: 'https://www.nfthost.app/assets/logo.png'
     },
+    isBanned: {
+        type:Boolean,
+        default: false
+    },
     services: {
         generator: {
             generationCount: {

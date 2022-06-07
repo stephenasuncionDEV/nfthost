@@ -81,3 +81,18 @@ export const decryptToken = (encryptedToken, tokenOnly = false) => {
         console.error(err);
     }
 }
+
+export const getPriceFromService = (service, inETH = false) => {
+    try {
+        const price = {
+            generator: inETH ? 0.014 : 25,
+            website: inETH ? 0.0085 : 15
+        }[service];
+
+        return price;
+    }
+    catch (err) {
+        console.error(err);
+        return 25;
+    }
+}

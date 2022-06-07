@@ -135,3 +135,37 @@ exports.DeleteWebsiteValidator = [
     .notEmpty(),
 
 ]
+
+exports.AddPaymentValidator = [
+
+    // websiteId Validator
+    check('memberId', 'memberId is empty')
+    .notEmpty(),
+
+    // hash Validator
+    check('hash', 'hash is empty')
+    .notEmpty(),
+
+    // service Validator
+    check('service', 'service is empty')
+    .notEmpty(),
+
+    // price Validator
+    check('price', 'price is empty')
+    .notEmpty(),
+
+]
+
+exports.UpdateEmailValidator = [
+
+    // websiteId Validator
+    check('memberId', 'memberId is empty')
+    .notEmpty(),
+
+    // email Validator
+    check('email', 'email is empty')
+    .notEmpty(),
+
+    check('email', 'email is invalid')
+    .isEmail(),
+]

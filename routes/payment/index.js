@@ -1,8 +1,9 @@
 const router = require('express').Router();
 const controller = require('./controller');
 const { authenticateToken } = require('../../middlewares/jwt');
-const { PaymentRequestValidator } = require('../../middlewares/validators');
+const { PaymentRequestValidator, AddPaymentValidator } = require('../../middlewares/validators');
 
-router.post('/', authenticateToken, PaymentRequestValidator, controller.requestPayment);
+router.post('/request', authenticateToken, PaymentRequestValidator, controller.requestPayment);
+router.post('/add', authenticateToken, AddPaymentValidator, controller.addPayment);
 
 module.exports = router;

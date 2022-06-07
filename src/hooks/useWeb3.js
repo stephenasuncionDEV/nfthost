@@ -10,7 +10,7 @@ import { encrypt, decryptToken } from '@/utils/tools'
 export const useWeb3 = () => {
     const toast = useToast();
     const router = useRouter();
-    const { setAddress, setIsLoggedIn, setUser, address: userAddress } = useUser();
+    const { setAddress, setIsLoggedIn, setUser, address: userAddress, user } = useUser();
 
     const Connect = async (wallet) => {
         try {
@@ -279,6 +279,34 @@ export const useWeb3 = () => {
         });
     }
 
+    const UpdateEmail = async (email) => {
+        try {
+            const storageToken = localStorage.getItem('nfthost-user');
+            if (!storageToken) return;
+
+            const token = decryptToken(storageToken, true);
+
+            await axios.patch(`${config.serverUrl}/api/member/updateEmail`, {
+                memberId: user._id,
+                email 
+            }, {
+                headers: { 
+                    Authorization: `Bearer ${token.accessToken}` 
+                }
+            })
+        }
+        catch (err) {
+            console.error(err);
+            toast({
+                title: 'Error',
+                description: err.message,
+                status: 'error',
+                isClosable: true,
+                position: 'bottom-center'
+            })
+        }
+    }
+
     // Get current metamask chain id
     const getChainId = () => {
         return `0x${parseInt(window.ethereum.networkVersion).toString(16)}`;
@@ -304,5 +332,6 @@ export const useWeb3 = () => {
         DeductCount,
         DeductFree,
         isNetworkProtected,
+        UpdateEmail
     }
 }

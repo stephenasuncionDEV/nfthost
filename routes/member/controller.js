@@ -150,3 +150,23 @@ exports.deductFree = async (req, res, next) => {
         next(err);
     }
 }
+
+exports.updateEmail = async (req, res, next) => {
+    try {
+        const errors = validationResult(req).errors;
+        if (errors.length > 0) throw new Error(errors[0].msg);
+
+        const { memberId, email } = req.body;
+
+        const result = await Member.updateOne({ memberId }, {
+            $set: { 
+                email
+            }
+        });
+
+        res.status(200).json(result);
+
+    } catch (err) {
+        next(err);
+    }
+}
