@@ -1,4 +1,4 @@
-const { generateAccessToken, generateRefreshToken } = require('../../middlewares/jwt');
+const { generateAccessToken, generateRefreshToken, generateThirdPartyToken } = require('../../middlewares/jwt');
 const { validationResult } = require('express-validator');
 const { Member } = require('../../models/Members');
 const { Token } = require('../../models/Tokens');

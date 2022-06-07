@@ -61,7 +61,7 @@ const Sites = () => {
                         {website.isPremium && (
                             <Tag
                                 position='absolute'
-                                bottom='0'
+                                bottom='4'
                             >
                                 <TagLeftIcon as={GiCutDiamond} color='skyblue' />
                                 <Text>

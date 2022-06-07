@@ -27,6 +27,7 @@ exports.requestPayment = async (req, res, next) => {
 exports.addPayment = async (req, res, next) => {
     try {   
         const payment = new Payment({...req.body});
+        
         const result = await payment.save({ ordered: false });
 
         res.status(200).send(result);

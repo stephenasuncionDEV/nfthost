@@ -335,18 +335,17 @@ export const useWeb3 = () => {
         }
     }
 
-    // Get current metamask chain id
     const getChainId = () => {
         return `0x${parseInt(window.ethereum.networkVersion).toString(16)}`;
     }
 
-    // Make sure user is on ETH network
     const isNetworkProtected = async () => {
         const id = getChainId();
-        if (id !== '0x1') {
+        const chainId = process.env.CHAIN_ID;
+        if (id !== chainId) {
             await window.ethereum.request({
                 method: 'wallet_switchEthereumChain',
-                params: [{ chainId: '0x1' }],
+                params: [{ chainId }],
             });
         }
     }

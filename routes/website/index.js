@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const controller = require('./controller');
-const { authenticateToken } = require('../../middlewares/jwt');
+const { authenticateToken, authenticateThirdPartyToken } = require('../../middlewares/jwt');
 const { 
     CreateWebsiteValidator, 
     GetWebsiteValidator,
@@ -10,7 +10,7 @@ const {
     UpdateExpirationValidator
 } = require('../../middlewares/validators');
 
-router.post('/create', authenticateToken, CreateWebsiteValidator, controller.createWebsite);
+router.post('/create', authenticateThirdPartyToken, CreateWebsiteValidator, controller.createWebsite);
 router.get('/get', GetWebsiteValidator, controller.getWebsite);
 router.get('/getMany', authenticateToken, GetWebsitesValidator, controller.getWebsites);
 router.put('/update', authenticateToken, UpdateWebsiteValidator, controller.updateWebsite);

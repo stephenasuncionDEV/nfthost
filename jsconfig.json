@@ -8,6 +8,7 @@
             "@/hooks/*": ["src/hooks/*"],
             "@/config/*": ["config/*"],
             "@/styles/*": ["styles/*"],
+            "@/middlewares/*": ["middlewares/*"]
         }
     }
 }

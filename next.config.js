@@ -6,7 +6,8 @@ module.exports = {
         CHAIN_ID: process.env.CHAIN_ID,
         METAMASK_ADDRESS: process.env.METAMASK_ADDRESS,
         ENCRYPT_KEY: process.env.ENCRYPT_KEY,
-        POSTHOG_KEY: process.env.POSTHOG_KEY
+        POSTHOG_KEY: process.env.POSTHOG_KEY,
+        CREATE_WEBSITE_TOKEN: process.env.CREATE_WEBSITE_TOKEN
     },
     webpack: (config, { webpack }) => {
         config.plugins.push(new webpack.IgnorePlugin({

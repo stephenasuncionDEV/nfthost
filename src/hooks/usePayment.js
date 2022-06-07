@@ -11,7 +11,7 @@ import { decryptToken, getPriceFromService } from '@/utils/tools'
 export const usePayment = () => {
     const toast = useToast();
     const { user } = useUser();
-    const { isNetworkProtected, AddFree, UpdateEmail } = useWeb3();
+    const { isNetworkProtected, AddFree, UpdateEmail, Logout } = useWeb3();
     const { 
         paymentData,
         paymentName,
@@ -69,9 +69,10 @@ export const usePayment = () => {
         catch (err) {
             console.error(err);
             setIsPaying(false);
+            if (err.response?.data?.isExpired) await Logout();
             toast({
                 title: 'Error',
-                description: err.message,
+                description: !err.response ? err.message : err.response.data.message,
                 status: 'error',
                 duration: 3000,
                 isClosable: true,
@@ -163,9 +164,10 @@ export const usePayment = () => {
         catch (err) {
             console.error(err);
             setIsPaying(false);
+            if (err.response?.data?.isExpired) await Logout();
             toast({
                 title: 'Error',
-                description: err.message,
+                description: !err.response ? err.message : err.response.data.message,
                 status: 'error',
                 duration: 3000,
                 isClosable: true,
@@ -196,9 +198,10 @@ export const usePayment = () => {
         }
         catch (err) {
             console.error(err);
+            if (err.response?.data?.isExpired) await Logout();
             toast({
                 title: 'Error',
-                description: err.message,
+                description: !err.response ? err.message : err.response.data.message,
                 status: 'error',
                 duration: 3000,
                 isClosable: true,

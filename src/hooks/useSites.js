@@ -128,12 +128,7 @@ export const useSites = () => {
                 await DeductFree(DEDUCT_INDEX, 'website');
             }
 
-            const storageToken = localStorage.getItem('nfthost-user');
-            if (!storageToken) return;
-
             setIsCreating(true);
-
-            const token = decryptToken(storageToken, true);
 
             const res = await axios.post(`${config.serverUrl}/api/website/create`, {
                 memberId: user._id,
@@ -153,7 +148,7 @@ export const useSites = () => {
                 }
             }, {
                 headers: { 
-                    Authorization: `Bearer ${token.accessToken}` 
+                    Authorization: `Bearer ${process.env.CREATE_WEBSITE_TOKEN}` 
                 }
             })
 
