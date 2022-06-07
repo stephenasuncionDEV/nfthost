@@ -9,7 +9,7 @@ import { useNavbar } from '@/hooks/useNavbar'
 import { HiOutlineChevronDown, HiLogout } from 'react-icons/hi'
 import { MdOutlineContentCopy, MdPayment } from 'react-icons/md'
 
-const ConnectWalletTag = ({ isCopyAddress, isUserProfile, isPayments }) => {
+const ConnectWalletTag = ({ isCopyAddress, isUserProfile, isPayments, isSidebar }) => {
     const { address, isLoggedIn, user } = useUser();
     const { CopyAddress } = useNavbar();
     const { Connect, Logout } = useWeb3();
@@ -20,7 +20,7 @@ const ConnectWalletTag = ({ isCopyAddress, isUserProfile, isPayments }) => {
         <Menu>
             <MenuButton as={Tag} borderWidth='1px' size='md' cursor='pointer' bg={tagBGColor}>
                 <HStack>
-                    <Text as={TagLabel} noOfLines='1'>
+                    <Text as={TagLabel} noOfLines='1' maxW={isSidebar ? '170px' : 'auto'}>
                         {isLoggedIn ? address : 'Connect Your Wallet'}
                     </Text>
                     <TagRightIcon as={HiOutlineChevronDown} />
@@ -58,7 +58,7 @@ const ConnectWalletTag = ({ isCopyAddress, isUserProfile, isPayments }) => {
                         <MenuItem icon={<MdOutlineContentCopy />} onClick={CopyAddress}>Copy Address</MenuItem>
                     )}
                     {isUserProfile && <MenuDivider />}
-                    <MenuItem icon={<HiLogout />} onClick={Logout}>Logout</MenuItem>
+                    <MenuItem icon={<HiLogout />} onClick={() => Logout(false)}>Logout</MenuItem>
                     </>
                 ) : (
                     <>

@@ -35,14 +35,11 @@ export const useWeb3 = () => {
             })
 
             const encrypted = encrypt(JSON.stringify(token.data));
-
             localStorage.setItem('nfthost-user', encrypted);
-
-            if (token.status !== 200) throw new Error('Login Error Code: 0x1');
 
             const userData = await getUserByAddress(address);
 
-            if (!userData) throw new Error('Login Error Code: 0x2');
+            if (!userData) throw new Error('Cannot get user data');
 
             setUser(userData);
             setAddress(address);
@@ -55,20 +52,20 @@ export const useWeb3 = () => {
             return true;
         }
         catch (err) {
+            console.error(err);
             toast({
                 title: 'Error',
-                description: err.message,
+                description: !err.response ? err.message : err.response.data.message,
                 status: 'error',
                 duration: 3000,
                 isClosable: true,
                 position: 'bottom-center'
             })
-            
             return false;
         }
     }
 
-    const Logout = async () => {
+    const Logout = async (silent = true) => {
         try {
             const storageToken = localStorage.getItem('nfthost-user');
             if (!storageToken) return;
@@ -76,17 +73,37 @@ export const useWeb3 = () => {
             const userData = decryptToken(storageToken);
             if (userData.wallet === 'phantom') window.solana.disconnect();
 
+            const token = decryptToken(storageToken, true);
+
+            const res = await axios.delete(`${config.serverUrl}/api/member/logout`, {
+                data: {
+                    refreshToken: token.refreshToken,
+                }
+            })
+
             localStorage.removeItem('nfthost-user');
 
+            setUser(null);
             setAddress('');
             setIsLoggedIn(false);
 
             router.push('/', undefined, { shallow: true });
+
+            if (!silent) {
+                toast({
+                    title: 'Success',
+                    description: 'Successfully logged out',
+                    status: 'success',
+                    isClosable: true,
+                    position: 'bottom-center'
+                })
+            }
         }
         catch (err) {
+            console.error(err);
             toast({
                 title: 'Error',
-                description: err.message,
+                description: !err.response ? err.message : err.response.data.message,
                 status: 'error',
                 duration: 3000,
                 isClosable: true,
@@ -118,14 +135,17 @@ export const useWeb3 = () => {
             return res.data;
         }
         catch (err) {
+            console.error(err);
+            if (err.response?.data?.isExpired) await Logout();
             toast({
                 title: 'Error',
-                description: err.message,
+                description: !err.response ? err.message : err.response.data.message,
                 status: 'error',
                 duration: 3000,
                 isClosable: true,
                 position: 'bottom-center'
             })
+            return null;
         }
     }
 
@@ -154,12 +174,13 @@ export const useWeb3 = () => {
             }
             catch (err) {
                 reject(err);
-
                 console.error(err);
+                if (err.response?.data?.isExpired) await Logout();
                 toast({
                     title: 'Error',
-                    description: err.message,
+                    description: !err.response ? err.message : err.response.data.message,
                     status: 'error',
+                    duration: 3000,
                     isClosable: true,
                     position: 'bottom-center'
                 })
@@ -192,12 +213,12 @@ export const useWeb3 = () => {
             }
             catch (err) {
                 reject(err);
-
-                console.error(err);
+                if (err.response?.data?.isExpired) await Logout();
                 toast({
                     title: 'Error',
-                    description: err.message,
+                    description: !err.response ? err.message : err.response.data.message,
                     status: 'error',
+                    duration: 3000,
                     isClosable: true,
                     position: 'bottom-center'
                 })
@@ -230,11 +251,12 @@ export const useWeb3 = () => {
             }
             catch (err) {
                 reject(err);
-                console.error(err);
+                if (err.response?.data?.isExpired) await Logout();
                 toast({
                     title: 'Error',
-                    description: err.message,
+                    description: !err.response ? err.message : err.response.data.message,
                     status: 'error',
+                    duration: 3000,
                     isClosable: true,
                     position: 'bottom-center'
                 })
@@ -268,10 +290,12 @@ export const useWeb3 = () => {
             catch (err) {
                 reject(err);
                 console.error(err);
+                if (err.response?.data?.isExpired) await Logout();
                 toast({
                     title: 'Error',
-                    description: err.message,
+                    description: !err.response ? err.message : err.response.data.message,
                     status: 'error',
+                    duration: 3000,
                     isClosable: true,
                     position: 'bottom-center'
                 })
@@ -299,10 +323,12 @@ export const useWeb3 = () => {
         }
         catch (err) {
             console.error(err);
+            if (err.response?.data?.isExpired) await Logout();
             toast({
                 title: 'Error',
-                description: err.message,
+                description: !err.response ? err.message : err.response.data.message,
                 status: 'error',
+                duration: 3000,
                 isClosable: true,
                 position: 'bottom-center'
             })

@@ -191,3 +191,19 @@ exports.UpdateExpirationValidator = [
     check('isExpired', 'isExpired is empty')
     .notEmpty(),
 ]
+
+exports.LogoutValidator = [
+
+    // refreshToken Validator
+    check('refreshToken', 'refreshToken is empty')
+    .notEmpty(),
+
+]
+
+exports.RenewTokenValidator = [
+
+    // refreshToken Validator
+    check('refreshToken', 'refreshToken is empty')
+    .notEmpty(),
+
+]

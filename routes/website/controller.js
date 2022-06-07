@@ -76,7 +76,7 @@ exports.deleteWebsite = async (req, res, next) => {
 
         const { websiteId } = req.body;
 
-        const result = await Website.remove({ _id: websiteId });
+        const result = await Website.deleteOne({ _id: websiteId });
 
         res.status(200).json(result);
 

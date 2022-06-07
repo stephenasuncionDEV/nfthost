@@ -46,7 +46,7 @@ export const useSites = () => {
         setCurrentEditWebsite,
         setIsDeletingWebsite
     } = useWebsite();
-    const { DeductFree, getUserByAddress, AddCount, DeductCount } = useWeb3();
+    const { DeductFree, getUserByAddress, AddCount, DeductCount, Logout } = useWeb3();
 
     useEffect(() => {   
         GetWebsites();
@@ -75,11 +75,12 @@ export const useSites = () => {
             setIsRefreshing(false);
         }
         catch (err) {
-            console.error(err);
             setIsRefreshing(false);
+            console.error(err);
+            if (err.response?.data?.isExpired) await Logout();
             toast({
                 title: 'Error',
-                description: err.message,
+                description: !err.response ? err.message : err.response.data.message,
                 status: 'error',
                 duration: 3000,
                 isClosable: true,
@@ -177,11 +178,11 @@ export const useSites = () => {
             })
         }
         catch (err) {
-            console.error(err);
             setIsCreating(false);
+            if (err.response?.data?.isExpired) await Logout();
             toast({
                 title: 'Error',
-                description: err.message,
+                description: !err.response ? err.message : err.response.data.message,
                 status: 'error',
                 duration: 3000,
                 isClosable: true,
@@ -337,11 +338,12 @@ export const useSites = () => {
             })
         }
         catch (err) {
-            console.error(err);
             setIsUpdating(false);
+            console.error(err);
+            if (err.response?.data?.isExpired) await Logout();
             toast({
                 title: 'Error',
-                description: err.message,
+                description: !err.response ? err.message : err.response.data.message,
                 status: 'error',
                 duration: 3000,
                 isClosable: true,
@@ -394,11 +396,12 @@ export const useSites = () => {
             })
         }
         catch (err) {
-            console.error(err);
             setIsDeletingWebsite(false);
+            console.error(err);
+            if (err.response?.data?.isExpired) await Logout();
             toast({
                 title: 'Error',
-                description: err.message,
+                description: !err.response ? err.message : err.response.data.message,
                 status: 'error',
                 duration: 3000,
                 isClosable: true,
@@ -425,10 +428,12 @@ export const useSites = () => {
         }
         catch (err) {
             console.error(err);
+            if (err.response?.data?.isExpired) await Logout();
             toast({
                 title: 'Error',
-                description: err.message,
+                description: !err.response ? err.message : err.response.data.message,
                 status: 'error',
+                duration: 3000,
                 isClosable: true,
                 position: 'bottom-center'
             })

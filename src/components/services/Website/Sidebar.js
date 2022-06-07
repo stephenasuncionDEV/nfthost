@@ -2,6 +2,7 @@ import NextLink from 'next/link'
 import { Box, Flex, Text, useColorModeValue, Avatar, HStack, Button, VStack } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { BsStack } from 'react-icons/bs'
+import ConnectWalletTag from '@/components/ConnectWalletTag'
 
 const sidebarItemsArr = [
     { name: 'Mint Sites', icon: <BsStack />, key: 'sites' }
@@ -36,6 +37,9 @@ const Sidebar = ({ children }) => {
                         </Text>
                     </HStack>
                 </NextLink>
+                <Box mt='1em'>
+                    <ConnectWalletTag isSidebar />
+                </Box>
                 <VStack mt='1em' w='full'>
                     {sidebarItemsArr?.map((item, idx) => (
                         <Button key={idx} w='full' leftIcon={item.icon} justifyContent='flex-start' bg='transparent' onClick={() => setCurrentDashboard(item.key)}>
