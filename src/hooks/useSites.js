@@ -435,6 +435,19 @@ export const useSites = () => {
         }
     }
 
+    const CopyWebsiteLink = () => {
+        navigator.clipboard.writeText(`${config?.frontendUrl}/${currentEditWebsite._id}`);
+
+        toast({
+            title: 'Success',
+            description: `Copied ${currentEditWebsite.components.title}'s link`,
+            status: 'success',
+            duration: 3000,
+            isClosable: true,
+            position: 'bottom-center'
+        })
+    }
+
     return {
         GetWebsites,
         CreateWebsite,
@@ -442,6 +455,7 @@ export const useSites = () => {
         UpdateWebsite,
         clearFields,
         DeleteWebsite,
-        UpdateExpiration
+        UpdateExpiration,
+        CopyWebsiteLink
     }
 }

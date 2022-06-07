@@ -1,5 +1,6 @@
 export default {
-	serverUrl: 'https://www.nfthost.app/',
+    frontendUrl: 'https://www.nfthost.app',
+	serverUrl: 'https://www.nfthost.app',
     stripe: {
         publicKey: 'pk_live_NvId9HTSPKI3pVQ1UqoAfnnd00Y2VDa3Uh'
     },

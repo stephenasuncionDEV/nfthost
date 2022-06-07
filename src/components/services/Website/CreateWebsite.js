@@ -6,8 +6,9 @@ import { HStack, Text, Button, Flex, VStack,
 import { GiCutDiamond } from 'react-icons/gi'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useSites } from '@/hooks/useSites'
-import { MdOutlineAdd, MdSave, MdDeleteOutline } from 'react-icons/md'
+import { MdOutlineAdd, MdSave, MdDeleteOutline, MdOutlineContentCopy } from 'react-icons/md'
 import { FaRedo } from 'react-icons/fa'
+import config from '@/config/index'
 
 const CreateWebsite = () => {
     const {
@@ -35,7 +36,7 @@ const CreateWebsite = () => {
         isEditWebsite,
         currentEditWebsite
     } = useWebsite();
-    const { CreateWebsite, UpdateWebsite, clearFields, DeleteWebsite } = useSites();
+    const { CreateWebsite, UpdateWebsite, clearFields, DeleteWebsite, CopyWebsiteLink } = useSites();
     const containerColor = useColorModeValue('whiteAlpha.500', 'blackAlpha.500');
 
     return (
@@ -51,14 +52,28 @@ const CreateWebsite = () => {
             mt='1em'
             maxW='900px'
         >
-            <Flex flexDir='column'>
-                <Text variant='content_subtitle' mt='0'>
-                    {!isEditWebsite ? 'Create Mint Website' : currentEditWebsite?.components?.title}
-                </Text>
-                <Text fontSize='10pt'>
-                    {!isEditWebsite ? 'Create a Mint Website' : <span>Currently viewing: <span style={{ color: 'orange' }}>{currentEditWebsite?.components?.title}</span></span>}
-                </Text>
-            </Flex>
+            <HStack justifyContent='space-between' w='full'>
+                <Flex flexDir='column'>
+                    <Text variant='content_subtitle' mt='0'>
+                        {!isEditWebsite ? 'Create Mint Website' : currentEditWebsite?.components?.title}
+                    </Text>
+                    <Text fontSize='10pt'>
+                        {!isEditWebsite ? 'Create a Mint Website' : <span>Currently viewing: <span style={{ color: 'orange' }}>{currentEditWebsite?.components?.title}</span></span>}
+                    </Text>
+                </Flex>
+                {isEditWebsite && (
+                    <Input 
+                        readOnly 
+                        value={`${config?.frontendUrl}/${currentEditWebsite?._id}`} 
+                        size='lg' 
+                        textAlign='center' 
+                        maxW='300px' 
+                        cursor='pointer' 
+                        _hover={{ opacity: '.5' }} 
+                        onClick={CopyWebsiteLink}
+                    />
+                )}
+            </HStack>
             <Flex flexDir='column' alignItems='flex-start' w='full'>
                 <HStack w='full'>
                     <Text fontSize='10pt' >
@@ -200,7 +215,7 @@ const CreateWebsite = () => {
                                         <VStack p='.5em' bg={containerColor} borderRadius='10px' alignItems='flex-start' pr='1em'>
                                             <Radio value='premium'>
                                                 <HStack>
-                                                    <GiCutDiamond color='orange' />
+                                                    <GiCutDiamond color='#08BDD4' />
                                                     <Text color='yellow.500'>
                                                         Premium
                                                     </Text>

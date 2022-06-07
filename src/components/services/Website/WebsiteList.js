@@ -63,7 +63,7 @@ const Sites = () => {
                                 position='absolute'
                                 bottom='4'
                             >
-                                <TagLeftIcon as={GiCutDiamond} color='skyblue' />
+                                <TagLeftIcon as={GiCutDiamond} color='#08BDD4' />
                                 <Text>
                                     Premium
                                 </Text>

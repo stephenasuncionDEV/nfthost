@@ -1,4 +1,5 @@
 export default {
+    frontendUrl: 'http://localhost:3000',
 	serverUrl: 'http://localhost:8080',
     stripe: {
         publicKey: 'pk_test_r2MLEc1m0UrIbuxyrPJCbhNs0066BSLFv5'
