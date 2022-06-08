@@ -5,7 +5,7 @@ import { Text, Flex, VStack, useColorModeValue, Image,
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useCurrentTemplate } from '@/hooks/useCurrentTemplate'
 import { GiCutDiamond } from 'react-icons/gi'
-import { MdSave } from 'react-icons/md'
+import { MdSave, MdVerified } from 'react-icons/md'
 
 const CurrentTemplate = () => {
     const { 
@@ -34,14 +34,24 @@ const CurrentTemplate = () => {
             alignItems='flex-start'
         >
             <Flex flexDir='column' alignItems='flex-start' w='full'>
-                <VStack alignItems='flex-start' spacing='0'>
-                    <Text variant='content_subtitle'>
-                        Current Template
-                    </Text>
-                    <Text fontSize='10pt'>
-                        Mint Website: <span style={{ color: 'orange' }}>{currentEditWebsite?.components?.title}</span>
-                    </Text>
-                </VStack>
+                <HStack spacing='2em'>
+                    <VStack alignItems='flex-start' spacing='0'>
+                        <Text variant='content_subtitle'>
+                            Current Template
+                        </Text>
+                        <Text fontSize='10pt'>
+                            Mint Website: <span style={{ color: 'orange' }}>{currentEditWebsite?.components?.title}</span>
+                        </Text>
+                    </VStack>
+                    {currentEditWebsite?.isPremium && (
+                        <Tag>
+                            <TagLeftIcon as={MdVerified} color='#08BDD4' />
+                            <Text color='#08BDD4'>
+                                Premium Website
+                            </Text>
+                        </Tag>
+                    )}
+                </HStack>
                 <VStack mt='1em' alignItems='flex-start' w='full'>
                     <Wrap spacing='1em' w='full'>
                         <VStack

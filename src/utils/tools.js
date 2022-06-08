@@ -112,7 +112,7 @@ export const formatRobot = (robot) => {
 
 export const TemplatesArr = [
     { key: 'Template1', sub: 'free', creator: 'NFTHost' },
-    { key: 'Template2', sub: 'free', creator: 'NFTHost' },
+    { key: 'Template2', sub: 'premium', creator: 'NFTHost' },
 ]
 
 export const EncodeWebsiteData = (dataObj) => {
