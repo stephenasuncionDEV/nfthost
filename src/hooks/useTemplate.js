@@ -16,6 +16,7 @@ export const useTemplate = () => {
         try {
             if (!template) throw new Error('Cannot fetch template');
             if (currentEditWebsite.data === template.key) throw new Error('You are already using this template');
+            if (!currentEditWebsite.isPremium && template.sub === 'premium') throw new Error('Upgrade your website to use premium templates');
 
             const storageToken = localStorage.getItem('nfthost-user');
             if (!storageToken) return;

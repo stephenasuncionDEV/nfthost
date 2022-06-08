@@ -108,3 +108,9 @@ export const formatRobot = (robot) => {
     }
     return ret;
 }
+
+export const TemplatesArr = [
+    { key: 'FreeTemplate1', sub: 'free', creator: 'NFTHost' },
+    { key: 'FreeTemplate2', sub: 'free', creator: 'NFTHost' },
+    { key: 'PremiumTemplate1', sub: 'premium', creator: 'NFTHost' },
+]

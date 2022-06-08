@@ -6,9 +6,9 @@ import { useUserWebsite } from '@/hooks/useUserWebsite'
 import CookieModal from '@/components/CookieModal'
 import parse from 'html-react-parser'
 import { CgCopyright } from 'react-icons/cg'
-import { GiCutDiamond } from 'react-icons/gi'
 import FreeTemplate1 from '@/components/services/Website/templates/FreeTemplate1'
 import FreeTemplate2 from '@/components/services/Website/templates/FreeTemplate2'
+import PremiumTemplate1 from '@/components/services/Website/templates/PremiumTemplate1'
 
 const Service = () => {
     const router = useRouter();
@@ -46,6 +46,7 @@ const Service = () => {
             
             {userWebsite?.data === 'FreeTemplate1' && <FreeTemplate1 userWebsite={userWebsite} />}
             {userWebsite?.data === 'FreeTemplate2' && <FreeTemplate2 userWebsite={userWebsite} />}
+            {userWebsite?.data === 'PremiumTemplate1' && <PremiumTemplate1 userWebsite={userWebsite} />}
 
             <Link href='https://www.nfthost.app/' isExternal>
                 <Tag 

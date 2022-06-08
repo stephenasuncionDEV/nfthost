@@ -1,12 +1,12 @@
 import { HStack, Text, Button, Flex, VStack,
     useColorModeValue, Input, FormControl, Radio, RadioGroup,
     Textarea, FormHelperText, FormErrorMessage, Divider,
-    Select, Wrap, Tag, TagLeftIcon, Box
+    Select, Wrap
 } from '@chakra-ui/react'
 import { GiCutDiamond } from 'react-icons/gi'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useSites } from '@/hooks/useSites'
-import { MdOutlineAdd, MdSave, MdDeleteOutline, MdOutlineContentCopy } from 'react-icons/md'
+import { MdOutlineAdd, MdSave, MdDeleteOutline } from 'react-icons/md'
 import { FaRedo } from 'react-icons/fa'
 import config from '@/config/index'
 
@@ -59,7 +59,7 @@ const CreateWebsite = () => {
                         {!isEditWebsite ? 'Create Mint Website' : currentEditWebsite?.components?.title}
                     </Text>
                     <Text fontSize='10pt'>
-                        {!isEditWebsite ? 'Create a Mint Website' : <span>Currently viewing: <span style={{ color: 'orange' }}>{currentEditWebsite?.components?.title}</span></span>}
+                        {!isEditWebsite ? 'Create a Mint Website' : <span>Mint Website: <span style={{ color: 'orange' }}>{currentEditWebsite?.components?.title}</span></span>}
                     </Text>
                 </Flex>
                 {isEditWebsite && (

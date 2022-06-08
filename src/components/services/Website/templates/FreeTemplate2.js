@@ -8,7 +8,7 @@ const FreeTemplate2 = ({ userWebsite }) => {
             flexDir='column'
             justifyContent='center'
             alignItems='center'
-            py='3em'
+            p='3em'
             minH='100vh'
             position='relative'
         >

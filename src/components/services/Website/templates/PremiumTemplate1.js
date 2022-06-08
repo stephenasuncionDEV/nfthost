@@ -2,7 +2,7 @@ import { Text, Flex, Tag, TagLeftIcon, Image, VStack } from '@chakra-ui/react'
 import parse from 'html-react-parser'
 import { GiCutDiamond } from 'react-icons/gi'
 
-const FreeTemplate1 = ({ userWebsite }) => {
+const PremiumTemplate1 = ({ userWebsite }) => {
     return (
         <Flex
             flexDir='column'
@@ -41,4 +41,4 @@ const FreeTemplate1 = ({ userWebsite }) => {
     )
 }
 
-export default FreeTemplate1
+export default PremiumTemplate1
