@@ -27,7 +27,6 @@ module.exports.authenticateThirdPartyToken = (req, res, next) => {
     const token = authHeader && authHeader.split(' ')[1];
     if (token == null) return res.status(401).json({ message: 'Invalid third-party token' });
     jwt.verify(token, process.env.THIRDPARTY_TOKEN_SECRET, (err, data) => {
-        console.log(data)
         if (err) return res.status(403).json({ message: err.message, isExpired: true });
         next();
     })

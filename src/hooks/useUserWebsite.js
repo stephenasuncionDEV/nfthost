@@ -38,17 +38,12 @@ export const useUserWebsite = (websiteData) => {
 
     const GetUserWebsite = async (checkExpiration = true) => {
         try {
-            const storageToken = localStorage.getItem('nfthost-user');
-            if (!storageToken) return;
-
-            const token = decryptToken(storageToken, true);
-
             const res = await axios.get(`${config.serverUrl}/api/website/get`, {
                 params: {
                     websiteId
                 },
                 headers: { 
-                    Authorization: `Bearer ${token.accessToken}` 
+                    Authorization: `Bearer ${process.env.CREATE_WEBSITE_TOKEN}` 
                 }
             })
 
@@ -86,19 +81,12 @@ export const useUserWebsite = (websiteData) => {
             const isExpired = new Date(websiteData.premiumStartDate) > new Date();
 
             if (isExpired) {
-                const storageToken = localStorage.getItem('nfthost-user');
-                if (!storageToken) return;
-    
-                const token = decryptToken(storageToken, true);
-    
-                // TODO REMOVE AUTHORIZATION
-
                 const res = await axios.patch(`${config.serverUrl}/api/website/updateExpiration`, {
                     websiteId: websiteData._id,
                     isExpired: true
                 }, {
                     headers: { 
-                        Authorization: `Bearer ${token.accessToken}` 
+                        Authorization: `Bearer ${process.env.CREATE_WEBSITE_TOKEN}` 
                     }
                 })
 
