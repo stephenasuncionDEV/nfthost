@@ -1,31 +1,231 @@
-const crypto = require('crypto');
 const { check } = require("express-validator");
 
-const createComparisonSignature = (body, secret) => {
-    const hmac = crypto.createHmac('sha1', secret);
-    const self_signature = hmac.update(JSON.stringify(body)).digest('hex');
-    return `sha1=${self_signature}`;
-}
+exports.WalletLoginValidator = [
 
-const compareSignatures = (signature, comparison_signature) => {
-    const source = Buffer.from(signature);
-    const comparison = Buffer.from(comparison_signature);
-    return crypto.timingSafeEqual(source, comparison);
-}
+    // Address Validator
+    check('address', 'address is empty')
+    .notEmpty(),
 
-module.exports.verifyGithubPayload = (req, res, next) => {
-    const { headers, body } = req;
+    // Wallet Validator
+    check('wallet', 'wallet is empty')
+    .notEmpty(),
+    
+];
 
-    const signature = headers['x-hub-signature'];
-    const comparison_signature = createComparisonSignature(body, process.env.WEBHOOK_SECRET);
+exports.GetMemberByAddressValidator = [
 
-    if (!compareSignatures(signature, comparison_signature)) {
-        return res.status(401).send('Mismatched signatures');
-    }
+    // Address Validator
+    check('address', 'address is empty')
+    .notEmpty(),
+    
+];
 
-    const { action, ...payload } = body;
-    req.event_type = headers['x-github-event'];
-    req.action = action;
-    req.payload = payload;
-    next();
-}
+exports.AddCountValidator = [
+
+    // Address Validator
+    check('address', 'address is empty')
+    .notEmpty(),
+
+    // Service Validator
+    check('service', 'service is empty')
+    .notEmpty(),
+    
+    // Value Validator
+    check('value', 'value is empty')
+    .notEmpty(),
+
+];
+
+exports.AddFreeValidator = [
+
+    // Address Validator
+    check('address', 'address is empty')
+    .notEmpty(),
+
+    // Service Validator
+    check('service', 'service is empty')
+    .notEmpty(),
+    
+    // Value Validator
+    check('value', 'value is empty')
+    .notEmpty(),
+
+];
+
+exports.DeductFreeValidator = [
+
+    // Address Validator
+    check('address', 'address is empty')
+    .notEmpty(),
+
+    // Service Validator
+    check('service', 'service is empty')
+    .notEmpty(),
+    
+    // Value Validator
+    check('value', 'value is empty')
+    .notEmpty(),
+
+];
+
+exports.PaymentRequestValidator = [
+
+    // Email Validator
+    check('email', 'email is empty')
+    .notEmpty(),
+    
+    // Amount Validator
+    check('amount', 'amount is empty')
+    .notEmpty(),
+
+];
+
+exports.CreateWebsiteValidator = [
+
+    // components.title Validator
+    check('components.title', 'components.title is empty')
+    .notEmpty(),
+
+    // components.unrevealedImage Validator
+    check('components.unrevealedImage', 'components.unrevealedImage is empty')
+    .notEmpty(),
+
+    // components.description Validator
+    check('components.description', 'components.description is empty')
+    .notEmpty(),
+
+    // components.embed Validator
+    check('components.embed', 'components.embed is empty')
+    .notEmpty(),
+];
+
+exports.GetWebsiteValidator = [
+
+    // websiteId Validator
+    check('websiteId', 'websiteId is empty')
+    .notEmpty(),
+    
+]
+
+exports.GetWebsitesValidator = [
+
+    // memberId Validator
+    check('memberId', 'memberId is empty')
+    .notEmpty(),
+    
+]
+
+exports.UpdateWebsiteValidator = [
+
+    // websiteId Validator
+    check('websiteId', 'websiteId is empty')
+    .notEmpty(),
+
+]
+
+exports.DeductCountValidator = [
+
+    // Address Validator
+    check('address', 'address is empty')
+    .notEmpty(),
+
+    // Service Validator
+    check('service', 'service is empty')
+    .notEmpty(),
+    
+    // Value Validator
+    check('value', 'value is empty')
+    .notEmpty(),
+
+]
+
+exports.DeleteWebsiteValidator = [
+
+    // websiteId Validator
+    check('websiteId', 'websiteId is empty')
+    .notEmpty(),
+
+]
+
+exports.AddPaymentValidator = [
+
+    // websiteId Validator
+    check('memberId', 'memberId is empty')
+    .notEmpty(),
+
+    // hash Validator
+    check('hash', 'hash is empty')
+    .notEmpty(),
+
+    // service Validator
+    check('service', 'service is empty')
+    .notEmpty(),
+
+    // price Validator
+    check('price', 'price is empty')
+    .notEmpty(),
+
+]
+
+exports.UpdateEmailValidator = [
+
+    // websiteId Validator
+    check('memberId', 'memberId is empty')
+    .notEmpty(),
+
+    // email Validator
+    check('email', 'email is empty')
+    .notEmpty(),
+
+    check('email', 'email is invalid')
+    .isEmail(),
+]
+
+exports.UpdateExpirationValidator = [
+
+    // websiteId Validator
+    check('websiteId', 'websiteId is empty')
+    .notEmpty(),
+
+    // isExpired Validator
+    check('isExpired', 'isExpired is empty')
+    .notEmpty(),
+]
+
+exports.LogoutValidator = [
+
+    // refreshToken Validator
+    check('refreshToken', 'refreshToken is empty')
+    .notEmpty(),
+
+]
+
+exports.RenewTokenValidator = [
+
+    // refreshToken Validator
+    check('refreshToken', 'refreshToken is empty')
+    .notEmpty(),
+
+]
+
+exports.UpdateTemplateValidator = [
+
+    // websiteId Validator
+    check('websiteId', 'websiteId is empty')
+    .notEmpty(),
+
+    // template Validator
+    check('template', 'template is empty')
+    .notEmpty(),
+]
+
+exports.UpdateStyleValidator = [
+
+    // websiteId Validator
+    check('websiteId', 'websiteId is empty')
+    .notEmpty(),
+
+    // style Validator
+    check('style', 'style is empty')
+    .notEmpty(),
+]
