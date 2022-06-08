@@ -91,12 +91,14 @@ const CurrentTemplate = () => {
                                     <Text fontSize='10pt' >
                                         Style
                                     </Text>
-                                    <Tag>
-                                        <TagLeftIcon as={GiCutDiamond} color='#08BDD4' />
-                                        <Text>
-                                            Premium Only
-                                        </Text>
-                                    </Tag>
+                                    {!currentEditWebsite.isPremium && (
+                                        <Tag>
+                                            <TagLeftIcon as={GiCutDiamond} color='#08BDD4' />
+                                            <Text>
+                                                Premium Only
+                                            </Text>
+                                        </Tag>
+                                    )}
                                     <Divider flex='1' />
                                 </HStack>
                                 <HStack w='full'>
