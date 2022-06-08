@@ -23,6 +23,7 @@ const Sites = () => {
             boxShadow='md'
             h='100%'
             alignItems='flex-start'
+            flex='1'
         >
             <HStack spacing='2em'>
                 <VStack spacing='0' alignItems='flex-start'>

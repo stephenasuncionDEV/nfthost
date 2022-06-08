@@ -7,6 +7,7 @@ import CookieModal from '@/components/CookieModal'
 import parse from 'html-react-parser'
 import { CgCopyright } from 'react-icons/cg'
 import { GiCutDiamond } from 'react-icons/gi'
+import FreeTemplate1 from '@/components/services/Website/templates/FreeTemplate1'
 
 const Service = () => {
     const router = useRouter();
@@ -41,57 +42,26 @@ const Service = () => {
                 {userWebsite?.components?.script && parse(userWebsite?.components?.script)}
             </Head>
             <CookieModal />
-            <Flex
-                flexDir='column'
-                justifyContent='center'
-                alignItems='center'
-                py='3em'
-                minH='100vh'
-                position='relative'
-            >
-                <VStack spacing='2em'>
-                    <Image 
-                        src='https://i.ibb.co/WxNRq35/bitmoji.png'
-                        alt={userWebsite?.components?.title}
-                        boxSize='240px'
-                        objectFit='scale-down'
-                    />
-                    <VStack>
-                        <Text variant='content_title'>
-                            {userWebsite?.components?.title}
-                        </Text>
-                        <Text>
-                            {userWebsite?.components?.description}
-                        </Text>
-                        {userWebsite?.isPremium && (
-                            <Tag>
-                                <TagLeftIcon as={GiCutDiamond} color='skyblue' />
-                                <Text>
-                                    Premium
-                                </Text>
-                            </Tag>
-                        )}
-                    </VStack>
-                    {parse(userWebsite?.components?.embed)}
-                    <Link href='https://www.nfthost.app/' isExternal>
-                        <Tag 
-                            opacity='.25'
-                            position='absolute'
-                            bottom='2'
-                            right='2'
-                            cursor='pointer'
-                            _hover={{
-                                opacity: '.75'
-                            }}
-                        >
-                            <TagLeftIcon as={CgCopyright} />
-                            <Text>
-                                Hosted from NFTHost.app
-                            </Text>
-                        </Tag>
-                    </Link>
-                </VStack>
-            </Flex>
+            
+            {userWebsite?.data === 'FreeTemplate1' && <FreeTemplate1 userWebsite={userWebsite} />}
+
+            <Link href='https://www.nfthost.app/' isExternal>
+                <Tag 
+                    opacity='.25'
+                    position='absolute'
+                    bottom='2'
+                    right='2'
+                    cursor='pointer'
+                    _hover={{
+                        opacity: '.75'
+                    }}
+                >
+                    <TagLeftIcon as={CgCopyright} />
+                    <Text>
+                        Hosted from NFTHost.app
+                    </Text>
+                </Tag>
+            </Link>
         </main>
     )
 }

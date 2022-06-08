@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const WebsitesSchema = new Schema({
     data: {
         type:String,
-        default: ''
+        default: 'FreeTemplate1'
     },
     memberId: {
         type:Schema.ObjectId, 

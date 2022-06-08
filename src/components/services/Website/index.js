@@ -1,7 +1,8 @@
 import { Box, Text, useColorModeValue, Wrap, Flex } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
-import Sites from './Sites'
 import Sidebar from './Sidebar'
+import Sites from './Sites'
+import Template from './Template'
 
 const Website = () => {
     const { currentDashboard } = useWebsite();
@@ -24,6 +25,7 @@ const Website = () => {
         >
             <Sidebar>
                 {currentDashboard === 'sites' && <Sites />}
+                {currentDashboard === 'template' && <Template />}
             </Sidebar>
         </Box>
     )

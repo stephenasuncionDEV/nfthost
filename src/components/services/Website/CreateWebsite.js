@@ -51,6 +51,7 @@ const CreateWebsite = () => {
             alignItems='flex-start'
             mt='1em'
             maxW='900px'
+            flex='1'
         >
             <HStack justifyContent='space-between' w='full'>
                 <Flex flexDir='column'>
@@ -176,7 +177,7 @@ const CreateWebsite = () => {
                         </FormControl>
                     </Wrap>
                     <FormControl isInvalid={newErrors?.description?.status}>
-                        <Textarea placeholder='Description' value={newComponentDescription} onChange={(e) => setNewComponentDescription(e.target.value)} rows='8' />
+                        <Textarea placeholder='Description' value={newComponentDescription} onChange={(e) => setNewComponentDescription(e.target.value)} rows='5' />
                         {!newErrors?.description?.status ? <FormHelperText>Short description of your mint website</FormHelperText> : <FormErrorMessage>{newErrors?.description?.message}</FormErrorMessage>}
                     </FormControl>
                     <Wrap w='full'>

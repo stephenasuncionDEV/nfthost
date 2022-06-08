@@ -2,14 +2,16 @@ import NextLink from 'next/link'
 import { Box, Flex, Text, useColorModeValue, Avatar, HStack, Button, VStack } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { BsStack } from 'react-icons/bs'
+import { FcTemplate } from 'react-icons/fc'
 import ConnectWalletTag from '@/components/ConnectWalletTag'
 
 const sidebarItemsArr = [
-    { name: 'Mint Sites', icon: <BsStack />, key: 'sites' }
+    { name: 'Mint Sites', icon: <BsStack />, key: 'sites' },
+    { name: 'Template', icon: <FcTemplate />, key: 'template' }
 ]
 
 const Sidebar = ({ children }) => {
-    const { setCurrentDashboard } = useWebsite();
+    const { setCurrentDashboard, isEditWebsite } = useWebsite();
 
     const containerColor = useColorModeValue('whiteAlpha.500', 'blackAlpha.500');
 
@@ -42,7 +44,15 @@ const Sidebar = ({ children }) => {
                 </Box>
                 <VStack mt='1em' w='full'>
                     {sidebarItemsArr?.map((item, idx) => (
-                        <Button key={idx} w='full' leftIcon={item.icon} justifyContent='flex-start' bg='transparent' onClick={() => setCurrentDashboard(item.key)}>
+                        <Button 
+                            key={idx} 
+                            w='full' 
+                            leftIcon={item.icon} 
+                            justifyContent='flex-start' 
+                            bg='transparent' 
+                            onClick={() => setCurrentDashboard(item.key)}
+                            disabled={!isEditWebsite && item.key !== 'sites'}
+                        >
                             {item.name}
                         </Button>
                     ))}
