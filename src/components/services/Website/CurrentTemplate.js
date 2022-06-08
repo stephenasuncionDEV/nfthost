@@ -1,4 +1,4 @@
-import { Text, Flex, VStack, useColorModeValue, Image, Tag, TagLeftIcon } from '@chakra-ui/react'
+import { Text, Flex, VStack, useColorModeValue, Image, Tag, TagLeftIcon, HStack } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { GiCutDiamond } from 'react-icons/gi'
 import { TemplatesArr } from '@/utils/tools'
@@ -22,12 +22,14 @@ const CurrentTemplate = () => {
             alignItems='flex-start'
         >
             <Flex flexDir='column' alignItems='flex-start'>
-                <Text variant='content_subtitle'>
-                    Current Template
-                </Text>
-                <Text fontSize='10pt'>
-                    Mint Website: <span style={{ color: 'orange' }}>{currentEditWebsite?.components?.title}</span>
-                </Text>
+                <HStack alignItems='flex-end' spacing='1.5em'>
+                    <Text variant='content_subtitle'>
+                        Current Template
+                    </Text>
+                    <Text fontSize='10pt'>
+                        Mint Website: <span style={{ color: 'orange' }}>{currentEditWebsite?.components?.title}</span>
+                    </Text>
+                </HStack>
                 <VStack mt='1em' alignItems='flex-start'>
                     <VStack
                         p='1.5em'

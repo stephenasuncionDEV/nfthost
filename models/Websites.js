@@ -23,6 +23,10 @@ const WebsitesSchema = new Schema({
         type:Date,
         default: null
     },
+    revealDate: {
+        type:Date,
+        default: null
+    },
     components: {
         title: {
             type:String,
@@ -47,7 +51,7 @@ const WebsitesSchema = new Schema({
         script: {
             type:String,
             default: ''
-        },
+        }
     },
     meta: {
         robot: {
@@ -75,6 +79,36 @@ const WebsitesSchema = new Schema({
         referrers : {
             type:Array,
             default: []
+        }
+    },
+    external_links: {
+        twitter: {
+            type:String,
+            default: 'https://twitter.com/Steb_01'
+        },
+        instagram: {
+            type:String,
+            default: null
+        },
+        youtube: {
+            type:String,
+            default: 'https://www.youtube.com/channel/UCmKzlQCcDv-fern-Zv8vQ0w'
+        },
+        tiktok: {
+            type:String,
+            default: null
+        },
+        discord: {
+            type:String,
+            default: 'https://discord.com/invite/BMZZXZMnmv'
+        },
+        reddit: {
+            type:String,
+            default: null
+        },
+        facebook: {
+            type:String,
+            default: null
         }
     }
 }, { timestamps: true });

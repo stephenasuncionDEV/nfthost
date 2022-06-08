@@ -3,6 +3,11 @@ import parse from 'html-react-parser'
 import { GiCutDiamond } from 'react-icons/gi'
 
 const FreeTemplate1 = ({ userWebsite }) => {
+    const { 
+        components: { title, unrevealedImage, description, embed },
+        isPremium
+    } = userWebsite;
+
     return (
         <Flex
             flexDir='column'
@@ -14,19 +19,19 @@ const FreeTemplate1 = ({ userWebsite }) => {
         >
             <VStack spacing='2em'>
                 <Image 
-                    src={userWebsite?.components?.unrevealedImage}
-                    alt={userWebsite?.components?.title}
+                    src={unrevealedImage}
+                    alt={title}
                     boxSize='240px'
                     objectFit='scale-down'
                 />
                 <VStack>
                     <Text variant='content_title'>
-                        {userWebsite?.components?.title}
+                        {title}
                     </Text>
                     <Text>
-                        {userWebsite?.components?.description}
+                        {description}
                     </Text>
-                    {userWebsite?.isPremium && (
+                    {isPremium && (
                         <Tag>
                             <TagLeftIcon as={GiCutDiamond} color='skyblue' />
                             <Text>
@@ -35,7 +40,7 @@ const FreeTemplate1 = ({ userWebsite }) => {
                         </Tag>
                     )}
                 </VStack>
-                {parse(userWebsite?.components?.embed)}
+                {parse(embed)}
             </VStack>
         </Flex>
     )

@@ -1,14 +1,13 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { Text, Flex, Tag, TagLeftIcon, Link, Image, VStack, Button } from '@chakra-ui/react'
+import { Text, Flex, Tag, TagLeftIcon, Link } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useUserWebsite } from '@/hooks/useUserWebsite'
 import CookieModal from '@/components/CookieModal'
 import parse from 'html-react-parser'
 import { CgCopyright } from 'react-icons/cg'
-import FreeTemplate1 from '@/components/services/Website/templates/FreeTemplate1'
-import FreeTemplate2 from '@/components/services/Website/templates/FreeTemplate2'
-import PremiumTemplate1 from '@/components/services/Website/templates/PremiumTemplate1'
+import Template1 from '@/components/services/Website/templates/Template1'
+import Template2 from '@/components/services/Website/templates/Template2'
 
 const Service = () => {
     const router = useRouter();
@@ -44,27 +43,28 @@ const Service = () => {
             </Head>
             <CookieModal />
             
-            {userWebsite?.data === 'FreeTemplate1' && <FreeTemplate1 userWebsite={userWebsite} />}
-            {userWebsite?.data === 'FreeTemplate2' && <FreeTemplate2 userWebsite={userWebsite} />}
-            {userWebsite?.data === 'PremiumTemplate1' && <PremiumTemplate1 userWebsite={userWebsite} />}
+            {userWebsite?.data === 'Template1' && <Template1 userWebsite={userWebsite} />}
+            {userWebsite?.data === 'Template2' && <Template2 userWebsite={userWebsite} />}
 
-            <Link href='https://www.nfthost.app/' isExternal>
-                <Tag 
-                    opacity='.25'
-                    position='absolute'
-                    bottom='2'
-                    right='2'
-                    cursor='pointer'
-                    _hover={{
-                        opacity: '.75'
-                    }}
-                >
-                    <TagLeftIcon as={CgCopyright} />
-                    <Text>
-                        Hosted from NFTHost.app
-                    </Text>
-                </Tag>
-            </Link>
+            {!userWebsite?.isPremium && (
+                <Link href='https://www.nfthost.app/' isExternal>
+                    <Tag 
+                        opacity='.25'
+                        position='absolute'
+                        bottom='2'
+                        right='2'
+                        cursor='pointer'
+                        _hover={{
+                            opacity: '.75'
+                        }}
+                    >
+                        <TagLeftIcon as={CgCopyright} />
+                        <Text>
+                            Hosted by NFTHost.app
+                        </Text>
+                    </Tag>
+                </Link>
+            )}
         </main>
     )
 }

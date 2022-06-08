@@ -110,7 +110,6 @@ export const formatRobot = (robot) => {
 }
 
 export const TemplatesArr = [
-    { key: 'FreeTemplate1', sub: 'free', creator: 'NFTHost' },
-    { key: 'FreeTemplate2', sub: 'free', creator: 'NFTHost' },
-    { key: 'PremiumTemplate1', sub: 'premium', creator: 'NFTHost' },
+    { key: 'Template1', sub: 'free', creator: 'NFTHost' },
+    { key: 'Template2', sub: 'free', creator: 'NFTHost' },
 ]
