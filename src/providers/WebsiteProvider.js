@@ -26,7 +26,7 @@ export const WebsiteProvider = ({ children }) => {
     const [currentEditWebsite, setCurrentEditWebsite] = useState();
     const [currentTemplate, setCurrentTemplate] = useState();
     const [newBackgroundImage, setNewBackgroundImage] = useState('');
-    const [newBackgroundColor, setNewBackgroundColor] = useState(useColorModeValue('linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(249,250,250,1) 100%)', 'linear-gradient(0deg, rgba(26,32,44,1) 0%, rgba(17,21,28,1) 100%)'));
+    const [newBackgroundColor, setNewBackgroundColor] = useState('');
 
     const controllers = {
         userWebsite,

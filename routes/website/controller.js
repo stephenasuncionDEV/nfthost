@@ -1,6 +1,6 @@
 const { validationResult } = require('express-validator');
 const { Website } = require('../../models/Websites');
-const LZString = require('lz-string');
+const { ParseWebsiteData, EncodeWebsiteData } = require('../../middlewares/tools');
 
 exports.createWebsite = async (req, res, next) => {
     try {
@@ -117,13 +117,13 @@ exports.updateTemplate = async (req, res, next) => {
 
         if (!currentWebsite) throw new Error('Cannot fetch website');
 
-        let decompressedObj = JSON.parse(LZString.decompress(currentWebsite.data));
+        let decompressedObj = ParseWebsiteData(currentWebsite.data);
 
         if (!decompressedObj) throw new Error('Cannot decompress data');
 
         decompressedObj.template = template;
 
-        const compressed = LZString.compress(JSON.stringify(decompressedObj));
+        const compressed = EncodeWebsiteData(decompressedObj);
 
         await Website.updateOne({ _id: websiteId }, {
             $set: { 
@@ -143,15 +143,27 @@ exports.updateStyle = async (req, res, next) => {
         const errors = validationResult(req).errors;
         if (errors.length > 0) throw new Error(errors[0].msg);
 
-        const { websiteId, data } = req.body;
+        const { websiteId, style } = req.body;
+
+        const currentWebsite = await Website.findOne({ _id: websiteId });
+
+        if (!currentWebsite) throw new Error('Cannot fetch website');
+
+        let decompressedObj = ParseWebsiteData(currentWebsite.data);
+
+        if (!decompressedObj) throw new Error('Cannot decompress data');
+
+        decompressedObj.style = style;
+
+        const compressed = EncodeWebsiteData(decompressedObj);
 
         await Website.updateOne({ _id: websiteId }, {
             $set: { 
-                data
+                data: compressed
             }
         });
 
-        res.status(200).json({ template });
+        res.status(200).json({ data: compressed });
 
     } catch (err) {
         next(err);

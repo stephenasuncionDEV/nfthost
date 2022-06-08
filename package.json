@@ -32,7 +32,7 @@
     "jsonwebtoken": "^8.5.1",
     "jszip": "^3.9.1",
     "jwt-decode": "^3.1.2",
-    "lz-string": "^1.4.4",
+    "lzutf8": "^0.6.2",
     "mongoose": "^6.3.4",
     "next": "^12.1.6",
     "posthog-js": "^1.21.1",

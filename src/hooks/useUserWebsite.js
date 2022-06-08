@@ -5,9 +5,8 @@ import { useCore } from '@/providers/CoreProvider'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import posthog from 'posthog-js'
 import axios from 'axios'
-import LZString from 'lz-string'
 import config from '@/config/index'
-import { decryptToken, formatRobot } from '@/utils/tools'
+import { decryptToken, formatRobot, ParseWebsiteData } from '@/utils/tools'
 
 export const useUserWebsite = (websiteData) => {
     const router = useRouter();
@@ -33,7 +32,7 @@ export const useUserWebsite = (websiteData) => {
     // Parse website data
     useEffect(() => {
         if (!websiteData) return;
-        const ret = JSON.parse(LZString.decompress(websiteData));
+        const ret = ParseWebsiteData(websiteData);
         setData(ret);
     }, [websiteData])
 

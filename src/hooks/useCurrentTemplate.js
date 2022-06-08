@@ -1,12 +1,25 @@
 import { useEffect } from 'react'
+import { useToast } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
-import { TemplatesArr } from '@/utils/tools'
-import LZString from 'lz-string'
+import { useWeb3 } from '@/hooks/useWeb3'
+import { useSites } from '@/hooks/useSites'
+import axios from 'axios'
+import config from '@/config/index'
+import { decryptToken, TemplatesArr, ParseWebsiteData } from '@/utils/tools'
 
 export const useCurrentTemplate = () => {
+    const toast = useToast();
+    const { GetWebsites } = useSites();
+    const { Logout } = useWeb3();
     const { 
         setCurrentTemplate,
-        currentEditWebsite
+        currentEditWebsite,
+        newBackgroundColor,
+        setNewBackgroundColor,
+        newBackgroundImage,
+        setNewBackgroundImage,
+        setNewErrors,
+        setCurrentEditWebsite
     } = useWebsite();
 
     useEffect(() => {
@@ -16,8 +29,12 @@ export const useCurrentTemplate = () => {
     const UpdateCurrentTemplate = (data = null) => {
         try {
             const templateKeysArr = TemplatesArr.map((template) => template.key);
-            const template = JSON.parse(LZString.decompress(data ? data : currentEditWebsite.data)).template;
+            const decryptedData = ParseWebsiteData(data ? data : currentEditWebsite.data);
+            const { template, style } = decryptedData;
             const indexOfKey = templateKeysArr.indexOf(template);
+            
+            setNewBackgroundColor(style.bgColor);
+            setNewBackgroundImage(style.bgImage);
             setCurrentTemplate(TemplatesArr[indexOfKey]);
         }
         catch (err) {
@@ -25,7 +42,64 @@ export const useCurrentTemplate = () => {
         }
     }
 
+    const SaveStyle = async () => {
+        try {
+            setNewErrors(null);
+
+            //@TODO: style validation
+
+            const storageToken = localStorage.getItem('nfthost-user');
+            if (!storageToken) return;
+
+            const token = decryptToken(storageToken, true);
+
+            const res = await axios.patch(`${config.serverUrl}/api/website/updateStyle`, {
+                websiteId: currentEditWebsite._id,
+                style: {
+                    bgColor: newBackgroundColor,
+                    bgImage: newBackgroundImage
+                }
+            }, {
+                headers: { 
+                    Authorization: `Bearer ${token.accessToken}` 
+                }
+            })
+
+            await GetWebsites();
+
+            if (res.status === 200) {
+                let newEditWebsite = {...currentEditWebsite};
+                newEditWebsite.data = res.data.data;
+
+                setCurrentEditWebsite(newEditWebsite);
+                UpdateCurrentTemplate(res.data.data);
+            }
+
+            toast({
+                title: 'Success',
+                description: 'Successfuly updated your mint website',
+                status: 'success',
+                duration: 3000,
+                isClosable: true,
+                position: 'bottom-center'
+            })
+        }
+        catch (err) {
+            console.error(err);
+            if (err.response?.data?.isExpired) await Logout();
+            toast({
+                title: 'Error',
+                description: !err.response ? err.message : err.response.data.message,
+                status: 'error',
+                duration: 3000,
+                isClosable: true,
+                position: 'bottom-center'
+            })
+        }
+    }
+
     return {
-        UpdateCurrentTemplate
+        UpdateCurrentTemplate,
+        SaveStyle
     }
 }

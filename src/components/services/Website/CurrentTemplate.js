@@ -1,10 +1,11 @@
 import { Text, Flex, VStack, useColorModeValue, Image, 
     Tag, TagLeftIcon, HStack, Wrap, Divider, FormControl,
-    Input, FormHelperText, FormErrorMessage
+    Input, FormHelperText, FormErrorMessage, Button
 } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useCurrentTemplate } from '@/hooks/useCurrentTemplate'
 import { GiCutDiamond } from 'react-icons/gi'
+import { MdSave } from 'react-icons/md'
 
 const CurrentTemplate = () => {
     const { 
@@ -16,7 +17,7 @@ const CurrentTemplate = () => {
         newBackgroundColor,
         setNewBackgroundColor
     } = useWebsite();
-    useCurrentTemplate();
+    const { SaveStyle } = useCurrentTemplate();
 
     const containerColor = useColorModeValue('whiteAlpha.500', 'blackAlpha.500');
     const itemColor = useColorModeValue('whiteAlpha.400', 'blackAlpha.400');
@@ -84,23 +85,42 @@ const CurrentTemplate = () => {
                                 </Text>
                             </VStack>
                         </VStack>
-                        <VStack p='1em' flex='1'>
-                            <HStack justifyContent='flex-start' w='full'>
-                                <Text fontSize='10pt' >
-                                    Style
-                                </Text>
-                                <Tag>
-                                    <TagLeftIcon as={GiCutDiamond} color='#08BDD4' />
-                                    <Text>
-                                        Premium Only
+                        <VStack p='1em' flex='1' justifyContent='space-between'>
+                            <VStack w='full'>
+                                <HStack justifyContent='flex-start' w='full'>
+                                    <Text fontSize='10pt' >
+                                        Style
                                     </Text>
-                                </Tag>
-                                <Divider flex='1' />
-                            </HStack>
-                            <FormControl isInvalid={newErrors?.bgColor?.status} flex='1'>
-                                <Input placeholder='rgba(255,255,255,1) or #ffffff' value={newBackgroundColor} onChange={(e) => setNewBackgroundColor(e.target.value)} disabled={!currentEditWebsite?.isPremium} />
-                                {!newErrors?.bgColor?.status ? <FormHelperText>Background color of your website</FormHelperText> : <FormErrorMessage>{newErrors?.bgColor?.message}</FormErrorMessage>}
-                            </FormControl>
+                                    <Tag>
+                                        <TagLeftIcon as={GiCutDiamond} color='#08BDD4' />
+                                        <Text>
+                                            Premium Only
+                                        </Text>
+                                    </Tag>
+                                    <Divider flex='1' />
+                                </HStack>
+                                <HStack w='full'>
+                                    <FormControl isInvalid={newErrors?.bgColor?.status} flex='1'>
+                                        <Input placeholder='rgba(255,255,255,1) or #ffffff' value={newBackgroundColor} onChange={(e) => setNewBackgroundColor(e.target.value)} disabled={!currentEditWebsite?.isPremium} />
+                                        {!newErrors?.bgColor?.status ? <FormHelperText>Background color of your website</FormHelperText> : <FormErrorMessage>{newErrors?.bgColor?.message}</FormErrorMessage>}
+                                    </FormControl>
+                                    <FormControl isInvalid={newErrors?.bgImage?.status} flex='1'>
+                                        <Input placeholder='Background Image Link' value={newBackgroundImage} onChange={(e) => setNewBackgroundImage(e.target.value)} disabled={!currentEditWebsite?.isPremium} />
+                                        {!newErrors?.bgImage?.status ? <FormHelperText>Background image of your website</FormHelperText> : <FormErrorMessage>{newErrors?.bgImage?.message}</FormErrorMessage>}
+                                    </FormControl>
+                                </HStack>
+                            </VStack>
+                            <Flex w='full' justifyContent='flex-end'>
+                                <Button
+                                    bg='orange.500' 
+                                    _hover={{ bg: 'orange.400' }} 
+                                    rightIcon={<MdSave />}
+                                    onClick={SaveStyle}
+                                    disabled={!currentEditWebsite?.isPremium}
+                                >
+                                    Save
+                                </Button>
+                            </Flex>
                         </VStack>
                     </Wrap>
                 </VStack>

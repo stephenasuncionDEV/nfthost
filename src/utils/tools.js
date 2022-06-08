@@ -1,4 +1,5 @@
 import CryptoJS from 'crypto-js'
+import lz from 'lzutf8'
 
 export const parseJwt = (token) => {
     try {
@@ -113,3 +114,11 @@ export const TemplatesArr = [
     { key: 'Template1', sub: 'free', creator: 'NFTHost' },
     { key: 'Template2', sub: 'free', creator: 'NFTHost' },
 ]
+
+export const EncodeWebsiteData = (dataObj) => {
+    return lz.encodeBase64(lz.compress(JSON.stringify(dataObj)));
+}
+
+export const ParseWebsiteData = (data) => {
+    return JSON.parse(lz.decompress(lz.decodeBase64(data)));
+}

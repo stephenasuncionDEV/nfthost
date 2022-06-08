@@ -15,8 +15,11 @@ const Service = () => {
     const { websiteId } = router.query;
     const { data } = useUserWebsite(userWebsite?.data);
 
-    return userWebsite && !userWebsite?.isExpired && (
-        <main>
+    return userWebsite && !userWebsite.isExpired && data && (
+        <main style={{ 
+            backgroundColor: !data.style?.bgColor?.length ? 'none' : data.style?.bgColor,
+            backgroundImage: !data.style?.bgImage?.length ? 'none' : `url(${data.style?.bgImage})`,
+        }}>
             <Head>
                 <title>{userWebsite?.components?.title}</title>
                 <link rel="shortcut icon" type="image/png" href={userWebsite?.meta?.favicon} />
@@ -43,8 +46,8 @@ const Service = () => {
             </Head>
             <CookieModal />
             
-            {data?.template === 'Template1' && <Template1 userWebsite={userWebsite} />}
-            {data?.template === 'Template2' && <Template2 userWebsite={userWebsite} />}
+            {data?.template === 'Template1' && <Template1 userWebsite={userWebsite} data={data} />}
+            {data?.template === 'Template2' && <Template2 userWebsite={userWebsite} data={data} />}
 
             {!userWebsite?.isPremium && (
                 <Link href='https://www.nfthost.app/' isExternal>
