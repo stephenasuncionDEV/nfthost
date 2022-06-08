@@ -1,31 +1,41 @@
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useToast } from '@chakra-ui/react'
 import { useCore } from '@/providers/CoreProvider'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import posthog from 'posthog-js'
 import axios from 'axios'
+import LZString from 'lz-string'
 import config from '@/config/index'
 import { decryptToken, formatRobot } from '@/utils/tools'
 
-export const useUserWebsite = () => {
+export const useUserWebsite = (websiteData) => {
     const router = useRouter();
     const toast = useToast();
     const { setUserWebsite } = useWebsite();
     const { setIsCookieModal } = useCore();
     const { websiteId } = router.query;
+    const [data, setData] = useState();
 
+    // Check if user accepted cookie
     useEffect(() => {
-        // Check if user accepted cookie
         if (!localStorage.getItem('nfthost-cookie')) {
             setIsCookieModal(true);
         }
     }, [])
 
+    // Get mint website
     useEffect(() => {
         if (!Object.keys(router.query).length) return;
         GetUserWebsite();
     }, [router])
+
+    // Parse website data
+    useEffect(() => {
+        if (!websiteData) return;
+        const ret = JSON.parse(LZString.decompress(websiteData));
+        setData(ret);
+    }, [websiteData])
 
     const GetUserWebsite = async (checkExpiration = true) => {
         try {
@@ -82,6 +92,8 @@ export const useUserWebsite = () => {
     
                 const token = decryptToken(storageToken, true);
     
+                // TODO REMOVE AUTHORIZATION
+
                 const res = await axios.patch(`${config.serverUrl}/api/website/updateExpiration`, {
                     websiteId: websiteData._id,
                     isExpired: true
@@ -107,6 +119,7 @@ export const useUserWebsite = () => {
     }
 
     return {
-        GetUserWebsite
+        GetUserWebsite,
+        data
     }
 }

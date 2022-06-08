@@ -13,7 +13,7 @@ const Service = () => {
     const router = useRouter();
     const { userWebsite } = useWebsite();
     const { websiteId } = router.query;
-    useUserWebsite();
+    const { data } = useUserWebsite(userWebsite?.data);
 
     return userWebsite && !userWebsite?.isExpired && (
         <main>
@@ -43,8 +43,8 @@ const Service = () => {
             </Head>
             <CookieModal />
             
-            {userWebsite?.data === 'Template1' && <Template1 userWebsite={userWebsite} />}
-            {userWebsite?.data === 'Template2' && <Template2 userWebsite={userWebsite} />}
+            {data?.template === 'Template1' && <Template1 userWebsite={userWebsite} />}
+            {data?.template === 'Template2' && <Template2 userWebsite={userWebsite} />}
 
             {!userWebsite?.isPremium && (
                 <Link href='https://www.nfthost.app/' isExternal>

@@ -4,13 +4,15 @@ import { useToast } from '@chakra-ui/react'
 import config from '@/config/index'
 import axios from 'axios'
 import { decryptToken } from '@/utils/tools'
-import { useSites } from './useSites'
+import { useSites } from '@/hooks/useSites'
+import { useCurrentTemplate } from '@/hooks/useCurrentTemplate'
 
 export const useTemplate = () => {
     const toast = useToast();
     const { Logout } = useUser();
     const { currentEditWebsite, setCurrentEditWebsite } = useWebsite();
     const { GetWebsites } = useSites();
+    const { UpdateCurrentTemplate } = useCurrentTemplate();
 
     const ChooseTemplate = async (template) => {
         try {
@@ -36,9 +38,10 @@ export const useTemplate = () => {
 
             if (res.status === 200) {
                 let newEditWebsite = {...currentEditWebsite};
-                newEditWebsite.data = res.data.template;
+                newEditWebsite.data = res.data.data;
 
                 setCurrentEditWebsite(newEditWebsite);
+                UpdateCurrentTemplate(res.data.data);
             }
 
             toast({

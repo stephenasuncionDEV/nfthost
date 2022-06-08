@@ -218,3 +218,14 @@ exports.UpdateTemplateValidator = [
     check('template', 'template is empty')
     .notEmpty(),
 ]
+
+exports.UpdateStyleValidator = [
+
+    // websiteId Validator
+    check('websiteId', 'websiteId is empty')
+    .notEmpty(),
+
+    // data Validator
+    check('data', 'data is empty')
+    .notEmpty(),
+]

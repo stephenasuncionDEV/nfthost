@@ -1,5 +1,6 @@
 const { validationResult } = require('express-validator');
 const { Website } = require('../../models/Websites');
+const LZString = require('lz-string');
 
 exports.createWebsite = async (req, res, next) => {
     try {
@@ -112,9 +113,41 @@ exports.updateTemplate = async (req, res, next) => {
 
         const { websiteId, template } = req.body;
 
+        const currentWebsite = await Website.findOne({ _id: websiteId });
+
+        if (!currentWebsite) throw new Error('Cannot fetch website');
+
+        let decompressedObj = JSON.parse(LZString.decompress(currentWebsite.data));
+
+        if (!decompressedObj) throw new Error('Cannot decompress data');
+
+        decompressedObj.template = template;
+
+        const compressed = LZString.compress(JSON.stringify(decompressedObj));
+
         await Website.updateOne({ _id: websiteId }, {
             $set: { 
-                data: template
+                data: compressed
+            }
+        });
+
+        res.status(200).json({ data: compressed });
+
+    } catch (err) {
+        next(err);
+    }
+}
+
+exports.updateStyle = async (req, res, next) => {
+    try {
+        const errors = validationResult(req).errors;
+        if (errors.length > 0) throw new Error(errors[0].msg);
+
+        const { websiteId, data } = req.body;
+
+        await Website.updateOne({ _id: websiteId }, {
+            $set: { 
+                data
             }
         });
 

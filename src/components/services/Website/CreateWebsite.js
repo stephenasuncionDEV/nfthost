@@ -243,7 +243,7 @@ const CreateWebsite = () => {
                                 <Button size='lg' onClick={clearFields}>
                                     Cancel
                                 </Button>
-                                <Button rightIcon={<MdSave />} size='lg' onClick={UpdateWebsite} disabled={isUpdating}>
+                                <Button rightIcon={<MdSave />} size='lg' onClick={UpdateWebsite} disabled={isUpdating} bg='orange.500' _hover={{ bg: 'orange.400' }} >
                                     Save
                                 </Button>
                             </HStack>
@@ -253,7 +253,7 @@ const CreateWebsite = () => {
                             <Button rightIcon={<FaRedo />} size='lg' onClick={clearFields}>
                                 Reset
                             </Button>
-                            <Button rightIcon={<MdOutlineAdd />} size='lg' onClick={CreateWebsite} disabled={isCreating}>
+                            <Button rightIcon={<MdOutlineAdd />} size='lg' onClick={CreateWebsite} disabled={isCreating} bg='orange.500' _hover={{ bg: 'orange.400' }}>
                                 Create
                             </Button>
                         </HStack>

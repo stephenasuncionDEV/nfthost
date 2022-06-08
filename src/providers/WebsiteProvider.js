@@ -1,4 +1,5 @@
 import { useState, useContext, createContext } from 'react'
+import { useColorModeValue } from '@chakra-ui/react'
 
 export const WebsiteContext = createContext({})
 export const useWebsite = () => useContext(WebsiteContext)
@@ -23,6 +24,9 @@ export const WebsiteProvider = ({ children }) => {
     const [isEditWebsite, setIsEditWebsite] = useState(false);
     const [isDeletingWebsite, setIsDeletingWebsite] = useState(false);
     const [currentEditWebsite, setCurrentEditWebsite] = useState();
+    const [currentTemplate, setCurrentTemplate] = useState();
+    const [newBackgroundImage, setNewBackgroundImage] = useState('');
+    const [newBackgroundColor, setNewBackgroundColor] = useState(useColorModeValue('linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(249,250,250,1) 100%)', 'linear-gradient(0deg, rgba(26,32,44,1) 0%, rgba(17,21,28,1) 100%)'));
 
     const controllers = {
         userWebsite,
@@ -62,7 +66,13 @@ export const WebsiteProvider = ({ children }) => {
         currentEditWebsite,
         setCurrentEditWebsite,
         isDeletingWebsite,
-        setIsDeletingWebsite
+        setIsDeletingWebsite,
+        newBackgroundImage,
+        setNewBackgroundImage,
+        newBackgroundColor,
+        setNewBackgroundColor,
+        currentTemplate,
+        setCurrentTemplate
     }
 
     return (
