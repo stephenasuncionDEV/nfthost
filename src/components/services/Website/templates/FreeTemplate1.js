@@ -1,6 +1,5 @@
 import { Text, Flex, Tag, TagLeftIcon, Image, VStack } from '@chakra-ui/react'
 import parse from 'html-react-parser'
-import { CgCopyright } from 'react-icons/cg'
 import { GiCutDiamond } from 'react-icons/gi'
 
 const FreeTemplate1 = ({ userWebsite }) => {

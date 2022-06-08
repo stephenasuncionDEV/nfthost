@@ -1,19 +1,18 @@
-import { useWebsite } from '@/providers/WebsiteProvider';
 import { HStack, Text, Flex, Button, VStack, 
     useColorModeValue, Image, Wrap, Tag, TagLeftIcon, Box
 } from '@chakra-ui/react'
+import { useWebsite } from '@/providers/WebsiteProvider'
+import { useTemplate } from '@/hooks/useTemplate'
 import { GiCutDiamond } from 'react-icons/gi'
 
 const TemplatesArr = [
     { key: 'FreeTemplate1', sub: 'free', creator: 'NFTHost' },
-    { key: 'FreeTemplate1', sub: 'free', creator: 'NFTHost' },
-    { key: 'FreeTemplate1', sub: 'free', creator: 'NFTHost' },
+    { key: 'FreeTemplate2', sub: 'free', creator: 'NFTHost' },
 ]
 
 const Template = () => {
-    const { 
-        currentEditWebsite
-    } = useWebsite();
+    const { currentEditWebsite } = useWebsite();
+    const { ChooseTemplate } = useTemplate();
 
     const containerColor = useColorModeValue('whiteAlpha.500', 'blackAlpha.500');
     const itemColor = useColorModeValue('whiteAlpha.400', 'blackAlpha.400');
@@ -47,6 +46,7 @@ const Template = () => {
                         bg={itemColor}
                         borderRadius='10px'
                         maxW='290px'
+                        alignItems='flex-start'
                     >
                         <Flex
                             h='180px'
@@ -88,6 +88,8 @@ const Template = () => {
                                 borderRadius='10px'
                                 maxW='290px'
                                 key={idx}
+                                alignItems='flex-start'
+                                spacing='1em'
                             >
                                 <Flex
                                     h='180px'
@@ -112,11 +114,16 @@ const Template = () => {
                                         </Text>
                                     </Tag>
                                 </Flex>
-                                <Text fontSize='10pt' noOfLines='1'>
-                                    by {template.creator}
-                                </Text>
-                                <Button w='full' size='sm' bg='orange.500' _hover={{ bg: 'orange.400' }}>
-                                    Choose
+                                <VStack spacing='0' alignItems='flex-start'>
+                                    <Text fontSize='10pt' noOfLines='1'>
+                                        {template.key}
+                                    </Text>
+                                    <Text fontSize='8pt' noOfLines='1'>
+                                        by {template.creator}
+                                    </Text>
+                                </VStack>
+                                <Button w='full' size='sm' bg='orange.500' _hover={{ bg: 'orange.400' }} onClick={() => ChooseTemplate(template)}>
+                                    Use
                                 </Button>
                             </VStack>
                         ))}

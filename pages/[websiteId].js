@@ -8,6 +8,7 @@ import parse from 'html-react-parser'
 import { CgCopyright } from 'react-icons/cg'
 import { GiCutDiamond } from 'react-icons/gi'
 import FreeTemplate1 from '@/components/services/Website/templates/FreeTemplate1'
+import FreeTemplate2 from '@/components/services/Website/templates/FreeTemplate2'
 
 const Service = () => {
     const router = useRouter();
@@ -44,6 +45,7 @@ const Service = () => {
             <CookieModal />
             
             {userWebsite?.data === 'FreeTemplate1' && <FreeTemplate1 userWebsite={userWebsite} />}
+            {userWebsite?.data === 'FreeTemplate2' && <FreeTemplate2 userWebsite={userWebsite} />}
 
             <Link href='https://www.nfthost.app/' isExternal>
                 <Tag 

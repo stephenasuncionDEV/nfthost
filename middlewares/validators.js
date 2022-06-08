@@ -207,3 +207,14 @@ exports.RenewTokenValidator = [
     .notEmpty(),
 
 ]
+
+exports.UpdateTemplateValidator = [
+
+    // websiteId Validator
+    check('websiteId', 'websiteId is empty')
+    .notEmpty(),
+
+    // template Validator
+    check('template', 'template is empty')
+    .notEmpty(),
+]

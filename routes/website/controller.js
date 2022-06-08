@@ -98,8 +98,27 @@ exports.updateExpiration = async (req, res, next) => {
             }
         });
 
-        res.status(200).json({message: "Succesfully updated website expiration"});
+        res.sendStatus(200);
 
+    } catch (err) {
+        next(err);
+    }
+}
+
+exports.updateTemplate = async (req, res, next) => {
+    try {
+        const errors = validationResult(req).errors;
+        if (errors.length > 0) throw new Error(errors[0].msg);
+
+        const { websiteId, template } = req.body;
+
+        await Website.updateOne({ _id: websiteId }, {
+            $set: { 
+                data: template
+            }
+        });
+
+        res.status(200).json({ template });
 
     } catch (err) {
         next(err);

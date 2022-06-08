@@ -7,7 +7,8 @@ const {
     GetWebsitesValidator,
     UpdateWebsiteValidator,
     DeleteWebsiteValidator,
-    UpdateExpirationValidator
+    UpdateExpirationValidator,
+    UpdateTemplateValidator
 } = require('../../middlewares/validators');
 
 router.post('/create', authenticateThirdPartyToken, CreateWebsiteValidator, controller.createWebsite);
@@ -16,5 +17,6 @@ router.get('/getMany', authenticateToken, GetWebsitesValidator, controller.getWe
 router.put('/update', authenticateToken, UpdateWebsiteValidator, controller.updateWebsite);
 router.delete('/delete', authenticateToken, DeleteWebsiteValidator, controller.deleteWebsite);
 router.patch('/updateExpiration', authenticateToken, UpdateExpirationValidator, controller.updateExpiration);
+router.patch('/updateTemplate', authenticateToken, UpdateTemplateValidator, controller.updateTemplate);
 
 module.exports = router;
