@@ -10,7 +10,9 @@ const {
     UpdateExpirationValidator,
     UpdateTemplateValidator,
     UpdateStyleValidator,
-    UpdateRevealDateValidator
+    UpdateRevealDateValidator,
+    UpdateCustomValidator,
+    UpdateAnalyticsValidator
 } = require('../../middlewares/validators');
 
 router.post('/create', authenticateThirdPartyToken, CreateWebsiteValidator, controller.createWebsite);
@@ -22,5 +24,7 @@ router.patch('/updateExpiration', authenticateThirdPartyToken, UpdateExpirationV
 router.patch('/updateTemplate', authenticateToken, UpdateTemplateValidator, controller.updateTemplate);
 router.patch('/updateStyle', authenticateToken, UpdateStyleValidator, controller.updateStyle);
 router.patch('/updateRevealDate', authenticateToken, UpdateRevealDateValidator, controller.updateRevealDate);
+router.patch('/updateCustom', authenticateToken, UpdateCustomValidator, controller.updateCustom);
+router.patch('/updateAnalytics', authenticateToken, UpdateAnalyticsValidator, controller.updateAnalytics);
 
 module.exports = router;
