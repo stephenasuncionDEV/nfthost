@@ -49,7 +49,7 @@ export const useCurrentTemplate = () => {
         try {
             setNewErrors(null);
 
-            //@TODO: style validation
+            if (!currentEditWebsite.isPremium) throw new Error('You must upgrade your website to premium to use this feature');
 
             const storageToken = localStorage.getItem('nfthost-user');
             if (!storageToken) return;
@@ -81,7 +81,7 @@ export const useCurrentTemplate = () => {
                 newEditWebsite.data = res.data.data;
 
                 if (new Date(currentEditWebsite.revealDate) !== newRevealDate) {
-                    newEditWebsite.revealDate = convertLocalToDate(dateLocal);
+                    newEditWebsite.revealDate = newRevealDate;
                 }
 
                 setCurrentEditWebsite(newEditWebsite);
@@ -115,7 +115,7 @@ export const useCurrentTemplate = () => {
         try {
             setNewErrors(null);
 
-            //@TODO: style validation
+            if (!currentEditWebsite.isPremium) throw new Error('You must upgrade your website to premium to use this feature');
 
             const storageToken = localStorage.getItem('nfthost-user');
             if (!storageToken) return;
