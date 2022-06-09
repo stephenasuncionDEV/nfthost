@@ -16,7 +16,9 @@ const CurrentTemplate = () => {
         newBackgroundImage,
         setNewBackgroundImage,
         newBackgroundColor,
-        setNewBackgroundColor
+        setNewBackgroundColor,
+        newRevealDate,
+        setNewRevealDate
     } = useWebsite();
     const { SaveStyle, ResetStyle } = useCurrentTemplate();
 
@@ -63,6 +65,7 @@ const CurrentTemplate = () => {
                             alignItems='flex-start'
                             borderWidth='2px'
                             borderStyle='dashed'
+                            h='100%'
                         >
                             <Flex
                                 h='180px'
@@ -96,7 +99,7 @@ const CurrentTemplate = () => {
                                 </Text>
                             </VStack>
                         </VStack>
-                        <VStack p='1em' flex='1' justifyContent='space-between'>
+                        <VStack p='1em' flex='1' justifyContent='space-between' spacing='2em'>
                             <VStack w='full'>
                                 <HStack justifyContent='flex-start' w='full'>
                                     <Text fontSize='10pt' >
@@ -120,6 +123,28 @@ const CurrentTemplate = () => {
                                     <FormControl isInvalid={newErrors?.bgImage?.status} flex='1'>
                                         <Input placeholder='Background Image Link' value={newBackgroundImage} onChange={(e) => setNewBackgroundImage(e.target.value)} disabled={!currentEditWebsite?.isPremium} />
                                         {!newErrors?.bgImage?.status ? <FormHelperText>Background image of your website</FormHelperText> : <FormErrorMessage>{newErrors?.bgImage?.message}</FormErrorMessage>}
+                                    </FormControl>
+                                </HStack>
+                            </VStack>
+                            <VStack w='full'>
+                                <HStack justifyContent='flex-start' w='full'>
+                                    <Text fontSize='10pt' >
+                                        Settings
+                                    </Text>
+                                    {!currentEditWebsite.isPremium && (
+                                        <Tag>
+                                            <TagLeftIcon as={GiCutDiamond} color='#08BDD4' />
+                                            <Text>
+                                                Premium Only
+                                            </Text>
+                                        </Tag>
+                                    )}
+                                    <Divider flex='1' />
+                                </HStack>
+                                <HStack w='full'>
+                                    <FormControl isInvalid={newErrors?.revealDate?.status} flex='1'>
+                                        <Input type='datetime-local' placeholder='Reveal Date' value={newRevealDate} onChange={(e) => setNewRevealDate(e.target.value)} disabled={!currentEditWebsite?.isPremium} />
+                                        {!newErrors?.revealDate?.status ? <FormHelperText>Embed Reveal Date</FormHelperText> : <FormErrorMessage>{newErrors?.revealDate?.message}</FormErrorMessage>}
                                     </FormControl>
                                 </HStack>
                             </VStack>

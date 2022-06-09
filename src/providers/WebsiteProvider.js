@@ -1,5 +1,4 @@
 import { useState, useContext, createContext } from 'react'
-import { useColorModeValue } from '@chakra-ui/react'
 
 export const WebsiteContext = createContext({})
 export const useWebsite = () => useContext(WebsiteContext)
@@ -27,6 +26,7 @@ export const WebsiteProvider = ({ children }) => {
     const [currentTemplate, setCurrentTemplate] = useState();
     const [newBackgroundImage, setNewBackgroundImage] = useState('');
     const [newBackgroundColor, setNewBackgroundColor] = useState('');
+    const [newRevealDate, setNewRevealDate] = useState('');
 
     const controllers = {
         userWebsite,
@@ -72,7 +72,9 @@ export const WebsiteProvider = ({ children }) => {
         newBackgroundColor,
         setNewBackgroundColor,
         currentTemplate,
-        setCurrentTemplate
+        setCurrentTemplate,
+        newRevealDate,
+        setNewRevealDate
     }
 
     return (

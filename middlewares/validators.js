@@ -229,3 +229,15 @@ exports.UpdateStyleValidator = [
     check('style', 'style is empty')
     .notEmpty(),
 ]
+
+exports.UpdateRevealDateValidator = [
+
+    // websiteId Validator
+    check('websiteId', 'websiteId is empty')
+    .notEmpty(),
+
+    // revealDate Validator
+    check('revealDate', 'revealDate is empty')
+    .notEmpty(),
+
+]

@@ -1,11 +1,13 @@
-import { Text, Flex, Tag, TagLeftIcon, Image, VStack, HStack, useColorModeValue } from '@chakra-ui/react'
-import parse from 'html-react-parser'
+import { Text, Flex, Tag, TagLeftIcon, Image, VStack, HStack, useColorModeValue, Box } from '@chakra-ui/react'
 import { GiCutDiamond } from 'react-icons/gi'
+import Embed from '../Embed';
 
 const FreeTemplate2 = ({ userWebsite, data }) => {
     const { 
         components: { title, unrevealedImage, description, embed },
-        isPremium
+        isPremium,
+        revealDate,
+        _id
     } = userWebsite;
     const {
         style: { bgImage }
@@ -40,7 +42,11 @@ const FreeTemplate2 = ({ userWebsite, data }) => {
                             </Tag>
                         )}
                     </VStack>
-                    {parse(embed)}
+                    <Embed 
+                        revealDate={revealDate} 
+                        embed={embed}
+                        id={_id}
+                    />
                 </VStack>
                 <Image 
                     src={unrevealedImage}

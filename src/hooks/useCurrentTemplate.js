@@ -19,20 +19,26 @@ export const useCurrentTemplate = () => {
         newBackgroundImage,
         setNewBackgroundImage,
         setNewErrors,
-        setCurrentEditWebsite
+        setCurrentEditWebsite,
+        newRevealDate,
+        setNewRevealDate
     } = useWebsite();
 
     useEffect(() => {
         UpdateCurrentTemplate();
     }, [])
 
-    const UpdateCurrentTemplate = (data = null) => {
+    const UpdateCurrentTemplate = (newWebsiteObj = null) => {
         try {
             const templateKeysArr = TemplatesArr.map((template) => template.key);
-            const decryptedData = ParseWebsiteData(data ? data : currentEditWebsite.data);
+            const decryptedData = ParseWebsiteData(newWebsiteObj ? newWebsiteObj.data : currentEditWebsite.data);
             const { template, style } = decryptedData;
             const indexOfKey = templateKeysArr.indexOf(template);
             
+            const d = new Date(newWebsiteObj ? newWebsiteObj.revealDate : currentEditWebsite.revealDate);
+            const dateTimeLocalValue = (new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString()).slice(0, -1);
+            setNewRevealDate(dateTimeLocalValue);
+
             setNewBackgroundColor(style.bgColor);
             setNewBackgroundImage(style.bgImage);
             setCurrentTemplate(TemplatesArr[indexOfKey]);
@@ -65,14 +71,26 @@ export const useCurrentTemplate = () => {
                 }
             })
 
+            const d = new Date(newRevealDate);
+            const dateTimeLocalValue = (new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString()).slice(0, -1);
+
+            if (new Date(currentEditWebsite.revealDate) !== dateTimeLocalValue) {
+                await UpdateRevealDate(dateTimeLocalValue);
+            }
+
             await GetWebsites();
 
             if (res.status === 200) {
                 let newEditWebsite = {...currentEditWebsite};
                 newEditWebsite.data = res.data.data;
 
+                if (new Date(currentEditWebsite.revealDate) !== dateTimeLocalValue) {
+                    console.log(dateTimeLocalValue)
+                    newEditWebsite.revealDate = dateTimeLocalValue
+                }
+
                 setCurrentEditWebsite(newEditWebsite);
-                UpdateCurrentTemplate(res.data.data);
+                UpdateCurrentTemplate(res.data);
             }
 
             toast({
@@ -128,7 +146,7 @@ export const useCurrentTemplate = () => {
                 newEditWebsite.data = res.data.data;
 
                 setCurrentEditWebsite(newEditWebsite);
-                UpdateCurrentTemplate(res.data.data);
+                UpdateCurrentTemplate(res.data);
             }
 
             toast({
@@ -154,9 +172,40 @@ export const useCurrentTemplate = () => {
         }
     }
 
+    const UpdateRevealDate = async (revealDate) => {
+        try {
+            const storageToken = localStorage.getItem('nfthost-user');
+            if (!storageToken) return;
+
+            const token = decryptToken(storageToken, true);
+
+            await axios.patch(`${config.serverUrl}/api/website/updateRevealDate`, {
+                websiteId: currentEditWebsite._id,
+                revealDate
+            }, {
+                headers: { 
+                    Authorization: `Bearer ${token.accessToken}` 
+                }
+            })
+        }
+        catch (err) {
+            console.error(err);
+            if (err.response?.data?.isExpired) await Logout();
+            toast({
+                title: 'Error',
+                description: !err.response ? err.message : err.response.data.message,
+                status: 'error',
+                duration: 3000,
+                isClosable: true,
+                position: 'bottom-center'
+            })
+        }
+    }
+
     return {
         UpdateCurrentTemplate,
         SaveStyle,
-        ResetStyle
+        ResetStyle,
+        UpdateRevealDate
     }
 }
