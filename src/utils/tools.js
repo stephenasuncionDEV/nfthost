@@ -122,3 +122,13 @@ export const EncodeWebsiteData = (dataObj) => {
 export const ParseWebsiteData = (data) => {
     return JSON.parse(lz.decompress(lz.decodeBase64(data)));
 }
+
+export const convertDateToLocal = (date) => {
+    const d = new Date(date);
+    d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+    return d.toISOString().slice(0, -1);
+}
+
+export const convertLocalToDate = (local) => {
+    return new Date(local);
+}

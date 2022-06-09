@@ -5,7 +5,7 @@ import { useWeb3 } from '@/hooks/useWeb3'
 import { useSites } from '@/hooks/useSites'
 import axios from 'axios'
 import config from '@/config/index'
-import { decryptToken, TemplatesArr, ParseWebsiteData } from '@/utils/tools'
+import { decryptToken, TemplatesArr, ParseWebsiteData, convertDateToLocal, convertLocalToDate } from '@/utils/tools'
 
 export const useCurrentTemplate = () => {
     const toast = useToast();
@@ -35,10 +35,7 @@ export const useCurrentTemplate = () => {
             const { template, style } = decryptedData;
             const indexOfKey = templateKeysArr.indexOf(template);
             
-            const d = new Date(newWebsiteObj ? newWebsiteObj.revealDate : currentEditWebsite.revealDate);
-            const dateTimeLocalValue = (new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString()).slice(0, -1);
-            setNewRevealDate(dateTimeLocalValue);
-
+            setNewRevealDate(convertDateToLocal(newWebsiteObj ? newWebsiteObj.revealDate : currentEditWebsite.revealDate));
             setNewBackgroundColor(style.bgColor);
             setNewBackgroundImage(style.bgImage);
             setCurrentTemplate(TemplatesArr[indexOfKey]);
@@ -71,11 +68,10 @@ export const useCurrentTemplate = () => {
                 }
             })
 
-            const d = new Date(newRevealDate);
-            const dateTimeLocalValue = (new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString()).slice(0, -1);
+            const dateLocal = convertDateToLocal(newRevealDate);
 
-            if (new Date(currentEditWebsite.revealDate) !== dateTimeLocalValue) {
-                await UpdateRevealDate(dateTimeLocalValue);
+            if (new Date(currentEditWebsite.revealDate) !== newRevealDate) {
+                await UpdateRevealDate(dateLocal);
             }
 
             await GetWebsites();
@@ -84,9 +80,8 @@ export const useCurrentTemplate = () => {
                 let newEditWebsite = {...currentEditWebsite};
                 newEditWebsite.data = res.data.data;
 
-                if (new Date(currentEditWebsite.revealDate) !== dateTimeLocalValue) {
-                    console.log(dateTimeLocalValue)
-                    newEditWebsite.revealDate = dateTimeLocalValue
+                if (new Date(currentEditWebsite.revealDate) !== newRevealDate) {
+                    newEditWebsite.revealDate = convertLocalToDate(dateLocal);
                 }
 
                 setCurrentEditWebsite(newEditWebsite);
@@ -139,11 +134,15 @@ export const useCurrentTemplate = () => {
                 }
             })
 
+            const today = new Date();
+            await UpdateRevealDate(today);
+
             await GetWebsites();
 
             if (res.status === 200) {
                 let newEditWebsite = {...currentEditWebsite};
                 newEditWebsite.data = res.data.data;
+                newEditWebsite.revealDate = today;
 
                 setCurrentEditWebsite(newEditWebsite);
                 UpdateCurrentTemplate(res.data);
