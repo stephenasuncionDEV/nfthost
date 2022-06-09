@@ -18,7 +18,7 @@ const Sidebar = ({ children }) => {
 
     return (
         <>
-            <Slide direction='left' in={true} style={{ zIndex: 10 }}>
+            <Slide direction='left' in={true}>
                 <Flex 
                     position='fixed'
                     flexDir='column'
