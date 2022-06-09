@@ -16,7 +16,7 @@ export const useUserWebsite = (websiteData) => {
     const { websiteId } = router.query;
     const [data, setData] = useState();
 
-    // Check if user accepted cookie
+    // Check if user accepted cookie and increment unique visit
     useEffect(() => {
         if (!localStorage.getItem('nfthost-cookie')) {
             setIsCookieModal(true);

@@ -5,6 +5,7 @@ import { useWeb3 } from '@/hooks/useWeb3'
 import { useSites } from '@/hooks/useSites'
 import axios from 'axios'
 import config from '@/config/index'
+import posthog from 'posthog-js'
 import { decryptToken, TemplatesArr, ParseWebsiteData, convertDateToLocal, convertLocalToDate } from '@/utils/tools'
 
 export const useCurrentTemplate = () => {
@@ -135,7 +136,7 @@ export const useCurrentTemplate = () => {
             })
 
             const today = new Date();
-            await UpdateRevealDate(today);
+            await UpdateRevealDate(today, true);
 
             await GetWebsites();
 
@@ -171,7 +172,7 @@ export const useCurrentTemplate = () => {
         }
     }
 
-    const UpdateRevealDate = async (revealDate) => {
+    const UpdateRevealDate = async (revealDate, isReset = false) => {
         try {
             const storageToken = localStorage.getItem('nfthost-user');
             if (!storageToken) return;
@@ -186,6 +187,8 @@ export const useCurrentTemplate = () => {
                     Authorization: `Bearer ${token.accessToken}` 
                 }
             })
+
+            if (!isReset) posthog.capture('User set a reveal date');
         }
         catch (err) {
             console.error(err);

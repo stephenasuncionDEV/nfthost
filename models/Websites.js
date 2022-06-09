@@ -110,7 +110,17 @@ const WebsitesSchema = new Schema({
             type:String,
             default: null
         }
-    }
+    },
+    custom: {
+        domain: {
+            type:String,
+            default: ''
+        },
+        alias: {
+            type:String,
+            default: ''
+        }
+    },
 }, { timestamps: true });
 
 exports.Website = mongoose.model('website', WebsitesSchema);

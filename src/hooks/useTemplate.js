@@ -5,6 +5,7 @@ import { useSites } from '@/hooks/useSites'
 import { useCurrentTemplate } from '@/hooks/useCurrentTemplate'
 import config from '@/config/index'
 import axios from 'axios'
+import posthog from 'posthog-js'
 import { decryptToken, ParseWebsiteData } from '@/utils/tools'
 
 export const useTemplate = () => {
@@ -46,6 +47,10 @@ export const useTemplate = () => {
                 setCurrentEditWebsite(newEditWebsite);
                 UpdateCurrentTemplate(res.data.data);
             }
+
+            posthog.capture('User use a template', {
+                template: template.key
+            });
 
             toast({
                 title: 'Success',
