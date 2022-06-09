@@ -1,11 +1,11 @@
+import { useToast } from '@chakra-ui/react'
 import { useUser } from '@/providers/UserProvider'
 import { useWebsite } from '@/providers/WebsiteProvider'
-import { useToast } from '@chakra-ui/react'
-import config from '@/config/index'
-import axios from 'axios'
-import { decryptToken } from '@/utils/tools'
 import { useSites } from '@/hooks/useSites'
 import { useCurrentTemplate } from '@/hooks/useCurrentTemplate'
+import config from '@/config/index'
+import axios from 'axios'
+import { decryptToken, ParseWebsiteData } from '@/utils/tools'
 
 export const useTemplate = () => {
     const toast = useToast();
@@ -17,7 +17,10 @@ export const useTemplate = () => {
     const ChooseTemplate = async (template) => {
         try {
             if (!template) throw new Error('Cannot fetch template');
-            if (currentEditWebsite.data === template.key) throw new Error('You are already using this template');
+
+            const webData = ParseWebsiteData(currentEditWebsite.data);
+
+            if (webData.template === template.key) throw new Error('You are already using this template');
             if (!currentEditWebsite.isPremium && template.sub === 'premium') throw new Error('Upgrade your website to use premium templates');
 
             const storageToken = localStorage.getItem('nfthost-user');

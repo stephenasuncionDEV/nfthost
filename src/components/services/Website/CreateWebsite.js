@@ -250,10 +250,23 @@ const CreateWebsite = () => {
                         </Flex>
                     ) : (
                         <HStack>
-                            <Button rightIcon={<FaRedo />} size='lg' onClick={clearFields}>
+                            <Button 
+                                rightIcon={<FaRedo />} 
+                                size='lg' 
+                                onClick={clearFields}
+                                bg='red.500' 
+                                _hover={{ bg: 'red.400' }} 
+                            >
                                 Reset
                             </Button>
-                            <Button rightIcon={<MdOutlineAdd />} size='lg' onClick={CreateWebsite} disabled={isCreating} bg='orange.500' _hover={{ bg: 'orange.400' }}>
+                            <Button 
+                                rightIcon={<MdOutlineAdd />} 
+                                size='lg' 
+                                onClick={CreateWebsite} 
+                                disabled={isCreating} 
+                                bg='orange.500' 
+                                _hover={{ bg: 'orange.400' }}
+                            >
                                 Create
                             </Button>
                         </HStack>

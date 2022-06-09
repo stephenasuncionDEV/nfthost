@@ -6,6 +6,7 @@ import { useWebsite } from '@/providers/WebsiteProvider'
 import { useCurrentTemplate } from '@/hooks/useCurrentTemplate'
 import { GiCutDiamond } from 'react-icons/gi'
 import { MdSave, MdVerified } from 'react-icons/md'
+import { FaRedo } from 'react-icons/fa'
 
 const CurrentTemplate = () => {
     const { 
@@ -17,7 +18,7 @@ const CurrentTemplate = () => {
         newBackgroundColor,
         setNewBackgroundColor
     } = useWebsite();
-    const { SaveStyle } = useCurrentTemplate();
+    const { SaveStyle, ResetStyle } = useCurrentTemplate();
 
     const containerColor = useColorModeValue('whiteAlpha.500', 'blackAlpha.500');
     const itemColor = useColorModeValue('whiteAlpha.400', 'blackAlpha.400');
@@ -123,15 +124,26 @@ const CurrentTemplate = () => {
                                 </HStack>
                             </VStack>
                             <Flex w='full' justifyContent='flex-end'>
-                                <Button
-                                    bg='orange.500' 
-                                    _hover={{ bg: 'orange.400' }} 
-                                    rightIcon={<MdSave />}
-                                    onClick={SaveStyle}
-                                    disabled={!currentEditWebsite?.isPremium}
-                                >
-                                    Save
-                                </Button>
+                                <HStack>
+                                    <Button
+                                        bg='red.500' 
+                                        _hover={{ bg: 'red.400' }} 
+                                        rightIcon={<FaRedo />}
+                                        onClick={ResetStyle}
+                                        disabled={!currentEditWebsite?.isPremium}
+                                    >
+                                        Reset
+                                    </Button>
+                                    <Button
+                                        bg='orange.500' 
+                                        _hover={{ bg: 'orange.400' }} 
+                                        rightIcon={<MdSave />}
+                                        onClick={SaveStyle}
+                                        disabled={!currentEditWebsite?.isPremium}
+                                    >
+                                        Save
+                                    </Button>
+                                </HStack>
                             </Flex>
                         </VStack>
                     </Wrap>
