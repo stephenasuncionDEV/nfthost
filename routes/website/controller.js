@@ -23,10 +23,30 @@ exports.getWebsite = async (req, res, next) => {
         if (errors.length > 0) throw new Error(errors[0].msg);
         
         const { websiteId } = req.query;
-        
-        const result = await Website.findOne({ _id: websiteId });
 
-        res.status(200).json(result);
+        // Check if websiteId is an actual object id
+        let count = await Website.count({ _id: websiteId });
+        if (count > 0) {
+            const result = await Website.findOne({ _id: websiteId });
+            res.status(200).json(result);
+            return;
+        }
+
+        // Check if websiteId is a custom domain
+        count = await Website.count({ [`custom.domain`]: websiteId });
+        if (count > 0) {
+            const result = await Website.findOne({ [`custom.domain`]: websiteId });
+            res.status(200).json(result);
+            return;
+        }
+
+        // Check if websiteId is a custom alias
+        count = await Website.count({ [`custom.alias`]: websiteId });
+        if (count > 0) {
+            const result = await Website.findOne({ [`custom.alias`]: websiteId });
+            res.status(200).json(result);
+            return;
+        }
 
     } catch (err) {
         next(err);
