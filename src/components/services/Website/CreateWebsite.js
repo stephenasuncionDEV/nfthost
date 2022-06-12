@@ -1,13 +1,13 @@
 import { HStack, Text, Button, Flex, VStack,
     useColorModeValue, Input, FormControl, Radio, RadioGroup,
     Textarea, FormHelperText, FormErrorMessage, Divider,
-    Select, Wrap
+    Select, Wrap, IconButton, Link
 } from '@chakra-ui/react'
 import { GiCutDiamond } from 'react-icons/gi'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useSites } from '@/hooks/useSites'
 import { MdOutlineAdd, MdSave, MdDeleteOutline } from 'react-icons/md'
-import { FaRedo } from 'react-icons/fa'
+import { FaRedo, FaExternalLinkAlt } from 'react-icons/fa'
 import config from '@/config/index'
 
 const CreateWebsite = () => {
@@ -63,16 +63,23 @@ const CreateWebsite = () => {
                     </Text>
                 </Flex>
                 {isEditWebsite && (
-                    <Input 
-                        readOnly 
-                        value={`${config?.frontendUrl}/${currentEditWebsite?._id}`} 
-                        size='lg' 
-                        textAlign='center' 
-                        maxW='300px' 
-                        cursor='pointer' 
-                        _hover={{ opacity: '.5' }} 
-                        onClick={CopyWebsiteLink}
-                    />
+                    <HStack>
+                        <Input 
+                            readOnly 
+                            value={`${config?.frontendUrl}/${currentEditWebsite?._id}`} 
+                            size='lg' 
+                            textAlign='center' 
+                            maxW='300px' 
+                            cursor='pointer' 
+                            _hover={{ opacity: '.5' }} 
+                            onClick={CopyWebsiteLink}
+                        />
+                        <Link href={`${config?.frontendUrl}/${currentEditWebsite?._id}`} isExternal>
+                            <IconButton size='lg'>
+                                <FaExternalLinkAlt />
+                            </IconButton>
+                        </Link>
+                    </HStack>
                 )}
             </HStack>
             <Flex flexDir='column' alignItems='flex-start' w='full'>
