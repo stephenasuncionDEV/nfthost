@@ -289,3 +289,15 @@ exports.UpdateComponentsValidator = [
     .notEmpty(),
 
 ]
+
+exports.DeleteAddonValidator = [
+
+    // websiteId Validator
+    check('websiteId', 'websiteId is empty')
+    .notEmpty(),
+
+    // addon Validator
+    check('addon', 'addon is empty')
+    .notEmpty(),
+
+]

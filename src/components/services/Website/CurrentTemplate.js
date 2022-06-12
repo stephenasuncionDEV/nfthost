@@ -1,18 +1,14 @@
 import { Text, Flex, VStack, useColorModeValue, Image, 
     Tag, TagLeftIcon, HStack, Wrap, Divider, FormControl,
     Input, FormHelperText, FormErrorMessage, Button, Box,
-    TagLabel, TagRightIcon, Menu, MenuButton, MenuList,
-    MenuItem,
-    MenuItemOption,
-    MenuGroup,
-    MenuOptionGroup,
-    MenuDivider,
+    Menu, MenuButton, MenuList, MenuItem
 } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useCurrentTemplate } from '@/hooks/useCurrentTemplate'
 import { GiCutDiamond } from 'react-icons/gi'
 import { MdSave, MdVerified, MdSettings } from 'react-icons/md'
 import { FaRedo } from 'react-icons/fa'
+import { useTemplate } from '@/hooks/useTemplate'
 
 const CurrentTemplate = () => {
     const { 
@@ -26,7 +22,8 @@ const CurrentTemplate = () => {
         newRevealDate,
         setNewRevealDate
     } = useWebsite();
-    const { SaveStyle, ResetStyle, RemoveAddon } = useCurrentTemplate();
+    const { SaveStyle, ResetStyle } = useCurrentTemplate();
+    const { RemoveAddon } = useTemplate();
 
     const containerColor = useColorModeValue('whiteAlpha.500', 'blackAlpha.500');
     const itemColor = useColorModeValue('whiteAlpha.400', 'blackAlpha.400');
@@ -112,7 +109,7 @@ const CurrentTemplate = () => {
                                         </Text>
                                         <Wrap w='full'>
                                             {currentEditWebsite?.components?.addons?.map((addon, idx) => (
-                                                <Menu>
+                                                <Menu key={idx}>
                                                     <MenuButton 
                                                         as={Button} 
                                                         variant='outline' 
@@ -123,7 +120,6 @@ const CurrentTemplate = () => {
                                                         minW='1.5rem' 
                                                         px='.65em' 
                                                         fontSize='10pt'
-                                                        key={idx}
                                                     >
                                                         {addon}
                                                     </MenuButton>

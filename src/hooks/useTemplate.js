@@ -45,7 +45,7 @@ export const useTemplate = () => {
                 newEditWebsite.data = res.data.data;
 
                 setCurrentEditWebsite(newEditWebsite);
-                UpdateCurrentTemplate(res.data.data);
+                UpdateCurrentTemplate(newEditWebsite);
             }
 
             posthog.capture('User use a template', {
@@ -85,10 +85,12 @@ export const useTemplate = () => {
 
             const token = decryptToken(storageToken, true);
 
+            const addonsArr = currentEditWebsite.components.addons !== null ? [...currentEditWebsite.components.addons, addon.key] : [addon.key];
+
             const res = await axios.patch(`${config.serverUrl}/api/website/updateComponents`, {
                 websiteId: currentEditWebsite._id,
                 key: 'addons',
-                value: [...currentEditWebsite.components.addons, addon.key]
+                value: addonsArr
             }, {
                 headers: { 
                     Authorization: `Bearer ${token.accessToken}` 
@@ -99,10 +101,10 @@ export const useTemplate = () => {
 
             if (res.status === 200) {
                 let newEditWebsite = {...currentEditWebsite};
-                newEditWebsite.addons = res.data.addons;
-
+                newEditWebsite.components.addons = addonsArr;
+                
                 setCurrentEditWebsite(newEditWebsite);
-                UpdateCurrentTemplate(res.data);
+                UpdateCurrentTemplate(newEditWebsite);
             }
 
             posthog.capture('User use an addon', {
@@ -143,13 +145,13 @@ export const useTemplate = () => {
             const token = decryptToken(storageToken, true);
 
             let newEditWebsite = {...currentEditWebsite};
-            let newAddonsArr = currentEditWebsite.components.addons.filter(item => item !== addon.key);
+            let newAddonsArr = currentEditWebsite.components.addons.filter(item => item !== addon);
+            newEditWebsite.components.addons = newAddonsArr;
 
-            const res = await axios.delete(`${config.serverUrl}/api/website/updateComponents`, {
+            const res = await axios.delete(`${config.serverUrl}/api/website/deleteAddon`, {
                 data: {
                     websiteId: currentEditWebsite._id,
-                    key: 'addons',
-                    value: newAddonsArr
+                    addon: newAddonsArr
                 },
                 headers: { 
                     Authorization: `Bearer ${token.accessToken}` 
@@ -160,16 +162,16 @@ export const useTemplate = () => {
 
             if (res.status === 200) {
                 setCurrentEditWebsite(newEditWebsite);
-                UpdateCurrentTemplate(res.data);
+                UpdateCurrentTemplate(newEditWebsite);
             }
 
             posthog.capture('User removed an addon', {
-                addon: addon.key
+                addon
             });
 
             toast({
                 title: 'Success',
-                description: `Successfully added ${addon.key} to your mint website`,
+                description: `Successfully removed ${addon} to your mint website`,
                 status: 'success',
                 duration: 3000,
                 isClosable: true,

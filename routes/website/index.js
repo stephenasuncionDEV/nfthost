@@ -13,7 +13,8 @@ const {
     UpdateRevealDateValidator,
     UpdateCustomValidator,
     UpdateAnalyticsValidator,
-    UpdateComponentsValidator
+    UpdateComponentsValidator,
+    DeleteAddonValidator
 } = require('../../middlewares/validators');
 
 router.post('/create', authenticateThirdPartyToken, CreateWebsiteValidator, controller.createWebsite);
@@ -28,5 +29,6 @@ router.patch('/updateRevealDate', authenticateToken, UpdateRevealDateValidator, 
 router.patch('/updateCustom', authenticateToken, UpdateCustomValidator, controller.updateCustom);
 router.patch('/updateAnalytics', authenticateToken, UpdateAnalyticsValidator, controller.updateAnalytics);
 router.patch('/updateComponents', authenticateToken, UpdateComponentsValidator, controller.updateComponents);
+router.delete('/deleteAddon', authenticateToken, DeleteAddonValidator, controller.deleteAddon);
 
 module.exports = router;
