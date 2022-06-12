@@ -12,9 +12,29 @@ const Addons = () => {
     const containerColor = useColorModeValue('whiteAlpha.500', 'blackAlpha.500');
 
     return (
-        <Box>
-            
-        </Box>
+        <VStack 
+            id='templateList'
+            spacing='1.5em'
+            p='1em' 
+            bg={containerColor}
+            borderRadius='10px'
+            boxShadow='md'
+            h='100%'
+            alignItems='flex-start'
+            flex='1'
+        >
+            <VStack spacing='0' alignItems='flex-start'>
+                <Text variant='content_subtitle' fontSize='12pt'>
+                    Addons
+                </Text>
+                <Text fontSize='10pt'>
+                    Choose additional features you want for your website
+                </Text>
+            </VStack>
+            <Wrap spacing='1em'>
+
+            </Wrap>
+        </VStack>
     )
 }
 

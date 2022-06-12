@@ -1,6 +1,6 @@
 import { Text, Flex, VStack, useColorModeValue, Image, 
     Tag, TagLeftIcon, HStack, Wrap, Divider, FormControl,
-    Input, FormHelperText, FormErrorMessage, Button
+    Input, FormHelperText, FormErrorMessage, Button, Box
 } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useCurrentTemplate } from '@/hooks/useCurrentTemplate'
@@ -90,13 +90,29 @@ const CurrentTemplate = () => {
                                     </Text>
                                 </Tag>
                             </Flex>
-                            <VStack spacing='0' alignItems='flex-start'>
-                                <Text fontSize='10pt' noOfLines='1'>
-                                    {currentTemplate?.key}
+                            <VStack spacing='1em' alignItems='flex-start'>
+                                <Box>
+                                    <Text fontSize='12pt' noOfLines='1'>
+                                        {currentTemplate?.key}
+                                    </Text>
+                                    <Text fontSize='8pt' noOfLines='1'>
+                                        by {currentTemplate?.creator}
                                 </Text>
-                                <Text fontSize='8pt' noOfLines='1'>
-                                    by {currentTemplate?.creator}
-                                </Text>
+                                </Box>
+                                {currentEditWebsite?.components?.addons?.length > 0 && (
+                                    <Box>
+                                        <Text fontSize='10pt'>
+                                            Addons:
+                                        </Text>
+                                        <Wrap fontSize='8pt' spacing='.25em'>
+                                            {currentEditWebsite?.components?.addons?.map((addon, idx) => (
+                                                <Text key={idx} color='orange'>
+                                                    {addon}
+                                                </Text>
+                                            ))}
+                                        </Wrap>
+                                    </Box>
+                                )}
                             </VStack>
                         </VStack>
                         <VStack p='1em' flex='1' justifyContent='space-between' spacing='2em'>
