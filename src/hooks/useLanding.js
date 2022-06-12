@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { useToast } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useUser } from '@/providers/UserProvider'
@@ -9,13 +8,6 @@ export const useLanding = () => {
     const router = useRouter();
     const { setIsCookieModal, setIsServiceModal } = useCore();
     const { isLoggedIn } = useUser();
-
-    useEffect(() => {
-        // Check if user accepted cookie
-        if (!localStorage.getItem('nfthost-cookie')) {
-            setIsCookieModal(true);
-        }
-    }, [])
 
     const GetStarted = () => {
         try {

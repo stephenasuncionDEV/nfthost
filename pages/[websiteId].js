@@ -44,7 +44,8 @@ const Service = () => {
 
                 {userWebsite?.components?.script && parse(userWebsite?.components?.script)}
             </Head>
-            <CookieModal />
+
+            {userWebsite?.components.addons.indexOf('Cookie Consent') !== -1 && <CookieModal />}
             
             {data?.template === 'Template1' && <Template1 userWebsite={userWebsite} data={data} />}
             {data?.template === 'Template2' && <Template2 userWebsite={userWebsite} data={data} />}
