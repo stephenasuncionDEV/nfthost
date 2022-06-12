@@ -74,7 +74,65 @@ export const useTemplate = () => {
         }
     }
 
+    const ChooseAddon = async (addon) => {
+        try {
+            if (!addon) throw new Error('Cannot fetch addon');
+
+            if (!currentEditWebsite.isPremium && addon.sub === 'premium') throw new Error('Upgrade your website to use premium addons');
+
+            const storageToken = localStorage.getItem('nfthost-user');
+            if (!storageToken) return;
+
+            const token = decryptToken(storageToken, true);
+
+            const res = await axios.patch(`${config.serverUrl}/api/website/updateComponents`, {
+                websiteId: currentEditWebsite._id,
+                key: 'addons',
+                value: [...currentEditWebsite.components.addons, addon.key]
+            }, {
+                headers: { 
+                    Authorization: `Bearer ${token.accessToken}` 
+                }
+            })
+
+            await GetWebsites();
+
+            if (res.status === 200) {
+                let newEditWebsite = {...currentEditWebsite};
+                newEditWebsite.addons = res.data.addons;
+
+                setCurrentEditWebsite(newEditWebsite);
+                UpdateCurrentTemplate(res.data);
+            }
+
+            posthog.capture('User use an addon', {
+                addon: addon.key
+            });
+
+            toast({
+                title: 'Success',
+                description: `Successfully added ${addon.key} to your mint website`,
+                status: 'success',
+                duration: 3000,
+                isClosable: true,
+                position: 'bottom-center'
+            })
+        }
+        catch (err) {
+            if (err.response?.data?.isExpired) await Logout();
+            toast({
+                title: 'Error',
+                description: !err.response ? err.message : err.response.data.message,
+                status: 'error',
+                duration: 3000,
+                isClosable: true,
+                position: 'bottom-center'
+            })
+        }
+    }
+
     return {
-        ChooseTemplate
+        ChooseTemplate,
+        ChooseAddon
     }
 }
