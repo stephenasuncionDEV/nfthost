@@ -78,6 +78,8 @@ export const useTemplate = () => {
         try {
             if (!addon) throw new Error('Cannot fetch addon');
 
+            if (currentEditWebsite.components.addons.indexOf(addon.key) !== -1) throw new Error('This addon was already added to your website');
+
             if (!currentEditWebsite.isPremium && addon.sub === 'premium') throw new Error('Upgrade your website to use premium addons');
 
             const storageToken = localStorage.getItem('nfthost-user');
