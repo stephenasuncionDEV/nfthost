@@ -51,6 +51,10 @@ const WebsitesSchema = new Schema({
         script: {
             type:String,
             default: ''
+        },
+        addons: {
+            type:Array,
+            default: []
         }
     },
     meta: {

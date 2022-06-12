@@ -273,3 +273,19 @@ exports.UpdateAnalyticsValidator = [
     .notEmpty(),
 
 ]
+
+exports.UpdateComponentsValidator = [
+
+    // websiteId Validator
+    check('websiteId', 'websiteId is empty')
+    .notEmpty(),
+
+    // key Validator
+    check('key', 'key is empty')
+    .notEmpty(),
+
+    // value Validator
+    check('value', 'value is empty')
+    .notEmpty(),
+
+]
