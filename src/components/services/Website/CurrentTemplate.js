@@ -1,11 +1,17 @@
 import { Text, Flex, VStack, useColorModeValue, Image, 
     Tag, TagLeftIcon, HStack, Wrap, Divider, FormControl,
-    Input, FormHelperText, FormErrorMessage, Button, Box
+    Input, FormHelperText, FormErrorMessage, Button, Box,
+    TagLabel, TagRightIcon, Menu, MenuButton, MenuList,
+    MenuItem,
+    MenuItemOption,
+    MenuGroup,
+    MenuOptionGroup,
+    MenuDivider,
 } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useCurrentTemplate } from '@/hooks/useCurrentTemplate'
 import { GiCutDiamond } from 'react-icons/gi'
-import { MdSave, MdVerified } from 'react-icons/md'
+import { MdSave, MdVerified, MdSettings } from 'react-icons/md'
 import { FaRedo } from 'react-icons/fa'
 
 const CurrentTemplate = () => {
@@ -20,7 +26,7 @@ const CurrentTemplate = () => {
         newRevealDate,
         setNewRevealDate
     } = useWebsite();
-    const { SaveStyle, ResetStyle } = useCurrentTemplate();
+    const { SaveStyle, ResetStyle, RemoveAddon } = useCurrentTemplate();
 
     const containerColor = useColorModeValue('whiteAlpha.500', 'blackAlpha.500');
     const itemColor = useColorModeValue('whiteAlpha.400', 'blackAlpha.400');
@@ -61,7 +67,7 @@ const CurrentTemplate = () => {
                             p='1.5em'
                             bg={itemColor}
                             borderRadius='10px'
-                            maxW='290px'
+                            w='290px'
                             alignItems='flex-start'
                             borderWidth='2px'
                             borderStyle='dashed'
@@ -69,7 +75,7 @@ const CurrentTemplate = () => {
                         >
                             <Flex
                                 h='180px'
-                                w='230px'
+                                w='240px'
                                 overflow='hidden'
                                 position='relative'
                                 borderRadius='5px'
@@ -97,72 +103,90 @@ const CurrentTemplate = () => {
                                     </Text>
                                     <Text fontSize='8pt' noOfLines='1'>
                                         by {currentTemplate?.creator}
-                                </Text>
+                                    </Text>
                                 </Box>
                                 {currentEditWebsite?.components?.addons?.length > 0 && (
                                     <Box>
                                         <Text fontSize='10pt'>
                                             Addons:
                                         </Text>
-                                        <Wrap fontSize='8pt' spacing='.25em'>
+                                        <Wrap w='full'>
                                             {currentEditWebsite?.components?.addons?.map((addon, idx) => (
-                                                <Text key={idx} color='orange'>
-                                                    {addon}
-                                                </Text>
+                                                <Menu>
+                                                    <MenuButton 
+                                                        as={Button} 
+                                                        variant='outline' 
+                                                        colorScheme='blue' 
+                                                        rightIcon={<MdSettings />} 
+                                                        size='sm' 
+                                                        h='1.75rem' 
+                                                        minW='1.5rem' 
+                                                        px='.65em' 
+                                                        fontSize='10pt'
+                                                        key={idx}
+                                                    >
+                                                        {addon}
+                                                    </MenuButton>
+                                                    <MenuList>
+                                                        <MenuItem onClick={() => RemoveAddon(addon)}>Remove</MenuItem>
+                                                    </MenuList>
+                                                </Menu>
                                             ))}
                                         </Wrap>
                                     </Box>
                                 )}
                             </VStack>
-                        </VStack>
-                        <VStack p='1em' flex='1' justifyContent='space-between' spacing='2em'>
-                            <VStack w='full'>
-                                <HStack justifyContent='flex-start' w='full'>
-                                    <Text fontSize='10pt' >
-                                        Style
-                                    </Text>
-                                    {!currentEditWebsite.isPremium && (
-                                        <Tag>
-                                            <TagLeftIcon as={GiCutDiamond} color='#08BDD4' />
-                                            <Text>
-                                                Premium Only
-                                            </Text>
-                                        </Tag>
-                                    )}
-                                    <Divider flex='1' />
-                                </HStack>
-                                <HStack w='full'>
-                                    <FormControl isInvalid={newErrors?.bgColor?.status} flex='1'>
-                                        <Input placeholder='rgba(255,255,255,1) or #ffffff' value={newBackgroundColor} onChange={(e) => setNewBackgroundColor(e.target.value)} disabled={!currentEditWebsite?.isPremium} />
-                                        {!newErrors?.bgColor?.status ? <FormHelperText>Background color of your website</FormHelperText> : <FormErrorMessage>{newErrors?.bgColor?.message}</FormErrorMessage>}
-                                    </FormControl>
-                                    <FormControl isInvalid={newErrors?.bgImage?.status} flex='1'>
-                                        <Input placeholder='Background Image Link' value={newBackgroundImage} onChange={(e) => setNewBackgroundImage(e.target.value)} disabled={!currentEditWebsite?.isPremium} />
-                                        {!newErrors?.bgImage?.status ? <FormHelperText>Background image of your website</FormHelperText> : <FormErrorMessage>{newErrors?.bgImage?.message}</FormErrorMessage>}
-                                    </FormControl>
-                                </HStack>
-                            </VStack>
-                            <VStack w='full'>
-                                <HStack justifyContent='flex-start' w='full'>
-                                    <Text fontSize='10pt' >
-                                        Settings
-                                    </Text>
-                                    {!currentEditWebsite.isPremium && (
-                                        <Tag>
-                                            <TagLeftIcon as={GiCutDiamond} color='#08BDD4' />
-                                            <Text>
-                                                Premium Only
-                                            </Text>
-                                        </Tag>
-                                    )}
-                                    <Divider flex='1' />
-                                </HStack>
-                                <HStack w='full'>
-                                    <FormControl isInvalid={newErrors?.revealDate?.status} flex='1'>
-                                        <Input type='datetime-local' placeholder='Reveal Date' value={newRevealDate} onChange={(e) => setNewRevealDate(e.target.value)} disabled={!currentEditWebsite?.isPremium} />
-                                        {!newErrors?.revealDate?.status ? <FormHelperText>Embed Reveal Date</FormHelperText> : <FormErrorMessage>{newErrors?.revealDate?.message}</FormErrorMessage>}
-                                    </FormControl>
-                                </HStack>
+                        </VStack> 
+                        <VStack p='1em' flex='1' justifyContent='justify-between' spacing='2em'>
+                            <VStack w='full' spacing='1.5em'>
+                                <VStack w='full'>
+                                    <HStack justifyContent='flex-start' w='full'>
+                                        <Text fontSize='10pt' >
+                                            Style
+                                        </Text>
+                                        {!currentEditWebsite.isPremium && (
+                                            <Tag>
+                                                <TagLeftIcon as={GiCutDiamond} color='#08BDD4' />
+                                                <Text>
+                                                    Premium Only
+                                                </Text>
+                                            </Tag>
+                                        )}
+                                        <Divider flex='1' />
+                                    </HStack>
+                                    <HStack w='full'>
+                                        <FormControl isInvalid={newErrors?.bgColor?.status} flex='1'>
+                                            <Input placeholder='rgba(255,255,255,1) or #ffffff' value={newBackgroundColor} onChange={(e) => setNewBackgroundColor(e.target.value)} disabled={!currentEditWebsite?.isPremium} />
+                                            {!newErrors?.bgColor?.status ? <FormHelperText>Background color of your website</FormHelperText> : <FormErrorMessage>{newErrors?.bgColor?.message}</FormErrorMessage>}
+                                        </FormControl>
+                                        <FormControl isInvalid={newErrors?.bgImage?.status} flex='1'>
+                                            <Input placeholder='Background Image Link' value={newBackgroundImage} onChange={(e) => setNewBackgroundImage(e.target.value)} disabled={!currentEditWebsite?.isPremium} />
+                                            {!newErrors?.bgImage?.status ? <FormHelperText>Background image of your website</FormHelperText> : <FormErrorMessage>{newErrors?.bgImage?.message}</FormErrorMessage>}
+                                        </FormControl>
+                                    </HStack>
+                                </VStack>
+                                <VStack w='full'>
+                                    <HStack justifyContent='flex-start' w='full'>
+                                        <Text fontSize='10pt' >
+                                            Settings
+                                        </Text>
+                                        {!currentEditWebsite.isPremium && (
+                                            <Tag>
+                                                <TagLeftIcon as={GiCutDiamond} color='#08BDD4' />
+                                                <Text>
+                                                    Premium Only
+                                                </Text>
+                                            </Tag>
+                                        )}
+                                        <Divider flex='1' />
+                                    </HStack>
+                                    <HStack w='full'>
+                                        <FormControl isInvalid={newErrors?.revealDate?.status} flex='1'>
+                                            <Input type='datetime-local' placeholder='Reveal Date' value={newRevealDate} onChange={(e) => setNewRevealDate(e.target.value)} disabled={!currentEditWebsite?.isPremium} />
+                                            {!newErrors?.revealDate?.status ? <FormHelperText>Embed Reveal Date</FormHelperText> : <FormErrorMessage>{newErrors?.revealDate?.message}</FormErrorMessage>}
+                                        </FormControl>
+                                    </HStack>
+                                </VStack>
                             </VStack>
                             <Flex w='full' justifyContent='flex-end'>
                                 <HStack>

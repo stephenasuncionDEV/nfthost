@@ -131,8 +131,67 @@ export const useTemplate = () => {
         }
     }
 
+    const RemoveAddon = async (addon) => {
+        try {
+            if (!addon) throw new Error('Cannot fetch addon');
+
+            if (!currentEditWebsite.isPremium && addon.sub === 'premium') throw new Error('Upgrade your website to use premium addons');
+
+            const storageToken = localStorage.getItem('nfthost-user');
+            if (!storageToken) return;
+
+            const token = decryptToken(storageToken, true);
+
+            let newEditWebsite = {...currentEditWebsite};
+            let newAddonsArr = currentEditWebsite.components.addons.filter(item => item !== addon.key);
+
+            const res = await axios.delete(`${config.serverUrl}/api/website/updateComponents`, {
+                data: {
+                    websiteId: currentEditWebsite._id,
+                    key: 'addons',
+                    value: newAddonsArr
+                },
+                headers: { 
+                    Authorization: `Bearer ${token.accessToken}` 
+                }
+            })
+
+            await GetWebsites();
+
+            if (res.status === 200) {
+                setCurrentEditWebsite(newEditWebsite);
+                UpdateCurrentTemplate(res.data);
+            }
+
+            posthog.capture('User removed an addon', {
+                addon: addon.key
+            });
+
+            toast({
+                title: 'Success',
+                description: `Successfully added ${addon.key} to your mint website`,
+                status: 'success',
+                duration: 3000,
+                isClosable: true,
+                position: 'bottom-center'
+            })
+        }
+        catch (err) {
+            if (err.response?.data?.isExpired) await Logout();
+            toast({
+                title: 'Error',
+                description: !err.response ? err.message : err.response.data.message,
+                status: 'error',
+                duration: 3000,
+                isClosable: true,
+                position: 'bottom-center'
+            })
+        }
+    }
+
     return {
         ChooseTemplate,
-        ChooseAddon
+        ChooseAddon,
+        RemoveAddon
     }
 }
