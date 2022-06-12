@@ -108,10 +108,10 @@ const Main = () => {
                     <SlideFade in={true} offsetY='20px' delay={1}>
                         <HStack spacing='4em' mt='20em' justifyContent='space-between' flexWrap='wrap'>
                             <VStack>
-                                <iframe width="560" height="315" src="https://www.youtube.com/embed/GW8nvbWBYKM" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
-                                <Link href='https://www.youtube.com/watch?v=GW8nvbWBYKM' isExternal>
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/Scw_NeGu6Sw" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                                <Link href='https://www.youtube.com/watch?v=Scw_NeGu6Sw' isExternal>
                                     <Text color={srcColor} fontSize='9pt' fontStyle='italic'>
-                                        source: https://www.youtube.com/watch?v=GW8nvbWBYKM
+                                        source: https://www.youtube.com/watch?v=Scw_NeGu6Sw
                                     </Text>
                                 </Link>
                             </VStack>
