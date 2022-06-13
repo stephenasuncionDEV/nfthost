@@ -1,16 +1,21 @@
 import NextLink from 'next/link'
-import { Box, Text, HStack, Avatar, Button, IconButton, useColorMode } from '@chakra-ui/react'
-import { useCore } from '@/providers/CoreProvider'
-import { FaTiktok, FaDiscord, FaTwitter } from 'react-icons/fa'
+import { Box, Text, HStack, Avatar, Button, IconButton, 
+    useColorMode, MenuButton, MenuList, Menu, MenuItem, 
+    MenuDivider 
+} from '@chakra-ui/react'
 import { useNavbar } from '@/hooks/useNavbar'
+import ConnectWalletTag from '@/components/ConnectWalletTag'
+import { FaTiktok, FaDiscord, FaTwitter } from 'react-icons/fa'
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai'
 import { MdOutlineDarkMode, MdOutlineLightMode } from 'react-icons/md'
-import ConnectWalletTag from '@/components/ConnectWalletTag'
+import { GiHamburgerMenu } from 'react-icons/gi'
+import { useMediaQuery } from 'react-responsive'
 
-const Navbar = ({ isGetStarted, isSocial, isLanding, isColorMode, isWallet }) => {
+const Navbar = ({ isSocial, isLanding, isColorMode, isWallet }) => {
     const { Twitter, Tiktok, Discord } = useNavbar();
-    const { setIsServiceModal } = useCore();
     const { colorMode, toggleColorMode } = useColorMode();
+
+    const isTouchingLogo = useMediaQuery({ query: '(max-width: 630px)' });
 
     return (
         <nav>
@@ -42,60 +47,92 @@ const Navbar = ({ isGetStarted, isSocial, isLanding, isColorMode, isWallet }) =>
                             </Text>
                         </HStack>
                     </NextLink>
-                    <HStack spacing='2em'>
-                        {isSocial && (
-                            <HStack>
+                    {!isTouchingLogo ? (
+                        <HStack spacing='2em'>
+                            {isSocial && (
+                                <HStack>
+                                    <IconButton 
+                                        aria-label='NFT Host Twitter'
+                                        icon={<FaTwitter />}
+                                        borderRadius='50%'
+                                        size='sm'
+                                        bg='transparent'
+                                        onClick={Twitter}
+                                    />
+                                    <IconButton 
+                                        aria-label='NFT Host Discord'
+                                        icon={<FaDiscord />}
+                                        borderRadius='50%'
+                                        size='sm'
+                                        bg='transparent'
+                                        onClick={Discord}
+                                    />
+                                    <IconButton 
+                                        aria-label='NFT Host Tiktok'
+                                        icon={<FaTiktok />}
+                                        borderRadius='50%'
+                                        size='sm'
+                                        bg='transparent'
+                                        onClick={Tiktok}
+                                    />
+                                </HStack>
+                            )}
+                            {isLanding && (
+                                <NextLink href='/' shallow passHref>
+                                    <Button rightIcon={<AiOutlineArrowLeft />}>
+                                        Landing Page
+                                    </Button>
+                                </NextLink>
+                            )}
+                            {isColorMode && (
                                 <IconButton 
-                                    aria-label='NFT Host Twitter'
-                                    icon={<FaTwitter />}
-                                    borderRadius='50%'
-                                    size='sm'
+                                    ml='.5em'
+                                    aria-label='Toggle Color Mode' 
+                                    icon={colorMode === 'light' ? <MdOutlineDarkMode /> : <MdOutlineLightMode />} 
                                     bg='transparent'
-                                    onClick={Twitter}
+                                    onClick={toggleColorMode}
                                 />
-                                <IconButton 
-                                    aria-label='NFT Host Tiktok'
-                                    icon={<FaTiktok />}
-                                    borderRadius='50%'
-                                    size='sm'
-                                    bg='transparent'
-                                    onClick={Tiktok}
-                                />
-                                <IconButton 
-                                    aria-label='NFT Host Discord'
-                                    icon={<FaDiscord />}
-                                    borderRadius='50%'
-                                    size='sm'
-                                    bg='transparent'
-                                    onClick={Discord}
-                                />
-                            </HStack>
-                        )}
-                        {isGetStarted && (
-                            <Button onClick={() => setIsServiceModal(true)} rightIcon={<AiOutlineArrowRight />}>
-                                Get Started
-                            </Button>
-                        )}
-                        {isLanding && (
-                            <NextLink href='/' shallow passHref>
-                                <Button rightIcon={<AiOutlineArrowLeft />}>
-                                    Landing Page
-                                </Button>
-                            </NextLink>
-                        )}
-                        {isColorMode && (
-                            <IconButton 
-                                ml='.5em'
-                                aria-label='Toggle Color Mode' 
-                                icon={colorMode === 'light' ? <MdOutlineDarkMode /> : <MdOutlineLightMode />} 
-                                bg='transparent'
-                                onClick={toggleColorMode} 
+                            )}
+                            {isWallet && (
+                                <ConnectWalletTag />
+                            )}
+                        </HStack>
+                    ) : (
+                        <Menu>
+                            <MenuButton
+                                as={IconButton}
+                                aria-label='Options'
+                                icon={<GiHamburgerMenu />}
+                                variant='outline'
                             />
-                        )}
-                        {isWallet && (
-                            <ConnectWalletTag />
-                        )}
-                    </HStack>
+                            <MenuList>
+                                {isWallet && (
+                                    <MenuItem closeOnSelect={false} justifyContent='center'>
+                                        <ConnectWalletTag />
+                                    </MenuItem>
+                                )}
+                                {isColorMode && (
+                                    <MenuItem icon={colorMode === 'light' ? <MdOutlineDarkMode /> : <MdOutlineLightMode />} onClick={toggleColorMode}>
+                                        {colorMode === 'light' ? 'Dark Mode' : 'Light Mode' } 
+                                    </MenuItem>
+                                )}
+                                {isSocial && (
+                                    <>
+                                        <MenuDivider />
+                                        <MenuItem icon={<FaTwitter />} onClick={Twitter}>
+                                            Twitter
+                                        </MenuItem>
+                                        <MenuItem icon={<FaDiscord />} onClick={Discord}>
+                                            Discord
+                                        </MenuItem>
+                                        <MenuItem icon={<FaTiktok />} onClick={Tiktok}>
+                                            Tiktok
+                                        </MenuItem>
+                                    </>
+                                )}
+                            </MenuList>
+                        </Menu>
+                    )}
                 </Box>
             </Box>
         </nav>

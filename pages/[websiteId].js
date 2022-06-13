@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { Text, Flex, Tag, TagLeftIcon, Link } from '@chakra-ui/react'
+import { Text, Tag, TagLeftIcon, Link } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useUserWebsite } from '@/hooks/useUserWebsite'
 import CookieModal from '@/components/CookieModal'
