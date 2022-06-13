@@ -53,7 +53,7 @@ const Footer = () => {
                             <Text fontWeight='bold'>
                                 NFT Host Team
                             </Text>
-                            <Link href='https://twitter.com/Steb_01' color='white' isExternal>
+                            <Link href='https://www.instagram.com/stephenasuncion/' color='white' isExternal>
                                 <HStack minW='161.13'>
                                     <Text>
                                         Stephen Asuncion
