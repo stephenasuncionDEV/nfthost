@@ -8,6 +8,7 @@ import parse from 'html-react-parser'
 import { CgCopyright } from 'react-icons/cg'
 import Template1 from '@/components/services/Website/templates/Template1'
 import Template2 from '@/components/services/Website/templates/Template2'
+import UserWebsiteNavbar from '@/components/UserWebsiteNavbar'
 
 const Service = () => {
     const router = useRouter();
@@ -45,8 +46,6 @@ const Service = () => {
                 {userWebsite?.components?.script && parse(userWebsite?.components?.script)}
             </Head>
 
-            {userWebsite?.components.addons.indexOf('Cookie Consent') !== -1 && <CookieModal />}
-            
             {data?.template === 'Template1' && <Template1 userWebsite={userWebsite} data={data} />}
             {data?.template === 'Template2' && <Template2 userWebsite={userWebsite} data={data} />}
 
@@ -69,6 +68,9 @@ const Service = () => {
                     </Tag>
                 </Link>
             )}
+
+            {userWebsite?.components?.addons?.indexOf('Cookie Consent') !== -1 && <CookieModal />}
+            {userWebsite?.components?.addons?.indexOf('Navbar') !== -1 && <UserWebsiteNavbar />}
         </main>
     )
 }

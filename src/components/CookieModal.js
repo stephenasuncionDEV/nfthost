@@ -23,6 +23,7 @@ const CookieModal = () => {
             flexDir='column'
             justifyContent='center'
             boxShadow='0px 0px 50px -11px rgba(0,0,0,0.3)'
+            zIndex='1337'
         >
             <HStack justifyContent='space-between'>
                 <Text variant='content_subtitle'>
