@@ -106,6 +106,13 @@ const Navbar = ({ isSocial, isLanding, isColorMode, isWallet }) => {
                                 variant='outline'
                             />
                             <MenuList>
+                                {isLanding && (
+                                    <NextLink href='/' shallow passHref>
+                                        <MenuItem icon={<AiOutlineArrowLeft />}>
+                                            Landing Page
+                                        </MenuItem>
+                                    </NextLink>
+                                )}
                                 {isWallet && (
                                     <MenuItem closeOnSelect={false} justifyContent='center'>
                                         <ConnectWalletTag />
