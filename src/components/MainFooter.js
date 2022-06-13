@@ -1,14 +1,16 @@
-import { Flex, Text, VStack, Link, HStack, Avatar, useColorModeValue } from '@chakra-ui/react'
+import { Flex, Text, VStack, Link, HStack, Avatar, useColorModeValue, Wrap } from '@chakra-ui/react'
 import { BiLinkExternal } from 'react-icons/bi'
+import { useMediaQuery } from 'react-responsive'
 
 const Footer = () => {
     const bg = useColorModeValue('linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(218,223,255,1) 100%)', 'linear-gradient(180deg, rgb(24,30,41) 0%, rgba(17,21,28,1) 100%)');
     const srcColor = useColorModeValue('rgb(34,34,34)', 'whiteAlpha.600');
+    const isTouchingLogo = useMediaQuery({ query: '(max-width: 630px)' });
 
     return (
         <footer>
             <Flex h='500px' bg={bg} justifyContent='center' alignItems='center'>
-                <Flex maxW='8xl' w='full' px='24px' justifyContent='space-between' flexWrap='wrap'>
+                <Wrap maxW='8xl' w='full' px='24px' justifyContent='space-between' direction='row' spacing='2em'>
                     <VStack alignItems='center' flex='1' minW='249.5px' spacing='1em'>
                         <Avatar 
                             size='lg'
@@ -25,34 +27,34 @@ const Footer = () => {
                             </Text>
                         </Flex>
                     </VStack>
-                    <Flex flexDir='row' flex='1'>
-                        <VStack alignItems='flex-start' justifyContent='center' ml='5em'>
+                    <Wrap direction='row' flex='1' justifyContent='center' spacing='5em'>
+                        <VStack alignItems='flex-start' justifyContent='flex-start' flex='1'>
                             <Text fontWeight='bold'>
                                 Privacy
                             </Text>
                             <Link href='/about/terms' color='white' isExternal>
-                                <HStack>
-                                    <Text >
+                                <HStack minW='151.58px'>
+                                    <Text>
                                         Terms of Service
                                     </Text>
                                     <BiLinkExternal color={srcColor} />
                                 </HStack>
                             </Link>
                             <Link href='/about/privacy-policy' color='white' isExternal>
-                                <HStack>
-                                    <Text >
+                                <HStack minW='128.97px'>
+                                    <Text>
                                         Privacy Policy
                                     </Text>
                                     <BiLinkExternal color={srcColor} />
                                 </HStack>
                             </Link>
                         </VStack>
-                        <VStack alignItems='flex-start' justifyContent='center' ml='5em'>
+                        <VStack alignItems='flex-start' justifyContent='flex-start' flex='1'>
                             <Text fontWeight='bold'>
                                 NFT Host Team
                             </Text>
                             <Link href='https://twitter.com/Steb_01' color='white' isExternal>
-                                <HStack>
+                                <HStack minW='161.13'>
                                     <Text>
                                         Stephen Asuncion
                                     </Text>
@@ -60,8 +62,8 @@ const Footer = () => {
                                 </HStack>
                             </Link>
                         </VStack>
-                    </Flex>
-                </Flex>
+                    </Wrap>
+                </Wrap>
             </Flex>
         </footer>
     )

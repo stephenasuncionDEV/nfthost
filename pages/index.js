@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { HStack, Text, Flex, Button, VStack, SlideFade, Link, useColorModeValue} from '@chakra-ui/react'
+import { Text, Flex, Button, VStack, SlideFade, Link, useColorModeValue, Wrap } from '@chakra-ui/react'
 import { useLanding } from '@/hooks/useLanding'
 import { useReAuthenticate } from '@/hooks/useReAuthenticate'
 import MainNavbar from '@/components/MainNavbar'
@@ -77,7 +77,7 @@ const Main = () => {
                         </Flex>
                     </SlideFade>
                     <SlideFade in={true} offsetY='20px' delay={1}>
-                        <HStack spacing='4em' justifyContent='space-between' flexWrap='wrap'>
+                        <Wrap direction='row' spacing='4em' justifyContent='space-between'>
                             <Flex flexDir='column' maxW='550px'>
                                 <Text variant='content_intro'>
                                     The new way of generating NFTs
@@ -103,10 +103,10 @@ const Main = () => {
                                     </Text>
                                 </Link>
                             </VStack>
-                        </HStack>
+                        </Wrap>
                     </SlideFade>
                     <SlideFade in={true} offsetY='20px' delay={1}>
-                        <HStack spacing='4em' mt='20em' justifyContent='space-between' flexWrap='wrap'>
+                        <Wrap direction='row' spacing='4em' mt='20em' justifyContent='space-between'>
                             <VStack>
                                 <iframe width="560" height="315" src="https://www.youtube.com/embed/Scw_NeGu6Sw" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                                 <Link href='https://www.youtube.com/watch?v=Scw_NeGu6Sw' isExternal>
@@ -132,7 +132,7 @@ const Main = () => {
                                     Host Mint Website
                                 </Button>
                             </Flex>
-                        </HStack>
+                        </Wrap>
                     </SlideFade>
                 </Flex>
             </Flex>
