@@ -5,7 +5,7 @@ import { BiLinkExternal } from 'react-icons/bi'
 const Footer = () => {
     const { userWebsite } = useWebsite();
 
-    const containerColor = useColorModeValue('white', 'rgb(14,17,23)');
+    const containerColor = useColorModeValue('rgb(238,238,238)', 'rgb(14,17,23)');
 
     return (
         <footer>

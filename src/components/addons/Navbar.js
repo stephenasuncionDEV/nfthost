@@ -7,7 +7,7 @@ const WebsiteNavbar = () => {
     const { userWebsite } = useWebsite();
     const { colorMode, toggleColorMode } = useColorMode();
 
-    const containerColor = useColorModeValue('white', 'rgb(14,17,23)');
+    const containerColor = useColorModeValue('rgb(235,235,235)', 'rgb(14,17,23)');
 
     return (
         <HStack
