@@ -118,6 +118,7 @@ export const TemplatesArr = [
 export const AddonsArr = [
     { key: 'Cookie Consent', sub: 'free', creator: 'NFTHost' },
     { key: 'Navbar', sub: 'premium', creator: 'NFTHost' },
+    { key: 'Footer', sub: 'premium', creator: 'NFTHost' },
 ]
 
 export const EncodeWebsiteData = (dataObj) => {

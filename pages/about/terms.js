@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import { Box, Text, Flex, VStack } from '@chakra-ui/react'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
+import MainNavbar from '@/components/MainNavbar'
+import MainFooter from '@/components/MainFooter'
 
 const Terms = () => {
     return (
@@ -27,7 +27,7 @@ const Terms = () => {
                 <meta property="twitter:description" content='NFT Host is a website where you can generate NFT collections and create NFT minting website.' />
                 <meta property="twitter:image" content='https://www.nfthost.app/assets/logo.png' />
             </Head>
-            <Navbar isLanding />
+            <MainNavbar isLanding />
             <Flex 
                 w='full' 
                 p='2em'
@@ -177,7 +177,7 @@ const Terms = () => {
                     </VStack>
                 </Flex>
             </Flex>
-            <Footer />
+            <MainFooter />
         </Box>
     )
 }

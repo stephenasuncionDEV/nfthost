@@ -1,8 +1,8 @@
 import NextLink from 'next/link'
 import Head from 'next/head'
 import { Text, Flex, Button } from '@chakra-ui/react'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
+import MainNavbar from '@/components/MainNavbar'
+import MainFooter from '@/components/MainFooter'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
 
 const NotFound = () => {
@@ -30,7 +30,7 @@ const NotFound = () => {
                 <meta property="twitter:description" content='NFT Host is a website where you can generate NFT collections and create NFT minting website.' />
                 <meta property="twitter:image" content='https://www.nfthost.app/assets/logo.png' />
             </Head>
-            <Navbar />
+            <MainNavbar />
             <Flex 
                 w='full' 
                 p='2em'
@@ -54,7 +54,7 @@ const NotFound = () => {
                     </Button>
                 </NextLink>
             </Flex>
-            <Footer />
+            <MainFooter />
         </main>
     )
 }

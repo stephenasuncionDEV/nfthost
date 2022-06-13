@@ -1,13 +1,9 @@
 import NextLink from 'next/link'
-import { Box, Text, HStack, Avatar, Button, IconButton, useColorModeValue, useColorMode } from '@chakra-ui/react'
+import { Text, HStack, Avatar, IconButton, useColorModeValue, useColorMode } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
-import { FaTiktok, FaDiscord, FaTwitter } from 'react-icons/fa'
-import { useNavbar } from '@/hooks/useNavbar'
-import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai'
 import { MdOutlineDarkMode, MdOutlineLightMode } from 'react-icons/md'
-import ConnectWalletTag from '@/components/ConnectWalletTag'
 
-const UserWebsiteNavbar = () => {
+const WebsiteNavbar = () => {
     const { userWebsite } = useWebsite();
     const { colorMode, toggleColorMode } = useColorMode();
 
@@ -47,4 +43,4 @@ const UserWebsiteNavbar = () => {
     )
 }
 
-export default UserWebsiteNavbar
+export default WebsiteNavbar

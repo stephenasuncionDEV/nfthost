@@ -1,20 +1,12 @@
 import Head from 'next/head'
 import NextLink from 'next/link'
 import { Box, HStack, Text, Flex, Button, VStack, Avatar,
-    SlideFade, Link, useColorModeValue, Input, Divider,
-    Image
+    Link, useColorModeValue, Input, Divider, Image
 } from '@chakra-ui/react'
-import { useLanding } from '@/hooks/useLanding'
 import { useReAuthenticate } from '@/hooks/useReAuthenticate'
-import { useWeb3 } from '@/hooks/useWeb3'
 import { useCore } from '@/providers/CoreProvider'
 import { useUser } from '@/providers/UserProvider'
 import { usePayment } from '@/hooks/usePayment'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
-import ServiceModal from '@/components/ServiceModal'
-import CookieModal from '@/components/CookieModal'
-import ConnectWalletTag from '@/components/ConnectWalletTag'
 import CardInput from '@/components/CardInput'
 import KeepWorkingModal from '@/components/KeepWorkingModal'
 import { AiOutlineArrowLeft } from 'react-icons/ai'

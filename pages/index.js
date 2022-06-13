@@ -2,8 +2,8 @@ import Head from 'next/head'
 import { HStack, Text, Flex, Button, VStack, SlideFade, Link, useColorModeValue} from '@chakra-ui/react'
 import { useLanding } from '@/hooks/useLanding'
 import { useReAuthenticate } from '@/hooks/useReAuthenticate'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
+import MainNavbar from '@/components/MainNavbar'
+import MainFooter from '@/components/MainFooter'
 import ServiceModal from '@/components/ServiceModal'
 import CookieModal from '@/components/CookieModal'
 import ConnectWalletTag from '@/components/ConnectWalletTag'
@@ -40,7 +40,7 @@ const Main = () => {
                 <meta property="twitter:description" content='NFT Host is a website where you can generate NFT collections and create NFT minting website.' />
                 <meta property="twitter:image" content='https://www.nfthost.app/assets/logo.png' />
             </Head>
-            <Navbar 
+            <MainNavbar 
                 isSocial 
                 isColorMode
                 isWallet
@@ -136,7 +136,7 @@ const Main = () => {
                     </SlideFade>
                 </Flex>
             </Flex>
-            <Footer />
+            <MainFooter />
         </main>
     )
 }
