@@ -14,7 +14,7 @@ const Toolbar = () => {
     const { OpenRarityModal } = useRarity();
     const { colorMode, toggleColorMode } = useColorMode();
 
-    const containerColor = useColorModeValue('whiteAlpha.500', 'blackAlpha.500');
+    const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
 
     return (
         <HStack 
@@ -22,7 +22,8 @@ const Toolbar = () => {
             px='.75em'
             py='.5em'
             bg={containerColor}
-            borderRadius='10px'
+            borderRadius='5px'
+            boxShadow='0 0 2px 0 rgb(0 0 0 / 10%)'
             justifyContent='space-between'
         >
             <HStack>

@@ -7,7 +7,7 @@ const Preview = () => {
     const { previewLayers } = useGenerator();
     const { RandomPreview } = useGenerate();
 
-    const containerColor = useColorModeValue('whiteAlpha.500', 'blackAlpha.500');
+    const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
     const dropContainerColor = useColorModeValue('rgba(0,0,0,0.1)', 'rgba(0,0,0,0.5)');
 
     return (
@@ -15,8 +15,8 @@ const Preview = () => {
             id='preview'
             p='1em'
             bg={containerColor}
-            borderRadius='10px'
-            boxShadow='md'
+            borderRadius='.25em'
+            boxShadow='0 0 2px 0 rgb(0 0 0 / 10%)'
             flexDir='column'
             h='100%'
             alignItems='flex-start'

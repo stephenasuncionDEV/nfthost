@@ -123,7 +123,7 @@ const Layout = ({ children }) => {
                     p='1.5em'
                     alignItems='flex-start'
                     mt='70px'
-                    boxShadow='md'
+                    boxShadow='sm'
                     spacing='1em'
                     color={sidebarColor}
                 >

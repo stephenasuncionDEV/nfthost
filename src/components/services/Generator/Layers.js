@@ -13,7 +13,7 @@ const Layers = () => {
         AddLayer 
     } = useLayer();
 
-    const containerColor = useColorModeValue('whiteAlpha.500', 'blackAlpha.500');
+    const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
     
     return (
         <VStack 
@@ -21,8 +21,8 @@ const Layers = () => {
             spacing='1.5em'
             p='1em' 
             bg={containerColor}
-            borderRadius='10px'
-            boxShadow='md'
+            borderRadius='.25em'
+            boxShadow='0 0 2px 0 rgb(0 0 0 / 10%)'
             h='100%'
         >
             <HStack spacing='2em'>
