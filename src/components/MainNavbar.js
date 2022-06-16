@@ -1,7 +1,7 @@
 import NextLink from 'next/link'
 import { Box, Text, HStack, Avatar, Button, IconButton, 
     useColorMode, MenuButton, MenuList, Menu, MenuItem, 
-    MenuDivider 
+    MenuDivider, useColorModeValue
 } from '@chakra-ui/react'
 import { useNavbar } from '@/hooks/useNavbar'
 import ConnectWalletTag from '@/components/ConnectWalletTag'
@@ -11,11 +11,12 @@ import { MdOutlineDarkMode, MdOutlineLightMode } from 'react-icons/md'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { useMediaQuery } from 'react-responsive'
 
-const Navbar = ({ isSocial, isLanding, isColorMode, isWallet }) => {
+const Navbar = ({ isSocial, isLanding, isColorMode, isWallet, isLandingPage }) => {
     const { Twitter, Tiktok, Discord } = useNavbar();
     const { colorMode, toggleColorMode } = useColorMode();
 
     const isTouchingLogo = useMediaQuery({ query: '(max-width: 630px)' });
+    const navbarButton = useColorModeValue('blackAlpha.600', 'whiteAlpha.600');
 
     return (
         <nav>
@@ -49,6 +50,15 @@ const Navbar = ({ isSocial, isLanding, isColorMode, isWallet }) => {
                     </NextLink>
                     {!isTouchingLogo ? (
                         <HStack spacing='2em'>
+                            {isLandingPage && (
+                                <HStack>
+                                    <NextLink href='/#features' shallow passHref>
+                                        <Button bg='transparent' _hover={{ bg: 'transparent', color: navbarButton }}>
+                                            Features and Pricing
+                                        </Button>
+                                    </NextLink>
+                                </HStack>
+                            )}
                             {isSocial && (
                                 <HStack>
                                     <IconButton 
@@ -57,6 +67,7 @@ const Navbar = ({ isSocial, isLanding, isColorMode, isWallet }) => {
                                         borderRadius='50%'
                                         size='sm'
                                         bg='transparent'
+                                        _hover={{ bg: 'transparent', color: navbarButton }}
                                         onClick={Twitter}
                                     />
                                     <IconButton 
@@ -65,6 +76,7 @@ const Navbar = ({ isSocial, isLanding, isColorMode, isWallet }) => {
                                         borderRadius='50%'
                                         size='sm'
                                         bg='transparent'
+                                        _hover={{ bg: 'transparent', color: navbarButton }}
                                         onClick={Discord}
                                     />
                                     <IconButton 
@@ -73,13 +85,14 @@ const Navbar = ({ isSocial, isLanding, isColorMode, isWallet }) => {
                                         borderRadius='50%'
                                         size='sm'
                                         bg='transparent'
+                                        _hover={{ bg: 'transparent', color: navbarButton }}
                                         onClick={Tiktok}
                                     />
                                 </HStack>
                             )}
                             {isLanding && (
                                 <NextLink href='/' shallow passHref>
-                                    <Button rightIcon={<AiOutlineArrowLeft />}>
+                                    <Button rightIcon={<AiOutlineArrowLeft />} _hover={{ bg: 'transparent', color: navbarButton }}>
                                         Landing Page
                                     </Button>
                                 </NextLink>
@@ -90,6 +103,7 @@ const Navbar = ({ isSocial, isLanding, isColorMode, isWallet }) => {
                                     aria-label='Toggle Color Mode' 
                                     icon={colorMode === 'light' ? <MdOutlineDarkMode /> : <MdOutlineLightMode />} 
                                     bg='transparent'
+                                    _hover={{ bg: 'transparent', color: navbarButton }}
                                     onClick={toggleColorMode}
                                 />
                             )}

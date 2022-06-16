@@ -6,7 +6,6 @@ import MainNavbar from '@/components/MainNavbar'
 import MainFooter from '@/components/MainFooter'
 import ServiceModal from '@/components/ServiceModal'
 import CookieModal from '@/components/CookieModal'
-import ConnectWalletTag from '@/components/ConnectWalletTag'
 import { AiOutlineArrowRight } from 'react-icons/ai'
 import style from '@/styles/Main.module.scss'
 
@@ -43,7 +42,7 @@ const Main = () => {
             <MainNavbar 
                 isSocial 
                 isColorMode
-                isWallet
+                isLandingPage
             />
             <ServiceModal />
             <CookieModal />
@@ -54,7 +53,6 @@ const Main = () => {
                 mb='8em'
             >
                 <Flex
-                    id='connect'
                     flexDir='column'
                     maxW='1200px'
                     w='full'
@@ -70,14 +68,13 @@ const Main = () => {
                             <Text fontSize='13pt' fontWeight='hairline' my='1em'>
                                 Create and Show your NFT collection in under a minute!
                             </Text>
-                            <ConnectWalletTag />
-                            <Button mt='1em' w='150px' onClick={GetStarted}>
-                                Get Started 🎉
+                            <Button mt='.5em' maxW='180px' onClick={GetStarted} size='lg'>
+                                Get Started 🚀
                             </Button>
                         </Flex>
                     </SlideFade>
                     <SlideFade in={true} offsetY='20px' delay={1}>
-                        <Wrap direction='row' spacing='4em' justifyContent='space-between'>
+                        <Wrap direction='row' spacing='4em' justifyContent='space-between' id='features'>
                             <Flex flexDir='column' maxW='550px'>
                                 <Text variant='content_intro'>
                                     The new way of generating NFTs
