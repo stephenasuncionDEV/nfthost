@@ -14,16 +14,17 @@ const ConnectWalletTag = ({ isCopyAddress, isUserProfile, isPayments, isSidebar 
     const { CopyAddress } = useNavbar();
     const { Connect, Logout } = useWeb3();
 
-    const tagBGColor = useColorModeValue('gray.100', 'transparent');
+    const tagBGColor = useColorModeValue('white', 'transparent');
+    const toolbarNavColor = useColorModeValue('rgba(255,255,255,.8)', 'white');
 
     return (
         <Menu>
-            <MenuButton as={Tag} borderWidth='1px' size='md' cursor='pointer' bg={tagBGColor}>
+            <MenuButton as={Tag} borderWidth='1px' size='lg' cursor='pointer' bg='transparent' borderColor={toolbarNavColor}>
                 <HStack>
-                    <Text as={TagLabel} noOfLines='1' maxW={isSidebar ? '170px' : 'auto'}>
+                    <Text as={TagLabel} noOfLines='1' maxW={isSidebar ? '170px' : 'auto'} color={toolbarNavColor}>
                         {isLoggedIn ? address : 'Connect Your Wallet'}
                     </Text>
-                    <TagRightIcon as={HiOutlineChevronDown} />
+                    <TagRightIcon as={HiOutlineChevronDown} color={toolbarNavColor} />
                 </HStack>
             </MenuButton>
             <MenuList>

@@ -8,8 +8,8 @@ import parse from 'html-react-parser'
 import { CgCopyright } from 'react-icons/cg'
 import Template1 from '@/components/services/Website/templates/Template1'
 import Template2 from '@/components/services/Website/templates/Template2'
-import Navbar from '@/components/addons/Navbar'
-import Footer from '@/components/addons/Footer'
+import Navbar from '@/components/services/Website/addons/Navbar'
+import Footer from '@/components/services/Website/addons/Footer'
 
 const Service = () => {
     const router = useRouter();

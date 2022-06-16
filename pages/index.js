@@ -1,16 +1,14 @@
+import NextLink from 'next/link'
 import Head from 'next/head'
 import { Text, Flex, Button, VStack, SlideFade, Link, useColorModeValue, Wrap } from '@chakra-ui/react'
-import { useLanding } from '@/hooks/useLanding'
 import { useReAuthenticate } from '@/hooks/useReAuthenticate'
 import MainNavbar from '@/components/MainNavbar'
 import MainFooter from '@/components/MainFooter'
-import ServiceModal from '@/components/ServiceModal'
 import CookieModal from '@/components/CookieModal'
 import { AiOutlineArrowRight } from 'react-icons/ai'
 import style from '@/styles/Main.module.scss'
 
 const Main = () => {
-    const { GetStarted, NavigateFeature } = useLanding();
     useReAuthenticate();
     
     const bgColor = useColorModeValue('linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(249,250,250,1) 100%)', 'linear-gradient(0deg, rgba(26,32,44,1) 0%, rgba(17,21,28,1) 100%)');
@@ -44,7 +42,6 @@ const Main = () => {
                 isColorMode
                 isLandingPage
             />
-            <ServiceModal />
             <CookieModal />
             <Flex 
                 w='full' 
@@ -68,9 +65,11 @@ const Main = () => {
                             <Text fontSize='13pt' fontWeight='hairline' my='1em'>
                                 Create and Show your NFT collection in under a minute!
                             </Text>
-                            <Button mt='.5em' maxW='180px' onClick={GetStarted} size='lg'>
-                                Get Started 🚀
-                            </Button>
+                            <NextLink href='/dashboard/getStarted' shallow passHref>
+                                <Button mt='.5em' maxW='180px' size='lg'>
+                                    Get Started 🚀
+                                </Button>
+                            </NextLink>
                         </Flex>
                     </SlideFade>
                     <SlideFade in={true} offsetY='20px' delay={1}>
@@ -88,9 +87,11 @@ const Main = () => {
                                 <Text variant='content_description' mt='1.25rem'>
                                     We provide the fastest and cheapest NFT generator in the market. With a fixed price of $25 USD, you can generate up to 10,000 unique NFTs.
                                 </Text>
-                                <Button w='200px' mt='1em' rightIcon={<AiOutlineArrowRight />} onClick={() => NavigateFeature('/service/generator')}>
-                                    Generate NFTs
-                                </Button>
+                                <NextLink href='/dashboard/getStarted' shallow passHref>
+                                    <Button w='200px' mt='1em' rightIcon={<AiOutlineArrowRight />}>
+                                        Generate NFTs
+                                    </Button>
+                                </NextLink>
                             </Flex>
                             <VStack>
                                 <iframe width="560" height="315" src="https://www.youtube.com/embed/54MAbT-yiAY" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
@@ -125,9 +126,11 @@ const Main = () => {
                                 <Text variant='content_description' mt='1.25rem'>
                                     Sell your NFTs in under a minute. Create a minting website by a click of a button. You can host your own minting website for free. Unlock special features by upgrading to premium for $15 USD
                                 </Text>
-                                <Button w='200px' mt='1em' rightIcon={<AiOutlineArrowRight />} onClick={() => NavigateFeature('/service/website')}>
-                                    Host Mint Website
-                                </Button>
+                                <NextLink href='/dashboard/getStarted' shallow passHref>
+                                    <Button w='200px' mt='1em' rightIcon={<AiOutlineArrowRight />}>
+                                        Host Mint Website
+                                    </Button>
+                                </NextLink>
                             </Flex>
                         </Wrap>
                     </SlideFade>

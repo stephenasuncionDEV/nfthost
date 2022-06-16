@@ -7,7 +7,7 @@ export const CoreProvider = ({ children }) => {
     const [isServiceModal, setIsServiceModal] = useState(false);
     const [isCookieModal, setIsCookieModal] = useState(false);
     const [isKeepWorkingModal, setIsKeepWorkingModal] = useState(false);
-    const [isSidebar, setIsSidebar] = useState(false);
+    const [isSidebar, setIsSidebar] = useState(true);
     const [paymentData, setPaymentData] = useState({
         service: 'Generator',
         price: 25,

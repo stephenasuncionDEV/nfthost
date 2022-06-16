@@ -7,8 +7,8 @@ const config = {
 }
 
 const fonts = {
-    heading: 'Inter, sans-serif',
-    body: 'Inter, sans-serif',
+    heading: 'Poppins, Inter, sans-serif',
+    body: 'Poppins, Inter, sans-serif',
 }
 
 const styles = {
