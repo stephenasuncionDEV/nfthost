@@ -65,10 +65,14 @@ const Layout = ({ children }) => {
     return (
         <>
             <HStack 
+                position='fixed'
+                top='0'
+                w='full'
                 bg={toolbarBG}
                 h='70px'
                 px='2em'
                 justifyContent='space-between'
+                zIndex='1337 !important'
             >
                 <HStack spacing='2em'>
                     <NextLink href='/' shallow passHref>
@@ -126,6 +130,7 @@ const Layout = ({ children }) => {
                     boxShadow='sm'
                     spacing='1em'
                     color={sidebarColor}
+                    zIndex='1337 !important'
                 >
                     {sidebarItemArr?.map((item, idx) => (
                         <VStack key={idx} spacing='1.5em' alignItems='flex-start' w='full'>
@@ -170,7 +175,7 @@ const Layout = ({ children }) => {
                     ))}
                 </VStack>
             )}
-            <Box ml={isSidebar ? '245px' : '0'} p='2rem'>
+            <Box mt='70px' ml={isSidebar ? '245px' : '0'} p='2rem'>
                 <Flex justifyContent='space-between'>
                     <Text fontWeight='bold'>
                         {page === 'getStarted' ? 'GET STARTED' : page?.toUpperCase()}
