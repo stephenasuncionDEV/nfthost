@@ -1,15 +1,12 @@
 import NextLink from 'next/link'
-import Head from 'next/head'
-import { useRouter } from 'next/router'
-import { Box, Text, Slide, useColorModeValue, VStack,
-    Flex, HStack, Avatar, IconButton, Button, useColorMode
+import { Box, Text, useColorModeValue, VStack, HStack, 
+    Avatar, IconButton, Button, useColorMode
 } from '@chakra-ui/react'
 import ConnectWalletTag from './ConnectWalletTag'
-import { GiHamburgerMenu, GiPowerGenerator } from 'react-icons/gi'
+import { GiHamburgerMenu } from 'react-icons/gi'
 import { MdOutlineDashboard, MdOutlineMiscellaneousServices, 
     MdOutlineDarkMode, MdOutlineLightMode 
 } from 'react-icons/md'
-import { BsStar } from 'react-icons/bs'
 import { CgWebsite } from 'react-icons/cg'
 import { useCore } from '@/providers/CoreProvider'
 
@@ -48,7 +45,6 @@ const sidebarItemArr = [
 ]
 
 const Layout = ({ children }) => {
-    const router = useRouter();
     const { isSidebar, setIsSidebar } = useCore();
     const { colorMode, toggleColorMode } = useColorMode();
 
@@ -57,8 +53,6 @@ const Layout = ({ children }) => {
     const toolbarBG = useColorModeValue('rgb(52,140,212)', 'rgb(60,71,82)');
     const toolbarColor = useColorModeValue('rgba(255,255,255,.8)', 'white');
     const defaultColor = useColorModeValue('white', 'white');
-    
-    const { page } = router.query;
 
     //https://coderthemes.com/codefox/#demos
 
@@ -139,36 +133,36 @@ const Layout = ({ children }) => {
                             </Text>
                             <VStack spacing='.25em'>
                                 {item.items.map((nav, idx) => (
-                                    <>
-                                    <NextLink href={`/dashboard${nav.link}`} shallow passHref key={idx}>
-                                        <Button 
-                                            borderRadius='0' 
-                                            leftIcon={nav.icon}
-                                            w='full' 
-                                            justifyContent='flex-start' 
-                                            bg='transparent'
-                                            _hover={{ bg: 'transparent', color: 'rgb(52,140,212)' }}
-                                        >
-                                            {nav.name}
-                                        </Button>
-                                    </NextLink>
-                                    <VStack spacing='0' pl='1.5em'>
-                                        {nav.children.map((children, idx) => (
-                                            <NextLink href={`/dashboard${children.link}`} shallow passHref key={idx}>
-                                                <Button 
-                                                    borderRadius='0' 
-                                                    w='full' 
-                                                    justifyContent='flex-start' 
-                                                    bg='transparent'
-                                                    _hover={{ bg: 'transparent', color: 'rgb(52,140,212)' }}
-                                                    fontSize='10pt'
-                                                >
-                                                    {children.name}
-                                                </Button>
-                                            </NextLink>
-                                        ))}
-                                    </VStack>
-                                    </>
+                                    <Box key={idx}>
+                                        <NextLink href={`/dashboard${nav.link}`} shallow passHref>
+                                            <Button 
+                                                borderRadius='0' 
+                                                leftIcon={nav.icon}
+                                                w='full' 
+                                                justifyContent='flex-start' 
+                                                bg='transparent'
+                                                _hover={{ bg: 'transparent', color: 'rgb(52,140,212)' }}
+                                            >
+                                                {nav.name}
+                                            </Button>
+                                        </NextLink>
+                                        <VStack spacing='0' pl='1.5em'>
+                                            {nav.children.map((children, idx) => (
+                                                <NextLink href={`/dashboard${children.link}`} shallow passHref key={idx}>
+                                                    <Button 
+                                                        borderRadius='0' 
+                                                        w='full' 
+                                                        justifyContent='flex-start' 
+                                                        bg='transparent'
+                                                        _hover={{ bg: 'transparent', color: 'rgb(52,140,212)' }}
+                                                        fontSize='10pt'
+                                                    >
+                                                        {children.name}
+                                                    </Button>
+                                                </NextLink>
+                                            ))}
+                                        </VStack>
+                                    </Box>
                                 ))}
                             </VStack>
                         </VStack>
@@ -176,11 +170,6 @@ const Layout = ({ children }) => {
                 </VStack>
             )}
             <Box mt='70px' ml={isSidebar ? '245px' : '0'} p='2rem'>
-                <Flex justifyContent='space-between' h='3.25em'>
-                    <Text fontWeight='bold'>
-                        {page === 'getStarted' ? 'GET STARTED' : page?.toUpperCase()}
-                    </Text>
-                </Flex>
                 {children}
             </Box>
         </>

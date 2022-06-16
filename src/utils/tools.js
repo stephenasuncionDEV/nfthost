@@ -138,3 +138,7 @@ export const convertDateToLocal = (date) => {
 export const convertLocalToDate = (local) => {
     return new Date(local);
 }
+
+export const capitalizeFirstLetter = (str) => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
