@@ -37,7 +37,8 @@ const CreateWebsite = () => {
         currentEditWebsite
     } = useWebsite();
     const { CreateWebsite, UpdateWebsite, clearFields, DeleteWebsite, CopyWebsiteLink } = useSites();
-    const containerColor = useColorModeValue('whiteAlpha.500', 'blackAlpha.500');
+
+    const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
 
     return (
         <VStack 
@@ -45,21 +46,21 @@ const CreateWebsite = () => {
             spacing='1.5em'
             p='1em' 
             bg={containerColor}
-            borderRadius='10px'
-            boxShadow='md'
+            borderRadius='5px'
+            boxShadow='0 0 2px 0 rgb(0 0 0 / 10%)'
             h='100%'
             alignItems='flex-start'
             mt='1em'
             maxW='900px'
-            flex='1'
+            w='full'
         >
             <HStack justifyContent='space-between' w='full'>
                 <Flex flexDir='column'>
-                    <Text variant='content_subtitle' mt='0'>
+                    <Text fontWeight='bold' fontSize='10pt'>
                         {!isEditWebsite ? 'Create Mint Website' : currentEditWebsite?.components?.title}
                     </Text>
                     <Text fontSize='10pt'>
-                        {!isEditWebsite ? 'Create a Mint Website' : <span>Mint Website: <span style={{ color: 'orange' }}>{currentEditWebsite?.components?.title}</span></span>}
+                        {!isEditWebsite ? 'Create a Mint Website' : <span>Mint Website: <span style={{ color: 'rgb(52,140,212)' }}>{currentEditWebsite?.components?.title}</span></span>}
                     </Text>
                 </Flex>
                 {isEditWebsite && (

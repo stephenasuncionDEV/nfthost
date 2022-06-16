@@ -176,7 +176,7 @@ const Layout = ({ children }) => {
                 </VStack>
             )}
             <Box mt='70px' ml={isSidebar ? '245px' : '0'} p='2rem'>
-                <Flex justifyContent='space-between'>
+                <Flex justifyContent='space-between' h='3.25em'>
                     <Text fontWeight='bold'>
                         {page === 'getStarted' ? 'GET STARTED' : page?.toUpperCase()}
                     </Text>

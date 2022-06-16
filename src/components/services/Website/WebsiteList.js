@@ -10,25 +10,25 @@ const Sites = () => {
     const { websites, isRefreshing } = useWebsite();
     const { GetWebsites, EditWebsite } = useSites();
 
-    const containerColor = useColorModeValue('whiteAlpha.500', 'blackAlpha.500');
+    const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
     const buttonColor = useColorModeValue('blackAlpha.100', 'whiteAlpha.100');
 
     return (
-        <VStack 
+        <VStack
             id='website-list'
             spacing='1.5em'
             p='1em' 
             bg={containerColor}
-            borderRadius='10px'
-            boxShadow='md'
+            borderRadius='5px'
+            boxShadow='0 0 2px 0 rgb(0 0 0 / 10%)'
             h='100%'
             alignItems='flex-start'
-            flex='1'
+            w='full'
         >
-            <HStack spacing='2em'>
+            <HStack spacing='2em' justifyContent='space-between' w='full'>
                 <VStack spacing='0' alignItems='flex-start'>
-                    <Text variant='content_subtitle' mt='0'>
-                        Your Mint Websites
+                    <Text fontWeight='bold' fontSize='10pt'>
+                        Mint Websites
                     </Text>
                     <Text fontSize='10pt'>
                         List of mint websites you own
