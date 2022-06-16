@@ -46,6 +46,8 @@ const Service = () => {
 
                 {userWebsite?.components?.script && parse(userWebsite?.components?.script)}
             </Head>
+            
+            {userWebsite?.components?.addons?.indexOf('Navbar') !== -1 && <Navbar />}
 
             {data?.template === 'Template1' && <Template1 userWebsite={userWebsite} data={data} />}
             {data?.template === 'Template2' && <Template2 userWebsite={userWebsite} data={data} />}
@@ -71,7 +73,6 @@ const Service = () => {
             )}
 
             {userWebsite?.components?.addons?.indexOf('Cookie Consent') !== -1 && <CookieModal />}
-            {userWebsite?.components?.addons?.indexOf('Navbar') !== -1 && <Navbar />}
             {userWebsite?.components?.addons?.indexOf('Footer') !== -1 && <Footer />}
         </main>
     )

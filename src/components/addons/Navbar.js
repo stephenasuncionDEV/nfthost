@@ -11,11 +11,9 @@ const WebsiteNavbar = () => {
 
     return (
         <HStack
-            position='fixed'
             px='2em'
             py='1.5em'
             bg={containerColor}
-            top='0'
             w='full'
             justifyContent='space-between'
         >

@@ -20,10 +20,10 @@ const Footer = () => {
                         />
                         <Flex flexDir='column' alignItems='center'>
                             <Text >
-                                Copyright &copy; 2022 {userWebsite?.components?.title}.
+                                Copyright &copy; 2022 {userWebsite?.components?.title}
                             </Text>
                             <Text fontSize='10pt'>
-                                All rights reserved.
+                                All rights reserved
                             </Text>
                         </Flex>
                     </VStack>
