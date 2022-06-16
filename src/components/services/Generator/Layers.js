@@ -26,7 +26,7 @@ const Layers = () => {
             h='100%'
         >
             <HStack spacing='2em'>
-                <Text variant='content_subtitle' mt='0'>
+                <Text fontWeight='bold' fontSize='10pt'>
                     Layers
                 </Text>
                 <Button size='sm' rightIcon={<MdOutlineAdd />} onClick={AddLayer}>
@@ -36,13 +36,13 @@ const Layers = () => {
             <VStack alignItems='flex-start' w='full'>
                 <HStack>
                     <Box borderRadius='5px' bg='orange' p='.25em' />
-                    <Text>
+                    <Text fontSize='10pt'>
                         Top Layer
                     </Text>
                 </HStack>
                 <HStack>
                     <Box borderRadius='5px' bg='#08BDD4' p='.25em' />
-                    <Text>
+                    <Text fontSize='10pt'>
                         Bottom Layer
                     </Text>
                 </HStack>

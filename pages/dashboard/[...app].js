@@ -6,6 +6,7 @@ import Layout from '@/components/Layout'
 import Generator from '@/components/services/Generator'
 import Website from '@/components/services/Website'
 import Template from '@/components/services/Website/Template'
+import Addons from '@/components/services/Website/Addons'
 
 const Page = () => {
     const router = useRouter();
@@ -53,6 +54,8 @@ const Page = () => {
                     <>
                         {currentApp === 'generator' && <Generator />}
                         {currentApp === 'website' && <Website />}
+                        {currentApp === 'templates' && <Template />}
+                        {currentApp === 'addons' && <Addons />}
                     </>
                 )}
             </Layout>

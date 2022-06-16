@@ -10,7 +10,7 @@ const TemplateList = () => {
     const { currentEditWebsite } = useWebsite();
     const { ChooseTemplate } = useTemplate();
 
-    const containerColor = useColorModeValue('whiteAlpha.500', 'blackAlpha.500');
+    const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
     const itemColor = useColorModeValue('whiteAlpha.400', 'blackAlpha.400');
 
     return (
@@ -19,14 +19,14 @@ const TemplateList = () => {
             spacing='1.5em'
             p='1em' 
             bg={containerColor}
-            borderRadius='10px'
-            boxShadow='md'
+            borderRadius='.25em'
+            boxShadow='0 0 2px 0 rgb(0 0 0 / 10%)'
             h='100%'
             alignItems='flex-start'
             flex='1'
         >
             <VStack spacing='0' alignItems='flex-start'>
-                <Text variant='content_subtitle' fontSize='12pt'>
+                <Text fontWeight='bold' fontSize='10pt'>
                     Template List
                 </Text>
                 <Text fontSize='10pt'>
@@ -60,7 +60,7 @@ const TemplateList = () => {
                                 boxSize='250px'
                                 opacity='.6' 
                             />
-                            <Tag position='absolute' top='0' right='0'>
+                            <Tag position='absolute' top='2' right='2'>
                                 {template.sub === 'premium' && <TagLeftIcon as={GiCutDiamond} color='#08BDD4' />}
                                 <Text>
                                     {template.sub === 'premium' ? 'Premium' : 'Free'}

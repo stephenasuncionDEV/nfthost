@@ -22,6 +22,7 @@ export const WebsiteProvider = ({ children }) => {
     const [isUpdating, setIsUpdating] = useState(false);
     const [isEditWebsite, setIsEditWebsite] = useState(false);
     const [isDeletingWebsite, setIsDeletingWebsite] = useState(false);
+    const [isCreateWebsiteModal, setIsCreateWebsiteModal] = useState(false);
     const [currentEditWebsite, setCurrentEditWebsite] = useState();
     const [currentTemplate, setCurrentTemplate] = useState();
     const [newBackgroundImage, setNewBackgroundImage] = useState('');
@@ -74,7 +75,9 @@ export const WebsiteProvider = ({ children }) => {
         currentTemplate,
         setCurrentTemplate,
         newRevealDate,
-        setNewRevealDate
+        setNewRevealDate,
+        isCreateWebsiteModal,
+        setIsCreateWebsiteModal,
     }
 
     return (

@@ -21,7 +21,7 @@ const Preview = () => {
             h='100%'
             alignItems='flex-start'
         >
-            <Text variant='content_subtitle'>
+            <Text fontWeight='bold' fontSize='10pt'>
                 Preview
             </Text>
             <Text fontSize='10pt'>

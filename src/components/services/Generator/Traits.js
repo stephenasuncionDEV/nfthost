@@ -24,7 +24,7 @@ const Traits = () => {
             flexDir='column'
             h='100%'
         >
-            <Text variant='content_subtitle'>
+            <Text fontWeight='bold' fontSize='10pt'>
                 Traits
             </Text>
             <Text fontSize='10pt'>
