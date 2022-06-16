@@ -5,10 +5,12 @@ import { useReAuthenticate } from '@/hooks/useReAuthenticate'
 import Layout from '@/components/Layout'
 import Generator from '@/components/services/Generator'
 import Website from '@/components/services/Website'
+import Template from '@/components/services/Website/Template'
 
 const Page = () => {
     const router = useRouter();
     const app = router.query.app || [];
+    const currentApp = app[app.length === 2 ? 1 : 0]?.toLowerCase();
 
     const bgColor = useColorModeValue('rgb(236,242,245)', 'rgb(48,56,65)');
     useReAuthenticate();
@@ -40,15 +42,19 @@ const Page = () => {
                 <Flex justifyContent='space-between' h='3.25em'>
                     <Text fontWeight='bold'>
                         {app.length > 0 && (
-                            <>{app === 'getStarted' ? 'GET STARTED' : app[app.length === 2 ? 1 : 0]?.toUpperCase()}</>
+                            <>{currentApp === 'getStarted' ? 'GET STARTED' : currentApp?.toUpperCase()}</>
                         )}
                     </Text>
                     <Text>
-                        {app.join(' > ').toUpperCase()}
+                        DASHBOARD &gt; {app.join(' > ').toUpperCase()}
                     </Text>
                 </Flex>
-                {app[0] === 'generator' && <Generator />}
-                {app[0] === 'website' && <Website />}
+                {app.length > 0 && (
+                    <>
+                        {currentApp === 'generator' && <Generator />}
+                        {currentApp === 'website' && <Website />}
+                    </>
+                )}
             </Layout>
         </main>
     )
