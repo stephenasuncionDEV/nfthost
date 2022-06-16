@@ -19,9 +19,9 @@ const ConnectWalletTag = ({ isCopyAddress, isUserProfile, isPayments, isSidebar 
 
     return (
         <Menu>
-            <MenuButton as={Tag} borderWidth='1px' size='lg' cursor='pointer' bg='transparent' borderColor={toolbarNavColor}>
+            <MenuButton as={Tag} borderWidth='1px' size='md' cursor='pointer' bg='transparent' borderColor={toolbarNavColor}>
                 <HStack>
-                    <Text as={TagLabel} noOfLines='1' maxW={isSidebar ? '170px' : 'auto'} color={toolbarNavColor}>
+                    <Text as={TagLabel} noOfLines='1' maxW='200px' color={toolbarNavColor}>
                         {isLoggedIn ? address : 'Connect Your Wallet'}
                     </Text>
                     <TagRightIcon as={HiOutlineChevronDown} color={toolbarNavColor} />
@@ -32,7 +32,7 @@ const ConnectWalletTag = ({ isCopyAddress, isUserProfile, isPayments, isSidebar 
                     <>
                     {isUserProfile && (
                         <MenuItem>
-                            <HStack>
+                            <HStack alignItems='flex-start'>
                                 <Avatar src={user?.picture} name={address} />
                                 <VStack alignItems='flex-start' spacing='0'>
                                     <Text fontSize='10pt' noOfLines='1' maxW='150px'>
@@ -44,9 +44,21 @@ const ConnectWalletTag = ({ isCopyAddress, isUserProfile, isPayments, isSidebar 
                                     <Text fontSize='8pt' noOfLines='1'>
                                         {user?.services?.generator?.generationCount} Generations
                                     </Text>
+                                    <Text fontSize='8pt' noOfLines='1'>
+                                        {user?.services?.website?.freeWebsite} Website Available
+                                    </Text>
+                                    <Text fontSize='8pt' noOfLines='1'>
+                                        {user?.services?.website?.websiteCount} Websites
+                                    </Text>
                                 </VStack>
                             </HStack>
                         </MenuItem>
+                    )}
+                    {isCopyAddress && (
+                        <>
+                            <MenuDivider />
+                            <MenuItem icon={<MdOutlineContentCopy />} onClick={CopyAddress}>Copy Address</MenuItem>
+                        </>
                     )}
                     {isPayments && (
                         <MenuItem icon={<MdPayment />}>
@@ -54,9 +66,6 @@ const ConnectWalletTag = ({ isCopyAddress, isUserProfile, isPayments, isSidebar 
                                 Payments
                             </NextLink>
                         </MenuItem>
-                    )}
-                    {isCopyAddress && (
-                        <MenuItem icon={<MdOutlineContentCopy />} onClick={CopyAddress}>Copy Address</MenuItem>
                     )}
                     {isUserProfile && <MenuDivider />}
                     <MenuItem icon={<HiLogout />} onClick={() => Logout(false)}>Logout</MenuItem>

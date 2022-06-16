@@ -2,11 +2,13 @@ import NextLink from 'next/link'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { Box, Text, Slide, useColorModeValue, VStack,
-    Flex, HStack, Avatar, IconButton, Button
+    Flex, HStack, Avatar, IconButton, Button, useColorMode
 } from '@chakra-ui/react'
 import ConnectWalletTag from './ConnectWalletTag'
 import { GiHamburgerMenu, GiPowerGenerator } from 'react-icons/gi'
-import { MdOutlineDashboard, MdOutlineMiscellaneousServices, MdChevronRight } from 'react-icons/md'
+import { MdOutlineDashboard, MdOutlineMiscellaneousServices, 
+    MdOutlineDarkMode, MdOutlineLightMode 
+} from 'react-icons/md'
 import { BsStar } from 'react-icons/bs'
 import { CgWebsite } from 'react-icons/cg'
 import { useCore } from '@/providers/CoreProvider'
@@ -48,13 +50,15 @@ const sidebarItemArr = [
 const Layout = ({ children }) => {
     const router = useRouter();
     const { isSidebar, setIsSidebar } = useCore();
+    const { colorMode, toggleColorMode } = useColorMode();
 
     const sidebarColor = useColorModeValue('white', 'whiteAlpha.500');
     const sidebarNavColor = useColorModeValue('#60677d', 'white');
     const toolbarColor = useColorModeValue('rgb(52,140,212)', 'whiteAlpha.600');
     const toolbarNavColor = useColorModeValue('rgba(255,255,255,.8)', 'white');
     const logoColor = useColorModeValue('white', 'white');
-    const { page } = router.query
+    
+    const { page } = router.query;
 
     //https://coderthemes.com/codefox/layouts/index.html
 
@@ -92,68 +96,81 @@ const Layout = ({ children }) => {
                             <GiHamburgerMenu />
                         </IconButton>
                     </HStack>
-                    <ConnectWalletTag />
+                    <HStack spacing='2em'>
+                        <IconButton 
+                            aria-label='Toggle Color Mode' 
+                            bg='transparent'
+                            color={logoColor} 
+                            _hover={{ bg: 'transparent', color: toolbarNavColor }}
+                            onClick={toggleColorMode}
+                        >
+                            {colorMode === 'light' ? <MdOutlineDarkMode /> : <MdOutlineLightMode />}
+                        </IconButton>
+                        <ConnectWalletTag 
+                            isUserProfile
+                            isPayments
+                            isCopyAddress
+                        />
+                    </HStack>
                 </HStack>
             </Slide>
             {isSidebar && (
-                <Slide direction='left' in={true}>
-                    <VStack
-                        position='fixed'
-                        top='0'
-                        flexDir='column'
-                        bg={sidebarColor}
-                        w='245px'
-                        h='full'
-                        p='1.5em'
-                        alignItems='flex-start'
-                        mt='70px'
-                        boxShadow='md'
-                        spacing='1em'
-                        color={sidebarNavColor}
-                    >
-                        {sidebarItemArr?.map((item, idx) => (
-                            <VStack key={idx} spacing='1.5em' alignItems='flex-start' w='full'>
-                                <Text fontSize='10pt'>
-                                    {item.parent.toUpperCase()}
-                                </Text>
-                                <VStack spacing='.25em'>
-                                    {item.items.map((nav, idx) => (
-                                        <>
-                                        <NextLink href={`/dashboard${nav.link}`} shallow passHref key={idx}>
-                                            <Button 
-                                                borderRadius='0' 
-                                                leftIcon={nav.icon}
-                                                w='full' 
-                                                justifyContent='flex-start' 
-                                                bg='transparent'
-                                                _hover={{ bg: 'transparent', color: 'rgb(52,140,212)' }}
-                                            >
-                                                {nav.name}
-                                            </Button>
-                                        </NextLink>
-                                        <VStack spacing='0' pl='1.5em'>
-                                            {nav.children.map((children, idx) => (
-                                                <NextLink href={`/dashboard${children.link}`} shallow passHref key={idx}>
-                                                    <Button 
-                                                        borderRadius='0' 
-                                                        w='full' 
-                                                        justifyContent='flex-start' 
-                                                        bg='transparent'
-                                                        _hover={{ bg: 'transparent', color: 'rgb(52,140,212)' }}
-                                                        fontSize='10pt'
-                                                    >
-                                                        {children.name}
-                                                    </Button>
-                                                </NextLink>
-                                            ))}
-                                        </VStack>
-                                        </>
-                                    ))}
-                                </VStack>
+                <VStack
+                    position='fixed'
+                    top='0'
+                    flexDir='column'
+                    bg={sidebarColor}
+                    w='245px'
+                    h='full'
+                    p='1.5em'
+                    alignItems='flex-start'
+                    mt='70px'
+                    boxShadow='md'
+                    spacing='1em'
+                    color={sidebarNavColor}
+                >
+                    {sidebarItemArr?.map((item, idx) => (
+                        <VStack key={idx} spacing='1.5em' alignItems='flex-start' w='full'>
+                            <Text fontSize='10pt'>
+                                {item.parent.toUpperCase()}
+                            </Text>
+                            <VStack spacing='.25em'>
+                                {item.items.map((nav, idx) => (
+                                    <>
+                                    <NextLink href={`/dashboard${nav.link}`} shallow passHref key={idx}>
+                                        <Button 
+                                            borderRadius='0' 
+                                            leftIcon={nav.icon}
+                                            w='full' 
+                                            justifyContent='flex-start' 
+                                            bg='transparent'
+                                            _hover={{ bg: 'transparent', color: 'rgb(52,140,212)' }}
+                                        >
+                                            {nav.name}
+                                        </Button>
+                                    </NextLink>
+                                    <VStack spacing='0' pl='1.5em'>
+                                        {nav.children.map((children, idx) => (
+                                            <NextLink href={`/dashboard${children.link}`} shallow passHref key={idx}>
+                                                <Button 
+                                                    borderRadius='0' 
+                                                    w='full' 
+                                                    justifyContent='flex-start' 
+                                                    bg='transparent'
+                                                    _hover={{ bg: 'transparent', color: 'rgb(52,140,212)' }}
+                                                    fontSize='10pt'
+                                                >
+                                                    {children.name}
+                                                </Button>
+                                            </NextLink>
+                                        ))}
+                                    </VStack>
+                                    </>
+                                ))}
                             </VStack>
-                        ))}
-                    </VStack>
-                </Slide>
+                        </VStack>
+                    ))}
+                </VStack>
             )}
             <Box mt='70px' ml='245px' p='2rem'>
                 <Flex justifyContent='space-between'>
