@@ -52,74 +52,72 @@ const Layout = ({ children }) => {
     const { isSidebar, setIsSidebar } = useCore();
     const { colorMode, toggleColorMode } = useColorMode();
 
-    const sidebarColor = useColorModeValue('white', 'whiteAlpha.500');
-    const sidebarNavColor = useColorModeValue('#60677d', 'white');
-    const toolbarColor = useColorModeValue('rgb(52,140,212)', 'whiteAlpha.600');
-    const toolbarNavColor = useColorModeValue('rgba(255,255,255,.8)', 'white');
-    const logoColor = useColorModeValue('white', 'white');
+    const sidebarBG = useColorModeValue('white', 'rgb(55,66,76)');
+    const sidebarColor = useColorModeValue('#60677d', '#9097a7');
+    const toolbarBG = useColorModeValue('rgb(52,140,212)', 'rgb(60,71,82)');
+    const toolbarColor = useColorModeValue('rgba(255,255,255,.8)', 'white');
+    const defaultColor = useColorModeValue('white', 'white');
     
     const { page } = router.query;
 
-    //https://coderthemes.com/codefox/layouts/index.html
+    //https://coderthemes.com/codefox/#demos
 
     return (
         <>
-            <Slide direction='top' in={true}>
-                <HStack 
-                    bg={toolbarColor}
-                    h='70px'
-                    px='2em'
-                    justifyContent='space-between'
-                >
-                    <HStack spacing='2em'>
-                        <NextLink href='/' shallow passHref>
-                            <HStack spacing='1em' cursor='pointer' p='1em'>
-                                <Avatar 
-                                    size='sm'
-                                    src='/assets/logo.png' 
-                                    name='NFT Host Logo' 
-                                    bg='transparent'
-                                    cursor='pointer'
-                                />
-                                <Text  fontSize='14pt' cursor='pointer' color={logoColor}>
-                                    NFT Host
-                                </Text>
-                            </HStack>
-                        </NextLink>
-                        <IconButton 
-                            bg='transparent' 
-                            color={logoColor} 
-                            fontSize='16pt' 
-                            _hover={{ bg: 'transparent', color: toolbarNavColor }}
-                            onClick={() => setIsSidebar(!isSidebar)}
-                        >
-                            <GiHamburgerMenu />
-                        </IconButton>
-                    </HStack>
-                    <HStack spacing='2em'>
-                        <IconButton 
-                            aria-label='Toggle Color Mode' 
-                            bg='transparent'
-                            color={logoColor} 
-                            _hover={{ bg: 'transparent', color: toolbarNavColor }}
-                            onClick={toggleColorMode}
-                        >
-                            {colorMode === 'light' ? <MdOutlineDarkMode /> : <MdOutlineLightMode />}
-                        </IconButton>
-                        <ConnectWalletTag 
-                            isUserProfile
-                            isPayments
-                            isCopyAddress
-                        />
-                    </HStack>
+            <HStack 
+                bg={toolbarBG}
+                h='70px'
+                px='2em'
+                justifyContent='space-between'
+            >
+                <HStack spacing='2em'>
+                    <NextLink href='/' shallow passHref>
+                        <HStack spacing='1em' cursor='pointer' p='1em'>
+                            <Avatar 
+                                size='sm'
+                                src='/assets/logo.png' 
+                                name='NFT Host Logo' 
+                                bg='transparent'
+                                cursor='pointer'
+                            />
+                            <Text  fontSize='14pt' cursor='pointer' color={defaultColor}>
+                                NFT Host
+                            </Text>
+                        </HStack>
+                    </NextLink>
+                    <IconButton 
+                        bg='transparent' 
+                        color={defaultColor} 
+                        fontSize='16pt' 
+                        _hover={{ bg: 'transparent', color: toolbarColor }}
+                        onClick={() => setIsSidebar(!isSidebar)}
+                    >
+                        <GiHamburgerMenu />
+                    </IconButton>
                 </HStack>
-            </Slide>
+                <HStack spacing='2em'>
+                    <IconButton 
+                        aria-label='Toggle Color Mode' 
+                        bg='transparent'
+                        color={defaultColor} 
+                        _hover={{ bg: 'transparent', color: toolbarColor }}
+                        onClick={toggleColorMode}
+                    >
+                        {colorMode === 'light' ? <MdOutlineDarkMode /> : <MdOutlineLightMode />}
+                    </IconButton>
+                    <ConnectWalletTag 
+                        isUserProfile
+                        isPayments
+                        isCopyAddress
+                    />
+                </HStack>
+            </HStack>
             {isSidebar && (
                 <VStack
                     position='fixed'
                     top='0'
                     flexDir='column'
-                    bg={sidebarColor}
+                    bg={sidebarBG}
                     w='245px'
                     h='full'
                     p='1.5em'
@@ -127,7 +125,7 @@ const Layout = ({ children }) => {
                     mt='70px'
                     boxShadow='md'
                     spacing='1em'
-                    color={sidebarNavColor}
+                    color={sidebarColor}
                 >
                     {sidebarItemArr?.map((item, idx) => (
                         <VStack key={idx} spacing='1.5em' alignItems='flex-start' w='full'>
@@ -172,7 +170,7 @@ const Layout = ({ children }) => {
                     ))}
                 </VStack>
             )}
-            <Box mt='70px' ml='245px' p='2rem'>
+            <Box ml={isSidebar ? '245px' : '0'} p='2rem'>
                 <Flex justifyContent='space-between'>
                     <Text fontWeight='bold'>
                         {page === 'getStarted' ? 'GET STARTED' : page?.toUpperCase()}

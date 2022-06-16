@@ -1,21 +1,18 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { useUser } from '@/providers/UserProvider'
-import CookieModal from '@/components/CookieModal'
-import Generator from '@/components/services/Generator'
-import Website from '@/components/services/Website'
-import { useReAuthenticate } from '@/hooks/useReAuthenticate'
+import { useColorModeValue } from '@chakra-ui/react'
+import Layout from '@/components/Layout'
 
-const Service = () => {
-    const { isLoggedIn } = useUser();
+const Page = () => {
     const router = useRouter();
-    const { service } = router.query;
-    useReAuthenticate(true);
+    const { page } = router.query;
 
-    return isLoggedIn && (
-        <main>
+    const bgColor = useColorModeValue('rgb(236,242,245)', 'rgb(48,56,65)');
+
+    return (
+        <main style={{ background: bgColor, minHeight: '100vh' }}>
             <Head>
-                <title>{service?.charAt(0).toUpperCase() + service?.slice(1)} | NFT Host</title>
+                <title>Dashboard | NFT Host</title>
                 <meta name="title" content='NFT Host' />
                 <meta name="description" content='NFT Host is a website where you can generate NFT collections and create NFT minting website.' />
                 <meta name="keywords" content='NFT Host, Host NFT, Mint Website, Mint NFT Website Hosting, Mint NFT, NFT, Mint, Crypto Currency, Crypto, Ethereum' />
@@ -35,11 +32,11 @@ const Service = () => {
                 <meta property="twitter:description" content='NFT Host is a website where you can generate NFT collections and create NFT minting website.' />
                 <meta property="twitter:image" content='https://www.nfthost.app/assets/logo.png' />
             </Head>
-            <CookieModal />
-            {service === 'generator' && <Generator />}
-            {service === 'website' && <Website />}
+            <Layout>
+                
+            </Layout>
         </main>
     )
 }
 
-export default Service
+export default Page

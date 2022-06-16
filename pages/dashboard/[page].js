@@ -1,13 +1,17 @@
-import NextLink from 'next/link'
 import Head from 'next/head'
-import { Box, Text, Flex, VStack, useColorModeValue } from '@chakra-ui/react'
-import MainNavbar from '@/components/MainNavbar'
-import MainFooter from '@/components/MainFooter'
+import { useRouter } from 'next/router'
+import { useColorModeValue } from '@chakra-ui/react'
+import { useReAuthenticate } from '@/hooks/useReAuthenticate'
 import Layout from '@/components/Layout'
+import Generator from '@/components/services/Generator'
+import Website from '@/components/services/Website'
 
 const Page = () => {
+    const router = useRouter();
+    const { page } = router.query;
 
-    const bgColor = useColorModeValue('linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(249,250,250,1) 100%)', 'linear-gradient(0deg, rgba(26,32,44,1) 0%, rgba(17,21,28,1) 100%)');
+    const bgColor = useColorModeValue('rgb(236,242,245)', 'rgb(48,56,65)');
+    useReAuthenticate();
 
     return (
         <main style={{ background: bgColor, minHeight: '100vh' }}>
@@ -33,11 +37,8 @@ const Page = () => {
                 <meta property="twitter:image" content='https://www.nfthost.app/assets/logo.png' />
             </Head>
             <Layout>
-                <Box>
-                    <Text>
-                        Test Webpage
-                    </Text>
-                </Box>
+                {page === 'generator' && <Generator />}
+                {page === 'website' && <Website />}
             </Layout>
         </main>
     )

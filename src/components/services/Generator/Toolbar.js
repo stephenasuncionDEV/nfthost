@@ -1,10 +1,9 @@
-import { HStack, Button, Menu, MenuButton, MenuList, MenuItem, useColorModeValue, useColorMode, IconButton } from '@chakra-ui/react'
+import { HStack, Button, Menu, MenuButton, MenuList, MenuItem, useColorModeValue, useColorMode } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { useGenerate } from '@/hooks/useGenerate'
 import { useToolbar } from '@/hooks/useToolbar'
-import ConnectWalletTag from '@/components/ConnectWalletTag'
 import { HiOutlineChevronDown, HiOutlineDesktopComputer } from 'react-icons/hi'
-import { MdSettings, MdOutlineDarkMode, MdOutlineLightMode } from 'react-icons/md'
+import { MdSettings } from 'react-icons/md'
 import { FaPlay, FaDownload } from 'react-icons/fa'
 import { useRarity } from '@/hooks/useRarity'
 
@@ -69,19 +68,6 @@ const Toolbar = () => {
                         Download
                     </Button>
                 )}
-            </HStack>
-            <HStack>
-                <ConnectWalletTag 
-                    isUserProfile 
-                    isPayments
-                />
-                <IconButton 
-                    ml='.5em'
-                    aria-label='Toggle Color Mode' 
-                    icon={colorMode === 'light' ? <MdOutlineDarkMode /> : <MdOutlineLightMode />} 
-                    onClick={toggleColorMode} 
-                    size='sm'
-                />
             </HStack>
         </HStack>
     )
