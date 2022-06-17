@@ -41,7 +41,7 @@ const CurrentTemplate = () => {
             w='full'
         >
             <Flex flexDir='column' alignItems='flex-start' w='full'>
-                <HStack spacing='2em'>
+                <HStack spacing='2em' justifyContent='space-between' w='full'>
                     <VStack alignItems='flex-start' spacing='0'>
                         <Text fontWeight='bold' fontSize='10pt'>
                             Current Template
@@ -135,7 +135,7 @@ const CurrentTemplate = () => {
                             </VStack>
                         </VStack> 
                         <VStack p='1em' flex='1' justifyContent='justify-between' spacing='2em'>
-                            <VStack w='full' spacing='1.5em'>
+                            <VStack w='full' spacing='1.5em' flex='1'>
                                 <VStack w='full'>
                                     <HStack justifyContent='flex-start' w='full'>
                                         <Text fontSize='10pt' >
@@ -185,26 +185,24 @@ const CurrentTemplate = () => {
                                     </HStack>
                                 </VStack>
                             </VStack>
-                            <Flex w='full' justifyContent='flex-end'>
-                                <HStack justifyContent='space-between' w='full'>
-                                    <Button
-                                        variant='danger'
-                                        rightIcon={<FaRedo />}
-                                        onClick={ResetStyle}
-                                        disabled={!currentEditWebsite?.isPremium}
-                                    >
-                                        Reset
-                                    </Button>
-                                    <Button
-                                        variant='primary'
-                                        rightIcon={<MdSave />}
-                                        onClick={SaveStyle}
-                                        disabled={!currentEditWebsite?.isPremium}
-                                    >
-                                        Save
-                                    </Button>
-                                </HStack>
-                            </Flex>
+                            <HStack justifyContent='space-between' w='full'>
+                                <Button
+                                    variant='danger'
+                                    rightIcon={<FaRedo />}
+                                    onClick={ResetStyle}
+                                    disabled={!currentEditWebsite?.isPremium}
+                                >
+                                    Reset
+                                </Button>
+                                <Button
+                                    variant='primary'
+                                    rightIcon={<MdSave />}
+                                    onClick={SaveStyle}
+                                    disabled={!currentEditWebsite?.isPremium}
+                                >
+                                    Save
+                                </Button>
+                            </HStack>
                         </VStack>
                     </Wrap>
                 </VStack>
