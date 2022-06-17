@@ -11,16 +11,18 @@ const WebsiteInfo = () => {
     const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
 
     return currentEditWebsite && (
-        <Flex flexDir='column' alignItems='flex-end' my='1em'>
-            <VStack 
+        <Flex flexDir='column' alignItems='flex-end'>
+            <HStack 
                 bg={containerColor}
                 borderRadius='.25em'
                 boxShadow='0 0 2px 0 rgb(0 0 0 / 10%)'
-                p='1em'
-                alignItems='flex-start'
+                py='.5em'
+                px='1em'
+                alignItems='center'
+                spacing='1em'
             >
-                <Text>
-                    Website Title: <span style={{ color: 'rgb(52,140,212)' }}>{currentEditWebsite?.components?.title}</span>
+                <Text fontSize='10pt'>
+                    Selected Website: <span style={{ color: 'rgb(52,140,212)' }}>{currentEditWebsite?.components?.title}</span>
                 </Text>
                 <HStack>
                     <Input 
@@ -38,7 +40,7 @@ const WebsiteInfo = () => {
                         </IconButton>
                     </Link>
                 </HStack>
-            </VStack>
+            </HStack>
         </Flex>
     )
 }

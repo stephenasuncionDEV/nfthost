@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { useColorModeValue, Flex, Text, VStack, Box } from '@chakra-ui/react'
+import { useColorModeValue, Flex, Text, VStack, Box, HStack } from '@chakra-ui/react'
 import { useUser } from '@/providers/UserProvider'
 import { useReAuthenticate } from '@/hooks/useReAuthenticate'
 import Layout from '@/components/Layout'
@@ -12,6 +12,7 @@ import Addons from '@/components/services/Website/Addons'
 import Domain from '@/components/services/Website/Domain'
 import ConnectWalletTag from '@/components/ConnectWalletTag'
 import { MdOutlineAccountCircle } from 'react-icons/md'
+import WebsiteInfo from '@/components/services/Website/WebsiteInfo'
 
 const Page = () => {
     const router = useRouter();
@@ -48,13 +49,16 @@ const Page = () => {
             <Layout currentApp={currentApp}>
                 {isLoggedIn ? (
                     <>
-                        <Flex justifyContent='space-between' h='3.25em'>
+                        <Flex justifyContent='space-between' h='4em' alignItems='center' mb='1em'>
                             <Text fontWeight='bold'>
                                 {currentApp?.toUpperCase()}
                             </Text>
-                            <Text>
-                                DASHBOARD &gt; {app.join(' > ').toUpperCase()}
-                            </Text>
+                            <HStack spacing='2em'>
+                                <WebsiteInfo />
+                                <Text>
+                                    DASHBOARD &gt; {app.join(' > ').toUpperCase()}
+                                </Text>
+                            </HStack>
                         </Flex>
                         {app.length > 0 && (
                             <>
@@ -66,7 +70,7 @@ const Page = () => {
                                 {currentApp === 'domain' && <Domain />}
                             </>
                         )}
-                        </>
+                    </>
                 ) : (
                     <VStack flex='1'>
                         <Flex flexDir='column' justifyContent='center' alignItems='center' flex='1'>

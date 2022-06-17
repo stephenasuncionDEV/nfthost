@@ -57,7 +57,7 @@ export const useWeb3 = () => {
             console.error(err);
             toast({
                 title: 'Error',
-                description: !err.response ? err.message : err.response.data.message,
+                description: !err.response ? err.message : err.response.data?.message,
                 status: 'error',
                 duration: 3000,
                 isClosable: true,
