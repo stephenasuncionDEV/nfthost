@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { useColorModeValue, Flex, Text } from '@chakra-ui/react'
 import { useReAuthenticate } from '@/hooks/useReAuthenticate'
 import Layout from '@/components/Layout'
+import GetStarted from '@/components/GetStarted'
 import Generator from '@/components/services/Generator'
 import Website from '@/components/services/Website'
 import Template from '@/components/services/Website/Template'
@@ -42,9 +43,7 @@ const Page = () => {
             <Layout currentApp={currentApp}>
                 <Flex justifyContent='space-between' h='3.25em'>
                     <Text fontWeight='bold'>
-                        {app.length > 0 && (
-                            <>{currentApp === 'getStarted' ? 'GET STARTED' : currentApp?.toUpperCase()}</>
-                        )}
+                        {currentApp?.toUpperCase()}
                     </Text>
                     <Text>
                         DASHBOARD &gt; {app.join(' > ').toUpperCase()}
@@ -52,6 +51,7 @@ const Page = () => {
                 </Flex>
                 {app.length > 0 && (
                     <>
+                        {currentApp === 'getstarted' && <GetStarted />}
                         {currentApp === 'generator' && <Generator />}
                         {currentApp === 'website' && <Website />}
                         {currentApp === 'templates' && <Template />}

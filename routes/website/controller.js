@@ -69,6 +69,20 @@ exports.getWebsites = async (req, res, next) => {
     }
 }
 
+exports.getFeatured = async (req, res, next) => {
+    try {
+        const errors = validationResult(req).errors;
+        if (errors.length > 0) throw new Error(errors[0].msg);
+
+        const result = await Website.aggregate([{$sample: {size: 5}}]);
+
+        res.status(200).json(result);
+
+    } catch (err) {
+        next(err);
+    }
+}
+
 exports.updateWebsite = async (req, res, next) => {
     try {
         const errors = validationResult(req).errors;

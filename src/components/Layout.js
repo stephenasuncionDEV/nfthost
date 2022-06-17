@@ -142,7 +142,7 @@ const Layout = ({ children, currentApp }) => {
                                                 justifyContent='flex-start' 
                                                 bg='transparent'
                                                 _hover={{ bg: 'transparent', color: 'rgb(52,140,212)' }}
-                                                color={currentApp === nav.name.toLowerCase() ? 'rgb(52,140,212)' : null}
+                                                color={currentApp === nav.name.replaceAll(' ', '').toLowerCase() ? 'rgb(52,140,212)' : null}
                                             >
                                                 {nav.name}
                                             </Button>
@@ -157,7 +157,7 @@ const Layout = ({ children, currentApp }) => {
                                                         bg='transparent'
                                                         _hover={{ bg: 'transparent', color: 'rgb(52,140,212)' }}
                                                         fontSize='10pt'
-                                                        color={currentApp === children.name.toLowerCase() ? 'rgb(52,140,212)' : null}
+                                                        color={currentApp === nav.name.replaceAll(' ', '').toLowerCase() ? 'rgb(52,140,212)' : null}
                                                     >
                                                         {children.name}
                                                     </Button>

@@ -32,5 +32,6 @@ router.patch('/updateAnalytics', authenticateToken, UpdateAnalyticsValidator, co
 router.patch('/updateComponents', authenticateToken, UpdateComponentsValidator, controller.updateComponents);
 router.patch('/updateSubscription', authenticateToken, UpdateSubscriptionValidator, controller.updateSubscription);
 router.delete('/deleteAddon', authenticateToken, DeleteAddonValidator, controller.deleteAddon);
+router.get('/getFeatured', authenticateToken, controller.getFeatured);
 
 module.exports = router;

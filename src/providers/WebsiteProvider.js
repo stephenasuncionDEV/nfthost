@@ -29,6 +29,7 @@ export const WebsiteProvider = ({ children }) => {
     const [newBackgroundColor, setNewBackgroundColor] = useState('');
     const [newRevealDate, setNewRevealDate] = useState('');
     const [createWebsiteStep, setCreateWebsiteStep] = useState('information');
+    const [featuredWebsites, setFeaturedWebsites] = useState();
     const editWebsiteFormRef = useRef();
 
     const controllers = {
@@ -82,7 +83,9 @@ export const WebsiteProvider = ({ children }) => {
         setCreateWebsiteStep,
         editWebsiteFormRef,
         editErrors,
-        setEditErrors
+        setEditErrors,
+        featuredWebsites,
+        setFeaturedWebsites
     }
 
     return (
