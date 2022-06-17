@@ -1,9 +1,8 @@
 import { Text, Flex, Tag, TagLeftIcon, Image, VStack, useColorModeValue } from '@chakra-ui/react'
-import parse from 'html-react-parser'
 import { GiCutDiamond } from 'react-icons/gi'
 import Embed from '../Embed';
 
-const FreeTemplate1 = ({ userWebsite, data }) => {
+const Template1 = ({ userWebsite, data }) => {
     const { 
         components: { title, unrevealedImage, description, embed },
         isPremium,
@@ -58,4 +57,4 @@ const FreeTemplate1 = ({ userWebsite, data }) => {
     )
 }
 
-export default FreeTemplate1
+export default Template1

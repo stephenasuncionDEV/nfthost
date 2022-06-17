@@ -288,11 +288,12 @@ export const useSites = () => {
                 ...currentEditWebsite,
                 websiteId: currentEditWebsite._id,
                 components: {
+                    ...currentEditWebsite.components,
                     title: title.value,
                     description: description.value,
                     embed: embed.value,
                     script: script.value,
-                    unrevealedImage: unrevealed.value,
+                    unrevealedImage: unrevealed.value
                 },
                 meta: {
                     robot: robot.value,

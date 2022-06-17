@@ -1,4 +1,4 @@
-import { Text, Flex, Tag, TagLeftIcon, Image, VStack, HStack, useColorModeValue, Box } from '@chakra-ui/react'
+import { Text, Flex, Tag, TagLeftIcon, Image, VStack, HStack, useColorModeValue } from '@chakra-ui/react'
 import { GiCutDiamond } from 'react-icons/gi'
 import Embed from '../Embed';
 
@@ -25,6 +25,12 @@ const Template2 = ({ userWebsite, data }) => {
             position='relative'
         >
             <HStack spacing='10em' bg={!bgImage ? 'transparent' : containerColor} p='2em' px='3em' borderRadius='20px'>
+                <Image 
+                    src={unrevealedImage}
+                    alt={title}
+                    boxSize='240px'
+                    objectFit='scale-down'
+                />
                 <VStack spacing='2em'>
                     <VStack>
                         <Text variant='content_title'>
@@ -48,12 +54,6 @@ const Template2 = ({ userWebsite, data }) => {
                         id={_id}
                     />
                 </VStack>
-                <Image 
-                    src={unrevealedImage}
-                    alt={title}
-                    boxSize='240px'
-                    objectFit='scale-down'
-                />
             </HStack>
         </Flex>
     )

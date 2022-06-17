@@ -8,6 +8,7 @@ import parse from 'html-react-parser'
 import { CgCopyright } from 'react-icons/cg'
 import Template1 from '@/components/services/Website/templates/Template1'
 import Template2 from '@/components/services/Website/templates/Template2'
+import Template3 from '@/components/services/Website/templates/Template3'
 import Navbar from '@/components/services/Website/addons/Navbar'
 import Footer from '@/components/services/Website/addons/Footer'
 
@@ -51,6 +52,7 @@ const Service = () => {
 
             {data?.template === 'Template1' && <Template1 userWebsite={userWebsite} data={data} />}
             {data?.template === 'Template2' && <Template2 userWebsite={userWebsite} data={data} />}
+            {data?.template === 'Template3' && <Template3 userWebsite={userWebsite} data={data} />}
 
             {!userWebsite?.isPremium && (
                 <Link href='https://www.nfthost.app/' isExternal>
