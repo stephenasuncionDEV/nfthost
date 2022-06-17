@@ -25,7 +25,7 @@ const Website = () => {
                 clearFields();
                 setCreateWebsiteStep('information');
                 setIsCreateWebsiteModal(true);
-            }} disabled={websites.length > 10}>
+            }} disabled={websites.length > 3}>
                 Create Website
             </Button>
             <WebsiteList />

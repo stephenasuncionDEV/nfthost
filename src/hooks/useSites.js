@@ -97,7 +97,7 @@ export const useSites = () => {
             if (!newComponentDescription.length) errorsObj.description = { status: true, message: 'Description field must be filled in' };
             if (!newComponentEmbed.length) errorsObj.embed = { status: true, message: 'Embed field must be filled in' };
             if (!newComponentImage.length) errorsObj.image = { status: true, message: 'Unrevealed Image Link field must be filled in' };
-            if (websites.length > 10) throw new Error('Current maximum number of websites is set to 10')
+            if (websites.length > 3) throw new Error('Current maximum number of websites is set to 3')
 
             if (Object.keys(errorsObj).length > 0) {
                 setNewErrors(errorsObj);
