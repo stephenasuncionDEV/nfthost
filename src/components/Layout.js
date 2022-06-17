@@ -142,7 +142,7 @@ const Layout = ({ children, currentApp }) => {
                                                 justifyContent='flex-start' 
                                                 bg='transparent'
                                                 _hover={{ bg: 'transparent', color: 'rgb(52,140,212)' }}
-                                                color={currentApp === nav.name.replaceAll(' ', '').toLowerCase() ? 'rgb(52,140,212)' : null}
+                                                color={currentApp === nav.name.replace(' ', '').toLowerCase() ? 'rgb(52,140,212)' : null}
                                             >
                                                 {nav.name}
                                             </Button>
