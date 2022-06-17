@@ -1,7 +1,9 @@
 import NextLink from 'next/link'
-import { Flex, Wrap, Button, Text, Image, useColorModeValue, VStack, HStack, Link, Tag } from '@chakra-ui/react'
+import { Flex, Wrap, Button, Text, Image, useColorModeValue, 
+    VStack, HStack, Link, Tag, TagLeftIcon 
+} from '@chakra-ui/react'
 import { useGetStarted } from '@/hooks/useGetStarted'
-import { GiHand } from 'react-icons/gi'
+import { GiHand, GiCutDiamond } from 'react-icons/gi'
 import { MdOutlineMiscellaneousServices } from 'react-icons/md'
 import { CgWebsite } from 'react-icons/cg'
 import config from '@/config/index'
@@ -93,8 +95,11 @@ const GetStarted = () => {
                                     boxSize='250px'
                                     transform='rotate(10deg)'
                                 />
-                                <Tag position='absolute' bg='white' color='black'>
-                                    {website.components.title}
+                                <Tag position='absolute' bg='white' maxW='140px'>
+                                    {website.isPremium && <GiCutDiamond color='#08BDD4'/>}
+                                    <Text color='black' ml='.5em' noOfLines={1}>
+                                        {website.components.title}
+                                    </Text>
                                 </Tag>
                             </Button>
                         </Link>
