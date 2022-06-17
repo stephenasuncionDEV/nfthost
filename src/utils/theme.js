@@ -77,14 +77,20 @@ const components = {
             primary: (props) => ({
                 bg: 'rgb(52,140,212)',
                 _hover: {
-                    bg: 'rgb(39,107,163)'
+                    bg: 'rgb(39,107,163)',
+                    _disabled: {
+                        bg: 'rgb(39,107,163)',
+                    }
                 },
                 color: 'white',
             }),
             danger: (props) => ({
                 bg: 'red.500',
                 _hover: {
-                    bg: 'red.400'
+                    bg: 'red.400',
+                    _disabled: {
+                        bg: 'red.400',
+                    }
                 },
                 color: 'white',
             }),

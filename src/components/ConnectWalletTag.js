@@ -42,13 +42,7 @@ const ConnectWalletTag = ({ isCopyAddress, isUserProfile, isPayments, isSidebar 
                                         {user?.services?.generator?.freeGeneration} Generation Available
                                     </Text>
                                     <Text fontSize='8pt' noOfLines='1'>
-                                        {user?.services?.generator?.generationCount} Generations
-                                    </Text>
-                                    <Text fontSize='8pt' noOfLines='1'>
                                         {user?.services?.website?.freeWebsite} Website Available
-                                    </Text>
-                                    <Text fontSize='8pt' noOfLines='1'>
-                                        {user?.services?.website?.websiteCount} Websites
                                     </Text>
                                 </VStack>
                             </HStack>

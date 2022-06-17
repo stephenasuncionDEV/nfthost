@@ -11,12 +11,12 @@ import { CopyBlock } from 'react-code-blocks'
 import { useSites } from '@/hooks/useSites';
 import { useEditWebsite } from '@/hooks/useEditWebsite'
 import { MdOutlineAdd, MdSave, MdDeleteOutline } from 'react-icons/md'
-import { FaExternalLinkAlt, FaStar } from 'react-icons/fa'
+import { FaExternalLinkAlt, FaStar, FaTrash } from 'react-icons/fa'
 import { GiCutDiamond } from 'react-icons/gi' 
 import config from '@/config/index'
 
 const EditWebsite = () => {
-    const { currentEditWebsite, editWebsiteFormRef, isUpdating } = useWebsite();
+    const { currentEditWebsite, editWebsiteFormRef, isUpdating, isDeletingWebsite } = useWebsite();
     const { user } = useUser();
     const { CancelEdit, UpdateWebsite, DeleteWebsite, CopyWebsiteLink, UpgradeToPremium } = useSites();
     useEditWebsite();
@@ -42,7 +42,7 @@ const EditWebsite = () => {
                             Edit Website
                         </Text>
                         <Text fontSize='10pt'>
-                            Website: {title}
+                            Mint Website: <span style={{ color: 'rgb(52,140,212)' }}>{title}</span>
                         </Text>
                     </VStack>
                     <HStack>
@@ -88,13 +88,13 @@ const EditWebsite = () => {
                                     </Select>
                                 </VStack>
                                 {!currentEditWebsite?.isPremium && (
-                                    <Box>
+                                    <Box w='200px'>
                                         <Button size='sm' variant='primary' w='full' leftIcon={<FaStar />} mt='1em' onClick={UpgradeToPremium} isLoading={isUpdating} loadingText='Updating'>
                                             Upgrade to Premium
                                         </Button>
                                         {user?.services?.website?.freeWebsite > 0 && (
-                                            <Text fontSize='9pt'>
-                                                Click to upgrade your mint website to premium
+                                            <Text fontSize='8pt' mt='.25em'>
+                                                You have {user?.services?.website?.freeWebsite} Available Premium Website. Click to upgrade this mint website to premium.
                                             </Text>
                                         )}
                                     </Box>
@@ -184,21 +184,24 @@ const EditWebsite = () => {
                                     <Textarea id='description' placeholder='Description' rows='5' size='sm' />
                                     <Textarea id='script' placeholder='Script' rows='5' size='sm' />
                                     <Textarea id='embed' placeholder='Embed' rows='5' size='sm' />
-                                    <HStack w='full' justifyContent='flex-end'>
-                                        <HStack mt='1em'>
-                                            <Button size='sm' onClick={CancelEdit} disabled={isUpdating}>
-                                                Cancel
-                                            </Button>
-                                            <Button variant='primary' rightIcon={<MdSave />} size='sm' onClick={UpdateWebsite} isLoading={isUpdating} loadingText='Updating'>
-                                                Save
-                                            </Button>
-                                        </HStack>
-                                    </HStack>
                                 </VStack>
                             </VStack>
                         </Wrap>
                     </form>
                 </Box>
+                <HStack w='full' justifyContent='space-between' mt='1.5em'>
+                    <Button variant='danger' size='sm' onClick={DeleteWebsite} isLoading={isDeletingWebsite} loadingText='Deleting' leftIcon={<FaTrash />}>
+                        Delete
+                    </Button>
+                    <HStack mt='1em'>
+                        <Button size='sm' onClick={CancelEdit} disabled={isUpdating}>
+                            Cancel
+                        </Button>
+                        <Button variant='primary' rightIcon={<MdSave />} size='sm' onClick={UpdateWebsite} isLoading={isUpdating} loadingText='Updating'>
+                            Save
+                        </Button>
+                    </HStack>
+                </HStack>
             </Flex>
         </VStack>
     )

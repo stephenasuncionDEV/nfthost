@@ -57,7 +57,7 @@ const Addons = () => {
                             size='sm' 
                             variant='primary'
                             onClick={() => ChooseAddon(addon)} 
-                            disabled={!currentEditWebsite?.isPremium && addon.sub === 'premium'}
+                            disabled={(!currentEditWebsite?.isPremium && addon.sub === 'premium') || (currentEditWebsite?.components?.addons?.indexOf(addon.key) !== -1)}
                         >
                             Add
                         </Button>

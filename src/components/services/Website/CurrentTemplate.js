@@ -193,7 +193,7 @@ const CurrentTemplate = () => {
                                     onClick={ResetStyle}
                                     disabled={!currentEditWebsite?.isPremium}
                                 >
-                                    Reset
+                                    Reset Style
                                 </Button>
                                 <Button
                                     variant='primary'

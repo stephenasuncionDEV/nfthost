@@ -22,13 +22,12 @@ const CardInput = () => {
                 } 
             }} />
             <Button 
+                variant='primary'
                 w='full' 
                 mt='1em' 
-                bg='green.500' 
-                color='black' 
                 onClick={() => PayWithStripe(stripe, elements, CardElement)} 
-                _hover={{ bg: 'green.400' }}
-                disabled={isPaying}
+                isLoading={isPaying} 
+                loadingText='Paying'
             >
                 Pay ${paymentData?.price.toFixed(2)} USD
             </Button>

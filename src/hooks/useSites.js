@@ -45,7 +45,8 @@ export const useSites = () => {
         currentEditWebsite,
         setCurrentEditWebsite,
         setIsDeletingWebsite,
-        editWebsiteFormRef
+        editWebsiteFormRef,
+        setIsCreateWebsiteModal
     } = useWebsite();
     const { DeductFree, getUserByAddress, AddCount, DeductCount, Logout } = useWeb3();
 
@@ -113,7 +114,7 @@ export const useSites = () => {
                     price: 15,
                     product: '1 NFT mint website (premium)',
                     redirect: {
-                        origin: '/service/website',
+                        origin: '/dashboard/website',
                         title: 'Website'
                     },
                     due: new Date()
@@ -154,8 +155,10 @@ export const useSites = () => {
             await AddCount(INCREMENT_INDEX, 'website');
             await GetWebsites();
 
+            setIsCreateWebsiteModal(false);
             setIsCreating(false);
             clearFields();
+            CancelEdit();
 
             posthog.capture('User created a mint website', {
                 subscription: newSubcription
@@ -226,6 +229,7 @@ export const useSites = () => {
     const CancelEdit = () => {
         setIsEditWebsite(false);
         setCurrentEditWebsite(null);
+        setEditErrors(null);
     }
 
     const areTwoFieldsArrSame = (currentEditWebsite, newFields) => {
@@ -281,6 +285,7 @@ export const useSites = () => {
             const token = decryptToken(storageToken, true);
 
             const res = await axios.put(`${config.serverUrl}/api/website/update`, {
+                ...currentEditWebsite,
                 websiteId: currentEditWebsite._id,
                 components: {
                     title: title.value,
@@ -413,8 +418,6 @@ export const useSites = () => {
 
     const DeleteWebsite = async () => {
         try {
-            setNewErrors(null);
-
             if (!currentEditWebsite) throw new Error('Select a mint website');
 
             const storageToken = localStorage.getItem('nfthost-user');
@@ -437,7 +440,7 @@ export const useSites = () => {
             await DeductCount(DEDUCT_INDEX, 'website');
             await GetWebsites();
 
-            clearFields();
+            CancelEdit();
 
             setIsDeletingWebsite(false);
 
