@@ -1,8 +1,8 @@
-import { Box, Text, Flex, Button, Link } from '@chakra-ui/react'
+import { Text, Flex, Button, Link } from '@chakra-ui/react'
 import parse from 'html-react-parser'
 import { MdRefresh } from 'react-icons/md'
 
-const isDevelopment = true;
+const isDevelopment = process.env.NODE_ENV === 'development';
 
 // https://i.postimg.cc/k5h8jLDW/Circle-Image.png
 // https://i.postimg.cc/vmDx6XXT/Square-Image.png
