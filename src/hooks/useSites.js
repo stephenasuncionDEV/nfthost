@@ -347,7 +347,7 @@ export const useSites = () => {
                     price: 15,
                     product: '1 NFT mint website (premium)',
                     redirect: {
-                        origin: '/service/website',
+                        origin: '/dashboard/website',
                         title: 'Website'
                     },
                     due: new Date()
@@ -370,6 +370,7 @@ export const useSites = () => {
             await axios.patch(`${config.serverUrl}/api/website/updateSubscription`, {
                 websiteId: currentEditWebsite._id,
                 isPremium: true,
+                premiumStartDate: new Date()
             }, {
                 headers: { 
                     Authorization: `Bearer ${token.accessToken}` 

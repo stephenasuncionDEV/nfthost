@@ -191,7 +191,7 @@ export const useGenerate = () => {
                     price: 25,
                     product: '1 NFT collection generation',
                     redirect: {
-                        origin: '/service/generator',
+                        origin: '/dashboard/generator',
                         title: 'Generator'
                     },
                     due: new Date()

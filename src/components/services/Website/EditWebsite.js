@@ -6,6 +6,7 @@ import { HStack, Text, Button, Flex, VStack,
     ModalCloseButton, Box, Image, Code
 } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
+import { useUser } from '@/providers/UserProvider'
 import { CopyBlock } from 'react-code-blocks'
 import { useSites } from '@/hooks/useSites';
 import { useEditWebsite } from '@/hooks/useEditWebsite'
@@ -16,6 +17,7 @@ import config from '@/config/index'
 
 const EditWebsite = () => {
     const { currentEditWebsite, editWebsiteFormRef, isUpdating } = useWebsite();
+    const { user } = useUser();
     const { CancelEdit, UpdateWebsite, DeleteWebsite, CopyWebsiteLink, UpgradeToPremium } = useSites();
     useEditWebsite();
     const { components: { title, unrevealedImage } } = currentEditWebsite;
@@ -87,9 +89,14 @@ const EditWebsite = () => {
                                 </VStack>
                                 {!currentEditWebsite?.isPremium && (
                                     <Box>
-                                        <Button size='sm' variant='primary' w='full' leftIcon={<FaStar />} mt='1em' onClick={UpgradeToPremium}>
+                                        <Button size='sm' variant='primary' w='full' leftIcon={<FaStar />} mt='1em' onClick={UpgradeToPremium} isLoading={isUpdating} loadingText='Updating'>
                                             Upgrade to Premium
                                         </Button>
+                                        {user?.services?.website?.freeWebsite > 0 && (
+                                            <Text fontSize='9pt'>
+                                                Click to upgrade your mint website to premium
+                                            </Text>
+                                        )}
                                     </Box>
                                 )}
                             </VStack>
