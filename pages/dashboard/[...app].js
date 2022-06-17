@@ -1,6 +1,8 @@
 import Head from 'next/head'
+import NextLink from 'next/link'
 import { useRouter } from 'next/router'
-import { useColorModeValue, Flex, Text } from '@chakra-ui/react'
+import { useColorModeValue, Flex, Text, VStack, Box } from '@chakra-ui/react'
+import { useUser } from '@/providers/UserProvider'
 import { useReAuthenticate } from '@/hooks/useReAuthenticate'
 import Layout from '@/components/Layout'
 import GetStarted from '@/components/GetStarted'
@@ -8,9 +10,13 @@ import Generator from '@/components/services/Generator'
 import Website from '@/components/services/Website'
 import Template from '@/components/services/Website/Template'
 import Addons from '@/components/services/Website/Addons'
+import ConnectWalletTag from '@/components/ConnectWalletTag'
+import { MdOutlineAccountCircle } from 'react-icons/md'
+import { AiOutlineArrowLeft } from 'react-icons/ai'
 
 const Page = () => {
     const router = useRouter();
+    const { isLoggedIn } = useUser();
     const app = router.query.app || [];
     const currentApp = app[app.length === 2 ? 1 : 0]?.toLowerCase();
 
@@ -41,22 +47,43 @@ const Page = () => {
                 <meta property="twitter:image" content='https://www.nfthost.app/assets/logo.png' />
             </Head>
             <Layout currentApp={currentApp}>
-                <Flex justifyContent='space-between' h='3.25em'>
-                    <Text fontWeight='bold'>
-                        {currentApp?.toUpperCase()}
-                    </Text>
-                    <Text>
-                        DASHBOARD &gt; {app.join(' > ').toUpperCase()}
-                    </Text>
-                </Flex>
-                {app.length > 0 && (
+                {isLoggedIn ? (
                     <>
-                        {currentApp === 'getstarted' && <GetStarted />}
-                        {currentApp === 'generator' && <Generator />}
-                        {currentApp === 'website' && <Website />}
-                        {currentApp === 'templates' && <Template />}
-                        {currentApp === 'addons' && <Addons />}
+                    <Flex justifyContent='space-between' h='3.25em'>
+                        <Text fontWeight='bold'>
+                            {currentApp?.toUpperCase()}
+                        </Text>
+                        <Text>
+                            DASHBOARD &gt; {app.join(' > ').toUpperCase()}
+                        </Text>
+                    </Flex>
+                    {app.length > 0 && (
+                        <>
+                            {currentApp === 'getstarted' && <GetStarted />}
+                            {currentApp === 'generator' && <Generator />}
+                            {currentApp === 'website' && <Website />}
+                            {currentApp === 'templates' && <Template />}
+                            {currentApp === 'addons' && <Addons />}
+                        </>
+                    )}
                     </>
+                ) : (
+                    <VStack flex='1'>
+                        <Flex flexDir='column' justifyContent='center' alignItems='center' flex='1'>
+                            <MdOutlineAccountCircle fontSize='28pt' />
+                            <Flex flexDir='column' alignItems='center' mt='.5em'>
+                                <Text fontWeight='bold' fontSize='10pt'>
+                                    Connect
+                                </Text>
+                                <Text fontSize='10pt'>
+                                    Connect your wallet, to unlock dashboard.
+                                </Text>
+                            </Flex>
+                            <Box bg='rgb(52,140,212)' p='.25em' borderRadius='10px' mt='1em'>
+                                <ConnectWalletTag />
+                            </Box>
+                        </Flex>
+                    </VStack>
                 )}
             </Layout>
         </main>

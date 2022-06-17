@@ -1,4 +1,4 @@
-import { HStack, Text, Flex, Button, VStack, 
+import { HStack, Text, Button, VStack, 
     useColorModeValue, Image, Wrap, Tag, TagLeftIcon
 } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'

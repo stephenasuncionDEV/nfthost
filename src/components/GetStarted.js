@@ -1,14 +1,9 @@
 import NextLink from 'next/link'
-import { Box, Flex, Wrap, Button, Text, Image, useColorModeValue, VStack, HStack, Link, Tag } from '@chakra-ui/react'
-import { useUser } from '@/providers/UserProvider'
-import { useWeb3 } from '@/hooks/useWeb3'
-import { useNavbar } from '@/hooks/useNavbar'
-import { GiHand } from 'react-icons/gi'
-import { MdOutlineDashboard, MdOutlineMiscellaneousServices, 
-    MdOutlineDarkMode, MdOutlineLightMode 
-} from 'react-icons/md'
-import { CgWebsite } from 'react-icons/cg'
+import { Flex, Wrap, Button, Text, Image, useColorModeValue, VStack, HStack, Link, Tag } from '@chakra-ui/react'
 import { useGetStarted } from '@/hooks/useGetStarted'
+import { GiHand } from 'react-icons/gi'
+import { MdOutlineMiscellaneousServices } from 'react-icons/md'
+import { CgWebsite } from 'react-icons/cg'
 import config from '@/config/index'
 
 const GetStarted = () => {
@@ -94,11 +89,11 @@ const GetStarted = () => {
                                     fallbackSrc='http://localhost:3000/assets/logo.png'
                                     alt='Website Logo' 
                                     objectFit='cover' 
-                                    opacity='1' 
+                                    opacity='0.8' 
                                     boxSize='250px'
                                     transform='rotate(10deg)'
                                 />
-                                <Tag position='absolute' bg='rgb(52,140,212)' color='white'>
+                                <Tag position='absolute' bg='white' color='black'>
                                     {website.components.title}
                                 </Tag>
                             </Button>
