@@ -1,8 +1,9 @@
 import NextLink from 'next/link'
-import { Text, Flex, Button, VStack, useColorModeValue, Input } from '@chakra-ui/react'
+import { Text, Flex, Button, VStack, useColorModeValue, Input, Link } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useDomain } from '@/hooks/useDomain'
 import { AiOutlineWarning, AiOutlineArrowLeft } from 'react-icons/ai'
+import config from '@/config/index'
 
 const Domain = () => {
     const { currentEditWebsite, newAlias, setNewAlias, isChangingAlias } = useWebsite();
@@ -30,9 +31,17 @@ const Domain = () => {
                 </Text>
             </VStack>
             <VStack w='full' alignItems='flex-start'>
-                <Text fontSize='10pt'>
-                    Current Alias: <span style={{ color: 'rgb(52,140,212)' }}>{currentEditWebsite?.custom?.alias}</span>
-                </Text>
+                <Flex flexDir='column'>
+                    <Text fontSize='10pt'>
+                        Current Alias: <span style={{ color: 'rgb(52,140,212)' }}>{currentEditWebsite?.custom?.alias}</span>
+                    </Text>
+                    <Text fontSize='10pt'>
+                        Current Website Link:&nbsp;
+                        <Link href={`${config?.frontendUrl}/${currentEditWebsite?.custom?.alias?.length > 0 ? currentEditWebsite?.custom?.alias : currentEditWebsite?._id}`} isExternal>
+                            <span style={{ color: 'rgb(52,140,212)' }}>{`${config?.frontendUrl}/${currentEditWebsite?.custom?.alias?.length > 0 ? currentEditWebsite?.custom?.alias : currentEditWebsite?._id}`}</span> 
+                        </Link>
+                    </Text>
+                </Flex>
                 <Input placeholder='Alias' value={newAlias} onChange={(e) => setNewAlias(e.target.value)} disabled={!currentEditWebsite?.isPremium} />
                 <Flex justifyContent='flex-end' w='full'>
                     <Button variant='primary' onClick={UpdateAlias} isLoading={isChangingAlias} loadingText='Updating' disabled={!currentEditWebsite?.isPremium}>

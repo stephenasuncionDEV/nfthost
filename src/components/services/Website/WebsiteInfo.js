@@ -25,14 +25,14 @@ const WebsiteInfo = () => {
                 <HStack>
                     <Input 
                         readOnly 
-                        value={`${config?.frontendUrl}/${currentEditWebsite?._id}`} 
+                        value={`${config?.frontendUrl}/${currentEditWebsite?.custom?.alias?.length > 0 ? currentEditWebsite?.custom?.alias : currentEditWebsite?._id}`} 
                         textAlign='center'
                         cursor='pointer' 
                         _hover={{ opacity: '.5' }} 
                         onClick={CopyWebsiteLink}
                         size='sm'
                     />
-                    <Link href={`${config?.frontendUrl}/${currentEditWebsite?._id}`} isExternal>
+                    <Link href={`${config?.frontendUrl}/${currentEditWebsite?.custom?.alias?.length > 0 ? currentEditWebsite?.custom?.alias : currentEditWebsite?._id}`} isExternal>
                         <IconButton size='sm'>
                             <FaExternalLinkAlt />
                         </IconButton>

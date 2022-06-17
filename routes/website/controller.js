@@ -1,6 +1,7 @@
 const { validationResult } = require('express-validator');
 const { Website } = require('../../models/Websites');
 const { ParseWebsiteData, EncodeWebsiteData } = require('../../middlewares/tools');
+const ObjectId = require('mongoose').Types.ObjectId;
 
 exports.createWebsite = async (req, res, next) => {
     try {
@@ -24,12 +25,16 @@ exports.getWebsite = async (req, res, next) => {
         
         const { websiteId } = req.query;
 
+        let count = 0;
+
         // Check if websiteId is an actual object id
-        let count = await Website.count({ _id: websiteId });
-        if (count > 0) {
-            const result = await Website.findOne({ _id: websiteId });
-            res.status(200).json(result);
-            return;
+        if (ObjectId.isValid(websiteId)) {
+            count = await Website.count({ _id: websiteId });
+            if (count > 0) {
+                const result = await Website.findOne({ _id: websiteId });
+                res.status(200).json(result);
+                return;
+            }
         }
 
         // Check if websiteId is a custom domain

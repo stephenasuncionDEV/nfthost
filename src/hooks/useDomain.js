@@ -17,6 +17,9 @@ export const useDomain = () => {
             if (!currentEditWebsite.isPremium) throw new Error('Your mint website must be premium');
             if (!newAlias.length) throw new Error('Alias cannot be empty');
             if (newAlias === currentEditWebsite.custom.alias) throw new Error('No change detected');
+            if (!newAlias.match(/^[0-9a-z]+$/)) throw new Error('Special characters is not allowed')
+
+            const tempAlias = newAlias.trim().replace(/ /g, '_');
 
             setIsChangingAlias(true);
 
@@ -28,7 +31,7 @@ export const useDomain = () => {
             await axios.patch(`${config.serverUrl}/api/website/updateCustom`, {
                 websiteId: currentEditWebsite._id,
                 key: 'alias',
-                value: newAlias
+                value: tempAlias
             }, {
                 headers: { 
                     Authorization: `Bearer ${token.accessToken}` 
@@ -36,7 +39,7 @@ export const useDomain = () => {
             })
 
             let newEditWebsite = { ...currentEditWebsite };
-            newEditWebsite.custom.alias = newAlias;
+            newEditWebsite.custom.alias = tempAlias;
 
             setCurrentEditWebsite(newEditWebsite);
             setNewAlias('');
