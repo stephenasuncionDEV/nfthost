@@ -17,9 +17,9 @@ export const useDomain = () => {
             if (!currentEditWebsite.isPremium) throw new Error('Your mint website must be premium');
             if (!newAlias.length) throw new Error('Alias cannot be empty');
             if (newAlias === currentEditWebsite.custom.alias) throw new Error('No change detected');
-            if (!newAlias.match(/^[0-9a-z]+$/)) throw new Error('Special characters is not allowed')
+            if (!newAlias.match(/^[0-9a-zA-Z]+$/)) throw new Error('Special characters is not allowed')
 
-            const tempAlias = newAlias.trim().replace(/ /g, '_');
+            const tempAlias = newAlias.toLowerCase().trim().replace(/ /g, '_');
 
             setIsChangingAlias(true);
 

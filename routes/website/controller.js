@@ -37,10 +37,12 @@ exports.getWebsite = async (req, res, next) => {
             }
         }
 
+        const tempId = websiteId.toLowerCase();
+
         // Check if websiteId is a custom domain
         count = await Website.count({ [`custom.domain`]: websiteId });
         if (count > 0) {
-            const result = await Website.findOne({ [`custom.domain`]: websiteId });
+            const result = await Website.findOne({ [`custom.domain`]: tempId });
             res.status(200).json(result);
             return;
         }
@@ -48,7 +50,7 @@ exports.getWebsite = async (req, res, next) => {
         // Check if websiteId is a custom alias
         count = await Website.count({ [`custom.alias`]: websiteId });
         if (count > 0) {
-            const result = await Website.findOne({ [`custom.alias`]: websiteId });
+            const result = await Website.findOne({ [`custom.alias`]: tempId });
             res.status(200).json(result);
             return;
         }
@@ -236,13 +238,15 @@ exports.updateCustom = async (req, res, next) => {
 
         const { websiteId, key, value } = req.body;
 
-        const resultCount = await Website.count({ [`custom.${key}`]: value });
+        const tempValue = value.toLowerCase();
+
+        const resultCount = await Website.count({ [`custom.${key}`]: tempValue });
 
         if (resultCount > 0) throw new Error('Alias already in used');
 
         await Website.updateOne({ _id: websiteId }, {
             $set: { 
-                [`custom.${key}`]: value
+                [`custom.${key}`]: tempValue
             }
         });
 
