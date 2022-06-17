@@ -1,9 +1,10 @@
-import { HStack, Text, Flex, Button, VStack, 
-    useColorModeValue, Image, Wrap, Tag, TagLeftIcon, Box
+import { Text, Flex, Button, VStack, useColorModeValue, 
+    Wrap, Tag, TagLeftIcon
 } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useTemplate } from '@/hooks/useTemplate'
 import { GiCutDiamond } from 'react-icons/gi'
+import { AiOutlineWarning, AiOutlineArrowLeft } from 'react-icons/ai'
 import { AddonsArr } from '@/utils/tools'
 
 const Addons = () => {
@@ -13,7 +14,7 @@ const Addons = () => {
     const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
     const itemColor = useColorModeValue('whiteAlpha.400', 'blackAlpha.400');
 
-    return (
+    return currentEditWebsite ? (
         <VStack 
             id='templateList'
             spacing='1.5em'
@@ -21,9 +22,7 @@ const Addons = () => {
             bg={containerColor}
             borderRadius='.25em'
             boxShadow='0 0 2px 0 rgb(0 0 0 / 10%)'
-            h='100%'
             alignItems='flex-start'
-            flex='1'
         >
             <VStack spacing='0' alignItems='flex-start'>
                 <Text fontWeight='bold' fontSize='10pt'>
@@ -46,6 +45,8 @@ const Addons = () => {
                         spacing='1em'
                         key={idx}
                         position='relative'
+                        borderWidth='2px'
+                        borderStyle='dashed'
                     >
                         <Text>
                             {addon.key}
@@ -70,6 +71,21 @@ const Addons = () => {
                 ))}
             </Wrap>
         </VStack>
+    ) : (
+        <Flex flexDir='column' justifyContent='center' alignItems='center' flex='1'>
+            <AiOutlineWarning fontSize='28pt' />
+            <Flex flexDir='column' alignItems='center' mt='.5em'>
+                <Text fontWeight='bold' fontSize='10pt'>
+                    Error
+                </Text>
+                <Text fontSize='10pt'>
+                    Please select or create a website first.
+                </Text>
+            </Flex>
+            <Button leftIcon={<AiOutlineArrowLeft />} color='white' bg='rgb(52,140,212)' _hover={{ bg: 'rgb(39,107,163)' }} size='sm' mt='1.5em'>
+                See Website List
+            </Button>
+        </Flex>
     )
 }
 

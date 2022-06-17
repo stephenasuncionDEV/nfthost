@@ -34,8 +34,8 @@ export const WebsiteProvider = ({ children }) => {
         setUserWebsite,
         websites,
         setWebsites,
-        currentDashboard,
-        setCurrentDashboard,
+        currentDashboard,//
+        setCurrentDashboard,//
         newSubcription,
         setNewSubscription,
         newComponentTitle,

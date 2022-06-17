@@ -1,6 +1,6 @@
 import NextLink from 'next/link'
 import { Box, Text, useColorModeValue, VStack, HStack, 
-    Avatar, IconButton, Button, useColorMode
+    Avatar, IconButton, Button, useColorMode, Flex
 } from '@chakra-ui/react'
 import ConnectWalletTag from './ConnectWalletTag'
 import { GiHamburgerMenu } from 'react-icons/gi'
@@ -133,7 +133,7 @@ const Layout = ({ children }) => {
                             </Text>
                             <VStack spacing='.25em'>
                                 {item.items.map((nav, idx) => (
-                                    <Box key={idx}>
+                                    <Box key={idx} w='full'>
                                         <NextLink href={`/dashboard${nav.link}`} shallow passHref>
                                             <Button 
                                                 borderRadius='0' 
@@ -169,9 +169,9 @@ const Layout = ({ children }) => {
                     ))}
                 </VStack>
             )}
-            <Box mt='70px' ml={isSidebar ? '245px' : '0'} p='2rem'>
+            <Flex flexDir='column' py='102px' ml={isSidebar ? '245px' : '0'} px='2rem' minH='100vh'>
                 {children}
-            </Box>
+            </Flex>
         </>
     )
 }

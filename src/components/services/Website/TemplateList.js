@@ -23,7 +23,7 @@ const TemplateList = () => {
             boxShadow='0 0 2px 0 rgb(0 0 0 / 10%)'
             h='100%'
             alignItems='flex-start'
-            flex='1'
+            w='full'
         >
             <VStack spacing='0' alignItems='flex-start'>
                 <Text fontWeight='bold' fontSize='10pt'>
@@ -43,6 +43,8 @@ const TemplateList = () => {
                         key={idx}
                         alignItems='flex-start'
                         spacing='1em'
+                        borderWidth='2px'
+                        borderStyle='dashed'
                     >
                         <Flex
                             h='180px'
@@ -81,7 +83,7 @@ const TemplateList = () => {
                             bg='orange.500' 
                             _hover={{ bg: 'orange.400' }} 
                             onClick={() => ChooseTemplate(template)} 
-                            disabled={!currentEditWebsite.isPremium && template.sub === 'premium'}
+                            disabled={!currentEditWebsite?.isPremium && template.sub === 'premium'}
                         >
                             Use
                         </Button>

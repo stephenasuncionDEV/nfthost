@@ -38,6 +38,7 @@ const CurrentTemplate = () => {
             boxShadow='0 0 2px 0 rgb(0 0 0 / 10%)'
             h='100%'
             alignItems='flex-start'
+            w='full'
         >
             <Flex flexDir='column' alignItems='flex-start' w='full'>
                 <HStack spacing='2em'>
@@ -140,7 +141,7 @@ const CurrentTemplate = () => {
                                         <Text fontSize='10pt' >
                                             Style
                                         </Text>
-                                        {!currentEditWebsite.isPremium && (
+                                        {!currentEditWebsite?.isPremium && (
                                             <Tag>
                                                 <TagLeftIcon as={GiCutDiamond} color='#08BDD4' />
                                                 <Text>
@@ -166,7 +167,7 @@ const CurrentTemplate = () => {
                                         <Text fontSize='10pt' >
                                             Settings
                                         </Text>
-                                        {!currentEditWebsite.isPremium && (
+                                        {!currentEditWebsite?.isPremium && (
                                             <Tag>
                                                 <TagLeftIcon as={GiCutDiamond} color='#08BDD4' />
                                                 <Text>
