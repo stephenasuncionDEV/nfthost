@@ -1,4 +1,4 @@
-import { Box, Text, useColorModeValue, Wrap, Flex } from '@chakra-ui/react'
+import { Box, Wrap } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
 import Confetti from 'react-confetti'
 import MetadataModal from './MetadataModal'
@@ -16,9 +16,7 @@ const Generator = () => {
     const { isConfetti } = useGenerator();
 
     return (
-        <Box
-            p='1em'
-        >
+        <Box p='1em'>
             <Confetti
                 numberOfPieces={200}
                 width={width - 25}
@@ -40,16 +38,6 @@ const Generator = () => {
                 <Traits />
                 <Preview />
             </Wrap>
-            <Box position='absolute' bottom='0' right='0' p='1em' opacity='.2'>
-                <Flex flexDir='column' alignItems='flex-end'>
-                    <Text fontSize='10pt'>
-                        Powered by NFT Host
-                    </Text>
-                    <Text fontSize='10pt'>
-                        Version 2.0 BETA
-                    </Text>
-                </Flex>
-            </Box>
         </Box>
     )
 }

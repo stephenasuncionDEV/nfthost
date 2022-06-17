@@ -13,7 +13,7 @@ const Addons = () => {
     const { ChooseAddon } = useTemplate();
 
     const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
-    const itemColor = useColorModeValue('whiteAlpha.400', 'blackAlpha.400');
+    const itemColor = useColorModeValue('blackAlpha.100', 'blackAlpha.400');
 
     return currentEditWebsite ? (
         <VStack 
