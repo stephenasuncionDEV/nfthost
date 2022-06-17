@@ -37,7 +37,8 @@ const sidebarItemArr = [
                 icon: <CgWebsite />, 
                 children: [
                     { name: 'Templates', link: '/website/templates' },
-                    { name: 'Addons', link: '/website/addons' }
+                    { name: 'Addons', link: '/website/addons' },
+                    { name: 'Domain', link: '/website/domain' }
                 ] 
             }
         ]

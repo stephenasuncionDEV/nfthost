@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import NextLink from 'next/link'
 import { useRouter } from 'next/router'
 import { useColorModeValue, Flex, Text, VStack, Box } from '@chakra-ui/react'
 import { useUser } from '@/providers/UserProvider'
@@ -10,9 +9,9 @@ import Generator from '@/components/services/Generator'
 import Website from '@/components/services/Website'
 import Template from '@/components/services/Website/Template'
 import Addons from '@/components/services/Website/Addons'
+import Domain from '@/components/services/Website/Domain'
 import ConnectWalletTag from '@/components/ConnectWalletTag'
 import { MdOutlineAccountCircle } from 'react-icons/md'
-import { AiOutlineArrowLeft } from 'react-icons/ai'
 
 const Page = () => {
     const router = useRouter();
@@ -49,24 +48,25 @@ const Page = () => {
             <Layout currentApp={currentApp}>
                 {isLoggedIn ? (
                     <>
-                    <Flex justifyContent='space-between' h='3.25em'>
-                        <Text fontWeight='bold'>
-                            {currentApp?.toUpperCase()}
-                        </Text>
-                        <Text>
-                            DASHBOARD &gt; {app.join(' > ').toUpperCase()}
-                        </Text>
-                    </Flex>
-                    {app.length > 0 && (
-                        <>
-                            {currentApp === 'getstarted' && <GetStarted />}
-                            {currentApp === 'generator' && <Generator />}
-                            {currentApp === 'website' && <Website />}
-                            {currentApp === 'templates' && <Template />}
-                            {currentApp === 'addons' && <Addons />}
+                        <Flex justifyContent='space-between' h='3.25em'>
+                            <Text fontWeight='bold'>
+                                {currentApp?.toUpperCase()}
+                            </Text>
+                            <Text>
+                                DASHBOARD &gt; {app.join(' > ').toUpperCase()}
+                            </Text>
+                        </Flex>
+                        {app.length > 0 && (
+                            <>
+                                {currentApp === 'getstarted' && <GetStarted />}
+                                {currentApp === 'generator' && <Generator />}
+                                {currentApp === 'website' && <Website />}
+                                {currentApp === 'templates' && <Template />}
+                                {currentApp === 'addons' && <Addons />}
+                                {currentApp === 'domain' && <Domain />}
+                            </>
+                        )}
                         </>
-                    )}
-                    </>
                 ) : (
                     <VStack flex='1'>
                         <Flex flexDir='column' justifyContent='center' alignItems='center' flex='1'>
