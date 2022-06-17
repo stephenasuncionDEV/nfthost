@@ -96,16 +96,16 @@ const CurrentTemplate = () => {
                             </Flex>
                             <VStack spacing='1em' alignItems='flex-start'>
                                 <Box>
-                                    <Text fontSize='12pt' noOfLines='1'>
+                                    <Text noOfLines='1'>
                                         {currentTemplate?.key}
                                     </Text>
-                                    <Text fontSize='8pt' noOfLines='1'>
+                                    <Text fontSize='9pt' noOfLines='1'>
                                         by {currentTemplate?.creator}
                                     </Text>
                                 </Box>
                                 {currentEditWebsite?.components?.addons?.length > 0 && (
                                     <Box>
-                                        <Text fontSize='10pt'>
+                                        <Text fontSize='10pt' mb='.25em'>
                                             Addons:
                                         </Text>
                                         <Wrap w='full'>
@@ -114,7 +114,8 @@ const CurrentTemplate = () => {
                                                     <MenuButton 
                                                         as={Button} 
                                                         variant='outline' 
-                                                        colorScheme='blue' 
+                                                        borderColor='rgb(52,140,212)' 
+                                                        color='rgb(52,140,212)'
                                                         rightIcon={<MdSettings />} 
                                                         size='sm' 
                                                         h='1.75rem' 
