@@ -12,6 +12,7 @@ const Website = () => {
     const { websites, setIsCreateWebsiteModal, setCreateWebsiteStep, isEditWebsite } = useWebsite();
     const { isLoggedIn } = useUser();
     const { GetWebsites, clearFields } = useSites();
+    const freeWebsiteCount = websites?.filter((website) => !website.isPremium)?.length;
 
     useEffect(() => {
         if (!isLoggedIn) return;
@@ -25,7 +26,7 @@ const Website = () => {
                 clearFields();
                 setCreateWebsiteStep('information');
                 setIsCreateWebsiteModal(true);
-            }} disabled={websites?.length >= 3}>
+            }} disabled={freeWebsiteCount >= 3}>
                 Create Website
             </Button>
             <WebsiteList />
