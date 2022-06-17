@@ -2,13 +2,14 @@ import { useEffect } from 'react'
 import { VStack, Button } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useUser } from '@/providers/UserProvider'
+import { useSites } from '@/hooks/useSites'
 import WebsiteList from './WebsiteList'
 import CreateWebsiteModal from './CreateWebsiteModal'
+import EditWebsite from './EditWebsite'
 import { MdAdd } from 'react-icons/md'
-import { useSites } from '@/hooks/useSites'
 
 const Website = () => {
-    const { setIsCreateWebsiteModal, setCreateWebsiteStep } = useWebsite();
+    const { setIsCreateWebsiteModal, setCreateWebsiteStep, isEditWebsite } = useWebsite();
     const { isLoggedIn } = useUser();
     const { GetWebsites, clearFields } = useSites();
 
@@ -28,7 +29,7 @@ const Website = () => {
                 Create Website
             </Button>
             <WebsiteList />
-            {/* <CreateWebsite /> */}
+            {isEditWebsite && <EditWebsite />}
         </VStack>
     )
 }

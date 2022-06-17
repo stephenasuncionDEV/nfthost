@@ -301,3 +301,19 @@ exports.DeleteAddonValidator = [
     .notEmpty(),
 
 ]
+
+exports.UpdateSubscriptionValidator = [
+
+    // websiteId Validator
+    check('websiteId', 'websiteId is empty')
+    .notEmpty(),
+
+    // isPremium Validator
+    check('isPremium', 'isPremium is empty')
+    .notEmpty(),
+
+    // premiumStartDate Validator
+    check('premiumStartDate', 'premiumStartDate is empty')
+    .notEmpty(),
+
+]

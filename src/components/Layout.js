@@ -44,7 +44,7 @@ const sidebarItemArr = [
     },
 ]
 
-const Layout = ({ children }) => {
+const Layout = ({ children, currentApp }) => {
     const { isSidebar, setIsSidebar } = useCore();
     const { colorMode, toggleColorMode } = useColorMode();
 
@@ -142,6 +142,7 @@ const Layout = ({ children }) => {
                                                 justifyContent='flex-start' 
                                                 bg='transparent'
                                                 _hover={{ bg: 'transparent', color: 'rgb(52,140,212)' }}
+                                                color={currentApp === nav.name.toLowerCase() ? 'rgb(52,140,212)' : null}
                                             >
                                                 {nav.name}
                                             </Button>
@@ -156,6 +157,7 @@ const Layout = ({ children }) => {
                                                         bg='transparent'
                                                         _hover={{ bg: 'transparent', color: 'rgb(52,140,212)' }}
                                                         fontSize='10pt'
+                                                        color={currentApp === children.name.toLowerCase() ? 'rgb(52,140,212)' : null}
                                                     >
                                                         {children.name}
                                                     </Button>

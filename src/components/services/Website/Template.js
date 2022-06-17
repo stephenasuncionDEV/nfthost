@@ -21,7 +21,7 @@ const Template = () => {
                     Error
                 </Text>
                 <Text fontSize='10pt'>
-                    Please select or create a website first.
+                    Please create or select a website first.
                 </Text>
             </Flex>
             <NextLink href={`/dashboard/website`} shallow passHref>

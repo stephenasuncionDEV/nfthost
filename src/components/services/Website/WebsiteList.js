@@ -48,7 +48,7 @@ const Sites = () => {
                         borderRadius='10px'
                         key={idx}
                         overflow='hidden'
-                        onClick={() => EditWebsite(idx)}
+                        onClick={() => EditWebsite(website)}
                     >
                         <Image 
                             position='absolute'

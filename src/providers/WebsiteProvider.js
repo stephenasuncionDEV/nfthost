@@ -1,4 +1,4 @@
-import { useState, useContext, createContext } from 'react'
+import { useState, useContext, createContext, useRef } from 'react'
 
 export const WebsiteContext = createContext({})
 export const useWebsite = () => useContext(WebsiteContext)
@@ -6,7 +6,6 @@ export const useWebsite = () => useContext(WebsiteContext)
 export const WebsiteProvider = ({ children }) => {
     const [userWebsite, setUserWebsite] = useState();
     const [websites, setWebsites] = useState();
-    const [currentDashboard, setCurrentDashboard] = useState('sites');
     const [newSubcription, setNewSubscription] = useState('free');
     const [newComponentTitle, setNewComponentTitle] = useState('');
     const [newComponentImage, setNewComponentImage] = useState('https://www.nfthost.app/assets/logo.png');
@@ -17,6 +16,7 @@ export const WebsiteProvider = ({ children }) => {
     const [newMetaFavicon, setNewMetaFavicon] = useState('https://www.nfthost.app/favicon.ico');
     const [newMetaLanguage, setNewMetaLanguage] = useState('EN');
     const [newErrors, setNewErrors] = useState();
+    const [editErrors, setEditErrors] = useState();
     const [isCreating, setIsCreating] = useState(false);
     const [isRefreshing, setIsRefreshing] = useState(false);
     const [isUpdating, setIsUpdating] = useState(false);
@@ -29,14 +29,13 @@ export const WebsiteProvider = ({ children }) => {
     const [newBackgroundColor, setNewBackgroundColor] = useState('');
     const [newRevealDate, setNewRevealDate] = useState('');
     const [createWebsiteStep, setCreateWebsiteStep] = useState('information');
+    const editWebsiteFormRef = useRef();
 
     const controllers = {
         userWebsite,
         setUserWebsite,
         websites,
         setWebsites,
-        currentDashboard,//
-        setCurrentDashboard,//
         newSubcription,
         setNewSubscription,
         newComponentTitle,
@@ -81,6 +80,9 @@ export const WebsiteProvider = ({ children }) => {
         setIsCreateWebsiteModal,
         createWebsiteStep,
         setCreateWebsiteStep,
+        editWebsiteFormRef,
+        editErrors,
+        setEditErrors
     }
 
     return (

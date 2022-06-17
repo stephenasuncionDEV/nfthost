@@ -39,7 +39,7 @@ const Page = () => {
                 <meta property="twitter:description" content='NFT Host is a website where you can generate NFT collections and create NFT minting website.' />
                 <meta property="twitter:image" content='https://www.nfthost.app/assets/logo.png' />
             </Head>
-            <Layout>
+            <Layout currentApp={currentApp}>
                 <Flex justifyContent='space-between' h='3.25em'>
                     <Text fontWeight='bold'>
                         {app.length > 0 && (

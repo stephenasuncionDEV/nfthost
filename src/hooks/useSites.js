@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useToast } from '@chakra-ui/react'
 import { useUser } from '@/providers/UserProvider'
@@ -40,11 +39,13 @@ export const useSites = () => {
         newMetaLanguage,
         setNewMetaLanguage,
         setNewErrors,
+        setEditErrors,
         setIsEditWebsite,
         setIsUpdating,
         currentEditWebsite,
         setCurrentEditWebsite,
-        setIsDeletingWebsite
+        setIsDeletingWebsite,
+        editWebsiteFormRef
     } = useWebsite();
     const { DeductFree, getUserByAddress, AddCount, DeductCount, Logout } = useWeb3();
 
@@ -183,25 +184,34 @@ export const useSites = () => {
         }
     }
 
-    const EditWebsite = (websiteIdx) => {
-        setNewErrors(null);
-        setCurrentEditWebsite(websites[websiteIdx]);
-        setIsEditWebsite(true);
-        setNewSubscription(websites[websiteIdx].isPremium ? 'premium' : 'free');
-        setNewComponentTitle(websites[websiteIdx].components.title);
-        setNewComponentImage(websites[websiteIdx].components.unrevealedImage);
-        setNewComponentDescription(websites[websiteIdx].components.description);
-        setNewComponentEmbed(websites[websiteIdx].components.embed);
-        setNewComponentScript(websites[websiteIdx].components.script);
-        setNewMetaRobot(websites[websiteIdx].meta.robot);
-        setNewMetaFavicon(websites[websiteIdx].meta.favicon);
-        setNewMetaLanguage(websites[websiteIdx].meta.language);
+    const EditWebsite = (website) => {
+        try {
+            if (website) {
+                setCurrentEditWebsite(website);
+                setIsEditWebsite(true);
+            }
+    
+            if (editWebsiteFormRef.current?.elements?.length > 0) {
+                let elements = editWebsiteFormRef.current.elements;
+                const { title, language, description, favicon, unrevealed, script, embed, robot } = elements;
+                
+                title.value = website.components.title;
+                language.value = website.meta.language;
+                favicon.value = website.meta.favicon;
+                unrevealed.value = website.components.unrevealedImage;
+                description.value = website.components.description;
+                script.value = website.components.script;
+                embed.value = website.components.embed;
+                robot.value = website.meta.robot;
+            }
+        }
+        catch (err) {
+            console.error(err);
+        }
     }
 
     const clearFields = () => {
         setNewErrors(null);
-        setCurrentEditWebsite(null);
-        setIsEditWebsite(false);
         setNewSubscription('free');
         setNewComponentTitle('');
         setNewComponentImage('https://www.nfthost.app/assets/logo.png');
@@ -213,13 +223,17 @@ export const useSites = () => {
         setNewMetaLanguage('EN');
     }
 
+    const CancelEdit = () => {
+        setIsEditWebsite(false);
+        setCurrentEditWebsite(null);
+    }
+
     const areTwoFieldsArrSame = (currentEditWebsite, newFields) => {
-        const {components: {...components}, meta: {...meta}, isPremium} = currentEditWebsite;
+        const {components: {addons, ...components}, meta: {...meta}} = currentEditWebsite;
 
         const newOldFields = {
             ...components,
             ...meta,
-            isPremium: isPremium
         }
 
         return !Object.keys(newOldFields).some((key) => {
@@ -229,58 +243,35 @@ export const useSites = () => {
 
     const UpdateWebsite = async () => {
         try {
-            setNewErrors(null);
+            if (!editWebsiteFormRef || !currentEditWebsite) return;
+
+            setEditErrors(null);
+
+            const { title, language, description, favicon, unrevealed, script, embed, robot } = editWebsiteFormRef.current.elements;
 
             let errorsObj = {};
 
-            if (!newComponentTitle.length) errorsObj.title = { status: true, message: 'Title field must be filled in' };
-            if (!newComponentDescription.length) errorsObj.description = { status: true, message: 'Description field must be filled in' };
-            if (!newComponentEmbed.length) errorsObj.embed = { status: true, message: 'Embed field must be filled in' };
-            if (!newComponentImage.length) errorsObj.image = { status: true, message: 'Unrevealed Image Link field must be filled in' };
+            if (!title.value.length) errorsObj.title = { status: true, message: 'Title field must be filled in' };
+            if (!description.value.length) errorsObj.description = { status: true, message: 'Description field must be filled in' };
+            if (!embed.value.length) errorsObj.embed = { status: true, message: 'Embed field must be filled in' };
+            if (!unrevealed.value.length) errorsObj.image = { status: true, message: 'Unrevealed Image Link field must be filled in' };
+            if (!robot.value.length) errorsObj.robot = { status: true, message: 'Robot field must be filled in' };
             
             if (Object.keys(errorsObj).length > 0) {
-                setNewErrors(errorsObj);
+                setEditErrors(errorsObj);
                 return;
             }
 
             if (areTwoFieldsArrSame(currentEditWebsite, { 
-                title: newComponentTitle,
-                unrevealedImage: newComponentImage,
-                embed: newComponentEmbed,
-                script: newComponentScript,
-                description: newComponentDescription,
-                robot: newMetaRobot,
-                favicon: newMetaFavicon,
-                language: newMetaLanguage,
-                isPremium: newSubcription === 'premium'
+                title: title.value,
+                unrevealedImage: unrevealed.value,
+                embed: embed.value,
+                script: script.value,
+                description: description.value,
+                robot: robot.value,
+                favicon: favicon.value,
+                language: language.value,
             })) throw new Error('No changes detected');
-
-            if (!currentEditWebsite) throw new Error('Select a mint website');
-
-            const member = await getUserByAddress(address);
-
-            if (!member) throw new Error('Cannot fetch member');
-
-            const isUpdatedToPremium = !currentEditWebsite.isPremium && newSubcription === 'premium';
-
-            if (isUpdatedToPremium && member.services.website.freeWebsite === 0) {
-                setPaymentData({
-                    service: 'Website',
-                    price: 15,
-                    product: '1 NFT mint website (premium)',
-                    redirect: {
-                        origin: '/service/website',
-                        title: 'Website'
-                    },
-                    due: new Date()
-                })
-                router.push('/payment', undefined, { shallow: true }); 
-                return;
-            }
-            else if (isUpdatedToPremium && member.services.website.freeWebsite > 0) {
-                const DEDUCT_INDEX = 1;
-                await DeductFree(DEDUCT_INDEX, 'website');
-            }
 
             const storageToken = localStorage.getItem('nfthost-user');
             if (!storageToken) return;
@@ -291,19 +282,17 @@ export const useSites = () => {
 
             const res = await axios.put(`${config.serverUrl}/api/website/update`, {
                 websiteId: currentEditWebsite._id,
-                isPremium: newSubcription === 'premium',
-                premiumStartDate: isUpdatedToPremium ? new Date() : currentEditWebsite.premiumStartDate,
                 components: {
-                    title: newComponentTitle,
-                    unrevealedImage: newComponentImage,
-                    description: newComponentDescription,
-                    embed: newComponentEmbed,
-                    script: newComponentScript
+                    title: title.value,
+                    description: description.value,
+                    embed: embed.value,
+                    script: script.value,
+                    unrevealedImage: unrevealed.value,
                 },
                 meta: {
-                    robot: newMetaRobot,
-                    favicon: newMetaFavicon,
-                    language: newMetaLanguage
+                    robot: robot.value,
+                    favicon: favicon.value,
+                    language: language.value,
                 }
             }, {
                 headers: { 
@@ -332,6 +321,83 @@ export const useSites = () => {
         catch (err) {
             setIsUpdating(false);
             console.error(err);
+            if (err.response?.data?.isExpired) await Logout();
+            toast({
+                title: 'Error',
+                description: !err.response ? err.message : err.response.data.message,
+                status: 'error',
+                duration: 3000,
+                isClosable: true,
+                position: 'bottom-center'
+            })
+        }
+    }
+
+    const UpgradeToPremium = async () => {
+        try {
+            if (!currentEditWebsite) return;
+
+            const member = await getUserByAddress(address);
+
+            if (!member) throw new Error('Cannot fetch member');
+          
+            if (member.services.website.freeWebsite === 0) {
+                setPaymentData({
+                    service: 'Website',
+                    price: 15,
+                    product: '1 NFT mint website (premium)',
+                    redirect: {
+                        origin: '/service/website',
+                        title: 'Website'
+                    },
+                    due: new Date()
+                })
+                router.push('/payment', undefined, { shallow: true }); 
+                return;
+            }
+            else if (member.services.website.freeWebsite > 0) {
+                const DEDUCT_INDEX = 1;
+                await DeductFree(DEDUCT_INDEX, 'website');
+            }
+
+            const storageToken = localStorage.getItem('nfthost-user');
+            if (!storageToken) return;
+
+            setIsUpdating(true);
+
+            const token = decryptToken(storageToken, true);
+
+            await axios.patch(`${config.serverUrl}/api/website/updateSubscription`, {
+                websiteId: currentEditWebsite._id,
+                isPremium: true,
+            }, {
+                headers: { 
+                    Authorization: `Bearer ${token.accessToken}` 
+                }
+            })
+
+            await GetWebsites();
+
+            let newEditWebsite = { ...currentEditWebsite }
+            newEditWebsite.isPremium = true;
+
+            setCurrentEditWebsite(newEditWebsite);
+            setIsUpdating(false);
+
+            posthog.capture('User upgraded a mint website to premium');
+
+            toast({
+                title: 'Success',
+                description: 'Successfuly upgraded your mint website to premium',
+                status: 'success',
+                duration: 3000,
+                isClosable: true,
+                position: 'bottom-center'
+            })
+        }
+        catch (err) {
+            console.error(err);
+            setIsUpdating(false);
             if (err.response?.data?.isExpired) await Logout();
             toast({
                 title: 'Error',
@@ -453,6 +519,8 @@ export const useSites = () => {
         clearFields,
         DeleteWebsite,
         UpdateExpiration,
-        CopyWebsiteLink
+        CopyWebsiteLink,
+        CancelEdit,
+        UpgradeToPremium
     }
 }

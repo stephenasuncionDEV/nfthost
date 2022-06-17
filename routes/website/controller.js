@@ -289,3 +289,24 @@ exports.deleteAddon  = async (req, res, next) => {
         next(err);
     }
 }
+
+exports.updateSubscription  = async (req, res, next) => {
+    try {
+        const errors = validationResult(req).errors;
+        if (errors.length > 0) throw new Error(errors[0].msg);
+
+        const { websiteId, isPremium, premiumStartDate } = req.body;
+
+        await Website.updateOne({ _id: websiteId }, {
+            $set: { 
+                isPremium,
+                premiumStartDate
+            }
+        });
+
+        res.sendStatus(200);
+
+    } catch (err) {
+        next(err);
+    }
+}

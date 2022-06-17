@@ -1,9 +1,8 @@
 import { HStack, Text, Button, Flex, VStack,
-    useColorModeValue, Input, FormControl, Radio, RadioGroup,
+    Input, FormControl, Radio, RadioGroup,
     Textarea, FormHelperText, FormErrorMessage, Divider,
-    Select, Wrap, IconButton, Link, Modal, ModalOverlay,
-    ModalContent, ModalHeader, ModalFooter, ModalBody,
-    ModalCloseButton
+    Select, Wrap, Modal, ModalOverlay, ModalContent, ModalHeader, 
+    ModalFooter, ModalBody, ModalCloseButton
 } from '@chakra-ui/react'
 import { GiCutDiamond } from 'react-icons/gi'
 import { useWebsite } from '@/providers/WebsiteProvider'
@@ -35,14 +34,14 @@ const CreateWebsiteModal = () => {
         setNewMetaLanguage,
         newErrors,
         isCreating,
-        isUpdating,
-        currentEditWebsite,
+        //isUpdating,
+        //currentEditWebsite,
         isCreateWebsiteModal,
         setIsCreateWebsiteModal,
         createWebsiteStep,
         setCreateWebsiteStep
     } = useWebsite();
-    const { CreateWebsite, UpdateWebsite, clearFields, DeleteWebsite, CopyWebsiteLink } = useSites();
+    const { CreateWebsite, clearFields } = useSites();
 
     return (
         <Modal isOpen={isCreateWebsiteModal} onClose={() => setIsCreateWebsiteModal(false)} isCentered size='3xl'>
@@ -200,7 +199,9 @@ const CreateWebsiteModal = () => {
                                         </Text>
                                         <RadioGroup onChange={setNewSubscription} value={newSubcription}>
                                             <VStack alignItems='flex-start'>
-                                                {!currentEditWebsite?.isPremium && <Radio value='free'><Text fontSize='10pt'>Free</Text></Radio>}
+                                                <Radio value='free'>
+                                                    <Text fontSize='10pt'>Free</Text>
+                                                </Radio>
                                                 <VStack p='.5em' borderStyle='dashed' borderWidth='3px' borderRadius='10px' alignItems='flex-start' pr='1em'>
                                                     <Radio value='premium'>
                                                         <HStack>
