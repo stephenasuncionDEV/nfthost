@@ -48,10 +48,6 @@ export const useSites = () => {
     } = useWebsite();
     const { DeductFree, getUserByAddress, AddCount, DeductCount, Logout } = useWeb3();
 
-    useEffect(() => {   
-        GetWebsites();
-    }, [])
-
     const GetWebsites = async () => {
         try {
             const storageToken = localStorage.getItem('nfthost-user');

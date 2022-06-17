@@ -154,11 +154,11 @@ const CurrentTemplate = () => {
                                     <HStack w='full'>
                                         <FormControl isInvalid={newErrors?.bgColor?.status} flex='1'>
                                             <Input placeholder='rgba(255,255,255,1) or #ffffff' value={newBackgroundColor} onChange={(e) => setNewBackgroundColor(e.target.value)} disabled={!currentEditWebsite?.isPremium} />
-                                            {!newErrors?.bgColor?.status ? <FormHelperText>Background color of your website</FormHelperText> : <FormErrorMessage>{newErrors?.bgColor?.message}</FormErrorMessage>}
+                                            {!newErrors?.bgColor?.status ? <FormHelperText fontSize='9pt'>Background color of your website</FormHelperText> : <FormErrorMessage fontSize='9pt'>{newErrors?.bgColor?.message}</FormErrorMessage>}
                                         </FormControl>
                                         <FormControl isInvalid={newErrors?.bgImage?.status} flex='1'>
                                             <Input placeholder='Background Image Link' value={newBackgroundImage} onChange={(e) => setNewBackgroundImage(e.target.value)} disabled={!currentEditWebsite?.isPremium} />
-                                            {!newErrors?.bgImage?.status ? <FormHelperText>Background image of your website</FormHelperText> : <FormErrorMessage>{newErrors?.bgImage?.message}</FormErrorMessage>}
+                                            {!newErrors?.bgImage?.status ? <FormHelperText fontSize='9pt'>Background image of your website</FormHelperText> : <FormErrorMessage fontSize='9pt'>{newErrors?.bgImage?.message}</FormErrorMessage>}
                                         </FormControl>
                                     </HStack>
                                 </VStack>
@@ -180,16 +180,15 @@ const CurrentTemplate = () => {
                                     <HStack w='full'>
                                         <FormControl isInvalid={newErrors?.revealDate?.status} flex='1'>
                                             <Input type='datetime-local' placeholder='Reveal Date' value={newRevealDate} onChange={(e) => setNewRevealDate(e.target.value)} disabled={!currentEditWebsite?.isPremium} />
-                                            {!newErrors?.revealDate?.status ? <FormHelperText>Embed Reveal Date</FormHelperText> : <FormErrorMessage>{newErrors?.revealDate?.message}</FormErrorMessage>}
+                                            {!newErrors?.revealDate?.status ? <FormHelperText fontSize='9pt'>Embed Reveal Date</FormHelperText> : <FormErrorMessage fontSize='9pt'>{newErrors?.revealDate?.message}</FormErrorMessage>}
                                         </FormControl>
                                     </HStack>
                                 </VStack>
                             </VStack>
                             <Flex w='full' justifyContent='flex-end'>
-                                <HStack>
+                                <HStack justifyContent='space-between' w='full'>
                                     <Button
-                                        bg='red.500' 
-                                        _hover={{ bg: 'red.400' }} 
+                                        variant='danger'
                                         rightIcon={<FaRedo />}
                                         onClick={ResetStyle}
                                         disabled={!currentEditWebsite?.isPremium}
@@ -197,8 +196,7 @@ const CurrentTemplate = () => {
                                         Reset
                                     </Button>
                                     <Button
-                                        bg='orange.500' 
-                                        _hover={{ bg: 'orange.400' }} 
+                                        variant='primary'
                                         rightIcon={<MdSave />}
                                         onClick={SaveStyle}
                                         disabled={!currentEditWebsite?.isPremium}

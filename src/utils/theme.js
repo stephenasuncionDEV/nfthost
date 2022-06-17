@@ -81,6 +81,13 @@ const components = {
                 },
                 color: 'white',
             }),
+            danger: (props) => ({
+                bg: 'red.500',
+                _hover: {
+                    bg: 'red.400'
+                },
+                color: 'white',
+            }),
         }
     },
     Toast: {

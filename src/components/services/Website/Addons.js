@@ -1,3 +1,4 @@
+import NextLink from 'next/link'
 import { Text, Flex, Button, VStack, useColorModeValue, 
     Wrap, Tag, TagLeftIcon
 } from '@chakra-ui/react'
@@ -54,8 +55,7 @@ const Addons = () => {
                         <Button 
                             w='full' 
                             size='sm' 
-                            bg='orange.500' 
-                            _hover={{ bg: 'orange.400' }} 
+                            variant='primary'
                             onClick={() => ChooseAddon(addon)} 
                             disabled={!currentEditWebsite?.isPremium && addon.sub === 'premium'}
                         >
@@ -82,9 +82,11 @@ const Addons = () => {
                     Please select or create a website first.
                 </Text>
             </Flex>
-            <Button leftIcon={<AiOutlineArrowLeft />} color='white' bg='rgb(52,140,212)' _hover={{ bg: 'rgb(39,107,163)' }} size='sm' mt='1.5em'>
-                See Website List
-            </Button>
+            <NextLink href={`/dashboard/website`} shallow passHref>
+                <Button leftIcon={<AiOutlineArrowLeft />} color='white' bg='rgb(52,140,212)' _hover={{ bg: 'rgb(39,107,163)' }} size='sm' mt='1.5em'>
+                    See Website List
+                </Button>
+            </NextLink>
         </Flex>
     )
 }

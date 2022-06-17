@@ -1,3 +1,4 @@
+import NextLink from 'next/link'
 import { VStack, Text, Button, Flex } from '@chakra-ui/react'
 import CurrentTemplate from './CurrentTemplate'
 import TemplateList from './TemplateList'
@@ -23,9 +24,11 @@ const Template = () => {
                     Please select or create a website first.
                 </Text>
             </Flex>
-            <Button leftIcon={<AiOutlineArrowLeft />} color='white' bg='rgb(52,140,212)' _hover={{ bg: 'rgb(39,107,163)' }} size='sm' mt='1.5em'>
-                See Website List
-            </Button>
+            <NextLink href={`/dashboard/website`} shallow passHref>
+                <Button leftIcon={<AiOutlineArrowLeft />} color='white' bg='rgb(52,140,212)' _hover={{ bg: 'rgb(39,107,163)' }} size='sm' mt='1.5em'>
+                    See Website List
+                </Button>
+            </NextLink>
         </Flex>
     )
 }

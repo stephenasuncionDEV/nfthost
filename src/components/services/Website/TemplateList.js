@@ -80,8 +80,7 @@ const TemplateList = () => {
                         <Button 
                             w='full' 
                             size='sm' 
-                            bg='orange.500' 
-                            _hover={{ bg: 'orange.400' }} 
+                            variant='primary'
                             onClick={() => ChooseTemplate(template)} 
                             disabled={!currentEditWebsite?.isPremium && template.sub === 'premium'}
                         >

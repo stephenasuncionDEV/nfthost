@@ -31,6 +31,8 @@ export const useCurrentTemplate = () => {
 
     const UpdateCurrentTemplate = (newWebsiteObj = null) => {
         try {
+            if (!currentEditWebsite) return;
+
             const templateKeysArr = TemplatesArr.map((template) => template.key);
             const decryptedData = ParseWebsiteData(newWebsiteObj ? newWebsiteObj.data : currentEditWebsite.data);
             const { template, style } = decryptedData;
