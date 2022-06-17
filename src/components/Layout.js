@@ -157,7 +157,7 @@ const Layout = ({ children, currentApp }) => {
                                                         bg='transparent'
                                                         _hover={{ bg: 'transparent', color: 'rgb(52,140,212)' }}
                                                         fontSize='10pt'
-                                                        color={currentApp === nav.name.replaceAll(' ', '').toLowerCase() ? 'rgb(52,140,212)' : null}
+                                                        color={currentApp === children.name.toLowerCase() ? 'rgb(52,140,212)' : null}
                                                     >
                                                         {children.name}
                                                     </Button>

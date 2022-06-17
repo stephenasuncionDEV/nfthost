@@ -23,6 +23,7 @@ const EditWebsite = () => {
     const { components: { title, unrevealedImage } } = currentEditWebsite;
 
     const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
+    const itemColor = useColorModeValue('blackAlpha.100', 'blackAlpha.400');
 
     return (
         <VStack
@@ -75,6 +76,7 @@ const EditWebsite = () => {
                                     borderStyle='dashed'
                                     borderRadius='10pt'
                                     p='1em'
+                                    bg={itemColor}
                                 />
                                 <VStack alignItems='flex-start'>
                                     <Text fontSize='10pt' fontWeight='bold'>
