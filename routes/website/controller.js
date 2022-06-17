@@ -231,6 +231,10 @@ exports.updateCustom = async (req, res, next) => {
 
         const { websiteId, key, value } = req.body;
 
+        const resultCount = await Website.count({ [`custom.${key}`]: value });
+
+        if (resultCount > 0) throw new Error('Alias already in used');
+
         await Website.updateOne({ _id: websiteId }, {
             $set: { 
                 [`custom.${key}`]: value
