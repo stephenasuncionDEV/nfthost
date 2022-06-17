@@ -9,7 +9,7 @@ import EditWebsite from './EditWebsite'
 import { MdAdd } from 'react-icons/md'
 
 const Website = () => {
-    const { setIsCreateWebsiteModal, setCreateWebsiteStep, isEditWebsite } = useWebsite();
+    const { websites, setIsCreateWebsiteModal, setCreateWebsiteStep, isEditWebsite } = useWebsite();
     const { isLoggedIn } = useUser();
     const { GetWebsites, clearFields } = useSites();
 
@@ -25,7 +25,7 @@ const Website = () => {
                 clearFields();
                 setCreateWebsiteStep('information');
                 setIsCreateWebsiteModal(true);
-            }}>
+            }} disabled={websites.length > 10}>
                 Create Website
             </Button>
             <WebsiteList />
