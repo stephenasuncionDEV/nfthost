@@ -74,6 +74,13 @@ const components = {
                 bg: mode('rgb(20,20,20)', '#08BDD4')(props),
                 color: mode('white', 'black')(props),
             }),
+            primary: (props) => ({
+                bg: 'rgb(52,140,212)',
+                _hover: {
+                    bg: 'rgb(39,107,163)'
+                },
+                color: 'white',
+            }),
         }
     },
     Toast: {
@@ -106,7 +113,7 @@ const components = {
         baseStyle: (props) => ({
             borderColor: mode('gray.200', 'black')(props),
         })
-    }
+    },
 }
 
 const theme = extendTheme({ 

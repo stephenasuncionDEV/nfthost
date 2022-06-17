@@ -28,6 +28,7 @@ export const WebsiteProvider = ({ children }) => {
     const [newBackgroundImage, setNewBackgroundImage] = useState('');
     const [newBackgroundColor, setNewBackgroundColor] = useState('');
     const [newRevealDate, setNewRevealDate] = useState('');
+    const [createWebsiteStep, setCreateWebsiteStep] = useState('information');
 
     const controllers = {
         userWebsite,
@@ -78,6 +79,8 @@ export const WebsiteProvider = ({ children }) => {
         setNewRevealDate,
         isCreateWebsiteModal,
         setIsCreateWebsiteModal,
+        createWebsiteStep,
+        setCreateWebsiteStep,
     }
 
     return (
