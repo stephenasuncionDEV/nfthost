@@ -51,9 +51,9 @@ const Layout = ({ children, currentApp }) => {
 
     const sidebarBG = useColorModeValue('white', 'rgb(55,66,76)');
     const sidebarColor = useColorModeValue('#60677d', '#9097a7');
-    const toolbarBG = useColorModeValue('rgb(52,140,212)', 'rgb(60,71,82)');
+    const toolbarBG = useColorModeValue('rgba(255,255,255,1)', 'rgb(60,71,82)');
     const toolbarColor = useColorModeValue('rgba(255,255,255,.8)', 'white');
-    const defaultColor = useColorModeValue('white', 'white');
+    const defaultColor = useColorModeValue('black', 'white');
 
     //https://coderthemes.com/codefox/#demos
 
@@ -68,6 +68,7 @@ const Layout = ({ children, currentApp }) => {
                 px='2em'
                 justifyContent='space-between'
                 zIndex='1337 !important'
+                boxShadow='sm'
             >
                 <HStack spacing='2em'>
                     <Link href='/dashboard'>

@@ -1,5 +1,5 @@
 import NextLink from 'next/link'
-import { Box, HStack, Menu, MenuButton, Tag,
+import { HStack, Menu, MenuButton, Tag,
     MenuList, MenuItem, useColorModeValue, TagLabel,
     TagRightIcon, MenuDivider, Text, Image, Avatar, VStack
 } from '@chakra-ui/react'
@@ -14,12 +14,12 @@ const ConnectWalletTag = ({ isCopyAddress, isUserProfile, isPayments, isSidebar 
     const { CopyAddress } = useNavbar();
     const { Connect, Logout } = useWeb3();
 
-    const tagBGColor = useColorModeValue('white', 'transparent');
-    const toolbarNavColor = useColorModeValue('rgba(255,255,255,.8)', 'white');
+    const toolbarNavColor = useColorModeValue('rgba(0,0,0,.8)', 'white');
+    const toolbarBorderColor = useColorModeValue('rgba(0,0,0,.1)', 'white');
 
     return (
         <Menu>
-            <MenuButton as={Tag} borderWidth='1px' size='md' cursor='pointer' bg='transparent' borderColor={toolbarNavColor}>
+            <MenuButton as={Tag} borderWidth='1px' size='md' cursor='pointer' bg='transparent' borderColor={toolbarBorderColor}>
                 <HStack>
                     <Text as={TagLabel} noOfLines='1' maxW='200px' color={toolbarNavColor}>
                         {isLoggedIn ? address : 'Connect Your Wallet'}
