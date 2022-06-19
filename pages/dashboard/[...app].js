@@ -54,7 +54,7 @@ const Page = () => {
                                 {currentApp?.toUpperCase()}
                             </Text>
                             <HStack spacing='2em'>
-                                <WebsiteInfo />
+                                {app[0] === 'website' && <WebsiteInfo />}
                                 <Text>
                                     DASHBOARD &gt; {app.join(' > ').toUpperCase()}
                                 </Text>
