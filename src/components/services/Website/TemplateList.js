@@ -12,6 +12,7 @@ const TemplateList = () => {
 
     const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
     const itemColor = useColorModeValue('blackAlpha.100', 'blackAlpha.400');
+    const itemBorderColor = useColorModeValue('blackAlpha.300', 'whiteAlpha.300');
 
     return (
         <VStack 
@@ -45,6 +46,7 @@ const TemplateList = () => {
                         spacing='1em'
                         borderWidth='2px'
                         borderStyle='dashed'
+                        borderColor={itemBorderColor}
                     >
                         <Flex
                             h='180px'

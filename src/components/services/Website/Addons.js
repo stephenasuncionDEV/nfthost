@@ -14,7 +14,8 @@ const Addons = () => {
 
     const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
     const itemColor = useColorModeValue('blackAlpha.100', 'blackAlpha.400');
-
+    const itemBorderColor = useColorModeValue('blackAlpha.300', 'whiteAlpha.300');
+    
     return currentEditWebsite ? (
         <VStack 
             id='templateList'
@@ -48,6 +49,7 @@ const Addons = () => {
                         position='relative'
                         borderWidth='2px'
                         borderStyle='dashed'
+                        borderColor={itemBorderColor}
                     >
                         <Text>
                             {addon.key}

@@ -27,6 +27,7 @@ const CurrentTemplate = () => {
 
     const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
     const itemColor = useColorModeValue('blackAlpha.100', 'blackAlpha.400');
+    const itemBorderColor = useColorModeValue('blackAlpha.300', 'whiteAlpha.300');
 
     return (
         <VStack 
@@ -69,6 +70,7 @@ const CurrentTemplate = () => {
                             alignItems='flex-start'
                             borderWidth='2px'
                             borderStyle='dashed'
+                            borderColor={itemBorderColor}
                             h='100%'
                         >
                             <Flex
