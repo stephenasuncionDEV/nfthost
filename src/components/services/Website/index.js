@@ -3,6 +3,7 @@ import { VStack, Button } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useUser } from '@/providers/UserProvider'
 import { useSites } from '@/hooks/useSites'
+import AreYouSureModal from '@/components/AreYouSureModal'
 import WebsiteList from './WebsiteList'
 import CreateWebsiteModal from './CreateWebsiteModal'
 import EditWebsite from './EditWebsite'
@@ -22,6 +23,7 @@ const Website = () => {
     return (
         <VStack spacing='2em' alignItems='flex-start'>
             <CreateWebsiteModal />
+            <AreYouSureModal />
             <Button leftIcon={<MdAdd />} color='white' variant='primary' size='sm' onClick={() => {
                 clearFields();
                 setCreateWebsiteStep('information');

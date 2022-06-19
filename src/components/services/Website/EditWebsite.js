@@ -14,8 +14,10 @@ import { MdOutlineAdd, MdSave, MdDeleteOutline } from 'react-icons/md'
 import { FaExternalLinkAlt, FaStar, FaTrash } from 'react-icons/fa'
 import { GiCutDiamond } from 'react-icons/gi' 
 import config from '@/config/index'
+import { useCore } from '@/providers/CoreProvider';
 
 const EditWebsite = () => {
+    const { setAreYouSureData, setIsAreYouSureModal } = useCore();
     const { currentEditWebsite, editWebsiteFormRef, isUpdating, isDeletingWebsite } = useWebsite();
     const { user } = useUser();
     const { CancelEdit, UpdateWebsite, DeleteWebsite, CopyWebsiteLink, UpgradeToPremium } = useSites();
@@ -190,7 +192,15 @@ const EditWebsite = () => {
                     </form>
                 </Box>
                 <HStack w='full' justifyContent='space-between' mt='1.5em'>
-                    <Button variant='danger' size='sm' onClick={DeleteWebsite} isLoading={isDeletingWebsite} loadingText='Deleting' leftIcon={<FaTrash />}>
+                    <Button variant='danger' size='sm' onClick={() => {
+                        setAreYouSureData({
+                            item: 'Website',
+                            callback: () => {
+                                DeleteWebsite();
+                            }
+                        });
+                        setIsAreYouSureModal(true);
+                    }} isLoading={isDeletingWebsite} loadingText='Deleting' leftIcon={<FaTrash />}>
                         Delete
                     </Button>
                     <HStack mt='1em'>

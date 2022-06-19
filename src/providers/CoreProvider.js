@@ -7,6 +7,7 @@ export const CoreProvider = ({ children }) => {
     const [isServiceModal, setIsServiceModal] = useState(false);
     const [isCookieModal, setIsCookieModal] = useState(false);
     const [isKeepWorkingModal, setIsKeepWorkingModal] = useState(false);
+    const [isAreYouSureModal, setIsAreYouSureModal] = useState(false);
     const [isSidebar, setIsSidebar] = useState(true);
     const [paymentData, setPaymentData] = useState({
         service: 'Generator',
@@ -26,6 +27,12 @@ export const CoreProvider = ({ children }) => {
     const [paymentState, setPaymentState] = useState('');
     const [paymentZip, setPaymentZip] = useState('');
     const [isPaying, setIsPaying] = useState(false);
+    const [areYouSureData, setAreYouSureData] = useState({
+        item: 'Website',
+        callback: () => {
+            console.log('No Data');
+        }
+    });
 
     const controllers = {
         isServiceModal,
@@ -53,7 +60,11 @@ export const CoreProvider = ({ children }) => {
         isPaying,
         setIsPaying,
         isKeepWorkingModal,
-        setIsKeepWorkingModal
+        setIsKeepWorkingModal,
+        isAreYouSureModal,
+        setIsAreYouSureModal,
+        areYouSureData,
+        setAreYouSureData
     }
 
     return (
