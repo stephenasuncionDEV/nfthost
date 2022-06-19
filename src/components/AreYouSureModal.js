@@ -1,9 +1,5 @@
-import NextLink from 'next/link'
-import {  Text, Flex, Button,
-    Modal, ModalOverlay, Image,
-    ModalContent, ModalHeader,
-    ModalFooter, ModalBody,
-    ModalCloseButton, HStack
+import {  Button,Modal, ModalOverlay, ModalContent, ModalHeader,
+    ModalFooter, ModalBody, ModalCloseButton, HStack
 } from '@chakra-ui/react'
 import { useCore } from '@/providers/CoreProvider'
 import { FaTrash } from 'react-icons/fa'
@@ -18,7 +14,7 @@ const AreYouSureModal = () => {
                 <ModalHeader>Are you sure!</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
-                    This action cannot be undone. Click delete if you want to delete this {areYouSureData?.item}.
+                    This action cannot be undone. Click delete if you want to {areYouSureData?.action?.toLowerCase()} this {areYouSureData?.item}.
                 </ModalBody>
                 <ModalFooter>
                     <HStack>
@@ -29,7 +25,7 @@ const AreYouSureModal = () => {
                             {areYouSureData?.callback()}
                             setIsAreYouSureModal(false);
                         }} variant='danger' leftIcon={<FaTrash />}>
-                            Delete
+                            {areYouSureData?.action}
                         </Button>
                     </HStack>
                 </ModalFooter>

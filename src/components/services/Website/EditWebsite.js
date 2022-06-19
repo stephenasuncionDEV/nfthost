@@ -194,7 +194,8 @@ const EditWebsite = () => {
                 <HStack w='full' justifyContent='space-between' mt='1.5em'>
                     <Button variant='danger' size='sm' onClick={() => {
                         setAreYouSureData({
-                            item: 'Website',
+                            item: 'website',
+                            action: 'Delete',
                             callback: () => {
                                 DeleteWebsite();
                             }

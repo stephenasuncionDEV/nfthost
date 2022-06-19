@@ -28,7 +28,8 @@ export const CoreProvider = ({ children }) => {
     const [paymentZip, setPaymentZip] = useState('');
     const [isPaying, setIsPaying] = useState(false);
     const [areYouSureData, setAreYouSureData] = useState({
-        item: 'Website',
+        item: 'website',
+        action: 'Delete',
         callback: () => {
             console.log('No Data');
         }
