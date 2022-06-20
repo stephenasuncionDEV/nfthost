@@ -55,11 +55,11 @@ const ConnectWalletTag = ({ isCopyAddress, isUserProfile, isPayments, isSidebar 
                         </>
                     )}
                     {isPayments && (
-                        <MenuItem icon={<MdPayment />}>
-                            <NextLink href='/payment' shallow passHref>
+                        <NextLink href='/dashboard/payments' shallow passHref>
+                            <MenuItem icon={<MdPayment />}>
                                 Payments
-                            </NextLink>
-                        </MenuItem>
+                            </MenuItem>
+                        </NextLink>
                     )}
                     {isUserProfile && <MenuDivider />}
                     <MenuItem icon={<HiLogout />} onClick={() => Logout(false)}>Logout</MenuItem>

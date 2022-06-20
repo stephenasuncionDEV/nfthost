@@ -78,7 +78,7 @@ const Layout = ({ children, currentApp }) => {
     const sidebarColor = useColorModeValue('#60677d', '#9097a7');
     const toolbarBG = useColorModeValue('rgba(250,250,250,1)', 'rgb(60,71,82)');
     const toolbarColor = useColorModeValue('rgba(255,255,255,.8)', 'white');
-    const defaultColor = useColorModeValue('black', 'white');
+    const defaultColor = useColorModeValue('rgba(0,0,0,0.7)', 'white');
 
     //https://coderthemes.com/codefox/#demos
 
@@ -96,7 +96,7 @@ const Layout = ({ children, currentApp }) => {
                 boxShadow='sm'
             >
                 <HStack spacing='2em'>
-                    <Link href='/dashboard'>
+                    <Link href='/dashboard' style={{ textDecoration: 'none' }}>
                         <HStack spacing='1em' cursor='pointer' p='1em'>
                             <Avatar 
                                 size='sm'
@@ -114,7 +114,7 @@ const Layout = ({ children, currentApp }) => {
                         bg='transparent' 
                         color={defaultColor} 
                         fontSize='16pt' 
-                        _hover={{ bg: 'transparent', color: toolbarColor }}
+                        _hover={{ bg: 'transparent', color: defaultColor }}
                         onClick={() => setIsSidebar(!isSidebar)}
                     >
                         <GiHamburgerMenu />
@@ -125,7 +125,7 @@ const Layout = ({ children, currentApp }) => {
                         aria-label='Toggle Color Mode' 
                         bg='transparent'
                         color={defaultColor} 
-                        _hover={{ bg: 'transparent', color: toolbarColor }}
+                        _hover={{ bg: 'transparent', color: defaultColor }}
                         onClick={toggleColorMode}
                     >
                         {colorMode === 'light' ? <MdOutlineDarkMode /> : <MdOutlineLightMode />}
