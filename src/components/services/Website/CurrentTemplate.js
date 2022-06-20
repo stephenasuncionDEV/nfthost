@@ -39,7 +39,7 @@ const CurrentTemplate = () => {
             boxShadow='0 0 2px 0 rgb(0 0 0 / 10%)'
             h='100%'
             alignItems='flex-start'
-            w='full'
+            flex='1'
         >
             <Flex flexDir='column' alignItems='flex-start' w='full'>
                 <HStack spacing='2em' justifyContent='space-between' w='full'>
@@ -194,6 +194,7 @@ const CurrentTemplate = () => {
                                     rightIcon={<FaRedo />}
                                     onClick={ResetStyle}
                                     disabled={!currentEditWebsite?.isPremium}
+                                    size='sm'
                                 >
                                     Reset Style
                                 </Button>
@@ -202,6 +203,7 @@ const CurrentTemplate = () => {
                                     rightIcon={<MdSave />}
                                     onClick={SaveStyle}
                                     disabled={!currentEditWebsite?.isPremium}
+                                    size='sm'
                                 >
                                     Save
                                 </Button>

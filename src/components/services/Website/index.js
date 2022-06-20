@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { VStack, Button } from '@chakra-ui/react'
+import { VStack, Button, Wrap } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useUser } from '@/providers/UserProvider'
 import { useSites } from '@/hooks/useSites'
@@ -7,6 +7,7 @@ import AreYouSureModal from '@/components/AreYouSureModal'
 import WebsiteList from './WebsiteList'
 import CreateWebsiteModal from './CreateWebsiteModal'
 import EditWebsite from './EditWebsite'
+import CurrentTemplate from './CurrentTemplate'
 import { MdAdd } from 'react-icons/md'
 
 const Website = () => {
@@ -32,7 +33,12 @@ const Website = () => {
                 Create Website
             </Button>
             <WebsiteList />
-            {isEditWebsite && <EditWebsite />}
+            {isEditWebsite && (
+                <Wrap spacing='2em'>
+                    <EditWebsite />
+                    <CurrentTemplate />
+                </Wrap>
+            )}
         </VStack>
     )
 }

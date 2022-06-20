@@ -1,6 +1,5 @@
 import NextLink from 'next/link'
-import { VStack, Text, Button, Flex } from '@chakra-ui/react'
-import CurrentTemplate from './CurrentTemplate'
+import { Text, Button, Flex } from '@chakra-ui/react'
 import TemplateList from './TemplateList'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { AiOutlineWarning, AiOutlineArrowLeft } from 'react-icons/ai'
@@ -9,10 +8,7 @@ const Template = () => {
     const { currentEditWebsite } = useWebsite();
 
     return currentEditWebsite ? (
-        <VStack spacing='2em' alignItems='flex-start'>
-            <CurrentTemplate />
-            <TemplateList />
-        </VStack>
+        <TemplateList />
     ) : (
         <Flex flexDir='column' justifyContent='center' alignItems='center' flex='1'>
             <AiOutlineWarning fontSize='28pt' />
