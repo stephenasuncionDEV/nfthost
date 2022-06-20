@@ -1,12 +1,4 @@
-import NextLink from 'next/link'
-import { Text, Flex, Button, VStack, useColorModeValue, 
-    Wrap, Tag, TagLeftIcon, Image, Link
-} from '@chakra-ui/react'
-import { useWebsite } from '@/providers/WebsiteProvider'
-import { useTemplate } from '@/hooks/useTemplate'
-import { GiCutDiamond } from 'react-icons/gi'
-import { AiOutlineWarning, AiOutlineArrowLeft } from 'react-icons/ai'
-import { AddonsArr } from '@/utils/tools'
+import { Text, Flex, Button, VStack, useColorModeValue, Wrap, Image, Link } from '@chakra-ui/react'
 
 const PartnersArr = [
     {
@@ -20,8 +12,6 @@ const PartnersArr = [
 const Partners = () => {
 
     const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
-    const itemColor = useColorModeValue('blackAlpha.100', 'blackAlpha.400');
-    const itemBorderColor = useColorModeValue('blackAlpha.300', 'whiteAlpha.300');
 
     return (
         <Wrap spacing='2em'>

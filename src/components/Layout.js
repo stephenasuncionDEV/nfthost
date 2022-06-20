@@ -1,6 +1,7 @@
 import NextLink from 'next/link'
 import { Box, Text, useColorModeValue, VStack, HStack, 
-    Avatar, IconButton, Button, useColorMode, Flex, Link
+    Avatar, IconButton, Button, useColorMode, Flex, Link,
+    Image
 } from '@chakra-ui/react'
 import { useCore } from '@/providers/CoreProvider'
 import ConnectWalletTag from './ConnectWalletTag'
@@ -111,16 +112,7 @@ const Layout = ({ children, currentApp }) => {
                 <HStack spacing='2em'>
                     <Link href='/dashboard' style={{ textDecoration: 'none' }}>
                         <HStack spacing='1em' cursor='pointer' p='1em'>
-                            <Avatar 
-                                size='sm'
-                                src='/assets/logo.png' 
-                                name='NFT Host Logo' 
-                                bg='transparent'
-                                cursor='pointer'
-                            />
-                            <Text  fontSize='14pt' cursor='pointer' color={defaultColor}>
-                                NFT Host
-                            </Text>
+                            <Image src={colorMode === 'dark' ? '/assets/logo_new_full_white.png' : '/assets/logo_new_full_black.png'} alt='NFTHost Logo' width='140px' />
                         </HStack>
                     </Link>
                     <IconButton 

@@ -1,7 +1,7 @@
 import NextLink from 'next/link'
 import { Box, Text, HStack, Avatar, Button, IconButton, 
     useColorMode, MenuButton, MenuList, Menu, MenuItem, 
-    MenuDivider, useColorModeValue
+    MenuDivider, useColorModeValue, Image
 } from '@chakra-ui/react'
 import { useNavbar } from '@/hooks/useNavbar'
 import ConnectWalletTag from '@/components/ConnectWalletTag'
@@ -37,15 +37,7 @@ const Navbar = ({ isSocial, isLanding, isColorMode, isWallet, isLandingPage }) =
                 >
                     <NextLink href='/' shallow passHref>
                         <HStack spacing='1em' cursor='pointer'>
-                            <Avatar 
-                                size='md'
-                                src='/assets/logo.png' 
-                                name='NFT Host Logo' 
-                                bg='transparent'
-                            />
-                            <Text fontWeight='bold' fontSize='14pt'>
-                                NFT Host
-                            </Text>
+                            <Image src={colorMode === 'dark' ? '/assets/logo_new_full_white.png' : '/assets/logo_new_full_black.png'} alt='NFTHost Logo' width='170px' />
                         </HStack>
                     </NextLink>
                     {!isTouchingLogo ? (
