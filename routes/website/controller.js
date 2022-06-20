@@ -39,7 +39,7 @@ exports.getWebsite = async (req, res, next) => {
         }
 
         const tempId = websiteId.toLowerCase();
-        const expression = { $regex: new RegExp("^" + tempId, "i") };
+        const expression = { $regex: new RegExp('^' + tempId + '$', 'i') };
 
         // Check if websiteId is a custom domain
         count = await Website.count({ [`custom.domain`]: expression });
