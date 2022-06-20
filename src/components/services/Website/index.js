@@ -7,7 +7,7 @@ import AreYouSureModal from '@/components/AreYouSureModal'
 import WebsiteList from './WebsiteList'
 import CreateWebsiteModal from './CreateWebsiteModal'
 import EditWebsite from './EditWebsite'
-import CurrentTemplate from './CurrentTemplate'
+import Design from './Design'
 import { MdAdd } from 'react-icons/md'
 
 const Website = () => {
@@ -36,7 +36,7 @@ const Website = () => {
             {isEditWebsite && (
                 <Wrap spacing='2em' w='full'>
                     <EditWebsite />
-                    <CurrentTemplate />
+                    <Design />
                 </Wrap>
             )}
         </VStack>

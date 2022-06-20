@@ -8,7 +8,7 @@ import config from '@/config/index'
 import posthog from 'posthog-js'
 import { decryptToken, TemplatesArr, ParseWebsiteData, convertDateToLocal } from '@/utils/tools'
 
-export const useCurrentTemplate = () => {
+export const useCurrentTemplate = (update = true) => {
     const toast = useToast();
     const { GetWebsites } = useSites();
     const { Logout } = useWeb3();
@@ -26,6 +26,7 @@ export const useCurrentTemplate = () => {
     } = useWebsite();
 
     useEffect(() => {
+        if (!update) return;
         UpdateCurrentTemplate();
     }, [])
 

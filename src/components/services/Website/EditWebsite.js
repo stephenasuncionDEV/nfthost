@@ -193,16 +193,17 @@ const EditWebsite = () => {
                     </form>
                 </Flex>
                 <HStack w='full' justifyContent='space-between' mt='1.5em'>
-                    <Button variant='danger' size='sm' onClick={() => {
+                    <Button variant='danger' size='sm' isLoading={isDeletingWebsite} loadingText='Deleting' leftIcon={<FaTrash />} onClick={() => {
                         setAreYouSureData({
                             item: 'website',
                             action: 'Delete',
+                            icon: <FaTrash />,
                             callback: () => {
                                 DeleteWebsite();
                             }
                         });
                         setIsAreYouSureModal(true);
-                    }} isLoading={isDeletingWebsite} loadingText='Deleting' leftIcon={<FaTrash />}>
+                    }}>
                         Delete
                     </Button>
                     <HStack mt='1em'>
