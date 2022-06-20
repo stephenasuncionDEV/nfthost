@@ -26,11 +26,12 @@ exports.getWebsite = async (req, res, next) => {
         const { websiteId } = req.query;
 
         let count = 0;
-
+        
         // Check if websiteId is an actual object id
         if (ObjectId.isValid(websiteId)) {
             count = await Website.count({ _id: websiteId });
             if (count > 0) {
+                console.log('websiteid')
                 const result = await Website.findOne({ _id: websiteId });
                 res.status(200).json(result);
                 return;
@@ -38,19 +39,20 @@ exports.getWebsite = async (req, res, next) => {
         }
 
         const tempId = websiteId.toLowerCase();
+        const expression = { $regex: new RegExp("^" + tempId, "i") };
 
         // Check if websiteId is a custom domain
-        count = await Website.count({ [`custom.domain`]: websiteId });
+        count = await Website.count({ [`custom.domain`]: expression });
         if (count > 0) {
-            const result = await Website.findOne({ [`custom.domain`]: tempId });
+            const result = await Website.findOne({ [`custom.domain`]: expression });
             res.status(200).json(result);
             return;
         }
 
         // Check if websiteId is a custom alias
-        count = await Website.count({ [`custom.alias`]: websiteId });
+        count = await Website.count({ [`custom.alias`]: expression });
         if (count > 0) {
-            const result = await Website.findOne({ [`custom.alias`]: tempId });
+            const result = await Website.findOne({ [`custom.alias`]: expression });
             res.status(200).json(result);
             return;
         }

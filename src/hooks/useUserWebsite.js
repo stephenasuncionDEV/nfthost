@@ -78,20 +78,25 @@ export const useUserWebsite = (websiteData) => {
         try {
             if (!websiteData) return;
 
-            const isExpired = new Date(websiteData.premiumStartDate) > new Date();
+            const subscriptionStart = new Date(websiteData.premiumStartDate);
+            const subscriptionEnd = subscriptionStart.setDate(subscriptionStart.getDate() + 30);
 
-            if (isExpired) {
-                const res = await axios.patch(`${config.serverUrl}/api/website/updateExpiration`, {
-                    websiteId: websiteData._id,
-                    isExpired: true
-                }, {
-                    headers: { 
-                        Authorization: `Bearer ${process.env.CREATE_WEBSITE_TOKEN}` 
-                    }
-                })
+            const isExpired = new Date() > new Date(subscriptionEnd);
 
-                router.push('/', undefined, { shallow: true });
-            }
+            console.log(isExpired)
+
+            // if (isExpired) {
+            //     const res = await axios.patch(`${config.serverUrl}/api/website/updateExpiration`, {
+            //         websiteId: websiteData._id,
+            //         isExpired: true
+            //     }, {
+            //         headers: { 
+            //             Authorization: `Bearer ${process.env.CREATE_WEBSITE_TOKEN}` 
+            //         }
+            //     })
+
+            //     router.push('/', undefined, { shallow: true });
+            // }
         }
         catch (err) {
             console.error(err);
