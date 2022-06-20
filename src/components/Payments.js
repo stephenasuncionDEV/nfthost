@@ -53,7 +53,7 @@ const Payments = () => {
                                 <Td fontSize='10pt'>{payment.createdAt}</Td>
                                 <Td>
                                     <Menu>
-                                        <MenuButton as={IconButton} icon={<IoMdSettings />} />
+                                        <MenuButton as={IconButton} icon={<IoMdSettings />} size='sm' />
                                         <MenuList>
                                             <Link href='https://discord.gg/BMZZXZMnmv' isExternal>
                                                 <MenuItem icon={<BiSupport />}>
