@@ -34,6 +34,8 @@ export const CoreProvider = ({ children }) => {
             console.log('No Data');
         }
     });
+    const [transactions, setTransactions] = useState();
+    const [isGettingTransactions, setIsGettingTransactions] = useState(false);
 
     const controllers = {
         isServiceModal,
@@ -65,7 +67,11 @@ export const CoreProvider = ({ children }) => {
         isAreYouSureModal,
         setIsAreYouSureModal,
         areYouSureData,
-        setAreYouSureData
+        setAreYouSureData,
+        transactions,
+        setTransactions,
+        isGettingTransactions,
+        setIsGettingTransactions
     }
 
     return (

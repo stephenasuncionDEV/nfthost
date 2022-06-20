@@ -17,7 +17,7 @@ const Domain = () => {
 
     return currentEditWebsite ? (
         <VStack 
-            id='templateList'
+            id='domain'
             spacing='1.5em'
             p='1em' 
             bg={containerColor}

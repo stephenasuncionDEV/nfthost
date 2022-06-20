@@ -5,9 +5,11 @@ import { Box, Text, useColorModeValue, VStack, HStack,
 import ConnectWalletTag from './ConnectWalletTag'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { MdOutlineDashboard, MdOutlineMiscellaneousServices, 
-    MdOutlineDarkMode, MdOutlineLightMode 
+    MdOutlineDarkMode, MdOutlineLightMode, MdPayment 
 } from 'react-icons/md'
 import { CgWebsite } from 'react-icons/cg'
+import { AiOutlineTeam } from 'react-icons/ai'
+import { BiSupport } from 'react-icons/bi'
 import { useCore } from '@/providers/CoreProvider'
 
 const sidebarItemArr = [
@@ -19,7 +21,13 @@ const sidebarItemArr = [
                 link: '/getStarted', 
                 icon: <MdOutlineDashboard />, 
                 children: [] 
-            } 
+            },
+            { 
+                name: 'Payments', 
+                link: '/payments', 
+                icon: <MdPayment />, 
+                children: [] 
+            }
         ]
     },
     { 
@@ -43,6 +51,23 @@ const sidebarItemArr = [
             }
         ]
     },
+    // { 
+    //     parent: 'about',
+    //     items: [ 
+    //         { 
+    //             name: 'Team', 
+    //             link: '/team', 
+    //             icon: <AiOutlineTeam />, 
+    //             children: []
+    //         },
+    //         { 
+    //             name: 'Support', 
+    //             link: '/support', 
+    //             icon: <BiSupport />, 
+    //             children: []
+    //         }
+    //     ]
+    // },
 ]
 
 const Layout = ({ children, currentApp }) => {

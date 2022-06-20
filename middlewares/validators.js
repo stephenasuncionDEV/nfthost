@@ -333,3 +333,11 @@ exports.RenewSubscriptionValidator = [
     .notEmpty(),
 
 ]
+
+exports.GetPaymentsValidator = [
+
+    // memberId Validator
+    check('memberId', 'memberId is empty')
+    .notEmpty(),
+
+]

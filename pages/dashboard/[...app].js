@@ -11,6 +11,7 @@ import Template from '@/components/services/Website/Template'
 import Addons from '@/components/services/Website/Addons'
 import Domain from '@/components/services/Website/Domain'
 import ConnectWalletTag from '@/components/ConnectWalletTag'
+import Payments from '@/components/Payments'
 import { MdOutlineAccountCircle } from 'react-icons/md'
 import WebsiteInfo from '@/components/services/Website/WebsiteInfo'
 
@@ -68,6 +69,7 @@ const Page = () => {
                                 {currentApp === 'templates' && <Template />}
                                 {currentApp === 'addons' && <Addons />}
                                 {currentApp === 'domain' && <Domain />}
+                                {currentApp === 'payments' && <Payments />}
                             </>
                         )}
                     </>
