@@ -26,37 +26,40 @@ const Partners = () => {
     return (
         <Wrap spacing='2em'>
             {PartnersArr?.map((partner, idx) => (
-                <Wrap 
-                    spacing='2em' 
-                    maxW='340px' 
-                    p='1em' 
-                    bg={containerColor}
-                    borderRadius='.25em'
-                    boxShadow='0 0 2px 0 rgb(0 0 0 / 10%)'
-                    alignItems='flex-start' 
-                    key={idx}
-                >
-                    <VStack>
-                        <Image src={partner.image} alt='Flair Logo' width='40px' />
-                    </VStack>
-                    <VStack alignItems='flex-start' flex='1'>
-                        <Flex flexDir='column'>
-                            <Text>
-                                {partner.company}
-                            </Text>
-                            <Link href={partner.link} isExternal>
-                                <Text fontSize='8pt'>
-                                    {partner.link}
+                <Link href={partner.link} isExternal style={{ textDecoration: 'none' }}>
+                    <Wrap 
+                        cursor='pointer'
+                        spacing='2em' 
+                        maxW='340px' 
+                        p='1em' 
+                        bg={containerColor}
+                        borderRadius='.25em'
+                        boxShadow='0 0 2px 0 rgb(0 0 0 / 10%)'
+                        alignItems='flex-start' 
+                        key={idx}
+                    >
+                        <VStack>
+                            <Image src={partner.image} alt='Flair Logo' width='40px' />
+                        </VStack>
+                        <VStack alignItems='flex-start' flex='1'>
+                            <Flex flexDir='column'>
+                                <Text>
+                                    {partner.company}
                                 </Text>
-                            </Link>
-                        </Flex>
-                        <Text fontSize='10pt'>
-                            {partner.description}
-                        </Text>
-                    </VStack>
-                </Wrap>
+                                <Link href={partner.link} isExternal>
+                                    <Text fontSize='8pt'>
+                                        {partner.link}
+                                    </Text>
+                                </Link>
+                            </Flex>
+                            <Text fontSize='10pt'>
+                                {partner.description}
+                            </Text>
+                        </VStack>
+                    </Wrap>
+                </Link>
             ))}
-            <Link href='mailto: stephenasuncion01@gmail.com' style={{ textDecoration: 'none' }} w='full' maxW='340px' h='122px'>
+            <Link href='mailto: stephenasuncion01@gmail.com' style={{ textDecoration: 'none' }} w='full' maxW='340px' h='120px'>
                 <Flex 
                     as={Button}
                     variant='unstyled'
