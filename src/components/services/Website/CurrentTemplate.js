@@ -3,9 +3,11 @@ import { Text, Flex, VStack, useColorModeValue, Image,
     MenuList, MenuItem
 } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
+import { useCore } from '@/providers/CoreProvider'
 import { GiCutDiamond } from 'react-icons/gi'
 import { MdSettings } from 'react-icons/md'
 import { useTemplate } from '@/hooks/useTemplate'
+import { FaTrash } from 'react-icons/fa'
 
 const CurrentTemplate = () => {
     const { 
@@ -13,6 +15,7 @@ const CurrentTemplate = () => {
         currentEditWebsite, 
     } = useWebsite();
     const { RemoveAddon } = useTemplate();
+    const { setIsAreYouSureModal, setAreYouSureData } = useCore();
 
     const itemColor = useColorModeValue('blackAlpha.100', 'blackAlpha.400');
     const itemBorderColor = useColorModeValue('blackAlpha.300', 'whiteAlpha.300');
@@ -87,7 +90,17 @@ const CurrentTemplate = () => {
                                         {addon}
                                     </MenuButton>
                                     <MenuList>
-                                        <MenuItem onClick={() => RemoveAddon(addon)}>Remove</MenuItem>
+                                        <MenuItem size='sm' icon={<FaTrash />} onClick={() => {
+                                            setAreYouSureData({
+                                                item: 'addon',
+                                                action: 'Remove',
+                                                icon: <FaTrash />,
+                                                callback: () => {
+                                                    RemoveAddon(addon);
+                                                }
+                                            });
+                                            setIsAreYouSureModal(true);
+                                        }}>Remove</MenuItem>
                                     </MenuList>
                                 </Menu>
                             ))}

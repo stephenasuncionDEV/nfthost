@@ -1,15 +1,13 @@
-import { Text, Flex, VStack, useColorModeValue, Image, 
-    Tag, TagLeftIcon, HStack, Wrap, Divider, FormControl,
-    Input, FormHelperText, FormErrorMessage, Button, Box,
-    Menu, MenuButton, MenuList, MenuItem
+import { Text, Flex, VStack, useColorModeValue, Tag, 
+    TagLeftIcon, HStack, Wrap, Divider, FormControl,
+    Input, FormHelperText, FormErrorMessage, Button
 } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useCore } from '@/providers/CoreProvider'
 import { useCurrentTemplate } from '@/hooks/useCurrentTemplate'
-import { useTemplate } from '@/hooks/useTemplate'
 import CurrentTemplate from './CurrentTemplate'
 import { GiCutDiamond } from 'react-icons/gi'
-import { MdSave, MdVerified, MdSettings } from 'react-icons/md'
+import { MdSave, MdVerified } from 'react-icons/md'
 import { FaRedo } from 'react-icons/fa'
 
 const Design = () => {
@@ -26,11 +24,8 @@ const Design = () => {
     } = useWebsite();
     const { setIsAreYouSureModal, setAreYouSureData } = useCore();
     const { SaveStyle, ResetStyle } = useCurrentTemplate();
-    const { RemoveAddon } = useTemplate();
 
     const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
-    const itemColor = useColorModeValue('blackAlpha.100', 'blackAlpha.400');
-    const itemBorderColor = useColorModeValue('blackAlpha.300', 'whiteAlpha.300');
 
     return (
         <VStack 

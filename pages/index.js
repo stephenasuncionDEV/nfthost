@@ -1,11 +1,13 @@
 import NextLink from 'next/link'
 import Head from 'next/head'
-import { Text, Flex, Button, VStack, SlideFade, Link, useColorModeValue, Wrap } from '@chakra-ui/react'
+import { Text, Flex, Button, VStack, SlideFade, Link, useColorModeValue, Wrap, Image, Tag, HStack } from '@chakra-ui/react'
 import { useReAuthenticate } from '@/hooks/useReAuthenticate'
 import MainNavbar from '@/components/MainNavbar'
 import MainFooter from '@/components/MainFooter'
 import CookieModal from '@/components/CookieModal'
+import Announcement from '@/components/Announcement'
 import { AiOutlineArrowRight } from 'react-icons/ai'
+import { useMediaQuery } from 'react-responsive'
 import style from '@/styles/Main.module.scss'
 
 const Main = () => {
@@ -13,6 +15,8 @@ const Main = () => {
     
     const bgColor = useColorModeValue('linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(249,250,250,1) 100%)', 'linear-gradient(0deg, rgba(26,32,44,1) 0%, rgba(17,21,28,1) 100%)');
     const srcColor = useColorModeValue('blackAlpha.600', 'whiteAlpha.600');
+    const sponsorColor = useColorModeValue('blackAlpha.600', 'whiteAlpha.300');
+    const isSmallerFont = useMediaQuery({ query: '(max-width: 380px)' });
 
     return (
         <main style={{ background: bgColor }}>
@@ -42,6 +46,7 @@ const Main = () => {
                 isColorMode
                 isLandingPage
             />
+            <Announcement />
             <CookieModal />
             <Flex 
                 w='full' 
@@ -55,15 +60,15 @@ const Main = () => {
                     w='full'
                 >
                     <SlideFade in={true} offsetY='20px' delay={.45}>
-                        <Flex flexDir='column' alignItems='center' justifyContent='center' h='700px'>
-                            <Text variant='header_1' fontSize='52pt' textAlign='center'>
+                        <Flex flexDir='column' alignItems='center' justifyContent='center' h='600px'>
+                            <Text variant='header_1' fontSize={isSmallerFont ? '32pt' : '52pt'} textAlign='center'>
                                 Generate and Host your
                             </Text>
-                            <Text className={style.gradientBlue} fontSize='42pt' fontWeight='bold'>
+                            <Text className={style.gradientBlue} fontSize={isSmallerFont ? '22pt' : '42pt'} fontWeight='bold'>
                                 NFT Collection
                             </Text>
-                            <Text fontSize='13pt' fontWeight='hairline' my='1em'>
-                                Create and Show your NFT collection in under a minute!
+                            <Text fontSize={isSmallerFont ? '10pt' : '13pt'} fontWeight='hairline' my='1em'>
+                                Create and Host your NFT collection in under a minute!
                             </Text>
                             <NextLink href='/dashboard/getStarted' shallow passHref>
                                 <Button mt='.5em' maxW='180px' size='lg'>
@@ -73,7 +78,21 @@ const Main = () => {
                         </Flex>
                     </SlideFade>
                     <SlideFade in={true} offsetY='20px' delay={1}>
-                        <Wrap direction='row' spacing='4em' justifyContent='space-between' id='features'>
+                        <Flex flexDir='column' alignItems='center' justifyContent='center' mb='4em'>
+                            <Text fontSize='13pt' fontWeight='hairline' color={sponsorColor}>
+                                SUPPORTED BY
+                            </Text>
+                            <Wrap spacing='2em' my='1em'>
+                                <Link href='https://flair.finance/' isExternal>
+                                    <Button variant='unstyled' display='flex' h='full' _hover={{ opacity: '1' }} opacity='0.3'>
+                                        <Image src='https://i.postimg.cc/05G90nyC/download.png' alt='Flair Logo' width='40px' />
+                                    </Button>
+                                </Link>
+                            </Wrap>
+                        </Flex>
+                    </SlideFade>
+                    <SlideFade in={true} offsetY='20px' delay={1.5}>
+                        <Wrap direction='row' spacing='4em' justifyContent='space-between' id='features' mt='4em'>
                             <Flex flexDir='column' maxW='550px'>
                                 <Text variant='content_intro'>
                                     The new way of generating NFTs
@@ -84,8 +103,17 @@ const Main = () => {
                                 <Text variant='content_title' mt='0.25rem'>
                                     Generator
                                 </Text>
+                                <HStack mt='.5rem' opacity='0.5'>
+                                    <Text fontSize='10pt'>
+                                        Price:
+                                    </Text>
+                                    <Tag>$0.10</Tag>
+                                    <Text fontSize='10pt'>
+                                        USD per unique image
+                                    </Text>
+                                </HStack>
                                 <Text variant='content_description' mt='1.25rem'>
-                                    We provide the fastest and cheapest NFT generator in the market. With a fixed price of $25 USD, you can generate up to 10,000 unique NFTs.
+                                    We provide the fastest and cheapest NFT generator in the market. With a fixed price of $99 USD, you can generate up to 10,000 unique NFTs.
                                 </Text>
                                 <NextLink href='/dashboard/getStarted' shallow passHref>
                                     <Button w='200px' mt='1em' rightIcon={<AiOutlineArrowRight />}>
@@ -103,7 +131,7 @@ const Main = () => {
                             </VStack>
                         </Wrap>
                     </SlideFade>
-                    <SlideFade in={true} offsetY='20px' delay={1}>
+                    <SlideFade in={true} offsetY='20px' delay={1.5}>
                         <Wrap direction='row' spacing='4em' mt='20em' justifyContent='space-between'>
                             <VStack>
                                 <iframe width="560" height="315" src="https://www.youtube.com/embed/Scw_NeGu6Sw" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
@@ -123,8 +151,17 @@ const Main = () => {
                                 <Text variant='content_title' mt='0.25rem'>
                                     Hosting
                                 </Text>
+                                <HStack mt='.5rem' opacity='0.5'>
+                                    <Text fontSize='10pt'>
+                                        Price:
+                                    </Text>
+                                    <Tag>Free or $15</Tag>
+                                    <Text fontSize='10pt'>
+                                        USD per month
+                                    </Text>
+                                </HStack>
                                 <Text variant='content_description' mt='1.25rem'>
-                                    Sell your NFTs in under a minute. Create a minting website by a click of a button. You can host your own minting website for free. Unlock special features by upgrading to premium for $15 USD
+                                    Create a minting website by a click of a button. You can host your own minting website for free. Features including prebuilt templates, addons, domain, and more. Unlock special features by upgrading to premium for $15 USD.
                                 </Text>
                                 <NextLink href='/dashboard/getStarted' shallow passHref>
                                     <Button w='200px' mt='1em' rightIcon={<AiOutlineArrowRight />}>

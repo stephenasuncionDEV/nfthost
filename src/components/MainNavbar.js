@@ -6,7 +6,7 @@ import { Box, Text, HStack, Avatar, Button, IconButton,
 import { useNavbar } from '@/hooks/useNavbar'
 import ConnectWalletTag from '@/components/ConnectWalletTag'
 import { FaTiktok, FaDiscord, FaTwitter } from 'react-icons/fa'
-import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai'
+import { AiOutlineArrowLeft, AiFillTool } from 'react-icons/ai'
 import { MdOutlineDarkMode, MdOutlineLightMode } from 'react-icons/md'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { useMediaQuery } from 'react-responsive'
@@ -124,6 +124,13 @@ const Navbar = ({ isSocial, isLanding, isColorMode, isWallet, isLandingPage }) =
                                     <NextLink href='/' shallow passHref>
                                         <MenuItem icon={<AiOutlineArrowLeft />}>
                                             Landing Page
+                                        </MenuItem>
+                                    </NextLink>
+                                )}
+                                {isLandingPage && (
+                                    <NextLink href='/#features' shallow passHref>
+                                        <MenuItem icon={<AiFillTool />}>
+                                            Features and Pricing
                                         </MenuItem>
                                     </NextLink>
                                 )}

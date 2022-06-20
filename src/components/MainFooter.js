@@ -3,13 +3,13 @@ import { BiLinkExternal } from 'react-icons/bi'
 import { useMediaQuery } from 'react-responsive'
 
 const Footer = () => {
-    const bg = useColorModeValue('linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(218,223,255,1) 100%)', 'linear-gradient(180deg, rgb(24,30,41) 0%, rgba(17,21,28,1) 100%)');
+    const bg = useColorModeValue('rgba(218,223,255,1)', 'rgba(17,21,28,1)');
     const srcColor = useColorModeValue('rgb(34,34,34)', 'whiteAlpha.600');
     const isTouchingLogo = useMediaQuery({ query: '(max-width: 630px)' });
 
     return (
         <footer>
-            <Flex h='500px' bg={bg} justifyContent='center' alignItems='center'>
+            <Flex minH='500px' bg={bg} justifyContent='center' alignItems='center'>
                 <Wrap maxW='8xl' w='full' px='24px' justifyContent='space-between' direction='row' spacing='2em'>
                     <VStack alignItems='center' flex='1' minW='249.5px' spacing='1em'>
                         <Avatar 
