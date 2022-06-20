@@ -46,11 +46,10 @@ export const useSites = () => {
         setCurrentEditWebsite,
         setIsDeletingWebsite,
         editWebsiteFormRef,
-        setIsCreateWebsiteModal
+        setIsCreateWebsiteModal,
+        setCreateWebsiteStep
     } = useWebsite();
     const { DeductFree, getUserByAddress, AddCount, DeductCount, Logout } = useWeb3();
-
-    const freeWebsiteCount = websites?.filter((website) => !website.isPremium)?.length;
 
     const GetWebsites = async () => {
         try {
@@ -98,11 +97,25 @@ export const useSites = () => {
             if (!newComponentTitle.length) errorsObj.title = { status: true, message: 'Title field must be filled in' };
             if (!newComponentDescription.length) errorsObj.description = { status: true, message: 'Description field must be filled in' };
             if (!newComponentEmbed.length) errorsObj.embed = { status: true, message: 'Embed field must be filled in' };
+            if (newComponentScript.length > 0 && !(/</i.test(newComponentScript) && />/i.test(newComponentScript))) errorsObj.script = { status: true, message: 'Embed code must be a valid html code' };
+            if (!(/</i.test(newComponentEmbed) && />/i.test(newComponentEmbed))) errorsObj.embed = { status: true, message: 'Embed code must be a valid html code' };
             if (!newComponentImage.length) errorsObj.image = { status: true, message: 'Unrevealed Image Link field must be filled in' };
+            if (newComponentImage.match(/\.(jpeg|jpg|gif|png|bmp|svg|webp)$/) == null) errorsObj.image = { status: true, message: 'Unrevealed Image Link field must be an image file' };
+
+            const freeWebsiteCount = websites.filter((website) => !website.isPremium).length;
+
             if (freeWebsiteCount >= 3) throw new Error('Only 3 free websites is available')
 
             if (Object.keys(errorsObj).length > 0) {
                 setNewErrors(errorsObj);
+                toast({
+                    title: 'Error',
+                    description: 'Please fix all the errors before creating a website',
+                    status: 'error',
+                    duration: 3000,
+                    isClosable: true,
+                    position: 'bottom-center'
+                })
                 return;
             }
 

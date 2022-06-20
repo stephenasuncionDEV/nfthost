@@ -29,7 +29,7 @@ export const WebsiteProvider = ({ children }) => {
     const [newBackgroundImage, setNewBackgroundImage] = useState('');
     const [newBackgroundColor, setNewBackgroundColor] = useState('');
     const [newRevealDate, setNewRevealDate] = useState('');
-    const [createWebsiteStep, setCreateWebsiteStep] = useState('information');
+    const [createWebsiteStep, setCreateWebsiteStep] = useState('information'); // information, settings
     const [featuredWebsites, setFeaturedWebsites] = useState();
     const [newAlias, setNewAlias] = useState('');
     const editWebsiteFormRef = useRef();

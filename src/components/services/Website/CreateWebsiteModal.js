@@ -7,10 +7,8 @@ import { HStack, Text, Button, Flex, VStack,
 import { GiCutDiamond } from 'react-icons/gi'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useSites } from '@/hooks/useSites'
-import { MdOutlineAdd, MdSave, MdDeleteOutline } from 'react-icons/md'
-import { FaRedo, FaExternalLinkAlt } from 'react-icons/fa'
+import { MdOutlineAdd } from 'react-icons/md'
 import { AiOutlineArrowRight, AiOutlineArrowLeft } from 'react-icons/ai'
-import config from '@/config/index'
 
 const CreateWebsiteModal = () => {
     const {
@@ -34,8 +32,6 @@ const CreateWebsiteModal = () => {
         setNewMetaLanguage,
         newErrors,
         isCreating,
-        //isUpdating,
-        //currentEditWebsite,
         isCreateWebsiteModal,
         setIsCreateWebsiteModal,
         createWebsiteStep,
