@@ -210,7 +210,7 @@ const EditWebsite = () => {
                         <Button size='sm' onClick={CancelEdit} disabled={isUpdating}>
                             Cancel
                         </Button>
-                        <Button variant='primary' rightIcon={<MdSave />} size='sm' onClick={UpdateWebsite} isLoading={isUpdating} loadingText='Updating'>
+                        <Button variant='primary' leftIcon={<MdSave />} size='sm' onClick={UpdateWebsite} isLoading={isUpdating} loadingText='Updating'>
                             Save
                         </Button>
                     </HStack>

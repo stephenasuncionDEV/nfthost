@@ -1,8 +1,12 @@
 import NextLink from 'next/link'
-import { Text, Flex, Button, VStack, useColorModeValue, Input, Link } from '@chakra-ui/react'
+import { Text, Flex, Button, VStack, useColorModeValue, Input, 
+    Link, Tag, TagLeftIcon
+} from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useDomain } from '@/hooks/useDomain'
 import { AiOutlineWarning, AiOutlineArrowLeft } from 'react-icons/ai'
+import { MdSave } from 'react-icons/md'
+import { GiCutDiamond } from 'react-icons/gi'
 import config from '@/config/index'
 
 const Domain = () => {
@@ -21,6 +25,7 @@ const Domain = () => {
             boxShadow='0 0 2px 0 rgb(0 0 0 / 10%)'
             alignItems='flex-start'
             maxW='580px'
+            position='relative'
         >
             <VStack spacing='0' alignItems='flex-start'>
                 <Text fontWeight='bold' fontSize='10pt'>
@@ -44,11 +49,19 @@ const Domain = () => {
                 </Flex>
                 <Input placeholder='Alias' value={newAlias} onChange={(e) => setNewAlias(e.target.value)} disabled={!currentEditWebsite?.isPremium} />
                 <Flex justifyContent='flex-end' w='full'>
-                    <Button variant='primary' onClick={UpdateAlias} isLoading={isChangingAlias} loadingText='Updating' disabled={!currentEditWebsite?.isPremium}>
+                    <Button variant='primary' leftIcon={<MdSave />} onClick={UpdateAlias} isLoading={isChangingAlias} loadingText='Updating' disabled={!currentEditWebsite?.isPremium} size='sm'>
                         Update
                     </Button>
                 </Flex>
             </VStack>
+            {!currentEditWebsite?.isPremium && (
+                <Tag position='absolute' right='4' top='-1'>
+                    <TagLeftIcon as={GiCutDiamond} color='#08BDD4' />
+                    <Text>
+                        Premium Only
+                    </Text>
+                </Tag>
+            )}
         </VStack>
     ) : (
         <Flex flexDir='column' justifyContent='center' alignItems='center' flex='1'>

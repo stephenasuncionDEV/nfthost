@@ -139,7 +139,7 @@ const Design = () => {
                                 </Button>
                                 <Button
                                     variant='primary'
-                                    rightIcon={<MdSave />}
+                                    leftIcon={<MdSave />}
                                     onClick={SaveStyle}
                                     disabled={!currentEditWebsite?.isPremium}
                                     size='sm'
