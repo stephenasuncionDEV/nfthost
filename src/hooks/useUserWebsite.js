@@ -77,6 +77,7 @@ export const useUserWebsite = (websiteData) => {
     const CheckExpiration = async (websiteData) => {
         try {
             if (!websiteData) return;
+            if (!websiteData.premiumStartDate) return;
 
             const subscriptionStart = new Date(websiteData.premiumStartDate);
             const subscriptionEnd = subscriptionStart.setDate(subscriptionStart.getDate() + 30);
@@ -92,7 +93,7 @@ export const useUserWebsite = (websiteData) => {
                         Authorization: `Bearer ${process.env.CREATE_WEBSITE_TOKEN}` 
                     }
                 })
-
+                
                 router.push('/', undefined, { shallow: true });
             }
         }

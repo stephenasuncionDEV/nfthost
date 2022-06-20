@@ -32,6 +32,7 @@ const EditWebsite = () => {
             h='100%'
             alignItems='flex-start'
             flex='1'
+            maxW='700px'
         >
             <Flex flexDir='column' spacing='0' alignItems='flex-start' w='full'>
                 <HStack justifyContent='space-between' w='full'>
