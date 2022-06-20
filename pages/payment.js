@@ -9,7 +9,7 @@ import { useUser } from '@/providers/UserProvider'
 import { usePayment } from '@/hooks/usePayment'
 import CardInput from '@/components/CardInput'
 import KeepWorkingModal from '@/components/KeepWorkingModal'
-import { AiOutlineArrowLeft } from 'react-icons/ai'
+import { AiOutlineArrowLeft, AiOutlineWarning } from 'react-icons/ai'
 import { FaWallet, FaEthereum } from 'react-icons/fa'
 import { HiChevronRight } from 'react-icons/hi'
 import { loadStripe } from '@stripe/stripe-js'
@@ -69,132 +69,151 @@ const Payment = () => {
             </Head>
             <KeepWorkingModal />
             <Flex minH='100vh' justifyContent='center' alignItems='center' py='4em'>
-                <Flex flexDir='column'>
-                    <Flex justifyContent='space-between' alignItems='center'>
-                        <NextLink href='/' shallow passHref>
-                            <HStack spacing='1em' cursor='pointer'>
-                                <Avatar 
-                                    size='md'
-                                    src='/assets/logo.png' 
-                                    name='NFT Host Logo' 
-                                    bg='transparent'
-                                />
-                                <Text fontWeight='bold' fontSize='14pt'>
-                                    NFT Host
-                                </Text>
-                            </HStack>
-                        </NextLink>
-                        <NextLink href={paymentData?.redirect?.origin} shallow passHref>
-                            <Button bg='transparent' leftIcon={<AiOutlineArrowLeft />} size='sm'>
-                                Go back to {paymentData?.redirect?.title}
-                            </Button>
-                        </NextLink>
-                    </Flex>
-                    <Flex flexDir='column' p='2em' mt='1.5em' bg={containerColor} borderRadius='10px' minW='470px'>
-                        <Flex justifyContent='space-between'>
-                            <Flex flexDir='column'>
-                                <Flex alignItems='flex-end'>
-                                    <Text variant='content_title'>
-                                        ${parseInt(paymentData?.price).toFixed(2)}
+                {paymentData ? (
+                    <Flex flexDir='column'>
+                        <Flex justifyContent='space-between' alignItems='center'>
+                            <NextLink href='/' shallow passHref>
+                                <HStack spacing='1em' cursor='pointer'>
+                                    <Avatar 
+                                        size='md'
+                                        src='/assets/logo.png' 
+                                        name='NFT Host Logo' 
+                                        bg='transparent'
+                                    />
+                                    <Text fontWeight='bold' fontSize='14pt'>
+                                        NFT Host
                                     </Text>
-                                    <Text fontSize='8pt' ml='.5em'>
-                                        USD
-                                    </Text>
-                                </Flex>
-                                <Text fontSize='10pt' mt='.75em' opacity='.6'>
-                                    Due {`${month[paymentData?.due.getMonth()]} ${paymentData?.due.getDate()}, ${paymentData?.due.getFullYear()}`}
-                                </Text>
-                            </Flex>
-                            <Image src='/assets/payment-logo.png' alt='Payment Logo' w='80px' opacity='.6' />
-                        </Flex>
-                        <HStack fontSize='10pt' mt='2em'>
-                            <VStack spacing='.5em' alignItems='flex-start' opacity='.6'>
-                                <Text>Address</Text>
-                                <Text>Service</Text>
-                                <Text>Product</Text>
-                            </VStack>
-                            <VStack spacing='.5em' alignItems='flex-start'>
-                                <Text>{address}</Text>
-                                <Text>{paymentData?.service}</Text>
-                                <Text fontStyle='italic'>{paymentData?.product}</Text>
-                            </VStack>
-                        </HStack>
-                        <Divider mt='2em' />
-                        <Button size='sm' bg='transparent' rightIcon={<HiChevronRight />} mt='1em'>
-                            View invoice details
-                        </Button>
-                    </Flex>
-                    <Flex flexDir='column' p='2em' mt='1em' bg={containerColor} borderRadius='10px'>
-                        <Text>
-                            Select a payment method
-                        </Text>
-                        <HStack my='1em'>
-                            <Button h='60px' w='120px' justifyContent='flex-start' onClick={() => setPaymentMethodStep('metamask')}>
-                                <Flex flexDir='column' w='full'>
-                                    <FaEthereum />
-                                    <Text fontSize='10pt' textAlign='start'>
-                                        Metamask
-                                    </Text>
-                                </Flex>
-                            </Button>
-                            <Button h='60px' w='120px' justifyContent='flex-start' onClick={() => setPaymentMethodStep('card')}>
-                                <Flex flexDir='column' w='full'>
-                                    <FaWallet />
-                                    <Text fontSize='10pt' textAlign='start'>
-                                        Card
-                                    </Text>
-                                </Flex>
-                            </Button>
-                        </HStack>
-                        <Box mt='1em'>
-                            {paymentMethodStep === 'metamask' && (
-                                <Button w='full' variant='primary' onClick={PayWithCrypto} isLoading={isPaying} loadingText='Paying'>
-                                    Pay&nbsp;
-                                    {paymentData?.service === 'Generator' && '0.015'}&nbsp;
-                                    {paymentData?.service === 'Website' && '0.0085'}&nbsp;
-                                    ETH
+                                </HStack>
+                            </NextLink>
+                            <NextLink href={paymentData?.redirect?.origin} shallow passHref>
+                                <Button bg='transparent' leftIcon={<AiOutlineArrowLeft />} size='sm'>
+                                    Go back to {paymentData?.redirect?.title}
                                 </Button>
-                            )}
-                            {paymentMethodStep === 'card' && (
-                                <VStack spacing='1em'>
-                                    <VStack alignItems='flex-start' w='full'>
-                                        <Text fontSize='10pt' mb='.25em'>
-                                            Customer Information
+                            </NextLink>
+                        </Flex>
+                        <Flex flexDir='column' p='2em' mt='1.5em' bg={containerColor} borderRadius='10px' minW='470px'>
+                            <Flex justifyContent='space-between'>
+                                <Flex flexDir='column'>
+                                    <Flex alignItems='flex-end'>
+                                        <Text variant='content_title'>
+                                            ${paymentData?.price?.toFixed(2)}
                                         </Text>
-                                        <Input placeholder='name' name='name' id='name' value={paymentName} onChange={(e) => setPaymentName(e.target.value)} />
-                                        <Input type='email' placeholder='email' name='email' id='email' value={paymentEmail} onChange={(e) => setPaymentEmail(e.target.value)}/>
-                                        <Input placeholder='address' name='address' id='address' value={paymentAddress} onChange={(e) => setPaymentAddress(e.target.value)}/>
-                                        <HStack>
-                                            <Input placeholder='city' name='city' id='city' value={paymentCity} onChange={(e) => setPaymentCity(e.target.value)}/>
-                                            <Input placeholder='state' name='state' id='state' value={paymentState} onChange={(e) => setPaymentState(e.target.value)}/>
-                                            <Input placeholder='zip' name='zip' id='zip' value={paymentZip} onChange={(e) => setPaymentZip(e.target.value)}/>
-                                        </HStack>
-                                    </VStack>
-                                    <VStack alignItems='flex-start' w='full'>
-                                        <Text fontSize='10pt' mb='.25em'>
-                                            Card Information
+                                        <Text fontSize='8pt' ml='.5em'>
+                                            USD
                                         </Text>
-                                        <Elements stripe={stripePromise}>
-                                            <CardInput />
-                                        </Elements>
-                                    </VStack>
+                                    </Flex>
+                                    <Text fontSize='10pt' mt='.75em' opacity='.6'>
+                                        Due {`${month[paymentData?.due.getMonth()]} ${paymentData?.due.getDate()}, ${paymentData?.due.getFullYear()}`}
+                                    </Text>
+                                </Flex>
+                                <Image src='/assets/payment-logo.png' alt='Payment Logo' w='80px' opacity='.6' />
+                            </Flex>
+                            <HStack fontSize='10pt' mt='2em'>
+                                <VStack spacing='.5em' alignItems='flex-start' opacity='.6'>
+                                    <Text>Address</Text>
+                                    <Text>Service</Text>
+                                    <Text>Product</Text>
                                 </VStack>
-                            )}
-                        </Box>
+                                <VStack spacing='.5em' alignItems='flex-start'>
+                                    <Text>{address}</Text>
+                                    <Text>{paymentData?.service}</Text>
+                                    <Text fontStyle='italic'>{paymentData?.product}</Text>
+                                </VStack>
+                            </HStack>
+                            <Divider mt='2em' />
+                            <Button size='sm' bg='transparent' rightIcon={<HiChevronRight />} mt='1em'>
+                                View invoice details
+                            </Button>
+                        </Flex>
+                        <Flex flexDir='column' p='2em' mt='1em' bg={containerColor} borderRadius='10px'>
+                            <Text>
+                                Select a payment method
+                            </Text>
+                            <HStack my='1em'>
+                                <Button h='60px' w='120px' justifyContent='flex-start' onClick={() => setPaymentMethodStep('metamask')}>
+                                    <Flex flexDir='column' w='full'>
+                                        <FaEthereum />
+                                        <Text fontSize='10pt' textAlign='start'>
+                                            Metamask
+                                        </Text>
+                                    </Flex>
+                                </Button>
+                                <Button h='60px' w='120px' justifyContent='flex-start' onClick={() => setPaymentMethodStep('card')}>
+                                    <Flex flexDir='column' w='full'>
+                                        <FaWallet />
+                                        <Text fontSize='10pt' textAlign='start'>
+                                            Card
+                                        </Text>
+                                    </Flex>
+                                </Button>
+                            </HStack>
+                            <Box mt='1em'>
+                                {paymentMethodStep === 'metamask' && (
+                                    <Button w='full' variant='primary' onClick={PayWithCrypto} isLoading={isPaying} loadingText='Paying'>
+                                        Pay&nbsp;
+                                        {paymentData?.service === 'Generator' && `${0.00009015647 * paymentData?.data?.size}`}&nbsp;
+                                        {paymentData?.service === 'Website' && '0.0085'}&nbsp;
+                                        ETH
+                                    </Button>
+                                )}
+                                {paymentMethodStep === 'card' && (
+                                    <VStack spacing='1em'>
+                                        <VStack alignItems='flex-start' w='full'>
+                                            <Text fontSize='10pt' mb='.25em'>
+                                                Customer Information
+                                            </Text>
+                                            <Input placeholder='name' name='name' id='name' value={paymentName} onChange={(e) => setPaymentName(e.target.value)} />
+                                            <Input type='email' placeholder='email' name='email' id='email' value={paymentEmail} onChange={(e) => setPaymentEmail(e.target.value)}/>
+                                            <Input placeholder='address' name='address' id='address' value={paymentAddress} onChange={(e) => setPaymentAddress(e.target.value)}/>
+                                            <HStack>
+                                                <Input placeholder='city' name='city' id='city' value={paymentCity} onChange={(e) => setPaymentCity(e.target.value)}/>
+                                                <Input placeholder='state' name='state' id='state' value={paymentState} onChange={(e) => setPaymentState(e.target.value)}/>
+                                                <Input placeholder='zip' name='zip' id='zip' value={paymentZip} onChange={(e) => setPaymentZip(e.target.value)}/>
+                                            </HStack>
+                                        </VStack>
+                                        <VStack alignItems='flex-start' w='full'>
+                                            <Text fontSize='10pt' mb='.25em'>
+                                                Card Information
+                                            </Text>
+                                            <Elements stripe={stripePromise}>
+                                                <CardInput />
+                                            </Elements>
+                                        </VStack>
+                                    </VStack>
+                                )}
+                            </Box>
+                        </Flex>
+                        <HStack justifyContent='center' mt='2em' spacing='1em' opacity='.3'>
+                            <Link href='/about/terms' color='white' isExternal>
+                                <Text fontSize='10pt'>
+                                    Terms
+                                </Text>
+                            </Link>
+                            <Link href='/about/privacy-policy' color='white' isExternal>
+                                <Text fontSize='10pt'>
+                                    Privacy
+                                </Text>
+                            </Link>
+                        </HStack>
                     </Flex>
-                    <HStack justifyContent='center' mt='2em' spacing='1em' opacity='.3'>
-                        <Link href='/about/terms' color='white' isExternal>
-                            <Text fontSize='10pt'>
-                                Terms
+                ) : (
+                    <Flex flexDir='column' justifyContent='center' alignItems='center' w='full' flex='1' mb='4em'>
+                        <AiOutlineWarning fontSize='28pt' />
+                        <Flex flexDir='column' alignItems='center' mt='.5em'>
+                            <Text fontWeight='bold' fontSize='10pt'>
+                                Error
                             </Text>
-                        </Link>
-                        <Link href='/about/privacy-policy' color='white' isExternal>
-                            <Text fontSize='10pt'>
-                                Privacy
+                            <Text fontSize='10pt' mb='1em'>
+                                Something wrong occured.
                             </Text>
-                        </Link>
-                    </HStack>
-                </Flex>
+                            <NextLink href='/dashboard/getStarted' passHref shallow>
+                                <Button leftIcon={<AiOutlineArrowLeft />} size='sm' variant='primary'>
+                                    Go back to dashboard
+                                </Button>
+                            </NextLink>
+                        </Flex>
+                    </Flex>
+                )}
             </Flex>
         </main>
     )

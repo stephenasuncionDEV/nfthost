@@ -21,7 +21,7 @@ const Template = () => {
                 </Text>
             </Flex>
             <NextLink href={`/dashboard/website`} shallow passHref>
-                <Button leftIcon={<AiOutlineArrowLeft />} color='white' bg='rgb(52,140,212)' _hover={{ bg: 'rgb(39,107,163)' }} size='sm' mt='1.5em'>
+                <Button leftIcon={<AiOutlineArrowLeft />} color='white' variant='primary' size='sm' mt='1.5em'>
                     See Website List
                 </Button>
             </NextLink>

@@ -133,6 +133,9 @@ export const useSites = () => {
                         origin: '/dashboard/website',
                         title: 'Website'
                     },
+                    data: {
+                        size: 1
+                    },
                     due: new Date()
                 })
                 router.push('/payment', undefined, { shallow: true }); 

@@ -113,7 +113,7 @@ export const usePayment = () => {
 
             const token = decryptToken(storageToken, true);
             const service = paymentData.service.toLowerCase();
-            const price = getPriceFromService(service); 
+            const price = getPriceFromService(service, false, paymentData.data.size); 
 
             const clientData = await axios.post(`${config.serverUrl}/api/payment/request`, {
                 email: paymentEmail,

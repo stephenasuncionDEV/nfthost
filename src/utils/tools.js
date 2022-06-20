@@ -83,9 +83,9 @@ export const decryptToken = (encryptedToken, tokenOnly = false) => {
     }
 }
 
-export const getPriceFromService = (service, inETH = false) => {
+export const getPriceFromService = (service, inETH = false, multiply = 1) => {
     const price = {
-        generator: inETH ? 0.014 : 25,
+        generator: inETH ? 0.00009015647 * multiply : 0.1 * multiply,
         website: inETH ? 0.0085 : 15
     }[service];
 
