@@ -33,7 +33,7 @@ const EditWebsite = () => {
             alignItems='flex-start'
             flex='1'
         >
-            <Flex flexDir='column' spacing='0' alignItems='flex-start'>
+            <Flex flexDir='column' spacing='0' alignItems='flex-start' w='full'>
                 <HStack justifyContent='space-between' w='full'>
                     <VStack spacing='0' alignItems='flex-start'>
                         <Text fontWeight='bold' fontSize='10pt'>
@@ -60,10 +60,10 @@ const EditWebsite = () => {
                         </Link>
                     </HStack>
                 </HStack>
-                <Box mt='1em'>
-                    <form ref={editWebsiteFormRef}>  
-                        <Wrap spacing='2em'>
-                            <VStack alignItems='flex-start'>
+                <Flex flexDir='column' mt='1em' w='full'>
+                    <form ref={editWebsiteFormRef} style={{ width: '100%' }}>  
+                        <Wrap spacing='2em' w='full'>
+                            <VStack alignItems='flex-start' maxW='200px' flex='1'>
                                 <Image 
                                     src={unrevealedImage}
                                     alt='Unrevelead Image'
@@ -104,10 +104,10 @@ const EditWebsite = () => {
                                     </Button>
                                 )}
                             </VStack>
-                            <VStack>
-                                <HStack>
-                                    <Input id='title' placeholder='Title' size='sm'/>
-                                    <Select id='language' placeholder='Language' size='sm'>
+                            <VStack alignItems='flex-start' flex='1'>
+                                <HStack w='full'>
+                                    <Input id='title' placeholder='Title' size='sm' flex='1'/>
+                                    <Select id='language' placeholder='Language' size='sm' flex='1'>
                                         <option value="AF">Afrikaans</option>
                                         <option value="SQ">Albanian</option>
                                         <option value="AR">Arabic</option>
@@ -190,7 +190,7 @@ const EditWebsite = () => {
                             </VStack>
                         </Wrap>
                     </form>
-                </Box>
+                </Flex>
                 <HStack w='full' justifyContent='space-between' mt='1.5em'>
                     <Button variant='danger' size='sm' onClick={() => {
                         setAreYouSureData({
