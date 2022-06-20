@@ -1,15 +1,16 @@
 import { VStack, Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption,
     TableContainer, IconButton, Menu, MenuItem, MenuList, MenuButton,
-    useColorModeValue, Text, Tag, Link
+    useColorModeValue, Text, Tag, Link, HStack
 } from '@chakra-ui/react'
 import { useCore } from '@/providers/CoreProvider'
 import { useTransactions } from '@/hooks/useTransactions'
 import { BiSupport } from 'react-icons/bi'
+import { MdOutlineContentCopy } from 'react-icons/md'
 import { IoMdSettings } from 'react-icons/io'
 
 const Payments = () => {
     const { transactions } = useCore();
-    useTransactions();
+    const { CopyHash } = useTransactions();
     const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
 
     return (
@@ -37,10 +38,13 @@ const Payments = () => {
                     <Tbody>
                         {transactions?.map((payment, idx) => (
                             <Tr key={idx}>
-                                <Td maxW='100px'>
-                                    <Text noOfLines={1} fontSize='10pt'>
-                                        {payment.hash}
-                                    </Text>
+                                <Td>
+                                    <HStack cursor='pointer' onClick={() => CopyHash(payment)}>
+                                        <Text noOfLines={1} fontSize='10pt' maxW='200px'>
+                                            {payment.hash}
+                                        </Text>
+                                        <MdOutlineContentCopy fontSize='12pt'/>
+                                    </HStack>
                                 </Td>
                                 <Td>
                                     <Tag>{payment.service.toUpperCase()}</Tag>

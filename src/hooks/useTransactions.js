@@ -55,7 +55,20 @@ export const useTransactions = (update = true) => {
         }
     }
 
-    return {
+    const CopyHash = (payment) => {
+        navigator.clipboard.writeText(payment.hash);
 
+        toast({
+            title: 'Success',
+            description: 'Copied transaction hash',
+            status: 'success',
+            duration: 3000,
+            isClosable: true,
+            position: 'bottom-center'
+        })
+    }
+
+    return {
+        CopyHash
     }
 }
