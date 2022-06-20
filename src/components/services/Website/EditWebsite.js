@@ -14,7 +14,7 @@ const EditWebsite = () => {
     const { setAreYouSureData, setIsAreYouSureModal } = useCore();
     const { currentEditWebsite, editWebsiteFormRef, isUpdating, isDeletingWebsite } = useWebsite();
     const { user } = useUser();
-    const { CancelEdit, UpdateWebsite, DeleteWebsite, CopyWebsiteLink, UpgradeToPremium } = useSites();
+    const { CancelEdit, UpdateWebsite, DeleteWebsite, CopyWebsiteLink, UpgradeToPremium, RenewWebsite } = useSites();
     useEditWebsite();
     const { components: { title, unrevealedImage } } = currentEditWebsite;
 
@@ -87,7 +87,7 @@ const EditWebsite = () => {
                                 </VStack>
                                 {!currentEditWebsite?.isPremium && (
                                     <Box w='200px'>
-                                        <Button size='sm' variant='primary' w='full' leftIcon={<FaStar />} mt='1em' onClick={UpgradeToPremium} isLoading={isUpdating} loadingText='Updating'>
+                                        <Button size='sm' variant='primary' w='full' leftIcon={<FaStar />} mt='1em' onClick={UpgradeToPremium} isLoading={isUpdating}>
                                             Upgrade to Premium
                                         </Button>
                                         {user?.services?.website?.freeWebsite > 0 && (
@@ -96,6 +96,11 @@ const EditWebsite = () => {
                                             </Text>
                                         )}
                                     </Box>
+                                )}
+                                {currentEditWebsite?.isExpired && (
+                                    <Button size='sm' variant='primary' w='full' leftIcon={<FaStar />} mt='1em' onClick={RenewWebsite} isLoading={isUpdating}>
+                                        Renew Website
+                                    </Button>
                                 )}
                             </VStack>
                             <VStack>

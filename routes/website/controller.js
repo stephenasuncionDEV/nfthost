@@ -297,7 +297,7 @@ exports.updateComponents = async (req, res, next) => {
     }
 }
 
-exports.deleteAddon  = async (req, res, next) => {
+exports.deleteAddon = async (req, res, next) => {
     try {
         const errors = validationResult(req).errors;
         if (errors.length > 0) throw new Error(errors[0].msg);
@@ -317,7 +317,7 @@ exports.deleteAddon  = async (req, res, next) => {
     }
 }
 
-exports.updateSubscription  = async (req, res, next) => {
+exports.updateSubscription = async (req, res, next) => {
     try {
         const errors = validationResult(req).errors;
         if (errors.length > 0) throw new Error(errors[0].msg);
@@ -327,6 +327,27 @@ exports.updateSubscription  = async (req, res, next) => {
         await Website.updateOne({ _id: websiteId }, {
             $set: { 
                 isPremium,
+                premiumStartDate
+            }
+        });
+
+        res.sendStatus(200);
+
+    } catch (err) {
+        next(err);
+    }
+}
+
+exports.renewSubscription  = async (req, res, next) => {
+    try {
+        const errors = validationResult(req).errors;
+        if (errors.length > 0) throw new Error(errors[0].msg);
+
+        const { websiteId, isExpired, premiumStartDate } = req.body;
+
+        await Website.updateOne({ _id: websiteId }, {
+            $set: { 
+                isExpired,
                 premiumStartDate
             }
         });

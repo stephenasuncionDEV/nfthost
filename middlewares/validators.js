@@ -317,3 +317,19 @@ exports.UpdateSubscriptionValidator = [
     .notEmpty(),
 
 ]
+
+exports.RenewSubscriptionValidator = [
+
+    // websiteId Validator
+    check('websiteId', 'websiteId is empty')
+    .notEmpty(),
+
+    // isExpired Validator
+    check('isExpired', 'isExpired is empty')
+    .notEmpty(),
+
+    // premiumStartDate Validator
+    check('premiumStartDate', 'premiumStartDate is empty')
+    .notEmpty(),
+
+]

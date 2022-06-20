@@ -371,9 +371,9 @@ export const useSites = () => {
             const storageToken = localStorage.getItem('nfthost-user');
             if (!storageToken) return;
 
-            setIsUpdating(true);
-
             const token = decryptToken(storageToken, true);
+
+            setIsUpdating(true);
 
             await axios.patch(`${config.serverUrl}/api/website/updateSubscription`, {
                 websiteId: currentEditWebsite._id,
@@ -518,6 +518,64 @@ export const useSites = () => {
         })
     }
 
+    const RenewWebsite = async () => {
+        try {
+            if (!currentEditWebsite) throw new Error('Select a mint website');
+
+            const storageToken = localStorage.getItem('nfthost-user');
+            if (!storageToken) return;
+
+            const token = decryptToken(storageToken, true);
+
+            setIsUpdating(true);
+
+            const today = new Date();
+
+            await axios.patch(`${config.serverUrl}/api/website/renewSubscription`, {
+                websiteId: currentEditWebsite._id,
+                isExpired: false,
+                premiumStartDate: today
+            }, {
+                headers: { 
+                    Authorization: `Bearer ${token.accessToken}` 
+                }
+            })
+
+            await GetWebsites();
+
+            let newEditWebsite = { ...currentEditWebsite }
+            newEditWebsite.isExpired = false;
+            newEditWebsite.premiumStartDate = today;
+
+            setCurrentEditWebsite(newEditWebsite);
+            setIsUpdating(false);
+
+            posthog.capture('User renew a mint website');
+
+            toast({
+                title: 'Success',
+                description: 'Successfuly renewed subscription of your website',
+                status: 'success',
+                duration: 3000,
+                isClosable: true,
+                position: 'bottom-center'
+            })
+        }
+        catch (err) {
+            setIsUpdating(false);
+            console.error(err);
+            if (err.response?.data?.isExpired) await Logout();
+            toast({
+                title: 'Error',
+                description: !err.response ? err.message : err.response.data.message,
+                status: 'error',
+                duration: 3000,
+                isClosable: true,
+                position: 'bottom-center'
+            })
+        }
+    }
+
     return {
         GetWebsites,
         CreateWebsite,
@@ -528,6 +586,7 @@ export const useSites = () => {
         UpdateExpiration,
         CopyWebsiteLink,
         CancelEdit,
-        UpgradeToPremium
+        UpgradeToPremium,
+        RenewWebsite
     }
 }
