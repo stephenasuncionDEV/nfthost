@@ -1,11 +1,9 @@
 import { Flex, Text, VStack, Link, HStack, Avatar, useColorModeValue, Wrap } from '@chakra-ui/react'
 import { BiLinkExternal } from 'react-icons/bi'
-import { useMediaQuery } from 'react-responsive'
 
 const Footer = () => {
     const bg = useColorModeValue('rgba(218,223,255,1)', 'rgba(17,21,28,1)');
     const srcColor = useColorModeValue('rgb(34,34,34)', 'whiteAlpha.600');
-    const isTouchingLogo = useMediaQuery({ query: '(max-width: 630px)' });
 
     return (
         <footer>
@@ -53,7 +51,7 @@ const Footer = () => {
                             <Text fontWeight='bold'>
                                 NFT Host Team
                             </Text>
-                            <Link href='https://www.instagram.com/stephenasuncion/' color='white' isExternal>
+                            <Link href='https://twitter.com/Steb_01' color='white' isExternal>
                                 <HStack minW='161.13'>
                                     <Text>
                                         Stephen Asuncion
