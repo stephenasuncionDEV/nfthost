@@ -95,6 +95,7 @@ export const useSites = () => {
             let errorsObj = {};
 
             if (!newComponentTitle.length) errorsObj.title = { status: true, message: 'Title field must be filled in' };
+            if (newComponentTitle.length > 32) errorsObj.title = { status: true, message: 'Max title length is 32 characters' };
             if (!newComponentDescription.length) errorsObj.description = { status: true, message: 'Description field must be filled in' };
             if (!newComponentEmbed.length) errorsObj.embed = { status: true, message: 'Embed field must be filled in' };
             if (newComponentScript.length > 0 && !(/</i.test(newComponentScript) && />/i.test(newComponentScript))) errorsObj.script = { status: true, message: 'Embed code must be a valid html code' };
