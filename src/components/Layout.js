@@ -76,7 +76,7 @@ const Layout = ({ children, currentApp }) => {
 
     const sidebarBG = useColorModeValue('white', 'rgb(55,66,76)');
     const sidebarColor = useColorModeValue('#60677d', '#9097a7');
-    const toolbarBG = useColorModeValue('rgba(255,255,255,1)', 'rgb(60,71,82)');
+    const toolbarBG = useColorModeValue('rgba(250,250,250,1)', 'rgb(60,71,82)');
     const toolbarColor = useColorModeValue('rgba(255,255,255,.8)', 'white');
     const defaultColor = useColorModeValue('black', 'white');
 
