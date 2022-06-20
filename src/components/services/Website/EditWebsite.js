@@ -31,6 +31,7 @@ const EditWebsite = () => {
             boxShadow='0 0 2px 0 rgb(0 0 0 / 10%)'
             h='100%'
             alignItems='flex-start'
+            flex='1'
         >
             <Flex flexDir='column' spacing='0' alignItems='flex-start'>
                 <HStack justifyContent='space-between' w='full'>

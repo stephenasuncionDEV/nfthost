@@ -34,7 +34,7 @@ const Website = () => {
             </Button>
             <WebsiteList />
             {isEditWebsite && (
-                <Wrap spacing='2em'>
+                <Wrap spacing='2em' w='full'>
                     <EditWebsite />
                     <CurrentTemplate />
                 </Wrap>
