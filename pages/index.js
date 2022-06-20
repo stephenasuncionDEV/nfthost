@@ -85,7 +85,7 @@ const Main = () => {
                             <Wrap spacing='2em' my='1em'>
                                 <Link href='https://flair.finance/' isExternal>
                                     <Button variant='unstyled' display='flex' h='full' _hover={{ opacity: '1' }} opacity='0.3'>
-                                        <Image src='https://i.postimg.cc/05G90nyC/download.png' alt='Flair Logo' width='40px' />
+                                        <Image src='/assets/partners/flair.png' alt='Flair Logo' width='40px' />
                                     </Button>
                                 </Link>
                             </Wrap>

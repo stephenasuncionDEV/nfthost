@@ -9,18 +9,7 @@ export const CoreProvider = ({ children }) => {
     const [isKeepWorkingModal, setIsKeepWorkingModal] = useState(false);
     const [isAreYouSureModal, setIsAreYouSureModal] = useState(false);
     const [isSidebar, setIsSidebar] = useState(true);
-    const [paymentData, setPaymentData] = useState(
-        // {
-        //     service: 'Generator',
-        //     price: 25,
-        //     product: '1 NFT collection generation',
-        //     redirect: {
-        //         origin: '/dashboard/generator',
-        //         title: 'Generator'
-        //     },
-        //     due: new Date()
-        // }
-    );
+    const [paymentData, setPaymentData] = useState();
     const [paymentMethodStep, setPaymentMethodStep] = useState('metamask');
     const [paymentName, setPaymentName] = useState('');
     const [paymentEmail, setPaymentEmail] = useState('');

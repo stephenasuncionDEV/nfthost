@@ -2,6 +2,7 @@ import NextLink from 'next/link'
 import { Box, Text, useColorModeValue, VStack, HStack, 
     Avatar, IconButton, Button, useColorMode, Flex, Link
 } from '@chakra-ui/react'
+import { useCore } from '@/providers/CoreProvider'
 import ConnectWalletTag from './ConnectWalletTag'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { MdOutlineDashboard, MdOutlineMiscellaneousServices, 
@@ -10,7 +11,7 @@ import { MdOutlineDashboard, MdOutlineMiscellaneousServices,
 import { CgWebsite } from 'react-icons/cg'
 import { AiOutlineTeam } from 'react-icons/ai'
 import { BiSupport } from 'react-icons/bi'
-import { useCore } from '@/providers/CoreProvider'
+import { VscOrganization } from 'react-icons/vsc'
 
 const sidebarItemArr = [
     { 
@@ -20,13 +21,15 @@ const sidebarItemArr = [
                 name: 'Get Started', 
                 link: '/getStarted', 
                 icon: <MdOutlineDashboard />, 
-                children: [] 
+                children: [],
+                isExternal: false
             },
             { 
                 name: 'Payments', 
                 link: '/payments', 
                 icon: <MdPayment />, 
-                children: [] 
+                children: [],
+                isExternal: false
             }
         ]
     },
@@ -37,7 +40,8 @@ const sidebarItemArr = [
                 name: 'Generator', 
                 link: '/generator', 
                 icon: <MdOutlineMiscellaneousServices />, 
-                children: [] 
+                children: [],
+                isExternal: false
             },
             { 
                 name: 'Website', 
@@ -47,27 +51,37 @@ const sidebarItemArr = [
                     { name: 'Templates', link: '/website/templates' },
                     { name: 'Addons', link: '/website/addons' },
                     { name: 'Domain', link: '/website/domain' }
-                ] 
+                ],
+                isExternal: false
             }
         ]
     },
-    // { 
-    //     parent: 'about',
-    //     items: [ 
-    //         { 
-    //             name: 'Team', 
-    //             link: '/team', 
-    //             icon: <AiOutlineTeam />, 
-    //             children: []
-    //         },
-    //         { 
-    //             name: 'Support', 
-    //             link: '/support', 
-    //             icon: <BiSupport />, 
-    //             children: []
-    //         }
-    //     ]
-    // },
+    { 
+        parent: 'about',
+        items: [ 
+            { 
+                name: 'Partners', 
+                link: '/partners', 
+                icon: <VscOrganization />, 
+                children: [],
+                isExternal: false
+            },
+            // { 
+            //     name: 'Team', 
+            //     link: '/team', 
+            //     icon: <AiOutlineTeam />, 
+            //     children: [],
+            //     isExternal: false
+            // },
+            { 
+                name: 'Support', 
+                link: 'https://discord.gg/BMZZXZMnmv', 
+                icon: <BiSupport />, 
+                children: [],
+                isExternal: true
+            }
+        ]
+    },
 ]
 
 const Layout = ({ children, currentApp }) => {
@@ -160,19 +174,35 @@ const Layout = ({ children, currentApp }) => {
                             <VStack spacing='.25em'>
                                 {item.items.map((nav, idx) => (
                                     <Box key={idx} w='full'>
-                                        <NextLink href={`/dashboard${nav.link}`} shallow passHref>
-                                            <Button 
-                                                borderRadius='0' 
-                                                leftIcon={nav.icon}
-                                                w='full' 
-                                                justifyContent='flex-start' 
-                                                bg='transparent'
-                                                _hover={{ bg: 'transparent', color: 'rgb(52,140,212)' }}
-                                                color={currentApp === nav.name.replace(' ', '').toLowerCase() ? 'rgb(52,140,212)' : null}
-                                            >
-                                                {nav.name}
-                                            </Button>
-                                        </NextLink>
+                                        {!nav.isExternal ? (
+                                            <NextLink href={`/dashboard${nav.link}`} shallow passHref>
+                                                <Button 
+                                                    borderRadius='0' 
+                                                    leftIcon={nav.icon}
+                                                    w='full' 
+                                                    justifyContent='flex-start' 
+                                                    bg='transparent'
+                                                    _hover={{ bg: 'transparent', color: 'rgb(52,140,212)' }}
+                                                    color={currentApp === nav.name.replace(' ', '').toLowerCase() ? 'rgb(52,140,212)' : null}
+                                                >
+                                                    {nav.name}
+                                                </Button>
+                                            </NextLink>
+                                        ) : (
+                                            <Link href={nav.link} isExternal style={{ textDecoration: 'none' }}>
+                                                <Button 
+                                                    borderRadius='0' 
+                                                    leftIcon={nav.icon}
+                                                    w='full' 
+                                                    justifyContent='flex-start' 
+                                                    bg='transparent'
+                                                    _hover={{ bg: 'transparent', color: 'rgb(52,140,212)' }}
+                                                    color={currentApp === nav.name.replace(' ', '').toLowerCase() ? 'rgb(52,140,212)' : null}
+                                                >
+                                                    {nav.name}
+                                                </Button>
+                                            </Link>
+                                        )}
                                         <VStack spacing='0' pl='1.5em'>
                                             {nav.children.map((children, idx) => (
                                                 <NextLink href={`/dashboard${children.link}`} shallow passHref key={idx}>

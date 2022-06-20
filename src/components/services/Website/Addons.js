@@ -18,7 +18,7 @@ const Addons = () => {
     
     return currentEditWebsite ? (
         <VStack 
-            id='templateList'
+            id='addons'
             spacing='1.5em'
             p='1em' 
             bg={containerColor}

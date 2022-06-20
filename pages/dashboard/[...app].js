@@ -10,10 +10,11 @@ import Website from '@/components/services/Website'
 import Template from '@/components/services/Website/Template'
 import Addons from '@/components/services/Website/Addons'
 import Domain from '@/components/services/Website/Domain'
+import WebsiteInfo from '@/components/services/Website/WebsiteInfo'
 import ConnectWalletTag from '@/components/ConnectWalletTag'
+import Partners from '@/components/Partners'
 import Payments from '@/components/Payments'
 import { MdOutlineAccountCircle } from 'react-icons/md'
-import WebsiteInfo from '@/components/services/Website/WebsiteInfo'
 
 const Page = () => {
     const router = useRouter();
@@ -70,6 +71,7 @@ const Page = () => {
                                 {currentApp === 'addons' && <Addons />}
                                 {currentApp === 'domain' && <Domain />}
                                 {currentApp === 'payments' && <Payments />}
+                                {currentApp === 'partners' && <Partners />}
                             </>
                         )}
                     </>
