@@ -74,7 +74,8 @@ export const sidebarArr = [
                 children: [
                     { name: 'Templates', link: '/website/templates' },
                     { name: 'Addons', link: '/website/addons' },
-                    { name: 'Domain', link: '/website/domain' }
+                    { name: 'Domain', link: '/website/domain' },
+                    { name: 'Analytics', link: '/website/analytics' }
                 ],
                 isExternal: false
             }

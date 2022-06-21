@@ -32,7 +32,6 @@ exports.getWebsite = async (req, res, next) => {
         if (ObjectId.isValid(websiteId)) {
             count = await Website.count({ _id: websiteId });
             if (count > 0) {
-                console.log('websiteid')
                 const result = await Website.findOne({ _id: websiteId });
                 res.status(200).json(result);
                 return;
