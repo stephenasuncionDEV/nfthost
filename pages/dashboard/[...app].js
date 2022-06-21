@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useColorModeValue, Flex, Text, VStack, Box, HStack } from '@chakra-ui/react'
+import { useMediaQuery } from 'react-responsive'
 import { useUser } from '@/providers/UserProvider'
 import { useReAuthenticate } from '@/hooks/useReAuthenticate'
 import Layout from '@/components/Layout'
@@ -23,9 +24,11 @@ const Page = () => {
     const { isLoggedIn } = useUser();
     const app = router.query.app || [];
     const currentApp = app[app.length === 2 ? 1 : 0]?.toLowerCase();
+    useReAuthenticate();
 
     const bgColor = useColorModeValue('rgb(236,242,245)', 'rgb(48,56,65)');
-    useReAuthenticate();
+    const isRemoveStepper = useMediaQuery({ query: '(max-width: 1300px)' });
+    const isCollapse = useMediaQuery({ query: '(max-width: 990px)' });
 
     return (
         <main style={{ background: bgColor, minHeight: '100vh' }}>
@@ -58,10 +61,12 @@ const Page = () => {
                                 {currentApp?.toUpperCase()}
                             </Text>
                             <HStack spacing='2em'>
-                                {app[0] === 'website' && <WebsiteInfo />}
-                                <Text>
-                                    DASHBOARD &gt; {app.join(' > ').toUpperCase()}
-                                </Text>
+                                {app[0] === 'website' && <WebsiteInfo isCollapse={isCollapse} />}
+                                {!isRemoveStepper && (
+                                    <Text>
+                                        DASHBOARD &gt; {app.join(' > ').toUpperCase()}
+                                    </Text>
+                                )}
                             </HStack>
                         </Flex>
                         {app.length > 0 && (

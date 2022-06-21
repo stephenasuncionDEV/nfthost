@@ -35,8 +35,8 @@ const EmbedClicks = () => {
             {
                 label: 'Embed Click Count',
                 data: websites?.map((website) => website.analytics.clickedOnEmbed),
-                borderColor: 'rgb(255, 99, 132)',
-                backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                borderColor: 'orange',
+                backgroundColor: 'orange',
             }
         ],
     }
@@ -50,6 +50,7 @@ const EmbedClicks = () => {
             borderRadius='.25em'
             boxShadow='0 0 2px 0 rgb(0 0 0 / 10%)'
             alignItems='flex-start'
+            flex='1'
         >
             <VStack spacing='0' alignItems='flex-start'>
                 <Text fontWeight='bold' fontSize='10pt'>
@@ -71,7 +72,7 @@ const EmbedClicks = () => {
                 alignItems='center'
             >
                 <Line options={{
-                    responsive: true,
+                    responsive: false,
                     plugins: {
                         legend: {
                             position: 'top',

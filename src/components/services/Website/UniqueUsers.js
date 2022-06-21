@@ -50,6 +50,7 @@ const UniqueUsers = () => {
             borderRadius='.25em'
             boxShadow='0 0 2px 0 rgb(0 0 0 / 10%)'
             alignItems='flex-start'
+            flex='1'
         >
             <VStack spacing='0' alignItems='flex-start'>
                 <Text fontWeight='bold' fontSize='10pt'>
