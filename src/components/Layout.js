@@ -1,89 +1,12 @@
 import NextLink from 'next/link'
 import { Box, Text, useColorModeValue, VStack, HStack, 
-    Avatar, IconButton, Button, useColorMode, Flex, Link,
-    Image
+    IconButton, Button, useColorMode, Flex, Link, Image
 } from '@chakra-ui/react'
 import { useCore } from '@/providers/CoreProvider'
 import ConnectWalletTag from './ConnectWalletTag'
 import { GiHamburgerMenu } from 'react-icons/gi'
-import { MdOutlineDashboard, MdOutlineMiscellaneousServices, 
-    MdOutlineDarkMode, MdOutlineLightMode, MdPayment 
-} from 'react-icons/md'
-import { CgWebsite } from 'react-icons/cg'
-import { AiOutlineTeam } from 'react-icons/ai'
-import { BiSupport } from 'react-icons/bi'
-import { VscOrganization } from 'react-icons/vsc'
-
-const sidebarItemArr = [
-    { 
-        parent: 'navigation',
-        items: [ 
-            { 
-                name: 'Get Started', 
-                link: '/getStarted', 
-                icon: <MdOutlineDashboard />, 
-                children: [],
-                isExternal: false
-            },
-            { 
-                name: 'Payments', 
-                link: '/payments', 
-                icon: <MdPayment />, 
-                children: [],
-                isExternal: false
-            }
-        ]
-    },
-    { 
-        parent: 'apps',
-        items: [ 
-            { 
-                name: 'Generator', 
-                link: '/generator', 
-                icon: <MdOutlineMiscellaneousServices />, 
-                children: [],
-                isExternal: false
-            },
-            { 
-                name: 'Website', 
-                link: '/website', 
-                icon: <CgWebsite />, 
-                children: [
-                    { name: 'Templates', link: '/website/templates' },
-                    { name: 'Addons', link: '/website/addons' },
-                    { name: 'Domain', link: '/website/domain' }
-                ],
-                isExternal: false
-            }
-        ]
-    },
-    { 
-        parent: 'about',
-        items: [ 
-            { 
-                name: 'Partners', 
-                link: '/partners', 
-                icon: <VscOrganization />, 
-                children: [],
-                isExternal: false
-            },
-            // { 
-            //     name: 'Team', 
-            //     link: '/team', 
-            //     icon: <AiOutlineTeam />, 
-            //     children: [],
-            //     isExternal: false
-            // },
-            { 
-                name: 'Support', 
-                link: 'https://discord.gg/BMZZXZMnmv', 
-                icon: <BiSupport />, 
-                children: [],
-                isExternal: true
-            }
-        ]
-    },
-]
+import {  MdOutlineDarkMode, MdOutlineLightMode } from 'react-icons/md'
+import { sidebarArr } from '@/utils/json'
 
 const Layout = ({ children, currentApp }) => {
     const { isSidebar, setIsSidebar } = useCore();
@@ -93,8 +16,6 @@ const Layout = ({ children, currentApp }) => {
     const sidebarColor = useColorModeValue('#60677d', '#9097a7');
     const toolbarBG = useColorModeValue('rgba(250,250,250,1)', 'rgb(60,71,82)');
     const defaultColor = useColorModeValue('rgba(0,0,0,0.7)', 'white');
-
-    //https://coderthemes.com/codefox/#demos
 
     return (
         <>
@@ -158,7 +79,7 @@ const Layout = ({ children, currentApp }) => {
                     color={sidebarColor}
                     zIndex='1337 !important'
                 >
-                    {sidebarItemArr?.map((item, idx) => (
+                    {sidebarArr?.map((item, idx) => (
                         <VStack key={idx} spacing='1.5em' alignItems='flex-start' w='full'>
                             <Text fontSize='10pt'>
                                 {item.parent.toUpperCase()}
