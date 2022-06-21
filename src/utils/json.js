@@ -29,12 +29,12 @@ export const PartnersArr = [
         link: 'https://ambition.so/',
         description: 'End-to-end tools to help creators build their NFT collection'
     },
-    {
-        company: 'SwiftNFT',
-        image: '/assets/partners/swiftnft.png',
-        link: 'https://swiftnft.io/',
-        description: 'No-Code NFT generator to launch your NFT collection'
-    },
+    // {
+    //     company: 'SwiftNFT',
+    //     image: '/assets/partners/swiftnft.png',
+    //     link: 'https://swiftnft.io/',
+    //     description: 'No-Code NFT generator to launch your NFT collection'
+    // },
 ]
 
 export const sidebarArr = [
