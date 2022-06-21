@@ -34,7 +34,7 @@ const EmbedClicks = () => {
         datasets: [
             {
                 label: 'Embed Click Count',
-                data: websites?.map((website) => website.analytics.uniqueVisits),
+                data: websites?.map((website) => website.analytics.clickedOnEmbed),
                 borderColor: 'rgb(255, 99, 132)',
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
             }

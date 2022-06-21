@@ -32,7 +32,7 @@ router.patch('/updateTemplate', authenticateToken, UpdateTemplateValidator, cont
 router.patch('/updateStyle', authenticateToken, UpdateStyleValidator, controller.updateStyle);
 router.patch('/updateRevealDate', authenticateToken, UpdateRevealDateValidator, controller.updateRevealDate);
 router.patch('/updateCustom', authenticateToken, UpdateCustomValidator, controller.updateCustom);
-router.patch('/updateAnalytics', authenticateToken, UpdateAnalyticsValidator, controller.updateAnalytics);
+router.patch('/updateAnalytics', authenticateThirdPartyToken, UpdateAnalyticsValidator, controller.updateAnalytics);
 router.patch('/updateComponents', authenticateToken, UpdateComponentsValidator, controller.updateComponents);
 router.patch('/updateSubscription', authenticateToken, UpdateSubscriptionValidator, controller.updateSubscription);
 router.delete('/deleteAddon', authenticateToken, DeleteAddonValidator, controller.deleteAddon);

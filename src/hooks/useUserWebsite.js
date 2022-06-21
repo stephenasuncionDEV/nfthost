@@ -51,7 +51,7 @@ export const useUserWebsite = (websiteData) => {
 
             if (checkExpiration) await CheckExpiration(res.data);
 
-            //@TODO: Analytics
+            await CheckAnalytics(res.data);
 
             setUserWebsite({
                 ...res.data,
@@ -106,6 +106,27 @@ export const useUserWebsite = (websiteData) => {
                 isClosable: true,
                 position: 'bottom-center'
             })
+        }
+    }
+
+    const CheckAnalytics = async (websiteData) => {
+        try {
+            if (!websiteData) return;
+            if (localStorage.getItem(`nfthost-${websiteData._id}`)) return;
+            else localStorage.setItem(`nfthost-${websiteData._id}`, 'visited');
+
+            await axios.patch(`${config.serverUrl}/api/website/updateAnalytics`, {
+                websiteId: websiteData._id,
+                key: 'uniqueVisits',
+                value: websiteData.analytics.uniqueVisits + 1
+            }, {
+                headers: { 
+                    Authorization: `Bearer ${process.env.CREATE_WEBSITE_TOKEN}` 
+                }
+            })
+        }
+        catch (err) {
+            console.error(err);
         }
     }
 
