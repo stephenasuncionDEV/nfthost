@@ -14,6 +14,7 @@ import WebsiteInfo from '@/components/services/Website/WebsiteInfo'
 import ConnectWalletTag from '@/components/ConnectWalletTag'
 import Partners from '@/components/Partners'
 import Payments from '@/components/Payments'
+import Team from '@/components/Team'
 import { MdOutlineAccountCircle } from 'react-icons/md'
 
 const Page = () => {
@@ -71,7 +72,8 @@ const Page = () => {
                                 addons: <Addons />,
                                 domain: <Domain />,
                                 payments: <Payments />,
-                                partners: <Partners />
+                                partners: <Partners />,
+                                team: <Team />
                             }[currentApp]
                         )}
                     </>

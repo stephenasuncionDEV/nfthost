@@ -2,6 +2,7 @@ import { CgWebsite } from 'react-icons/cg'
 import { BiSupport } from 'react-icons/bi'
 import { VscOrganization } from 'react-icons/vsc'
 import { MdOutlineDashboard, MdOutlineMiscellaneousServices, MdPayment } from 'react-icons/md'
+import { AiOutlineTeam } from 'react-icons/ai'
 
 export const TemplatesArr = [
     { key: 'Template1', sub: 'free', creator: 'NFTHost' },
@@ -89,13 +90,13 @@ export const sidebarArr = [
                 children: [],
                 isExternal: false
             },
-            // { 
-            //     name: 'Team', 
-            //     link: '/team', 
-            //     icon: <AiOutlineTeam />, 
-            //     children: [],
-            //     isExternal: false
-            // },
+            { 
+                name: 'Team', 
+                link: '/team', 
+                icon: <AiOutlineTeam />, 
+                children: [],
+                isExternal: false
+            },
             { 
                 name: 'Support', 
                 link: 'https://discord.gg/BMZZXZMnmv', 
@@ -105,4 +106,16 @@ export const sidebarArr = [
             }
         ]
     },
+]
+
+export const teamArr = [
+    { 
+        name: 'Stephen Asuncion', 
+        position: 'Founder, Software Engineer',
+        socials: {
+            twitter: 'https://twitter.com/Steb_01',
+            linkedin: 'https://www.linkedin.com/in/stephen-allen-asuncion-3735b2176/',
+            youtube: 'https://www.youtube.com/channel/UCmKzlQCcDv-fern-Zv8vQ0w'
+        }
+    }
 ]
