@@ -34,11 +34,11 @@ const Team = () => {
                                 {member.position}
                             </Text>
                             <HStack spacing='1em' mt='2em'>
-                                {member.socials.twitter && <Link href={member.socials.twitter}><IconButton icon={<FaTwitter />} size='sm' onClick={() => posthog?.capture('User visited team twitter', { name: member.name }) }/></Link>}
-                                {member.socials.linkedin && <Link href={member.socials.linkedin}><IconButton icon={<FaLinkedin />} size='sm' onClick={() => posthog?.capture('User visited team linkedin', { name: member.name }) }/></Link>}
-                                {member.socials.youtube && <Link href={member.socials.youtube}><IconButton icon={<FaYoutube />} size='sm' onClick={() => posthog?.capture('User visited team youtube', { name: member.name }) }/></Link>}
-                                {member.socials.facebook && <Link href={member.socials.facebook}><IconButton icon={<FaFacebook />} size='sm' onClick={() => posthog?.capture('User visited team facebook', { name: member.name }) }/></Link>}
-                                {member.socials.instagram && <Link href={member.socials.instagram}><IconButton icon={<FaInstagram />} size='sm' onClick={() => posthog?.capture('User visited team instagram', { name: member.name }) }/></Link>}
+                                {member.socials.twitter && <Link isExternal href={member.socials.twitter}><IconButton icon={<FaTwitter />} size='sm' onClick={() => posthog?.capture('User visited team twitter', { name: member.name }) }/></Link>}
+                                {member.socials.linkedin && <Link isExternal href={member.socials.linkedin}><IconButton icon={<FaLinkedin />} size='sm' onClick={() => posthog?.capture('User visited team linkedin', { name: member.name }) }/></Link>}
+                                {member.socials.youtube && <Link isExternal href={member.socials.youtube}><IconButton icon={<FaYoutube />} size='sm' onClick={() => posthog?.capture('User visited team youtube', { name: member.name }) }/></Link>}
+                                {member.socials.facebook && <Link isExternal href={member.socials.facebook}><IconButton icon={<FaFacebook />} size='sm' onClick={() => posthog?.capture('User visited team facebook', { name: member.name }) }/></Link>}
+                                {member.socials.instagram && <Link isExternal href={member.socials.instagram}><IconButton icon={<FaInstagram />} size='sm' onClick={() => posthog?.capture('User visited team instagram', { name: member.name }) }/></Link>}
                             </HStack>
                         </Flex>
                         <Text fontSize='10pt'>
