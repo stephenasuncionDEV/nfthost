@@ -1,14 +1,16 @@
-import { Text, Flex, Button, Link } from '@chakra-ui/react'
+import { Text, Flex, Button, Link, Box } from '@chakra-ui/react'
 import parse from 'html-react-parser'
 import { MdRefresh } from 'react-icons/md'
+import { useAnalytics } from '@/hooks/useAnalytics'
 
-const isDevelopment = process.env.NODE_ENV === 'development';
+const isDevelopment = false;
 
 // https://i.postimg.cc/k5h8jLDW/Circle-Image.png
 // https://i.postimg.cc/vmDx6XXT/Square-Image.png
 
 const Embed = ({ revealDate, embed, id }) => {
     const isReveal = !revealDate || new Date(revealDate) <= new Date();
+    const { CheckEmbedClick } = useAnalytics();
 
     return isReveal ? (
         <>
@@ -26,7 +28,13 @@ const Embed = ({ revealDate, embed, id }) => {
                     </Text>
                 </Flex>
             ) : (
-                parse(embed)
+                <Box onClickCapture={CheckEmbedClick}>
+                    {parse(embed, {
+                        replace: val => {
+                            //TODO@: Auto Style Embeds ?
+                        }
+                    })}
+                </Box>
             )}
         </>
     ) : (

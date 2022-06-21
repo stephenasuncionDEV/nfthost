@@ -6,7 +6,8 @@ import { useWebsite } from '@/providers/WebsiteProvider'
 import posthog from 'posthog-js'
 import axios from 'axios'
 import config from '@/config/index'
-import { decryptToken, formatRobot, ParseWebsiteData } from '@/utils/tools'
+import { formatRobot, ParseWebsiteData } from '@/utils/tools'
+import { useAnalytics } from '@/hooks/useAnalytics'
 
 export const useUserWebsite = (websiteData) => {
     const router = useRouter();
@@ -15,6 +16,7 @@ export const useUserWebsite = (websiteData) => {
     const { setIsCookieModal } = useCore();
     const { websiteId } = router.query;
     const [data, setData] = useState();
+    const { CheckUniqueUsers } = useAnalytics();
 
     // Check if user accepted cookie and increment unique visit
     useEffect(() => {
@@ -51,7 +53,7 @@ export const useUserWebsite = (websiteData) => {
 
             if (checkExpiration) await CheckExpiration(res.data);
 
-            await CheckAnalytics(res.data);
+            await CheckUniqueUsers(res.data);
 
             setUserWebsite({
                 ...res.data,
@@ -93,6 +95,11 @@ export const useUserWebsite = (websiteData) => {
                         Authorization: `Bearer ${process.env.CREATE_WEBSITE_TOKEN}` 
                     }
                 })
+
+                let newUserWebsite = { ...websiteData };
+                newUserWebsite.isExpired = true;
+
+                setUserWebsite(newUserWebsite);
                 
                 router.push('/', undefined, { shallow: true });
             }
@@ -107,28 +114,7 @@ export const useUserWebsite = (websiteData) => {
                 position: 'bottom-center'
             })
         }
-    }
-
-    const CheckAnalytics = async (websiteData) => {
-        try {
-            if (!websiteData) return;
-            if (localStorage.getItem(`nfthost-${websiteData._id}`)) return;
-            else localStorage.setItem(`nfthost-${websiteData._id}`, 'visited');
-
-            await axios.patch(`${config.serverUrl}/api/website/updateAnalytics`, {
-                websiteId: websiteData._id,
-                key: 'uniqueVisits',
-                value: websiteData.analytics.uniqueVisits + 1
-            }, {
-                headers: { 
-                    Authorization: `Bearer ${process.env.CREATE_WEBSITE_TOKEN}` 
-                }
-            })
-        }
-        catch (err) {
-            console.error(err);
-        }
-    }
+    } 
 
     return {
         GetUserWebsite,
