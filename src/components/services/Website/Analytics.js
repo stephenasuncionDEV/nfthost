@@ -1,13 +1,14 @@
 import { Wrap } from '@chakra-ui/react'
-import UniqueUsers from './UniqueUsers'
-import EmbedClicks from './EmbedClicks'
+import Chart from './Chart'
+import { analyticsArr } from '@/utils/json'
 
 const Analytics = () => {
 
     return (
         <Wrap spacing='2em'>
-            <UniqueUsers />
-            <EmbedClicks />
+            {analyticsArr?.map((analytics, idx) => (
+                <Chart key={idx} analytics={analytics} />
+            ))}
         </Wrap>
     )
 }

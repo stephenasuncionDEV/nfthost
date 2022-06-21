@@ -120,3 +120,26 @@ export const teamArr = [
         }
     }
 ]
+
+export const analyticsArr = [
+    {
+        title: 'Unique Users',
+        description: 'Amount of unique users who have visited your websites',
+        dataset: 'Unique Visit Count',
+        style: {
+            border: 'rgb(255, 99, 132)',
+            bg: 'rgba(255, 99, 132, 0.5)'
+        },
+        dataKey: 'uniqueVisits'
+    },
+    {
+        title: 'Embed Clicks',
+        description: 'Amount of embed clicks of your websites',
+        dataset: 'Embed Click Count',
+        style: {
+            border: 'orange',
+            bg: 'orange'
+        },
+        dataKey: 'clickedOnEmbed'
+    }
+]
