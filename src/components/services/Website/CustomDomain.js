@@ -52,7 +52,7 @@ const CustomDomain = () => {
                         </Text>
                         <Tag cursor='pointer' onClick={() => CopyDns('cname')}>
                             <Text color='rgb(52,140,212)'>
-                                {`${config?.frontendUrl?.substring(config?.frontendUrl?.indexOf('//') + 2)}/${currentEditWebsite?.custom?.alias?.length > 0 ? currentEditWebsite?.custom?.alias : currentEditWebsite?._id}`} 
+                                www.nfthost.app
                             </Text>
                             <TagRightIcon as={MdOutlineContentCopy} />
                         </Tag>

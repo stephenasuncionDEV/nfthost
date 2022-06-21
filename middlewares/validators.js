@@ -349,3 +349,11 @@ exports.VerifyDomainValidator = [
     .notEmpty(),
 
 ]
+
+exports.GetWebsiteByDomainValidator = [
+
+    // domain Validator
+    check('domain', 'domain is empty')
+    .notEmpty(),
+
+]

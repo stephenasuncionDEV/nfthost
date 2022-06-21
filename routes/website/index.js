@@ -17,11 +17,13 @@ const {
     DeleteAddonValidator,
     UpdateSubscriptionValidator,
     RenewSubscriptionValidator,
-    VerifyDomainValidator
+    VerifyDomainValidator,
+    GetWebsiteByDomainValidator
 } = require('../../middlewares/validators');
 
 router.post('/create', authenticateThirdPartyToken, CreateWebsiteValidator, controller.createWebsite);
 router.get('/get', authenticateThirdPartyToken, GetWebsiteValidator, controller.getWebsite);
+router.get('/getByDomain', authenticateThirdPartyToken, GetWebsiteByDomainValidator, controller.getWebsiteByDomain);
 router.get('/getMany', authenticateToken, GetWebsitesValidator, controller.getWebsites);
 router.put('/update', authenticateToken, UpdateWebsiteValidator, controller.updateWebsite);
 router.delete('/delete', authenticateToken, DeleteWebsiteValidator, controller.deleteWebsite);

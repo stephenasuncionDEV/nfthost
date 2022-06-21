@@ -86,6 +86,7 @@ export const useDomain = () => {
             if (!currentEditWebsite) return;
             if (!currentEditWebsite.isPremium) throw new Error('Your mint website must be premium');
             if (!newDomain.length) throw new Error('Domain cannot be empty');
+            if (newDomain === currentEditWebsite.custom.domain) throw new Error('No change detected');
 
             const storageToken = localStorage.getItem('nfthost-user');
             if (!storageToken) return;
@@ -153,7 +154,7 @@ export const useDomain = () => {
 
     const CopyDns = (type) => {
         if (type.toLowerCase() === 'cname') {
-            navigator.clipboard.writeText(`${`${config?.frontendUrl?.substring(config?.frontendUrl?.indexOf('//') + 2)}/${currentEditWebsite?.custom?.alias?.length > 0 ? currentEditWebsite?.custom?.alias : currentEditWebsite?._id}`}`);
+            navigator.clipboard.writeText('www.nfthost.app');
         } else if (type.toLowerCase() === 'alias') {
             navigator.clipboard.writeText('76.76.21.241');
         }

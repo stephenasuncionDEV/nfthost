@@ -11,7 +11,7 @@ const Domain = () => {
     return currentEditWebsite ? (
         <Wrap spacing='2em'>
             <Alias />
-            <CustomDomain />
+            {/* <CustomDomain /> */}
         </Wrap>
     ) : (
         <Flex flexDir='column' justifyContent='center' alignItems='center' flex='1'>

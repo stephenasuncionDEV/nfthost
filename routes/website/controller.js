@@ -42,13 +42,13 @@ exports.getWebsite = async (req, res, next) => {
         const tempId = websiteId.toLowerCase();
         const expression = { $regex: new RegExp('^' + tempId + '$', 'i') };
 
-        // Check if websiteId is a custom domain
-        count = await Website.count({ [`custom.domain`]: expression });
-        if (count > 0) {
-            const result = await Website.findOne({ [`custom.domain`]: expression });
-            res.status(200).json(result);
-            return;
-        }
+        // // Check if websiteId is a custom domain
+        // count = await Website.count({ [`custom.domain`]: expression });
+        // if (count > 0) {
+        //     const result = await Website.findOne({ [`custom.domain`]: expression });
+        //     res.status(200).json(result);
+        //     return;
+        // }
 
         // Check if websiteId is a custom alias
         count = await Website.count({ [`custom.alias`]: expression });
@@ -57,6 +57,49 @@ exports.getWebsite = async (req, res, next) => {
             res.status(200).json(result);
             return;
         }
+
+    } catch (err) {
+        next(err);
+    }
+}
+
+exports.getWebsiteByDomain = async (req, res, next) => {
+    try {
+        const errors = validationResult(req).errors;
+        if (errors.length > 0) throw new Error(errors[0].msg);
+        
+        const { domain } = req.query;
+
+        let result;
+
+        if (domain.indexOf('www.') === -1) { // If alias
+            
+        }
+        else { // If cname
+            
+        }
+
+        res.status(200).json(result);
+
+        //const tempDomain = domain.toLowerCase();
+
+        // const expression = { $regex: new RegExp('^' + tempDomain + '$', 'i') };
+
+        // // Check if websiteId is a custom domain
+        // count = await Website.count({ [`custom.domain`]: expression });
+        // if (count > 0) {
+        //     const result = await Website.findOne({ [`custom.domain`]: expression });
+        //     res.status(200).json(result);
+        //     return;
+        // }
+
+        // Check if websiteId is a custom alias
+        // count = await Website.count({ [`custom.alias`]: expression });
+        // if (count > 0) {
+        //     const result = await Website.findOne({ [`custom.alias`]: expression });
+        //     res.status(200).json(result);
+        //     return;
+        // }
 
     } catch (err) {
         next(err);
@@ -370,7 +413,7 @@ exports.verifyDomain = async (req, res, next) => {
         const { domain } = req.body;
 
         const result = await VerifyDns(domain);
-        
+
         res.status(200).json(result);
 
     } catch (err) {
