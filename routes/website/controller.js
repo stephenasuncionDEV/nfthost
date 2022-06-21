@@ -1,6 +1,7 @@
 const { validationResult } = require('express-validator');
 const { Website } = require('../../models/Websites');
-const { ParseWebsiteData, EncodeWebsiteData } = require('../../middlewares/tools');
+const { ParseWebsiteData, EncodeWebsiteData, VerifyDns } = require('../../middlewares/tools');
+
 const ObjectId = require('mongoose').Types.ObjectId;
 
 exports.createWebsite = async (req, res, next) => {
@@ -340,7 +341,7 @@ exports.updateSubscription = async (req, res, next) => {
     }
 }
 
-exports.renewSubscription  = async (req, res, next) => {
+exports.renewSubscription = async (req, res, next) => {
     try {
         const errors = validationResult(req).errors;
         if (errors.length > 0) throw new Error(errors[0].msg);
@@ -355,6 +356,22 @@ exports.renewSubscription  = async (req, res, next) => {
         });
 
         res.sendStatus(200);
+
+    } catch (err) {
+        next(err);
+    }
+}
+
+exports.verifyDomain = async (req, res, next) => {
+    try {
+        const errors = validationResult(req).errors;
+        if (errors.length > 0) throw new Error(errors[0].msg);
+
+        const { domain } = req.body;
+
+        const result = await VerifyDns(domain);
+        
+        res.status(200).json(result);
 
     } catch (err) {
         next(err);

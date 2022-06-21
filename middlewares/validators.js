@@ -341,3 +341,11 @@ exports.GetPaymentsValidator = [
     .notEmpty(),
 
 ]
+
+exports.VerifyDomainValidator = [
+
+    // domain Validator
+    check('domain', 'domain is empty')
+    .notEmpty(),
+
+]

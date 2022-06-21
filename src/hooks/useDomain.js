@@ -8,7 +8,16 @@ import { decryptToken } from '@/utils/tools'
 
 export const useDomain = () => {
     const toast = useToast();
-    const { newAlias, setIsChangingAlias, currentEditWebsite, setCurrentEditWebsite, setNewAlias } = useWebsite();
+    const { 
+        newAlias, 
+        newDomain,
+        setIsChangingAlias, 
+        currentEditWebsite, 
+        setCurrentEditWebsite, 
+        setNewAlias,
+        setNewDomain,
+        setIsChangingDomain 
+    } = useWebsite();
     const { Logout } = useWeb3();
 
     const UpdateAlias = async () => {
@@ -16,6 +25,7 @@ export const useDomain = () => {
             if (!currentEditWebsite) return;
             if (!currentEditWebsite.isPremium) throw new Error('Your mint website must be premium');
             if (!newAlias.length) throw new Error('Alias cannot be empty');
+            if (newAlias.length > 32) throw new Error('Alias max length is 32 characters');
             if (newAlias === currentEditWebsite.custom.alias) throw new Error('No change detected');
             if (!newAlias.match(/^[0-9a-zA-Z]+$/)) throw new Error('Special characters is not allowed')
 
@@ -71,7 +81,96 @@ export const useDomain = () => {
         }
     }
 
+    const UpdateDomain = async () => {
+        try {
+            if (!currentEditWebsite) return;
+            if (!currentEditWebsite.isPremium) throw new Error('Your mint website must be premium');
+            if (!newDomain.length) throw new Error('Domain cannot be empty');
+
+            const storageToken = localStorage.getItem('nfthost-user');
+            if (!storageToken) return;
+
+            const token = decryptToken(storageToken, true);
+
+            setIsChangingDomain(true);
+
+            const res1 = await axios.post(`${config.serverUrl}/api/website/verifyDomain`, {
+                domain: newDomain
+            }, {
+                headers: { 
+                    Authorization: `Bearer ${token.accessToken}` 
+                }
+            })
+
+            const { status, type } = res1.data;
+
+            if (!status) throw new Error(`Please configure your custom domain's ${type} correctly.`);
+
+            const tempDomain = newDomain.toLowerCase();
+
+            await axios.patch(`${config.serverUrl}/api/website/updateCustom`, {
+                websiteId: currentEditWebsite._id,
+                key: 'domain',
+                value: tempDomain
+            }, {
+                headers: { 
+                    Authorization: `Bearer ${token.accessToken}` 
+                }
+            })
+
+            let newEditWebsite = { ...currentEditWebsite };
+            newEditWebsite.custom.domain = tempDomain;
+
+            setCurrentEditWebsite(newEditWebsite);
+            setNewDomain('');
+            setIsChangingDomain(false);
+
+            posthog.capture('User added custom domain');
+
+            toast({
+                title: 'Success',
+                description: "Successfuly added custom domain",
+                status: 'success',
+                duration: 3000,
+                isClosable: true,
+                position: 'bottom-center'
+            })
+        }
+        catch (err) {
+            setIsChangingDomain(false);
+            console.error(err);
+            if (err.response?.data?.isExpired) await Logout();
+            toast({
+                title: 'Error',
+                description: !err.response ? err.message : err.response.data.message,
+                status: 'error',
+                duration: 3000,
+                isClosable: true,
+                position: 'bottom-center'
+            })
+        }
+    }
+
+    const CopyDns = (type) => {
+        if (type.toLowerCase() === 'cname') {
+            navigator.clipboard.writeText(`${`${config?.frontendUrl?.substring(config?.frontendUrl?.indexOf('//') + 2)}/${currentEditWebsite?.custom?.alias?.length > 0 ? currentEditWebsite?.custom?.alias : currentEditWebsite?._id}`}`);
+        } else if (type.toLowerCase() === 'alias') {
+            navigator.clipboard.writeText('76.76.21.241');
+        }
+
+        toast({
+            title: 'Success',
+            description: `Successfuly copied ${type}.`,
+            status: 'success',
+            duration: 3000,
+            isClosable: true,
+            position: 'bottom-center'
+        })
+    }
+
     return {
-        UpdateAlias
+        UpdateAlias,
+        UpdateDomain,
+        CopyDns
     }
 }

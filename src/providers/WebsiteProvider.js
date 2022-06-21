@@ -24,6 +24,7 @@ export const WebsiteProvider = ({ children }) => {
     const [isDeletingWebsite, setIsDeletingWebsite] = useState(false);
     const [isCreateWebsiteModal, setIsCreateWebsiteModal] = useState(false);
     const [isChangingAlias, setIsChangingAlias] = useState(false);
+    const [isChangingDomain, setIsChangingDomain] = useState(false);
     const [currentEditWebsite, setCurrentEditWebsite] = useState();
     const [currentTemplate, setCurrentTemplate] = useState();
     const [newBackgroundImage, setNewBackgroundImage] = useState('');
@@ -32,6 +33,7 @@ export const WebsiteProvider = ({ children }) => {
     const [createWebsiteStep, setCreateWebsiteStep] = useState('information'); // information, settings
     const [featuredWebsites, setFeaturedWebsites] = useState();
     const [newAlias, setNewAlias] = useState('');
+    const [newDomain, setNewDomain] = useState('');
     const editWebsiteFormRef = useRef();
 
     const controllers = {
@@ -90,8 +92,12 @@ export const WebsiteProvider = ({ children }) => {
         setFeaturedWebsites,
         newAlias,
         setNewAlias,
+        newDomain,
+        setNewDomain,
         isChangingAlias,
-        setIsChangingAlias
+        setIsChangingAlias,
+        isChangingDomain,
+        setIsChangingDomain
     }
 
     return (
