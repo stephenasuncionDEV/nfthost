@@ -6,6 +6,12 @@ const PartnersArr = [
         image: '/assets/partners/flair.png',
         link: 'https://flair.finance/',
         description: 'Open-source Smart Contracts, React Components & REST APIs'
+    },
+    {
+        company: 'Ambition',
+        image: '/assets/partners/ambition.png',
+        link: 'https://ambition.so/',
+        description: 'End-to-end tools to help creators build their NFT collection'
     }
 ]
 

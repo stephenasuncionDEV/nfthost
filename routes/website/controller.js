@@ -63,6 +63,7 @@ exports.getWebsite = async (req, res, next) => {
     }
 }
 
+//@Todo
 exports.getWebsiteByDomain = async (req, res, next) => {
     try {
         const errors = validationResult(req).errors;
