@@ -10,6 +10,7 @@ import { AiOutlineArrowRight } from 'react-icons/ai'
 import { useMediaQuery } from 'react-responsive'
 import { PartnersArr } from '@/utils/json'
 import style from '@/styles/Main.module.scss'
+import posthog from 'posthog-js'
 
 const Main = () => {
     useReAuthenticate();
@@ -86,7 +87,14 @@ const Main = () => {
                             <Wrap spacing='4em' my='1em'>
                                 {PartnersArr?.map((partner, idx) => (
                                     <Link href={partner.link} isExternal key={idx}>
-                                        <Button variant='unstyled' display='flex' h='full' _hover={{ opacity: '1' }} opacity='0.3'>
+                                        <Button 
+                                            variant='unstyled' 
+                                            display='flex' 
+                                            h='full' 
+                                            _hover={{ opacity: '1' }} 
+                                            opacity='0.3'
+                                            onClick={() => posthog?.capture('User visited partner from landing page', { company: partner.company })}
+                                        >
                                             <Image src={partner.image} alt={`${partner.company}'s Logo`} width='40px' />
                                         </Button>
                                     </Link>
