@@ -1,7 +1,7 @@
-import { Text, Flex, Button, VStack, useColorModeValue, 
-    Wrap, Image, Link, Avatar, HStack, IconButton
+import { Text, Flex, VStack, useColorModeValue, 
+    Wrap, Link, Avatar, HStack, IconButton
 } from '@chakra-ui/react'
-import { FaLinkedin, FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa'
+import { FaLinkedin, FaInstagram, FaTwitter, FaYoutube, FaFacebook } from 'react-icons/fa'
 import { teamArr } from '@/utils/json'
 import posthog from 'posthog-js';
 
@@ -34,9 +34,11 @@ const Team = () => {
                                 {member.position}
                             </Text>
                             <HStack spacing='1em' mt='2em'>
-                                {member.socials.twitter && <Link href={member.socials.twitter}><IconButton icon={<FaTwitter />} size='sm' /></Link>}
-                                {member.socials.linkedin && <Link href={member.socials.linkedin}><IconButton icon={<FaLinkedin />} size='sm' /></Link>}
-                                {member.socials.youtube && <Link href={member.socials.youtube}><IconButton icon={<FaYoutube />} size='sm' /></Link>}
+                                {member.socials.twitter && <Link href={member.socials.twitter}><IconButton icon={<FaTwitter />} size='sm' onClick={() => posthog?.capture('User visited team twitter', { name: member.name }) }/></Link>}
+                                {member.socials.linkedin && <Link href={member.socials.linkedin}><IconButton icon={<FaLinkedin />} size='sm' onClick={() => posthog?.capture('User visited team linkedin', { name: member.name }) }/></Link>}
+                                {member.socials.youtube && <Link href={member.socials.youtube}><IconButton icon={<FaYoutube />} size='sm' onClick={() => posthog?.capture('User visited team youtube', { name: member.name }) }/></Link>}
+                                {member.socials.facebook && <Link href={member.socials.facebook}><IconButton icon={<FaFacebook />} size='sm' onClick={() => posthog?.capture('User visited team facebook', { name: member.name }) }/></Link>}
+                                {member.socials.instagram && <Link href={member.socials.instagram}><IconButton icon={<FaInstagram />} size='sm' onClick={() => posthog?.capture('User visited team instagram', { name: member.name }) }/></Link>}
                             </HStack>
                         </Flex>
                         <Text fontSize='10pt'>
