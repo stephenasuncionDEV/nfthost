@@ -50,9 +50,11 @@ const Service = () => {
             
             {userWebsite?.components?.addons?.indexOf('Navbar') !== -1 && <Navbar />}
 
-            {data?.template === 'Template1' && <Template1 userWebsite={userWebsite} data={data} />}
-            {data?.template === 'Template2' && <Template2 userWebsite={userWebsite} data={data} />}
-            {data?.template === 'Template3' && <Template3 userWebsite={userWebsite} data={data} />}
+            {{
+                Template1: <Template1 userWebsite={userWebsite} data={data} />,
+                Template2: <Template2 userWebsite={userWebsite} data={data} />,
+                Template3: <Template3 userWebsite={userWebsite} data={data} />,
+            }[data?.template]}
 
             {!userWebsite?.isPremium && (
                 <Link href='https://www.nfthost.app/' isExternal>

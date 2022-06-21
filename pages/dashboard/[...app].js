@@ -63,16 +63,16 @@ const Page = () => {
                             </HStack>
                         </Flex>
                         {app.length > 0 && (
-                            <>
-                                {currentApp === 'getstarted' && <GetStarted />}
-                                {currentApp === 'generator' && <Generator />}
-                                {currentApp === 'website' && <Website />}
-                                {currentApp === 'templates' && <Template />}
-                                {currentApp === 'addons' && <Addons />}
-                                {currentApp === 'domain' && <Domain />}
-                                {currentApp === 'payments' && <Payments />}
-                                {currentApp === 'partners' && <Partners />}
-                            </>
+                            {
+                                getstarted: <GetStarted />,
+                                generator: <Generator />,
+                                website: <Website />,
+                                templates:  <Template />,
+                                addons: <Addons />,
+                                domain: <Domain />,
+                                payments: <Payments />,
+                                partners: <Partners />
+                            }[currentApp]
                         )}
                     </>
                 ) : (
