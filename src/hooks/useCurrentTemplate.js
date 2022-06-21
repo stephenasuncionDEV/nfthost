@@ -6,7 +6,8 @@ import { useSites } from '@/hooks/useSites'
 import axios from 'axios'
 import config from '@/config/index'
 import posthog from 'posthog-js'
-import { decryptToken, TemplatesArr, ParseWebsiteData, convertDateToLocal } from '@/utils/tools'
+import { decryptToken, ParseWebsiteData, convertDateToLocal } from '@/utils/tools'
+import { TemplatesArr } from '@/utils/json'
 
 export const useCurrentTemplate = (update = true) => {
     const toast = useToast();

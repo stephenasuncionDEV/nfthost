@@ -1,10 +1,10 @@
-import { HStack, Text, Flex, Button, VStack, 
-    useColorModeValue, Image, Wrap, Tag, TagLeftIcon, Box
+import { Text, Flex, Button, VStack, 
+    useColorModeValue, Image, Wrap, Tag, TagLeftIcon
 } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useTemplate } from '@/hooks/useTemplate'
 import { GiCutDiamond } from 'react-icons/gi'
-import { TemplatesArr } from '@/utils/tools'
+import { TemplatesArr } from '@/utils/json'
 
 const TemplateList = () => {
     const { currentEditWebsite } = useWebsite();

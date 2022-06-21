@@ -6,7 +6,7 @@ import { useWebsite } from '@/providers/WebsiteProvider'
 import { useTemplate } from '@/hooks/useTemplate'
 import { GiCutDiamond } from 'react-icons/gi'
 import { AiOutlineWarning, AiOutlineArrowLeft } from 'react-icons/ai'
-import { AddonsArr } from '@/utils/tools'
+import { AddonsArr } from '@/utils/json'
 
 const Addons = () => {
     const { currentEditWebsite } = useWebsite();

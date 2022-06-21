@@ -1,19 +1,5 @@
 import { Text, Flex, Button, VStack, useColorModeValue, Wrap, Image, Link } from '@chakra-ui/react'
-
-const PartnersArr = [
-    {
-        company: 'Flair',
-        image: '/assets/partners/flair.png',
-        link: 'https://flair.finance/',
-        description: 'Open-source Smart Contracts, React Components & REST APIs'
-    },
-    {
-        company: 'Ambition',
-        image: '/assets/partners/ambition.png',
-        link: 'https://ambition.so/',
-        description: 'End-to-end tools to help creators build their NFT collection'
-    }
-]
+import { PartnersArr } from '@/utils/json'
 
 const Partners = () => {
 

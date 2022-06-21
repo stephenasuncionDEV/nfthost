@@ -110,18 +110,6 @@ export const formatRobot = (robot) => {
     return ret;
 }
 
-export const TemplatesArr = [
-    { key: 'Template1', sub: 'free', creator: 'NFTHost' },
-    { key: 'Template2', sub: 'premium', creator: 'NFTHost' },
-    { key: 'Template3', sub: 'premium', creator: 'NFTHost' },
-]
-
-export const AddonsArr = [
-    { key: 'Cookie Consent', sub: 'free', creator: 'NFTHost' },
-    { key: 'Navbar', sub: 'premium', creator: 'NFTHost' },
-    { key: 'Footer', sub: 'premium', creator: 'NFTHost' },
-]
-
 export const EncodeWebsiteData = (dataObj) => {
     return lz.encodeBase64(lz.compress(JSON.stringify(dataObj)));
 }

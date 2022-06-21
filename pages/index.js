@@ -8,13 +8,8 @@ import CookieModal from '@/components/CookieModal'
 import Announcement from '@/components/Announcement'
 import { AiOutlineArrowRight } from 'react-icons/ai'
 import { useMediaQuery } from 'react-responsive'
+import { PartnersArr } from '@/utils/json'
 import style from '@/styles/Main.module.scss'
-
-const partnersArr = [
-    { company: 'Flair', link: 'https://flair.finance/', image: '/assets/partners/flair.png' },
-    { company: 'Ambition', link: 'https://ambition.so/', image: '/assets/partners/ambition.png' },
-    { company: 'SwiftNFT', link: 'https://swiftnft.io/', image: '/assets/partners/swiftnft.png' }
-]
 
 const Main = () => {
     useReAuthenticate();
@@ -89,7 +84,7 @@ const Main = () => {
                                 SUPPORTED BY
                             </Text>
                             <Wrap spacing='4em' my='1em'>
-                                {partnersArr?.map((partner, idx) => (
+                                {PartnersArr?.map((partner, idx) => (
                                     <Link href={partner.link} isExternal key={idx}>
                                         <Button variant='unstyled' display='flex' h='full' _hover={{ opacity: '1' }} opacity='0.3'>
                                             <Image src={partner.image} alt={`${partner.company}'s Logo`} width='40px' />

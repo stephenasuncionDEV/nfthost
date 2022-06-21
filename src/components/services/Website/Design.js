@@ -12,7 +12,6 @@ import { FaRedo } from 'react-icons/fa'
 
 const Design = () => {
     const { 
-        currentTemplate,
         currentEditWebsite, 
         newErrors,
         newBackgroundImage,
