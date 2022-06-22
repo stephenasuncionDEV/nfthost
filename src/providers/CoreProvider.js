@@ -9,6 +9,8 @@ export const CoreProvider = ({ children }) => {
     const [isKeepWorkingModal, setIsKeepWorkingModal] = useState(false);
     const [isAreYouSureModal, setIsAreYouSureModal] = useState(false);
     const [isSidebar, setIsSidebar] = useState(true);
+    const [isAddonSettingsModal, setIsAddonSettingsModal] = useState(false);
+    const [addonSettingsData, setAddonSettingsData] = useState();
     const [paymentData, setPaymentData] = useState();
     const [paymentMethodStep, setPaymentMethodStep] = useState('metamask');
     const [paymentName, setPaymentName] = useState('');
@@ -62,7 +64,11 @@ export const CoreProvider = ({ children }) => {
         transactions,
         setTransactions,
         isGettingTransactions,
-        setIsGettingTransactions
+        setIsGettingTransactions,
+        isAddonSettingsModal,
+        setIsAddonSettingsModal,
+        addonSettingsData,
+        setAddonSettingsData
     }
 
     return (

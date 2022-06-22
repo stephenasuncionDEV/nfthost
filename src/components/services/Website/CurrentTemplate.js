@@ -4,10 +4,11 @@ import { Text, Flex, VStack, useColorModeValue, Image,
 } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useCore } from '@/providers/CoreProvider'
+import { useTemplate } from '@/hooks/useTemplate'
 import { GiCutDiamond } from 'react-icons/gi'
 import { MdSettings } from 'react-icons/md'
-import { useTemplate } from '@/hooks/useTemplate'
 import { FaTrash } from 'react-icons/fa'
+import { HiLink } from 'react-icons/hi'
 
 const CurrentTemplate = () => {
     const { 
@@ -15,7 +16,7 @@ const CurrentTemplate = () => {
         currentEditWebsite, 
     } = useWebsite();
     const { RemoveAddon } = useTemplate();
-    const { setIsAreYouSureModal, setAreYouSureData } = useCore();
+    const { setIsAreYouSureModal, setAreYouSureData, setIsAddonSettingsModal, setAddonSettingsData } = useCore();
 
     const itemColor = useColorModeValue('blackAlpha.100', 'blackAlpha.400');
     const itemBorderColor = useColorModeValue('blackAlpha.300', 'whiteAlpha.300');
@@ -90,6 +91,19 @@ const CurrentTemplate = () => {
                                         {addon}
                                     </MenuButton>
                                     <MenuList>
+                                        {(addon === 'Navbar' || addon === 'Footer') && (
+                                            <MenuItem size='sm' icon={<HiLink />} onClick={() => {
+                                                setAddonSettingsData({
+                                                    item: 'socials',
+                                                    callback: () => {
+                                                        console.log('sheesh')
+                                                    }
+                                                })
+                                                setIsAddonSettingsModal(true);
+                                            }}>
+                                                Socials
+                                            </MenuItem>
+                                        )}
                                         <MenuItem size='sm' icon={<FaTrash />} onClick={() => {
                                             setAreYouSureData({
                                                 item: 'addon',

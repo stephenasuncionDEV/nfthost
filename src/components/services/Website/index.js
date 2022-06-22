@@ -4,6 +4,7 @@ import { useWebsite } from '@/providers/WebsiteProvider'
 import { useUser } from '@/providers/UserProvider'
 import { useSites } from '@/hooks/useSites'
 import AreYouSureModal from '@/components/AreYouSureModal'
+import AddonSettingsModal from '@/components/services/Website/AddonSettingsModal'
 import WebsiteList from './WebsiteList'
 import CreateWebsiteModal from './CreateWebsiteModal'
 import EditWebsite from './EditWebsite'
@@ -25,6 +26,7 @@ const Website = () => {
         <VStack spacing='2em' alignItems='flex-start'>
             <CreateWebsiteModal />
             <AreYouSureModal />
+            <AddonSettingsModal />
             <Button leftIcon={<MdAdd />} color='white' variant='primary' size='sm' onClick={() => {
                 clearFields();
                 setCreateWebsiteStep('information');

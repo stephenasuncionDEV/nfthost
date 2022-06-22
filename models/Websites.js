@@ -88,31 +88,31 @@ const WebsitesSchema = new Schema({
     external_links: {
         twitter: {
             type:String,
-            default: 'https://twitter.com/Steb_01'
+            default: ''
         },
         instagram: {
             type:String,
-            default: null
+            default: ''
         },
         youtube: {
             type:String,
-            default: 'https://www.youtube.com/channel/UCmKzlQCcDv-fern-Zv8vQ0w'
+            default: ''
         },
         tiktok: {
             type:String,
-            default: null
+            default: ''
         },
         discord: {
             type:String,
-            default: 'https://discord.com/invite/BMZZXZMnmv'
+            default: ''
         },
         reddit: {
             type:String,
-            default: null
+            default: ''
         },
         facebook: {
             type:String,
-            default: null
+            default: ''
         }
     },
     custom: {
