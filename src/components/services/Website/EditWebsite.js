@@ -16,7 +16,9 @@ const EditWebsite = () => {
     const { user } = useUser();
     const { CancelEdit, UpdateWebsite, DeleteWebsite, CopyWebsiteLink, UpgradeToPremium, RenewWebsite } = useSites();
     useEditWebsite();
-    const { components: { title, unrevealedImage } } = currentEditWebsite;
+    const { components: { title, unrevealedImage }, premiumStartDate } = currentEditWebsite;
+    const subscriptionStart = new Date(premiumStartDate);
+    const subscriptionEnd = new Date(subscriptionStart?.setDate(subscriptionStart?.getDate() + 30))
 
     const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
     const itemColor = useColorModeValue('blackAlpha.100', 'blackAlpha.400');
@@ -87,9 +89,14 @@ const EditWebsite = () => {
                                         <option value="nn">noindex, nofollow</option>
                                     </Select>
                                 </VStack>
-                                {!currentEditWebsite?.isPremium && (
-                                    <Box w='200px'>
-                                        <Button size='sm' variant='primary' w='full' leftIcon={<FaStar />} mt='1em' onClick={UpgradeToPremium} isLoading={isUpdating}>
+                                {currentEditWebsite?.isExpired && (
+                                    <Button size='sm' variant='primary' w='full' leftIcon={<FaStar />} mt='1em' onClick={RenewWebsite} isLoading={isUpdating}>
+                                        Renew Website
+                                    </Button>
+                                )}
+                                {!currentEditWebsite?.isPremium ? (
+                                    <Box w='full'>
+                                        <Button size='sm' variant='primary' maxW='200px' leftIcon={<FaStar />} mt='1em' onClick={UpgradeToPremium} isLoading={isUpdating}>
                                             Upgrade to Premium
                                         </Button>
                                         {user?.services?.website?.freeWebsite > 0 && (
@@ -98,11 +105,12 @@ const EditWebsite = () => {
                                             </Text>
                                         )}
                                     </Box>
-                                )}
-                                {currentEditWebsite?.isExpired && (
-                                    <Button size='sm' variant='primary' w='full' leftIcon={<FaStar />} mt='1em' onClick={RenewWebsite} isLoading={isUpdating}>
-                                        Renew Website
-                                    </Button>
+                                ) : (
+                                    <Box w='full'>
+                                        <Text fontSize='8pt'>
+                                            Expiration Date: <span style={{ color: 'rgb(52,140,212)' }}>{subscriptionEnd.toString()}</span>
+                                        </Text>
+                                    </Box>
                                 )}
                             </VStack>
                             <VStack alignItems='flex-start' flex='1'>
