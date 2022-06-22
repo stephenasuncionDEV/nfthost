@@ -1,6 +1,6 @@
-import { Flex, Text, HStack, Avatar, useColorModeValue, Link, VStack } from '@chakra-ui/react'
+import { Flex, Text, HStack, Avatar, useColorModeValue, Link, VStack, IconButton } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
-import { BiLinkExternal } from 'react-icons/bi'
+import { FaTwitter, FaInstagram, FaYoutube, FaTiktok, FaDiscord, FaReddit, FaFacebook } from 'react-icons/fa'
 
 const Footer = () => {
     const { userWebsite } = useWebsite();
@@ -26,20 +26,44 @@ const Footer = () => {
                                 All rights reserved
                             </Text>
                         </Flex>
+                        <HStack>
+                            {userWebsite?.external_links?.twitter && (
+                                <Link href={userWebsite?.external_links?.twitter} isExternal>
+                                    <IconButton icon={<FaTwitter />} size='sm' />
+                                </Link>
+                            )}
+                            {userWebsite?.external_links?.discord && (
+                                <Link href={userWebsite?.external_links?.discord} isExternal>
+                                    <IconButton icon={<FaDiscord />} size='sm' />
+                                </Link>
+                            )}
+                            {userWebsite?.external_links?.instagram && (
+                                <Link href={userWebsite?.external_links?.instagram} isExternal>
+                                    <IconButton icon={<FaInstagram />} size='sm' />
+                                </Link>
+                            )}
+                            {userWebsite?.external_links?.facebook && (
+                                <Link href={userWebsite?.external_links?.facebook} isExternal>
+                                    <IconButton icon={<FaFacebook />} size='sm' />
+                                </Link>
+                            )}
+                            {userWebsite?.external_links?.youtube && (
+                                <Link href={userWebsite?.external_links?.youtube} isExternal>
+                                    <IconButton icon={<FaYoutube />} size='sm' />
+                                </Link>
+                            )}
+                            {userWebsite?.external_links?.reddit && (
+                                <Link href={userWebsite?.external_links?.reddit} isExternal>
+                                    <IconButton icon={<FaReddit />} size='sm' />
+                                </Link>
+                            )}
+                            {userWebsite?.external_links?.tiktok && (
+                                <Link href={userWebsite?.external_links?.tiktok} isExternal>
+                                    <IconButton icon={<FaTiktok />} size='sm' />
+                                </Link>
+                            )}
+                        </HStack>
                     </VStack>
-                    {/* <VStack alignItems='center' flex='1' justifyContent='center' ml='5em'>
-                        <Text fontWeight='bold'>
-                            NFT Host Team
-                        </Text>
-                        <Link href='https://twitter.com/Steb_01' color='white' isExternal>
-                            <HStack>
-                                <Text>
-                                    Stephen Asuncion
-                                </Text>
-                                <BiLinkExternal />
-                            </HStack>
-                        </Link>
-                    </VStack> */}
                 </Flex>
             </Flex>
         </footer>
