@@ -6,6 +6,8 @@ import { FaTwitter, FaInstagram, FaYoutube, FaTiktok, FaDiscord, FaReddit, FaFac
 
 const WebsiteNavbar = () => {
     const { userWebsite } = useWebsite();
+    const containerColor = useColorModeValue('transparent', 'rgb(14,17,23)');
+
     const { colorMode, toggleColorMode } = useColorMode();
 
     return (
@@ -14,6 +16,7 @@ const WebsiteNavbar = () => {
             py='1.5em'
             w='full'
             justifyContent='space-between'
+            bg={containerColor}
         >
             <NextLink href='/' shallow passHref>
                 <HStack spacing='1em' cursor='pointer'>
