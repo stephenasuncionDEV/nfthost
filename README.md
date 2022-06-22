@@ -1,23 +1,23 @@
-<center>
+<p align="center">
     <a href='https://www.nfthost.app/' rel='nofollow'>
         <img src='./public/assets/logo_new.svg' alt='NFTHost Logo'/>
     </a>
-</center>
+</p>
 
-<center>
+<p align="center">
     <h1>NFT Host</h1>
-</center>
+</p>
 
-<center>
+<p align="center">
     <img src='https://github.com/stephenasuncionDEV/nfthost/actions/workflows/docker-deployment.yml/badge.svg' alt='Docker Deployment'>
     <a href="https://discord.gg/BMZZXZMnmv" rel="nofollow">
         <img src='https://img.shields.io/discord/925910496354381854.svg?color=7289da&label=discord&logo=discord&style=flat' alt='NFTHost Discord' />
     </a>
-</center>
+</p>
 
-<center>
+<p align="center">
     Create and Host your NFT collection in under a minute!
-</center>
+</p>
 
 ## Services
 
