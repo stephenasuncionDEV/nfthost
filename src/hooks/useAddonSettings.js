@@ -11,7 +11,7 @@ import config from '@/config/index'
 
 export const useAddonSettings = () => {
     const toast = useToast();
-    const { addonSettingsData } = useCore();
+    const { addonSettingsData, setIsAddonSettingsModal } = useCore();
     const { currentEditWebsite, setCurrentEditWebsite } = useWebsite();
     const { Logout } = useWeb3;
     const { GetWebsites } = useSites();
@@ -107,6 +107,8 @@ export const useAddonSettings = () => {
                 isClosable: true,
                 position: 'bottom-center'
             })
+
+            setIsAddonSettingsModal(false);
         }
         catch (err) {
             setIsSaving(false);

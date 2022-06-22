@@ -108,8 +108,6 @@ const AddonSettingsModal = () => {
                                 {{
                                     socials: SaveSocials()
                                 }[addonSettingsData?.item]}
-
-                                setIsAddonSettingsModal(false);
                             }}
                         >
                             Save
