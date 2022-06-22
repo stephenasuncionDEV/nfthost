@@ -8,13 +8,10 @@ const WebsiteNavbar = () => {
     const { userWebsite } = useWebsite();
     const { colorMode, toggleColorMode } = useColorMode();
 
-    const containerColor = useColorModeValue('rgb(235,235,235)', 'rgb(14,17,23)');
-
     return (
         <HStack
             px='2em'
             py='1.5em'
-            bg={containerColor}
             w='full'
             justifyContent='space-between'
         >

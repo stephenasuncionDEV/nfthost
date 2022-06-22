@@ -4,8 +4,7 @@ import { FaTwitter, FaInstagram, FaYoutube, FaTiktok, FaDiscord, FaReddit, FaFac
 
 const Footer = () => {
     const { userWebsite } = useWebsite();
-
-    const containerColor = useColorModeValue('rgb(238,238,238)', 'rgb(14,17,23)');
+    const containerColor = useColorModeValue('rgb(240,240,240)', 'rgb(14,17,23)');
 
     return (
         <footer>
@@ -18,11 +17,11 @@ const Footer = () => {
                             name={`${userWebsite?.components?.title}'s Logo`}
                             bg='transparent'
                         />
-                        <Flex flexDir='column' alignItems='center'>
+                        <Flex flexDir='column' alignItems='center' fontSize='10pt'>
                             <Text >
                                 Copyright &copy; 2022 {userWebsite?.components?.title}
                             </Text>
-                            <Text fontSize='10pt'>
+                            <Text fontSize='9pt'>
                                 All rights reserved
                             </Text>
                         </Flex>
