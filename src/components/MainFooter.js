@@ -2,8 +2,8 @@ import { Flex, Text, VStack, Link, HStack, useColorModeValue, Wrap, Image } from
 import { BiLinkExternal } from 'react-icons/bi'
 
 const Footer = () => {
-    const bg = useColorModeValue('rgba(218,223,255,1)', 'rgba(17,21,28,1)');
-    const srcColor = useColorModeValue('rgb(34,34,34)', 'whiteAlpha.600');
+    const bg = useColorModeValue('rgba(240,240,240,1)', 'rgba(17,21,28,1)');
+    const srcColor = useColorModeValue('rgb(34,34,34)', 'white');
 
     return (
         <footer>
