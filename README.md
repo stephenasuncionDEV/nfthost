@@ -1,18 +1,57 @@
-# NFT Host 🎉️
+<center>
+    <a href='https://www.nfthost.app/' rel='nofollow'>
+        <img src='./public/assets/logo_new.svg' alt='NFTHost Logo'/>
+    </a>
+</center>
 
-[![Discord](https://img.shields.io/badge/Author%20By-Typedef%202604-green?label=DISCORD&labelColor=black&logo=Discord&logoColor=FFFFFF&color=DE332B&style=for-the-badge)](https://discord.com/users/746865227471257702) [![Followers](https://img.shields.io/github/followers/stephenasuncionDEV?color=DE332B&labelColor=black&style=for-the-badge)](https://github.com/stephenasuncionDEV/) [![Paypal](https://img.shields.io/badge/Paypal-Thanks-orange?color=DE332B&label=Paypal&labelColor=black&style=for-the-badge)](https://paypal.me/StebXadmin?country.x=CA&locale.x=en_US)
+<center>
+    <h1>NFT Host</h1>
+</center>
 
-## Information 📜
+<center>
+    <img src='https://github.com/stephenasuncionDEV/nfthost/actions/workflows/docker-deployment.yml/badge.svg' alt='Docker Deployment'>
+    <a href="https://discord.gg/BMZZXZMnmv" rel="nofollow">
+        <img src='https://img.shields.io/discord/925910496354381854.svg?color=7289da&label=discord&logo=discord&style=flat' alt='NFTHost Discord' />
+    </a>
+</center>
 
-NFT Host is a website where you can generate and host your ERC721 drops. Upload your nft collection(s) and share it with anyone.
+<center>
+    Create and Host your NFT collection in under a minute!
+</center>
 
-Join Our Discord: https://discord.gg/BMZZXZMnmv </br>
-Want to donate? https://www.buymeacoffee.com/stephenasuncion
+## Services
 
-## Screenshot 📸
+<ul>
+    <li><a href='https://www.nfthost.app/dashboard/generator' rel="nofollow">NFT Collection Generator</a></li>
+    <li><a href='https://www.nfthost.app/dashboard/website' rel="nofollow">NFT Mint Website Hosting</a></li>
+</ul>
 
-(screenshots here)
+## Setup
 
-## License 🚀️
+```
+npm i 
+npm run backend
+npm run dev
+```
 
-This project is stricly for educational purposes only. It is not affiliated with other companies, in any way.
+## Environment Variables
+
+| .env                      | .env.local             |
+| ------------------------- | ---------------------- |
+| MONGODB_URI               | CHAIN_ID               |
+| ACCESS_TOKEN_SECRET       | ENCRYPT_KEY            |
+| REFRESH_TOKEN_SECRET      | POSTHOG_KEY            |
+| THIRDPARTY_TOKEN_SECRET   | CREATE_WEBSITE_TOKEN   |
+| STRIPE_SECRET             |                        |
+| DOCKER_HUB_ACCESS_TOKEN   |                        |
+| DOCKER_HUB_USERNAME       |                        |
+
+## Support
+
+If you need help with anything please contact us on [Discord](https://discord.gg/BMZZXZMnmv)
+
+Want to donate? [https://www.buymeacoffee.com/stephenasuncion](https://www.buymeacoffee.com/stephenasuncion)
+
+## License
+
+[GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html)
