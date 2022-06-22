@@ -4,9 +4,7 @@
     </a>
 </p>
 
-<p align="center">
-    <h1>NFT Host</h1>
-</p>
+<h1 align="center">NFT Host</h1>
 
 <p align="center">
     <img src='https://github.com/stephenasuncionDEV/nfthost/actions/workflows/docker-deployment.yml/badge.svg' alt='Docker Deployment'>
