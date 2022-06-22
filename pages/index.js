@@ -124,7 +124,7 @@ const Main = () => {
                                     </Text>
                                 </HStack>
                                 <Text variant='content_description' mt='1.25rem'>
-                                    We provide the fastest and cheapest NFT generator in the market. With a fixed price of $99 USD, you can generate up to 10,000 unique NFTs.
+                                    We provide the fastest NFT generator in the market. We only charge $0.1 USD per unique images.
                                 </Text>
                                 <NextLink href='/dashboard/getStarted' shallow passHref>
                                     <Button w='200px' mt='1em' rightIcon={<AiOutlineArrowRight />}>

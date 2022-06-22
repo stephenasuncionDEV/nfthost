@@ -137,8 +137,8 @@ export const analyticsArr = [
         description: 'Amount of embed clicks of your websites',
         dataset: 'Embed Click Count',
         style: {
-            border: 'orange',
-            bg: 'orange'
+            border: 'rgb(255, 165, 0)',
+            bg: 'rgba(255, 165, 0, 0.5)'
         },
         dataKey: 'clickedOnEmbed'
     }
