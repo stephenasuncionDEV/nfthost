@@ -1,6 +1,6 @@
 import { Text, Flex, VStack, useColorModeValue, Image, 
     Tag, TagLeftIcon, Wrap, Button, Box, Menu, MenuButton, 
-    MenuList, MenuItem
+    MenuList, MenuItem, MenuDivider
 } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useCore } from '@/providers/CoreProvider'
@@ -92,15 +92,18 @@ const CurrentTemplate = () => {
                                     </MenuButton>
                                     <MenuList>
                                         {(addon === 'Navbar' || addon === 'Footer') && (
-                                            <MenuItem size='sm' icon={<HiLink />} onClick={() => {
-                                                setAddonSettingsData({
-                                                    item: 'socials',
-                                                    addon
-                                                })
-                                                setIsAddonSettingsModal(true);
-                                            }}>
-                                                Socials
-                                            </MenuItem>
+                                            <>
+                                                <MenuItem size='sm' icon={<HiLink />} onClick={() => {
+                                                    setAddonSettingsData({
+                                                        item: 'socials',
+                                                        addon
+                                                    })
+                                                    setIsAddonSettingsModal(true);
+                                                }}>
+                                                    Socials
+                                                </MenuItem>
+                                                <MenuDivider/>
+                                            </>
                                         )}
                                         <MenuItem size='sm' icon={<FaTrash />} onClick={() => {
                                             setAreYouSureData({
