@@ -23,7 +23,9 @@ const AddonSettingsModal = () => {
         reddit,
         setReddit,
         tiktok,
-        setTiktok
+        setTiktok,
+        SaveSocials,
+        isSaving
     } = useAddonSettings();
     return (
         <Modal isOpen={isAddonSettingsModal} onClose={() => setIsAddonSettingsModal(false)} isCentered>
@@ -95,10 +97,21 @@ const AddonSettingsModal = () => {
                         <Button size='sm' onClick={() => setIsAddonSettingsModal(false)}>
                             Cancel
                         </Button>
-                        <Button size='sm' onClick={() => {
-                            {addonSettingsData?.callback()}
-                            setIsAreYouSureModal(false);
-                        }} variant='primary' leftIcon={<MdSave />}>
+                        <Button 
+                            size='sm' 
+                            variant='primary' 
+                            leftIcon={<MdSave />} 
+                            disabled={isSaving} 
+                            isLoading={isSaving} 
+                            loadingText={isSaving} 
+                            onClick={() => {           
+                                {{
+                                    socials: SaveSocials()
+                                }[addonSettingsData?.item]}
+
+                                setIsAddonSettingsModal(false);
+                            }}
+                        >
                             Save
                         </Button>
                     </HStack>

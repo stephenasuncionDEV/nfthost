@@ -18,7 +18,8 @@ const {
     UpdateSubscriptionValidator,
     RenewSubscriptionValidator,
     VerifyDomainValidator,
-    GetWebsiteByDomainValidator
+    GetWebsiteByDomainValidator,
+    UpdateExternalLinkValidator
 } = require('../../middlewares/validators');
 
 router.post('/create', authenticateThirdPartyToken, CreateWebsiteValidator, controller.createWebsite);
@@ -39,5 +40,6 @@ router.delete('/deleteAddon', authenticateToken, DeleteAddonValidator, controlle
 router.get('/getFeatured', authenticateToken, controller.getFeatured);
 router.patch('/renewSubscription', authenticateToken, RenewSubscriptionValidator, controller.renewSubscription);
 router.post('/verifyDomain', authenticateToken, VerifyDomainValidator, controller.verifyDomain);
+router.patch('/updateExternalLink', authenticateToken, UpdateExternalLinkValidator, controller.updateExternalLink);
 
 module.exports = router;

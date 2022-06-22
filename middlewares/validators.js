@@ -357,3 +357,15 @@ exports.GetWebsiteByDomainValidator = [
     .notEmpty(),
 
 ]
+
+exports.UpdateExternalLinkValidator = [
+
+    // websiteId Validator
+    check('websiteId', 'websiteId is empty')
+    .notEmpty(),
+
+    // external_links Validator
+    check('external_links', 'external_links is empty')
+    .notEmpty(),
+
+]

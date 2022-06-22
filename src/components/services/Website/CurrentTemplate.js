@@ -95,9 +95,7 @@ const CurrentTemplate = () => {
                                             <MenuItem size='sm' icon={<HiLink />} onClick={() => {
                                                 setAddonSettingsData({
                                                     item: 'socials',
-                                                    callback: () => {
-                                                        console.log('sheesh')
-                                                    }
+                                                    addon
                                                 })
                                                 setIsAddonSettingsModal(true);
                                             }}>
