@@ -188,7 +188,7 @@ export const useGenerate = () => {
             if (collectionSize > 100 && freeGeneration === 0) {
                 setPaymentData({
                     service: 'Generator',
-                    price: 0.1 * parseInt(collectionSize),
+                    price: 25,
                     product: `1 NFT collection generation (${collectionSize}x unique images)`,
                     redirect: {
                         origin: '/dashboard/generator',
