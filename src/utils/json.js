@@ -24,6 +24,12 @@ export const PartnersArr = [
         description: 'Open-source Smart Contracts, React Components & REST APIs'
     },
     {
+        company: 'ThirdWeb',
+        image: '/assets/partners/thirdweb.svg',
+        link: 'https://thirdweb.com/',
+        description: 'Smart contracts you control. Powerful SDKs and intuitive tools for developers. Ship on-chain faster.'
+    },
+    {
         company: 'Ambition',
         image: '/assets/partners/ambition.png',
         link: 'https://ambition.so/',
