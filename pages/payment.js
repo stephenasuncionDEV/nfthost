@@ -151,7 +151,7 @@ const Payment = () => {
                                 {paymentMethodStep === 'metamask' && (
                                     <Button w='full' variant='primary' onClick={PayWithCrypto} isLoading={isPaying} loadingText='Paying'>
                                         Pay&nbsp;
-                                        {paymentData?.service === 'Generator' && `${0.00009015647 * paymentData?.data?.size}`}&nbsp;
+                                        {paymentData?.service === 'Generator' && '0.0206'}&nbsp;
                                         {paymentData?.service === 'Website' && '0.0085'}&nbsp;
                                         ETH
                                     </Button>
