@@ -118,13 +118,13 @@ const Main = () => {
                                     <Text fontSize='10pt'>
                                         Price:
                                     </Text>
-                                    <Tag>$0.10</Tag>
+                                    <Tag>$25</Tag>
                                     <Text fontSize='10pt'>
-                                        USD per unique image
+                                        USD per generation
                                     </Text>
                                 </HStack>
                                 <Text variant='content_description' mt='1.25rem'>
-                                    We provide the fastest NFT generator in the market. We only charge $0.1 USD per unique images.
+                                    We provide the fastest NFT generator in the market. You can generate 100 unique images for free. We charge with a fixed price of $25 per generation for collections above 100.
                                 </Text>
                                 <NextLink href='/dashboard/getStarted' shallow passHref>
                                     <Button w='200px' mt='1em' rightIcon={<AiOutlineArrowRight />}>
