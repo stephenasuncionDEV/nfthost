@@ -25,14 +25,6 @@ export const useUserWebsite = (websiteData) => {
         }
     }, [])
 
-    // Capture Website Visit
-    useEffect(() => {
-        if (!posthog) return;
-        posthog.capture('Mint Website Visit', {
-            websiteId
-        })
-    }, [posthog])
-
     // Get mint website
     useEffect(() => {
         if (!Object.keys(router.query).length) return;
@@ -58,6 +50,11 @@ export const useUserWebsite = (websiteData) => {
             })
 
             if (!res.data) throw new Error('Invalid website Id');
+
+            posthog.capture('Mint Website Visit', {
+                websiteId,
+                websiteTitle: res.data.components.title
+            })
 
             if (checkExpiration) await CheckExpiration(res.data);
 
