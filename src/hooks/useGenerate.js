@@ -8,6 +8,7 @@ import posthog from 'posthog-js'
 import MD5 from 'crypto-js/md5'
 import JSZip from 'jszip'
 import { saveAs } from 'file-saver'
+import { shuffleArray } from '@/utils/tools'
 
 const zip = new JSZip();
 
@@ -41,7 +42,8 @@ export const useGenerate = () => {
         setGenerateSpeed,
         setIsConfetti,
         canvasRef,
-        setPreviewLayers
+        setPreviewLayers,
+        isRandomizedMetadata
     } = useGenerator();
     const { address } = useUser();
     const { getUserByAddress, AddCount, DeductFree } = useWeb3();
@@ -327,12 +329,18 @@ export const useGenerate = () => {
 
 			let fileIndex = 0;
 
-			zip.folder("Metadata")?.file("metadata.json", JSON.stringify(metadata, null, 2));
+            let tempMetadata = [...metadata];
 
-			metadata.forEach((data) => {
-				zip.folder("Metadata")?.file(`${fileIndex}.json`, JSON.stringify(data, null, 2));
-				fileIndex++;
-			});
+			if (isRandomizedMetadata) {
+                tempMetadata = shuffleArray(tempMetadata);
+            }
+
+			zip.folder("Metadata").file("metadata.json", JSON.stringify(tempMetadata, null, 2));
+
+            metadata.forEach((data) => {
+                zip.folder("Metadata")?.file(`${fileIndex}.json`, JSON.stringify(data, null, 2));
+                fileIndex++;
+            });
 
             // Save Csv Metadata
 
@@ -348,7 +356,7 @@ export const useGenerate = () => {
                 csvData.push(columns);
 
                 // Get Rows
-                metadata.forEach((data) => {
+                tempMetadata.forEach((data) => {
                     let row = [
                         data.name,
                         data.description,
@@ -406,7 +414,13 @@ export const useGenerate = () => {
 
 			zip.remove("Images"); // delete images first
 
-			zip.folder("Metadata")?.file("metadata.json", JSON.stringify(metadata, null, 2));
+            let tempMetadata = [...metadata];
+
+			if (isRandomizedMetadata) {
+                tempMetadata = shuffleArray(tempMetadata);
+            }
+
+			zip.folder("Metadata").file("metadata.json", JSON.stringify(tempMetadata, null, 2));
 
 			metadata.forEach(data => {
 				zip.folder("Metadata")?.file(`${fileIndex}.json`, JSON.stringify(data, null, 2));
@@ -427,7 +441,7 @@ export const useGenerate = () => {
                 csvData.push(columns);
 
                 // Get Rows
-                metadata.forEach((data ) => {
+                tempMetadata.forEach((data ) => {
                     let row = [
                         data.name,
                         data.description,

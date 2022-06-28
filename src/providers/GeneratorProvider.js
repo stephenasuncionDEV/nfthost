@@ -32,6 +32,7 @@ export const GeneratorProvider = ({ children }) => {
     const [isRarityModal, setIsRarityModal] = useState(false);
     const [isGenerateModal, setIsGenerateModal] = useState(false);
     const [isDownloadModal, setIsDownloadModal] = useState(false);
+    const [isRandomizedMetadata, setIsRandomizedMetadata] = useState(false);
     const [previewLayers, setPreviewLayers] = useState();
     const canvasRef = useRef();
 
@@ -94,7 +95,9 @@ export const GeneratorProvider = ({ children }) => {
         isDownloadModal,
         setIsDownloadModal,
         previewLayers,
-        setPreviewLayers
+        setPreviewLayers,
+        isRandomizedMetadata,
+        setIsRandomizedMetadata
     }
 
     return (

@@ -131,3 +131,15 @@ export const convertLocalToDate = (local) => {
 export const capitalizeFirstLetter = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
+
+export const shuffleArray = (array) => {
+    let currentIndex = array.length, randomIndex;
+
+    while (currentIndex != 0) {
+        randomIndex = (Math.random() * currentIndex) | 0;
+        currentIndex--;
+        [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+    }
+
+    return array;
+}

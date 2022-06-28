@@ -1,6 +1,6 @@
 import { HStack, Text, Button, Modal, ModalOverlay,
     ModalContent, ModalHeader, ModalFooter, ModalBody,
-    ModalCloseButton, Progress, Box, Flex, VStack,
+    ModalCloseButton, Progress, Box, Flex, VStack, Checkbox
 } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { useGenerate } from '@/hooks/useGenerate'
@@ -17,7 +17,9 @@ const DownloadModal = () => {
         generateSpeed,
         isAutoSave,
         isDownloading,
-        downloadPercentage
+        downloadPercentage,
+        isRandomizedMetadata,
+        setIsRandomizedMetadata
     } = useGenerator();
 
     const {  
@@ -49,8 +51,8 @@ const DownloadModal = () => {
                 </ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
-                    <Flex justifyContent='center' alignItems='center'>
-                        <HStack spacing='2em'>
+                    <Flex justifyContent='center' alignItems='center' my='3em'>
+                        <HStack spacing='4em'>
                             <VStack alignItems='flex-start'>
                                 <Text variant='content_subtitle'>
                                     {!isAutoSave ? 'NFT Collection' : 'Collection Metadata'}
@@ -67,6 +69,14 @@ const DownloadModal = () => {
                                         Download Metadata
                                     </Button>
                                 )}
+                            </VStack>
+                            <VStack alignItems='flex-start'>
+                                <Text fontSize='10pt'>
+                                    Options
+                                </Text>
+                                <Checkbox value={isRandomizedMetadata} onChange={(e) => setIsRandomizedMetadata(e.target.value)}>
+                                    Randomized Metadata
+                                </Checkbox>
                             </VStack>
                         </HStack>
                     </Flex>
