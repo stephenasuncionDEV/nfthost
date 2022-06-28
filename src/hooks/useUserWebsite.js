@@ -53,7 +53,8 @@ export const useUserWebsite = (websiteData) => {
 
             posthog.capture('Mint Website Visit', {
                 websiteId,
-                websiteTitle: res.data.components.title
+                websiteTitle: res.data.components.title,
+                origin: document.referrer
             })
 
             if (checkExpiration) await CheckExpiration(res.data);
