@@ -30,7 +30,7 @@ const AreYouSureModal = () => {
                         <Button size='sm' onClick={() => {
                             {areYouSureData?.callback()}
                             setIsAreYouSureModal(false);
-                        }} variant='danger' leftIcon={<FaTrash />}>
+                        }} variant={areYouSureData?.button || 'danger'} leftIcon={<FaTrash />}>
                             {areYouSureData?.action}
                         </Button>
                     </HStack>

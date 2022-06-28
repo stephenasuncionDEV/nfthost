@@ -221,6 +221,7 @@ const EditWebsite = () => {
                             item: 'website',
                             action: 'Delete',
                             icon: <FaTrash />,
+                            button: 'danger',
                             callback: () => {
                                 DeleteWebsite();
                             }

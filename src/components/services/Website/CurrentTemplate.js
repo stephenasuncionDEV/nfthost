@@ -110,6 +110,7 @@ const CurrentTemplate = () => {
                                                 item: 'addon',
                                                 action: 'Remove',
                                                 icon: <FaTrash />,
+                                                button: 'danger',
                                                 callback: () => {
                                                     RemoveAddon(addon);
                                                 }

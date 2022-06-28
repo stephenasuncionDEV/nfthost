@@ -181,6 +181,8 @@ export const useGenerate = () => {
 
             if (possibleCombination < collectionSize) throw new Error(`Possible combination is under the desired collection count (${possibleCombination}/${collectionSize}). You must add more images to your layer(s).`);
         
+            if (!name.length) throw new Error('You must input a name for your NFT Collection. Can be found under Metadata settings in the toolbar.');
+
             const user = await getUserByAddress(address);
 
             const freeGeneration = user.services.generator.freeGeneration;

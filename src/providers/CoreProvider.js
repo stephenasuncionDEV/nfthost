@@ -23,6 +23,7 @@ export const CoreProvider = ({ children }) => {
     const [areYouSureData, setAreYouSureData] = useState({
         item: 'website',
         action: 'Delete',
+        button: 'danger',
         callback: () => {
             console.log('No Data');
         }

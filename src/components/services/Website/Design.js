@@ -120,6 +120,7 @@ const Design = () => {
                                             item: 'style',
                                             action: 'Reset',
                                             icon: <FaRedo />,
+                                            button: 'danger',
                                             callback: () => {
                                                 ResetStyle();
                                             }
