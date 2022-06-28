@@ -2,6 +2,7 @@ import { useToast } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useUser } from '@/providers/UserProvider'
 import { useCore } from '@/providers/CoreProvider'
+import posthog from 'posthog-js'
 
 export const useLanding = () => { 
     const toast = useToast();
@@ -15,6 +16,8 @@ export const useLanding = () => {
                 router.push('/#connect', undefined, { shallow: true });
                 throw new Error('You must connect your wallet');
             }
+
+            posthog.capture('User clicked GetStarted on landing page');
 
             setIsServiceModal(true);
         }
@@ -36,6 +39,8 @@ export const useLanding = () => {
                 router.push('/#connect', undefined, { shallow: true });
                 throw new Error('You must connect your wallet');
             }
+
+            posthog.capture('User clicked feature on landing page');
 
             router.push(route, undefined, { shallow: true }); 
         }
