@@ -1,6 +1,7 @@
 import { useWebsite } from '@/providers/WebsiteProvider'
 import axios from 'axios'
 import config from '@/config/index'
+import posthog from 'posthog-js'
 
 export const useAnalytics = () => {
     const { userWebsite, setUserWebsite } = useWebsite();
@@ -34,6 +35,10 @@ export const useAnalytics = () => {
     const CheckEmbedClick = async () => {
         try {
             if (!userWebsite) return;
+
+            posthog.capture('Mint Website Embed Click', {
+                websiteId: userWebsite._id
+            })
 
             await axios.patch(`${config.serverUrl}/api/website/updateAnalytics`, {
                 websiteId: userWebsite._id,

@@ -20,14 +20,18 @@ export const useUserWebsite = (websiteData) => {
 
     // Check if user accepted cookie and increment unique visit
     useEffect(() => {
-        posthog.capture('Mint Website Visit', {
-            websiteId
-        })
-        
         if (!localStorage.getItem('nfthost-cookie')) {
             setIsCookieModal(true);
         }
     }, [])
+
+    // Capture Website Visit
+    useEffect(() => {
+        if (!posthog) return;
+        posthog.capture('Mint Website Visit', {
+            websiteId
+        })
+    }, [posthog])
 
     // Get mint website
     useEffect(() => {
