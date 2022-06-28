@@ -42,7 +42,7 @@ const Preview = () => {
                 ))}
             </Box>
             <Flex justifyContent='flex-end' w='full'>
-                <Button leftIcon={<FaRedo />} size='sm' onClick={() => RandomPreview(false)}>
+                <Button leftIcon={<FaRedo />} size='sm' onClick={() => RandomPreview(false)} variant='primary'>
                     Random
                 </Button>
             </Flex>
