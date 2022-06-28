@@ -9,7 +9,7 @@ import { useNavbar } from '@/hooks/useNavbar'
 import { HiOutlineChevronDown, HiLogout } from 'react-icons/hi'
 import { MdOutlineContentCopy, MdPayment } from 'react-icons/md'
 
-const ConnectWalletTag = ({ isCopyAddress, isUserProfile, isPayments, isSidebar }) => {
+const ConnectWalletTag = ({ isCopyAddress, isUserProfile, isPayments }) => {
     const { address, isLoggedIn, user } = useUser();
     const { CopyAddress } = useNavbar();
     const { Connect, Logout } = useWeb3();
@@ -85,6 +85,16 @@ const ConnectWalletTag = ({ isCopyAddress, isUserProfile, isPayments, isSidebar 
                             mr='12px'
                         />
                         <span>Phantom</span>
+                    </MenuItem>
+                    <MenuItem onClick={() => Connect('coinbase')}>
+                        <Image
+                            boxSize='2rem'
+                            borderRadius='full'
+                            src='/assets/coinbasewallet.png'
+                            alt='Coinbase Wallet Logo'
+                            mr='12px'
+                        />
+                        <span>Coinbase Wallet</span>
                     </MenuItem>
                     </>
                 )}

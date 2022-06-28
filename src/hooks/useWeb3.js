@@ -28,6 +28,9 @@ export const useWeb3 = () => {
                 const sol = await window.solana.connect();
                 address = sol.publicKey.toString();
             }
+            else if (wallet === 'coinbase') {
+                
+            }
 
             const token = await axios.post(`${config.serverUrl}/api/member/walletLogin`, {
                 address,
