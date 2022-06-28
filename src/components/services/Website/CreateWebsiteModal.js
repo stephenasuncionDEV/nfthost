@@ -57,7 +57,7 @@ const CreateWebsiteModal = () => {
                             <VStack spacing='.75em' w='full' alignItems='flex-start' mt='1em'>
                                 <Wrap w='full'>
                                     <FormControl isInvalid={newErrors?.title?.status} flex='1'>
-                                        <Input placeholder='Title' value={newComponentTitle} onChange={(e) => setNewComponentTitle(e.target.value)} />
+                                        <Input placeholder='Title*' value={newComponentTitle} onChange={(e) => setNewComponentTitle(e.target.value)} />
                                         {!newErrors?.title?.status ? <FormHelperText fontSize='9pt'>Title you see in your browser's tab</FormHelperText> : <FormErrorMessage fontSize='9pt'>{newErrors?.title?.message}</FormErrorMessage>}
                                     </FormControl>
                                     <FormControl isInvalid={newErrors?.language?.status} flex='1'>
@@ -149,7 +149,7 @@ const CreateWebsiteModal = () => {
                                     </FormControl>
                                 </Wrap>
                                 <FormControl isInvalid={newErrors?.description?.status}>
-                                    <Textarea placeholder='Description' value={newComponentDescription} onChange={(e) => setNewComponentDescription(e.target.value)} rows='5' />
+                                    <Textarea placeholder='Description*' value={newComponentDescription} onChange={(e) => setNewComponentDescription(e.target.value)} rows='5' />
                                     {!newErrors?.description?.status ? <FormHelperText fontSize='9pt'>Short description of your mint website</FormHelperText> : <FormErrorMessage fontSize='9pt'>{newErrors?.description?.message}</FormErrorMessage>}
                                 </FormControl>
                             </VStack>
@@ -169,7 +169,7 @@ const CreateWebsiteModal = () => {
                                     {!newErrors?.script?.status ? <FormHelperText fontSize='9pt'>Script code of a third-party website</FormHelperText> : <FormErrorMessage fontSize='9pt'>{newErrors?.script?.message}</FormErrorMessage>}
                                 </FormControl>
                                 <FormControl isInvalid={newErrors?.embed?.status} flex='1'>
-                                    <Textarea placeholder='Embed' value={newComponentEmbed} onChange={(e) => setNewComponentEmbed(e.target.value)} rows='8' />
+                                    <Textarea placeholder='Embed*' value={newComponentEmbed} onChange={(e) => setNewComponentEmbed(e.target.value)} rows='8' />
                                     {!newErrors?.embed?.status ? <FormHelperText fontSize='9pt'>Embed code of a third-party website</FormHelperText> : <FormErrorMessage fontSize='9pt'>{newErrors?.embed?.message}</FormErrorMessage>}
                                 </FormControl>
                             </Wrap>
@@ -208,8 +208,9 @@ const CreateWebsiteModal = () => {
                                                         </HStack>
                                                     </Radio>
                                                     <Flex flexDir='column' fontSize='9pt' pl='2em'>
-                                                        <Text>- Website Templates</Text>
+                                                        <Text>- Templates &#38; Addons</Text>
                                                         <Text>- No Watermark</Text>
+                                                        <Text>- More...</Text>
                                                     </Flex>
                                                 </VStack>
                                             </VStack>
