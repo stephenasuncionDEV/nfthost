@@ -11,6 +11,8 @@ const Traits = () => {
 
     const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
     const dropContainerColor = useColorModeValue('rgba(0,0,0,0.1)', 'rgba(0,0,0,0.5)');
+    const itemColor = useColorModeValue('blackAlpha.100', 'blackAlpha.400');
+    const itemBorderColor = useColorModeValue('blackAlpha.300', 'whiteAlpha.300');
 
     return (
         <Flex
@@ -33,7 +35,7 @@ const Traits = () => {
             {layers[currentLayer]?.images.length > 0 && (
                 <Wrap spacing='1em' mt='1em' mb='2em' p='1em'>
                     {layers[currentLayer]?.images?.map((image, idx) => (
-                        <Box p='1em' key={idx} bg={dropContainerColor} borderRadius='10px' position='relative'>
+                        <Box p='1em' key={idx} bg={itemColor} borderRadius='10px' position='relative' borderColor={itemBorderColor} borderStyle='dashed' borderWidth='3px'>
                             <VStack>
                                 <Image src={image.preview} alt={image.name} w='85px' h='85px' />
                                 <Text fontSize='10pt' w='85px' noOfLines='1'>
@@ -69,7 +71,7 @@ const Traits = () => {
                         h='200px' 
                         mt='1em' 
                         bg={dropContainerColor}
-                        borderRadius='10px' 
+                        borderRadius='10px'
                         justifyContent='center' 
                         alignItems='center' 
                         flexDir='column'
