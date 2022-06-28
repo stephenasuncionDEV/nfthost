@@ -145,7 +145,7 @@ const CreateWebsiteModal = () => {
                                     </FormControl>
                                     <FormControl isInvalid={newErrors?.image?.status} flex='1'>
                                         <Input placeholder='Unrevealed Image Link' value={newComponentImage} onChange={(e) => setNewComponentImage(e.target.value)} />
-                                        {!newErrors?.image?.status ? <FormHelperText fontSize='9pt'>External link of unrevealed image of your nft collection</FormHelperText> : <FormErrorMessage fontSize='9pt'>{newErrors?.image?.message}</FormErrorMessage>}
+                                        {!newErrors?.image?.status ? <FormHelperText fontSize='9pt'>External link of logo of your nft collection</FormHelperText> : <FormErrorMessage fontSize='9pt'>{newErrors?.image?.message}</FormErrorMessage>}
                                     </FormControl>
                                 </Wrap>
                                 <FormControl isInvalid={newErrors?.description?.status}>
