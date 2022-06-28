@@ -71,7 +71,7 @@ const ConnectWalletTag = ({ isCopyAddress, isUserProfile, isPayments }) => {
                             boxSize='2rem'
                             borderRadius='full'
                             src='/assets/metamask.png'
-                            alt='Metamask Wallet Logo'
+                            alt='MetaMask Wallet Logo'
                             mr='12px'
                         />
                         <span>Metamask</span>
@@ -95,6 +95,16 @@ const ConnectWalletTag = ({ isCopyAddress, isUserProfile, isPayments }) => {
                             mr='12px'
                         />
                         <span>Coinbase Wallet</span>
+                    </MenuItem>
+                    <MenuItem onClick={() => Connect('walletconnect')}>
+                        <Image
+                            boxSize='2rem'
+                            borderRadius='full'
+                            src='/assets/walletconnect.svg'
+                            alt='WalletConnect Logo'
+                            mr='12px'
+                        />
+                        <span>WalletConnect</span>
                     </MenuItem>
                     </>
                 )}

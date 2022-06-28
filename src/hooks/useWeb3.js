@@ -8,6 +8,7 @@ import axios from 'axios'
 import config from '@/config/index'
 import { encrypt, decryptToken } from '@/utils/tools'
 import CoinbaseWalletSDK from '@coinbase/wallet-sdk'
+import WalletConnectProvider from "@walletconnect/web3-provider";
 
 export const useWeb3 = () => {
     const toast = useToast();
@@ -44,6 +45,18 @@ export const useWeb3 = () => {
                 window.web3 = new Web3(ethereum);
                 setProvider(ethereum);
                 const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+                address = accounts[0];
+            }
+            else if (wallet === 'walletconnect') {
+                const walletConnect = new WalletConnectProvider({
+                    rpc: {
+                        1: 'https://mainnet.infura.io/v3',
+                    },
+                });
+                await walletConnect.enable();
+                window.web3 = new Web3(walletConnect);
+                setProvider(walletConnect);
+                const accounts = await window.web3.eth.getAccounts();
                 address = accounts[0];
             }
 
@@ -380,6 +393,12 @@ export const useWeb3 = () => {
             }
             else if (wallet === 'coinbase') {
                 await provider.send('wallet_switchEthereumChain', [{ chainId }]);
+            }
+            else if (wallet === 'walletconnect') {
+                await provider.request({
+                    method: 'wallet_switchEthereumChain',
+                    params: [{ chainId }],
+                });
             }
         }
     }
