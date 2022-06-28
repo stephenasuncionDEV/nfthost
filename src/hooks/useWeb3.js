@@ -1,16 +1,19 @@
 import { useToast } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useUser } from '@/providers/UserProvider'
+import { useCore } from '@/providers/CoreProvider'
 import Web3 from 'web3'
 import posthog from 'posthog-js'
 import axios from 'axios'
 import config from '@/config/index'
 import { encrypt, decryptToken } from '@/utils/tools'
+import CoinbaseWalletSDK from '@coinbase/wallet-sdk'
 
 export const useWeb3 = () => {
     const toast = useToast();
     const router = useRouter();
     const { setAddress, setIsLoggedIn, setUser, address: userAddress, user } = useUser();
+    const { setProvider, provider } = useCore();
 
     const Connect = async (wallet) => {
         try {
@@ -19,6 +22,7 @@ export const useWeb3 = () => {
             if (wallet === 'metamask') {
                 if (typeof window.ethereum === 'undefined' || (typeof window.web3 === 'undefined')) throw new Error('Metamask is not installed');
                 window.web3 = new Web3(window.ethereum) || new Web3(window.web3.currentProvider);
+                setProvider(window.ethereum);
                 const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
                 address = accounts[0];
             }
@@ -26,10 +30,21 @@ export const useWeb3 = () => {
                 const provider = window.solana;
                 if (!provider.isPhantom) throw new Error('Phantom is not installed');
                 const sol = await window.solana.connect();
+                setProvider(window.solana);
                 address = sol.publicKey.toString();
             }
             else if (wallet === 'coinbase') {
-                
+                const coinbaseWallet = new CoinbaseWalletSDK({
+                    appName: 'NFTHost',
+                    appLogoUrl: 'https://www.nfthost.app/assets/logo.png',
+                    darkMode: true
+                });
+                const ethereum = coinbaseWallet.makeWeb3Provider('https://mainnet.infura.io/v3', 1);
+                if (!ethereum) throw new Error('Coinbase wallet is not installed')
+                window.web3 = new Web3(ethereum);
+                setProvider(ethereum);
+                const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+                address = accounts[0];
             }
 
             const token = await axios.post(`${config.serverUrl}/api/member/walletLogin`, {
@@ -58,6 +73,15 @@ export const useWeb3 = () => {
         }
         catch (err) {
             console.error(err);
+            if (err.message === 'Metamask is not installed') {
+                window.open("https://metamask.io/", "_blank");
+            }
+            else if (err.message === 'Phantom is not installed') {
+                window.open("https://phantom.app/", "_blank");
+            }
+            else if (err.message === 'Coinbase wallet is not installed') {
+                window.open("https://www.coinbase.com/wallet", "_blank");
+            }
             toast({
                 title: 'Error',
                 description: !err.response ? err.message : err.response.data?.message,
@@ -344,14 +368,19 @@ export const useWeb3 = () => {
         return `0x${parseInt(window.ethereum.networkVersion).toString(16)}`;
     }
 
-    const isNetworkProtected = async () => {
+    const isNetworkProtected = async (wallet = 'metamask') => {
         const id = getChainId();
         const chainId = process.env.CHAIN_ID;
         if (id !== chainId) {
-            await window.ethereum.request({
-                method: 'wallet_switchEthereumChain',
-                params: [{ chainId }],
-            });
+            if (wallet === 'metamask' || !provider) {
+                await window.ethereum.request({
+                    method: 'wallet_switchEthereumChain',
+                    params: [{ chainId }],
+                });
+            }
+            else if (wallet === 'coinbase') {
+                await provider.send('wallet_switchEthereumChain', [{ chainId }]);
+            }
         }
     }
 

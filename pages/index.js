@@ -13,8 +13,6 @@ import style from '@/styles/Main.module.scss'
 import posthog from 'posthog-js'
 
 const Main = () => {
-    useReAuthenticate();
-    
     const bgColor = useColorModeValue('linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(249,250,250,1) 100%)', 'linear-gradient(0deg, rgba(26,32,44,1) 0%, rgba(17,21,28,1) 100%)');
     const srcColor = useColorModeValue('blackAlpha.600', 'whiteAlpha.600');
     const sponsorColor = useColorModeValue('blackAlpha.600', 'whiteAlpha.300');

@@ -4,6 +4,7 @@ export const CoreContext = createContext({})
 export const useCore = () => useContext(CoreContext)
 
 export const CoreProvider = ({ children }) => {
+    const [provider, setProvider] = useState();
     const [isServiceModal, setIsServiceModal] = useState(false);
     const [isCookieModal, setIsCookieModal] = useState(false);
     const [isKeepWorkingModal, setIsKeepWorkingModal] = useState(false);
@@ -12,7 +13,7 @@ export const CoreProvider = ({ children }) => {
     const [isAddonSettingsModal, setIsAddonSettingsModal] = useState(false);
     const [addonSettingsData, setAddonSettingsData] = useState();
     const [paymentData, setPaymentData] = useState();
-    const [paymentMethodStep, setPaymentMethodStep] = useState('metamask');
+    const [paymentMethodStep, setPaymentMethodStep] = useState('cryptowallet');
     const [paymentName, setPaymentName] = useState('');
     const [paymentEmail, setPaymentEmail] = useState('');
     const [paymentAddress, setPaymentAddress] = useState('');
@@ -32,6 +33,8 @@ export const CoreProvider = ({ children }) => {
     const [isGettingTransactions, setIsGettingTransactions] = useState(false);
 
     const controllers = {
+        provider,
+        setProvider,
         isServiceModal,
         setIsServiceModal,
         isCookieModal,

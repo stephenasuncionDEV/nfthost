@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import NextLink from 'next/link'
 import { Box, HStack, Text, Flex, Button, VStack, Avatar,
-    Link, useColorModeValue, Input, Divider, Image
+    Link, useColorModeValue, Input, Divider, Image, Wrap
 } from '@chakra-ui/react'
 import { useReAuthenticate } from '@/hooks/useReAuthenticate'
 import { useCore } from '@/providers/CoreProvider'
@@ -129,26 +129,26 @@ const Payment = () => {
                             <Text>
                                 Select a payment method
                             </Text>
-                            <HStack my='1em'>
-                                <Button h='60px' w='120px' justifyContent='flex-start' onClick={() => setPaymentMethodStep('metamask')}>
+                            <Wrap my='1em' spacing='.5em'>
+                                <Button h='60px' minW='120px' justifyContent='flex-start' onClick={() => setPaymentMethodStep('cryptowallet')}>
                                     <Flex flexDir='column' w='full'>
                                         <FaEthereum />
                                         <Text fontSize='10pt' textAlign='start'>
-                                            Metamask
+                                            Crypto Wallet
                                         </Text>
                                     </Flex>
                                 </Button>
-                                <Button h='60px' w='120px' justifyContent='flex-start' onClick={() => setPaymentMethodStep('card')}>
+                                <Button h='60px' minW='120px' justifyContent='flex-start' onClick={() => setPaymentMethodStep('bankcard')}>
                                     <Flex flexDir='column' w='full'>
                                         <FaWallet />
                                         <Text fontSize='10pt' textAlign='start'>
-                                            Card
+                                            Bank Card
                                         </Text>
                                     </Flex>
                                 </Button>
-                            </HStack>
+                            </Wrap>
                             <Box mt='1em'>
-                                {paymentMethodStep === 'metamask' && (
+                                {(paymentMethodStep === 'cryptowallet') && (
                                     <Button w='full' variant='primary' onClick={PayWithCrypto} isLoading={isPaying} loadingText='Paying'>
                                         Pay&nbsp;
                                         {paymentData?.service === 'Generator' && '0.0206'}&nbsp;
@@ -156,7 +156,7 @@ const Payment = () => {
                                         ETH
                                     </Button>
                                 )}
-                                {paymentMethodStep === 'card' && (
+                                {paymentMethodStep === 'bankcard' && (
                                     <VStack spacing='1em'>
                                         <VStack alignItems='flex-start' w='full'>
                                             <Text fontSize='10pt' mb='.25em'>
@@ -168,7 +168,7 @@ const Payment = () => {
                                             <HStack>
                                                 <Input placeholder='city' name='city' id='city' value={paymentCity} onChange={(e) => setPaymentCity(e.target.value)}/>
                                                 <Input placeholder='state' name='state' id='state' value={paymentState} onChange={(e) => setPaymentState(e.target.value)}/>
-                                                <Input placeholder='zip' name='zip' id='zip' value={paymentZip} onChange={(e) => setPaymentZip(e.target.value)}/>
+                                                <Input placeholder='zip/postal code' name='zip' id='zip' value={paymentZip} onChange={(e) => setPaymentZip(e.target.value)}/>
                                             </HStack>
                                         </VStack>
                                         <VStack alignItems='flex-start' w='full'>

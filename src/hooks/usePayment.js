@@ -13,6 +13,7 @@ export const usePayment = () => {
     const { user } = useUser();
     const { isNetworkProtected, AddFree, UpdateEmail, Logout } = useWeb3();
     const { 
+        provider,
         paymentData,
         paymentName,
         paymentEmail,
@@ -26,45 +27,53 @@ export const usePayment = () => {
 
     const PayWithCrypto = async () => {
         try {
+            if (!provider) throw new Error('Cannot find web3 provider. Please relogin.');
+
             const storageToken = localStorage.getItem('nfthost-user');
             if (!storageToken) return;
 
             const userData = decryptToken(storageToken);
             const wallet = userData.wallet;
+
             const service = paymentData.service.toLowerCase();
             const price = getPriceFromService(service, true);
 
-            if (wallet === 'metamask') {
-                await isNetworkProtected();
+            await isNetworkProtected(wallet);
 
-                setIsPaying(true);
+            setIsPaying(true);
 
+            let hash = 'n/a';
+
+            if (wallet === 'metamask' || wallet === 'coinbase') {
                 const txHash = await window.web3.eth.sendTransaction({
-                    from: window.ethereum.selectedAddress,
+                    from: provider.selectedAddress,
                     to: config.nfthost.wallet_metamask,
                     value: Web3.utils.toWei(price.toFixed(7).toString(), 'ether')
                 })
-
-                const INCREMENT_INDEX = 1;
-                await AddFree(INCREMENT_INDEX, service);
-                await AddPayment(txHash.blockHash);
-
-                setIsPaying(false);
-                setIsKeepWorkingModal(true);
-
-                toast({
-                    title: 'Success',
-                    description: 'Successfuly purchased 1 NFT collection generation',
-                    status: 'success',
-                    duration: 3000,
-                    isClosable: true,
-                    position: 'bottom-center'
-                })
-
-                posthog.capture('User paid with metamask wallet', {
-                    price
-                });
+                hash = txHash.blockHash;
+            } else {
+                throw new Error('wallet not detected')
             }
+
+            const INCREMENT_INDEX = 1;
+            await AddFree(INCREMENT_INDEX, service);
+            await AddPayment(hash);
+
+            setIsPaying(false);
+            setIsKeepWorkingModal(true);
+
+            toast({
+                title: 'Success',
+                description: 'Successfuly Purchased Item',
+                status: 'success',
+                duration: 3000,
+                isClosable: true,
+                position: 'bottom-center'
+            })
+
+            posthog.capture('User paid with crypto wallet', {
+                wallet
+            });
         }
         catch (err) {
             console.error(err);
@@ -150,7 +159,7 @@ export const usePayment = () => {
 
             toast({
                 title: 'Success',
-                description: 'Successfuly purchased 1 NFT collection generation',
+                description: 'Successfuly Purchased Item',
                 status: 'success',
                 duration: 3000,
                 isClosable: true,
