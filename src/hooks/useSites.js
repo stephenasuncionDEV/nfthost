@@ -278,9 +278,11 @@ export const useSites = () => {
             if (!title.value.length) errorsObj.title = { status: true, message: 'Title field must be filled in' };
             if (!description.value.length) errorsObj.description = { status: true, message: 'Description field must be filled in' };
             if (!embed.value.length) errorsObj.embed = { status: true, message: 'Embed field must be filled in' };
-            if (!unrevealed.value.length) errorsObj.image = { status: true, message: 'Unrevealed Image Link field must be filled in' };
+            if (!unrevealed.value.length) errorsObj.image = { status: true, message: 'Logo Image Link field must be filled in' };
             if (!robot.value.length) errorsObj.robot = { status: true, message: 'Robot field must be filled in' };
-            
+            if (!favicon.value.length) errorsObj.favicon = { status: true, message: 'Favicon field must be filled in' };
+            if (!language.value.length) errorsObj.language = { status: true, message: 'Language field must be filled in' };
+
             if (Object.keys(errorsObj).length > 0) {
                 setEditErrors(errorsObj);
                 return;

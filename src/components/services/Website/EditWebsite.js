@@ -1,5 +1,6 @@
 import { HStack, Text, Button, Flex, VStack, useColorModeValue, 
-    Input, Textarea, Select, Wrap, IconButton, Link, Box, Image
+    Input, Textarea, Select, Wrap, IconButton, Link, Box, Image,
+    FormControl
 } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useUser } from '@/providers/UserProvider'
@@ -12,7 +13,7 @@ import { useCore } from '@/providers/CoreProvider';
 
 const EditWebsite = () => {
     const { setAreYouSureData, setIsAreYouSureModal } = useCore();
-    const { currentEditWebsite, editWebsiteFormRef, isUpdating, isDeletingWebsite } = useWebsite();
+    const { currentEditWebsite, editWebsiteFormRef, isUpdating, isDeletingWebsite, editErrors } = useWebsite();
     const { user } = useUser();
     const { CancelEdit, UpdateWebsite, DeleteWebsite, CopyWebsiteLink, UpgradeToPremium, RenewWebsite } = useSites();
     useEditWebsite();
@@ -82,12 +83,14 @@ const EditWebsite = () => {
                                     <Text fontSize='10pt' fontWeight='bold'>
                                         SEO Robot
                                     </Text>
-                                    <Select id='robot' placeholder='Robot' size='sm'>
-                                        <option value="if">index, follow</option>
-                                        <option value="nf">noindex, follow</option>
-                                        <option value="in">index, nofollow</option>
-                                        <option value="nn">noindex, nofollow</option>
-                                    </Select>
+                                    <FormControl isInvalid={editErrors?.robot?.status}>
+                                        <Select id='robot' placeholder='Robot' size='sm'>
+                                            <option value="if">index, follow</option>
+                                            <option value="nf">noindex, follow</option>
+                                            <option value="in">index, nofollow</option>
+                                            <option value="nn">noindex, nofollow</option>
+                                        </Select>
+                                    </FormControl>
                                 </VStack>
                                 {currentEditWebsite?.isExpired && (
                                     <Button size='sm' variant='primary' w='full' leftIcon={<FaStar />} mt='1em' onClick={RenewWebsite} isLoading={isUpdating}>
@@ -115,87 +118,99 @@ const EditWebsite = () => {
                             </VStack>
                             <VStack alignItems='flex-start' flex='1'>
                                 <HStack w='full'>
-                                    <Input id='title' placeholder='Title' size='sm' flex='1'/>
-                                    <Select id='language' placeholder='Language' size='sm' flex='1'>
-                                        <option value="AF">Afrikaans</option>
-                                        <option value="SQ">Albanian</option>
-                                        <option value="AR">Arabic</option>
-                                        <option value="HY">Armenian</option>
-                                        <option value="EU">Basque</option>
-                                        <option value="BN">Bengali</option>
-                                        <option value="BG">Bulgarian</option>
-                                        <option value="CA">Catalan</option>
-                                        <option value="KM">Cambodian</option>
-                                        <option value="ZH">Chinese (Mandarin)</option>
-                                        <option value="HR">Croatian</option>
-                                        <option value="CS">Czech</option>
-                                        <option value="DA">Danish</option>
-                                        <option value="NL">Dutch</option>
-                                        <option value="EN">English</option>
-                                        <option value="ET">Estonian</option>
-                                        <option value="FJ">Fiji</option>
-                                        <option value="FI">Finnish</option>
-                                        <option value="FR">French</option>
-                                        <option value="KA">Georgian</option>
-                                        <option value="DE">German</option>
-                                        <option value="EL">Greek</option>
-                                        <option value="GU">Gujarati</option>
-                                        <option value="HE">Hebrew</option>
-                                        <option value="HI">Hindi</option>
-                                        <option value="HU">Hungarian</option>
-                                        <option value="IS">Icelandic</option>
-                                        <option value="ID">Indonesian</option>
-                                        <option value="GA">Irish</option>
-                                        <option value="IT">Italian</option>
-                                        <option value="JA">Japanese</option>
-                                        <option value="JW">Javanese</option>
-                                        <option value="KO">Korean</option>
-                                        <option value="LA">Latin</option>
-                                        <option value="LV">Latvian</option>
-                                        <option value="LT">Lithuanian</option>
-                                        <option value="MK">Macedonian</option>
-                                        <option value="MS">Malay</option>
-                                        <option value="ML">Malayalam</option>
-                                        <option value="MT">Maltese</option>
-                                        <option value="MI">Maori</option>
-                                        <option value="MR">Marathi</option>
-                                        <option value="MN">Mongolian</option>
-                                        <option value="NE">Nepali</option>
-                                        <option value="NO">Norwegian</option>
-                                        <option value="FA">Persian</option>
-                                        <option value="PL">Polish</option>
-                                        <option value="PT">Portuguese</option>
-                                        <option value="PA">Punjabi</option>
-                                        <option value="QU">Quechua</option>
-                                        <option value="RO">Romanian</option>
-                                        <option value="RU">Russian</option>
-                                        <option value="SM">Samoan</option>
-                                        <option value="SR">Serbian</option>
-                                        <option value="SK">Slovak</option>
-                                        <option value="SL">Slovenian</option>
-                                        <option value="ES">Spanish</option>
-                                        <option value="SW">Swahili</option>
-                                        <option value="SV">Swedish </option>
-                                        <option value="TA">Tamil</option>
-                                        <option value="TT">Tatar</option>
-                                        <option value="TE">Telugu</option>
-                                        <option value="TH">Thai</option>
-                                        <option value="BO">Tibetan</option>
-                                        <option value="TO">Tonga</option>
-                                        <option value="TR">Turkish</option>
-                                        <option value="UK">Ukrainian</option>
-                                        <option value="UR">Urdu</option>
-                                        <option value="UZ">Uzbek</option>
-                                        <option value="VI">Vietnamese</option>
-                                        <option value="CY">Welsh</option>
-                                        <option value="XH">Xhosa</option>
-                                    </Select>
+                                    <FormControl isInvalid={editErrors?.title?.status} flex='1'>
+                                        <Input id='title' placeholder='Title' size='sm'/>
+                                    </FormControl>
+                                    <FormControl isInvalid={editErrors?.language?.status} flex='1'>
+                                        <Select id='language' placeholder='Language' size='sm'>
+                                            <option value="AF">Afrikaans</option>
+                                            <option value="SQ">Albanian</option>
+                                            <option value="AR">Arabic</option>
+                                            <option value="HY">Armenian</option>
+                                            <option value="EU">Basque</option>
+                                            <option value="BN">Bengali</option>
+                                            <option value="BG">Bulgarian</option>
+                                            <option value="CA">Catalan</option>
+                                            <option value="KM">Cambodian</option>
+                                            <option value="ZH">Chinese (Mandarin)</option>
+                                            <option value="HR">Croatian</option>
+                                            <option value="CS">Czech</option>
+                                            <option value="DA">Danish</option>
+                                            <option value="NL">Dutch</option>
+                                            <option value="EN">English</option>
+                                            <option value="ET">Estonian</option>
+                                            <option value="FJ">Fiji</option>
+                                            <option value="FI">Finnish</option>
+                                            <option value="FR">French</option>
+                                            <option value="KA">Georgian</option>
+                                            <option value="DE">German</option>
+                                            <option value="EL">Greek</option>
+                                            <option value="GU">Gujarati</option>
+                                            <option value="HE">Hebrew</option>
+                                            <option value="HI">Hindi</option>
+                                            <option value="HU">Hungarian</option>
+                                            <option value="IS">Icelandic</option>
+                                            <option value="ID">Indonesian</option>
+                                            <option value="GA">Irish</option>
+                                            <option value="IT">Italian</option>
+                                            <option value="JA">Japanese</option>
+                                            <option value="JW">Javanese</option>
+                                            <option value="KO">Korean</option>
+                                            <option value="LA">Latin</option>
+                                            <option value="LV">Latvian</option>
+                                            <option value="LT">Lithuanian</option>
+                                            <option value="MK">Macedonian</option>
+                                            <option value="MS">Malay</option>
+                                            <option value="ML">Malayalam</option>
+                                            <option value="MT">Maltese</option>
+                                            <option value="MI">Maori</option>
+                                            <option value="MR">Marathi</option>
+                                            <option value="MN">Mongolian</option>
+                                            <option value="NE">Nepali</option>
+                                            <option value="NO">Norwegian</option>
+                                            <option value="FA">Persian</option>
+                                            <option value="PL">Polish</option>
+                                            <option value="PT">Portuguese</option>
+                                            <option value="PA">Punjabi</option>
+                                            <option value="QU">Quechua</option>
+                                            <option value="RO">Romanian</option>
+                                            <option value="RU">Russian</option>
+                                            <option value="SM">Samoan</option>
+                                            <option value="SR">Serbian</option>
+                                            <option value="SK">Slovak</option>
+                                            <option value="SL">Slovenian</option>
+                                            <option value="ES">Spanish</option>
+                                            <option value="SW">Swahili</option>
+                                            <option value="SV">Swedish </option>
+                                            <option value="TA">Tamil</option>
+                                            <option value="TT">Tatar</option>
+                                            <option value="TE">Telugu</option>
+                                            <option value="TH">Thai</option>
+                                            <option value="BO">Tibetan</option>
+                                            <option value="TO">Tonga</option>
+                                            <option value="TR">Turkish</option>
+                                            <option value="UK">Ukrainian</option>
+                                            <option value="UR">Urdu</option>
+                                            <option value="UZ">Uzbek</option>
+                                            <option value="VI">Vietnamese</option>
+                                            <option value="CY">Welsh</option>
+                                            <option value="XH">Xhosa</option>
+                                        </Select>
+                                    </FormControl>
                                 </HStack>
-                                <Input id='favicon' placeholder='Favicon Image Link' size='sm' />
-                                <Input id='unrevealed' placeholder='Unrevealed Image Link' size='sm' />
-                                <Textarea id='description' placeholder='Description' rows='5' size='sm' />
+                                <FormControl isInvalid={editErrors?.favicon?.status}>
+                                    <Input id='favicon' placeholder='Favicon Image Link' size='sm' />
+                                </FormControl>
+                                <FormControl isInvalid={editErrors?.image?.status}>
+                                    <Input id='unrevealed' placeholder='Logo Image Link' size='sm' />
+                                </FormControl>
+                                <FormControl isInvalid={editErrors?.description?.status}>
+                                    <Textarea id='description' placeholder='Description' rows='5' size='sm' />
+                                </FormControl>
                                 <Textarea id='script' placeholder='Script' rows='5' size='sm' />
-                                <Textarea id='embed' placeholder='Embed' rows='5' size='sm' />
+                                <FormControl isInvalid={editErrors?.embed?.status}>
+                                    <Textarea id='embed' placeholder='Embed' rows='5' size='sm' />
+                                </FormControl>
                             </VStack>
                         </Wrap>
                     </form>
