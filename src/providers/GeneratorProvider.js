@@ -7,7 +7,7 @@ export const GeneratorProvider = ({ children }) => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [externalURL, setExternalURL] = useState('');
-    const [standardType, setStandardType] = useState('opensea');
+    const [standardType, setStandardType] = useState('ethereum');
     const [collectionSize, setCollectionSize] = useState(100);
     const [symbol, setSymbol] = useState('');
     const [creatorAddress, setCreatorAddress] = useState('');

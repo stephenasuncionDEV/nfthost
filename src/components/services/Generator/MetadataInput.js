@@ -46,8 +46,20 @@ const MetadataInput = () => {
     return (
         <Flex flexDir='column'>
             <Text fontSize='10pt'>
-                {capitalizeFirstLetter(standardType)} Metadata Configuration
+                {capitalizeFirstLetter(standardType)} Metadata
             </Text>
+            <Wrap mt='1em'>
+                <Flex flexDir='column' flex='1'>
+                    <Text fontSize='10pt' textAlign='center'>
+                        Configuration
+                    </Text>
+                </Flex>
+                <Flex flexDir='column' flex='1'>
+                    <Text fontSize='10pt' textAlign='center'>
+                        Preview
+                    </Text>
+                </Flex>
+            </Wrap>
         </Flex>
     )
 }

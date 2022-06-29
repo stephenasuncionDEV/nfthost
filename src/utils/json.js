@@ -157,8 +157,25 @@ export const analyticsArr = [
 ]
 
 export const metadataStandardsArr = [
-    { name: 'OpenSea', image: '/assets/opensea.png' },
-    { name: 'ThirdWeb', image: '/assets/partners/thirdweb.svg' },
-    { name: 'Solana', image: '/assets/solana.png' },
-    { name: 'Other', image: '/assets/transparent.png' },
+    { 
+        name: 'Ethereum', 
+        image: '/assets/ethereum.png',
+        components: [
+            'name',
+            'description',
+            'image',
+            'external_url',
+            'attributes',
+            'background_color',
+            'animation_url',
+            'youtube_url'
+        ] 
+    },
+    { 
+        name: 'Solana', 
+        image: '/assets/solana.png', 
+        components: [
+
+        ] 
+    }
 ]
