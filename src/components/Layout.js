@@ -33,7 +33,7 @@ const Layout = ({ children, currentApp }) => {
                 <HStack spacing='2em'>
                     <Link href='/dashboard' style={{ textDecoration: 'none' }}>
                         <HStack spacing='1em' cursor='pointer' p='1em'>
-                            <Image src={colorMode === 'dark' ? '/assets/logo_new_full_white.png' : '/assets/logo_new_full_black.png'} alt='NFTHost Logo' width='140px' />
+                            <Image src={colorMode === 'dark' ? '/assets/logo_full_white.png' : '/assets/logo_full_black.png'} alt='NFTHost Logo' width='140px' />
                         </HStack>
                     </Link>
                     <IconButton 

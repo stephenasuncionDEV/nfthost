@@ -37,7 +37,7 @@ const Navbar = ({ isSocial, isLanding, isColorMode, isWallet, isLandingPage }) =
                 >
                     <NextLink href='/' shallow passHref>
                         <HStack spacing='1em' cursor='pointer'>
-                            <Image src={colorMode === 'dark' ? '/assets/logo_new_full_white.png' : '/assets/logo_new_full_black.png'} alt='NFTHost Logo' width='170px' />
+                            <Image src={colorMode === 'dark' ? '/assets/logo_full_white.png' : '/assets/logo_full_black.png'} alt='NFT Host Logo' width='170px' />
                         </HStack>
                     </NextLink>
                     {!isTouchingLogo ? (

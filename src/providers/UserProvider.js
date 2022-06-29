@@ -5,6 +5,7 @@ export const useUser = () => useContext(UserContext)
 
 export const UserProvider = ({ children }) => {
     const [address, setAddress] = useState('');
+    const [wallet, setWallet] = useState('');
     const [user, setUser] = useState();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -14,7 +15,9 @@ export const UserProvider = ({ children }) => {
         user,
         setUser,
         isLoggedIn,
-        setIsLoggedIn
+        setIsLoggedIn,
+        wallet,
+        setWallet
     }
 
     return (

@@ -102,7 +102,7 @@ export const useSites = () => {
             if (!(/</i.test(newComponentEmbed) && />/i.test(newComponentEmbed))) errorsObj.embed = { status: true, message: 'Embed code must be a valid html code' };
             if (!newComponentImage.length) errorsObj.image = { status: true, message: 'Logo Image Link field must be filled in' };
             if (newComponentImage.match(/\.(jpeg|jpg|gif|png|bmp|svg|webp)$/) == null) errorsObj.image = { status: true, message: 'Logo Image Link field must be an image file' };
-            if (newMetaFavicon.match(/\.(jpeg|jpg|gif|png|bmp|svg|webp)$/) == null) errorsObj.image = { status: true, message: 'Favicon Link field must be an image file' };
+            if (newMetaFavicon.match(/\.(jpeg|jpg|gif|png|bmp|svg|webp|ico)$/) == null) errorsObj.favicon = { status: true, message: 'Favicon Link field must be an image file' };
 
             const freeWebsiteCount = websites.filter((website) => !website.isPremium).length;
 

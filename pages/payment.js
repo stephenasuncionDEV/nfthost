@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import NextLink from 'next/link'
 import { Box, HStack, Text, Flex, Button, VStack, Avatar,
-    Link, useColorModeValue, Input, Divider, Image, Wrap
+    Link, useColorModeValue, Input, Divider, Image, Wrap, useColorMode
 } from '@chakra-ui/react'
 import { useReAuthenticate } from '@/hooks/useReAuthenticate'
 import { useCore } from '@/providers/CoreProvider'
@@ -15,6 +15,7 @@ import { HiChevronRight } from 'react-icons/hi'
 import { loadStripe } from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
 import config from '@/config/index'
+import { getCurrencyFromWallet, getPriceFromService } from '@/utils/tools'
 
 const month = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
 const stripePromise = loadStripe(config.stripe.publicKey);
@@ -38,8 +39,11 @@ const Payment = () => {
         setPaymentZip,
         isPaying
     } = useCore();
-    const { address } = useUser();
+    const { address, wallet } = useUser();
     const { PayWithCrypto } = usePayment();
+    const { colorMode } = useColorMode();
+    const crpytoCurrency = getCurrencyFromWallet(wallet);
+    const cryptoPrice = getPriceFromService(paymentData?.service?.toLowerCase(), crpytoCurrency);
     useReAuthenticate(true);
 
     const containerColor = useColorModeValue('whiteAlpha.500', 'blackAlpha.500');
@@ -74,15 +78,7 @@ const Payment = () => {
                         <Flex justifyContent='space-between' alignItems='center'>
                             <NextLink href='/' shallow passHref>
                                 <HStack spacing='1em' cursor='pointer'>
-                                    <Avatar 
-                                        size='md'
-                                        src='/assets/logo.png' 
-                                        name='NFT Host Logo' 
-                                        bg='transparent'
-                                    />
-                                    <Text fontWeight='bold' fontSize='14pt'>
-                                        NFT Host
-                                    </Text>
+                                    <Image src={colorMode === 'dark' ? '/assets/logo_full_white.png' : '/assets/logo_full_black.png'} alt='NFT Host Logo' width='170px' />
                                 </HStack>
                             </NextLink>
                             <NextLink href={paymentData?.redirect?.origin} shallow passHref>
@@ -151,9 +147,8 @@ const Payment = () => {
                                 {(paymentMethodStep === 'cryptowallet') && (
                                     <Button w='full' variant='primary' onClick={PayWithCrypto} isLoading={isPaying} loadingText='Paying'>
                                         Pay&nbsp;
-                                        {paymentData?.service === 'Generator' && '0.0206'}&nbsp;
-                                        {paymentData?.service === 'Website' && '0.0085'}&nbsp;
-                                        ETH
+                                        {cryptoPrice}&nbsp;
+                                        {crpytoCurrency?.toUpperCase()}
                                     </Button>
                                 )}
                                 {paymentMethodStep === 'bankcard' && (

@@ -10,7 +10,7 @@ const Footer = () => {
             <Flex minH='500px' bg={bg} justifyContent='center' alignItems='center'>
                 <Wrap maxW='8xl' w='full' px='24px' justifyContent='space-between' direction='row' spacing='2em'>
                     <VStack alignItems='center' flex='1' minW='249.5px' spacing='1em'>
-                        <Image src='/assets/logo_new.svg' alt='NFTHost Logo' width='60px' />
+                        <Image src='/assets/logo.svg' alt='NFTHost Logo' width='60px' />
                         <Flex flexDir='column' alignItems='center'>
                             <Text fontSize='10pt'>
                                 Copyright &copy; 2022 NFT Host Ltd.

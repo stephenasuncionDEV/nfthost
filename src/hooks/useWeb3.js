@@ -13,7 +13,7 @@ import WalletConnectProvider from "@walletconnect/web3-provider";
 export const useWeb3 = () => {
     const toast = useToast();
     const router = useRouter();
-    const { setAddress, setIsLoggedIn, setUser, address: userAddress, user } = useUser();
+    const { setAddress, setIsLoggedIn, setUser, address: userAddress, user, setWallet } = useUser();
     const { setProvider, provider } = useCore();
 
     const Connect = async (wallet) => {
@@ -82,6 +82,7 @@ export const useWeb3 = () => {
 
             setUser(userData);
             setAddress(address);
+            setWallet(wallet);
             setIsLoggedIn(true);
 
             return true;
