@@ -30,7 +30,6 @@ export const GeneratorProvider = ({ children }) => {
     const [curMetadata, setCurMetadata] = useState('');
     const [renderIndex, setRenderIndex] = useState(1);
     const [generateSpeed, setGenerateSpeed] = useState(0);
-    const [isMetadataModal, setIsMetadataModal] = useState(false);
     const [isRarityModal, setIsRarityModal] = useState(false);
     const [isGenerateModal, setIsGenerateModal] = useState(false);
     const [isDownloadModal, setIsDownloadModal] = useState(false);
@@ -66,8 +65,6 @@ export const GeneratorProvider = ({ children }) => {
         setLayers,
         currentLayer,
         setCurrentLayer,
-        isMetadataModal,
-        setIsMetadataModal,
         imageDimension,
         setImageDimension,
         isRarityModal,

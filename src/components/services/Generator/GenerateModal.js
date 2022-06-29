@@ -3,7 +3,6 @@ import { Box, HStack, Text, Flex, Textarea, Modal, ModalOverlay,
     Progress, useColorModeValue
 } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
-import { AiOutlineInfoCircle } from 'react-icons/ai'
 
 const GenerateModal = () => {
     const { 
@@ -18,7 +17,7 @@ const GenerateModal = () => {
         autoSavePercentage
     } = useGenerator();
 
-    const dropContainerColor = useColorModeValue('rgba(0,0,0,0.1)', 'rgba(0,0,0,0.5)');
+    const componentColor = useColorModeValue('rgba(0,0,0,0.1)', 'rgba(0,0,0,0.5)');
 
     return (
         <Modal 
@@ -32,21 +31,18 @@ const GenerateModal = () => {
             <ModalContent>
                 <ModalHeader>
                     Generating...
-                    <HStack fontSize='11pt'>
-                        <AiOutlineInfoCircle />
-                        <Text fontWeight='normal'>
-                            This may take awhile. Please do not refresh the page.
-                        </Text>
-                    </HStack>
+                    <Text fontWeight='normal' fontSize='10pt'>
+                        This may take awhile. Please do not refresh the page.
+                    </Text>
                 </ModalHeader>
                 <ModalBody>
                     <Flex justifyContent='space-evenly'>
-                        <Box p='1em' bg={dropContainerColor} borderRadius='10px' mt='2em' w='385px' h='385px'>
+                        <Box p='1em' bg={componentColor} borderRadius='10px' mt='2em' w='385px' h='385px'>
                             <canvas ref={canvasRef} width={imageDimension?.width} height={imageDimension?.height} style={{ width: '350px', height: '350px' }}>
                                 Canvas is not supported. Please change your browser.
                             </canvas>
                         </Box>
-                        <Box p='1em' bg={dropContainerColor} borderRadius='10px' mt='2em' w='385px' h='385px'>
+                        <Box p='1em' bg={componentColor} borderRadius='10px' mt='2em' w='385px' h='385px'>
                             <Textarea rows={15} value={curMetadata} readOnly />
                         </Box>
                     </Flex>

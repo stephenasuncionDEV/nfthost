@@ -9,11 +9,10 @@ import { FaPlay, FaDownload } from 'react-icons/fa'
 import { useRarity } from '@/hooks/useRarity'
 
 const Toolbar = () => {
-    const { setIsMetadataModal, isGenerated, setIsDownloadModal } = useGenerator();
+    const { isGenerated, setIsDownloadModal } = useGenerator();
     const { Generate } = useGenerate();
     const { OpenComputer, Save } = useToolbar();
     const { OpenRarityModal } = useRarity();
-    const { colorMode, toggleColorMode } = useColorMode();
 
     const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
 
@@ -60,15 +59,15 @@ const Toolbar = () => {
                     Generate
                 </Button>
                 <NextLink href='/dashboard/generator/metadata' shallow passHref>
-                    <Button rightIcon={<MdSettings />} size='sm'>
+                    <Button leftIcon={<MdSettings />} size='sm'>
                         Metadata
                     </Button>
                 </NextLink>
-                <Button rightIcon={<MdSettings />} size='sm' onClick={OpenRarityModal}>
+                <Button leftIcon={<MdSettings />} size='sm' onClick={OpenRarityModal}>
                     Rarity
                 </Button>
                 {isGenerated && (
-                    <Button rightIcon={<FaDownload />} size='sm' onClick={() => setIsDownloadModal(true)}>
+                    <Button leftIcon={<FaDownload />} size='sm' onClick={() => setIsDownloadModal(true)} variant='primary'>
                         Download
                     </Button>
                 )}
