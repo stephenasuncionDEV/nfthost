@@ -18,23 +18,19 @@ const CurrentTemplate = () => {
     const { RemoveAddon } = useTemplate();
     const { setIsAreYouSureModal, setAreYouSureData, setIsAddonSettingsModal, setAddonSettingsData } = useCore();
 
-    const itemColor = useColorModeValue('blackAlpha.100', 'blackAlpha.400');
-    const itemBorderColor = useColorModeValue('blackAlpha.300', 'whiteAlpha.300');
+    const componentColor = useColorModeValue('rgba(0,0,0,0.1)', 'rgba(0,0,0,0.5)');
 
     return (
         <VStack
             p='1.5em'
-            bg={itemColor}
+            bg={componentColor}
             borderRadius='10px'
             w='290px'
             alignItems='flex-start'
-            borderWidth='2px'
-            borderStyle='dashed'
-            borderColor={itemBorderColor}
             h='100%'
         >
             <Text fontSize='10pt' mt='.25em'>
-                Current Template:
+                Current Template
             </Text>
             <Flex
                 h='180px'

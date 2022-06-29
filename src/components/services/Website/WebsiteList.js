@@ -12,6 +12,7 @@ const Sites = () => {
 
     const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
     const buttonColor = useColorModeValue('blackAlpha.100', 'whiteAlpha.100');
+    const bgColor = useColorModeValue('rgba(0,0,0,0.1)', 'rgba(0,0,0,0.5)');
 
     return (
         <VStack
@@ -38,7 +39,7 @@ const Sites = () => {
                     Refresh
                 </Button>
             </HStack>
-            <Wrap spacing='1.5em'>
+            <Wrap spacing='1.5em' p='1em' bg={bgColor} borderRadius='10px' w='full'>
                 {websites?.map((website, idx) => (
                     <Button 
                         boxSize='180px'
@@ -57,20 +58,18 @@ const Sites = () => {
                             objectFit='cover' 
                             opacity='.1' 
                             boxSize='250px'
-                            transform='rotate(10deg)'
                         />
                         {website.isPremium && (
-                            <Tag
-                                position='absolute'
-                                bottom='4'
-                            >
+                            <Tag position='absolute' bottom='4'>
                                 <TagLeftIcon as={GiCutDiamond} color='#08BDD4' />
                                 <Text>
                                     Premium
                                 </Text>
                             </Tag>
                         )}
-                        {website.components.title}
+                        <Text maxW='140px' noOfLines={1}>
+                            {website.components.title}
+                        </Text>
                     </Button>
                 ))}
             </Wrap>

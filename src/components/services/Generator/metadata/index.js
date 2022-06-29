@@ -2,6 +2,8 @@ import { Text, Flex, Button, VStack, useColorModeValue, Wrap, Image } from '@cha
 import { useGenerator } from '@/providers/GeneratorProvider'
 import Configuration from './Configuration'
 import { metadataStandardsArr } from '@/utils/json'
+import Option from './Option'
+import Preview from './Preview'
 
 const Metadata = () => {
     const { 
@@ -15,7 +17,7 @@ const Metadata = () => {
 
     return (
         <VStack flexDir='column' spacing='2em'>
-            <Flex 
+            <Flex
                 flexDir='column'
                 id='metadata'
                 spacing='1.5em'
@@ -52,7 +54,13 @@ const Metadata = () => {
                     ))}
                 </Wrap>
             </Flex>
-            <Configuration />
+            <Wrap spacing='2em'>
+                <Configuration />
+                <Wrap direction='column' spacing='2em' flex='1'>
+                    <Preview />
+                    <Option />
+                </Wrap>
+            </Wrap>
         </VStack>
     )
 }

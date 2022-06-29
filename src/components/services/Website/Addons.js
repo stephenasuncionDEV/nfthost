@@ -13,8 +13,7 @@ const Addons = () => {
     const { ChooseAddon } = useTemplate();
 
     const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
-    const itemColor = useColorModeValue('blackAlpha.100', 'blackAlpha.400');
-    const itemBorderColor = useColorModeValue('blackAlpha.300', 'whiteAlpha.300');
+    const componentColor = useColorModeValue('rgba(0,0,0,0.1)', 'rgba(0,0,0,0.5)');
     
     return currentEditWebsite ? (
         <VStack 
@@ -39,7 +38,6 @@ const Addons = () => {
                     <VStack
                         p='1.5em'
                         pt='3.5em'
-                        bg={itemColor}
                         borderRadius='10px'
                         w='230px'
                         justifyContent='center'
@@ -47,9 +45,7 @@ const Addons = () => {
                         spacing='1em'
                         key={idx}
                         position='relative'
-                        borderWidth='2px'
-                        borderStyle='dashed'
-                        borderColor={itemBorderColor}
+                        bg={componentColor}
                     >
                         <Text>
                             {addon.key}
@@ -63,7 +59,7 @@ const Addons = () => {
                         >
                             Add
                         </Button>
-                        <Tag position='absolute' top='2' right='2'>
+                        <Tag position='absolute' top='0' right='3'>
                             {addon.sub === 'premium' && <TagLeftIcon as={GiCutDiamond} color='#08BDD4' />}
                             <Text>
                                 {addon.sub === 'premium' ? 'Premium' : 'Free'}

@@ -33,8 +33,7 @@ const EmbedClicks = ({ analytics }) => {
     const { GetWebsites } = useSites();
 
     const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
-    const itemColor = useColorModeValue('blackAlpha.100', 'blackAlpha.400');
-    const itemBorderColor = useColorModeValue('blackAlpha.300', 'whiteAlpha.300');
+    const componentColor = useColorModeValue('rgba(0,0,0,0.1)', 'rgba(0,0,0,0.5)');
 
     useEffect(() => {
         if (!isLoggedIn) return;
@@ -74,10 +73,7 @@ const EmbedClicks = ({ analytics }) => {
             </VStack>
             <Flex 
                 w='full' 
-                bg={itemColor} 
-                borderColor={itemBorderColor} 
-                borderWidth='3px' 
-                borderStyle='dashed' 
+                bg={componentColor} 
                 borderRadius='10px' 
                 p='2em'
                 justifyContent='center'

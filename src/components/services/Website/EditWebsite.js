@@ -21,8 +21,8 @@ const EditWebsite = () => {
     const subscriptionStart = new Date(premiumStartDate);
     const subscriptionEnd = new Date(subscriptionStart?.setDate(subscriptionStart?.getDate() + 30))
 
+    const componentColor = useColorModeValue('rgba(0,0,0,0.1)', 'rgba(0,0,0,0.5)');
     const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
-    const itemColor = useColorModeValue('blackAlpha.100', 'blackAlpha.400');
 
     return (
         <VStack
@@ -72,12 +72,10 @@ const EditWebsite = () => {
                                     src={unrevealedImage}
                                     alt='Unrevelead Image'
                                     objectFit='cover' 
-                                    boxSize='200px'
-                                    borderWidth='3px'
-                                    borderStyle='dashed'
-                                    borderRadius='10pt'
+                                    boxSize='200px'     
+                                    borderRadius='10px'
                                     p='1em'
-                                    bg={itemColor}
+                                    bg={componentColor}
                                 />
                                 <VStack alignItems='flex-start'>
                                     <Text fontSize='10pt' fontWeight='bold'>

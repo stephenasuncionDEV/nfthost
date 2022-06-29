@@ -9,10 +9,9 @@ import { TemplatesArr } from '@/utils/json'
 const TemplateList = () => {
     const { currentEditWebsite } = useWebsite();
     const { ChooseTemplate } = useTemplate();
-
+ 
     const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
-    const itemColor = useColorModeValue('blackAlpha.100', 'blackAlpha.400');
-    const itemBorderColor = useColorModeValue('blackAlpha.300', 'whiteAlpha.300');
+    const componentColor = useColorModeValue('rgba(0,0,0,0.1)', 'rgba(0,0,0,0.5)');
 
     return (
         <VStack 
@@ -38,15 +37,12 @@ const TemplateList = () => {
                 {TemplatesArr?.map((template, idx) => (
                     <VStack
                         p='1.5em'
-                        bg={itemColor}
+                        bg={componentColor}
                         borderRadius='10px'
                         maxW='290px'
                         key={idx}
                         alignItems='flex-start'
                         spacing='1em'
-                        borderWidth='2px'
-                        borderStyle='dashed'
-                        borderColor={itemBorderColor}
                     >
                         <Flex
                             h='180px'

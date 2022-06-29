@@ -72,7 +72,9 @@ const DownloadModal = () => {
                                     Options
                                 </Text>
                                 <Checkbox value={isRandomizedMetadata} onChange={(e) => setIsRandomizedMetadata(e.target.value)}>
-                                    Randomized Metadata
+                                    <Text fontSize='10pt'>
+                                        Shuffled (Randomized) metadata.json
+                                    </Text>
                                 </Checkbox>
                             </VStack>
                         </HStack>
