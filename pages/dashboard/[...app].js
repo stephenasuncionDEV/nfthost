@@ -18,6 +18,7 @@ import Payments from '@/components/Payments'
 import Team from '@/components/Team'
 import Analytics from '@/components/services/Website/Analytics'
 import { MdOutlineAccountCircle } from 'react-icons/md'
+import Metadata from '@/components/services/Generator/metadata'
 
 const Page = () => {
     const router = useRouter();
@@ -73,6 +74,7 @@ const Page = () => {
                             {
                                 getstarted: <GetStarted />,
                                 generator: <Generator />,
+                                metadata: <Metadata />,
                                 website: <Website />,
                                 templates:  <Template />,
                                 addons: <Addons />,

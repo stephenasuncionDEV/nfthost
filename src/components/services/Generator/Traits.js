@@ -60,7 +60,6 @@ const Traits = () => {
             <Dropzone 
                 accept={{
                     'image/png': [],
-                    'image/webp': []
                 }}
                 multiple 
                 onDrop={files => UploadAssets(files)}
@@ -85,7 +84,7 @@ const Traits = () => {
                                 Drag and drop images here
                             </Text>
                             <Text fontSize='10pt'>
-                                Supported Format: .png and .webp
+                                Supported Format: .png
                             </Text>
                         </VStack>
                     </Flex>

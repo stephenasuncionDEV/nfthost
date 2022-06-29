@@ -1,3 +1,4 @@
+import NextLink from 'next/link'
 import { HStack, Button, Menu, MenuButton, MenuList, MenuItem, useColorModeValue, useColorMode } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { useGenerate } from '@/hooks/useGenerate'
@@ -58,9 +59,11 @@ const Toolbar = () => {
                 <Button size='sm' leftIcon={<FaPlay />} color='green.500' onClick={Generate}>
                     Generate
                 </Button>
-                <Button rightIcon={<MdSettings />} size='sm' onClick={() => setIsMetadataModal(true)}>
-                    Metadata
-                </Button>
+                <NextLink href='/dashboard/generator/metadata' shallow passHref>
+                    <Button rightIcon={<MdSettings />} size='sm'>
+                        Metadata
+                    </Button>
+                </NextLink>
                 <Button rightIcon={<MdSettings />} size='sm' onClick={OpenRarityModal}>
                     Rarity
                 </Button>

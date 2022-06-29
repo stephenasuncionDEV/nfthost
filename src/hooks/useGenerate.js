@@ -43,7 +43,11 @@ export const useGenerate = () => {
         setIsConfetti,
         canvasRef,
         setPreviewLayers,
-        isRandomizedMetadata
+        isRandomizedMetadata,
+        backgroundColor,
+        animationURL,
+        youtubeURL,
+        storageURL
     } = useGenerator();
     const { address } = useUser();
     const { getUserByAddress, AddCount, DeductFree } = useWeb3();
@@ -169,8 +173,60 @@ export const useGenerate = () => {
         })
     }
 
-    const buildMetadataObj = ({ name, description,  }) => {
+    const buildMetadataObj = (curRenderIndex, startCount, attributes) => {
+        const standard = standardType.name.toLowerCase();
+        const externalStorage = externalURL.trim().charAt(externalURL.length - 1) === '/' ? externalURL.substring(0, externalURL.length - 1) : externalURL;
 
+        const DEFAULT_METADATA = {
+            name: `${name.trim()} #${curRenderIndex}`,
+            description: description.trim(),                
+            image: `${externalStorage}/${startCount}.png`,
+            attributes,
+            compiler: 'https://nfthost.app/'
+        }
+
+        let metadataObj = {
+            ethereum: {
+                ...DEFAULT_METADATA,
+            },
+            solana: {
+                ...DEFAULT_METADATA,
+                symbol,
+                seller_fee_basis_points: sellerFee,
+                properties: {
+                    category: 'image',
+                    files: [
+                        {
+                            uri: `${startCount}.png`,
+                            type: 'image/png'
+                        }
+                    ],
+                    creators: creators
+                }
+            }
+        }[standard]
+
+        // Optional data
+
+        if (externalURL.length > 0) {
+            ethereum.external_url = externalURL;
+            solana.external_url = externalURL;
+        }
+
+        if (backgroundColor.length > 0) {
+            ethereum.background_color = backgroundColor;
+        }
+
+        if (animationURL.length > 0) {
+            ethereum.animation_url = animationURL;
+            solana.animation_url = animationURL;
+        }
+
+        if (youtubeURL.length > 0) {
+            ethereum.youtube_url = youtubeURL;
+        }
+
+        return metadataObj;
     }
 
     // Generate NFTs
@@ -236,7 +292,6 @@ export const useGenerate = () => {
 			let hashList = [];
 			let curMetadata = [];
 
-            const externalStorage = externalURL.charAt(externalURL.length - 1) === '/' ? externalURL.substring(0, externalURL.length - 1) : externalURL;
             const t0 = performance.now();
 			let t1;
 
@@ -254,35 +309,7 @@ export const useGenerate = () => {
                 if (!hashList.includes(currentHash)) {
                     hashList.push(currentHash);
                     await saveCanvas(startCount);
-                    let nftJson = {
-						name: `${name.trim()} #${curRenderIndex}`,
-						description: description.trim(),                
-						image: `${externalStorage}/${startCount}.png`,
-						attributes: attributes,
-						compiler: "https://nfthost.app/"
-					}
-                    if (standardType == "sol") {
-						nftJson = {
-							name: nftJson.name,
-							symbol: symbol,
-							description: nftJson.description,
-							seller_fee_basis_points: sellerFee,
-							image: `${startCount}.png`,
-							external_url: `${externalStorage}/${startCount}.png`,
-							attributes: nftJson.attributes,
-							properties: {
-								category: "image",
-								files: [
-									{
-										uri: `${startCount}.png`,
-										type: "image/png"
-									}
-								],
-								creators: creators
-							},
-							compiler: "https://nfthost.app/"
-						}
-					}
+                    const nftJson = buildMetadataObj(curRenderIndex, startCount, attributes);
                     curMetadata.push(nftJson);
                     setCurMetadata(JSON.stringify(nftJson, null, 2));
                     if (collectionSize >= 1000 && (curRenderIndex == collectionSize || curRenderIndex % 1000 == 0)) {

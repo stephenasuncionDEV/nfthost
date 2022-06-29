@@ -1,7 +1,6 @@
 import { Box, Wrap } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
 import Confetti from 'react-confetti'
-import MetadataModal from './MetadataModal'
 import Layers from './Layers'
 import Toolbar from './Toolbar'
 import Traits from './Traits'
@@ -28,7 +27,6 @@ const Generator = () => {
                     confetti.context.clearRect(0, 0, confetti.canvas.width, confetti.canvas.height);
                 }}
             />
-            <MetadataModal />
             <RarityModal />
             <GenerateModal />
             <DownloadModal />
