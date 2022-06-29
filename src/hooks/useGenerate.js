@@ -175,7 +175,7 @@ export const useGenerate = () => {
 
     const buildMetadataObj = (curRenderIndex, startCount, attributes) => {
         const standard = standardType.name.toLowerCase();
-        const externalStorage = externalURL.trim().charAt(externalURL.length - 1) === '/' ? externalURL.substring(0, externalURL.length - 1) : externalURL;
+        const externalStorage = storageURL.trim().charAt(storageURL.length - 1) === '/' ? storageURL.substring(0, storageURL.length - 1) : storageURL;
 
         const DEFAULT_METADATA = {
             name: `${name.trim()} #${curRenderIndex}`,
@@ -201,32 +201,32 @@ export const useGenerate = () => {
                             type: 'image/png'
                         }
                     ],
-                    creators: creators
+                    creators
                 }
             }
-        }[standard]
+        }
 
         // Optional data
 
         if (externalURL.length > 0) {
-            ethereum.external_url = externalURL;
-            solana.external_url = externalURL;
+            metadataObj.ethereum = {...metadataObj.ethereum, external_url: externalURL};
+            metadataObj.solana = {...metadataObj.solana, external_url: externalURL};
         }
-
+    
         if (backgroundColor.length > 0) {
-            ethereum.background_color = backgroundColor;
+            metadataObj.ethereum = {...metadataObj.ethereum, background_color: backgroundColor};
         }
-
+    
         if (animationURL.length > 0) {
-            ethereum.animation_url = animationURL;
-            solana.animation_url = animationURL;
+            metadataObj.ethereum = {...metadataObj.ethereum, animation_url: animationURL};
+            metadataObj.solana = {...metadataObj.solana, animation_url: animationURL};
         }
-
+    
         if (youtubeURL.length > 0) {
-            ethereum.youtube_url = youtubeURL;
+            metadataObj.ethereum = {...metadataObj.ethereum, youtube_url: youtubeURL};
         }
 
-        return metadataObj;
+        return metadataObj[standard];
     }
 
     // Generate NFTs

@@ -2,7 +2,7 @@ import { Box, HStack, Text, Flex, Button,
     Input, Textarea, NumberInput, NumberInputField, 
     NumberInputStepper, NumberIncrementStepper, 
     NumberDecrementStepper, FormControl, Tag, TagCloseButton, 
-    FormHelperText, useColorModeValue, Wrap
+    FormHelperText, useColorModeValue, Wrap, Checkbox, VStack
 } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { useMetadata } from '@/hooks/useMetadata'
@@ -35,7 +35,9 @@ const Configuration = () => {
         youtubeURL,
         setYoutubeURL,
         backgroundColor,
-        setBackgroundColor
+        setBackgroundColor,
+        isRandomizedMetadata,
+        setIsRandomizedMetadata
     } = useGenerator();
     const { AddCreator, DeleteCreator } = useMetadata();
 
@@ -49,7 +51,7 @@ const Configuration = () => {
         const externalStorage = storageURL.trim().charAt(storageURL.length - 1) === '/' ? storageURL.substring(0, storageURL.length - 1) : storageURL;
     
         const DEFAULT_METADATA = {
-            name: `${name.trim()} #0`,
+            name: `${name.trim()} #1`,
             description: desc.trim(),                
             image: `${externalStorage}/0.png`,
             attributes: layers.map((layer) => {
@@ -286,6 +288,17 @@ const Configuration = () => {
                     <Flex bg={bgColor} borderRadius='10px' justifyContent='center' alignItems='center' p='1em'>
                         <Textarea value={previewMetadata()} size='sm' rows={20} readOnly disabled/>
                     </Flex>
+                    <Text fontWeight='bold' fontSize='10pt' mt='1.5em'>
+                        Options
+                    </Text>
+                    <Text fontSize='9pt' mb='1em'>
+                        This will affect your collection's metadata.json file.
+                    </Text>
+                    <VStack p='1em' alignItems='flex-start'>
+                        <Checkbox value={isRandomizedMetadata} onChange={(e) => setIsRandomizedMetadata(e.target.value)} size='sm'>
+                            Randomized Metadata
+                        </Checkbox>
+                    </VStack>
                 </Flex>
             </Wrap>
         </Flex>

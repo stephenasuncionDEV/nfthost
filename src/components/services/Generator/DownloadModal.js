@@ -6,7 +6,7 @@ import { useGenerator } from '@/providers/GeneratorProvider'
 import { useGenerate } from '@/hooks/useGenerate'
 import { BiInfoCircle } from 'react-icons/bi'
 import { FaDownload } from 'react-icons/fa'
-import { AiOutlineArrowRight, AiOutlineInfoCircle } from 'react-icons/ai'
+import { AiOutlineArrowRight } from 'react-icons/ai'
 
 const DownloadModal = () => {
     const { 
@@ -42,12 +42,9 @@ const DownloadModal = () => {
             <ModalContent>
                 <ModalHeader>
                     Download
-                    <HStack fontSize='11pt'>
-                        <AiOutlineInfoCircle />
-                        <Text fontWeight='normal'>
-                            Download your entire collection or metadata.
-                        </Text>
-                    </HStack>
+                    <Text fontWeight='normal' fontSize='10pt'>
+                        Download your entire collection or metadata.
+                    </Text>
                 </ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
@@ -105,15 +102,12 @@ const DownloadModal = () => {
                         <Text fontSize='8pt'>
                             Generation speed in hours, minutes, seconds, and milliseconds
                         </Text>
-                        <HStack mt='.25em'>
-                            <BiInfoCircle fontSize='8pt' />
-                            <Text fontSize='8pt'>
-                                It took <span style={{ color: 'rgb(52,140,212)' }}>{(generateSpeed / 3600000).toFixed(2)} hours</span> or &nbsp;
-                                <span style={{ color: 'rgb(52,140,212)' }}>{(generateSpeed / 60000).toFixed(2)} minutes</span> or &nbsp;
-                                <span style={{ color: 'rgb(52,140,212)' }}>{(generateSpeed * 0.001).toFixed(2)} seconds</span> or &nbsp;
-                                <span style={{ color: 'rgb(52,140,212)' }}>{generateSpeed.toFixed(2)} milliseconds</span> to generate your collection.
-                            </Text>
-                        </HStack>
+                        <Text fontSize='8pt'>
+                            It took <span style={{ color: 'rgb(52,140,212)' }}>{(generateSpeed / 3600000).toFixed(2)} hours</span> or &nbsp;
+                            <span style={{ color: 'rgb(52,140,212)' }}>{(generateSpeed / 60000).toFixed(2)} minutes</span> or &nbsp;
+                            <span style={{ color: 'rgb(52,140,212)' }}>{(generateSpeed * 0.001).toFixed(2)} seconds</span> or &nbsp;
+                            <span style={{ color: 'rgb(52,140,212)' }}>{generateSpeed.toFixed(2)} milliseconds</span> to generate your collection.
+                        </Text>
                     </Box>
                     <Button size='sm' rightIcon={<AiOutlineArrowRight />} onClick={() => {
                         setIsConfetti(false);
