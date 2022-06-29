@@ -34,7 +34,7 @@ export const usePayment = () => {
 
             const userData = decryptToken(storageToken);
             const wallet = userData.wallet;
-
+            
             const service = paymentData.service.toLowerCase();
             const price = getPriceFromService(service, true);
 
@@ -44,11 +44,9 @@ export const usePayment = () => {
 
             let hash = 'n/a';
 
-            console.log(window.web3)
-
             if (wallet === 'metamask' || wallet === 'coinbase' || wallet === 'walletconnect') {
                 const txHash = await window.web3.eth.sendTransaction({
-                    from: provider.selectedAddress,
+                    from: provider.selectedAddress || userData.address,
                     to: config.nfthost.wallet_metamask,
                     value: Web3.utils.toWei(price.toFixed(7).toString(), 'ether')
                 })
