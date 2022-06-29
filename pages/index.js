@@ -131,10 +131,10 @@ const Main = () => {
                                 </NextLink>
                             </Flex>
                             <VStack>
-                                <iframe width="560" height="315" src="https://www.youtube.com/embed/54MAbT-yiAY" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
-                                <Link href='https://www.youtube.com/watch?v=54MAbT-yiAY' isExternal>
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/ITEEI2aBfRc" title="Generate YOUR OWN NFT Collection | NFT Host" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                <Link href='https://www.youtube.com/watch?v=ITEEI2aBfRc' isExternal>
                                     <Text color={srcColor} fontSize='9pt' fontStyle='italic'>
-                                        source: https://www.youtube.com/watch?v=54MAbT-yiAY
+                                        source: https://www.youtube.com/watch?v=ITEEI2aBfRc
                                     </Text>
                                 </Link>
                             </VStack>
@@ -143,7 +143,7 @@ const Main = () => {
                     <SlideFade in={true} offsetY='20px' delay={1.5}>
                         <Wrap direction='row' spacing='4em' mt='20em' justifyContent='space-between'>
                             <VStack>
-                                <iframe width="560" height="315" src="https://www.youtube.com/embed/Scw_NeGu6Sw" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/Scw_NeGu6Sw" title="Create an NFT Mint website in under a MINUTE" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                                 <Link href='https://www.youtube.com/watch?v=Scw_NeGu6Sw' isExternal>
                                     <Text color={srcColor} fontSize='9pt' fontStyle='italic'>
                                         source: https://www.youtube.com/watch?v=Scw_NeGu6Sw
