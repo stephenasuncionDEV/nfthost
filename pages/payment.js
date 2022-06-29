@@ -42,8 +42,8 @@ const Payment = () => {
     const { address, wallet } = useUser();
     const { PayWithCrypto } = usePayment();
     const { colorMode } = useColorMode();
-    const crpytoCurrency = getCurrencyFromWallet(wallet);
-    const cryptoPrice = getPriceFromService(paymentData?.service?.toLowerCase(), crpytoCurrency);
+    const cryptoCurrency = getCurrencyFromWallet(wallet || 'metamask');
+    const cryptoPrice = getPriceFromService(paymentData?.service?.toLowerCase() || 'generator', cryptoCurrency || 'eth');
     useReAuthenticate(true);
 
     const containerColor = useColorModeValue('whiteAlpha.500', 'blackAlpha.500');
@@ -148,7 +148,7 @@ const Payment = () => {
                                     <Button w='full' variant='primary' onClick={PayWithCrypto} isLoading={isPaying} loadingText='Paying'>
                                         Pay&nbsp;
                                         {cryptoPrice}&nbsp;
-                                        {crpytoCurrency?.toUpperCase()}
+                                        {cryptoCurrency?.toUpperCase()}
                                     </Button>
                                 )}
                                 {paymentMethodStep === 'bankcard' && (
