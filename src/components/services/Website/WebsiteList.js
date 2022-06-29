@@ -7,12 +7,13 @@ import { MdRefresh } from 'react-icons/md'
 import { GiCutDiamond } from 'react-icons/gi'
 
 const Sites = () => {
-    const { websites, isRefreshing } = useWebsite();
+    const { websites, isRefreshing, currentEditWebsite } = useWebsite();
     const { GetWebsites, EditWebsite } = useSites();
 
     const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
     const buttonColor = useColorModeValue('blackAlpha.100', 'whiteAlpha.100');
     const bgColor = useColorModeValue('rgba(0,0,0,0.1)', 'rgba(0,0,0,0.5)');
+    const buttonDefaultColor = useColorModeValue('gray.100', 'whiteAlpha.200');
 
     return (
         <VStack
@@ -50,6 +51,8 @@ const Sites = () => {
                         key={idx}
                         overflow='hidden'
                         onClick={() => EditWebsite(website)}
+                        borderColor={currentEditWebsite?._id === website._id ? 'rgb(52,140,212)' : buttonDefaultColor}
+                        borderBottomWidth='3px'
                     >
                         <Image 
                             position='absolute'

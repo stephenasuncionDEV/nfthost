@@ -49,7 +49,7 @@ const Traits = () => {
                                 right='-2.5'
                                 isRound
                                 icon={<FaTrashAlt />}
-                                bg='rgba(0,0,0,0.2)'
+                                bg='rgb(52,140,212)'
                                 size='sm'
                                 onClick={() => DeleteTrait(image.name)}
                             />

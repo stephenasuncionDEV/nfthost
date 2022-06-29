@@ -42,7 +42,8 @@ const Metadata = () => {
                             minW='120px' 
                             justifyContent='flex-start' 
                             onClick={() => setStandardType(standard)}
-                            bg={standardType.name === standard.name ? 'rgb(52,140,212)' : buttonDefaultColor}
+                            borderColor={standardType.name === standard.name ? 'rgb(52,140,212)' : buttonDefaultColor}
+                            borderBottomWidth='3px'
                         >
                             <VStack justifyContent='center' alignItems='center' w='full' h='full' p='.5em'>
                                 {standard.name !== 'Other' && <Image src={standard.image} alt={standard.name} w='20px' h='25px' />}

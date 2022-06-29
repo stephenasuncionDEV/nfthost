@@ -69,6 +69,12 @@ const components = {
         baseStyle: (props) => ({
             fontWeight: 'normal',
         }),
+        sizes: {
+            xs: {
+                fontSize: '8pt',
+                px: 2
+            }
+        },
         variants: {
             main: (props) => ({
                 bg: mode('rgb(20,20,20)', '#08BDD4')(props),
@@ -82,6 +88,17 @@ const components = {
                         bg: 'rgb(39,107,163)',
                     }
                 },
+                color: 'white',
+            }),
+            primarySmall: (props) => ({
+                bg: 'rgb(52,140,212)',
+                _hover: {
+                    bg: 'rgb(39,107,163)',
+                    _disabled: {
+                        bg: 'rgb(39,107,163)',
+                    }
+                },
+                sizes: 'xs',
                 color: 'white',
             }),
             danger: (props) => ({

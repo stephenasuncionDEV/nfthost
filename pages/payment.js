@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import NextLink from 'next/link'
-import { Box, HStack, Text, Flex, Button, VStack, Avatar,
-    Link, useColorModeValue, Input, Divider, Image, Wrap, useColorMode
+import { Box, HStack, Text, Flex, Button, VStack, Link, 
+    useColorModeValue, Input, Divider, Image, Wrap, useColorMode
 } from '@chakra-ui/react'
 import { useReAuthenticate } from '@/hooks/useReAuthenticate'
 import { useCore } from '@/providers/CoreProvider'
@@ -47,6 +47,7 @@ const Payment = () => {
     useReAuthenticate(true);
 
     const containerColor = useColorModeValue('whiteAlpha.500', 'blackAlpha.500');
+    const buttonDefaultColor = useColorModeValue('gray.100', 'whiteAlpha.200');
 
     return (
         <main>
@@ -116,17 +117,20 @@ const Payment = () => {
                                     <Text fontStyle='italic'>{paymentData?.product}</Text>
                                 </VStack>
                             </HStack>
-                            <Divider mt='2em' />
-                            <Button size='sm' bg='transparent' rightIcon={<HiChevronRight />} mt='1em'>
-                                View invoice details
-                            </Button>
                         </Flex>
                         <Flex flexDir='column' p='2em' mt='1em' bg={containerColor} borderRadius='10px'>
                             <Text>
                                 Select a payment method
                             </Text>
                             <Wrap my='1em' spacing='.5em'>
-                                <Button h='60px' minW='120px' justifyContent='flex-start' onClick={() => setPaymentMethodStep('cryptowallet')}>
+                                <Button 
+                                    h='60px' 
+                                    minW='120px' 
+                                    justifyContent='flex-start' 
+                                    onClick={() => setPaymentMethodStep('cryptowallet')}
+                                    borderColor={paymentMethodStep === 'cryptowallet' ? 'rgb(52,140,212)' : buttonDefaultColor}
+                                    borderBottomWidth='3px'
+                                >
                                     <Flex flexDir='column' w='full'>
                                         <FaEthereum />
                                         <Text fontSize='10pt' textAlign='start'>
@@ -134,7 +138,14 @@ const Payment = () => {
                                         </Text>
                                     </Flex>
                                 </Button>
-                                <Button h='60px' minW='120px' justifyContent='flex-start' onClick={() => setPaymentMethodStep('bankcard')}>
+                                <Button 
+                                    h='60px' 
+                                    minW='120px' 
+                                    justifyContent='flex-start' 
+                                    onClick={() => setPaymentMethodStep('bankcard')}
+                                    borderColor={paymentMethodStep === 'bankcard' ? 'rgb(52,140,212)' : buttonDefaultColor}
+                                    borderBottomWidth='3px'
+                                >
                                     <Flex flexDir='column' w='full'>
                                         <FaWallet />
                                         <Text fontSize='10pt' textAlign='start'>
@@ -145,7 +156,13 @@ const Payment = () => {
                             </Wrap>
                             <Box mt='1em'>
                                 {(paymentMethodStep === 'cryptowallet') && (
-                                    <Button w='full' variant='primary' onClick={PayWithCrypto} isLoading={isPaying} loadingText='Paying'>
+                                    <Button 
+                                        w='full' 
+                                        variant='primary' 
+                                        onClick={PayWithCrypto} 
+                                        isLoading={isPaying} 
+                                        loadingText='Paying' 
+                                    >
                                         Pay&nbsp;
                                         {cryptoPrice}&nbsp;
                                         {cryptoCurrency?.toUpperCase()}

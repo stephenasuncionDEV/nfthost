@@ -205,9 +205,17 @@ const EditWebsite = () => {
                                 <FormControl isInvalid={editErrors?.description?.status}>
                                     <Textarea id='description' placeholder='Description' rows='5' size='sm' />
                                 </FormControl>
-                                <Textarea id='script' placeholder='Script' rows='5' size='sm' />
-                                <FormControl isInvalid={editErrors?.embed?.status}>
-                                    <Textarea id='embed' placeholder='Embed' rows='5' size='sm' />
+                                <FormControl position='relative' p='1em' bg={componentColor} borderRadius='10px'>
+                                    <Textarea id='script' placeholder='Script' rows='8' size='sm' />
+                                    <Button size='xs' variant='primarySmall' position='absolute' top='2' right='2'>
+                                        COPY
+                                    </Button>
+                                </FormControl>
+                                <FormControl isInvalid={editErrors?.embed?.status} position='relative' p='1em' bg={componentColor} borderRadius='10px'>
+                                    <Textarea id='embed' placeholder='Embed' rows='8' size='sm' />
+                                    <Button size='xs' variant='primarySmall' position='absolute' top='2' right='2'>
+                                        COPY
+                                    </Button>
                                 </FormControl>
                             </VStack>
                         </Wrap>
