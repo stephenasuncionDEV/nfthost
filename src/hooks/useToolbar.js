@@ -3,7 +3,39 @@ import { useToast } from '@chakra-ui/react'
 
 export const useToolbar = () => {
     const toast = useToast();
-    const { layers, setLayers } = useGenerator();
+    const { 
+        layers, 
+        setLayers,
+        name,
+        setName,
+        description,
+        setDescription,
+        externalURL,
+        setExternalURL,
+        standardType,
+        collectionSize,
+        setCollectionSize,
+        symbol,
+        setSymbol,
+        creatorAddress,
+        setCreatorAddress,
+        sellerFee,
+        setSellerFee,
+        creatorShare,
+        setCreatorShare,
+        creators,
+        setCreators,
+        storageURL,
+        setStorageURL,
+        animationURL,
+        setAnimationURL,
+        youtubeURL,
+        setYoutubeURL,
+        backgroundColor,
+        setBackgroundColor,
+        isRandomizedMetadata,
+        setIsRandomizedMetadata
+    } = useGenerator();
 
     const OpenComputer = (e) => {
         try {
@@ -31,6 +63,38 @@ export const useToolbar = () => {
                     })
 
                     setLayers(newLayers);
+
+                    const { 
+                        name, 
+                        collectionSize, 
+                        description, 
+                        externalURL, 
+                        storageURL, 
+                        backgroundColor, 
+                        animationURL, 
+                        youtubeURL, 
+                        symbol, 
+                        sellerFee, 
+                        creatorAddress,
+                        creators, 
+                        creatorShare, 
+                        isRandomizedMetadata 
+                    } = projectJson.metadata;
+
+                    setName(name);
+                    setCollectionSize(collectionSize);
+                    setDescription(description);
+                    setExternalURL(externalURL);
+                    setStorageURL(storageURL);
+                    setBackgroundColor(backgroundColor);
+                    setAnimationURL(animationURL);
+                    setYoutubeURL(youtubeURL);
+                    setSymbol(symbol);
+                    setSellerFee(sellerFee);
+                    setCreatorAddress(creatorAddress);
+                    setCreators(creators);
+                    setCreatorShare(creatorShare);
+                    setIsRandomizedMetadata(isRandomizedMetadata);
 
                     toast({
                         title: 'Success',
@@ -72,6 +136,22 @@ export const useToolbar = () => {
                 let projectJson = {
                     layers: [],
                     rarity: [],
+                    metadata: {
+                        name,
+                        collectionSize,
+                        description,
+                        externalURL,
+                        storageURL,
+                        backgroundColor,
+                        animationURL,
+                        youtubeURL,
+                        symbol,
+                        sellerFee,
+                        creatorAddress,
+                        creators,
+                        creatorShare,
+                        isRandomizedMetadata
+                    },
                     createdAt: new Date()
                 }
 

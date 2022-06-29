@@ -1,4 +1,5 @@
 import { useState, useContext, createContext, useRef } from 'react'
+import { metadataStandardsArr } from '@/utils/json'
 
 export const GeneratorContext = createContext({})
 export const useGenerator = () => useContext(GeneratorContext)
@@ -6,8 +7,9 @@ export const useGenerator = () => useContext(GeneratorContext)
 export const GeneratorProvider = ({ children }) => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
+    const [storageURL, setStorageURL] = useState('');
     const [externalURL, setExternalURL] = useState('');
-    const [standardType, setStandardType] = useState('eth');
+    const [standardType, setStandardType] = useState(metadataStandardsArr[0]);
     const [collectionSize, setCollectionSize] = useState(100);
     const [symbol, setSymbol] = useState('');
     const [creatorAddress, setCreatorAddress] = useState('');
@@ -34,6 +36,9 @@ export const GeneratorProvider = ({ children }) => {
     const [isDownloadModal, setIsDownloadModal] = useState(false);
     const [isRandomizedMetadata, setIsRandomizedMetadata] = useState(false);
     const [previewLayers, setPreviewLayers] = useState();
+    const [backgroundColor, setBackgroundColor] = useState('');
+    const [animationURL, setAnimationURL] = useState('');
+    const [youtubeURL, setYoutubeURL] = useState('');
     const canvasRef = useRef();
 
     const controllers = {
@@ -97,7 +102,15 @@ export const GeneratorProvider = ({ children }) => {
         previewLayers,
         setPreviewLayers,
         isRandomizedMetadata,
-        setIsRandomizedMetadata
+        setIsRandomizedMetadata,
+        storageURL,
+        setStorageURL,
+        animationURL,
+        setAnimationURL,
+        youtubeURL,
+        setYoutubeURL,
+        backgroundColor,
+        setBackgroundColor
     }
 
     return (

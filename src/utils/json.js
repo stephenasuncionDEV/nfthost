@@ -76,7 +76,9 @@ export const sidebarArr = [
                 name: 'Generator', 
                 link: '/generator', 
                 icon: <MdOutlineMiscellaneousServices />, 
-                children: [],
+                children: [
+                    { name: 'Metadata', link: '/generator/metadata' }
+                ],
                 isExternal: false
             },
             { 
@@ -153,5 +155,41 @@ export const analyticsArr = [
             bg: 'rgba(255, 165, 0, 0.5)'
         },
         dataKey: 'clickedOnEmbed'
+    }
+]
+
+export const metadataStandardsArr = [
+    { 
+        name: 'Ethereum', 
+        image: '/assets/ethereum.png',
+        components: [
+            'size',
+            'name',
+            'description',
+            'image',
+            'external_url',
+            'attributes',
+            'background_color',
+            'animation_url',
+            'youtube_url',
+            'compiler'
+        ] 
+    },
+    { 
+        name: 'Solana', 
+        image: '/assets/solana.png', 
+        components: [
+            'size',
+            'name',
+            'symbol',
+            'description',
+            'seller_fee_basis_points',
+            'creators',
+            'image',
+            'animation_url',
+            'external_url',
+            'attributes',
+            'compiler'
+        ] 
     }
 ]
