@@ -1,19 +1,13 @@
-import { Box, HStack, Text, Flex, Button, VStack, 
+import { Box, HStack, Text, Flex, Button,
     Input, Textarea, NumberInput, NumberInputField, 
     NumberInputStepper, NumberIncrementStepper, 
-    NumberDecrementStepper, Radio, RadioGroup, 
-    FormLabel, FormControl, Tag, TagCloseButton, 
-    Modal, ModalOverlay, ModalContent, ModalHeader, 
-    ModalFooter, ModalBody, ModalCloseButton,
-    FormHelperText, useColorModeValue, Wrap, Image
+    NumberDecrementStepper, FormControl, Tag, TagCloseButton, 
+    FormHelperText, useColorModeValue, Wrap
 } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { useMetadata } from '@/hooks/useMetadata'
-import { AiOutlineInfoCircle } from 'react-icons/ai'
-import { metadataStandardsArr } from '@/utils/json'
-import { capitalizeFirstLetter } from '@/utils/tools'
 
-const MetadataInput = () => {
+const Configuration = () => {
     const { 
         layers,
         name,
@@ -23,7 +17,6 @@ const MetadataInput = () => {
         externalURL,
         setExternalURL,
         standardType,
-        setStandardType,
         collectionSize,
         setCollectionSize,
         symbol,
@@ -35,8 +28,6 @@ const MetadataInput = () => {
         creatorShare,
         setCreatorShare,
         creators,
-        isMetadataModal,
-        setIsMetadataModal,
         storageURL,
         setStorageURL,
         animationURL,
@@ -301,4 +292,4 @@ const MetadataInput = () => {
     )
 }
 
-export default MetadataInput
+export default Configuration

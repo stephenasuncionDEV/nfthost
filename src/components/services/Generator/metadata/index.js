@@ -1,39 +1,17 @@
 import { Text, Flex, Button, VStack, useColorModeValue, Wrap, Image } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
-import { useMetadata } from '@/hooks/useMetadata'
-import MetadataInput from '../MetadataInput'
+import Configuration from './Configuration'
 import { metadataStandardsArr } from '@/utils/json'
 
 const Metadata = () => {
     const { 
-        name,
-        setName,
-        description: desc,
-        setDescription,
-        externalURL,
-        setExternalURL,
         standardType,
         setStandardType,
-        collectionSize,
-        setCollectionSize,
-        symbol,
-        setSymbol,
-        creatorAddress,
-        setCreatorAddress,
-        sellerFee,
-        setSellerFee,
-        creatorShare,
-        setCreatorShare,
-        creators,
-        isMetadataModal,
-        setIsMetadataModal
     } = useGenerator();
-    const { AddCreator, DeleteCreator } = useMetadata();
 
     const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
     const bgColor = useColorModeValue('rgba(0,0,0,0.1)', 'rgba(0,0,0,0.5)');
     const buttonDefaultColor = useColorModeValue('gray.100', 'whiteAlpha.200');
-    const helperColor = useColorModeValue('gray.500', 'whiteAlpha.600');
 
     return (
         <VStack flexDir='column' spacing='2em'>
@@ -74,7 +52,7 @@ const Metadata = () => {
                     ))}
                 </Wrap>
             </Flex>
-            <MetadataInput />
+            <Configuration />
         </VStack>
     )
 }
