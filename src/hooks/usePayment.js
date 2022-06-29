@@ -44,7 +44,9 @@ export const usePayment = () => {
 
             let hash = 'n/a';
 
-            if (wallet === 'metamask' || wallet === 'coinbase') {
+            console.log(window.web3)
+
+            if (wallet === 'metamask' || wallet === 'coinbase' || wallet === 'walletconnect') {
                 const txHash = await window.web3.eth.sendTransaction({
                     from: provider.selectedAddress,
                     to: config.nfthost.wallet_metamask,
@@ -52,7 +54,7 @@ export const usePayment = () => {
                 })
                 hash = txHash.blockHash;
             } else {
-                throw new Error('wallet not detected')
+                throw new Error('Your wallet is currently not supported for payment, please login with a different wallet provider')
             }
 
             const INCREMENT_INDEX = 1;

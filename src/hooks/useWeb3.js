@@ -50,9 +50,11 @@ export const useWeb3 = () => {
             else if (wallet === 'walletconnect') {
                 const walletConnect = new WalletConnectProvider({
                     rpc: {
-                        1: 'https://mainnet.infura.io/v3',
+                        1: `https://mainnet.infura.io/v3/${process.env.INFURA_ID}`,
+                        4: `https://rinkeby.infura.io/v3/${process.env.INFURA_ID}`
                     },
                 });
+                if (walletConnect.rpcUrl !== `https://${process.env.CHAIN_ID === '0x1' ? 'mainnet' : 'rinkeby'}.infura.io/v3/${process.env.INFURA_ID}`) throw new Error('WalletConnect: You must be on ethereum mainnet');
                 await walletConnect.enable();
                 window.web3 = new Web3(walletConnect);
                 setProvider(walletConnect);
@@ -378,7 +380,8 @@ export const useWeb3 = () => {
     }
 
     const getChainId = () => {
-        return `0x${parseInt(window.ethereum.networkVersion).toString(16)}`;
+        if (!provider) return `0x${parseInt(window.ethereum.networkVersion).toString(16)}`;
+        return `0x${parseInt(provider.networkVersion).toString(16)}`;
     }
 
     const isNetworkProtected = async (wallet = 'metamask') => {
