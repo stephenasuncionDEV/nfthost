@@ -83,13 +83,27 @@ export const decryptToken = (encryptedToken, tokenOnly = false) => {
     }
 }
 
-export const getPriceFromService = (service, inETH = false) => {
-    const price = {
-        generator: inETH ? 0.0206 : 25,
-        website: inETH ? 0.0085 : 15
-    }[service];
+export const getCurrencyFromWallet = (wallet) => {
+    let currency = 'eth'
+    switch (wallet) {
+        case 'metamask':
+        case 'coinbase':
+        case 'walletconnect':
+            currency = 'eth'
+            break;
+        case 'phantom':
+            currency = 'sol'
+    }
+    return currency;
+}
 
-    return price;
+export const getPriceFromService = (service, currency = 'usd') => {
+    const price = {
+        generator: { usd: 25, eth: 0.02165, sol: 0.6942 },
+        website: { usd: 15, eth: 0.01299, sol: 0.4165 }
+    }[service][currency];
+
+    return price || 25;
 }
 
 export const formatRobot = (robot) => {

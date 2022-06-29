@@ -6,7 +6,8 @@ import Web3 from 'web3'
 import axios from 'axios'
 import posthog from 'posthog-js'
 import config from '@/config/index'
-import { decryptToken, getPriceFromService } from '@/utils/tools'
+import { decryptToken, getPriceFromService, getCurrencyFromWallet } from '@/utils/tools'
+import * as solanaWeb3 from '@solana/web3.js'
 
 export const usePayment = () => {
     const toast = useToast();
@@ -25,6 +26,15 @@ export const usePayment = () => {
         setIsKeepWorkingModal
     } = useCore();
 
+    const createTransactionSolana = async (connection, provider, instructions) => {
+        const anyTransaction = new solanaWeb3.Transaction().add(instructions);
+        anyTransaction.feePayer = provider.publicKey;
+        anyTransaction.recentBlockhash = (
+            await connection.getRecentBlockhash()
+        ).blockhash;
+        return anyTransaction;
+    }
+
     const PayWithCrypto = async () => {
         try {
             if (!provider) throw new Error('Cannot find web3 provider. Please relogin.');
@@ -36,7 +46,9 @@ export const usePayment = () => {
             const wallet = userData.wallet;
             
             const service = paymentData.service.toLowerCase();
-            const price = getPriceFromService(service, true);
+
+            const currency = getCurrencyFromWallet(wallet);
+            const price = getPriceFromService(service, currency);
 
             await isNetworkProtected(wallet);
 
@@ -51,7 +63,26 @@ export const usePayment = () => {
                     value: Web3.utils.toWei(price.toFixed(7).toString(), 'ether')
                 })
                 hash = txHash.blockHash;
-            } else {
+            } 
+            else if (wallet === 'phantom') {
+                const connection = new solanaWeb3.Connection(
+                    solanaWeb3.clusterApiUrl(process.env.CHAIN_ID === '0x1' ? 'mainnet-beta': 'devnet'), 
+                );
+
+                const { signature } = await provider.signAndSendTransaction(await createTransactionSolana(
+                    connection,
+                    provider,
+                    solanaWeb3.SystemProgram.transfer({
+                        fromPubkey: provider.publicKey,
+                        toPubkey: config.nfthost.wallet_phantom,
+                        lamports: solanaWeb3.LAMPORTS_PER_SOL * price,
+                    })
+                ));
+
+                await connection.confirmTransaction(signature);
+                hash = signature;
+            }
+            else {
                 throw new Error('Your wallet is currently not supported for payment, please login with a different wallet provider')
             }
 

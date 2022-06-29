@@ -15,6 +15,7 @@
     "@coinbase/wallet-sdk": "^3.3.0",
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
+    "@solana/web3.js": "^1.44.3",
     "@stripe/react-stripe-js": "^1.9.0",
     "@stripe/stripe-js": "^1.32.0",
     "@walletconnect/web3-provider": "^1.7.8",
