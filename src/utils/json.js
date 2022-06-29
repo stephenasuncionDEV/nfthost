@@ -35,6 +35,12 @@ export const PartnersArr = [
         link: 'https://ambition.so/',
         description: 'End-to-end tools to help creators build their NFT collection'
     },
+    {
+        company: 'Web3 Philippines',
+        image: '/assets/partners/web3philippines.png',
+        link: 'https://web3philippines.org/discord',
+        description: 'Filipino-led community, helping Filipinos to build in Web3 space by providing free access to Web3 education.'
+    },
     // {
     //     company: 'SwiftNFT',
     //     image: '/assets/partners/swiftnft.png',
