@@ -66,8 +66,8 @@ const Metadata = () => {
                                     h='60px' 
                                     minW='120px' 
                                     justifyContent='flex-start' 
-                                    onClick={() => setStandardType(standard.name.toLowerCase())}
-                                    bg={standardType.toLowerCase() === standard.name.toLowerCase() ? 'blue.600' : buttonDefaultColor}
+                                    onClick={() => setStandardType(standard)}
+                                    bg={standardType.name === standard.name ? 'blue.600' : buttonDefaultColor}
                                 >
                                     <VStack justifyContent='center' alignItems='center' w='full' h='full' p='.5em'>
                                         {standard.name !== 'Other' && <Image src={standard.image} alt={standard.name} w='20px' h='25px' />}

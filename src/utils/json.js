@@ -168,14 +168,23 @@ export const metadataStandardsArr = [
             'attributes',
             'background_color',
             'animation_url',
-            'youtube_url'
+            'youtube_url',
+            'compiler'
         ] 
     },
     { 
         name: 'Solana', 
         image: '/assets/solana.png', 
         components: [
-
+            'name',
+            'symbol',
+            'description',
+            'seller_fee_basis_points',
+            'image',
+            'animation_url',
+            'external_url',
+            'attributes',
+            'compiler'
         ] 
     }
 ]

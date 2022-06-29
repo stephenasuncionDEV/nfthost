@@ -46,7 +46,7 @@ const MetadataInput = () => {
     return (
         <Flex flexDir='column'>
             <Text fontSize='10pt'>
-                {capitalizeFirstLetter(standardType)} Metadata
+                {standardType?.name} Metadata
             </Text>
             <Wrap mt='1em'>
                 <Flex flexDir='column' flex='1'>

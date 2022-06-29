@@ -1,4 +1,5 @@
 import { useState, useContext, createContext, useRef } from 'react'
+import { metadataStandardsArr } from '@/utils/json'
 
 export const GeneratorContext = createContext({})
 export const useGenerator = () => useContext(GeneratorContext)
@@ -7,7 +8,7 @@ export const GeneratorProvider = ({ children }) => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [externalURL, setExternalURL] = useState('');
-    const [standardType, setStandardType] = useState('ethereum');
+    const [standardType, setStandardType] = useState(metadataStandardsArr[0]);
     const [collectionSize, setCollectionSize] = useState(100);
     const [symbol, setSymbol] = useState('');
     const [creatorAddress, setCreatorAddress] = useState('');
