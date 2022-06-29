@@ -155,3 +155,10 @@ export const analyticsArr = [
         dataKey: 'clickedOnEmbed'
     }
 ]
+
+export const metadataStandardsArr = [
+    { name: 'OpenSea', image: '/assets/opensea.png' },
+    { name: 'ThirdWeb', image: '/assets/partners/thirdweb.svg' },
+    { name: 'Solana', image: '/assets/solana.png' },
+    { name: 'Other', image: '/assets/transparent.png' },
+]

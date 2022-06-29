@@ -169,6 +169,10 @@ export const useGenerate = () => {
         })
     }
 
+    const buildMetadataObj = ({ name, description,  }) => {
+
+    }
+
     // Generate NFTs
     const Generate = async () => {
         try {
@@ -253,7 +257,7 @@ export const useGenerate = () => {
                     let nftJson = {
 						name: `${name.trim()} #${curRenderIndex}`,
 						description: description.trim(),                
-						image: `${startCount}.png`,
+						image: `${externalStorage}/${startCount}.png`,
 						attributes: attributes,
 						compiler: "https://nfthost.app/"
 					}
