@@ -15,9 +15,7 @@ const Preview = () => {
         storageURL,
         animationURL,
         youtubeURL,
-        backgroundColor,
-        isRandomizedMetadata,
-        setIsRandomizedMetadata
+        backgroundColor
     } = useGenerator();
 
     const containerColor = useColorModeValue('white', 'rgb(54,64,74)');

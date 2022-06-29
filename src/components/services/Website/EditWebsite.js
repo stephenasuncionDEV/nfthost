@@ -24,6 +24,19 @@ const EditWebsite = () => {
     const componentColor = useColorModeValue('rgba(0,0,0,0.1)', 'rgba(0,0,0,0.5)');
     const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
 
+    const Copy = (value) => {
+        navigator.clipboard.writeText(value);
+
+        toast({
+            title: 'Success',
+            description: 'Metadata Sample has been copied to clipboard',
+            status: 'success',
+            duration: 3000,
+            isClosable: true,
+            position: 'bottom-center'
+        })
+    }
+
     return (
         <VStack
             id='website-list'
@@ -206,14 +219,14 @@ const EditWebsite = () => {
                                     <Textarea id='description' placeholder='Description' rows='5' size='sm' />
                                 </FormControl>
                                 <FormControl position='relative' p='1em' bg={componentColor} borderRadius='10px'>
-                                    <Textarea id='script' placeholder='Script' rows='8' size='sm' />
-                                    <Button size='xs' variant='primarySmall' position='absolute' top='2' right='2'>
+                                    <Textarea id='script' placeholder='Script or Style' rows='8' size='sm' />
+                                    <Button size='xs' variant='primarySmall' position='absolute' top='2' right='2' onClick={() => Copy(currentEditWebsite?.components?.script)}>
                                         COPY
                                     </Button>
                                 </FormControl>
                                 <FormControl isInvalid={editErrors?.embed?.status} position='relative' p='1em' bg={componentColor} borderRadius='10px'>
                                     <Textarea id='embed' placeholder='Embed' rows='8' size='sm' />
-                                    <Button size='xs' variant='primarySmall' position='absolute' top='2' right='2'>
+                                    <Button size='xs' variant='primarySmall' position='absolute' top='2' right='2' onClick={() => Copy(currentEditWebsite?.components?.embed)}>
                                         COPY
                                     </Button>
                                 </FormControl>

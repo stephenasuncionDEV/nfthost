@@ -165,8 +165,8 @@ const CreateWebsiteModal = () => {
                             </HStack>
                             <Wrap w='full' mt='1em'>
                                 <FormControl isInvalid={newErrors?.script?.status} flex='1'>
-                                    <Textarea placeholder='Script' value={newComponentScript} onChange={(e) => setNewComponentScript(e.target.value)} rows='8' />
-                                    {!newErrors?.script?.status ? <FormHelperText fontSize='9pt'>Script code of a third-party website</FormHelperText> : <FormErrorMessage fontSize='9pt'>{newErrors?.script?.message}</FormErrorMessage>}
+                                    <Textarea placeholder='Script or Style' value={newComponentScript} onChange={(e) => setNewComponentScript(e.target.value)} rows='8' />
+                                    {!newErrors?.script?.status ? <FormHelperText fontSize='9pt'>Script or Style code of a third-party website</FormHelperText> : <FormErrorMessage fontSize='9pt'>{newErrors?.script?.message}</FormErrorMessage>}
                                 </FormControl>
                                 <FormControl isInvalid={newErrors?.embed?.status} flex='1'>
                                     <Textarea placeholder='Embed*' value={newComponentEmbed} onChange={(e) => setNewComponentEmbed(e.target.value)} rows='8' />
