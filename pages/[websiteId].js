@@ -4,13 +4,13 @@ import { Text, Tag, TagLeftIcon, Link } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useUserWebsite } from '@/hooks/useUserWebsite'
 import CookieModal from '@/components/CookieModal'
-import parse from 'html-react-parser'
-import { CgCopyright } from 'react-icons/cg'
 import Template1 from '@/components/services/Website/templates/Template1'
 import Template2 from '@/components/services/Website/templates/Template2'
 import Template3 from '@/components/services/Website/templates/Template3'
 import Navbar from '@/components/services/Website/addons/Navbar'
 import Footer from '@/components/services/Website/addons/Footer'
+import parse from 'html-react-parser'
+import { CgCopyright } from 'react-icons/cg'
 
 const Service = () => {
     const router = useRouter();

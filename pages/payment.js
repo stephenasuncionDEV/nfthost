@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import NextLink from 'next/link'
 import { Box, HStack, Text, Flex, Button, VStack, Link, 
     useColorModeValue, Input, Divider, Image, Wrap, useColorMode
@@ -7,11 +6,11 @@ import { useReAuthenticate } from '@/hooks/useReAuthenticate'
 import { useCore } from '@/providers/CoreProvider'
 import { useUser } from '@/providers/UserProvider'
 import { usePayment } from '@/hooks/usePayment'
+import Meta from '@/components/Meta'
 import CardInput from '@/components/CardInput'
 import KeepWorkingModal from '@/components/KeepWorkingModal'
 import { AiOutlineArrowLeft, AiOutlineWarning } from 'react-icons/ai'
 import { FaWallet, FaEthereum } from 'react-icons/fa'
-import { HiChevronRight } from 'react-icons/hi'
 import { loadStripe } from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
 import config from '@/config/index'
@@ -51,27 +50,7 @@ const Payment = () => {
 
     return (
         <main>
-            <Head>
-                <title>Payment | NFT Host</title>
-                <meta name="title" content='NFT Host' />
-                <meta name="description" content='NFT Host is a website where you can generate NFT collections and create NFT minting website.' />
-                <meta name="keywords" content='NFT Host, Host NFT, Mint Website, Mint NFT Website Hosting, Mint NFT, NFT, Mint, Crypto Currency, Crypto, Ethereum' />
-                <meta name="robots" content='index, follow' />
-                <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
-                <meta name="language" content='en' />
-
-                <meta property="og:type" content='website' />
-                <meta property="og:url" content='https://www.nfthost.app/' />
-                <meta property="og:title" content='NFT Host' />
-                <meta property="og:description" content='NFT Host is a website where you can generate NFT collections and create NFT minting website.' />
-                <meta property="og:image" content='https://www.nfthost.app/assets/logo.png' />
-
-                <meta property="twitter:card" content="summary_large_image" />
-                <meta property="twitter:url" content='https://www.nfthost.app/' />
-                <meta property="twitter:title" content='NFT Host' />
-                <meta property="twitter:description" content='NFT Host is a website where you can generate NFT collections and create NFT minting website.' />
-                <meta property="twitter:image" content='https://www.nfthost.app/assets/logo.png' />
-            </Head>
+            <Meta title='Payment | NFT Host' />
             <KeepWorkingModal />
             <Flex minH='100vh' justifyContent='center' alignItems='center' py='4em'>
                 {paymentData ? (
