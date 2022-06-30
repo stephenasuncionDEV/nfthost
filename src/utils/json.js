@@ -116,7 +116,7 @@ export const sidebarArr = [
             },
             { 
                 name: 'Support', 
-                link: 'https://discord.gg/BMZZXZMnmv', 
+                link: 'https://discord.gg/u2xXYn7C9T', 
                 icon: <BiSupport />, 
                 children: [],
                 isExternal: true
@@ -198,4 +198,19 @@ export const metadataStandardsArr = [
 
 export const utilsMenuArr = [
     { title: 'Update Image Storage', icon: <SiIpfs />, key: 'image' },
+]
+
+export const getStartedServicesArr = [
+    { 
+        name: 'NFT Collection Generator', 
+        icon: <MdOutlineMiscellaneousServices fontSize='32pt' />, 
+        buttonText: 'Generate',
+        link: '/dashboard/generator'
+    },
+    { 
+        name: 'NFT Mint Website Hosting', 
+        icon: <CgWebsite fontSize='32pt' />, 
+        buttonText: 'Create',
+        link: '/dashboard/website'
+    }
 ]
