@@ -61,7 +61,7 @@ export const useUtils = () => {
 
             jsonFiles.forEach((json) => {
                 if (!Array.isArray(json)) { // Json Files
-                    const nftNumber = json.image.slice(0, json.image.indexOf('.'));
+                    const nftNumber = json.image.slice(json.image.charAt(0) === '/' ? 1 : 0, json.image.indexOf('.'));
                     const newImage = externalStorage + (json.image.charAt(0) === '/' ? json.image : ('/' + json.image));
                     let newJson = { ...json, image: newImage };
                     zip.folder("Metadata").file(`${nftNumber}.json`, JSON.stringify(newJson, null, 2));
