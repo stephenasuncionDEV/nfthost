@@ -1,6 +1,6 @@
 import NextLink from 'next/link'
 import { Flex, Wrap, Button, Text, Image, useColorModeValue, 
-    VStack, HStack, Link, Tag, TagLeftIcon 
+    VStack, HStack, Link, Tag, TagLeftIcon, Box
 } from '@chakra-ui/react'
 import { useGetStarted } from '@/hooks/useGetStarted'
 import { GiCutDiamond } from 'react-icons/gi'
@@ -97,10 +97,10 @@ const GetStarted = () => {
                             Socials
                         </Text>
                         <VStack spacing='1em' alignItems='flex-start'>
-                            <Link href='https://twitter.com/Steb_01' isExternal>
+                            <Link href='https://www.producthunt.com/posts/nft-host' isExternal>
                                 <HStack>
                                     <Text fontSize='10pt'>
-                                        Twitter
+                                        Product Hunt
                                     </Text>
                                     <FiExternalLink />
                                 </HStack>
@@ -113,10 +113,32 @@ const GetStarted = () => {
                                     <FiExternalLink />
                                 </HStack>
                             </Link>
+                            <Link href='https://twitter.com/Steb_01' isExternal>
+                                <HStack>
+                                    <Text fontSize='10pt'>
+                                        Twitter
+                                    </Text>
+                                    <FiExternalLink />
+                                </HStack>
+                            </Link>
                         </VStack>
                     </VStack>
                 </VStack>
             </Wrap>
+            <Flex flexDir='column' mt='2em'>
+                <Text fontWeight='bold' fontSize='26pt'>
+                    Support Us
+                </Text>
+                <Text fontSize='10pt'>
+                    If you want to support us, buy me a coffee or upvote NFT Host on Product Hunt.
+                </Text>
+                <Box mt='2em'>
+                    <a href="https://www.buymeacoffee.com/stephenasuncion" target="_blank"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=stephenasuncion&button_colour=5F7FFF&font_colour=ffffff&font_family=Cookie&outline_colour=000000&coffee_colour=FFDD00" /></a>
+                </Box>
+                <Box mt='1em'>
+                    <a href="https://www.producthunt.com/posts/nft-host?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-nft&#0045;host" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=326763&theme=dark" alt="NFT&#0032;Host - Generate&#0032;and&#0032;Host&#0032;your&#0032;NFT&#0032;Collection&#0032;in&#0032;under&#0032;10&#0032;minutes | Product Hunt" style={{width: '235px', height: '50px'}} width="235" height="50" /></a>
+                </Box>
+            </Flex>
         </Flex>
     )
 }
