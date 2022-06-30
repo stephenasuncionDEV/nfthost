@@ -3,6 +3,7 @@ import { BiSupport } from 'react-icons/bi'
 import { VscOrganization } from 'react-icons/vsc'
 import { MdOutlineDashboard, MdOutlineMiscellaneousServices, MdPayment } from 'react-icons/md'
 import { AiOutlineTeam } from 'react-icons/ai'
+import { SiIpfs } from 'react-icons/si'
 
 export const TemplatesArr = [
     { key: 'Template1', sub: 'free', creator: 'NFTHost' },
@@ -77,7 +78,8 @@ export const sidebarArr = [
                 link: '/generator', 
                 icon: <MdOutlineMiscellaneousServices />, 
                 children: [
-                    { name: 'Metadata', link: '/generator/metadata' }
+                    { name: 'Metadata', link: '/generator/metadata' },
+                    { name: 'Utils', link: '/generator/utils' }
                 ],
                 isExternal: false
             },
@@ -192,4 +194,8 @@ export const metadataStandardsArr = [
             'compiler'
         ] 
     }
+]
+
+export const utilsMenuArr = [
+    { title: 'Update Image Storage', icon: <SiIpfs />, key: 'image' },
 ]

@@ -369,7 +369,7 @@ export const useGenerate = () => {
 			zip.folder("Metadata").file("metadata.json", JSON.stringify(tempMetadata, null, 2));
 
             metadata.forEach((data) => {
-                zip.folder("Metadata")?.file(`${fileIndex}.json`, JSON.stringify(data, null, 2));
+                zip.folder("Metadata").file(`${fileIndex}.json`, JSON.stringify(data, null, 2));
                 fileIndex++;
             });
 
@@ -454,7 +454,7 @@ export const useGenerate = () => {
 			zip.folder("Metadata").file("metadata.json", JSON.stringify(tempMetadata, null, 2));
 
 			metadata.forEach(data => {
-				zip.folder("Metadata")?.file(`${fileIndex}.json`, JSON.stringify(data, null, 2));
+				zip.folder("Metadata").file(`${fileIndex}.json`, JSON.stringify(data, null, 2));
 				fileIndex++;
 			});
 
