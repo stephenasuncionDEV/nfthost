@@ -1,24 +1,18 @@
-import { Text, Flex, Button, VStack, useColorModeValue,
-    Box, Input, FormControl, FormHelperText
+import { Text, Flex, Button, VStack, useColorModeValue, 
+    Input, FormControl, FormHelperText
 } from '@chakra-ui/react'
 import { useUtils } from '@/hooks/useUtils'
-import Dropzone from 'react-dropzone'
-import { VscJson } from 'react-icons/vsc'
-import { FaDownload, FaRedo } from 'react-icons/fa'
-import { AiOutlineFile } from 'react-icons/ai'
+import { FaDownload } from 'react-icons/fa'
+import JsonDropbox from './JsonDropbox'
 
 const ImageStorage = () => {
     const { 
-        jsonFiles,
-        setJsonFiles,
-        UploadJSON, 
         newImageStorage, 
         setNewImageStorage, 
         DownloadImageStorage, 
         isDownloading 
     } = useUtils();
 
-    const dropContainerColor = useColorModeValue('rgba(0,0,0,0.1)', 'rgba(0,0,0,0.5)');
     const helperColor = useColorModeValue('gray.500', 'whiteAlpha.600');
 
     return (
@@ -38,59 +32,7 @@ const ImageStorage = () => {
                     "image": "{newImageStorage}/0.png",
                 </Text>
             </VStack>
-            <Box mt='1em'>
-                {!jsonFiles ? (
-                    <Dropzone 
-                        accept={{
-                            'application/JSON': [],
-                        }}
-                        multiple 
-                        onDrop={files => UploadJSON(files)}
-                    >
-                        {({getRootProps, getInputProps}) => (
-                            <Flex 
-                                w='full' 
-                                h='200px'
-                                bg={dropContainerColor}
-                                borderRadius='10px'
-                                justifyContent='center' 
-                                alignItems='center' 
-                                flexDir='column'
-                                cursor='pointer'
-                                {...getRootProps()}
-                            >
-                                <input {...getInputProps()} />
-                                <VStack>
-                                    <VscJson fontSize='18pt' />
-                                    <Text fontSize='10pt'>
-                                        Drag and drop Metadata Folder Here
-                                    </Text>
-                                    <Text fontSize='9pt'>
-                                        Supported Format: .json
-                                    </Text>
-                                </VStack>
-                            </Flex>
-                        )}
-                    </Dropzone>
-                ) : (
-                    <VStack
-                        w='full' 
-                        h='200px'
-                        bg={dropContainerColor}
-                        borderRadius='10px'
-                        justifyContent='center' 
-                        alignItems='center' 
-                    >
-                        <AiOutlineFile fontSize='18pt' />
-                        <Text fontSize='10pt'>
-                            Files: {jsonFiles?.length} json files
-                        </Text>
-                        <Button variant='danger' size='sm' leftIcon={<FaRedo />} onClick={() => setJsonFiles(null)}>
-                            Reset
-                        </Button>
-                    </VStack>
-                )}
-            </Box>
+            <JsonDropbox mt='1em' />
             <Flex mt='1em' justifyContent='space-between'>
                 <Text fontSize='9pt' color={helperColor}>
                     Your metadata folder must contain all the numbered json files and metadata.json
