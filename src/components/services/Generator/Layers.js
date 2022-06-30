@@ -29,7 +29,7 @@ const Layers = () => {
                 <Text fontWeight='bold' fontSize='10pt'>
                     Layers
                 </Text>
-                <Button size='sm' rightIcon={<MdOutlineAdd />} onClick={AddLayer}>
+                <Button size='sm' rightIcon={<MdOutlineAdd />} onClick={AddLayer} variant='primary'>
                     Add Layer
                 </Button>
             </HStack>
@@ -78,6 +78,7 @@ const Layers = () => {
                             icon={<FaTrashAlt />}
                             size='sm'
                             onClick={() => DeleteLayer(idx)}
+                            variant='primary'
                         />
                     </Box>
                 )).reverse()}
