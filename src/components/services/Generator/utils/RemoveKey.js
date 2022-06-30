@@ -39,7 +39,7 @@ const RemoveKey = () => {
                 <Text fontSize='9pt' color={helperColor}>
                     Your metadata folder must contain all the numbered json files and metadata.json
                 </Text>
-                <Button size='sm' variant='primary' leftIcon={<FaDownload />} onClick={DownloadRemoveKey} isLoading={isDownloading} disabled={isDownloading} loadingText='Downloading'>
+                <Button size='sm' variant='primary' leftIcon={<FaDownload />} onClick={DownloadRemoveKey} isLoading={isDownloading} disabled={isDownloading || !jsonFiles} loadingText='Downloading'>
                     Download
                 </Button>
             </Flex>

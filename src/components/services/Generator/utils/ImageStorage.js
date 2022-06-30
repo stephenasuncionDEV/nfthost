@@ -1,11 +1,13 @@
 import { Text, Flex, Button, VStack, useColorModeValue, 
     Input, FormControl, FormHelperText
 } from '@chakra-ui/react'
+import { useGenerator } from '@/providers/GeneratorProvider'
 import { useUtils } from '@/hooks/useUtils'
 import { FaDownload } from 'react-icons/fa'
 import JsonDropbox from './JsonDropbox'
 
 const ImageStorage = () => {
+    const { jsonFiles } = useGenerator
     const { 
         newImageStorage, 
         setNewImageStorage, 
@@ -37,7 +39,7 @@ const ImageStorage = () => {
                 <Text fontSize='9pt' color={helperColor}>
                     Your metadata folder must contain all the numbered json files and metadata.json
                 </Text>
-                <Button size='sm' variant='primary' leftIcon={<FaDownload />} onClick={DownloadImageStorage} isLoading={isDownloading} disabled={isDownloading} loadingText='Downloading'>
+                <Button size='sm' variant='primary' leftIcon={<FaDownload />} onClick={DownloadImageStorage} isLoading={isDownloading} disabled={isDownloading || !jsonFiles} loadingText='Downloading'>
                     Download
                 </Button>
             </Flex>
