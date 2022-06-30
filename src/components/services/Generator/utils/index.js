@@ -1,12 +1,11 @@
-import { Text, Flex, Button, VStack, useColorModeValue, Wrap, Image, HStack } from '@chakra-ui/react'
+import { Flex, Button, VStack, useColorModeValue, HStack } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
-import { useUtils } from '@/hooks/useUtils'
 import { utilsMenuArr } from '@/utils/json'
 import ImageStorage from './ImageStorage'
+import RemoveKey from './RemoveKey'
 
 const Utils = () => {
     const { utilsTab, setUtilsTab } = useGenerator();
-    const {  } = useUtils();
 
     const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
 
@@ -22,7 +21,7 @@ const Utils = () => {
                             _hover={{ bg: 'whiteAlpha.100' }}
                             w='full'
                             color={utilsTab === menu.key ? '#348CD4' : 'white'}
-                            onClick={() => setUtilsTab('image')}
+                            onClick={() => setUtilsTab(menu.key)}
                         >
                             {menu.title}
                         </Button>
@@ -40,7 +39,10 @@ const Utils = () => {
                 alignItems='flex-start'
                 w='full'
             >
-                {utilsTab === 'image' && <ImageStorage />}
+                {{
+                    image: <ImageStorage />,
+                    remove: <RemoveKey />
+                }[utilsTab]}
             </Flex>
         </HStack>
     )

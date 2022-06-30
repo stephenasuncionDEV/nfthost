@@ -1,4 +1,4 @@
-import { CgWebsite } from 'react-icons/cg'
+import { CgWebsite, CgRemove } from 'react-icons/cg'
 import { BiSupport } from 'react-icons/bi'
 import { VscOrganization } from 'react-icons/vsc'
 import { MdOutlineDashboard, MdOutlineMiscellaneousServices, MdPayment } from 'react-icons/md'
@@ -198,6 +198,7 @@ export const metadataStandardsArr = [
 
 export const utilsMenuArr = [
     { title: 'Update Image Storage', icon: <SiIpfs />, key: 'image' },
+    { title: 'Remove Metadata Key', icon: <CgRemove />, key: 'remove' }
 ]
 
 export const getStartedServicesArr = [

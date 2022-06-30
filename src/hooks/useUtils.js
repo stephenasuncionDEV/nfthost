@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useToast } from '@chakra-ui/react'
+import { useGenerator } from '@/providers/GeneratorProvider'
 import { saveAs } from 'file-saver'
 import JSZip from 'jszip'
 import posthog from 'posthog-js'
@@ -8,8 +9,9 @@ const zip = new JSZip();
 
 export const useUtils = () => {
     const toast = useToast();
-    const [jsonFiles, setJsonFiles] = useState();
+    const { jsonFiles, setJsonFiles } = useGenerator();
     const [newImageStorage, setNewImageStorage] = useState('');
+    const [selectedRemoveKey, setSelectedRemoveKey] = useState('');
     const [isDownloading, setIsDownloading] = useState(false);
 
     const UploadJSON = async (files) => {
@@ -51,7 +53,8 @@ export const useUtils = () => {
 
     const DownloadImageStorage = async () => {
         try {
-            if (!jsonFiles) throw new Error('Please drag and drop your metadata folder first');
+            if (!jsonFiles) throw new Error('Drag and drop your metadata folder first');
+            if (!newImageStorage.length) throw new Error('Enter an Image Storage Url');
 
             zip.remove('Metadata');
 
@@ -85,11 +88,59 @@ export const useUtils = () => {
 			})
 
 			saveAs(content, "NFTHost Updated Metadata.zip");
-
             setIsDownloading(false);
 
             posthog.capture('User updated image storage');
 
+        }
+        catch (err) {
+            setIsDownloading(false);
+            console.error(err);
+            toast({
+                title: 'Error',
+                description: err.message,
+                status: 'error',
+                isClosable: true,
+                position: 'bottom-center'
+            })
+        }
+    }
+
+    const DownloadRemoveKey = async () => {
+        try {
+            if (!jsonFiles) throw new Error('Drag and drop your metadata folder first');
+            if (!selectedRemoveKey.length) throw new Error('Select a metadata key to remove first')
+
+            zip.remove('Metadata');
+
+            setIsDownloading(true);
+
+            jsonFiles.forEach((json) => {
+                if (!Array.isArray(json)) { // Json Files
+                    const nftNumber = json.image.slice(json.image.charAt(0) === '/' ? 1 : 0, json.image.indexOf('.'));
+                    let newJson = { ...json };
+                    delete newJson[selectedRemoveKey]
+                    zip.folder("Metadata").file(`${nftNumber}.json`, JSON.stringify(newJson, null, 2));
+                }
+                else { // Metadata
+                    const newMetadata = json.map((jsonData) => {
+                        let newJsonData = { ...jsonData };
+                        delete newJsonData[selectedRemoveKey]
+                        return newJsonData
+                    })
+                    zip.folder("Metadata").file('metadata.json', JSON.stringify(newMetadata, null, 2));
+                }
+            })
+
+            const content = await zip.generateAsync({
+				type: "blob",
+				streamFiles: true
+			})
+
+			saveAs(content, "NFTHost Updated Metadata.zip");
+            setIsDownloading(false);
+
+            posthog.capture('User removed metadata key', { key: selectedRemoveKey });
         }
         catch (err) {
             setIsDownloading(false);
@@ -111,6 +162,9 @@ export const useUtils = () => {
         DownloadImageStorage,
         isDownloading,
         jsonFiles,
-        setJsonFiles
+        setJsonFiles,
+        DownloadRemoveKey,
+        selectedRemoveKey,
+        setSelectedRemoveKey
     }
 }

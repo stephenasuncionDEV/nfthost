@@ -1,4 +1,5 @@
 import { Text, Flex, Button, VStack, useColorModeValue, Box } from '@chakra-ui/react'
+import { useGenerator } from '@/providers/GeneratorProvider'
 import { useUtils } from '@/hooks/useUtils'
 import { VscJson } from 'react-icons/vsc'
 import { FaRedo } from 'react-icons/fa'
@@ -6,7 +7,8 @@ import { AiOutlineFile } from 'react-icons/ai'
 import Dropzone from 'react-dropzone'
 
 const JsonDropbox = (styles) => {
-    const { jsonFiles, setJsonFiles, UploadJSON } = useUtils();
+    const { jsonFiles, setJsonFiles } = useGenerator();
+    const { UploadJSON } = useUtils();
 
     const dropContainerColor = useColorModeValue('rgba(0,0,0,0.1)', 'rgba(0,0,0,0.5)');
 
