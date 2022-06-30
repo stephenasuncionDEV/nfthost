@@ -24,7 +24,7 @@ const Option = () => {
                 This will affect your collection's metadata.json file.
             </Text>
             <VStack p='1em' alignItems='flex-start' w='full'>
-                <Checkbox value={isRandomizedMetadata} onChange={(e) => setIsRandomizedMetadata(e.target.value)}>
+                <Checkbox isChecked={isRandomizedMetadata} onChange={(e) => setIsRandomizedMetadata(e.target.checked)}>
                     <Text fontSize='10pt'>
                         Shuffled (Randomized) metadata.json
                     </Text>
