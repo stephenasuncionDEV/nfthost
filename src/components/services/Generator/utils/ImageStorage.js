@@ -7,7 +7,7 @@ import { FaDownload } from 'react-icons/fa'
 import JsonDropbox from './JsonDropbox'
 
 const ImageStorage = () => {
-    const { jsonFiles } = useGenerator
+    const { jsonFiles } = useGenerator();
     const { 
         newImageStorage, 
         setNewImageStorage, 
@@ -25,16 +25,18 @@ const ImageStorage = () => {
             <Text fontSize='10pt'>
                 Update the image key on your metadata. 
             </Text>
-            <VStack w='full' mt='1em'>
-                <FormControl>
-                    <Input id='collectionUrl' placeholder='New Image Storage URL' w='full' value={newImageStorage} onChange={(e) => setNewImageStorage(e.target.value)} />
-                    <FormHelperText fontSize='9pt'>This is the External URL to the image of the item. Can be just about any type of image (including SVGs, which will be cached into PNGs by OpenSea), and can be IPFS URLs or paths. We recommend using a 350 x 350 image.</FormHelperText>
-                </FormControl>
-                <Text>
-                    "image": "{newImageStorage}/0.png",
-                </Text>
-            </VStack>
             <JsonDropbox mt='1em' />
+            {jsonFiles && (
+                <VStack w='full' mt='1em'>
+                    <FormControl>
+                        <Input id='collectionUrl' placeholder='New Image Storage URL' w='full' value={newImageStorage} onChange={(e) => setNewImageStorage(e.target.value)} />
+                        <FormHelperText fontSize='9pt'>This is the External URL to the image of the item. Can be just about any type of image (including SVGs, which will be cached into PNGs by OpenSea), and can be IPFS URLs or paths. We recommend using a 350 x 350 image.</FormHelperText>
+                    </FormControl>
+                    <Text>
+                        "image": "{newImageStorage}/{jsonFiles[0]?.image}",
+                    </Text>
+                </VStack>
+            )}
             <Flex mt='1em' justifyContent='space-between'>
                 <Text fontSize='9pt' color={helperColor}>
                     Your metadata folder must contain all the numbered json files and metadata.json
