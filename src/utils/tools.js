@@ -97,10 +97,12 @@ export const getCurrencyFromWallet = (wallet) => {
     return currency;
 }
 
+// https://crypto.com/price/<currency>
 export const getPriceFromService = (service, currency = 'usd') => {
     const price = {
         generator: { usd: 25, eth: 0.02165, sol: 0.6942 },
-        website: { usd: 15, eth: 0.01299, sol: 0.4165 }
+        website: { usd: 15, eth: 0.01299, sol: 0.4165 },
+        utils: { usd: 5, eth: 0.004558, sol: 0.1528 },
     }[service][currency];
 
     return price || 25;

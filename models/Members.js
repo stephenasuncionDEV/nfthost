@@ -44,6 +44,12 @@ const MembersSchema = new Schema({
                 type: Number,
                 default: 0
             }
+        },
+        utils: {
+            freeUtil: {
+                type: Number,
+                default: 0
+            }
         }
     }
 }, { timestamps: true });

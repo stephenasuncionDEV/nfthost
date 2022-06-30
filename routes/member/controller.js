@@ -97,14 +97,17 @@ exports.addFree = async (req, res, next) => {
 
         const child = {
             generator: 'freeGeneration',
-            website: 'freeWebsite'
+            website: 'freeWebsite',
+            utils: 'freeUtil'
         }[service];
 
-        await Member.updateOne({ address }, {
-            $inc: { 
-                [`services.${service}.${child}`]: value
+        await Member.updateOne({ address }, 
+            {
+                $inc: { 
+                    [`services.${service}.${child}`]: value
+                }
             }
-        });
+        );
 
         res.status(200).json({message: "Succesfully added points to user"});
 
@@ -147,7 +150,8 @@ exports.deductFree = async (req, res, next) => {
 
         const child = {
             generator: 'freeGeneration',
-            website: 'freeWebsite'
+            website: 'freeWebsite',
+            utils: 'freeUtil'
         }[service];
 
         await Member.updateOne({ address }, {

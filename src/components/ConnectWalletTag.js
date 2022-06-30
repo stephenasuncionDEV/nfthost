@@ -39,10 +39,13 @@ const ConnectWalletTag = ({ isCopyAddress, isUserProfile, isPayments }) => {
                                         {address}
                                     </Text>
                                     <Text fontSize='8pt' noOfLines='1'>
-                                        {user?.services?.generator?.freeGeneration} Generation Available
+                                        {user?.services?.generator?.freeGeneration || 0} Generation Available
                                     </Text>
                                     <Text fontSize='8pt' noOfLines='1'>
-                                        {user?.services?.website?.freeWebsite} Website Available
+                                        {user?.services?.website?.freeWebsite || 0} Website Available
+                                    </Text>
+                                    <Text fontSize='8pt' noOfLines='1'>
+                                        {user?.services?.utils?.freeUtil || 0} Utils Available
                                     </Text>
                                 </VStack>
                             </HStack>

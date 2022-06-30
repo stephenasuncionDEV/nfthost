@@ -1,6 +1,10 @@
+import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useToast } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
+import { useCore } from '@/providers/CoreProvider'
+import { useUser } from '@/providers/UserProvider'
+import { useWeb3 } from '@/hooks/useWeb3'
 import { saveAs } from 'file-saver'
 import JSZip from 'jszip'
 import posthog from 'posthog-js'
@@ -9,6 +13,10 @@ const zip = new JSZip();
 
 export const useUtils = () => {
     const toast = useToast();
+    const router = useRouter();
+    const { setPaymentData } = useCore();
+    const { address } = useUser();
+    const { getUserByAddress, DeductFree } = useWeb3();
     const { jsonFiles, setJsonFiles } = useGenerator();
     const [newImageStorage, setNewImageStorage] = useState('');
     const [selectedRemoveKey, setSelectedRemoveKey] = useState('');
@@ -111,9 +119,35 @@ export const useUtils = () => {
             if (!jsonFiles) throw new Error('Drag and drop your metadata folder first');
             if (!selectedRemoveKey.length) throw new Error('Select a metadata key to remove first')
 
-            zip.remove('Metadata');
+            const user = await getUserByAddress(address);
+
+            const freeUtil = user.services.utils.freeUtil;
+
+            if (freeUtil <= 0 || !freeUtil) {
+                setPaymentData({
+                    service: 'Utils',
+                    price: 5,
+                    product: `Remove ${selectedRemoveKey} Key on Metadata`,
+                    redirect: {
+                        origin: '/dashboard/generator/utils',
+                        title: 'Utils'
+                    },
+                    data: {
+                        size: 1
+                    },
+                    due: new Date()
+                })
+                router.push('/payment', undefined, { shallow: true }); 
+                return;
+            }
+            else if (freeUtil > 0) {
+                const DECREMENT_VALUE = 1;
+                await DeductFree(DECREMENT_VALUE, 'utils');
+            }
 
             setIsDownloading(true);
+
+            zip.remove('Metadata');
 
             jsonFiles.forEach((json) => {
                 if (!Array.isArray(json)) { // Json Files
