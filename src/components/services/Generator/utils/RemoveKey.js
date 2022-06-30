@@ -1,6 +1,4 @@
-import { Text, Flex, Button, VStack, useColorModeValue, 
-    Input, FormControl, FormHelperText, Select, HStack
-} from '@chakra-ui/react'
+import { Text, Flex, Button, useColorModeValue, Select, HStack } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { useUtils } from '@/hooks/useUtils'
 import { FaDownload } from 'react-icons/fa'
