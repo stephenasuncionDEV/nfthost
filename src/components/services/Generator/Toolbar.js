@@ -1,5 +1,5 @@
 import NextLink from 'next/link'
-import { HStack, Button, Menu, MenuButton, MenuList, MenuItem, useColorModeValue, useColorMode } from '@chakra-ui/react'
+import { HStack, Button, Menu, MenuButton, MenuList, MenuItem, useColorModeValue } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { useGenerate } from '@/hooks/useGenerate'
 import { useToolbar } from '@/hooks/useToolbar'

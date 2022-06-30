@@ -38,6 +38,7 @@ export const GeneratorProvider = ({ children }) => {
     const [backgroundColor, setBackgroundColor] = useState('');
     const [animationURL, setAnimationURL] = useState('');
     const [youtubeURL, setYoutubeURL] = useState('');
+    const [utilsTab, setUtilsTab] = useState('image');
     const canvasRef = useRef();
 
     const controllers = {
@@ -107,7 +108,9 @@ export const GeneratorProvider = ({ children }) => {
         youtubeURL,
         setYoutubeURL,
         backgroundColor,
-        setBackgroundColor
+        setBackgroundColor,
+        utilsTab,
+        setUtilsTab
     }
 
     return (

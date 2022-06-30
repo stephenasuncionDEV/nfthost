@@ -64,7 +64,7 @@ const Configuration = () => {
                 Fields with * are required. Otherwise, leave it empty if you want.
             </Text>
             {isDisplay('name') && (
-                <HStack>       
+                <HStack w='full'>       
                     <FormControl flex='1'>
                         <Input 
                             id='collectionName' 
