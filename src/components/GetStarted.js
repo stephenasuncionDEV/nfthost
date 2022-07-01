@@ -141,7 +141,7 @@ const GetStarted = () => {
             </Text>
             <Wrap spacing='1em' mt='2em'>
                 {featuredWebsites?.map((website, idx) => (
-                    <Link href={`${config?.frontendUrl}/${website.custom.alias.length > 0 ? website.custom.alias : website._id}`} isExternal key={idx} style={{ textDecoration: 'none' }}>
+                    <Link href={`${config?.frontendUrl}/${website.custom?.alias.length > 0 ? website.custom?.alias : website._id}`} isExternal key={idx} style={{ textDecoration: 'none' }}>
                         <Button 
                             opacity='0.3'
                             w='250px' 
