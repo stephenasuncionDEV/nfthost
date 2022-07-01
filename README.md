@@ -26,6 +26,11 @@
 
 ## Setup
 
+<ul>
+    <li><a href='https://hub.docker.com/repository/docker/stephenasuncion/nfthost' rel="nofollow">DockerHub: NFTHost frontend</a></li>
+    <li><a href='https://hub.docker.com/repository/docker/stephenasuncion/nfthost-backend' rel="nofollow">DockerHub: NFTHost backend</a></li>
+</ul>
+
 ```
 npm i 
 npm run backend
