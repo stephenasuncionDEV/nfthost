@@ -1,6 +1,6 @@
 export default {
     frontendUrl: 'https://www.nfthost.app',
-	serverUrl: 'https://www.nfthost.app',
+	serverUrl: 'https://nfthost-backend.vercel.app',
     stripe: {
         publicKey: 'pk_live_NvId9HTSPKI3pVQ1UqoAfnnd00Y2VDa3Uh'
     },
