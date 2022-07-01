@@ -31,7 +31,7 @@ const ImageStorage = () => {
                         <FormHelperText fontSize='9pt'>This is the External URL to the image of the item. Can be just about any type of image (including SVGs, which will be cached into PNGs by OpenSea), and can be IPFS URLs or paths. We recommend using a 350 x 350 image.</FormHelperText>
                     </FormControl>
                     <Text>
-                        "image": "{newImageStorage}/{jsonFiles[0]?.image}",
+                        "image": "{newImageStorage}/{jsonFiles[0]?.image?.charAt(0) === '/' ? jsonFiles[0]?.image?.slice(1) : jsonFiles[0]?.image }",
                     </Text>
                 </VStack>
             )}

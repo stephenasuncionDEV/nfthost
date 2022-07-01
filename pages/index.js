@@ -190,10 +190,10 @@ const Main = () => {
                                 </NextLink>
                             </Flex>
                             <VStack>
-                                <iframe width="560" height="315" src="https://www.youtube.com/embed/ITEEI2aBfRc" title="Generate YOUR OWN NFT Collection | NFT Host" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
-                                <Link href='https://www.youtube.com/watch?v=ITEEI2aBfRc' isExternal>
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/6R10ZTsLIeM" title="Modify your NFT Metadata Files | NFT Host" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                                <Link href='https://www.youtube.com/watch?v=6R10ZTsLIeM' isExternal>
                                     <Text color={srcColor} fontSize='9pt' fontStyle='italic'>
-                                        source: https://www.youtube.com/watch?v=ITEEI2aBfRc
+                                        source: https://www.youtube.com/watch?v=6R10ZTsLIeM
                                     </Text>
                                 </Link>
                             </VStack>
