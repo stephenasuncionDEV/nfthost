@@ -67,10 +67,11 @@ const Service = () => {
                         _hover={{
                             opacity: '.75'
                         }}
+                        size='lg'
                     >
                         <TagLeftIcon as={CgCopyright} />
                         <Text>
-                            Hosted by NFTHost.app
+                            Made by NFTHost.app
                         </Text>
                     </Tag>
                 </Link>
