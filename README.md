@@ -39,15 +39,13 @@ npm run dev
 
 ## Environment Variables
 
-| .env                      | .env.local             |
-| ------------------------- | ---------------------- |
-| MONGODB_URI               | CHAIN_ID               |
-| ACCESS_TOKEN_SECRET       | ENCRYPT_KEY            |
-| REFRESH_TOKEN_SECRET      | POSTHOG_KEY            |
-| THIRDPARTY_TOKEN_SECRET   | CREATE_WEBSITE_TOKEN   |
-| STRIPE_SECRET             |                        |
-| DOCKER_HUB_ACCESS_TOKEN   |                        |
-| DOCKER_HUB_USERNAME       |                        |
+| .env.local             |
+| ---------------------- |
+| CHAIN_ID               |
+| ENCRYPT_KEY            |
+| POSTHOG_KEY            |
+| CREATE_WEBSITE_TOKEN   |
+
 
 ## Support
 
