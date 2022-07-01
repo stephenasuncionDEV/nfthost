@@ -166,7 +166,7 @@ const Main = () => {
                                     Modify metadata files at ease
                                 </Text>
                                 <Text variant='content_title' mt='0.25rem'>
-                                    Metadata Files
+                                    Metadata
                                 </Text>
                                 <Text variant='content_title' mt='0.25rem'>
                                     Utilities
@@ -181,7 +181,7 @@ const Main = () => {
                                     </Text>
                                 </HStack>
                                 <Text variant='content_description' mt='1.25rem'>
-                                    Have the ability to modify your metadata/json files after generation. Features including modifying image key or removing a metadata key on json metadata files.
+                                    Have the ability to modify your metadata/json files after generation. Features including modifying image key, adding or removing metadata key on json metadata files.
                                 </Text>
                                 <NextLink href='/dashboard/getStarted' shallow passHref>
                                     <Button w='200px' mt='1em' rightIcon={<AiOutlineArrowRight />}>
