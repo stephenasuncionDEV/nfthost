@@ -21,6 +21,7 @@ export const CoreProvider = ({ children }) => {
     const [paymentState, setPaymentState] = useState('');
     const [paymentZip, setPaymentZip] = useState('');
     const [isPaying, setIsPaying] = useState(false);
+    const [paymentPageNumber, setPaymentPageNumber] = useState(0);
     const [areYouSureData, setAreYouSureData] = useState({
         item: 'website',
         action: 'Delete',
@@ -72,7 +73,9 @@ export const CoreProvider = ({ children }) => {
         isAddonSettingsModal,
         setIsAddonSettingsModal,
         addonSettingsData,
-        setAddonSettingsData
+        setAddonSettingsData,
+        paymentPageNumber,
+        setPaymentPageNumber
     }
 
     return (

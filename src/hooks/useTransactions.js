@@ -18,7 +18,7 @@ export const useTransactions = (update = true) => {
         GetTransactions();
     }, [])
 
-    const GetTransactions = async () => {
+    const GetTransactions = async (pageNumber = 0) => {
         try {
             const storageToken = localStorage.getItem('nfthost-user');
             if (!storageToken) return;
@@ -30,13 +30,14 @@ export const useTransactions = (update = true) => {
 
             const res = await axios.get(`${config.serverUrl}/api/payment/get`, {
                 params: {
-                    memberId: user._id
+                    memberId: user._id,
+                    pageNumber
                 },
                 headers: { 
                     Authorization: `Bearer ${token.accessToken}` 
                 }
             })
-  
+
             setTransactions(res.data);
             setIsGettingTransactions(false);
         }
@@ -69,6 +70,7 @@ export const useTransactions = (update = true) => {
     }
 
     return {
-        CopyHash
+        CopyHash,
+        GetTransactions
     }
 }
