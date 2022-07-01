@@ -3,7 +3,6 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "backend": "nodemon ./api",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -21,23 +20,14 @@
     "@walletconnect/web3-provider": "^1.7.8",
     "axios": "^0.27.2",
     "chart.js": "^3.8.0",
-    "cors": "^2.8.5",
     "crypto-js": "^4.1.1",
-    "dotenv": "^16.0.1",
     "ethers": "^5.6.9",
-    "express": "^4.18.1",
-    "express-validator": "^6.14.2",
     "file-saver": "^2.0.5",
     "framer-motion": "^6.3.12",
-    "get-eth-price": "^1.0.0",
-    "grapesjs": "^0.19.4",
-    "grapesjs-preset-webpage": "^0.1.11",
     "html-react-parser": "^2.0.0",
-    "jsonwebtoken": "^8.5.1",
     "jszip": "^3.10.0",
     "jwt-decode": "^3.1.2",
     "lzutf8": "^0.6.2",
-    "mongoose": "^6.4.0",
     "next": "^12.1.6",
     "posthog-js": "^1.24.0",
     "react": "18.2.0",
@@ -50,13 +40,10 @@
     "react-use": "^17.4.0",
     "react-window": "^1.8.7",
     "sass": "^1.52.3",
-    "stripe": "^9.9.0",
-    "uniqid": "^5.4.0",
     "web3": "^1.7.4"
   },
   "devDependencies": {
     "eslint": "8.18.0",
-    "eslint-config-next": "12.1.6",
-    "nodemon": "^2.0.16"
+    "eslint-config-next": "12.1.6"
   }
 }
