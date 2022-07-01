@@ -5,7 +5,7 @@ import ImageStorage from './ImageStorage'
 import AddKey from './AddKey'
 import RemoveKey from './RemoveKey'
 
-const Utils = () => {
+const Utilities = () => {
     const { utilsTab, setUtilsTab } = useGenerator();
 
     const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
@@ -50,4 +50,4 @@ const Utils = () => {
     )
 }
 
-export default Utils
+export default Utilities

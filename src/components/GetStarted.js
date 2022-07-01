@@ -1,15 +1,9 @@
 import NextLink from 'next/link'
-import { Flex, Wrap, Button, Text, Image, useColorModeValue, 
-    VStack, HStack, Link, Tag, TagLeftIcon, Box
-} from '@chakra-ui/react'
+import { Flex, Wrap, Button, Text, useColorModeValue, VStack, HStack, Link, Tag, Box } from '@chakra-ui/react'
 import { useGetStarted } from '@/hooks/useGetStarted'
-import { GiCutDiamond } from 'react-icons/gi'
-import { MdOutlineMiscellaneousServices } from 'react-icons/md'
-import { CgWebsite } from 'react-icons/cg'
 import { AiOutlineRight } from 'react-icons/ai'
 import { FiExternalLink } from 'react-icons/fi'
 import { getStartedServicesArr } from '@/utils/json'
-import config from '@/config/index'
 
 const GetStarted = () => {
     const { featuredWebsites } = useGetStarted();

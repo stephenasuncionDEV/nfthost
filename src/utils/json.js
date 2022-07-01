@@ -80,8 +80,14 @@ export const sidebarArr = [
                 icon: <MdOutlineMiscellaneousServices />, 
                 children: [
                     { name: 'Metadata', link: '/generator/metadata' },
-                    { name: 'Utils', link: '/generator/utils' }
                 ],
+                isExternal: false
+            },
+            { 
+                name: 'Utilities', 
+                link: '/utilities', 
+                icon: <FaTools />, 
+                children: [],
                 isExternal: false
             },
             { 
@@ -95,7 +101,7 @@ export const sidebarArr = [
                     { name: 'Analytics', link: '/website/analytics' }
                 ],
                 isExternal: false
-            }
+            },
         ]
     },
     { 

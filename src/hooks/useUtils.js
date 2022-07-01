@@ -131,7 +131,7 @@ export const useUtils = () => {
                     price: 5,
                     product: `Add ${Object.keys(newKey)[0]} Key on Metadata`,
                     redirect: {
-                        origin: '/dashboard/generator/utils',
+                        origin: '/dashboard/utilities',
                         title: 'Utils'
                     },
                     data: {
@@ -204,7 +204,7 @@ export const useUtils = () => {
                     price: 5,
                     product: `Remove ${selectedRemoveKey} Key on Metadata`,
                     redirect: {
-                        origin: '/dashboard/generator/utils',
+                        origin: '/dashboard/utilities',
                         title: 'Utils'
                     },
                     data: {
