@@ -47,7 +47,7 @@ const GetStarted = () => {
                                 </Tag>
                             </HStack>
                             <NextLink href={service.link} passHref shallow>
-                                <Button variant='primary' rightIcon={<AiOutlineRight />} maxW='140px' w='full' justifyContent='space-evenly'>
+                                <Button variant='primary' rightIcon={<AiOutlineRight />} maxW='140px' w='full' justifyContent='space-evenly' size='sm'>
                                     {service.buttonText}
                                 </Button>
                             </NextLink>
