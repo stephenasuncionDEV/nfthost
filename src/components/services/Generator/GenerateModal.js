@@ -64,7 +64,7 @@ const GenerateModal = () => {
                                 Auto Download
                             </Text>
                             <Text textAlign='left' fontSize='10pt'>
-                                Collection size greater than 100 will auto download every 1000th render index.
+                                Collection size greater than 100 will auto download every 1000 render index. It will download all the images first and then you can download the metadata at the end.
                             </Text>
                             <HStack w='full'>
                                 <Progress flex='1' hasStripe value={autoSavePercentage} colorScheme='red' />

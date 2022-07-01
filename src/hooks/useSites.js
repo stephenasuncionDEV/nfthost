@@ -103,8 +103,8 @@ export const useSites = () => {
             if (!newComponentImage.length) errorsObj.image = { status: true, message: 'Logo Image Link field must be filled in' };
             if (newComponentImage.match(/\.(jpeg|jpg|gif|png|bmp|svg|webp)$/) == null) errorsObj.image = { status: true, message: 'Logo Image Link field must be an image file' };
             if (newMetaFavicon.match(/\.(jpeg|jpg|gif|png|bmp|svg|webp|ico)$/) == null) errorsObj.favicon = { status: true, message: 'Favicon Link field must be an image file' };
-            const response_key = recaptchaRef.current.getValue();
-            if (!response_key.length) throw new Error('Please verify that you are a human.'); 
+            // const response_key = recaptchaRef.current.getValue();
+            // if (!response_key.length) throw new Error('Please verify that you are a human.'); 
 
             const freeWebsiteCount = websites.filter((website) => !website.isPremium).length;
 
