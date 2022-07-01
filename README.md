@@ -14,7 +14,7 @@
 </p>
 
 <p align="center">
-    Create and Host your NFT collection in under a minute!
+    Create and Host your NFT collection in under a minute!. This repository is NFT Host's frontend.
 </p>
 
 ## Services
@@ -33,19 +33,17 @@
 
 ```
 npm i 
-npm run backend
 npm run dev
 ```
 
 ## Environment Variables
 
-| .env.local             |
-| ---------------------- |
-| CHAIN_ID               |
-| ENCRYPT_KEY            |
-| POSTHOG_KEY            |
-| CREATE_WEBSITE_TOKEN   |
-
+| .env.local           |
+| -------------------- |
+| CHAIN_ID             |
+| ENCRYPT_KEY          |
+| POSTHOG_KEY          |
+| CREATE_WEBSITE_TOKEN |
 
 ## Support
 
