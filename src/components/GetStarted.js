@@ -1,8 +1,9 @@
 import NextLink from 'next/link'
-import { Flex, Wrap, Button, Text, useColorModeValue, VStack, HStack, Link, Tag, Box } from '@chakra-ui/react'
+import { Flex, Wrap, Button, Text, useColorModeValue, VStack, HStack, Link, Tag, Box, Image } from '@chakra-ui/react'
 import { useGetStarted } from '@/hooks/useGetStarted'
 import { AiOutlineRight } from 'react-icons/ai'
 import { FiExternalLink } from 'react-icons/fi'
+import { GiCutDiamond } from 'react-icons/gi'
 import { getStartedServicesArr } from '@/utils/json'
 import config from '@/config/index'
 
@@ -141,7 +142,7 @@ const GetStarted = () => {
             </Text>
             <Wrap spacing='1em' mt='2em'>
                 {featuredWebsites?.map((website, idx) => (
-                    <Link href={`${config?.frontendUrl}/${website.custom?.alias.length > 0 ? website.custom?.alias : website._id}`} isExternal key={idx} style={{ textDecoration: 'none' }}>
+                    <Link href={`${config?.frontendUrl}/${website.custom?.alias.length > 0 ? website.custom?.alias : website._id}`} isExternal key={idx} style={{ textDecoration: 'none' }} position='relative'>
                         <Button 
                             opacity='0.3'
                             w='250px' 
@@ -151,9 +152,13 @@ const GetStarted = () => {
                             _hover={{
                                 opacity: 1
                             }}
+                            leftIcon={website.isPremium ? <GiCutDiamond color='blue.500' /> : null}
                         >
                             {website.components.title}
                         </Button>
+                        <Box position='absolute' top='0' pointerEvents='none'>
+                            <Image src={website.isPremium ? '/assets/featured-premium.png' : '/assets/featured-free.png'} alt='Featured Website' />
+                        </Box>
                     </Link>
                 ))}
             </Wrap>
