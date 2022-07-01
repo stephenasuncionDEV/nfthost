@@ -2,7 +2,7 @@ import { Box, HStack, Text, Flex, Button,
     Input, Textarea, NumberInput, NumberInputField, 
     NumberInputStepper, NumberIncrementStepper, 
     NumberDecrementStepper, FormControl, Tag, TagCloseButton, 
-    FormHelperText, useColorModeValue, Wrap, Checkbox, VStack
+    FormHelperText, useColorModeValue
 } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { useMetadata } from '@/hooks/useMetadata'

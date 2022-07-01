@@ -41,7 +41,7 @@ const Partners = () => {
                     </Wrap>
                 </Link>
             ))}
-            <Link href='mailto: stephenasuncion01@gmail.com' style={{ textDecoration: 'none' }} w='full' maxW='340px' h='120px'>
+            <Link href='mailto: nfthost@outlook.com' style={{ textDecoration: 'none' }} w='full' maxW='340px' h='120px'>
                 <Flex 
                     as={Button}
                     variant='unstyled'
