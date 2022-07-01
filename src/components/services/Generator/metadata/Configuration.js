@@ -6,6 +6,7 @@ import { Box, HStack, Text, Flex, Button,
 } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { useMetadata } from '@/hooks/useMetadata'
+import { IoMdAdd } from 'react-icons/io'
 
 const Configuration = () => {
     const { 
@@ -39,6 +40,7 @@ const Configuration = () => {
     const { AddCreator, DeleteCreator } = useMetadata();
 
     const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
+    const componentColor = useColorModeValue('rgba(0,0,0,0.1)', 'rgba(0,0,0,0.5)');
 
     const isDisplay = (component) => standardType?.components?.includes(component);
 
@@ -156,55 +158,53 @@ const Configuration = () => {
                 </FormControl>
             )}
             {isDisplay('creators') && (
-                <Box mt='1em'>
+                <Box mt='1em' w='full'>
                     <HStack w='full' alignItems='flex-start'>
-                        <FormControl>
+                        <FormControl flex='1'>
                             <Input 
                                 id='collectionCreatorAddress' 
                                 placeholder='Creator Wallet Address'
                                 value={creatorAddress} 
                                 onChange={(e) => setCreatorAddress(e.target.value)} 
-                                flex='1'
                             />
                             <FormHelperText fontSize='9pt'>Wallet Address of a Creator</FormHelperText>
                         </FormControl>
-                        <HStack alignItems='flex-start'>
-                            <FormControl>
-                                <NumberInput id='collectionCreatorShare' min={1} max={100} w='100px' value={creatorShare} onChange={setCreatorShare}>
-                                    <NumberInputField />
-                                    <NumberInputStepper>
-                                        <NumberIncrementStepper />
-                                        <NumberDecrementStepper />
-                                    </NumberInputStepper>
-                                </NumberInput>
-                                <FormHelperText fontSize='9pt'>Share Percentage</FormHelperText>
-                            </FormControl>
-                            <Text>
-                                %
-                            </Text>
-                        </HStack>
-                        <Button w='80px' onClick={AddCreator} variant='primary'>
+                        <FormControl flex='1' maxW='100px'>
+                            <NumberInput id='collectionCreatorShare' min={1} max={100} w='100px' value={creatorShare} onChange={setCreatorShare}>
+                                <NumberInputField />
+                                <NumberInputStepper>
+                                    <NumberIncrementStepper />
+                                    <NumberDecrementStepper />
+                                </NumberInputStepper>
+                            </NumberInput>
+                            <FormHelperText fontSize='9pt'>Share Percentage</FormHelperText>
+                        </FormControl>
+                        <Button w='80px' onClick={AddCreator} variant='primary' rightIcon={<IoMdAdd />}>
                             Add
                         </Button>
                     </HStack>
-                    <Text fontSize='10pt' mt='1em'>
-                        Creators:
-                    </Text>
-                    <Flex flexDir='column' justifyContent='center' w='full'>
-                        {creators?.map((creator, idx) => (
-                            <Tag key={idx} mb='.5em' justifyContent='space-between'>
-                                <HStack justifyContent='space-between' w='full'>
-                                    <Text noOfLines='1'>
-                                        Address: {creator.address}
-                                    </Text>
-                                    <Text>
-                                        Share: {creator.share}%
-                                    </Text>
-                                </HStack>
-                                <TagCloseButton onClick={() => DeleteCreator(idx)}/>
-                            </Tag>
-                        ))}
-                    </Flex>
+                    {creators?.length > 0 && (
+                        <Box py='.5em' px='1em' bg={componentColor} mt='1em' borderRadius='10px'>
+                            <Text fontSize='10pt' mt='1em'>
+                                Creator List
+                            </Text>
+                            <Flex flexDir='column' justifyContent='center' w='full' mt='.5em'>
+                                {creators?.map((creator, idx) => (
+                                    <Tag key={idx} mb='.5em' justifyContent='space-between'>
+                                        <HStack justifyContent='space-between' w='full'>
+                                            <Text noOfLines='1'>
+                                                Address: {creator.address}
+                                            </Text>
+                                            <Text>
+                                                Share: {creator.share}%
+                                            </Text>
+                                        </HStack>
+                                        <TagCloseButton onClick={() => DeleteCreator(idx)}/>
+                                    </Tag>
+                                ))}
+                            </Flex>
+                        </Box>
+                    )}
                 </Box>
             )}
         </Flex>
