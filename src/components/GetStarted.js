@@ -6,7 +6,7 @@ import { FiExternalLink } from 'react-icons/fi'
 import { getStartedServicesArr } from '@/utils/json'
 
 const GetStarted = () => {
-    const { featuredWebsites } = useGetStarted();
+    //const { featuredWebsites } = useGetStarted();
 
     const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
     const buttonColor = useColorModeValue('blackAlpha.100', 'whiteAlpha.100');

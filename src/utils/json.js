@@ -226,6 +226,6 @@ export const getStartedServicesArr = [
         name: 'Metadata Utilities', 
         icon: <FaTools fontSize='32pt' />, 
         buttonText: 'Modify',
-        link: '/dashboard/generator/utils'
+        link: '/dashboard/utilities'
     }
 ]
