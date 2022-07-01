@@ -4,12 +4,12 @@ import { useGetStarted } from '@/hooks/useGetStarted'
 import { AiOutlineRight } from 'react-icons/ai'
 import { FiExternalLink } from 'react-icons/fi'
 import { getStartedServicesArr } from '@/utils/json'
+import config from '@/config/index'
 
 const GetStarted = () => {
-    //const { featuredWebsites } = useGetStarted();
+    const { featuredWebsites } = useGetStarted();
 
     const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
-    const buttonColor = useColorModeValue('blackAlpha.100', 'whiteAlpha.100');
 
     return (
         <Flex flexDir='column' flex='1'>
@@ -119,8 +119,8 @@ const GetStarted = () => {
                     </VStack>
                 </VStack>
             </Wrap>
-            <Flex flexDir='column' mt='2em'>
-                <Text fontWeight='bold' fontSize='26pt'>
+            <Flex flexDir='column' mt='3em'>
+                <Text fontWeight='bold' fontSize='22pt'>
                     Support Us
                 </Text>
                 <Text fontSize='10pt'>
@@ -133,6 +133,30 @@ const GetStarted = () => {
                     <a href="https://www.producthunt.com/posts/nft-host?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-nft&#0045;host" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=326763&theme=dark" alt="NFT&#0032;Host - Generate&#0032;and&#0032;Host&#0032;your&#0032;NFT&#0032;Collection&#0032;in&#0032;under&#0032;10&#0032;minutes | Product Hunt" style={{width: '235px', height: '50px'}} width="235" height="50" /></a>
                 </Box>
             </Flex>
+            <Text fontWeight='bold' fontSize='22pt' mt='2em'>
+                Featured Websites
+            </Text>
+            <Text fontSize='10pt'>
+                Mint websites created by NFTHost users.
+            </Text>
+            <Wrap spacing='1em' mt='2em'>
+                {featuredWebsites?.map((website, idx) => (
+                    <Link href={`${config?.frontendUrl}/${website.custom.alias.length > 0 ? website.custom.alias : website._id}`} isExternal key={idx} style={{ textDecoration: 'none' }}>
+                        <Button 
+                            opacity='0.3'
+                            w='250px' 
+                            h='60px' 
+                            bgImage={website.components.unrevealedImage} 
+                            backgroundPosition='center'
+                            _hover={{
+                                opacity: 1
+                            }}
+                        >
+                            {website.components.title}
+                        </Button>
+                    </Link>
+                ))}
+            </Wrap>
         </Flex>
     )
 }
