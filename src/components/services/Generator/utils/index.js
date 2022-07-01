@@ -2,6 +2,7 @@ import { Flex, Button, VStack, useColorModeValue, HStack } from '@chakra-ui/reac
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { utilsMenuArr } from '@/utils/json'
 import ImageStorage from './ImageStorage'
+import AddKey from './AddKey'
 import RemoveKey from './RemoveKey'
 
 const Utils = () => {
@@ -41,6 +42,7 @@ const Utils = () => {
             >
                 {{
                     image: <ImageStorage />,
+                    add: <AddKey />,
                     remove: <RemoveKey />
                 }[utilsTab]}
             </Flex>

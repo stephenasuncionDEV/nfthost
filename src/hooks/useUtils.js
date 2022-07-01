@@ -19,6 +19,7 @@ export const useUtils = () => {
     const { getUserByAddress, DeductFree } = useWeb3();
     const { jsonFiles, setJsonFiles } = useGenerator();
     const [newImageStorage, setNewImageStorage] = useState('');
+    const [newKey, setNewKey] = useState({});
     const [selectedRemoveKey, setSelectedRemoveKey] = useState('');
     const [isDownloading, setIsDownloading] = useState(false);
 
@@ -100,6 +101,80 @@ export const useUtils = () => {
 
             posthog.capture('User updated image storage');
 
+        }
+        catch (err) {
+            setIsDownloading(false);
+            console.error(err);
+            toast({
+                title: 'Error',
+                description: err.message,
+                status: 'error',
+                isClosable: true,
+                position: 'bottom-center'
+            })
+        }
+    }
+
+    const DownloadAddKey = async () => {
+        try {
+            if (!jsonFiles) throw new Error('Drag and drop your metadata folder first');
+            if (!newKey) throw new Error('Input a new key first')
+            // if (Object.keys(newKey)[0].toLowerCase() === 'compiler') throw new Error('Cannot modify compiler key');
+
+            const user = await getUserByAddress(address);
+
+            const freeUtil = user.services.utils.freeUtil;
+
+            if (freeUtil <= 0 || !freeUtil) {
+                setPaymentData({
+                    service: 'Utils',
+                    price: 5,
+                    product: `Add ${Object.keys(newKey)[0]} Key on Metadata`,
+                    redirect: {
+                        origin: '/dashboard/generator/utils',
+                        title: 'Utils'
+                    },
+                    data: {
+                        size: 1
+                    },
+                    due: new Date()
+                })
+                router.push('/payment', undefined, { shallow: true }); 
+                return;
+            }
+            else if (freeUtil > 0) {
+                const DECREMENT_VALUE = 1;
+                await DeductFree(DECREMENT_VALUE, 'utils');
+            }
+
+            setIsDownloading(true);
+
+            zip.remove('Metadata');
+
+            jsonFiles.forEach((json) => {
+                if (!Array.isArray(json)) { // Json Files
+                    const nftNumber = json.image.slice(json.image.charAt(0) === '/' ? 1 : 0, json.image.indexOf('.'));
+                    let newJson = { ...json, ...newKey };    
+                    zip.folder("Metadata").file(`${nftNumber}.json`, JSON.stringify(newJson, null, 2));
+                }
+                else { // Metadata
+                    const newMetadata = json.map((jsonData) => {
+                        let newJsonData = { ...jsonData, ...newKey };
+                        return newJsonData
+                    })
+                    zip.folder("Metadata").file('metadata.json', JSON.stringify(newMetadata, null, 2));
+                }
+            })
+
+            const content = await zip.generateAsync({
+				type: "blob",
+				streamFiles: true
+			})
+
+			saveAs(content, "NFTHost Updated Metadata.zip");
+            setIsDownloading(false);
+
+            posthog.capture('User added metadata key', { key: Object.keys(newKey)[0] });
         }
         catch (err) {
             setIsDownloading(false);
@@ -199,6 +274,9 @@ export const useUtils = () => {
         setJsonFiles,
         DownloadRemoveKey,
         selectedRemoveKey,
-        setSelectedRemoveKey
+        setSelectedRemoveKey,
+        newKey,
+        setNewKey,
+        DownloadAddKey
     }
 }

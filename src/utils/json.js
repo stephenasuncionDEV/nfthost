@@ -2,7 +2,7 @@ import { CgWebsite, CgRemove } from 'react-icons/cg'
 import { BiSupport } from 'react-icons/bi'
 import { VscOrganization } from 'react-icons/vsc'
 import { MdOutlineDashboard, MdOutlineMiscellaneousServices, MdPayment } from 'react-icons/md'
-import { AiOutlineTeam } from 'react-icons/ai'
+import { AiOutlineTeam, AiOutlinePlus } from 'react-icons/ai'
 import { SiIpfs } from 'react-icons/si'
 import { FaTools } from 'react-icons/fa'
 
@@ -199,6 +199,7 @@ export const metadataStandardsArr = [
 
 export const utilsMenuArr = [
     { title: 'Update Image Storage', icon: <SiIpfs />, key: 'image' },
+    { title: 'Add Metadata Key', icon: <AiOutlinePlus />, key: 'add' },
     { title: 'Remove Metadata Key', icon: <CgRemove />, key: 'remove' }
 ]
 
