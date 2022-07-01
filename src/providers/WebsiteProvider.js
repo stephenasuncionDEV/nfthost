@@ -35,6 +35,7 @@ export const WebsiteProvider = ({ children }) => {
     const [newAlias, setNewAlias] = useState('');
     const [newDomain, setNewDomain] = useState('');
     const editWebsiteFormRef = useRef();
+    const recaptchaRef = useRef();
 
     const controllers = {
         userWebsite,
@@ -97,7 +98,8 @@ export const WebsiteProvider = ({ children }) => {
         isChangingAlias,
         setIsChangingAlias,
         isChangingDomain,
-        setIsChangingDomain
+        setIsChangingDomain,
+        recaptchaRef
     }
 
     return (

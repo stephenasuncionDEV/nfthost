@@ -43,7 +43,9 @@ npm run dev
 | CHAIN_ID             |
 | ENCRYPT_KEY          |
 | POSTHOG_KEY          |
+| RECAPTCHA_KEY        |
 | CREATE_WEBSITE_TOKEN |
+| INFURA_ID |
 
 ## Support
 

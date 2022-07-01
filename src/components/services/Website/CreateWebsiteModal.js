@@ -2,7 +2,7 @@ import { HStack, Text, Button, Flex, VStack,
     Input, FormControl, Radio, RadioGroup,
     Textarea, FormHelperText, FormErrorMessage, Divider,
     Select, Wrap, Modal, ModalOverlay, ModalContent, ModalHeader, 
-    ModalFooter, ModalBody, ModalCloseButton
+    ModalFooter, ModalBody, ModalCloseButton, Box
 } from '@chakra-ui/react'
 import { GiCutDiamond } from 'react-icons/gi'
 import { useWebsite } from '@/providers/WebsiteProvider'
@@ -37,7 +37,7 @@ const CreateWebsiteModal = () => {
         createWebsiteStep,
         setCreateWebsiteStep
     } = useWebsite();
-    const { CreateWebsite, clearFields } = useSites();
+    const { CreateWebsite } = useSites();
 
     return (
         <Modal isOpen={isCreateWebsiteModal} onClose={() => setIsCreateWebsiteModal(false)} isCentered size='3xl'>
@@ -240,7 +240,7 @@ const CreateWebsiteModal = () => {
                                 size='sm'
                             >
                                 Create
-                            </Button>
+                            </Button>              
                         </HStack>
                     )}
                 </ModalFooter>
