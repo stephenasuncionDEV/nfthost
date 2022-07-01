@@ -159,6 +159,46 @@ const Main = () => {
                             </Flex>
                         </Wrap>
                     </SlideFade>
+                    <SlideFade in={true} offsetY='20px' delay={1.5}>
+                        <Wrap direction='row' spacing='4em' justifyContent='space-between' mt='20em'>
+                            <Flex flexDir='column' maxW='550px'>
+                                <Text variant='content_intro'>
+                                    Modify metadata files at ease
+                                </Text>
+                                <Text variant='content_title' mt='0.25rem'>
+                                    Metadata Files
+                                </Text>
+                                <Text variant='content_title' mt='0.25rem'>
+                                    Utilities
+                                </Text>
+                                <HStack mt='.5rem' opacity='0.5'>
+                                    <Text fontSize='10pt'>
+                                        Price:
+                                    </Text>
+                                    <Tag>Free or $5</Tag>
+                                    <Text fontSize='10pt'>
+                                        USD per util
+                                    </Text>
+                                </HStack>
+                                <Text variant='content_description' mt='1.25rem'>
+                                    Have the ability to modify your metadata/json files after generation. Features including modifying image key or removing a metadata key on json metadata files.
+                                </Text>
+                                <NextLink href='/dashboard/getStarted' shallow passHref>
+                                    <Button w='200px' mt='1em' rightIcon={<AiOutlineArrowRight />}>
+                                        Modify Metadata
+                                    </Button>
+                                </NextLink>
+                            </Flex>
+                            <VStack>
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/ITEEI2aBfRc" title="Generate YOUR OWN NFT Collection | NFT Host" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                                <Link href='https://www.youtube.com/watch?v=ITEEI2aBfRc' isExternal>
+                                    <Text color={srcColor} fontSize='9pt' fontStyle='italic'>
+                                        source: https://www.youtube.com/watch?v=ITEEI2aBfRc
+                                    </Text>
+                                </Link>
+                            </VStack>
+                        </Wrap>
+                    </SlideFade>
                 </Flex>
             </Flex>
             <MainFooter />

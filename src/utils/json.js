@@ -4,6 +4,7 @@ import { VscOrganization } from 'react-icons/vsc'
 import { MdOutlineDashboard, MdOutlineMiscellaneousServices, MdPayment } from 'react-icons/md'
 import { AiOutlineTeam } from 'react-icons/ai'
 import { SiIpfs } from 'react-icons/si'
+import { FaTools } from 'react-icons/fa'
 
 export const TemplatesArr = [
     { key: 'Template1', sub: 'free', creator: 'NFTHost' },
@@ -213,5 +214,11 @@ export const getStartedServicesArr = [
         icon: <CgWebsite fontSize='32pt' />, 
         buttonText: 'Create',
         link: '/dashboard/website'
+    },
+    { 
+        name: 'Metadata Utilities', 
+        icon: <FaTools fontSize='32pt' />, 
+        buttonText: 'Modify',
+        link: '/dashboard/generator/utils'
     }
 ]
