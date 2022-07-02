@@ -2,15 +2,18 @@ import { HStack, Text, Button, Flex, VStack,
     Input, FormControl, Radio, RadioGroup,
     Textarea, FormHelperText, FormErrorMessage, Divider,
     Select, Wrap, Modal, ModalOverlay, ModalContent, ModalHeader, 
-    ModalFooter, ModalBody, ModalCloseButton, Box
+    ModalFooter, ModalBody, ModalCloseButton, Box, useToast
 } from '@chakra-ui/react'
 import { GiCutDiamond } from 'react-icons/gi'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useSites } from '@/hooks/useSites'
 import { MdOutlineAdd } from 'react-icons/md'
 import { AiOutlineArrowRight, AiOutlineArrowLeft } from 'react-icons/ai'
+import ReCAPTCHA from 'react-google-recaptcha'
+import config from '@/config/index'
 
 const CreateWebsiteModal = () => {
+    const toast = useToast();
     const {
         newSubcription,
         setNewSubscription,
@@ -35,9 +38,27 @@ const CreateWebsiteModal = () => {
         isCreateWebsiteModal,
         setIsCreateWebsiteModal,
         createWebsiteStep,
-        setCreateWebsiteStep
+        setCreateWebsiteStep,
+        recaptchaRef
     } = useWebsite();
     const { CreateWebsite } = useSites();
+
+    const OnCreateWebsite = async () => {
+        try {
+            if (!recaptchaRef.current.getValue().length) throw new Error('Please verify that you are a human.');
+            await CreateWebsite();
+        }
+        catch (err) {
+            toast({
+                title: 'Error',
+                description: err.message,
+                status: 'error',
+                duration: 3000,
+                isClosable: true,
+                position: 'bottom-center'
+            })
+        }
+    }
 
     return (
         <Modal isOpen={isCreateWebsiteModal} onClose={() => setIsCreateWebsiteModal(false)} isCentered size='3xl'>
@@ -232,15 +253,47 @@ const CreateWebsiteModal = () => {
                             <Button size='sm' leftIcon={<AiOutlineArrowLeft />} onClick={() => setCreateWebsiteStep('information')}>
                                 Previous
                             </Button>
-                            <Button 
-                                rightIcon={<MdOutlineAdd />} 
-                                onClick={CreateWebsite} 
-                                disabled={isCreating} 
-                                variant='primary'
-                                size='sm'
-                            >
-                                Create
-                            </Button>              
+                            <HStack>
+                                <Box>
+                                    <ReCAPTCHA 
+                                        ref={recaptchaRef} 
+                                        sitekey={config?.recaptcha?.siteKey}
+                                        onExpired={() => {
+                                            toast({
+                                                title: 'Error',
+                                                description: 'ReCaptcha has expired',
+                                                status: 'error',
+                                                duration: 3000,
+                                                isClosable: true,
+                                                position: 'bottom-center'
+                                            })
+                                        }}
+                                        onErrored={() => {
+                                            toast({
+                                                title: 'Error',
+                                                description: 'ReCaptcha Network Issue',
+                                                status: 'error',
+                                                duration: 3000,
+                                                isClosable: true,
+                                                position: 'bottom-center'
+                                            })
+                                        }}
+                                        style={{
+                                            transform: 'scale(0.77)',
+                                            transforOrigin: '0 0'
+                                        }}
+                                    />
+                                </Box>
+                                <Button 
+                                    rightIcon={<MdOutlineAdd />} 
+                                    onClick={OnCreateWebsite} 
+                                    disabled={isCreating} 
+                                    variant='primary'
+                                    size='sm'
+                                >
+                                    Create
+                                </Button>
+                            </HStack>    
                         </HStack>
                     )}
                 </ModalFooter>
