@@ -127,7 +127,7 @@ export const useSites = () => {
 
             if (!member) throw new Error('Cannot fetch member');
 
-            if (newSubcription === 'premium' && member.services.website.freeWebsite === 0) {
+            if (newSubcription === 'premium' && member.services.website.freeWebsite <= 0) {
                 setPaymentData({
                     service: 'Website',
                     price: 15,

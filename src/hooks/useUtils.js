@@ -262,6 +262,78 @@ export const useUtils = () => {
                 position: 'bottom-center'
             })
         }
+        try {
+            if (!jsonFiles) throw new Error('Drag and drop your metadata folder first');
+            if (!selectedRemoveKey.length) throw new Error('Select a metadata key to remove first')
+
+            const user = await getUserByAddress(address);
+
+            const freeUtil = user.services.utils.freeUtil;
+
+            if (freeUtil <= 0 || !freeUtil) {
+                setPaymentData({
+                    service: 'Utils',
+                    price: 5,
+                    product: `Remove ${selectedRemoveKey} Key on Metadata`,
+                    redirect: {
+                        origin: '/dashboard/utilities',
+                        title: 'Utils'
+                    },
+                    data: {
+                        size: 1
+                    },
+                    due: new Date()
+                })
+                router.push('/payment', undefined, { shallow: true }); 
+                return;
+            }
+            else if (freeUtil > 0) {
+                const DECREMENT_VALUE = 1;
+                await DeductFree(DECREMENT_VALUE, 'utils');
+            }
+
+            setIsDownloading(true);
+
+            zip.remove('Metadata');
+
+            jsonFiles.forEach((json) => {
+                if (!Array.isArray(json)) { // Json Files
+                    const nftNumber = json.image.slice(json.image.charAt(0) === '/' ? 1 : 0, json.image.indexOf('.'));
+                    let newJson = { ...json };
+                    delete newJson[selectedRemoveKey]
+                    zip.folder("Metadata").file(`${nftNumber}.json`, JSON.stringify(newJson, null, 2));
+                }
+                else { // Metadata
+                    const newMetadata = json.map((jsonData) => {
+                        let newJsonData = { ...jsonData };
+                        delete newJsonData[selectedRemoveKey]
+                        return newJsonData
+                    })
+                    zip.folder("Metadata").file('metadata.json', JSON.stringify(newMetadata, null, 2));
+                }
+            })
+
+            const content = await zip.generateAsync({
+				type: "blob",
+				streamFiles: true
+			})
+
+			saveAs(content, "NFTHost Updated Metadata.zip");
+            setIsDownloading(false);
+
+            posthog.capture('User removed metadata key', { key: selectedRemoveKey });
+        }
+        catch (err) {
+            setIsDownloading(false);
+            console.error(err);
+            toast({
+                title: 'Error',
+                description: err.message,
+                status: 'error',
+                isClosable: true,
+                position: 'bottom-center'
+            })
+        }
     }
 
     return {
