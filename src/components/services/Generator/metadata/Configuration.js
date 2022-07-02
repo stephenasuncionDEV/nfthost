@@ -124,7 +124,7 @@ const Configuration = () => {
             {isDisplay('image') && (
                 <FormControl mt='1em'>
                     <Input id='collectionUrl' placeholder='Image Storage URL' w='full' value={storageURL} onChange={(e) => setStorageURL(e.target.value)}/>
-                    <FormHelperText fontSize='9pt'>This is the External URL to the image of the item. Can be just about any type of image (including SVGs, which will be cached into PNGs by OpenSea), and can be IPFS URLs or paths. We recommend using a 350 x 350 image.</FormHelperText>
+                    <FormHelperText fontSize='9pt'>This is the External URL to the image of the item. Can be just about any type of image, and can be IPFS URLs or paths. This could be left blank because most contract deployers update the image key automatically when uploading your metadata to ipfs.</FormHelperText>
                 </FormControl>
             )}
             {isDisplay('external_url') && (
