@@ -21,7 +21,7 @@ const ImageStorage = () => {
                 Update Image Storage
             </Text>
             <Text fontSize='10pt'>
-                Update the image key on your metadata. 
+                Update the image key on your metadata/json files.
             </Text>
             <JsonDropbox mt='1em' />
             {jsonFiles && (

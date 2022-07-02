@@ -18,10 +18,10 @@ const AddKey = () => {
     return (
         <Flex flexDir='column' w='full'>
             <Text fontWeight='bold' fontSize='10pt'>
-                Add Metadata Key
+                Add/Edit Metadata Key
             </Text>
             <Text fontSize='10pt'>
-                Add a key on your metadata files.
+                Add or Edit a key on your metadata/json files.
             </Text>
             <JsonDropbox mt='1em' />
             {jsonFiles && (
