@@ -202,7 +202,7 @@ export const useWeb3 = () => {
 
                 const token = decryptToken(storageToken, true);
     
-                const res = await axios.patch(`${config.serverUrl}/api/member/addCount`, {
+                await axios.patch(`${config.serverUrl}/api/member/addCount`, {
                     address: userAddress,
                     service,
                     value
@@ -212,10 +212,8 @@ export const useWeb3 = () => {
                     }
                 })
 
-                if (res.status === 200) {
-                    await getUserByAddress(userAddress);
-                    resolve();
-                }
+                await getUserByAddress(userAddress);
+                resolve();
             }
             catch (err) {
                 reject(err);
@@ -251,10 +249,8 @@ export const useWeb3 = () => {
                     }
                 })
 
-                if (res.status === 200) {
-                    await getUserByAddress(userAddress);
-                    resolve();
-                }
+                await getUserByAddress(userAddress);
+                resolve();
             }
             catch (err) {
                 reject(err);
@@ -289,10 +285,8 @@ export const useWeb3 = () => {
                     }
                 })
 
-                if (res.status === 200) {
-                    await getUserByAddress(userAddress);
-                    resolve();
-                }
+                await getUserByAddress(userAddress);
+                resolve();
             }
             catch (err) {
                 reject(err);
@@ -317,7 +311,7 @@ export const useWeb3 = () => {
 
                 const token = decryptToken(storageToken, true);
     
-                const res = await axios.patch(`${config.serverUrl}/api/member/deductFree`, {
+                await axios.patch(`${config.serverUrl}/api/member/deductFree`, {
                     address: userAddress,
                     service,
                     value
@@ -327,10 +321,8 @@ export const useWeb3 = () => {
                     }
                 })
 
-                if (res.status === 200) {
-                    await getUserByAddress(userAddress);
-                    resolve();
-                }
+                await getUserByAddress(userAddress);
+                resolve();
             }
             catch (err) {
                 reject(err);
