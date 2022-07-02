@@ -51,6 +51,8 @@ export const useUserWebsite = (websiteData) => {
 
             if (!res.data) throw new Error('Invalid website Id');
 
+            console.log('[NFTHost] Website ID:', res.data._id);
+
             posthog.capture('Mint Website Visit', {
                 websiteId,
                 websiteTitle: res.data.components.title,

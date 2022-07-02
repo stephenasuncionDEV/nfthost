@@ -138,7 +138,7 @@ const GetStarted = () => {
                 Featured Websites
             </Text>
             <Text fontSize='10pt'>
-                Mint websites created by NFTHost users.
+                Top 5 Visited Mint Websites created with NFT Host. Not in particular order.
             </Text>
             <Wrap spacing='1em' mt='2em'>
                 {featuredWebsites?.map((website, idx) => (

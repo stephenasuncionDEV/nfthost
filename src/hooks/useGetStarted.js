@@ -19,11 +19,13 @@ export const useGetStarted = () => {
 
             const token = decryptToken(storageToken, true);
 
-            const res = await axios.get(`${config.serverUrl}/api/website/getFeatured`, {
+            const res = await axios.get(`${config.serverUrl}/api/core/getFeaturedWebsites`, {
                 headers: { 
                     Authorization: `Bearer ${token.accessToken}` 
                 }
             })
+
+            console.log(res)
 
             setFeaturedWebsites(res.data)
         }
