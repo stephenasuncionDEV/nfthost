@@ -8,7 +8,7 @@ import { useCurrentTemplate } from '@/hooks/useCurrentTemplate'
 import CurrentTemplate from './CurrentTemplate'
 import { GiCutDiamond } from 'react-icons/gi'
 import { MdSave, MdVerified } from 'react-icons/md'
-import { FaRedo } from 'react-icons/fa'
+import { FaRedo, FaEdit } from 'react-icons/fa'
 
 const Design = () => {
     const { 
@@ -59,10 +59,15 @@ const Design = () => {
                 </HStack>
                 <VStack mt='1em' alignItems='flex-start' w='full'>
                     <Wrap spacing='1em' w='full'>
-                        <CurrentTemplate />
-                        <VStack p='1em' flex='1' justifyContent='justify-between' spacing='2em'>
-                            <VStack w='full' spacing='1.5em' flex='1'>
-                                <VStack w='full'>
+                        <VStack maxW='300px' alignItems='center' flex='1'>
+                            <CurrentTemplate />
+                            <Button size='sm' variant='primary' leftIcon={<FaEdit />} mt='1em'>
+                                Edit Website Template
+                            </Button>
+                        </VStack>
+                        <VStack p='1em' flex='1' spacing='2em'>
+                            <VStack w='full' spacing='1.5em'>
+                                {/* <VStack w='full'>
                                     <HStack justifyContent='flex-start' w='full'>
                                         <Text fontSize='10pt' >
                                             Style
@@ -87,7 +92,7 @@ const Design = () => {
                                             {!newErrors?.bgImage?.status ? <FormHelperText fontSize='9pt'>Background image of your website</FormHelperText> : <FormErrorMessage fontSize='9pt'>{newErrors?.bgImage?.message}</FormErrorMessage>}
                                         </FormControl>
                                     </HStack>
-                                </VStack>
+                                </VStack> */}
                                 <VStack w='full'>
                                     <HStack justifyContent='flex-start' w='full'>
                                         <Text fontSize='10pt' >

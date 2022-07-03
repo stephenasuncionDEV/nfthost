@@ -25,7 +25,6 @@ const CurrentTemplate = () => {
             p='1.5em'
             bg={componentColor}
             borderRadius='10px'
-            w='290px'
             alignItems='flex-start'
             h='100%'
         >

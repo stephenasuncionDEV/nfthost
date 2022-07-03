@@ -39,7 +39,6 @@ const EditWebsite = () => {
 
     return (
         <VStack
-            id='website-list'
             spacing='1.5em'
             p='1em' 
             bg={containerColor}
@@ -120,11 +119,11 @@ const EditWebsite = () => {
                                         )}
                                     </Box>
                                 ) : (
-                                    <Box w='full'>
+                                    <VStack w='full'>
                                         <Text fontSize='8pt'>
                                             Expiration Date: <span style={{ color: 'rgb(52,140,212)' }}>{subscriptionEnd.toString()}</span>
                                         </Text>
-                                    </Box>
+                                    </VStack>
                                 )}
                             </VStack>
                             <VStack alignItems='flex-start' flex='1'>
