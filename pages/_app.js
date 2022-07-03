@@ -1,4 +1,5 @@
-import '../styles/globals.scss'
+import '@/styles/globals.scss'
+import '@/styles/grapesjs.scss'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { ChakraProvider } from '@chakra-ui/react'

@@ -1,11 +1,16 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useToast } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
+import { useCore } from '@/providers/CoreProvider'
 import grapesjs from 'grapesjs'
+import { useWeb3 } from './useWeb3'
 
 export const useWebsiteEditor = () => {
+    const { setIsAreYouSureModal, setAreYouSureData } = useCore();
     const { currentEditWebsite, setEditor } = useWebsite();
+    const { Logout } = useWeb3();
+    const [isSaving, setIsSaving] = useState(false);
     const toast = useToast();
     const router = useRouter();
     const { websiteId } = router.query;
@@ -115,7 +120,42 @@ export const useWebsiteEditor = () => {
 
     }, [currentEditWebsite])
 
+    const SaveAndPublish = async () => {
+        try {
+            setIsSaving(true);
+
+            setIsSaving(false);
+        }
+        catch (err) {
+            setIsSaving(false);
+            console.error(err);
+            if (err.response?.data?.isExpired) await Logout();
+            toast({
+                title: 'Error',
+                description: !err.response ? err.message : err.response.data?.message,
+                status: 'error',
+                duration: 3000,
+                isClosable: true,
+                position: 'bottom-center'
+            })
+        }
+    }
+
+    const ReturnToDashboard = () => {
+        setAreYouSureData({
+            item: 'draft',
+            action: 'Discard',
+            button: 'danger',
+            callback: () => {
+                router.push('/dashboard/website', undefined, { shallow: true });
+            }
+        })
+        setIsAreYouSureModal(true);
+    }
+
     return {
-        
+        SaveAndPublish,
+        isSaving,
+        ReturnToDashboard
     }
 }
