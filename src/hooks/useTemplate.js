@@ -7,9 +7,11 @@ import config from '@/config/index'
 import axios from 'axios'
 import posthog from 'posthog-js'
 import { decryptToken, ParseWebsiteData } from '@/utils/tools'
+import { useRouter } from 'next/router'
 
 export const useTemplate = () => {
     const toast = useToast();
+    const router = useRouter();
     const { Logout } = useUser();
     const { currentEditWebsite, setCurrentEditWebsite } = useWebsite();
     const { GetWebsites } = useSites();
@@ -193,9 +195,19 @@ export const useTemplate = () => {
         }
     }
 
+    const EditWebsiteTemplate = () => {
+        try {
+            router.push(`/editor/${currentEditWebsite._id}`, undefined, { shallow: true });
+        }
+        catch (err) {
+            console.error(err);
+        }
+    }
+
     return {
         ChooseTemplate,
         ChooseAddon,
-        RemoveAddon
+        RemoveAddon,
+        EditWebsiteTemplate
     }
 }

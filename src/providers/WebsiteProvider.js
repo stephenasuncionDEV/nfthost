@@ -34,10 +34,13 @@ export const WebsiteProvider = ({ children }) => {
     const [featuredWebsites, setFeaturedWebsites] = useState();
     const [newAlias, setNewAlias] = useState('');
     const [newDomain, setNewDomain] = useState('');
+    const [editor, setEditor] = useState();
     const editWebsiteFormRef = useRef();
     const recaptchaRef = useRef();
 
     const controllers = {
+        editor,
+        setEditor,
         userWebsite,
         setUserWebsite,
         websites,

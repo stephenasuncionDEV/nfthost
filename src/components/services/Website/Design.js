@@ -9,6 +9,7 @@ import CurrentTemplate from './CurrentTemplate'
 import { GiCutDiamond } from 'react-icons/gi'
 import { MdSave, MdVerified } from 'react-icons/md'
 import { FaRedo, FaEdit } from 'react-icons/fa'
+import { useTemplate } from '@/hooks/useTemplate'
 
 const Design = () => {
     const { 
@@ -23,6 +24,7 @@ const Design = () => {
     } = useWebsite();
     const { setIsAreYouSureModal, setAreYouSureData } = useCore();
     const { SaveStyle, ResetStyle } = useCurrentTemplate();
+    const { EditWebsiteTemplate } = useTemplate();
 
     const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
 
@@ -61,7 +63,7 @@ const Design = () => {
                     <Wrap spacing='1em' w='full'>
                         <VStack maxW='300px' alignItems='center' flex='1'>
                             <CurrentTemplate />
-                            <Button size='sm' variant='primary' leftIcon={<FaEdit />} mt='1em'>
+                            <Button size='sm' variant='primary' leftIcon={<FaEdit />} mt='1em' onClick={EditWebsiteTemplate}>
                                 Edit Website Template
                             </Button>
                         </VStack>
