@@ -4,6 +4,7 @@ import { useToast } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useCore } from '@/providers/CoreProvider'
 import grapesjs from 'grapesjs'
+import gjsPresetWebpage from 'grapesjs-preset-webpage'
 import { useWeb3 } from './useWeb3'
 
 export const useWebsiteEditor = () => {
@@ -21,10 +22,13 @@ export const useWebsiteEditor = () => {
         // Initialize GrapesJS
         const editor = grapesjs.init({
             container: "#editor",
-            // plugins: [gjsPresetWebpage],
-            // pluginOpts: {
-            //     gjsPresetWebpage: {},
-            // },
+            styleManager: { clearProperties: 1 },
+            plugins: [gjsPresetWebpage],
+            pluginOpts: {
+                [gjsPresetWebpage]: {
+                    
+                },
+            },
             autoload: false,
             autosave: true,
             blockManager: {
@@ -115,6 +119,14 @@ export const useWebsiteEditor = () => {
                 }
             }
         })
+
+        const desiredModels = editor.StyleManager.getSectors().models.filter((value, idx, self) => {
+            return idx === self.findIndex((t) => (
+                t.id === value.id && t.name === value.name
+            ))
+        });
+
+        editor.StyleManager.getSectors().models = desiredModels;
 
         setEditor(editor);
 
