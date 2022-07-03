@@ -38,9 +38,7 @@ const WebsiteEditor = () => {
                         </Button>
                     </HStack>
                 </HStack>
-                <Box flex='1'>
-                    <Box id='editor' style={{ height: '100%' }}></Box>
-                </Box>
+                <Box id='editor'></Box>
             </Flex>
         </>
     )
