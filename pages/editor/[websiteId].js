@@ -4,7 +4,6 @@ import { Text, Flex, VStack, useColorModeValue, Tag,
     Input, FormHelperText, FormErrorMessage, Button, Box,
     Image, Link, useColorMode
 } from '@chakra-ui/react'
-import 'grapesjs/dist/css/grapes.min.css'
 import grapesjs from 'grapesjs'
 import { MdSave } from 'react-icons/md'
 import { useWebsiteEditor } from '@/hooks/useWebsiteEditor'

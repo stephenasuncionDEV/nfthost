@@ -120,6 +120,8 @@ export const useWebsiteEditor = () => {
             }
         })
 
+        console.log(editor)
+
         const desiredModels = editor.StyleManager.getSectors().models.filter((value, idx, self) => {
             return idx === self.findIndex((t) => (
                 t.id === value.id && t.name === value.name
@@ -154,6 +156,10 @@ export const useWebsiteEditor = () => {
     }
 
     const ReturnToDashboard = () => {
+        if (!currentEditWebsite) {
+            router.push('/dashboard/website', undefined, { shallow: true });
+            return;
+        }
         setAreYouSureData({
             item: 'draft',
             action: 'Discard',
