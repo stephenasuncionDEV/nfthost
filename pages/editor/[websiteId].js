@@ -19,7 +19,7 @@ const WebsiteEditor = () => {
     const router = useRouter();
     const { 
         editor, 
-        SaveAndPublish, 
+        Publish, 
         isSaving, 
         ReturnToDashboard
     } = useWebsiteEditor();
@@ -47,8 +47,8 @@ const WebsiteEditor = () => {
                                     View Website
                                 </Button>
                             </Link>
-                            <Button size='sm' variant='primary' leftIcon={<MdSave />} onClick={SaveAndPublish} disabled={isSaving} isLoading={isSaving} loadingText='Saving'>
-                                Save &#38; Publish
+                            <Button size='sm' variant='primary' leftIcon={<MdSave />} onClick={Publish} disabled={isSaving} isLoading={isSaving} loadingText='Saving'>
+                                Publish
                             </Button>
                         </HStack>
                     </HStack>

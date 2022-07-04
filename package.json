@@ -25,6 +25,7 @@
     "file-saver": "^2.0.5",
     "framer-motion": "^6.3.12",
     "grapesjs": "^0.19.4",
+    "grapesjs-blocks-basic": "^0.1.8",
     "grapesjs-preset-webpage": "^0.1.11",
     "html-react-parser": "^2.0.0",
     "jszip": "^3.10.0",

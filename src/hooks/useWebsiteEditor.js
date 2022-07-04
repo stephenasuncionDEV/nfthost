@@ -5,15 +5,25 @@ import { useWebsite } from '@/providers/WebsiteProvider'
 import { useCore } from '@/providers/CoreProvider'
 import grapesjs from 'grapesjs'
 import gjsPresetWebpage from 'grapesjs-preset-webpage'
-import { useWeb3 } from './useWeb3'
+import gjsBlocksBasic from 'grapesjs-blocks-basic'
+import { useWeb3 } from '@/hooks/useWeb3'
+import { useEditorPlugins } from '@/hooks/useEditorPlugins'
+import { ParseWebsiteData, EncodeWebsiteData, decryptToken } from '@/utils/tools'
+import axios from 'axios'
+import config from '@/config/index'
 
 export const useWebsiteEditor = () => {
     const { setIsAreYouSureModal, setAreYouSureData } = useCore();
-    const { currentEditWebsite, setEditor, editor } = useWebsite();
+    const { currentEditWebsite, setEditor, editor, setCurrentEditWebsite } = useWebsite();
     const { Logout } = useWeb3();
     const [isSaving, setIsSaving] = useState(false);
     const toast = useToast();
     const router = useRouter();
+    const { 
+        getNFTHostComponents,
+        setDOMComponents,
+        setupDefaults
+    } = useEditorPlugins();
     const { websiteId } = router.query;
 
     const bodyColor = useColorModeValue('rgb(250,251,251)', 'rgb(18,22,30)');
@@ -25,128 +35,71 @@ export const useWebsiteEditor = () => {
         const editor = grapesjs.init({
             container: "#editor",
             styleManager: { clearProperties: 1 },
-            plugins: [
-                gjsPresetWebpage
-            ],
-            pluginOpts: {
-                gjsPresetWebpage: {}
-            },
             autoload: false,
             autosave: true,
-            blockManager: {
-                blocks: [
-                    {
-                        id: 'nfthost-image',
-                        label: "NFTHost Image",
-                        type: "image",
-                        category: "NFT Host",
-                        content: `<img data-gjs-type="nfthost-image" src="${currentEditWebsite?.components?.unrevealedImage}" alt="${currentEditWebsite?.components?.title}" />`,
-                        media: 'https://www.nfthost.app/assets/logo.svg'
-                    },
-                    {
-                        id: 'nfthost-title',
-                        label: "NFTHost Title",
-                        type: "text",
-                        category: "NFT Host",
-                        content: `<div data-gjs-type="nfthost-title" style="font-size:50px; font-family:'Lucida Sans Unicode'">${currentEditWebsite?.components?.title}</div>`,
-                        media: 'https://www.nfthost.app/assets/logo.svg'
-                    },
-                    {
-                        id: 'nfthost-description',
-                        label: "NFTHost Description",
-                        type: "text",
-                        category: "NFT Host",
-                        content: `<div data-gjs-type="nfthost-description" style="font-family:'Lucida Sans Unicode'">${currentEditWebsite?.components?.description}</div>`,
-                        media: 'https://www.nfthost.app/assets/logo.svg'
-                    },
-                    {
-                        id: 'nfthost-iframe',
-                        label: "Thirdweb Iframe",
-                        type: "iframe",
-                        category: "NFT Host",
-                        content: `<div data-gjs-type="nfthost-embed">${currentEditWebsite?.components?.embed}`,
-                        media: 'https://www.nfthost.app/assets/logo.svg'
-                    },
-                ]
+            plugins: [
+                gjsPresetWebpage,
+                setDOMComponents,
+                setupDefaults
+            ],
+            pluginsOpts: {
+                gjsPresetWebpage: {
+                    textCleanCanvas: 'Are you sure you want to clean the canvas?'
+                }
             },
-        })
-
-        // Add Custom Components
-        editor.DomComponents.addType("nfthost-iframe", {
-            model: {
-                defaults: {
-                    selectable: true,
-                    draggable: true,
-                    removable: true,
-                    activate: true,
-                    resizable: true,
-                    traits: []
-                }
+            blockManager: {
+                blocks: getNFTHostComponents()
             }
         })
 
-        editor.DomComponents.addType("nfthost-header", {
-            model: {
-                defaults: {
-                    selectable: true,
-                    draggable: true,
-                    removable: true,
-                    activate: true,
-                    traits: []
-                }
-            }
-        })
-
-        editor.DomComponents.addType("nfthost-description", {
-            model: {
-                defaults: {
-                    selectable: true,
-                    draggable: true,
-                    removable: true,
-                    activate: true,
-                    traits: []
-                }
-            }
-        })
-
-        editor.DomComponents.addType("nfthost-image", {
-            model: {
-                defaults: {
-                    selectable: true,
-                    draggable: true,
-                    removable: true,
-                    activate: true,
-                    resizable: true,
-                    traits: []
-                }
-            }
-        })
-
+        // Fix Sector Duplication
         const desiredModels = editor.StyleManager.getSectors().models.filter((value, idx, self) => {
             return idx === self.findIndex((t) => (
                 t.id === value.id && t.name === value.name
             ))
         });
-
         editor.StyleManager.getSectors().models = desiredModels;
 
         setEditor(editor);
 
     }, [currentEditWebsite])
 
-    useEffect(() => {
-        if (!editor) return;
-        editor.on('load', () => {
-            const body = editor.getWrapper();
-            body.set('style', { 'background-color': bodyColor });
-        })
-    }, [editor])
-
-    const SaveAndPublish = async () => {
+    const Publish = async () => {
         try {
             setIsSaving(true);
 
+            if (!currentEditWebsite.isPremium) throw new Error('You must upgrade your website to premium to use this feature');
+
+            const storageToken = localStorage.getItem('nfthost-user');
+            if (!storageToken) return;
+
+            const token = decryptToken(storageToken, true);
+
+            const encodedData = EncodeWebsiteData(JSON.stringify(editor.storeData()));
+
+            await axios.patch(`${config.serverUrl}/api/website/updateStyle`, {
+                websiteId: currentEditWebsite._id,
+                data: encodedData
+            }, {
+                headers: { 
+                    Authorization: `Bearer ${token.accessToken}` 
+                }
+            })
+
+            let newEditWebsite = { ...currentEditWebsite };
+            newEditWebsite.data = encodedData;
+            setCurrentEditWebsite(newEditWebsite);
+
             setIsSaving(false);
+
+            toast({
+                title: 'Success',
+                description: 'Successfuly published your mint website',
+                status: 'success',
+                duration: 3000,
+                isClosable: true,
+                position: 'bottom-center'
+            })
         }
         catch (err) {
             setIsSaving(false);
@@ -180,7 +133,7 @@ export const useWebsiteEditor = () => {
     }
 
     return {
-        SaveAndPublish,
+        Publish,
         isSaving,
         ReturnToDashboard
     }
