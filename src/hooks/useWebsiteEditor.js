@@ -60,6 +60,14 @@ export const useWebsiteEditor = () => {
         });
         editor.StyleManager.getSectors().models = desiredModels;
 
+        // Load Current website data
+        const parsedData = ParseWebsiteData(currentEditWebsite.data);
+
+        if (parsedData) {
+            
+            editor.loadData(parsedData);
+        }
+        
         setEditor(editor);
 
     }, [currentEditWebsite])
@@ -75,7 +83,7 @@ export const useWebsiteEditor = () => {
 
             const token = decryptToken(storageToken, true);
 
-            const encodedData = EncodeWebsiteData(JSON.stringify(editor.storeData()));
+            const encodedData = EncodeWebsiteData(editor.storeData());
 
             await axios.patch(`${config.serverUrl}/api/website/updateStyle`, {
                 websiteId: currentEditWebsite._id,
