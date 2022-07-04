@@ -36,7 +36,7 @@ export const useWebsiteEditor = () => {
             container: "#editor",
             styleManager: { clearProperties: 1 },
             autoload: false,
-            autosave: true,
+            autosave: false,
             plugins: [
                 gjsPresetWebpage,
                 setDOMComponents,
@@ -64,8 +64,9 @@ export const useWebsiteEditor = () => {
         const parsedData = ParseWebsiteData(currentEditWebsite.data);
 
         if (parsedData) {
-            
-            editor.loadData(parsedData);
+            if (Object.keys(parsedData).length > 2) { // Differentiate between old and new data
+                editor.loadData(parsedData);
+            }
         }
         
         setEditor(editor);
