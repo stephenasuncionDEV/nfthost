@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { useToast } from '@chakra-ui/react'
+import { useToast, useColorModeValue } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useCore } from '@/providers/CoreProvider'
 import grapesjs from 'grapesjs'
@@ -9,12 +9,14 @@ import { useWeb3 } from './useWeb3'
 
 export const useWebsiteEditor = () => {
     const { setIsAreYouSureModal, setAreYouSureData } = useCore();
-    const { currentEditWebsite, setEditor } = useWebsite();
+    const { currentEditWebsite, setEditor, editor } = useWebsite();
     const { Logout } = useWeb3();
     const [isSaving, setIsSaving] = useState(false);
     const toast = useToast();
     const router = useRouter();
     const { websiteId } = router.query;
+
+    const bodyColor = useColorModeValue('rgb(250,251,251)', 'rgb(18,22,30)');
 
     useEffect(() => {
         if (!currentEditWebsite) return;
@@ -23,11 +25,11 @@ export const useWebsiteEditor = () => {
         const editor = grapesjs.init({
             container: "#editor",
             styleManager: { clearProperties: 1 },
-            plugins: [gjsPresetWebpage],
+            plugins: [
+                gjsPresetWebpage
+            ],
             pluginOpts: {
-                [gjsPresetWebpage]: {
-                    
-                },
+                gjsPresetWebpage: {}
             },
             autoload: false,
             autosave: true,
@@ -120,8 +122,6 @@ export const useWebsiteEditor = () => {
             }
         })
 
-        console.log(editor)
-
         const desiredModels = editor.StyleManager.getSectors().models.filter((value, idx, self) => {
             return idx === self.findIndex((t) => (
                 t.id === value.id && t.name === value.name
@@ -133,6 +133,14 @@ export const useWebsiteEditor = () => {
         setEditor(editor);
 
     }, [currentEditWebsite])
+
+    useEffect(() => {
+        if (!editor) return;
+        editor.on('load', () => {
+            const body = editor.getWrapper();
+            body.set('style', { 'background-color': bodyColor });
+        })
+    }, [editor])
 
     const SaveAndPublish = async () => {
         try {

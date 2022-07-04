@@ -1,21 +1,30 @@
 import NextLink from 'next/link'
+import { useRouter } from 'next/router'
 import { Text, Flex, VStack, useColorModeValue, Tag, 
     TagLeftIcon, HStack, Wrap, Divider, FormControl,
     Input, FormHelperText, FormErrorMessage, Button, Box,
     Image, Link, useColorMode
 } from '@chakra-ui/react'
-import grapesjs from 'grapesjs'
-import { MdSave } from 'react-icons/md'
+import { useCore } from '@/providers/CoreProvider'
+import { useWebsite } from '@/providers/WebsiteProvider'
 import { useWebsiteEditor } from '@/hooks/useWebsiteEditor'
 import Meta from '@/components/Meta'
 import AreYouSureModal from '@/components/AreYouSureModal'
-import { useCore } from '@/providers/CoreProvider'
-import { useRouter } from 'next/router'
+import { MdSave } from 'react-icons/md'
+import { FaExternalLinkAlt } from 'react-icons/fa'
+import grapesjs from 'grapesjs'
+import config from '@/config/index'
 
 const WebsiteEditor = () => {
     const router = useRouter();
-    const { editor, SaveAndPublish, isSaving, ReturnToDashboard } = useWebsiteEditor();
+    const { 
+        editor, 
+        SaveAndPublish, 
+        isSaving, 
+        ReturnToDashboard
+    } = useWebsiteEditor();
     const { colorMode } = useColorMode();
+    const { currentEditWebsite } = useWebsite();
     
     return (
         <>
@@ -28,13 +37,20 @@ const WebsiteEditor = () => {
                             <Image src={colorMode === 'dark' ? '/assets/logo_full_white.png' : '/assets/logo_full_black.png'} alt='NFTHost Logo' width='140px' />
                         </HStack>
                     </Link>
-                    <HStack>
-                        <Button size='sm' variant='primary' leftIcon={<MdSave />} onClick={SaveAndPublish} disabled={isSaving} isLoading={isSaving} loadingText='Saving'>
-                            Save &#38; Publish
-                        </Button>
+                    <HStack spacing='2em'>
                         <Button size='sm' onClick={ReturnToDashboard}>
                             Return to Dashboard
                         </Button>
+                        <HStack>
+                            <Link href={`${config?.frontendUrl}/${currentEditWebsite?.custom?.alias?.length > 0 ? currentEditWebsite?.custom?.alias : currentEditWebsite?._id}`} isExternal style={{ textDecoration: 'none' }}>
+                                <Button size='sm' leftIcon={<FaExternalLinkAlt />} disabled={isSaving} isLoading={isSaving} loadingText='Saving'>
+                                    View Website
+                                </Button>
+                            </Link>
+                            <Button size='sm' variant='primary' leftIcon={<MdSave />} onClick={SaveAndPublish} disabled={isSaving} isLoading={isSaving} loadingText='Saving'>
+                                Save &#38; Publish
+                            </Button>
+                        </HStack>
                     </HStack>
                 </HStack>
                 <Box id='editor'></Box>
