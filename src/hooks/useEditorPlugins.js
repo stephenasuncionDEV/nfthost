@@ -26,7 +26,7 @@ export const useEditorPlugins = () => {
 
 
         //
-       // const block = editor.BlockManager.get('column1');
+        // const block = editor.BlockManager.get('column1');
         //console.log(block)
         // block.set('content', `<div class="row" data-gjs-droppable=".cell" data-gjs-resizable='{"tl":0,"tc":0,"tr":0,"cl":0,"cr":0,"bl":0,"br":0,"minDim":1}' data-gjs-name="Row"><div  class="cell" data-gjs-draggable=".row" data-gjs-resizable='{"tl":0,"tc":0,"tr":0,"cl":0,"cr":1,"bl":0,"br":0,"minDim":1,"bc":0,"currentUnit":1,"step":0.2}' data-gjs-name="Cell"></div></div><style>.row { display: table; padding: 10px; width: 100%; } @media (max-width: 768px) { .cell, .cell30, .cell70 { width: 100%;  display: block; } } .cell {      width: 100%;      display: table-cell;      height: 75px;    }        </style>`);
         // console.log(block)
@@ -40,10 +40,10 @@ export const useEditorPlugins = () => {
                 type: "nfthost-template1",
                 category: "NFT Host",
                 content: `
-                    <div class="row" data-gjs-droppable=".cell" data-gjs-resizable='{"tl":0,"tc":0,"tr":0,"cl":0,"cr":0,"bl":0,"br":0,"minDim":1}' data-gjs-name="Row" style="padding: 3em; min-height: 100vh; height: 100%">
-                        <div class="cell" data-gjs-draggable=".row" data-gjs-resizable='{"tl":0,"tc":0,"tr":0,"cl":0,"cr":1,"bl":0,"br":0,"minDim":1,"bc":0,"currentUnit":1,"step":0.2}' data-gjs-name="Cell" style="display: flex; flex-direction: column; width: 100%; height: 100%; justify-content: center; align-items: center;">
+                    <div class="row" data-gjs-droppable=".cell" data-gjs-resizable='{"tl":0,"tc":0,"tr":0,"cl":0,"cr":0,"bl":0,"br":0,"minDim":1}' data-gjs-name="Row" style="padding: 3em; min-height: 100vh; height: 100%; font-family: Poppins, Inter, sans-serif;">
+                        <div class="cell" data-gjs-draggable=".row" data-gjs-resizable='{"tl":0,"tc":0,"tr":0,"cl":0,"cr":1,"bl":0,"br":0,"minDim":1,"bc":0,"currentUnit":1,"step":0.2}' data-gjs-name="Cell" style="display: flex; flex-direction: column; width: 100%; height: 100%; justify-content: center; align-items: center; font-family: Poppins, Inter, sans-serif;">
                             <img src="${currentEditWebsite?.components?.unrevealedImage}" alt="${currentEditWebsite?.components?.title}" data-gjs-name="image" />
-                            <div data-gjs-name="text" style="font-size: 50px; font-family: Poppins, Inter, sans-serif; margin-top: 1em; color: ${textColor}">${currentEditWebsite?.components?.title}</div>
+                            <div data-gjs-name="text" style="font-family: Poppins, Inter, sans-serif; font-size: 50px; margin-top: 1em; color: ${textColor}">${currentEditWebsite?.components?.title}</div>
                             <div data-gjs-name="text" style="font-family: Poppins, Inter, sans-serif; margin-top: .5em; color: ${textColor}">${currentEditWebsite?.components?.description}</div>
                             <div data-gjs-name="cell" style="padding: 2em">${currentEditWebsite?.components?.embed}</div>
                         </div>

@@ -31,7 +31,7 @@ const WebsiteEditor = () => {
             <Meta title='Website Editor | NFTHost' />
             <AreYouSureModal />
             <Flex flexDir='column' minH='100vh'>       
-                <HStack flex='1' px='1em' py='.5em' justifyContent='space-between'>
+                <HStack flex='1' px='1em' py='.5em' justifyContent='space-between' bg='rgb(55,66,76)'>
                     <Link href='/dashboard' style={{ textDecoration: 'none' }}>
                         <HStack spacing='1em' cursor='pointer'>
                             <Image src={colorMode === 'dark' ? '/assets/logo_full_white.png' : '/assets/logo_full_black.png'} alt='NFTHost Logo' width='140px' />
