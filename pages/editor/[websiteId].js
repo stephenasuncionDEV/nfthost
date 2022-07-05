@@ -42,14 +42,14 @@ const WebsiteEditor = () => {
                             Return to Dashboard
                         </Button>
                         <HStack>
+                            <Button size='sm' variant='primary' leftIcon={<MdSave />} onClick={Publish} disabled={isSaving} isLoading={isSaving} loadingText='Saving'>
+                                Publish
+                            </Button>
                             <Link href={`${config?.frontendUrl}/${currentEditWebsite?.custom?.alias?.length > 0 ? currentEditWebsite?.custom?.alias : currentEditWebsite?._id}`} isExternal style={{ textDecoration: 'none' }}>
                                 <Button size='sm' leftIcon={<FaExternalLinkAlt />} disabled={isSaving} isLoading={isSaving} loadingText='Saving'>
                                     View Website
                                 </Button>
                             </Link>
-                            <Button size='sm' variant='primary' leftIcon={<MdSave />} onClick={Publish} disabled={isSaving} isLoading={isSaving} loadingText='Saving'>
-                                Publish
-                            </Button>
                         </HStack>
                     </HStack>
                 </HStack>
