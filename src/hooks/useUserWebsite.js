@@ -12,7 +12,7 @@ import { useAnalytics } from '@/hooks/useAnalytics'
 export const useUserWebsite = () => {
     const router = useRouter();
     const toast = useToast();
-    const [ websiteData, setWebsiteData ] = useState();
+    const [websiteData, setWebsiteData] = useState();
     const [ isOld, setIsOld ] = useState(false);
     const { setUserWebsite } = useWebsite();
     const { setIsCookieModal } = useCore();
@@ -66,12 +66,14 @@ export const useUserWebsite = () => {
             const isReveal = !res.data.revealDate || new Date(res.data.revealDate) <= new Date();
             if (isReveal && !isOld) {
                 const fullHtml = siteData.html;
-                const embedPosition = fullHtml.search('id="nfthost-embed"') - 5;
-                const closingPosition = fullHtml.slice(embedPosition).indexOf('</div>') + embedPosition + 6;
-                const htmlCode = fullHtml.slice(0, embedPosition) + siteData.embed + fullHtml.slice(closingPosition);
+                const embedPosition = fullHtml.search('id="nfthost-embed"') - 9;
+                const closingPosition = fullHtml.slice(embedPosition).indexOf('</section>') + embedPosition + 10;
+                const embedContainer = '<div style="margin: 1.5em">' + res.data.components.embed + '</div>';
+                const htmlCode = fullHtml.slice(0, embedPosition) + embedContainer + fullHtml.slice(closingPosition);
                 siteData.html = htmlCode;
-                setWebsiteData(siteData);
             }
+
+            setWebsiteData(siteData);
 
             // Check if mint website is expired
             if (checkExpiration) await CheckExpiration(res.data);

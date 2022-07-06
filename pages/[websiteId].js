@@ -53,7 +53,7 @@ const Service = () => {
 
             {isOld && <Template1 userWebsite={userWebsite} />}
 
-            {websiteData && parse(websiteData?.html)}
+            {!isOld && parse(websiteData?.html)}
 
             {!userWebsite?.isPremium && (
                 <Link href='https://www.nfthost.app/' isExternal>

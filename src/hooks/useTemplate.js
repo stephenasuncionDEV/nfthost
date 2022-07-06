@@ -6,12 +6,13 @@ import axios from 'axios'
 import posthog from 'posthog-js'
 import { decryptToken } from '@/utils/tools'
 import { useRouter } from 'next/router'
+import { convertDateToLocal } from '@/utils/tools'
 
 export const useTemplate = () => {
     const toast = useToast();
     const router = useRouter();
     const { Logout } = useUser();
-    const { currentEditWebsite, setCurrentEditWebsite } = useWebsite();
+    const { currentEditWebsite, setCurrentEditWebsite, setNewRevealDate } = useWebsite();
 
     const AddTemplate = async (template) => {
         try {
@@ -237,14 +238,18 @@ export const useTemplate = () => {
 
             const token = decryptToken(storageToken, true);
 
+            const dateLocal = convertDateToLocal(revealDate);
+
             await axios.patch(`${config.serverUrl}/api/website/updateRevealDate`, {
                 websiteId: currentEditWebsite._id,
-                revealDate
+                revealDate: dateLocal
             }, {
                 headers: { 
                     Authorization: `Bearer ${token.accessToken}` 
                 }
             })
+
+            setNewRevealDate(revealDate);
 
             posthog.capture('User set a reveal date');
         }

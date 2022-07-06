@@ -20,17 +20,19 @@ export const useWebsiteEditor = () => {
         setupDefaults
     } = useEditorPlugins();
 
+    const borderColor = useColorModeValue('gray.200', 'whiteAlpha.300');
+
     useEffect(() => {
         if (!currentEditWebsite) return;
 
         const blocks = getNFTHostBlocks();
 
-        console.log(blocks)
-
         // Initialize GrapesJS
         const editor = grapesjs.init({
             container: "#editor",
-            styleManager: { clearProperties: 1 },
+            styleManager: { 
+                clearProperties: 1 
+            },
             autoload: false,
             autosave: false,
             plugins: [
@@ -81,20 +83,15 @@ export const useWebsiteEditor = () => {
             const token = decryptToken(storageToken, true);
 
             const fullHtml = editor.getHtml();
-            const embedPosition = fullHtml.search('id="nfthost-embed"') - 5;
-            const closingPosition = fullHtml.slice(embedPosition).indexOf('</div>') + embedPosition + 6;
-            const embedCode = fullHtml.substring(embedPosition, closingPosition);
-            const partialHtmlCode = fullHtml.slice(0, embedPosition) + '<div id="nfthost-embed"></div>' + fullHtml.slice(closingPosition);
-            const htmlCode = partialHtmlCode.replace('body', 'div');
+            const htmlCode = fullHtml.replace('<body>', '<div>').replace('</body>', '</div>');
 
             const encodedData = EncodeWebsiteData({
                 html: htmlCode,
-                embed: embedCode,
                 css: editor.getCss(),
                 store: editor.storeData()
             });
 
-            await axios.patch(`${config.serverUrl}/api/website/updateStyle`, {
+            await axios.patch(`${config.serverUrl}/api/website/updateData`, {
                 websiteId: currentEditWebsite._id,
                 data: encodedData
             }, {

@@ -1,23 +1,20 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useToast } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useWeb3 } from '@/hooks/useWeb3'
 import { useSites } from '@/hooks/useSites'
 import axios from 'axios'
 import config from '@/config/index'
-import posthog from 'posthog-js'
-import { decryptToken, ParseWebsiteData, convertDateToLocal } from '@/utils/tools'
-import { TemplatesArr } from '@/utils/json'
+import { decryptToken, convertDateToLocal, convertLocalToDate } from '@/utils/tools'
 import { useTemplate } from './useTemplate'
 
 export const useCurrentTemplate = () => {
     const toast = useToast();
+    const [isSaving, setIsSaving] = useState(false);
     const { GetWebsites } = useSites();
     const { Logout } = useWeb3();
     const { 
         currentEditWebsite,
-        newBackgroundColor,
-        newBackgroundImage,
         setNewErrors,
         setCurrentEditWebsite,
         newRevealDate,
@@ -37,38 +34,45 @@ export const useCurrentTemplate = () => {
 
             if (!currentEditWebsite.isPremium) throw new Error('You must upgrade your website to premium to use this feature');
 
-            const storageToken = localStorage.getItem('nfthost-user');
-            if (!storageToken) return;
+            setIsSaving(true);
 
-            const token = decryptToken(storageToken, true);
+            // const storageToken = localStorage.getItem('nfthost-user');
+            // if (!storageToken) return;
 
-            const res = await axios.patch(`${config.serverUrl}/api/website/updateStyle`, {
-                websiteId: currentEditWebsite._id,
-                style: {
-                    bgColor: newBackgroundColor,
-                    bgImage: newBackgroundImage
-                }
-            }, {
-                headers: { 
-                    Authorization: `Bearer ${token.accessToken}` 
-                }
-            })
+            // const token = decryptToken(storageToken, true);
 
-            const dateLocal = convertDateToLocal(newRevealDate);
+            // const res = await axios.patch(`${config.serverUrl}/api/website/updateStyle`, {
+            //     websiteId: currentEditWebsite._id,
+            //     style: {
+            //         bgColor: newBackgroundColor,
+            //         bgImage: newBackgroundImage
+            //     }
+            // }, {
+            //     headers: { 
+            //         Authorization: `Bearer ${token.accessToken}` 
+            //     }
+            // })
 
-            if (new Date(currentEditWebsite.revealDate) !== newRevealDate) {
-                await UpdateRevealDate(dateLocal);
+            const revealDate = convertLocalToDate(currentEditWebsite.revealDate);
+            let revealDateChanged = false;
+
+            if (revealDate !== newRevealDate) {
+                revealDateChanged = true;
+                await UpdateRevealDate(newRevealDate);
             }
 
-            let newEditWebsite = {...currentEditWebsite};
-            newEditWebsite.data = res.data.data;
+            let newEditWebsite = { ...currentEditWebsite };
 
-            if (new Date(currentEditWebsite.revealDate) !== newRevealDate) {
+            if (revealDateChanged) {
                 newEditWebsite.revealDate = newRevealDate;
+                setNewRevealDate(newRevealDate);
             }
 
             setCurrentEditWebsite(newEditWebsite);
-            setNewRevealDate(newRevealDate);
+
+            await GetWebsites();
+
+            setIsSaving(false);
 
             toast({
                 title: 'Success',
@@ -80,6 +84,7 @@ export const useCurrentTemplate = () => {
             })
         }
         catch (err) {
+            setIsSaving(false);
             console.error(err);
             if (err.response?.data?.isExpired) await Logout();
             toast({
