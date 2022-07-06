@@ -15,13 +15,17 @@ export const useWebsiteEditor = () => {
     const [isSaving, setIsSaving] = useState(false);
     const toast = useToast();
     const { 
-        getNFTHostComponents,
+        getNFTHostBlocks,
         setDOMComponents,
         setupDefaults
     } = useEditorPlugins();
 
     useEffect(() => {
         if (!currentEditWebsite) return;
+
+        const blocks = getNFTHostBlocks();
+
+        console.log(blocks)
 
         // Initialize GrapesJS
         const editor = grapesjs.init({
@@ -40,7 +44,7 @@ export const useWebsiteEditor = () => {
                 }
             },
             blockManager: {
-                blocks: getNFTHostComponents()
+                blocks
             }
         })
 
