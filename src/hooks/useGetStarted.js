@@ -25,8 +25,6 @@ export const useGetStarted = () => {
                 }
             })
 
-            console.log(res)
-
             setFeaturedWebsites(res.data)
         }
         catch (err) {

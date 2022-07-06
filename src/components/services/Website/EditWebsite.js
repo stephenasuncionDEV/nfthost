@@ -39,7 +39,6 @@ const EditWebsite = () => {
 
     return (
         <VStack
-            id='website-list'
             spacing='1.5em'
             p='1em' 
             bg={containerColor}
@@ -120,11 +119,11 @@ const EditWebsite = () => {
                                         )}
                                     </Box>
                                 ) : (
-                                    <Box w='full'>
+                                    <VStack w='full'>
                                         <Text fontSize='8pt'>
                                             Expiration Date: <span style={{ color: 'rgb(52,140,212)' }}>{subscriptionEnd.toString()}</span>
                                         </Text>
-                                    </Box>
+                                    </VStack>
                                 )}
                             </VStack>
                             <VStack alignItems='flex-start' flex='1'>
@@ -249,13 +248,18 @@ const EditWebsite = () => {
                     }}>
                         Delete
                     </Button>
-                    <HStack mt='1em'>
-                        <Button size='sm' onClick={CancelEdit} disabled={isUpdating}>
-                            Cancel
-                        </Button>
-                        <Button variant='primary' leftIcon={<MdSave />} size='sm' onClick={UpdateWebsite} isLoading={isUpdating} loadingText='Updating'>
-                            Save
-                        </Button>
+                    <HStack mt='1em' spacing='1em'>
+                        <Text fontSize='8pt' opacity='.5'>
+                            ID: {currentEditWebsite?._id}
+                        </Text>
+                        <HStack>
+                            <Button size='sm' onClick={CancelEdit} disabled={isUpdating}>
+                                Cancel
+                            </Button>
+                            <Button variant='primary' leftIcon={<MdSave />} size='sm' onClick={UpdateWebsite} isLoading={isUpdating} loadingText='Updating'>
+                                Save
+                            </Button>
+                        </HStack>
                     </HStack>
                 </HStack>
             </Flex>

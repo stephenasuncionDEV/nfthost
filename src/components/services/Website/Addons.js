@@ -10,7 +10,7 @@ import { AddonsArr } from '@/utils/json'
 
 const Addons = () => {
     const { currentEditWebsite } = useWebsite();
-    const { ChooseAddon } = useTemplate();
+    const { AddAddon } = useTemplate();
 
     const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
     const componentColor = useColorModeValue('rgba(0,0,0,0.1)', 'rgba(0,0,0,0.5)');
@@ -30,7 +30,7 @@ const Addons = () => {
                     Addons
                 </Text>
                 <Text fontSize='10pt'>
-                    Choose additional features you want for your website
+                    Choose additional features you want for your mint website
                 </Text>
             </VStack>
             <Wrap spacing='1em'>
@@ -54,8 +54,8 @@ const Addons = () => {
                             w='full' 
                             size='sm' 
                             variant='primary'
-                            onClick={() => ChooseAddon(addon)} 
-                            disabled={(!currentEditWebsite?.isPremium && addon.sub === 'premium') || (currentEditWebsite?.components?.addons?.indexOf(addon.key) !== -1)}
+                            onClick={() => AddAddon(addon)} 
+                            disabled={(!currentEditWebsite?.isPremium && addon.sub === 'premium') || (currentEditWebsite?.components?.addons?.includes(addon.key))}
                         >
                             Add
                         </Button>

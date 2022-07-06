@@ -250,7 +250,7 @@ export const useGenerate = () => {
 
             const freeGeneration = user.services.generator.freeGeneration;
 
-            if (collectionSize > 100 && freeGeneration === 0) {
+            if (collectionSize > 100 && freeGeneration <= 0) {
                 setPaymentData({
                     service: 'Generator',
                     price: 25,

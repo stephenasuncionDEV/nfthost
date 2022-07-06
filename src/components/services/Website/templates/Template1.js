@@ -1,19 +1,14 @@
-import { Text, Flex, Tag, TagLeftIcon, Image, VStack, useColorModeValue } from '@chakra-ui/react'
+import { Text, Flex, Tag, TagLeftIcon, Image, VStack } from '@chakra-ui/react'
 import { GiCutDiamond } from 'react-icons/gi'
-import Embed from '../Embed';
+import Embed from '@/components/services/Website/Embed';
 
-const Template1 = ({ userWebsite, data }) => {
+const Template1 = ({ userWebsite }) => {
     const { 
         components: { title, unrevealedImage, description, embed },
         isPremium,
         revealDate,
         _id
     } = userWebsite;
-    const {
-        style: { bgImage }
-    } = data;
-
-    const containerColor = useColorModeValue('whiteAlpha.800', 'blackAlpha.800');
 
     return (
         <Flex
@@ -24,7 +19,7 @@ const Template1 = ({ userWebsite, data }) => {
             minH='100vh'
             position='relative'
         >
-            <VStack spacing='2em' bg={!bgImage ? 'transparent' : containerColor} p='3em' borderRadius='20px'>
+            <VStack spacing='2em' p='3em' borderRadius='20px'>
                 <Image 
                     src={unrevealedImage}
                     alt={title}

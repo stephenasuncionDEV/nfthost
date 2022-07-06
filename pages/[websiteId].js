@@ -4,11 +4,9 @@ import { Text, Tag, TagLeftIcon, Link } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useUserWebsite } from '@/hooks/useUserWebsite'
 import CookieModal from '@/components/CookieModal'
-import Template1 from '@/components/services/Website/templates/Template1'
-import Template2 from '@/components/services/Website/templates/Template2'
-import Template3 from '@/components/services/Website/templates/Template3'
 import Navbar from '@/components/services/Website/addons/Navbar'
 import Footer from '@/components/services/Website/addons/Footer'
+import Template1 from '@/components/services/Website/templates/Template1'
 import parse from 'html-react-parser'
 import { CgCopyright } from 'react-icons/cg'
 
@@ -16,13 +14,10 @@ const Service = () => {
     const router = useRouter();
     const { userWebsite } = useWebsite();
     const { websiteId } = router.query;
-    const { data } = useUserWebsite(userWebsite?.data);
+    const { websiteData, isOld } = useUserWebsite(userWebsite?.data);
 
-    return userWebsite && !userWebsite.isExpired && data && (
-        <main style={{ 
-            backgroundColor: !data.style?.bgColor?.length ? 'none' : data.style?.bgColor,
-            backgroundImage: !data.style?.bgImage?.length ? 'none' : `url(${data.style?.bgImage})`,
-        }}>
+    return userWebsite && !userWebsite.isExpired && (
+        <main>
             <Head>
                 <title>{userWebsite?.components?.title}</title>
                 <link rel="shortcut icon" type="image/png" href={userWebsite?.meta?.favicon} />
@@ -46,15 +41,19 @@ const Service = () => {
                 <meta property="twitter:image" content={userWebsite?.components?.unrevealedImage} />
 
                 {userWebsite?.components?.script && parse(userWebsite?.components?.script)}
+
+                {websiteData && (
+                    <style>
+                        {websiteData?.css}
+                    </style>
+                )}
             </Head>
             
             {userWebsite?.components?.addons?.indexOf('Navbar') !== -1 && <Navbar />}
 
-            {{
-                Template1: <Template1 userWebsite={userWebsite} data={data} />,
-                Template2: <Template2 userWebsite={userWebsite} data={data} />,
-                Template3: <Template3 userWebsite={userWebsite} data={data} />,
-            }[data?.template]}
+            {isOld && <Template1 userWebsite={userWebsite} />}
+
+            {!isOld && parse(websiteData?.html)}
 
             {!userWebsite?.isPremium && (
                 <Link href='https://www.nfthost.app/' isExternal>

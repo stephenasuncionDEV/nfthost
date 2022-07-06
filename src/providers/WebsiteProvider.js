@@ -27,17 +27,18 @@ export const WebsiteProvider = ({ children }) => {
     const [isChangingDomain, setIsChangingDomain] = useState(false);
     const [currentEditWebsite, setCurrentEditWebsite] = useState();
     const [currentTemplate, setCurrentTemplate] = useState();
-    const [newBackgroundImage, setNewBackgroundImage] = useState('');
-    const [newBackgroundColor, setNewBackgroundColor] = useState('');
     const [newRevealDate, setNewRevealDate] = useState('');
     const [createWebsiteStep, setCreateWebsiteStep] = useState('information'); // information, settings
     const [featuredWebsites, setFeaturedWebsites] = useState();
     const [newAlias, setNewAlias] = useState('');
     const [newDomain, setNewDomain] = useState('');
+    const [editor, setEditor] = useState();
     const editWebsiteFormRef = useRef();
     const recaptchaRef = useRef();
 
     const controllers = {
+        editor,
+        setEditor,
         userWebsite,
         setUserWebsite,
         websites,
@@ -74,12 +75,6 @@ export const WebsiteProvider = ({ children }) => {
         setCurrentEditWebsite,
         isDeletingWebsite,
         setIsDeletingWebsite,
-        newBackgroundImage,
-        setNewBackgroundImage,
-        newBackgroundColor,
-        setNewBackgroundColor,
-        currentTemplate,
-        setCurrentTemplate,
         newRevealDate,
         setNewRevealDate,
         isCreateWebsiteModal,

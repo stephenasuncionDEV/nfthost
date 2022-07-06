@@ -46,8 +46,7 @@ export const useSites = () => {
         setCurrentEditWebsite,
         setIsDeletingWebsite,
         editWebsiteFormRef,
-        setIsCreateWebsiteModal,
-        recaptchaRef
+        setIsCreateWebsiteModal
     } = useWebsite();
     const { DeductFree, getUserByAddress, AddCount, DeductCount, Logout } = useWeb3();
 
@@ -127,7 +126,7 @@ export const useSites = () => {
 
             if (!member) throw new Error('Cannot fetch member');
 
-            if (newSubcription === 'premium' && member.services.website.freeWebsite === 0) {
+            if (newSubcription === 'premium' && member.services.website.freeWebsite <= 0) {
                 setPaymentData({
                     service: 'Website',
                     price: 15,

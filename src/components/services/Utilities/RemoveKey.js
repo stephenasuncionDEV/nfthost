@@ -21,7 +21,7 @@ const RemoveKey = () => {
                 Remove Metadata Key
             </Text>
             <Text fontSize='10pt'>
-                Remove any key on your metadata files.
+                Remove any key on your metadata/json files.
             </Text>
             <JsonDropbox mt='1em' />
             {jsonFiles && (

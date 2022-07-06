@@ -3,26 +3,22 @@ import { Text, Flex, VStack, useColorModeValue, Tag,
     Input, FormHelperText, FormErrorMessage, Button
 } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
-import { useCore } from '@/providers/CoreProvider'
 import { useCurrentTemplate } from '@/hooks/useCurrentTemplate'
 import CurrentTemplate from './CurrentTemplate'
 import { GiCutDiamond } from 'react-icons/gi'
 import { MdSave, MdVerified } from 'react-icons/md'
-import { FaRedo } from 'react-icons/fa'
+import { FaRedo, FaEdit } from 'react-icons/fa'
+import { useTemplate } from '@/hooks/useTemplate'
 
 const Design = () => {
     const { 
         currentEditWebsite, 
         newErrors,
-        newBackgroundImage,
-        setNewBackgroundImage,
-        newBackgroundColor,
-        setNewBackgroundColor,
         newRevealDate,
         setNewRevealDate
     } = useWebsite();
-    const { setIsAreYouSureModal, setAreYouSureData } = useCore();
-    const { SaveStyle, ResetStyle } = useCurrentTemplate();
+    const { SaveStyle, isSaving } = useCurrentTemplate();
+    const { EditWebsiteTemplate } = useTemplate();
 
     const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
 
@@ -59,35 +55,11 @@ const Design = () => {
                 </HStack>
                 <VStack mt='1em' alignItems='flex-start' w='full'>
                     <Wrap spacing='1em' w='full'>
-                        <CurrentTemplate />
-                        <VStack p='1em' flex='1' justifyContent='justify-between' spacing='2em'>
-                            <VStack w='full' spacing='1.5em' flex='1'>
-                                <VStack w='full'>
-                                    <HStack justifyContent='flex-start' w='full'>
-                                        <Text fontSize='10pt' >
-                                            Style
-                                        </Text>
-                                        {!currentEditWebsite?.isPremium && (
-                                            <Tag>
-                                                <TagLeftIcon as={GiCutDiamond} color='#08BDD4' />
-                                                <Text>
-                                                    Premium Only
-                                                </Text>
-                                            </Tag>
-                                        )}
-                                        <Divider flex='1' />
-                                    </HStack>
-                                    <HStack w='full'>
-                                        <FormControl isInvalid={newErrors?.bgColor?.status} flex='1'>
-                                            <Input placeholder='rgba(255,255,255,1) or #ffffff' value={newBackgroundColor} onChange={(e) => setNewBackgroundColor(e.target.value)} disabled={!currentEditWebsite?.isPremium} />
-                                            {!newErrors?.bgColor?.status ? <FormHelperText fontSize='9pt'>Background color of your website</FormHelperText> : <FormErrorMessage fontSize='9pt'>{newErrors?.bgColor?.message}</FormErrorMessage>}
-                                        </FormControl>
-                                        <FormControl isInvalid={newErrors?.bgImage?.status} flex='1'>
-                                            <Input placeholder='Background Image Link' value={newBackgroundImage} onChange={(e) => setNewBackgroundImage(e.target.value)} disabled={!currentEditWebsite?.isPremium} />
-                                            {!newErrors?.bgImage?.status ? <FormHelperText fontSize='9pt'>Background image of your website</FormHelperText> : <FormErrorMessage fontSize='9pt'>{newErrors?.bgImage?.message}</FormErrorMessage>}
-                                        </FormControl>
-                                    </HStack>
-                                </VStack>
+                        <VStack maxW='300px' alignItems='center' flex='1'>
+                            <CurrentTemplate />
+                        </VStack>
+                        <VStack p='1em' flex='1' spacing='2em'>
+                            <VStack w='full' spacing='1.5em'>
                                 <VStack w='full'>
                                     <HStack justifyContent='flex-start' w='full'>
                                         <Text fontSize='10pt' >
@@ -111,32 +83,17 @@ const Design = () => {
                                     </HStack>
                                 </VStack>
                             </VStack>
-                            <HStack justifyContent='space-between' w='full'>
-                                <Button
-                                    variant='danger'
-                                    leftIcon={<FaRedo />}
-                                    onClick={() => {
-                                        setAreYouSureData({
-                                            item: 'style',
-                                            action: 'Reset',
-                                            icon: <FaRedo />,
-                                            button: 'danger',
-                                            callback: () => {
-                                                ResetStyle();
-                                            }
-                                        })
-                                        setIsAreYouSureModal(true);
-                                    }}
-                                    disabled={!currentEditWebsite?.isPremium}
-                                    size='sm'
-                                >
-                                    Reset Style
+                            <HStack justifyContent='flex-end' w='full'>
+                                <Button size='sm' variant='primary' leftIcon={<FaEdit />} onClick={EditWebsiteTemplate} disabled={!currentEditWebsite.isPremium}>
+                                    Edit Website Template
                                 </Button>
                                 <Button
                                     variant='primary'
                                     leftIcon={<MdSave />}
                                     onClick={SaveStyle}
-                                    disabled={!currentEditWebsite?.isPremium}
+                                    disabled={!currentEditWebsite?.isPremium || isSaving}
+                                    isLoading={isSaving}
+                                    loadingText='Saving'
                                     size='sm'
                                 >
                                     Save

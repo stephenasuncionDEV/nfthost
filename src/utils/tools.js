@@ -131,7 +131,12 @@ export const EncodeWebsiteData = (dataObj) => {
 }
 
 export const ParseWebsiteData = (data) => {
-    return JSON.parse(lz.decompress(lz.decodeBase64(data)));
+    try {
+        return JSON.parse(lz.decompress(lz.decodeBase64(data)));
+    }
+    catch (err) {
+        return null;
+    }
 }
 
 export const convertDateToLocal = (date) => {

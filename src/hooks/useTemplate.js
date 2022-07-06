@@ -1,27 +1,25 @@
 import { useToast } from '@chakra-ui/react'
 import { useUser } from '@/providers/UserProvider'
 import { useWebsite } from '@/providers/WebsiteProvider'
-import { useSites } from '@/hooks/useSites'
-import { useCurrentTemplate } from '@/hooks/useCurrentTemplate'
 import config from '@/config/index'
 import axios from 'axios'
 import posthog from 'posthog-js'
-import { decryptToken, ParseWebsiteData } from '@/utils/tools'
+import { decryptToken } from '@/utils/tools'
+import { useRouter } from 'next/router'
+import { convertDateToLocal } from '@/utils/tools'
 
 export const useTemplate = () => {
     const toast = useToast();
+    const router = useRouter();
     const { Logout } = useUser();
-    const { currentEditWebsite, setCurrentEditWebsite } = useWebsite();
-    const { GetWebsites } = useSites();
-    const { UpdateCurrentTemplate } = useCurrentTemplate();
+    const { currentEditWebsite, setCurrentEditWebsite, setNewRevealDate } = useWebsite();
 
-    const ChooseTemplate = async (template) => {
+    const AddTemplate = async (template) => {
         try {
             if (!template) throw new Error('Cannot fetch template');
 
-            const webData = ParseWebsiteData(currentEditWebsite.data);
+            if (currentEditWebsite.components.templates.includes(template.key)) throw new Error('This template was already added to your website');
 
-            if (webData.template === template.key) throw new Error('You are already using this template');
             if (!currentEditWebsite.isPremium && template.sub === 'premium') throw new Error('Upgrade your website to use premium templates');
 
             const storageToken = localStorage.getItem('nfthost-user');
@@ -29,7 +27,7 @@ export const useTemplate = () => {
 
             const token = decryptToken(storageToken, true);
 
-            const res = await axios.patch(`${config.serverUrl}/api/website/updateTemplate`, {
+            await axios.patch(`${config.serverUrl}/api/website/updateTemplate`, {
                 websiteId: currentEditWebsite._id,
                 template: template.key
             }, {
@@ -38,15 +36,10 @@ export const useTemplate = () => {
                 }
             })
 
-            await GetWebsites();
+            let newEditWebsite = { ...currentEditWebsite };
+            newEditWebsite.components.templates.push(template.key);
 
-            if (res.status === 200) {
-                let newEditWebsite = {...currentEditWebsite};
-                newEditWebsite.data = res.data.data;
-
-                setCurrentEditWebsite(newEditWebsite);
-                UpdateCurrentTemplate(newEditWebsite);
-            }
+            setCurrentEditWebsite(newEditWebsite);
 
             posthog.capture('User use a template', {
                 template: template.key
@@ -74,11 +67,11 @@ export const useTemplate = () => {
         }
     }
 
-    const ChooseAddon = async (addon) => {
+    const AddAddon = async (addon) => {
         try {
             if (!addon) throw new Error('Cannot fetch addon');
 
-            if (currentEditWebsite.components.addons.indexOf(addon.key) !== -1) throw new Error('This addon was already added to your website');
+            if (currentEditWebsite.components.addons.includes(addon.key)) throw new Error('This addon was already added to your website');
 
             if (!currentEditWebsite.isPremium && addon.sub === 'premium') throw new Error('Upgrade your website to use premium addons');
 
@@ -87,27 +80,19 @@ export const useTemplate = () => {
 
             const token = decryptToken(storageToken, true);
 
-            const addonsArr = currentEditWebsite.components.addons !== null ? [...currentEditWebsite.components.addons, addon.key] : [addon.key];
-
-            const res = await axios.patch(`${config.serverUrl}/api/website/updateComponents`, {
+            await axios.patch(`${config.serverUrl}/api/website/updateAddon`, {
                 websiteId: currentEditWebsite._id,
-                key: 'addons',
-                value: addonsArr
+                addon: addon.key
             }, {
                 headers: { 
                     Authorization: `Bearer ${token.accessToken}` 
                 }
             })
 
-            await GetWebsites();
-
-            if (res.status === 200) {
-                let newEditWebsite = {...currentEditWebsite};
-                newEditWebsite.components.addons = addonsArr;
-                
-                setCurrentEditWebsite(newEditWebsite);
-                UpdateCurrentTemplate(newEditWebsite);
-            }
+            let newEditWebsite = {...currentEditWebsite};
+            newEditWebsite.components.addons.push(addon.key);
+            
+            setCurrentEditWebsite(newEditWebsite);
 
             posthog.capture('User use an addon', {
                 addon: addon.key
@@ -139,33 +124,26 @@ export const useTemplate = () => {
         try {
             if (!addon) throw new Error('Cannot fetch addon');
 
-            if (!currentEditWebsite.isPremium && addon.sub === 'premium') throw new Error('Upgrade your website to use premium addons');
-
             const storageToken = localStorage.getItem('nfthost-user');
             if (!storageToken) return;
 
             const token = decryptToken(storageToken, true);
 
-            let newEditWebsite = {...currentEditWebsite};
-            let newAddonsArr = currentEditWebsite.components.addons.filter(item => item !== addon);
-            newEditWebsite.components.addons = newAddonsArr;
-
-            const res = await axios.delete(`${config.serverUrl}/api/website/deleteAddon`, {
+            await axios.delete(`${config.serverUrl}/api/website/deleteAddon`, {
                 data: {
                     websiteId: currentEditWebsite._id,
-                    addon: newAddonsArr
+                    addon
                 },
                 headers: { 
                     Authorization: `Bearer ${token.accessToken}` 
                 }
             })
 
-            await GetWebsites();
+            let newEditWebsite = {...currentEditWebsite};
+            let newAddonsArr = currentEditWebsite.components.addons.filter(item => item !== addon);
+            newEditWebsite.components.addons = newAddonsArr;
 
-            if (res.status === 200) {
-                setCurrentEditWebsite(newEditWebsite);
-                UpdateCurrentTemplate(newEditWebsite);
-            }
+            setCurrentEditWebsite(newEditWebsite);
 
             posthog.capture('User removed an addon', {
                 addon
@@ -193,9 +171,110 @@ export const useTemplate = () => {
         }
     }
 
+    const RemoveTemplate = async (template) => {
+        try {
+            if (!template) throw new Error('Cannot fetch addon');
+
+            const storageToken = localStorage.getItem('nfthost-user');
+            if (!storageToken) return;
+
+            const token = decryptToken(storageToken, true);
+
+            await axios.delete(`${config.serverUrl}/api/website/deleteTemplate`, {
+                data: {
+                    websiteId: currentEditWebsite._id,
+                    template
+                },
+                headers: { 
+                    Authorization: `Bearer ${token.accessToken}` 
+                }
+            })
+
+            let newEditWebsite = {...currentEditWebsite};
+            let newTemplatesArr = currentEditWebsite.components.templates.filter(item => item !== template);
+            newEditWebsite.components.templates = newTemplatesArr;
+
+            setCurrentEditWebsite(newEditWebsite);
+
+            posthog.capture('User removed a template', {
+                template
+            });
+
+            toast({
+                title: 'Success',
+                description: `Successfully removed ${template} to your mint website`,
+                status: 'success',
+                duration: 3000,
+                isClosable: true,
+                position: 'bottom-center'
+            })
+        }
+        catch (err) {
+            if (err.response?.data?.isExpired) await Logout();
+            toast({
+                title: 'Error',
+                description: !err.response ? err.message : err.response.data.message,
+                status: 'error',
+                duration: 3000,
+                isClosable: true,
+                position: 'bottom-center'
+            })
+        }
+    }
+
+    const EditWebsiteTemplate = () => {
+        try {
+            if (!currentEditWebsite.isPremium) throw new Error('Upgrade your website to premium to edit website template');
+
+            router.push(`/editor/${currentEditWebsite._id}`, undefined, { shallow: true });
+        }
+        catch (err) {
+            console.error(err);
+        }
+    }
+
+    const UpdateRevealDate = async (revealDate) => {
+        try {
+            const storageToken = localStorage.getItem('nfthost-user');
+            if (!storageToken) return;
+
+            const token = decryptToken(storageToken, true);
+
+            const dateLocal = convertDateToLocal(revealDate);
+
+            await axios.patch(`${config.serverUrl}/api/website/updateRevealDate`, {
+                websiteId: currentEditWebsite._id,
+                revealDate: dateLocal
+            }, {
+                headers: { 
+                    Authorization: `Bearer ${token.accessToken}` 
+                }
+            })
+
+            setNewRevealDate(revealDate);
+
+            posthog.capture('User set a reveal date');
+        }
+        catch (err) {
+            console.error(err);
+            if (err.response?.data?.isExpired) await Logout();
+            toast({
+                title: 'Error',
+                description: !err.response ? err.message : err.response.data.message,
+                status: 'error',
+                duration: 3000,
+                isClosable: true,
+                position: 'bottom-center'
+            })
+        }
+    }
+
     return {
-        ChooseTemplate,
-        ChooseAddon,
-        RemoveAddon
+        AddTemplate,
+        AddAddon,
+        RemoveAddon,
+        EditWebsiteTemplate,
+        RemoveTemplate,
+        UpdateRevealDate
     }
 }

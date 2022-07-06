@@ -1,54 +1,32 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useToast } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useWeb3 } from '@/hooks/useWeb3'
 import { useSites } from '@/hooks/useSites'
 import axios from 'axios'
 import config from '@/config/index'
-import posthog from 'posthog-js'
-import { decryptToken, ParseWebsiteData, convertDateToLocal } from '@/utils/tools'
-import { TemplatesArr } from '@/utils/json'
+import { decryptToken, convertDateToLocal, convertLocalToDate } from '@/utils/tools'
+import { useTemplate } from './useTemplate'
 
-export const useCurrentTemplate = (update = true) => {
+export const useCurrentTemplate = () => {
     const toast = useToast();
+    const [isSaving, setIsSaving] = useState(false);
     const { GetWebsites } = useSites();
     const { Logout } = useWeb3();
     const { 
-        setCurrentTemplate,
         currentEditWebsite,
-        newBackgroundColor,
-        setNewBackgroundColor,
-        newBackgroundImage,
-        setNewBackgroundImage,
         setNewErrors,
         setCurrentEditWebsite,
         newRevealDate,
         setNewRevealDate
     } = useWebsite();
+    const { UpdateRevealDate } = useTemplate();
 
     useEffect(() => {
-        if (!update) return;
-        UpdateCurrentTemplate();
-    }, [])
-
-    const UpdateCurrentTemplate = (newWebsiteObj = null) => {
-        try {
-            if (!currentEditWebsite) return;
-
-            const templateKeysArr = TemplatesArr.map((template) => template.key);
-            const decryptedData = ParseWebsiteData(newWebsiteObj ? newWebsiteObj.data : currentEditWebsite.data);
-            const { template, style } = decryptedData;
-            const indexOfKey = templateKeysArr.indexOf(template);
-            
-            setNewRevealDate(convertDateToLocal(newWebsiteObj ? newWebsiteObj.revealDate : currentEditWebsite.revealDate));
-            setNewBackgroundColor(style.bgColor);
-            setNewBackgroundImage(style.bgImage);
-            setCurrentTemplate(TemplatesArr[indexOfKey]);
-        }
-        catch (err) {
-            console.error(err);
-        }
-    }
+        if (!currentEditWebsite) return;
+        const localDate = convertDateToLocal(currentEditWebsite.revealDate);
+        setNewRevealDate(localDate);
+    }, [currentEditWebsite])
 
     const SaveStyle = async () => {
         try {
@@ -56,42 +34,45 @@ export const useCurrentTemplate = (update = true) => {
 
             if (!currentEditWebsite.isPremium) throw new Error('You must upgrade your website to premium to use this feature');
 
-            const storageToken = localStorage.getItem('nfthost-user');
-            if (!storageToken) return;
+            setIsSaving(true);
 
-            const token = decryptToken(storageToken, true);
+            // const storageToken = localStorage.getItem('nfthost-user');
+            // if (!storageToken) return;
 
-            const res = await axios.patch(`${config.serverUrl}/api/website/updateStyle`, {
-                websiteId: currentEditWebsite._id,
-                style: {
-                    bgColor: newBackgroundColor,
-                    bgImage: newBackgroundImage
-                }
-            }, {
-                headers: { 
-                    Authorization: `Bearer ${token.accessToken}` 
-                }
-            })
+            // const token = decryptToken(storageToken, true);
 
-            const dateLocal = convertDateToLocal(newRevealDate);
+            // const res = await axios.patch(`${config.serverUrl}/api/website/updateStyle`, {
+            //     websiteId: currentEditWebsite._id,
+            //     style: {
+            //         bgColor: newBackgroundColor,
+            //         bgImage: newBackgroundImage
+            //     }
+            // }, {
+            //     headers: { 
+            //         Authorization: `Bearer ${token.accessToken}` 
+            //     }
+            // })
 
-            if (new Date(currentEditWebsite.revealDate) !== newRevealDate) {
-                await UpdateRevealDate(dateLocal);
+            const revealDate = convertLocalToDate(currentEditWebsite.revealDate);
+            let revealDateChanged = false;
+
+            if (revealDate !== newRevealDate) {
+                revealDateChanged = true;
+                await UpdateRevealDate(newRevealDate);
             }
+
+            let newEditWebsite = { ...currentEditWebsite };
+
+            if (revealDateChanged) {
+                newEditWebsite.revealDate = newRevealDate;
+                setNewRevealDate(newRevealDate);
+            }
+
+            setCurrentEditWebsite(newEditWebsite);
 
             await GetWebsites();
 
-            if (res.status === 200) {
-                let newEditWebsite = {...currentEditWebsite};
-                newEditWebsite.data = res.data.data;
-
-                if (new Date(currentEditWebsite.revealDate) !== newRevealDate) {
-                    newEditWebsite.revealDate = newRevealDate;
-                }
-
-                setCurrentEditWebsite(newEditWebsite);
-                UpdateCurrentTemplate(res.data);
-            }
+            setIsSaving(false);
 
             toast({
                 title: 'Success',
@@ -103,6 +84,7 @@ export const useCurrentTemplate = (update = true) => {
             })
         }
         catch (err) {
+            setIsSaving(false);
             console.error(err);
             if (err.response?.data?.isExpired) await Logout();
             toast({
@@ -142,16 +124,11 @@ export const useCurrentTemplate = (update = true) => {
             const today = new Date();
             await UpdateRevealDate(today, true);
 
-            await GetWebsites();
+            let newEditWebsite = {...currentEditWebsite};
+            newEditWebsite.data = res.data.data;
+            newEditWebsite.revealDate = today;
 
-            if (res.status === 200) {
-                let newEditWebsite = {...currentEditWebsite};
-                newEditWebsite.data = res.data.data;
-                newEditWebsite.revealDate = today;
-
-                setCurrentEditWebsite(newEditWebsite);
-                UpdateCurrentTemplate(res.data);
-            }
+            setCurrentEditWebsite(newEditWebsite);
 
             toast({
                 title: 'Success',
@@ -176,42 +153,10 @@ export const useCurrentTemplate = (update = true) => {
         }
     }
 
-    const UpdateRevealDate = async (revealDate, isReset = false) => {
-        try {
-            const storageToken = localStorage.getItem('nfthost-user');
-            if (!storageToken) return;
-
-            const token = decryptToken(storageToken, true);
-
-            await axios.patch(`${config.serverUrl}/api/website/updateRevealDate`, {
-                websiteId: currentEditWebsite._id,
-                revealDate
-            }, {
-                headers: { 
-                    Authorization: `Bearer ${token.accessToken}` 
-                }
-            })
-
-            if (!isReset) posthog.capture('User set a reveal date');
-        }
-        catch (err) {
-            console.error(err);
-            if (err.response?.data?.isExpired) await Logout();
-            toast({
-                title: 'Error',
-                description: !err.response ? err.message : err.response.data.message,
-                status: 'error',
-                duration: 3000,
-                isClosable: true,
-                position: 'bottom-center'
-            })
-        }
-    }
 
     return {
-        UpdateCurrentTemplate,
         SaveStyle,
         ResetStyle,
-        UpdateRevealDate
+        isSaving
     }
 }

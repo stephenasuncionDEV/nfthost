@@ -205,7 +205,7 @@ export const metadataStandardsArr = [
 
 export const utilsMenuArr = [
     { title: 'Update Image Storage', icon: <SiIpfs />, key: 'image' },
-    { title: 'Add Metadata Key', icon: <AiOutlinePlus />, key: 'add' },
+    { title: 'Add/Edit Metadata Key', icon: <AiOutlinePlus />, key: 'add' },
     { title: 'Remove Metadata Key', icon: <CgRemove />, key: 'remove' }
 ]
 
