@@ -30,7 +30,7 @@ const Addons = () => {
                     Addons
                 </Text>
                 <Text fontSize='10pt'>
-                    Choose additional features you want for your website
+                    Choose additional features you want for your mint website
                 </Text>
             </VStack>
             <Wrap spacing='1em'>

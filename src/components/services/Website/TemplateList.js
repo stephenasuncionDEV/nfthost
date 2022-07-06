@@ -30,7 +30,7 @@ const TemplateList = () => {
                     Template List
                 </Text>
                 <Text fontSize='10pt'>
-                    Choose a template for your mint website
+                    Add template(s) you can use for the website editor
                 </Text>
             </VStack>
             <Wrap spacing='1em'>

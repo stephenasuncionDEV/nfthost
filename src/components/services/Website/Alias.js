@@ -30,7 +30,7 @@ const Alias = () => {
                     Alias
                 </Text>
                 <Text fontSize='10pt'>
-                    Setup a unique alias for your website
+                    Setup a unique alias for your mint website
                 </Text>
             </VStack>
             <VStack w='full' alignItems='flex-start'>
