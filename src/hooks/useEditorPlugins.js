@@ -45,7 +45,7 @@ export const useEditorPlugins = () => {
                             <img src="${currentEditWebsite?.components?.unrevealedImage}" alt="${currentEditWebsite?.components?.title}" data-gjs-name="image" />
                             <div data-gjs-name="text" style="font-family: Poppins, Inter, sans-serif; font-size: 50px; margin-top: 1em; color: ${textColor}">${currentEditWebsite?.components?.title}</div>
                             <div data-gjs-name="text" style="font-family: Poppins, Inter, sans-serif; margin-top: .5em; color: ${textColor}">${currentEditWebsite?.components?.description}</div>
-                            <div data-gjs-name="cell" style="padding: 2em">${currentEditWebsite?.components?.embed}</div>
+                            <div id='nfthost-embed' data-gjs-name="cell" style="padding: 2em">${currentEditWebsite?.components?.embed}</div>
                         </div>
                     </div>
                     <style> 
