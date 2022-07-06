@@ -1,5 +1,5 @@
 import { Text, VStack, useColorModeValue, Wrap, Button, 
-    Box, Menu, MenuButton, MenuList, MenuItem, MenuDivider
+    Box, Menu, MenuButton, MenuList, MenuItem, MenuDivider, Tag
 } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useCore } from '@/providers/CoreProvider'
@@ -32,38 +32,46 @@ const CurrentTemplate = () => {
                         Templates:
                     </Text>
                     <Wrap w='full'>
-                        {currentEditWebsite?.components?.templates?.map((template, idx) => (
-                            <Menu key={idx}>
-                                <MenuButton 
-                                    as={Button} 
-                                    variant='outline' 
-                                    borderColor='rgb(52,140,212)' 
-                                    color='rgb(52,140,212)'
-                                    rightIcon={<MdSettings />} 
-                                    size='sm' 
-                                    h='1.75rem' 
-                                    minW='1.5rem' 
-                                    px='.65em' 
-                                    fontSize='10pt'
-                                >
-                                    {template}
-                                </MenuButton>
-                                <MenuList>
-                                    <MenuItem size='sm' icon={<FaTrash />} onClick={() => {
-                                        setAreYouSureData({
-                                            item: 'template',
-                                            action: 'Remove',
-                                            icon: <FaTrash />,
-                                            button: 'danger',
-                                            callback: () => {
-                                                RemoveTemplate(template);
-                                            }
-                                        });
-                                        setIsAreYouSureModal(true);
-                                    }}>Remove</MenuItem>
-                                </MenuList>
-                            </Menu>
-                        ))}
+                        {currentEditWebsite?.components?.templates?.length > 0 ? (
+                            <>
+                            {currentEditWebsite?.components?.templates?.map((template, idx) => (
+                                <Menu key={idx}>
+                                    <MenuButton 
+                                        as={Button} 
+                                        variant='outline' 
+                                        borderColor='rgb(52,140,212)' 
+                                        color='rgb(52,140,212)'
+                                        rightIcon={<MdSettings />} 
+                                        size='sm' 
+                                        h='1.75rem'
+                                        minW='1.5rem' 
+                                        px='.65em' 
+                                        fontSize='10pt'
+                                    >
+                                        {template}
+                                    </MenuButton>
+                                    <MenuList>
+                                        <MenuItem size='sm' icon={<FaTrash />} onClick={() => {
+                                            setAreYouSureData({
+                                                item: 'template',
+                                                action: 'Remove',
+                                                icon: <FaTrash />,
+                                                button: 'danger',
+                                                callback: () => {
+                                                    RemoveTemplate(template);
+                                                }
+                                            });
+                                            setIsAreYouSureModal(true);
+                                        }}>Remove</MenuItem>
+                                    </MenuList>
+                                </Menu>
+                            ))}
+                            </>
+                        ) : (
+                            <Tag size='sm' variant='outline' px='.65em' h='1.75rem'>
+                                None
+                            </Tag>
+                        )}
                     </Wrap>
                 </Box>
                 <Box>
@@ -71,52 +79,60 @@ const CurrentTemplate = () => {
                         Addons:
                     </Text>
                     <Wrap w='full'>
-                        {currentEditWebsite?.components?.addons?.map((addon, idx) => (
-                            <Menu key={idx}>
-                                <MenuButton 
-                                    as={Button} 
-                                    variant='outline' 
-                                    borderColor='rgb(52,140,212)' 
-                                    color='rgb(52,140,212)'
-                                    rightIcon={<MdSettings />} 
-                                    size='sm' 
-                                    h='1.75rem' 
-                                    minW='1.5rem' 
-                                    px='.65em' 
-                                    fontSize='10pt'
-                                >
-                                    {addon}
-                                </MenuButton>
-                                <MenuList>
-                                    {(addon === 'Navbar' || addon === 'Footer') && (
-                                        <>
-                                            <MenuItem size='sm' icon={<HiLink />} onClick={() => {
-                                                setAddonSettingsData({
-                                                    item: 'socials',
-                                                    addon
-                                                })
-                                                setIsAddonSettingsModal(true);
-                                            }}>
-                                                Socials
-                                            </MenuItem>
-                                            <MenuDivider/>
-                                        </>
-                                    )}
-                                    <MenuItem size='sm' icon={<FaTrash />} onClick={() => {
-                                        setAreYouSureData({
-                                            item: 'addon',
-                                            action: 'Remove',
-                                            icon: <FaTrash />,
-                                            button: 'danger',
-                                            callback: () => {
-                                                RemoveAddon(addon);
-                                            }
-                                        });
-                                        setIsAreYouSureModal(true);
-                                    }}>Remove</MenuItem>
-                                </MenuList>
-                            </Menu>
-                        ))}
+                        {currentEditWebsite?.components?.addons?.length > 0 ? (
+                            <>
+                            {currentEditWebsite?.components?.addons?.map((addon, idx) => (
+                                <Menu key={idx}>
+                                    <MenuButton 
+                                        as={Button} 
+                                        variant='outline' 
+                                        borderColor='rgb(52,140,212)' 
+                                        color='rgb(52,140,212)'
+                                        rightIcon={<MdSettings />} 
+                                        size='sm' 
+                                        h='1.75rem' 
+                                        minW='1.5rem' 
+                                        px='.65em' 
+                                        fontSize='10pt'
+                                    >
+                                        {addon}
+                                    </MenuButton>
+                                    <MenuList>
+                                        {(addon === 'Navbar' || addon === 'Footer') && (
+                                            <>
+                                                <MenuItem size='sm' icon={<HiLink />} onClick={() => {
+                                                    setAddonSettingsData({
+                                                        item: 'socials',
+                                                        addon
+                                                    })
+                                                    setIsAddonSettingsModal(true);
+                                                }}>
+                                                    Socials
+                                                </MenuItem>
+                                                <MenuDivider/>
+                                            </>
+                                        )}
+                                        <MenuItem size='sm' icon={<FaTrash />} onClick={() => {
+                                            setAreYouSureData({
+                                                item: 'addon',
+                                                action: 'Remove',
+                                                icon: <FaTrash />,
+                                                button: 'danger',
+                                                callback: () => {
+                                                    RemoveAddon(addon);
+                                                }
+                                            });
+                                            setIsAreYouSureModal(true);
+                                        }}>Remove</MenuItem>
+                                    </MenuList>
+                                </Menu>
+                            ))}
+                            </>
+                        ) : (
+                            <Tag size='sm' variant='outline' px='.65em' h='1.75rem'>
+                                None
+                            </Tag>
+                        )}
                     </Wrap>
                 </Box>
             </VStack>
