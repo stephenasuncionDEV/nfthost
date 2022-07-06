@@ -1,11 +1,8 @@
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
 import { useToast, useColorModeValue } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
-import { useCore } from '@/providers/CoreProvider'
 import grapesjs from 'grapesjs'
 import gjsPresetWebpage from 'grapesjs-preset-webpage'
-import gjsBlocksBasic from 'grapesjs-blocks-basic'
 import { useWeb3 } from '@/hooks/useWeb3'
 import { useEditorPlugins } from '@/hooks/useEditorPlugins'
 import { ParseWebsiteData, EncodeWebsiteData, decryptToken } from '@/utils/tools'
@@ -13,20 +10,15 @@ import axios from 'axios'
 import config from '@/config/index'
 
 export const useWebsiteEditor = () => {
-    const { setIsAreYouSureModal, setAreYouSureData } = useCore();
     const { currentEditWebsite, setEditor, editor, setCurrentEditWebsite } = useWebsite();
     const { Logout } = useWeb3();
     const [isSaving, setIsSaving] = useState(false);
     const toast = useToast();
-    const router = useRouter();
     const { 
         getNFTHostComponents,
         setDOMComponents,
         setupDefaults
     } = useEditorPlugins();
-    const { websiteId } = router.query;
-
-    const bodyColor = useColorModeValue('rgb(250,251,251)', 'rgb(18,22,30)');
 
     useEffect(() => {
         if (!currentEditWebsite) return;
@@ -65,7 +57,7 @@ export const useWebsiteEditor = () => {
 
         if (parsedData) {
             if (Object.keys(parsedData).length > 2) { // Differentiate between old and new data
-                editor.loadData(parsedData);
+                editor.loadData(parsedData.store);
             }
         }
         
@@ -94,7 +86,8 @@ export const useWebsiteEditor = () => {
             const encodedData = EncodeWebsiteData({
                 html: htmlCode,
                 embed: embedCode,
-                css: editor.getCss()
+                css: editor.getCss(),
+                store: editor.storeData()
             });
 
             await axios.patch(`${config.serverUrl}/api/website/updateStyle`, {
@@ -136,25 +129,8 @@ export const useWebsiteEditor = () => {
         }
     }
 
-    const ReturnToDashboard = () => {
-        if (!currentEditWebsite) {
-            router.push('/dashboard/website', undefined, { shallow: true });
-            return;
-        }
-        setAreYouSureData({
-            item: 'draft',
-            action: 'Discard',
-            button: 'danger',
-            callback: () => {
-                router.push('/dashboard/website', undefined, { shallow: true });
-            }
-        })
-        setIsAreYouSureModal(true);
-    }
-
     return {
         Publish,
-        isSaving,
-        ReturnToDashboard
+        isSaving
     }
 }

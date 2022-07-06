@@ -1,27 +1,16 @@
 import NextLink from 'next/link'
-import { useRouter } from 'next/router'
-import { Text, Flex, VStack, useColorModeValue, Tag, 
-    TagLeftIcon, HStack, Wrap, Divider, FormControl,
-    Input, FormHelperText, FormErrorMessage, Button, Box,
-    Image, Link, useColorMode
-} from '@chakra-ui/react'
-import { useCore } from '@/providers/CoreProvider'
+import { Flex, HStack, Button, Box, Image, Link, useColorMode } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useWebsiteEditor } from '@/hooks/useWebsiteEditor'
 import Meta from '@/components/Meta'
-import AreYouSureModal from '@/components/AreYouSureModal'
 import { MdSave } from 'react-icons/md'
 import { FaExternalLinkAlt } from 'react-icons/fa'
-import grapesjs from 'grapesjs'
 import config from '@/config/index'
 
 const WebsiteEditor = () => {
-    const router = useRouter();
     const { 
-        editor, 
         Publish,  
-        isSaving, 
-        ReturnToDashboard
+        isSaving
     } = useWebsiteEditor();
     const { colorMode } = useColorMode();
     const { currentEditWebsite } = useWebsite();
@@ -29,7 +18,6 @@ const WebsiteEditor = () => {
     return (
         <>
             <Meta title='Website Editor | NFTHost' />
-            <AreYouSureModal />
             <Flex flexDir='column' minH='100vh'>       
                 <HStack flex='1' px='1em' py='.5em' justifyContent='space-between' bg='rgb(55,66,76)'>
                     <Link href='/dashboard' style={{ textDecoration: 'none' }}>
@@ -38,9 +26,11 @@ const WebsiteEditor = () => {
                         </HStack>
                     </Link>
                     <HStack spacing='2em'>
-                        <Button size='sm' onClick={ReturnToDashboard}>
-                            Return to Dashboard
-                        </Button>
+                        <NextLink href='/dashboard/website' shallow passHref>
+                            <Button size='sm'>
+                                Return to Dashboard
+                            </Button>
+                        </NextLink>
                         <HStack>
                             <Button size='sm' variant='primary' leftIcon={<MdSave />} onClick={Publish} disabled={isSaving} isLoading={isSaving} loadingText='Saving'>
                                 Publish
