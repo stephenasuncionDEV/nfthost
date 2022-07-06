@@ -9,13 +9,13 @@ import config from '@/config/index'
 import { formatRobot, ParseWebsiteData } from '@/utils/tools'
 import { useAnalytics } from '@/hooks/useAnalytics'
 
-export const useUserWebsite = (websiteData) => {
+export const useUserWebsite = () => {
     const router = useRouter();
     const toast = useToast();
+    const [ websiteData, setWebsiteData ] = useState();
     const { setUserWebsite } = useWebsite();
     const { setIsCookieModal } = useCore();
     const { websiteId } = router.query;
-    const [data, setData] = useState();
     const { CheckUniqueUsers } = useAnalytics();
 
     // Check if user accepted cookie and increment unique visit
@@ -30,13 +30,6 @@ export const useUserWebsite = (websiteData) => {
         if (!Object.keys(router.query).length) return;
         GetUserWebsite();
     }, [router])
-
-    // Parse website data
-    useEffect(() => {
-        if (!websiteData) return;
-        const ret = ParseWebsiteData(websiteData);
-        setData(ret);
-    }, [websiteData])
 
     const GetUserWebsite = async (checkExpiration = true) => {
         try {
@@ -58,6 +51,9 @@ export const useUserWebsite = (websiteData) => {
                 websiteTitle: res.data.components.title,
                 origin: document.referrer
             })
+
+            const siteData = ParseWebsiteData(res.data.data);
+            setWebsiteData(siteData);
 
             if (checkExpiration) await CheckExpiration(res.data);
 
@@ -126,6 +122,6 @@ export const useUserWebsite = (websiteData) => {
 
     return {
         GetUserWebsite,
-        data
+        websiteData
     }
 }

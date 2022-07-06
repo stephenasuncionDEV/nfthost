@@ -19,7 +19,7 @@ const WebsiteEditor = () => {
     const router = useRouter();
     const { 
         editor, 
-        Publish, 
+        Publish,  
         isSaving, 
         ReturnToDashboard
     } = useWebsiteEditor();

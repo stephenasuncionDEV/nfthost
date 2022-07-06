@@ -84,7 +84,10 @@ export const useWebsiteEditor = () => {
 
             const token = decryptToken(storageToken, true);
 
-            const encodedData = EncodeWebsiteData(editor.storeData());
+            const encodedData = EncodeWebsiteData({
+                html: editor.getHtml(),
+                css: editor.getCss()
+            });
 
             await axios.patch(`${config.serverUrl}/api/website/updateStyle`, {
                 websiteId: currentEditWebsite._id,
