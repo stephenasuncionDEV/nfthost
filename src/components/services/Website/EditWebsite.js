@@ -248,13 +248,18 @@ const EditWebsite = () => {
                     }}>
                         Delete
                     </Button>
-                    <HStack mt='1em'>
-                        <Button size='sm' onClick={CancelEdit} disabled={isUpdating}>
-                            Cancel
-                        </Button>
-                        <Button variant='primary' leftIcon={<MdSave />} size='sm' onClick={UpdateWebsite} isLoading={isUpdating} loadingText='Updating'>
-                            Save
-                        </Button>
+                    <HStack mt='1em' spacing='1em'>
+                        <Text fontSize='8pt' opacity='.5'>
+                            ID: {currentEditWebsite?._id}
+                        </Text>
+                        <HStack>
+                            <Button size='sm' onClick={CancelEdit} disabled={isUpdating}>
+                                Cancel
+                            </Button>
+                            <Button variant='primary' leftIcon={<MdSave />} size='sm' onClick={UpdateWebsite} isLoading={isUpdating} loadingText='Updating'>
+                                Save
+                            </Button>
+                        </HStack>
                     </HStack>
                 </HStack>
             </Flex>

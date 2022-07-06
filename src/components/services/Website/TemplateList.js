@@ -8,7 +8,7 @@ import { TemplatesArr } from '@/utils/json'
 
 const TemplateList = () => {
     const { currentEditWebsite } = useWebsite();
-    const { ChooseTemplate } = useTemplate();
+    const { AddTemplate } = useTemplate();
  
     const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
     const componentColor = useColorModeValue('rgba(0,0,0,0.1)', 'rgba(0,0,0,0.5)');
@@ -79,10 +79,10 @@ const TemplateList = () => {
                             w='full' 
                             size='sm' 
                             variant='primary'
-                            onClick={() => ChooseTemplate(template)} 
-                            disabled={!currentEditWebsite?.isPremium && template.sub === 'premium'}
+                            onClick={() => AddTemplate(template)} 
+                            disabled={(!currentEditWebsite?.isPremium && template.sub === 'premium') || (currentEditWebsite?.components?.templates?.includes(template.key))}
                         >
-                            Use
+                            Add
                         </Button>
                     </VStack>
                 ))}
