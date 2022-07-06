@@ -8,7 +8,7 @@ const isDevelopment = false;
 // https://i.postimg.cc/k5h8jLDW/Circle-Image.png
 // https://i.postimg.cc/vmDx6XXT/Square-Image.png
 
-const Embed = ({ revealDate, embed, id }) => {
+const Embed = ({ revealDate, embed, websiteId }) => {
     const isReveal = !revealDate || new Date(revealDate) <= new Date();
     const { CheckEmbedClick } = useAnalytics();
 
@@ -53,7 +53,7 @@ const Embed = ({ revealDate, embed, id }) => {
             <Text fontSize='10pt'>
                 {revealDate && `${new Date(revealDate).toString()}`}
             </Text>
-            <Link href={`/${id}`}>
+            <Link href={`/${websiteId}`}>
                 <Button mt='1em' rightIcon={<MdRefresh />}>
                     Refresh
                 </Button>

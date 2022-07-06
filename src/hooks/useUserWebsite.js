@@ -53,6 +53,16 @@ export const useUserWebsite = () => {
             })
 
             const siteData = ParseWebsiteData(res.data.data);
+
+            const isReveal = !res.data.revealDate || new Date(res.data.revealDate) <= new Date();
+            if (isReveal) {
+                const fullHtml = siteData.html;
+                const embedPosition = fullHtml.search('id="nfthost-embed"') - 5;
+                const closingPosition = fullHtml.slice(embedPosition).indexOf('</div>') + embedPosition + 6;
+                const htmlCode = fullHtml.slice(0, embedPosition) + siteData.embed + fullHtml.slice(closingPosition);
+                siteData.html = htmlCode;
+            }
+
             setWebsiteData(siteData);
 
             if (checkExpiration) await CheckExpiration(res.data);

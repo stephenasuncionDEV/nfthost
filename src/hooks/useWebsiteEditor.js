@@ -88,8 +88,8 @@ export const useWebsiteEditor = () => {
             const embedPosition = fullHtml.search('id="nfthost-embed"') - 5;
             const closingPosition = fullHtml.slice(embedPosition).indexOf('</div>') + embedPosition + 6;
             const embedCode = fullHtml.substring(embedPosition, closingPosition);
-
-            const htmlCode = (fullHtml.slice(0, embedPosition) + fullHtml.slice(closingPosition)).replace('body', 'div');
+            const partialHtmlCode = fullHtml.slice(0, embedPosition) + '<div id="nfthost-embed"></div>' + fullHtml.slice(closingPosition);
+            const htmlCode = partialHtmlCode.replace('body', 'div');
 
             const encodedData = EncodeWebsiteData({
                 html: htmlCode,
