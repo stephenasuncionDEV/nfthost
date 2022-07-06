@@ -20,8 +20,6 @@ export const useWebsiteEditor = () => {
         setupDefaults
     } = useEditorPlugins();
 
-    const borderColor = useColorModeValue('gray.200', 'whiteAlpha.300');
-
     useEffect(() => {
         if (!currentEditWebsite) return;
 
