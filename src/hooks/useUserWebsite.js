@@ -13,10 +13,11 @@ export const useUserWebsite = () => {
     const router = useRouter();
     const toast = useToast();
     const [ websiteData, setWebsiteData ] = useState();
+    const [ isOld, setIsOld ] = useState(false);
     const { setUserWebsite } = useWebsite();
     const { setIsCookieModal } = useCore();
-    const { websiteId } = router.query;
     const { CheckUniqueUsers } = useAnalytics();
+    const { websiteId } = router.query;
 
     // Check if user accepted cookie and increment unique visit
     useEffect(() => {
@@ -54,21 +55,30 @@ export const useUserWebsite = () => {
 
             const siteData = ParseWebsiteData(res.data.data);
 
+            let isOld = false;
+
+            // If Website is old version
+            if (Object.keys(siteData).length <= 2) {
+                isOld = true;          
+            }
+
+            // Add embed code if reveal date is good
             const isReveal = !res.data.revealDate || new Date(res.data.revealDate) <= new Date();
-            if (isReveal) {
+            if (isReveal && !isOld) {
                 const fullHtml = siteData.html;
                 const embedPosition = fullHtml.search('id="nfthost-embed"') - 5;
                 const closingPosition = fullHtml.slice(embedPosition).indexOf('</div>') + embedPosition + 6;
                 const htmlCode = fullHtml.slice(0, embedPosition) + siteData.embed + fullHtml.slice(closingPosition);
                 siteData.html = htmlCode;
+                setWebsiteData(siteData);
             }
 
-            setWebsiteData(siteData);
-
+            // Check if mint website is expired
             if (checkExpiration) await CheckExpiration(res.data);
 
             await CheckUniqueUsers(res.data);
 
+            setIsOld(isOld);
             setUserWebsite({
                 ...res.data,
                 meta: {
@@ -132,6 +142,7 @@ export const useUserWebsite = () => {
 
     return {
         GetUserWebsite,
-        websiteData
+        websiteData,
+        isOld
     }
 }

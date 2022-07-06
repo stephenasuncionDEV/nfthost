@@ -6,6 +6,7 @@ import { useUserWebsite } from '@/hooks/useUserWebsite'
 import CookieModal from '@/components/CookieModal'
 import Navbar from '@/components/services/Website/addons/Navbar'
 import Footer from '@/components/services/Website/addons/Footer'
+import Template1 from '@/components/services/Website/templates/Template1'
 import parse from 'html-react-parser'
 import { CgCopyright } from 'react-icons/cg'
 
@@ -13,7 +14,7 @@ const Service = () => {
     const router = useRouter();
     const { userWebsite } = useWebsite();
     const { websiteId } = router.query;
-    const { websiteData } = useUserWebsite(userWebsite?.data);
+    const { websiteData, isOld } = useUserWebsite(userWebsite?.data);
 
     return userWebsite && !userWebsite.isExpired && (
         <main>
@@ -41,14 +42,18 @@ const Service = () => {
 
                 {userWebsite?.components?.script && parse(userWebsite?.components?.script)}
 
-                <style>
-                    {websiteData?.css}
-                </style>
+                {websiteData && (
+                    <style>
+                        {websiteData?.css}
+                    </style>
+                )}
             </Head>
             
             {userWebsite?.components?.addons?.indexOf('Navbar') !== -1 && <Navbar />}
 
-            {parse(websiteData?.html)}
+            {isOld && <Template1 userWebsite={userWebsite} />}
+
+            {websiteData && parse(websiteData?.html)}
 
             {!userWebsite?.isPremium && (
                 <Link href='https://www.nfthost.app/' isExternal>
