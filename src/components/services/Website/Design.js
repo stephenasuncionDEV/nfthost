@@ -17,7 +17,7 @@ const Design = () => {
         newRevealDate,
         setNewRevealDate
     } = useWebsite();
-    const { SaveStyle } = useCurrentTemplate();
+    const { SaveStyle, isSaving } = useCurrentTemplate();
     const { EditWebsiteTemplate } = useTemplate();
 
     const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
@@ -84,14 +84,16 @@ const Design = () => {
                                 </VStack>
                             </VStack>
                             <HStack justifyContent='flex-end' w='full'>
-                                <Button size='sm' variant='primary' leftIcon={<FaEdit />} onClick={EditWebsiteTemplate}>
+                                <Button size='sm' variant='primary' leftIcon={<FaEdit />} onClick={EditWebsiteTemplate} disabled={!currentEditWebsite.isPremium}>
                                     Edit Website Template
                                 </Button>
                                 <Button
                                     variant='primary'
                                     leftIcon={<MdSave />}
                                     onClick={SaveStyle}
-                                    disabled={!currentEditWebsite?.isPremium}
+                                    disabled={!currentEditWebsite?.isPremium || isSaving}
+                                    isLoading={isSaving}
+                                    loadingText='Saving'
                                     size='sm'
                                 >
                                     Save

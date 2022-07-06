@@ -156,6 +156,7 @@ export const useCurrentTemplate = () => {
 
     return {
         SaveStyle,
-        ResetStyle
+        ResetStyle,
+        isSaving
     }
 }

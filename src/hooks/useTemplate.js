@@ -224,6 +224,8 @@ export const useTemplate = () => {
 
     const EditWebsiteTemplate = () => {
         try {
+            if (!currentEditWebsite.isPremium) throw new Error('Upgrade your website to premium to edit website template');
+
             router.push(`/editor/${currentEditWebsite._id}`, undefined, { shallow: true });
         }
         catch (err) {
