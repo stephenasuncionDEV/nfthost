@@ -58,7 +58,7 @@ export const useUserWebsite = () => {
             let isOld = false;
 
             // If Website is old version
-            if (Object.keys(siteData).length <= 2) {
+            if (!siteData || Object.keys(siteData).length <= 2) {
                 isOld = true;          
             }
 
