@@ -46,8 +46,7 @@ export const useSites = () => {
         setCurrentEditWebsite,
         setIsDeletingWebsite,
         editWebsiteFormRef,
-        setIsCreateWebsiteModal,
-        recaptchaRef
+        setIsCreateWebsiteModal
     } = useWebsite();
     const { DeductFree, getUserByAddress, AddCount, DeductCount, Logout } = useWeb3();
 

@@ -2,7 +2,6 @@ import { useToast } from '@chakra-ui/react'
 import { useUser } from '@/providers/UserProvider'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useSites } from '@/hooks/useSites'
-import { useCurrentTemplate } from '@/hooks/useCurrentTemplate'
 import config from '@/config/index'
 import axios from 'axios'
 import posthog from 'posthog-js'
@@ -15,8 +14,8 @@ export const useTemplate = () => {
     const { Logout } = useUser();
     const { currentEditWebsite, setCurrentEditWebsite } = useWebsite();
     const { GetWebsites } = useSites();
-    const { UpdateCurrentTemplate } = useCurrentTemplate();
 
+    // todo
     const ChooseTemplate = async (template) => {
         try {
             if (!template) throw new Error('Cannot fetch template');
@@ -42,13 +41,10 @@ export const useTemplate = () => {
 
             await GetWebsites();
 
-            if (res.status === 200) {
-                let newEditWebsite = {...currentEditWebsite};
-                newEditWebsite.data = res.data.data;
+            let newEditWebsite = { ...currentEditWebsite };
+            newEditWebsite.components.template = res.data.components.template;
 
-                setCurrentEditWebsite(newEditWebsite);
-                UpdateCurrentTemplate(newEditWebsite);
-            }
+            setCurrentEditWebsite(newEditWebsite);
 
             posthog.capture('User use a template', {
                 template: template.key
@@ -101,15 +97,10 @@ export const useTemplate = () => {
                 }
             })
 
-            await GetWebsites();
-
-            if (res.status === 200) {
-                let newEditWebsite = {...currentEditWebsite};
-                newEditWebsite.components.addons = addonsArr;
-                
-                setCurrentEditWebsite(newEditWebsite);
-                UpdateCurrentTemplate(newEditWebsite);
-            }
+            let newEditWebsite = {...currentEditWebsite};
+            newEditWebsite.components.addons = addonsArr;
+            
+            setCurrentEditWebsite(newEditWebsite);
 
             posthog.capture('User use an addon', {
                 addon: addon.key
@@ -162,12 +153,7 @@ export const useTemplate = () => {
                 }
             })
 
-            await GetWebsites();
-
-            if (res.status === 200) {
-                setCurrentEditWebsite(newEditWebsite);
-                UpdateCurrentTemplate(newEditWebsite);
-            }
+            setCurrentEditWebsite(newEditWebsite);
 
             posthog.capture('User removed an addon', {
                 addon
@@ -195,6 +181,10 @@ export const useTemplate = () => {
         }
     }
 
+    const RemoveTemplate = async (template) => {
+
+    }
+
     const EditWebsiteTemplate = () => {
         try {
             router.push(`/editor/${currentEditWebsite._id}`, undefined, { shallow: true });
@@ -204,10 +194,44 @@ export const useTemplate = () => {
         }
     }
 
+    const UpdateRevealDate = async (revealDate) => {
+        try {
+            const storageToken = localStorage.getItem('nfthost-user');
+            if (!storageToken) return;
+
+            const token = decryptToken(storageToken, true);
+
+            await axios.patch(`${config.serverUrl}/api/website/updateRevealDate`, {
+                websiteId: currentEditWebsite._id,
+                revealDate
+            }, {
+                headers: { 
+                    Authorization: `Bearer ${token.accessToken}` 
+                }
+            })
+
+            posthog.capture('User set a reveal date');
+        }
+        catch (err) {
+            console.error(err);
+            if (err.response?.data?.isExpired) await Logout();
+            toast({
+                title: 'Error',
+                description: !err.response ? err.message : err.response.data.message,
+                status: 'error',
+                duration: 3000,
+                isClosable: true,
+                position: 'bottom-center'
+            })
+        }
+    }
+
     return {
         ChooseTemplate,
         ChooseAddon,
         RemoveAddon,
-        EditWebsiteTemplate
+        EditWebsiteTemplate,
+        RemoveTemplate,
+        UpdateRevealDate
     }
 }
