@@ -29,7 +29,7 @@ const CurrentTemplate = () => {
             <VStack spacing='1em' alignItems='flex-start'>
                 <Box>
                     <Text fontSize='10pt' mb='.25em'>
-                        Templates:
+                        Template(s):
                     </Text>
                     <Wrap w='full'>
                         {currentEditWebsite?.components?.templates?.length > 0 ? (
@@ -69,14 +69,14 @@ const CurrentTemplate = () => {
                             </>
                         ) : (
                             <Tag size='sm' variant='outline' px='.65em' h='1.75rem'>
-                                None
+                                Default
                             </Tag>
                         )}
                     </Wrap>
                 </Box>
                 <Box>
                     <Text fontSize='10pt' mb='.25em'>
-                        Addons:
+                        Addon(s):
                     </Text>
                     <Wrap w='full'>
                         {currentEditWebsite?.components?.addons?.length > 0 ? (
