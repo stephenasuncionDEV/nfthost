@@ -33,6 +33,7 @@ export const useWebsiteEditor = () => {
             },
             autoload: false,
             autosave: false,
+            storageManager: false,
             plugins: [
                 gjsPresetWebpage,
                 setDOMComponents,
@@ -59,10 +60,8 @@ export const useWebsiteEditor = () => {
         // Load Current website data
         const parsedData = ParseWebsiteData(currentEditWebsite.data);
 
-        if (parsedData) {
-            if (Object.keys(parsedData).length > 2) { // Differentiate between old and new data
-                editor.loadData(parsedData.store);
-            }
+        if (parsedData && Object.keys(parsedData).length > 2) { // Differentiate between old and new data
+            editor.loadProjectData(parsedData.store);
         }
         
         setEditor(editor);
@@ -86,7 +85,7 @@ export const useWebsiteEditor = () => {
             const encodedData = EncodeWebsiteData({
                 html: htmlCode,
                 css: editor.getCss(),
-                store: editor.storeData()
+                store: editor.getProjectData()
             });
 
             await axios.patch(`${config.serverUrl}/api/website/updateData`, {
