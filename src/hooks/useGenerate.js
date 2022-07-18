@@ -208,6 +208,10 @@ export const useGenerate = () => {
 
         // Optional data
 
+        if (symbol.length > 0) {
+            metadataObj.ethereum = {...metadataObj.ethereum, symbol: symbol};
+        }
+
         if (externalURL.length > 0) {
             metadataObj.ethereum = {...metadataObj.ethereum, external_url: externalURL};
             metadataObj.solana = {...metadataObj.solana, external_url: externalURL};
@@ -282,9 +286,7 @@ export const useGenerate = () => {
             const canvas = await getCanvas();
 			const ctx = canvas.getContext('2d');
 
-            zip.remove('Metadata');
 			zip.remove('Images');
-            zip.remove('CSV metadata.csv');
 
             let chunkCount = 1;
 			let curRenderIndex = 1;
@@ -357,7 +359,6 @@ export const useGenerate = () => {
 			setIsDownloading(true);
 
             zip.remove('Metadata');
-			zip.remove('Images');
             zip.remove('CSV metadata.csv');
 
             // Save Json Metadata
@@ -383,14 +384,14 @@ export const useGenerate = () => {
                 let csvData = []; 
 
                 // Create Columns
-                let keys = Object.keys(metadata[0]).filter((key) => key === 'attributes');
+                let keys = Object.keys(metadata[0]).filter((key) => key !== 'attributes');
                 const attributes = metadata[0].attributes.map((attribute) => attribute.trait_type);
                 const columns = [...keys, ...attributes];
                 csvData.push(columns);
 
                 // Create Rows
                 tempMetadata.forEach((data) => {
-                    let row = Object.values(data).filter((value) => typeof value === 'array');
+                    let row = Object.values(data).filter((value) => typeof value !== 'object');
                     data.attributes.forEach((attribute) => {
                         row.push(attribute.value);
                     })
@@ -439,7 +440,6 @@ export const useGenerate = () => {
 			setIsDownloading(true);
 
             zip.remove('Metadata');
-			zip.remove('Images');
             zip.remove('CSV metadata.csv');
 
             // Save Json Metadata
@@ -472,7 +472,7 @@ export const useGenerate = () => {
 
                 // Create Rows
                 tempMetadata.forEach((data) => {
-                    let row = Object.values(data).filter((value) => typeof value === 'array');
+                    let row = Object.values(data).filter((value) => typeof value !== 'object');
                     data.attributes.forEach((attribute) => {
                         row.push(attribute.value);
                     })
