@@ -91,7 +91,7 @@ const Configuration = () => {
                 </HStack>
             )}
             {isDisplay('symbol') && (
-                <HStack alignItems='flex-start' mt='1em'>
+                <HStack alignItems='flex-start' mt='1em' w='full'>
                     <FormControl flex='1'>
                         <Input 
                             id='collectionSymbol' 

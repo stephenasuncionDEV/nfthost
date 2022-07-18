@@ -61,6 +61,10 @@ const Preview = () => {
     
         // Optional data
     
+        if (symbol.length > 0) {
+            metadataObj.ethereum = {...metadataObj.ethereum, symbol: symbol};
+        }
+
         if (externalURL.length > 0) {
             metadataObj.ethereum = {...metadataObj.ethereum, external_url: externalURL};
             metadataObj.solana = {...metadataObj.solana, external_url: externalURL};

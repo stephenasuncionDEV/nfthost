@@ -174,6 +174,7 @@ export const metadataStandardsArr = [
         components: [
             'size',
             'name',
+            'symbol',
             'description',
             'image',
             'external_url',
