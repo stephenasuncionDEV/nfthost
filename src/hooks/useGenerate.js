@@ -356,6 +356,10 @@ export const useGenerate = () => {
 
 			setIsDownloading(true);
 
+            zip.remove('Metadata');
+			zip.remove('Images');
+            zip.remove('CSV metadata.csv');
+
             // Save Json Metadata
 
 			let fileIndex = 0;
@@ -434,11 +438,13 @@ export const useGenerate = () => {
 
 			setIsDownloading(true);
 
+            zip.remove('Metadata');
+			zip.remove('Images');
+            zip.remove('CSV metadata.csv');
+
             // Save Json Metadata
 
 			let fileIndex = 0;
-
-			zip.remove("Images"); // delete images first
 
             let tempMetadata = [...metadata];
 
