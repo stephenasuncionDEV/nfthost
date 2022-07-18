@@ -375,38 +375,33 @@ export const useGenerate = () => {
 
             // Save Csv Metadata
 
-            // if (standardType === 'eth') {
-            //     let csvData = [];           
-            //     let keys = Object.keys(metadata[0]).slice(0, 3);
+            if (standardType.name === 'Ethereum') {
+                let csvData = []; 
 
-            //     keys.splice(2, 1);
+                // Create Columns
+                let keys = Object.keys(metadata[0]).filter((key) => key === 'attributes');
+                const attributes = metadata[0].attributes.map((attribute) => attribute.trait_type);
+                const columns = [...keys, ...attributes];
+                csvData.push(columns);
 
-            //     const attributes = metadata[0].attributes.map((attribute) => attribute.trait_type)
-            //     const columns = [...keys, ...attributes];        
+                // Create Rows
+                tempMetadata.forEach((data) => {
+                    let row = Object.values(data).filter((value) => typeof value === 'array');
+                    data.attributes.forEach((attribute) => {
+                        row.push(attribute.value);
+                    })
+                    csvData.push(row);
+                })
 
-            //     csvData.push(columns);
+                let csv = "";
+                csvData.forEach((row) => {  
+                    csv += row.join(',');
+                    csv += "\n";
+                })
 
-            //     // Get Rows
-            //     tempMetadata.forEach((data) => {
-            //         let row = [
-            //             data.name,
-            //             data.description,
-            //         ]
-            //         data.attributes.forEach((attribute) => {
-            //             row.push(attribute.value);
-            //         })
-            //         csvData.push(row);
-            //     })
-
-            //     let csv = "";
-            //     csvData.forEach((row) => {  
-            //         csv += row.join(',');  
-            //         csv += "\n";
-            //     }); 
-
-            //     const csvBlob = new Blob([csv], {type: "text/csv;charset=utf-8"});
-            //     zip.file("CSV metadata.csv", csvBlob);
-            // }
+                const csvBlob = new Blob([csv], {type: "text/csv;charset=utf-8"});
+                zip.file("CSV metadata.csv", csvBlob);
+            }
 
 			const content = await zip.generateAsync({
 				type: "blob",
@@ -460,38 +455,33 @@ export const useGenerate = () => {
 
             // Save Csv Metadata
 
-            // if (standardType === 'eth') {
-            //     let csvData = [];           
-            //     let keys = Object.keys(metadata[0]).slice(0, 3);
+            if (standardType.name === 'Ethereum') {
+                let csvData = []; 
 
-            //     keys.splice(2, 1);
+                // Create Columns
+                let keys = Object.keys(metadata[0]).filter((key) => key === 'attributes');
+                const attributes = metadata[0].attributes.map((attribute) => attribute.trait_type);
+                const columns = [...keys, ...attributes];
+                csvData.push(columns);
 
-            //     const attributes = metadata[0].attributes.map((attribute ) => attribute.trait_type)
-            //     const columns = [...keys, ...attributes];        
+                // Create Rows
+                tempMetadata.forEach((data) => {
+                    let row = Object.values(data).filter((value) => typeof value === 'array');
+                    data.attributes.forEach((attribute) => {
+                        row.push(attribute.value);
+                    })
+                    csvData.push(row);
+                })
 
-            //     csvData.push(columns);
+                let csv = "";
+                csvData.forEach((row) => {  
+                    csv += row.join(',');
+                    csv += "\n";
+                })
 
-            //     // Get Rows
-            //     tempMetadata.forEach((data ) => {
-            //         let row = [
-            //             data.name,
-            //             data.description,
-            //         ]
-            //         data.attributes.forEach((attribute) => {
-            //             row.push(attribute.value);
-            //         })
-            //         csvData.push(row);
-            //     })
-
-            //     let csv = "";
-            //     csvData.forEach((row) => {  
-            //         csv += row.join(',');  
-            //         csv += "\n";
-            //     }); 
-
-            //     const csvBlob = new Blob([csv], {type: "text/csv;charset=utf-8"});
-            //     zip.file("CSV metadata.csv", csvBlob);
-            // }
+                const csvBlob = new Blob([csv], {type: "text/csv;charset=utf-8"});
+                zip.file("CSV metadata.csv", csvBlob);
+            }
             
 			const content = await zip.generateAsync({
 				type: "blob",
