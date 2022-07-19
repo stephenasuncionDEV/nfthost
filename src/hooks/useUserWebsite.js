@@ -14,7 +14,7 @@ export const useUserWebsite = () => {
     const toast = useToast();
     const [websiteData, setWebsiteData] = useState();
     const [ isOld, setIsOld ] = useState(false);
-    const { setUserWebsite } = useWebsite();
+    const { setUserWebsite, setUserWebsiteError, userWebsiteError } = useWebsite();
     const { setIsCookieModal } = useCore();
     const { CheckUniqueUsers } = useAnalytics();
     const { websiteId } = router.query;
@@ -32,6 +32,13 @@ export const useUserWebsite = () => {
         GetUserWebsite();
     }, [router])
 
+    const BuildWebsiteError = (message) => {
+        let newUserWebsiteError = [...userWebsiteError];
+        newUserWebsiteError.push(message);
+        setUserWebsiteError(newUserWebsiteError);
+        throw new Error(message);
+    }
+
     const GetUserWebsite = async (checkExpiration = true) => {
         try {
             const res = await axios.get(`${config.serverUrl}/api/website/get`, {
@@ -43,7 +50,7 @@ export const useUserWebsite = () => {
                 }
             })
 
-            if (!res.data) throw new Error('Invalid website Id');
+            if (!res.data) BuildWebsiteError('Invalid website ID');
 
             console.log('[NFTHost] Website ID:', res.data._id);
 
@@ -52,6 +59,11 @@ export const useUserWebsite = () => {
                 websiteTitle: res.data.components.title,
                 origin: document.referrer
             })
+
+            if (res.data.isExpired === true) BuildWebsiteError('Website is expired, if you are the owner of this website, you can renew your subscription.');
+
+            // Check if mint website is expired
+            if (checkExpiration) await CheckExpiration(res.data);
 
             const siteData = ParseWebsiteData(res.data.data);
 
@@ -66,7 +78,7 @@ export const useUserWebsite = () => {
             const isReveal = !res.data.revealDate || new Date(res.data.revealDate) <= new Date();
             if (isReveal && !isOld) {
                 const fullHtml = siteData.html;
-                const embedPosition = fullHtml.search('id="nfthost-embed"') - 9;
+                const embedPosition = fullHtml.indexOf('id="nfthost-embed"') - 9;
                 const closingPosition = fullHtml.slice(embedPosition).indexOf('</section>') + embedPosition + 10;
                 const embedContainer = '<div style="margin: 1.5em">' + res.data.components.embed + '</div>';
                 const htmlCode = fullHtml.slice(0, embedPosition) + embedContainer + fullHtml.slice(closingPosition);
@@ -74,9 +86,6 @@ export const useUserWebsite = () => {
             }
 
             setWebsiteData(siteData);
-
-            // Check if mint website is expired
-            if (checkExpiration) await CheckExpiration(res.data);
 
             await CheckUniqueUsers(res.data);
 

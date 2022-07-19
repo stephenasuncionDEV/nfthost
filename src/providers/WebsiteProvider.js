@@ -26,7 +26,7 @@ export const WebsiteProvider = ({ children }) => {
     const [isChangingAlias, setIsChangingAlias] = useState(false);
     const [isChangingDomain, setIsChangingDomain] = useState(false);
     const [currentEditWebsite, setCurrentEditWebsite] = useState();
-    const [currentTemplate, setCurrentTemplate] = useState();
+    const [userWebsiteError, setUserWebsiteError] = useState([]);
     const [newRevealDate, setNewRevealDate] = useState('');
     const [createWebsiteStep, setCreateWebsiteStep] = useState('information'); // information, settings
     const [featuredWebsites, setFeaturedWebsites] = useState();
@@ -94,7 +94,9 @@ export const WebsiteProvider = ({ children }) => {
         setIsChangingAlias,
         isChangingDomain,
         setIsChangingDomain,
-        recaptchaRef
+        recaptchaRef,
+        userWebsiteError,
+        setUserWebsiteError
     }
 
     return (
