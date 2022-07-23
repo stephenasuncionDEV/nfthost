@@ -543,6 +543,29 @@ export const useSites = () => {
         try {
             if (!currentEditWebsite) throw new Error('Select a mint website');
 
+            const member = await getUserByAddress(address);
+
+            if (!member) throw new Error('Cannot fetch member');
+          
+            if (member.services.website.freeWebsite === 0) {
+                setPaymentData({
+                    service: 'Website',
+                    price: 15,
+                    product: '1 NFT mint website (premium)',
+                    redirect: {
+                        origin: '/dashboard/website',
+                        title: 'Website'
+                    },
+                    due: new Date()
+                })
+                router.push('/payment', undefined, { shallow: true }); 
+                return;
+            }
+            else if (member.services.website.freeWebsite > 0) {
+                const DEDUCT_INDEX = 1;
+                await DeductFree(DEDUCT_INDEX, 'website');
+            }
+
             const storageToken = localStorage.getItem('nfthost-user');
             if (!storageToken) return;
 
