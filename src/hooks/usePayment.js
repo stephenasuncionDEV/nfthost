@@ -217,37 +217,23 @@ export const usePayment = () => {
     }
 
     const AddPayment = async (hash) => {
-        try {
-            const storageToken = localStorage.getItem('nfthost-user');
-            if (!storageToken) return;
+        const storageToken = localStorage.getItem('nfthost-user');
+        if (!storageToken) return;
 
-            const token = decryptToken(storageToken, true);
-            const service = paymentData.service.toLowerCase();
-            const price = getPriceFromService(service);
+        const token = decryptToken(storageToken, true);
+        const service = paymentData.service.toLowerCase();
+        const price = getPriceFromService(service);
 
-            const res = await axios.post(`${config.serverUrl}/api/payment/add`, {
-                memberId: user._id,
-                hash,
-                service,
-                price,
-            }, {
-                headers: { 
-                    Authorization: `Bearer ${token.accessToken}` 
-                }
-            })
-        }
-        catch (err) {
-            console.error(err);
-            if (err.response?.data?.isExpired) await Logout();
-            toast({
-                title: 'Error',
-                description: !err.response ? err.message : err.response.data.message,
-                status: 'error',
-                duration: 3000,
-                isClosable: true,
-                position: 'bottom-center'
-            })
-        }
+        const res = await axios.post(`${config.serverUrl}/api/payment/add`, {
+            memberId: user._id,
+            hash,
+            service,
+            price,
+        }, {
+            headers: { 
+                Authorization: `Bearer ${token.accessToken}` 
+            }
+        })
     }
 
     return {
