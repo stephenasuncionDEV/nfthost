@@ -46,7 +46,7 @@ const Footer = () => {
                             <Text fontWeight='bold' fontSize='10pt'>
                                 Team
                             </Text>
-                            <Link href='https://twitter.com/Steb_01' color='white' isExternal>
+                            <Link href='https://www.linkedin.com/in/stephen-allen-asuncion-3735b2176/' color='white' isExternal>
                                 <HStack minW='161.13' fontSize='9pt'>
                                     <Text>
                                         Stephen Asuncion
