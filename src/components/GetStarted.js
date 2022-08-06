@@ -77,10 +77,10 @@ const GetStarted = () => {
                                     <FiExternalLink />
                                 </HStack>
                             </Link>
-                            <Link href='https://www.youtube.com/watch?v=DhBNDsOjluo' isExternal>
+                            <Link href='https://www.youtube.com/watch?v=6R10ZTsLIeM' isExternal>
                                 <HStack>
                                     <Text fontSize='10pt'>
-                                        Deploy with ThirdWeb and Host with NFT Host
+                                        How to Modify my json Metadata
                                     </Text>
                                     <FiExternalLink />
                                 </HStack>
