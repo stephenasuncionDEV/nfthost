@@ -58,7 +58,7 @@ const Payments = () => {
                                         <Menu>
                                             <MenuButton as={IconButton} icon={<IoMdSettings />} size='sm' />
                                             <MenuList>
-                                                <Link href='https://discord.gg/BMZZXZMnmv' isExternal>
+                                                <Link href='https://discord.com/invite/u2xXYn7C9T' isExternal>
                                                     <MenuItem icon={<BiSupport />}>
                                                         Request Support
                                                     </MenuItem>
