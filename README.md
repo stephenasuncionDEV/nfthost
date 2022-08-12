@@ -27,25 +27,33 @@
 ## Setup
 
 <ul>
-    <li><a href='https://hub.docker.com/repository/docker/stephenasuncion/nfthost' rel="nofollow">DockerHub: NFTHost frontend</a></li>
-    <li><a href='https://hub.docker.com/repository/docker/stephenasuncion/nfthost-backend' rel="nofollow">DockerHub: NFTHost backend</a></li>
+    <li><a href='https://hub.docker.com/repository/docker/stephenasuncion/nfthost' rel="nofollow">DockerHub: Frontend</a></li>
+    <li><a href='https://hub.docker.com/repository/docker/stephenasuncion/nfthost-backend' rel="nofollow">DockerHub: Backend</a></li>
 </ul>
 
+Running with Docker Hub:
+
 ```
-npm i 
+Client:
+docker pull stephenasuncion/nfthost:main
+docker container run --name client -p 3000:3000 stephenasuncion/nfthost:main
+
+Server:
+docker pull stephenasuncion/nfthost-backend:main
+docker container run --name server -p 8080:8080 stephenasuncion/nfthost-backend:main
+```
+
+Running with Terminal:
+
+```
 npm run dev
 ```
 
-## Environment Variables
+## Technologies
 
-| .env.local           |
-| -------------------- |
-| CHAIN_ID             |
-| ENCRYPT_KEY          |
-| POSTHOG_KEY          |
-| RECAPTCHA_KEY        |
-| CREATE_WEBSITE_TOKEN |
-| INFURA_ID |
+![Technologies](https://skillicons.dev/icons?i=nodejs,express,nextjs,vercel,mongodb,docker,sass,git&theme=light)
+
+Other: [Chakra UI](https://chakra-ui.com/), [Stripe](https://stripe.com/en-ca), [PostHog](https://posthog.com/), [GrapesJS](https://grapesjs.com/), [Web3](https://web3js.readthedocs.io/en/v1.7.5/), [Chart.js](https://www.chartjs.org/), [Ethers](https://docs.ethers.io/v5/), [JSZip](https://stuk.github.io/jszip/)
 
 ## Support
 
