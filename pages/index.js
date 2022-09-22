@@ -16,9 +16,10 @@ const Main = () => {
     const srcColor = useColorModeValue('blackAlpha.600', 'whiteAlpha.600');
     const sponsorColor = useColorModeValue('blackAlpha.600', 'whiteAlpha.300');
     const isSmallerFont = useMediaQuery({ query: '(max-width: 380px)' });
+    const isTouchingLogo = useMediaQuery({ query: '(max-width: 630px)' });
 
     return (
-        <main style={{ background: bgColor }}>
+        <main>
             <Meta title='NFT Host' />
             <MainNavbar 
                 isSocial 
@@ -39,21 +40,28 @@ const Main = () => {
                     w='full'
                 >
                     <SlideFade in={true} offsetY='20px' delay={.45}>
-                        <Flex flexDir='column' alignItems='center' justifyContent='center' h='600px'>
-                            <Text variant='header_1' fontSize={isSmallerFont ? '32pt' : '52pt'} textAlign='center'>
-                                Generate and Host your
-                            </Text>
-                            <Text className={style.gradientBlue} fontSize={isSmallerFont ? '22pt' : '42pt'} fontWeight='bold'>
-                                NFT Collection
-                            </Text>
-                            <Text fontSize={isSmallerFont ? '10pt' : '13pt'} fontWeight='hairline' my='1em'>
-                                Create and Host your NFT collection in under a minute!
-                            </Text>
-                            <NextLink href='/dashboard/getStarted' shallow passHref>
-                                <Button mt='.5em' maxW='180px' size='lg'>
-                                    Get Started 🚀
-                                </Button>
-                            </NextLink>
+                        <Flex>
+                            <Flex flexDir='column' alignItems='center' justifyContent='center' h='600px'>
+                                <Text variant='header_1' fontSize={isSmallerFont ? '32pt' : '52pt'} textAlign='center'>
+                                    Generate and Host your
+                                </Text>
+                                <Text className={style.gradientBlue} fontSize={isSmallerFont ? '22pt' : '42pt'} fontWeight='bold'>
+                                    NFT Collection
+                                </Text>
+                                <Text fontSize={isSmallerFont ? '10pt' : '13pt'} fontWeight='hairline' my='1em'>
+                                    Create and Host your NFT collection in under a minute!
+                                </Text>
+                                <NextLink href='/dashboard/getStarted' shallow passHref>
+                                    <Button mt='.5em' maxW='180px' size='lg'>
+                                        Get Started 🚀
+                                    </Button>
+                                </NextLink>
+                            </Flex>
+                            {!isTouchingLogo && (
+                                <Flex>
+                                    <Image src='/assets/demo.gif' alt='Generation Demo' w='550' h='500' />
+                                </Flex>
+                            )}
                         </Flex>
                     </SlideFade>
                     <SlideFade in={true} offsetY='20px' delay={1}>
