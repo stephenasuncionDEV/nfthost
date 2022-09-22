@@ -37,7 +37,7 @@ const Alias = () => {
             <VStack w='full' alignItems='flex-start'>
                 <Flex flexDir='column'>
                     <Text fontSize='10pt'>
-                        Current Alias: <span style={{ color: 'rgb(52,140,212)' }}>{currentEditWebsite?.custom?.alias}</span>
+                        Current Alias: <span style={{ color: 'rgb(52,140,212)' }}>{!currentEditWebsite?.custom?.alias?.length ? 'n/a' : currentEditWebsite?.custom?.alias}</span>
                     </Text>
                     <Text fontSize='10pt'>
                         Current Website Link:&nbsp;
