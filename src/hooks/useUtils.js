@@ -6,6 +6,7 @@ import { useCore } from '@/providers/CoreProvider'
 import { useUser } from '@/providers/UserProvider'
 import { useWeb3 } from '@/hooks/useWeb3'
 import { saveAs } from 'file-saver'
+import { getPriceFromService } from '@/utils/tools'
 import JSZip from 'jszip'
 import posthog from 'posthog-js'
 
@@ -128,7 +129,7 @@ export const useUtils = () => {
             if (freeUtil <= 0 || !freeUtil) {
                 setPaymentData({
                     service: 'Utils',
-                    price: 5,
+                    price: getPriceFromService('utils'),
                     product: `Add ${Object.keys(newKey)[0]} Key on Metadata`,
                     redirect: {
                         origin: '/dashboard/utilities',

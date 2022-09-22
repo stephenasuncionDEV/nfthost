@@ -7,7 +7,7 @@ import { useWeb3 } from '@/hooks/useWeb3'
 import posthog from 'posthog-js'
 import axios from 'axios'
 import config from '@/config/index'
-import { decryptToken } from '@/utils/tools'
+import { decryptToken, getPriceFromService } from '@/utils/tools'
 
 export const useSites = () => {
     const toast = useToast();
@@ -129,7 +129,7 @@ export const useSites = () => {
             if (newSubcription === 'premium' && member.services.website.freeWebsite <= 0) {
                 setPaymentData({
                     service: 'Website',
-                    price: 15,
+                    price: getPriceFromService('website'),
                     product: '1 NFT mint website (premium)',
                     redirect: {
                         origin: '/dashboard/website',
