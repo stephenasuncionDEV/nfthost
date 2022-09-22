@@ -49,7 +49,8 @@ export const webColor = {
     containerBg: ['white', 'rgb(46,40,76)'],
     sidebarBg: ['white', 'rgb(46,40,76)'],
     toolbarBg: ['white', 'rgb(46,40,76)'],
-    announcementBg: ['rgb(117,63,229)', 'rgb(117,63,229)']
+    announcementBg: ['rgb(117,63,229)', 'rgb(117,63,229)'],
+    footerBg: ['rgb(240,240,240)', 'rgb(19,15,28)']
 }
 
 export default theme
