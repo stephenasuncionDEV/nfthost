@@ -18,8 +18,8 @@ const Announcement = () => {
                     <Text fontSize='10pt' color='white'>
                         Build cool mint websites with Premium Subscription 💎
                     </Text>
-                    <Link href='/dashboard/getStarted' style={{ textDecoration: 'none' }}>
-                        <Button size='sm'>
+                    <Link href='/dashboard/getStarted' style={{ textDecoration: 'none' }} color='white'>
+                        <Button size='sm' variant='solid'>
                             Learn More
                         </Button>
                     </Link>
