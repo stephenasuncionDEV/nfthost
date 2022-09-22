@@ -5,6 +5,8 @@ import Text from '@/theme/Text'
 import Drawer from '@/theme/Drawer'
 import Tag from '@/theme/Tag'
 import Link from '@/theme/Link'
+import Modal from '@/theme/Modal'
+import Menu from '@/theme/Menu'
 
 const config = {
     initialColorMode: 'dark',
@@ -36,8 +38,17 @@ const theme = extendTheme({
         Text,
         Drawer,
         Tag,
-        Link
+        Link,
+        Modal,
+        Menu
     }
 })
+
+export const webColor = {
+    dashboardBg: ['rgb(236,242,245)', 'rgb(30,26,48)'],
+    containerBg: ['white', 'rgb(46,40,76)'],
+    sidebarBg: ['white', 'rgb(46,40,76)'],
+    toolbarBg: ['white', 'rgb(46,40,76)']
+}
 
 export default theme
