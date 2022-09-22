@@ -15,7 +15,7 @@ const KeepWorkingModal = () => {
         <Modal isOpen={isKeepWorkingModal} onClose={() => setIsKeepWorkingModal(false)} isCentered>
             <ModalOverlay />
             <ModalContent>
-                <ModalHeader>Woops...</ModalHeader>
+                <ModalHeader>Keep working...</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
                     <Flex flexDir='column' justifyContent='center' alignItems='center'>
