@@ -135,11 +135,11 @@ export const sidebarArr = [
 export const teamArr = [
     { 
         name: 'Stephen Asuncion', 
-        position: 'Founder, Software Engineer',
+        position: 'CEO and Founder, Software Engineer',
         socials: {
             twitter: 'https://twitter.com/Steb_01',
-            linkedin: 'https://www.linkedin.com/in/stephen-allen-asuncion-3735b2176/',
-            youtube: 'https://www.youtube.com/channel/UCmKzlQCcDv-fern-Zv8vQ0w'
+            linkedin: 'https://www.linkedin.com/in/stephenasuncion',
+            youtube: 'https://www.youtube.com/c/stephenasuncion'
         }
     }
 ]
