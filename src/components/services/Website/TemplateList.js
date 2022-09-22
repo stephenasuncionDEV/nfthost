@@ -81,7 +81,11 @@ const TemplateList = () => {
                             size='sm' 
                             variant='primary'
                             onClick={() => AddTemplate(template)} 
-                            disabled={(!currentEditWebsite?.isPremium && template.sub === 'premium') || (currentEditWebsite?.components?.templates?.includes(template.key))}
+                            disabled={
+                                (!currentEditWebsite?.isPremium && template.sub === 'premium') || 
+                                (currentEditWebsite?.components?.templates?.includes(template.key)) ||
+                                (currentEditWebsite?.components?.templates?.length === 0)
+                            }
                         >
                             Add
                         </Button>
