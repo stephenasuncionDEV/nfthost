@@ -6,7 +6,6 @@ import { teamArr } from '@/utils/json'
 import posthog from 'posthog-js';
 
 const Team = () => {
-
     const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
 
     return (
@@ -23,7 +22,7 @@ const Team = () => {
                     key={idx}
                 >
                     <VStack>
-                        <Avatar src='/assets/team/stephen.jpg' name='Stephen Asuncion' size='lg' />
+                        <Avatar src='/assets/team/stephen.png' name='Stephen Asuncion' size='lg' />
                     </VStack>
                     <VStack alignItems='flex-start' flex='1'>
                         <Flex flexDir='column'>
