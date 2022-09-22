@@ -1,4 +1,5 @@
-import { Text, Flex, Button, VStack, useColorModeValue, Wrap, Image } from '@chakra-ui/react'
+import NextLink from 'next/link'
+import { Text, Flex, Button, VStack, useColorModeValue, Wrap, Image, HStack } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
 import Configuration from './Configuration'
 import { metadataStandardsArr } from '@/utils/json'
@@ -28,12 +29,21 @@ const Metadata = () => {
                 alignItems='flex-start'
                 w='full'
             >
-                <Text fontWeight='bold' fontSize='10pt'>
-                    Metadata
-                </Text>
-                <Text fontSize='10pt'>
-                    Select a Metadata Standard
-                </Text>
+                <HStack spacing='2em'>
+                    <Flex flexDir='column'>
+                        <Text fontWeight='bold' fontSize='10pt'>
+                            Metadata
+                        </Text>
+                        <Text fontSize='10pt'>
+                            Select a Metadata Standard
+                        </Text>
+                    </Flex>
+                    <NextLink href='/dashboard/generator' shallow passHref>
+                        <Button variant='primary' size='sm'>
+                            Go back to Generator
+                        </Button>
+                    </NextLink>
+                </HStack>
                 <Wrap spacing='.5em' mt='1em' p='.5em' bg={bgColor} borderRadius='10px' w='full'>
                     {metadataStandardsArr?.map((standard, idx) => (
                         <Button 
