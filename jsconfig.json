@@ -6,8 +6,8 @@
             "@/utils/*": ["src/utils/*"],
             "@/providers/*": ["src/providers/*"],
             "@/hooks/*": ["src/hooks/*"],
-            "@/config/*": ["config/*"],
-            "@/styles/*": ["styles/*"]
+            "@/config/*": ["src/config/*"],
+            "@/styles/*": ["src/styles/*"]
         }
     }
 }
