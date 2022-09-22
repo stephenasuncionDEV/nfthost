@@ -6,11 +6,5 @@ module.exports = {
         POSTHOG_KEY: process.env.POSTHOG_KEY,
         CREATE_WEBSITE_TOKEN: process.env.CREATE_WEBSITE_TOKEN,
         INFURA_ID: process.env.INFURA_ID
-    },
-    webpack: (config, { webpack }) => {
-        config.plugins.push(new webpack.IgnorePlugin({
-            resourceRegExp: /^electron$/
-        }));
-        return config;
     }
 }
