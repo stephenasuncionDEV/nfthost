@@ -86,6 +86,10 @@ export const usePayment = () => {
                 throw new Error('Your wallet is currently not supported for payment, please login with a different wallet provider')
             }
 
+            posthog.capture('User paid with crypto wallet', {
+                wallet
+            });
+
             const INCREMENT_INDEX = 1;
             await AddFree(INCREMENT_INDEX, service);
             await AddPayment(hash);
@@ -101,10 +105,6 @@ export const usePayment = () => {
                 isClosable: true,
                 position: 'bottom-center'
             })
-
-            posthog.capture('User paid with crypto wallet', {
-                wallet
-            });
         }
         catch (err) {
             console.error(err);
@@ -185,6 +185,10 @@ export const usePayment = () => {
             await AddPayment(transaction.paymentIntent.id);
             await UpdateEmail(paymentEmail);
 
+            posthog.capture('User paid with stripe', {
+                price: paymentData.price
+            });
+
             setIsPaying(false);
             setIsKeepWorkingModal(true);
 
@@ -196,10 +200,6 @@ export const usePayment = () => {
                 isClosable: true,
                 position: 'bottom-center'
             })
-
-            posthog.capture('User paid with stripe', {
-                price: paymentData.price
-            });
         }
         catch (err) {
             console.error(err);
