@@ -8,7 +8,7 @@ import { UserProvider } from '@/providers/UserProvider'
 import { GeneratorProvider } from '@/providers/GeneratorProvider'
 import { WebsiteProvider } from '@/providers/WebsiteProvider'
 import { CoreProvider } from '@/providers/CoreProvider'
-import theme from '@/utils/theme'
+import theme from '@/theme/index'
 import posthog from 'posthog-js'
 
 const MyApp = ({ Component, pageProps }) => {
