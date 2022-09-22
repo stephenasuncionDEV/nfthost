@@ -7,6 +7,7 @@ import { HiOutlineChevronDown, HiOutlineDesktopComputer } from 'react-icons/hi'
 import { MdSettings } from 'react-icons/md'
 import { FaPlay, FaDownload } from 'react-icons/fa'
 import { useRarity } from '@/hooks/useRarity'
+import { webColor } from '@/theme/index'
 
 const Toolbar = () => {
     const { isGenerated, setIsDownloadModal } = useGenerator();
@@ -14,7 +15,7 @@ const Toolbar = () => {
     const { OpenComputer, Save } = useToolbar();
     const { OpenRarityModal } = useRarity();
 
-    const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
+    const containerColor = useColorModeValue(webColor.containerBg[0], webColor.containerBg[1]);
 
     return (
         <HStack 

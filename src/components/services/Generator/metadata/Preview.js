@@ -1,5 +1,6 @@
 import { Text, Flex, Textarea, useColorModeValue, Button, useToast } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
+import { webColor } from '@/theme/index'
 
 const Preview = () => {
     const toast = useToast();
@@ -18,7 +19,7 @@ const Preview = () => {
         backgroundColor
     } = useGenerator();
 
-    const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
+    const containerColor = useColorModeValue(webColor.containerBg[0], webColor.containerBg[1]);
     const bgColor = useColorModeValue('rgba(0,0,0,0.1)', 'rgba(0,0,0,0.5)');
 
     const previewMetadata = () => {
@@ -117,8 +118,8 @@ const Preview = () => {
                 A preview of your NFT collection's json metadata file.
             </Text>
             <Flex bg={bgColor} borderRadius='10px' justifyContent='center' alignItems='center' p='1em' w='full' position='relative'>
-                <Textarea value={previewMetadata()} size='sm' rows={20} readOnly/>
-                <Button size='sm' variant='primary' position='absolute' top='7' right='7' onClick={Copy}>
+                <Textarea value={previewMetadata()} size='sm' rows={20} readOnly bg='transparent' border='0' />
+                <Button size='sm' variant='primary' position='absolute' top='7' right='12' onClick={Copy}>
                     COPY
                 </Button>
             </Flex>

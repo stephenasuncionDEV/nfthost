@@ -2,6 +2,7 @@ import { HStack, Text, Button, Flex, VStack, useColorModeValue,
     Input, Textarea, Select, Wrap, IconButton, Link, Box, Image,
     FormControl
 } from '@chakra-ui/react'
+import { useCore } from '@/providers/CoreProvider'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useUser } from '@/providers/UserProvider'
 import { useSites } from '@/hooks/useSites';
@@ -9,7 +10,7 @@ import { useEditWebsite } from '@/hooks/useEditWebsite'
 import { MdSave } from 'react-icons/md'
 import { FaExternalLinkAlt, FaStar, FaTrash } from 'react-icons/fa'
 import config from '@/config/index'
-import { useCore } from '@/providers/CoreProvider';
+import { webColor } from '@/theme/index'
 
 const EditWebsite = () => {
     const { setAreYouSureData, setIsAreYouSureModal } = useCore();
@@ -21,8 +22,8 @@ const EditWebsite = () => {
     const subscriptionStart = new Date(premiumStartDate);
     const subscriptionEnd = new Date(subscriptionStart?.setDate(subscriptionStart?.getDate() + 30))
 
+    const containerColor = useColorModeValue(webColor.containerBg[0], webColor.containerBg[1]);
     const componentColor = useColorModeValue('rgba(0,0,0,0.1)', 'rgba(0,0,0,0.5)');
-    const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
 
     const Copy = (value) => {
         navigator.clipboard.writeText(value);

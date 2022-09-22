@@ -5,16 +5,17 @@ import { Box, Text, useColorModeValue, VStack, HStack,
 import { useCore } from '@/providers/CoreProvider'
 import ConnectWalletTag from './ConnectWalletTag'
 import { GiHamburgerMenu } from 'react-icons/gi'
-import {  MdOutlineDarkMode, MdOutlineLightMode } from 'react-icons/md'
+import { MdOutlineDarkMode, MdOutlineLightMode } from 'react-icons/md'
 import { sidebarArr } from '@/utils/json'
+import { webColor } from '@/theme/index'
 
 const Layout = ({ children, currentApp }) => {
     const { isSidebar, setIsSidebar } = useCore();
     const { colorMode, toggleColorMode } = useColorMode();
 
-    const sidebarBG = useColorModeValue('white', 'rgb(55,66,76)');
+    const sidebarBG = useColorModeValue(webColor.sidebarBg[0], webColor.sidebarBg[1]);
     const sidebarColor = useColorModeValue('#60677d', '#9097a7');
-    const toolbarBG = useColorModeValue('rgba(250,250,250,1)', 'rgb(60,71,82)');
+    const toolbarBG = useColorModeValue(webColor.toolbarBg[0], webColor.toolbarBg[1]);
     const defaultColor = useColorModeValue('rgba(0,0,0,0.7)', 'white');
 
     return (
@@ -102,7 +103,7 @@ const Layout = ({ children, currentApp }) => {
                                                 </Button>
                                             </NextLink>
                                         ) : (
-                                            <Link href={nav.link} isExternal style={{ textDecoration: 'none' }}>
+                                            <Link href={nav.link} isExternal style={{ textDecoration: 'none' }} color='inherit'>
                                                 <Button 
                                                     borderRadius='0' 
                                                     leftIcon={nav.icon}

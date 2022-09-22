@@ -4,12 +4,13 @@ import { useTraits } from '@/hooks/useTraits'
 import { FaTrashAlt } from 'react-icons/fa'
 import { BsFillImageFill } from 'react-icons/bs'
 import Dropzone from 'react-dropzone'
+import { webColor } from '@/theme/index'
 
 const Traits = () => {
     const { layers, currentLayer } = useGenerator();
     const { DeleteTrait, UploadAssets } = useTraits();
 
-    const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
+    const containerColor = useColorModeValue(webColor.containerBg[0], webColor.containerBg[1]);
     const dropContainerColor = useColorModeValue('rgba(0,0,0,0.1)', 'rgba(0,0,0,0.5)');
     const itemColor = useColorModeValue('blackAlpha.100', 'blackAlpha.400');
     const itemBorderColor = useColorModeValue('blackAlpha.300', 'whiteAlpha.300');

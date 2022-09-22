@@ -1,10 +1,10 @@
 import { Text, Flex, Button, VStack, useColorModeValue, Wrap, Image, Link } from '@chakra-ui/react'
 import { PartnersArr } from '@/utils/json'
 import posthog from 'posthog-js';
+import { webColor } from '@/theme/index'
 
 const Partners = () => {
-
-    const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
+    const containerColor = useColorModeValue(webColor.containerBg[0], webColor.containerBg[1]);
 
     return (
         <Wrap spacing='2em'>

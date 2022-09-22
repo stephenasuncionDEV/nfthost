@@ -20,6 +20,7 @@ import Analytics from '@/components/services/Website/Analytics'
 import Utilities from '@/components/services/Utilities'
 import Metadata from '@/components/services/Generator/metadata'
 import { MdOutlineAccountCircle } from 'react-icons/md'
+import { webColor } from '@/theme/index'
 
 const Page = () => {
     const router = useRouter();
@@ -28,7 +29,7 @@ const Page = () => {
     const currentApp = app[app.length === 2 ? 1 : 0]?.toLowerCase();
     useReAuthenticate();
 
-    const bgColor = useColorModeValue('rgb(236,242,245)', 'rgb(48,56,65)');
+    const bgColor = useColorModeValue(webColor.dashboardBg[0], webColor.dashboardBg[1]);
     const isRemoveStepper = useMediaQuery({ query: '(max-width: 1300px)' });
     const isCollapse = useMediaQuery({ query: '(max-width: 990px)' });
 

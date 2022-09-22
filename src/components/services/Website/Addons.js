@@ -7,12 +7,13 @@ import { useTemplate } from '@/hooks/useTemplate'
 import { GiCutDiamond } from 'react-icons/gi'
 import { AiOutlineWarning, AiOutlineArrowLeft } from 'react-icons/ai'
 import { AddonsArr } from '@/utils/json'
+import { webColor } from '@/theme/index'
 
 const Addons = () => {
     const { currentEditWebsite } = useWebsite();
     const { AddAddon } = useTemplate();
 
-    const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
+    const containerColor = useColorModeValue(webColor.containerBg[0], webColor.containerBg[1]);
     const componentColor = useColorModeValue('rgba(0,0,0,0.1)', 'rgba(0,0,0,0.5)');
     
     return currentEditWebsite ? (

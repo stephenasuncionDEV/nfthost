@@ -15,6 +15,7 @@ import { loadStripe } from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
 import config from '@/config/index'
 import { getCurrencyFromWallet, getPriceFromService } from '@/utils/tools'
+import { webColor } from '@/theme/index'
 
 const month = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
 const stripePromise = loadStripe(config.stripe.publicKey);

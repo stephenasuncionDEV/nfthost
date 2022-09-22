@@ -3,10 +3,11 @@ import { Text, Flex, VStack, useColorModeValue,
 } from '@chakra-ui/react'
 import { FaLinkedin, FaInstagram, FaTwitter, FaYoutube, FaFacebook } from 'react-icons/fa'
 import { teamArr } from '@/utils/json'
-import posthog from 'posthog-js';
+import posthog from 'posthog-js'
+import { webColor } from '@/theme/index'
 
 const Team = () => {
-    const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
+    const containerColor = useColorModeValue(webColor.containerBg[0], webColor.containerBg[1]);
 
     return (
         <Wrap spacing='2em'>

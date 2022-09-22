@@ -1,10 +1,11 @@
 import { Text, Flex, useColorModeValue, Checkbox, VStack } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
+import { webColor } from '@/theme/index'
 
 const Option = () => {
     const { isRandomizedMetadata, setIsRandomizedMetadata } = useGenerator();
 
-    const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
+    const containerColor = useColorModeValue(webColor.containerBg[0], webColor.containerBg[1]);
 
     return (
         <Flex 

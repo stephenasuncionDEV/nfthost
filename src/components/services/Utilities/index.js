@@ -4,11 +4,12 @@ import { utilsMenuArr } from '@/utils/json'
 import ImageStorage from './ImageStorage'
 import AddKey from './AddKey'
 import RemoveKey from './RemoveKey'
+import { webColor } from '@/theme/index'
 
 const Utilities = () => {
     const { utilsTab, setUtilsTab } = useGenerator();
 
-    const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
+    const containerColor = useColorModeValue(webColor.containerBg[0], webColor.containerBg[1]);
 
     return (
         <HStack alignItems='flex-start'>

@@ -7,6 +7,7 @@ import { Box, HStack, Text, Flex, Button,
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { useMetadata } from '@/hooks/useMetadata'
 import { IoMdAdd } from 'react-icons/io'
+import { webColor } from '@/theme/index'
 
 const Configuration = () => {
     const { 
@@ -39,7 +40,7 @@ const Configuration = () => {
     } = useGenerator();
     const { AddCreator, DeleteCreator } = useMetadata();
 
-    const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
+    const containerColor = useColorModeValue(webColor.containerBg[0], webColor.containerBg[1]);
     const componentColor = useColorModeValue('rgba(0,0,0,0.1)', 'rgba(0,0,0,0.5)');
 
     const isDisplay = (component) => standardType?.components?.includes(component);

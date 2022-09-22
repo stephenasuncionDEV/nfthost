@@ -5,12 +5,13 @@ import { useWebsite } from '@/providers/WebsiteProvider'
 import { useSites } from '@/hooks/useSites'
 import { MdRefresh } from 'react-icons/md'
 import { GiCutDiamond } from 'react-icons/gi'
+import { webColor } from '@/theme/index'
 
 const Sites = () => {
     const { websites, isRefreshing, currentEditWebsite } = useWebsite();
     const { GetWebsites, EditWebsite } = useSites();
 
-    const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
+    const containerColor = useColorModeValue(webColor.containerBg[0], webColor.containerBg[1]);
     const buttonColor = useColorModeValue('blackAlpha.100', 'whiteAlpha.100');
     const bgColor = useColorModeValue('rgba(0,0,0,0.1)', 'rgba(0,0,0,0.5)');
     const buttonDefaultColor = useColorModeValue('gray.100', 'whiteAlpha.200');

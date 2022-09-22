@@ -2,12 +2,13 @@ import { Box, Text, Flex, VStack, useColorModeValue, Image, Button } from '@chak
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { useGenerate } from '@/hooks/useGenerate'
 import { FaRedo } from 'react-icons/fa'
+import { webColor } from '@/theme/index'
 
 const Preview = () => {
     const { previewLayers } = useGenerator();
     const { RandomPreview } = useGenerate();
 
-    const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
+    const containerColor = useColorModeValue(webColor.containerBg[0], webColor.containerBg[1]);
     const dropContainerColor = useColorModeValue('rgba(0,0,0,0.1)', 'rgba(0,0,0,0.5)');
 
     return (

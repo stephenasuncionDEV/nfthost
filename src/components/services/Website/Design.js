@@ -9,6 +9,7 @@ import { GiCutDiamond } from 'react-icons/gi'
 import { MdSave, MdVerified } from 'react-icons/md'
 import { FaRedo, FaEdit } from 'react-icons/fa'
 import { useTemplate } from '@/hooks/useTemplate'
+import { webColor } from '@/theme/index'
 
 const Design = () => {
     const { 
@@ -20,7 +21,7 @@ const Design = () => {
     const { SaveStyle, isSaving } = useCurrentTemplate();
     const { EditWebsiteTemplate } = useTemplate();
 
-    const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
+    const containerColor = useColorModeValue(webColor.containerBg[0], webColor.containerBg[1]);
 
     return (
         <VStack 

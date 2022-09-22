@@ -7,12 +7,13 @@ import { useSites } from '@/hooks/useSites'
 import { FaExternalLinkAlt } from 'react-icons/fa'
 import { HiOutlineChevronDown } from 'react-icons/hi'
 import config from '@/config/index'
+import { webColor } from '@/theme/index'
 
 const WebsiteInfo = ({ isCollapse }) => {
     const { websites, currentEditWebsite } = useWebsite();
     const { CopyWebsiteLink, EditWebsite } = useSites();
 
-    const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
+    const containerColor = useColorModeValue(webColor.containerBg[0], webColor.containerBg[1]);
 
     return currentEditWebsite && (
         <>

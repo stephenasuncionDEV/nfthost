@@ -5,6 +5,7 @@ import Configuration from './Configuration'
 import { metadataStandardsArr } from '@/utils/json'
 import Option from './Option'
 import Preview from './Preview'
+import { webColor } from '@/theme/index'
 
 const Metadata = () => {
     const { 
@@ -12,7 +13,7 @@ const Metadata = () => {
         setStandardType,
     } = useGenerator();
 
-    const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
+    const containerColor = useColorModeValue(webColor.containerBg[0], webColor.containerBg[1]);
     const bgColor = useColorModeValue('rgba(0,0,0,0.1)', 'rgba(0,0,0,0.5)');
     const buttonDefaultColor = useColorModeValue('gray.100', 'whiteAlpha.200');
 

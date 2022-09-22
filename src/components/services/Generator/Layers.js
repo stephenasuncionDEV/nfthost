@@ -3,6 +3,7 @@ import { useGenerator } from '@/providers/GeneratorProvider'
 import { useLayer } from '@/hooks/useLayer'
 import { MdOutlineAdd  } from 'react-icons/md'
 import { FaTrashAlt } from 'react-icons/fa'
+import { webColor } from '@/theme/index'
 
 const Layers = () => {
     const { layers, currentLayer } = useGenerator();
@@ -13,7 +14,7 @@ const Layers = () => {
         AddLayer 
     } = useLayer();
 
-    const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
+    const containerColor = useColorModeValue(webColor.containerBg[0], webColor.containerBg[1]);
     
     return (
         <VStack 

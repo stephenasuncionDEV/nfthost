@@ -4,12 +4,13 @@ import { useDomain } from '@/hooks/useDomain'
 import { MdSave } from 'react-icons/md'
 import { GiCutDiamond } from 'react-icons/gi'
 import config from '@/config/index'
+import { webColor } from '@/theme/index'
 
 const Alias = () => {
     const { currentEditWebsite, newAlias, setNewAlias, isChangingAlias } = useWebsite();
     const { UpdateAlias } = useDomain();
 
-    const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
+    const containerColor = useColorModeValue(webColor.containerBg[0], webColor.containerBg[1]);
 
     return (
         <VStack 

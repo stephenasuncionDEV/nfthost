@@ -6,11 +6,13 @@ import { FiExternalLink } from 'react-icons/fi'
 import { GiCutDiamond } from 'react-icons/gi'
 import { getStartedServicesArr } from '@/utils/json'
 import config from '@/config/index'
+import { webColor } from '@/theme/index'
 
 const GetStarted = () => {
     const { featuredWebsites } = useGetStarted();
 
-    const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
+    const containerColor = useColorModeValue(webColor.containerBg[0], webColor.containerBg[1]);
+    const featuredWebsiteColor = useColorModeValue('black', 'white');
 
     return (
         <Flex flexDir='column' flex='1'>
@@ -126,7 +128,7 @@ const GetStarted = () => {
                 Top 5 Visited Mint Websites created with NFT Host. Not in particular order.
             </Text>
             <Wrap spacing='1em' mt='2em'>
-                {featuredWebsites?.map((website, idx) => (
+                {featuredWebsites?.sort((a, b) => (a.isPremium === b.isPremium)? 0 : a.isPremium ? -1 : 1).map((website, idx) => (
                     <Link href={`${config?.frontendUrl}/${website.custom?.alias.length > 0 ? website.custom?.alias : website._id}`} isExternal key={idx} style={{ textDecoration: 'none' }} position='relative'>
                         <Button 
                             opacity='0.3'
@@ -138,12 +140,21 @@ const GetStarted = () => {
                                 opacity: 1
                             }}
                             leftIcon={website.isPremium ? <GiCutDiamond color='blue.500' /> : null}
-                        >
-                            {website.components.title}
+                            position='relative'
+                        >        
                         </Button>
-                        <Box position='absolute' top='0' pointerEvents='none'>
+                        <Box position='absolute' top='0' left='0' pointerEvents='none'>
                             <Image src={website.isPremium ? '/assets/featured-premium.png' : '/assets/featured-free.png'} alt='Featured Website' />
                         </Box>
+                        <Text 
+                            position='absolute' 
+                            top='50%'
+                            left='50%'
+                            transform='translate(-50% , -50%)'
+                            textAlign='center'
+                        >
+                            {website.components.title}
+                        </Text>
                     </Link>
                 ))}
             </Wrap>

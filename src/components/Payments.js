@@ -8,12 +8,13 @@ import { BiSupport } from 'react-icons/bi'
 import { MdOutlineContentCopy } from 'react-icons/md'
 import { IoMdSettings } from 'react-icons/io'
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai'
+import { webColor } from '@/theme/index'
 
 const Payments = () => {
     const { transactions, paymentPageNumber, setPaymentPageNumber, isGettingTransactions } = useCore();
     const { CopyHash, GetTransactions } = useTransactions();
 
-    const containerColor = useColorModeValue('white', 'rgb(54,64,74)');
+    const containerColor = useColorModeValue(webColor.containerBg[0], webColor.containerBg[1]);
 
     return (
         <>
