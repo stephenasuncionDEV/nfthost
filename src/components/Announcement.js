@@ -4,6 +4,7 @@ import { webColor } from '@/theme/index'
 
 const Announcement = () => {
     const bgColor = useColorModeValue(webColor.announcementBg[0], webColor.announcementBg[1]);
+    const btnColor = useColorModeValue('black', 'white');
     const isBreakdown = useMediaQuery({ query: '(max-width: 510px)' });
 
     return !isBreakdown && (
@@ -20,7 +21,7 @@ const Announcement = () => {
                     <Text fontSize='10pt' color='white'>
                         Build cool mint websites with Premium Subscription 💎
                     </Text>
-                    <Link href='/dashboard/getStarted' style={{ textDecoration: 'none' }} color='white'>
+                    <Link href='/dashboard/getStarted' style={{ textDecoration: 'none' }} color={btnColor}>
                         <Button size='sm' variant='solid'>
                             Learn More
                         </Button>
