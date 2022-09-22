@@ -1,8 +1,9 @@
 import { Flex, Text, VStack, Link, HStack, useColorModeValue, Wrap, Image } from '@chakra-ui/react'
 import { BiLinkExternal } from 'react-icons/bi'
+import { webColor } from '@/theme/index';
 
 const Footer = () => {
-    const bg = useColorModeValue('rgba(240,240,240,1)', 'rgba(17,21,28,1)');
+    const bg = useColorModeValue(webColor.footerBg[0], webColor.footerBg[1]);
     const srcColor = useColorModeValue('rgb(34,34,34)', 'white');
 
     return (
