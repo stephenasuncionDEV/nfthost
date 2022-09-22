@@ -3,7 +3,6 @@ import { useWebsite } from '@/providers/WebsiteProvider'
 import { useDomain } from '@/hooks/useDomain'
 import { GiCutDiamond } from 'react-icons/gi'
 import { MdOutlineContentCopy, MdSave } from 'react-icons/md'
-import config from '@/config/index'
 
 const CustomDomain = () => {
     const { currentEditWebsite, newDomain, setNewDomain, isChangingDomain } = useWebsite();
