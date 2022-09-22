@@ -1,4 +1,4 @@
-const development = {
+const test = {
     frontendUrl: 'http://localhost:3000',
 	serverUrl: 'http://localhost:8080',
     stripe: {
@@ -13,4 +13,4 @@ const development = {
     }
 }
 
-export default development
+export default test

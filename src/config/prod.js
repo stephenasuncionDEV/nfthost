@@ -1,4 +1,4 @@
-export default {
+const production = {
     frontendUrl: 'https://www.nfthost.app',
 	serverUrl: 'https://nfthost-backend.vercel.app',
     stripe: {
@@ -12,3 +12,5 @@ export default {
         wallet_phantom: 'FXJk29TmfWmReUxbKJF385oifSNxCspvqyXhzUsf2X9e'
     }
 }
+
+export default production
