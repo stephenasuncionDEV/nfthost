@@ -1,5 +1,5 @@
 import NextLink from 'next/link'
-import { Text, Flex, Button, VStack, SlideFade, Link, useColorModeValue, Wrap, Image, Tag, HStack } from '@chakra-ui/react'
+import { Text, Flex, Button, VStack, SlideFade, Link, useColorModeValue, Wrap, Image, Tag, HStack, useColorMode } from '@chakra-ui/react'
 import Meta from '@/components/Meta'
 import MainNavbar from '@/components/MainNavbar'
 import MainFooter from '@/components/MainFooter'
@@ -17,6 +17,7 @@ const Main = () => {
     const sponsorColor = useColorModeValue('blackAlpha.600', 'whiteAlpha.300');
     const isSmallerFont = useMediaQuery({ query: '(max-width: 380px)' });
     const isTouchingLogo = useMediaQuery({ query: '(max-width: 630px)' });
+    const { colorMode } = useColorMode();
 
     return (
         <main>
@@ -40,8 +41,8 @@ const Main = () => {
                     w='full'
                 >
                     <SlideFade in={true} offsetY='20px' delay={.45}>
-                        <Flex>
-                            <Flex flexDir='column' alignItems='center' justifyContent='center' h='600px'>
+                        <Flex gap={!isTouchingLogo ? '2em' : '0'}>
+                            <Flex flexDir='column' alignItems='center' justifyContent='center' h='600px' flex='1'>
                                 <Text variant='header_1' fontSize={isSmallerFont ? '32pt' : '52pt'} textAlign='center'>
                                     Generate and Host your
                                 </Text>
@@ -57,7 +58,7 @@ const Main = () => {
                                     </Button>
                                 </NextLink>
                             </Flex>
-                            {!isTouchingLogo && (
+                            {(!isTouchingLogo && colorMode === 'dark') && (
                                 <Flex>
                                     <Image src='/assets/demo.gif' alt='Generation Demo' w='550' h='500' />
                                 </Flex>
