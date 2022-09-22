@@ -6,7 +6,7 @@ import { useSites } from '@/hooks/useSites'
 import axios from 'axios'
 import config from '@/config/index'
 import { decryptToken, convertDateToLocal, convertLocalToDate } from '@/utils/tools'
-import { useTemplate } from './useTemplate'
+import { useTemplate } from '@/hooks/useTemplate'
 
 export const useCurrentTemplate = () => {
     const toast = useToast();
