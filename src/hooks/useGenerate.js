@@ -314,12 +314,23 @@ export const useGenerate = () => {
                     const nftJson = buildMetadataObj(curRenderIndex, startCount, attributes);
                     curMetadata.push(nftJson);
                     setCurMetadata(JSON.stringify(nftJson, null, 2));
-                    if (collectionSize >= 1000 && (curRenderIndex == collectionSize || curRenderIndex % 1000 == 0)) {
-						setIsAutoSave(true);
-						setIsDownloading(true);
-						await autoSave(chunkCount++);
-						setIsDownloading(false);
-					}
+
+                    if (!window.performance.memory) {
+                        if (collectionSize >= 1000 && (curRenderIndex == collectionSize || curRenderIndex % 1000 == 0)) {
+                            setIsAutoSave(true);
+                            setIsDownloading(true);
+                            await autoSave(chunkCount++);
+                            setIsDownloading(false);
+                        }
+                    } else {
+                        if (window.performance.memory.usedJSHeapSize > window.performance.memory.jsHeapSizeLimit - 5e+8) {
+                            setIsAutoSave(true);
+                            setIsDownloading(true);
+                            await autoSave(chunkCount++);
+                            setIsDownloading(false);
+                        }
+                    }
+
                     curRenderIndex++;
                     startCount++;
                     if (startCount == collectionSize) {
@@ -415,7 +426,7 @@ export const useGenerate = () => {
 				setDownloadPercentage(data.percent);
 			})
 
-			saveAs(content, "NFTHost Collection.zip");
+			saveAs(content, 'NFTHost Collection.zip');
 			setIsDownloading(false);
 
             posthog.capture('User downloaded collection');
