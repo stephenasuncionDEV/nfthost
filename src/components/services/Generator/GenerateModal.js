@@ -32,7 +32,7 @@ const GenerateModal = () => {
                 <ModalHeader>
                     Generating...
                     <Text fontWeight='normal' fontSize='10pt'>
-                        This may take awhile. Please do not refresh the page.
+                        This may take awhile. Please do not refresh the page or you will lose all your progress.
                     </Text>
                 </ModalHeader>
                 <ModalBody>
@@ -64,7 +64,11 @@ const GenerateModal = () => {
                                 Auto Download
                             </Text>
                             <Text textAlign='left' fontSize='10pt'>
-                                Collection size greater than 100 will auto download every 1000 render index. It will download all the images first and then you can download the metadata at the end.
+                                {!window?.performance?.memory ? 
+                                    'Collection size greater than 100 will auto download every 1000 render index. It will download all the images first and then you can download the metadata at the end.' 
+                                    :
+                                    "Collection size greater than 100 will auto download every time used memory size is greater than the browser's memory limit."
+                                }
                             </Text>
                             <HStack w='full'>
                                 <Progress flex='1' hasStripe value={autoSavePercentage} colorScheme='red' />
