@@ -219,13 +219,13 @@ const EditWebsite = () => {
                                     <Textarea id='description' placeholder='Description' rows='5' size='sm' />
                                 </FormControl>
                                 <FormControl position='relative' p='1em' bg={componentColor} borderRadius='10px'>
-                                    <Textarea id='script' placeholder='Script or Style' rows='8' size='sm' />
+                                    <Textarea id='script' placeholder='Script or Style' rows='8' size='sm' border='0'/>
                                     <Button size='xs' variant='primarySmall' position='absolute' top='2' right='2' onClick={() => Copy(currentEditWebsite?.components?.script)}>
                                         COPY
                                     </Button>
                                 </FormControl>
                                 <FormControl isInvalid={editErrors?.embed?.status} position='relative' p='1em' bg={componentColor} borderRadius='10px'>
-                                    <Textarea id='embed' placeholder='Embed' rows='8' size='sm' />
+                                    <Textarea id='embed' placeholder='Embed' rows='8' size='sm' border='0'/>
                                     <Button size='xs' variant='primarySmall' position='absolute' top='2' right='2' onClick={() => Copy(currentEditWebsite?.components?.embed)}>
                                         COPY
                                     </Button>
