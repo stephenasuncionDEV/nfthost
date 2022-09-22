@@ -3,7 +3,6 @@ import { useRouter } from 'next/router'
 import { Text, Tag, TagLeftIcon, Link } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useUserWebsite } from '@/hooks/useUserWebsite'
-import CookieModal from '@/components/CookieModal'
 import Navbar from '@/components/services/Website/addons/Navbar'
 import Footer from '@/components/services/Website/addons/Footer'
 import Template1 from '@/components/services/Website/templates/Template1'
@@ -76,7 +75,6 @@ const Service = () => {
                 </Link>
             )}
 
-            {userWebsite?.components?.addons?.indexOf('Cookie Consent') !== -1 && <CookieModal />}
             {userWebsite?.components?.addons?.indexOf('Footer') !== -1 && <Footer />}
         </main>
     )
