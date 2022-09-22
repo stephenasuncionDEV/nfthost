@@ -1,13 +1,15 @@
-import { HStack, Text, Button, SlideFade, Link } from '@chakra-ui/react'
+import { HStack, Text, Button, SlideFade, Link, useColorModeValue } from '@chakra-ui/react'
 import { useMediaQuery } from 'react-responsive'
+import { webColor } from '@/theme/index'
 
 const Announcement = () => {
+    const bgColor = useColorModeValue(webColor.announcementBg[0], webColor.announcementBg[1]);
     const isBreakdown = useMediaQuery({ query: '(max-width: 510px)' });
 
     return !isBreakdown && (
         <SlideFade in={true} offsetY='-20px' delay={.45}>
             <HStack
-                bg='rgb(52,140,212)'
+                bg={bgColor}
                 w='full'
                 p='1em'
                 justifyContent='center'
