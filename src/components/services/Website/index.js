@@ -1,17 +1,15 @@
 import { useEffect } from 'react'
-import { VStack, Button, Wrap, HStack, Box } from '@chakra-ui/react'
+import { VStack, Button, Wrap, HStack } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useUser } from '@/providers/UserProvider'
 import { useSites } from '@/hooks/useSites'
 import AreYouSureModal from '@/components/AreYouSureModal'
 import AddonSettingsModal from '@/components/services/Website/AddonSettingsModal'
-import WebsiteList from './WebsiteList'
-import CreateWebsiteModal from './CreateWebsiteModal'
-import EditWebsite from './EditWebsite'
-import Design from './Design'
+import WebsiteList from '@/components/services/Website/WebsiteList'
+import CreateWebsiteModal from '@/components/services/Website/CreateWebsiteModal'
+import EditWebsite from '@/components/services/Website/EditWebsite'
+import Design from '@/components/services/Website/Design'
 import { MdAdd } from 'react-icons/md'
-import config from '@/config/index'
-import ReCAPTCHA from 'react-google-recaptcha'
 
 const Website = () => {
     const { websites, setIsCreateWebsiteModal, setCreateWebsiteStep, isEditWebsite } = useWebsite();
