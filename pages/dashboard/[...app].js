@@ -8,15 +8,15 @@ import Layout from '@/components/Layout'
 import GetStarted from '@/components/GetStarted'
 import Generator from '@/components/services/Generator'
 import Website from '@/components/services/Website'
-import Template from '@/components/services/Website/Template'
-import Addons from '@/components/services/Website/Addons'
-import Domain from '@/components/services/Website/Domain'
+import Templates from '@/components/services/Website/templates/Templates'
+import Addons from '@/components/services/Website/addons/Addons'
+import Domain from '@/components/services/Website/domain/Domain'
 import WebsiteInfo from '@/components/services/Website/WebsiteInfo'
 import ConnectWalletTag from '@/components/ConnectWalletTag'
 import Partners from '@/components/Partners'
 import Payments from '@/components/Payments'
 import Team from '@/components/Team'
-import Analytics from '@/components/services/Website/Analytics'
+import Analytics from '@/components/services/Website/analytics/Analytics'
 import Utilities from '@/components/services/Utilities'
 import Metadata from '@/components/services/Generator/metadata'
 import { MdOutlineAccountCircle } from 'react-icons/md'
@@ -52,14 +52,14 @@ const Page = () => {
                                 )}
                             </HStack>
                         </Flex>
-                        {app.length > 0 && (
+                        {app?.length > 0 && (
                             {
                                 getstarted: <GetStarted />,
                                 generator: <Generator />,
                                 metadata: <Metadata />,
                                 utilities: <Utilities />,
                                 website: <Website />,
-                                templates:  <Template />,
+                                templates:  <Templates />,
                                 addons: <Addons />,
                                 domain: <Domain />,
                                 payments: <Payments />,

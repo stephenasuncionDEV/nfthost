@@ -57,7 +57,7 @@ const EditWebsite = () => {
                             Edit Website
                         </Text>
                         <Text fontSize='10pt'>
-                            Mint Website: <span style={{ color: 'rgb(52,140,212)' }}>{title}</span>
+                            Minting site selected: <span style={{ color: 'rgb(52,140,212)' }}>{title}</span>
                         </Text>
                     </VStack>
                     <HStack>

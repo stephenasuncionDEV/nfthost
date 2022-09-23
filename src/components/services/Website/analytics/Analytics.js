@@ -1,5 +1,5 @@
 import { Wrap } from '@chakra-ui/react'
-import Chart from './Chart'
+import Chart from '@/components/services/Website/analytics/Chart'
 import { analyticsArr } from '@/utils/json'
 
 const Analytics = () => {

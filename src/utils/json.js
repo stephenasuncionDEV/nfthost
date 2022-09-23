@@ -8,8 +8,8 @@ import { FaTools } from 'react-icons/fa'
 
 export const TemplatesArr = [
     { key: 'Template1', sub: 'free', creator: 'NFTHost' },
-    { key: 'Template2', sub: 'premium', creator: 'NFTHost' },
-    { key: 'Template3', sub: 'premium', creator: 'NFTHost' },
+    { key: 'Template2', sub: 'free', creator: 'NFTHost' },
+    { key: 'Template3', sub: 'free', creator: 'NFTHost' },
 ]
 
 export const AddonsArr = [
@@ -95,7 +95,7 @@ export const sidebarArr = [
                 icon: <CgWebsite />, 
                 children: [
                     { name: 'Templates', link: '/website/templates' },
-                    { name: 'Addons', link: '/website/addons' },
+                    // { name: 'Addons', link: '/website/addons' },
                     { name: 'Domain', link: '/website/domain' },
                     { name: 'Analytics', link: '/website/analytics' }
                 ],

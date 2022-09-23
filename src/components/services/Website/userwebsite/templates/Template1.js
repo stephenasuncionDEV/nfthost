@@ -1,6 +1,6 @@
 import { Text, Flex, Tag, TagLeftIcon, Image, VStack } from '@chakra-ui/react'
 import { GiCutDiamond } from 'react-icons/gi'
-import Embed from '@/components/services/Website/Embed';
+import Embed from '@/components/services/Website/userwebsite/Embed';
 
 const Template1 = ({ userWebsite }) => {
     const { 

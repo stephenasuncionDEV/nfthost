@@ -1,20 +1,22 @@
-import { Text, Flex, Button, VStack, 
-    useColorModeValue, Image, Wrap, Tag, TagLeftIcon
+import NextLink from 'next/link'
+import { Text, Flex, Button, VStack, useColorModeValue, Image, Wrap, 
+    Tag, TagLeftIcon
 } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useTemplate } from '@/hooks/services/website/useTemplate'
+import { AiOutlineWarning, AiOutlineArrowLeft } from 'react-icons/ai'
 import { GiCutDiamond } from 'react-icons/gi'
 import { TemplatesArr } from '@/utils/json'
 import { webColor } from '@/theme/index'
 
-const TemplateList = () => {
+const Templates = () => {
     const { currentEditWebsite } = useWebsite();
     const { AddTemplate } = useTemplate();
  
     const containerColor = useColorModeValue(webColor.containerBg[0], webColor.containerBg[1]);
     const componentColor = useColorModeValue('rgba(0,0,0,0.1)', 'rgba(0,0,0,0.5)');
 
-    return (
+    return currentEditWebsite ? (
         <VStack 
             id='templateList'
             spacing='1.5em'
@@ -93,7 +95,24 @@ const TemplateList = () => {
                 ))}
             </Wrap>
         </VStack>
+    ) : (
+        <Flex flexDir='column' justifyContent='center' alignItems='center' flex='1'>
+            <AiOutlineWarning fontSize='28pt' />
+            <Flex flexDir='column' alignItems='center' mt='.5em'>
+                <Text fontWeight='bold' fontSize='10pt'>
+                    Error
+                </Text>
+                <Text fontSize='10pt'>
+                    Please create or select a website first.
+                </Text>
+            </Flex>
+            <NextLink href={`/dashboard/website`} shallow passHref>
+                <Button leftIcon={<AiOutlineArrowLeft />} color='white' variant='primary' size='sm' mt='1.5em'>
+                    See Website List
+                </Button>
+            </NextLink>
+        </Flex>
     )
 }
 
-export default TemplateList
+export default Templates

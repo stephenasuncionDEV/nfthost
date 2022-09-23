@@ -8,7 +8,7 @@ import { MdSettings } from 'react-icons/md'
 import { FaTrash } from 'react-icons/fa'
 import { HiLink } from 'react-icons/hi'
 
-const CurrentTemplate = () => {
+const DesignInfo = () => {
     const { 
         currentEditWebsite
     } = useWebsite();
@@ -69,7 +69,7 @@ const CurrentTemplate = () => {
                             </>
                         ) : (
                             <Tag size='sm' variant='outline' px='.65em' h='1.75rem'>
-                                Default
+                                default
                             </Tag>
                         )}
                     </Wrap>
@@ -130,7 +130,7 @@ const CurrentTemplate = () => {
                             </>
                         ) : (
                             <Tag size='sm' variant='outline' px='.65em' h='1.75rem'>
-                                None
+                                none
                             </Tag>
                         )}
                     </Wrap>
@@ -140,4 +140,4 @@ const CurrentTemplate = () => {
     )
 }
 
-export default CurrentTemplate
+export default DesignInfo
