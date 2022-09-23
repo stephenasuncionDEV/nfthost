@@ -1,6 +1,6 @@
 import { Text, Flex, Button, VStack, useColorModeValue, Input, Link, Tag, TagLeftIcon } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
-import { useDomain } from '@/hooks/useDomain'
+import { useDomain } from '@/hooks/services/website/useDomain'
 import { MdSave } from 'react-icons/md'
 import { GiCutDiamond } from 'react-icons/gi'
 import config from '@/config/index'

@@ -1,7 +1,7 @@
 import NextLink from 'next/link'
 import { Flex, HStack, Button, Box, Image, Link, useColorMode } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
-import { useWebsiteEditor } from '@/hooks/useWebsiteEditor'
+import { useWebsiteEditor } from '@/hooks/services/website/useWebsiteEditor'
 import Meta from '@/components/Meta'
 import { MdSave } from 'react-icons/md'
 import { FaExternalLinkAlt } from 'react-icons/fa'

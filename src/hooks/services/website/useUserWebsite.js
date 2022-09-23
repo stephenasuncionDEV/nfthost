@@ -7,7 +7,7 @@ import posthog from 'posthog-js'
 import axios from 'axios'
 import config from '@/config/index'
 import { formatRobot, ParseWebsiteData } from '@/utils/tools'
-import { useAnalytics } from '@/hooks/useAnalytics'
+import { useAnalytics } from '@/hooks/services/website/useAnalytics'
 
 export const useUserWebsite = () => {
     const router = useRouter();

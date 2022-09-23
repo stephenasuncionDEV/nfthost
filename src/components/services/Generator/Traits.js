@@ -1,6 +1,6 @@
 import { Box, Text, Flex, VStack, IconButton, useColorModeValue, Wrap, Icon, Image } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
-import { useTraits } from '@/hooks/useTraits'
+import { useTraits } from '@/hooks/services/generator/useTraits'
 import { FaTrashAlt } from 'react-icons/fa'
 import { BsFillImageFill } from 'react-icons/bs'
 import Dropzone from 'react-dropzone'

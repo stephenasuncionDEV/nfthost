@@ -9,7 +9,7 @@ import axios from 'axios'
 import config from '@/config/index'
 import { decryptToken, getPriceFromService } from '@/utils/tools'
 
-export const useSites = () => {
+export const useWeb = () => {
     const toast = useToast();
     const router = useRouter();
     const { setPaymentData } = useCore();

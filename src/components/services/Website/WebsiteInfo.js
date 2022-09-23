@@ -3,7 +3,7 @@ import { useColorModeValue, Flex, Text, HStack,
     MenuItem, Button, Avatar
 } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
-import { useSites } from '@/hooks/useSites'
+import { useWeb } from '@/hooks/services/website/useWeb'
 import { FaExternalLinkAlt } from 'react-icons/fa'
 import { HiOutlineChevronDown } from 'react-icons/hi'
 import config from '@/config/index'
@@ -11,7 +11,7 @@ import { webColor } from '@/theme/index'
 
 const WebsiteInfo = ({ isCollapse }) => {
     const { websites, currentEditWebsite } = useWebsite();
-    const { CopyWebsiteLink, EditWebsite } = useSites();
+    const { CopyWebsiteLink, EditWebsite } = useWeb();
 
     const containerColor = useColorModeValue(webColor.containerBg[0], webColor.containerBg[1]);
 

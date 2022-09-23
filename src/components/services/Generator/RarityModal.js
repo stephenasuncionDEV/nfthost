@@ -6,7 +6,7 @@ import { Modal, ModalOverlay, ModalContent, ModalFooter,
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { FixedSizeList as List } from 'react-window'
 import AutoSizer from '@/components/AutoSizer'
-import { useRarity } from '@/hooks/useRarity'
+import { useRarity } from '@/hooks/services/generator/useRarity'
 
 const Row = ({ index, style, data } )=> {
     return (

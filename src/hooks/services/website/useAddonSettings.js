@@ -3,7 +3,7 @@ import { useToast } from '@chakra-ui/react'
 import { useCore } from '@/providers/CoreProvider'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useWeb3 } from '@/hooks/useWeb3'
-import { useSites } from '@/hooks/useSites'
+import { useWeb } from '@/hooks/services/website/useWeb'
 import { decryptToken } from '@/utils/tools'
 import posthog from 'posthog-js'
 import axios from 'axios'
@@ -14,7 +14,7 @@ export const useAddonSettings = () => {
     const { addonSettingsData, setIsAddonSettingsModal } = useCore();
     const { currentEditWebsite, setCurrentEditWebsite } = useWebsite();
     const { Logout } = useWeb3;
-    const { GetWebsites } = useSites();
+    const { GetWebsites } = useWeb();
 
     const [twitter, setTwitter] = useState('');
     const [discord, setDiscord] = useState('');

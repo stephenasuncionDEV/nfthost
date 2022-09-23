@@ -3,7 +3,7 @@ import {  Button,Modal, ModalOverlay, ModalContent, ModalHeader,
     FormControl, FormHelperText, InputGroup, InputLeftElement 
 } from '@chakra-ui/react'
 import { useCore } from '@/providers/CoreProvider'
-import { useAddonSettings } from '@/hooks/useAddonSettings'
+import { useAddonSettings } from '@/hooks/services/website/useAddonSettings'
 import { MdSave } from 'react-icons/md'
 import { FaTwitter, FaInstagram, FaYoutube, FaTiktok, FaDiscord, FaReddit, FaFacebook } from 'react-icons/fa'
 

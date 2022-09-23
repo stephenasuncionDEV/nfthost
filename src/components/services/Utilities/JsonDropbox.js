@@ -1,6 +1,6 @@
 import { Text, Flex, Button, VStack, useColorModeValue, Box } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
-import { useUtils } from '@/hooks/useUtils'
+import { useUtils } from '@/hooks/services/utils/useUtils'
 import { VscJson } from 'react-icons/vsc'
 import { FaRedo } from 'react-icons/fa'
 import { AiOutlineFile } from 'react-icons/ai'

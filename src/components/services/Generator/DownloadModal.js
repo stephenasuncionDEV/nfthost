@@ -3,7 +3,7 @@ import { HStack, Text, Button, Modal, ModalOverlay,
     ModalCloseButton, Progress, Box, Flex, VStack, Checkbox
 } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
-import { useGenerate } from '@/hooks/useGenerate'
+import { useGenerate } from '@/hooks/services/generator/useGenerate'
 import { BiInfoCircle } from 'react-icons/bi'
 import { FaDownload } from 'react-icons/fa'
 import { AiOutlineArrowRight } from 'react-icons/ai'

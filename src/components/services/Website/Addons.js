@@ -3,7 +3,7 @@ import { Text, Flex, Button, VStack, useColorModeValue,
     Wrap, Tag, TagLeftIcon
 } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
-import { useTemplate } from '@/hooks/useTemplate'
+import { useTemplate } from '@/hooks/services/website/useTemplate'
 import { GiCutDiamond } from 'react-icons/gi'
 import { AiOutlineWarning, AiOutlineArrowLeft } from 'react-icons/ai'
 import { AddonsArr } from '@/utils/json'

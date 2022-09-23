@@ -1,6 +1,6 @@
 import { Text, Flex, Button, VStack, useColorModeValue, Input, FormControl, FormHelperText } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
-import { useUtils } from '@/hooks/useUtils'
+import { useUtils } from '@/hooks/services/utils/useUtils'
 import { FaDownload } from 'react-icons/fa'
 import JsonDropbox from './JsonDropbox'
 

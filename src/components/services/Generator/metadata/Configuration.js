@@ -5,7 +5,7 @@ import { Box, HStack, Text, Flex, Button,
     FormHelperText, useColorModeValue
 } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
-import { useMetadata } from '@/hooks/useMetadata'
+import { useMetadata } from '@/hooks/services/generator/useMetadata'
 import { IoMdAdd } from 'react-icons/io'
 import { webColor } from '@/theme/index'
 

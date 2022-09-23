@@ -2,14 +2,14 @@ import { HStack, Text, Button, VStack,
     useColorModeValue, Image, Wrap, Tag, TagLeftIcon
 } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
-import { useSites } from '@/hooks/useSites'
+import { useWeb } from '@/hooks/services/website/useWeb'
 import { MdRefresh } from 'react-icons/md'
 import { GiCutDiamond } from 'react-icons/gi'
 import { webColor } from '@/theme/index'
 
 const Sites = () => {
     const { websites, isRefreshing, currentEditWebsite } = useWebsite();
-    const { GetWebsites, EditWebsite } = useSites();
+    const { GetWebsites, EditWebsite } = useWeb();
 
     const containerColor = useColorModeValue(webColor.containerBg[0], webColor.containerBg[1]);
     const buttonColor = useColorModeValue('blackAlpha.100', 'whiteAlpha.100');

@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { Text, Flex, VStack, useColorModeValue } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useUser } from '@/providers/UserProvider'
-import { useSites } from '@/hooks/useSites'
+import { useWeb } from '@/hooks/services/website/useWeb'
 import { Line } from 'react-chartjs-2'
 import {
     Chart as ChartJS,
@@ -31,7 +31,7 @@ const EmbedClicks = ({ analytics }) => {
 
     const { websites } = useWebsite();
     const { isLoggedIn } = useUser();
-    const { GetWebsites } = useSites();
+    const { GetWebsites } = useWeb();
 
     const containerColor = useColorModeValue(webColor.containerBg[0], webColor.containerBg[1]);
     const componentColor = useColorModeValue('rgba(0,0,0,0.1)', 'rgba(0,0,0,0.5)');
