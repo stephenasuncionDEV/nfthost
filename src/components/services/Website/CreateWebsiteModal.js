@@ -6,7 +6,7 @@ import { HStack, Text, Button, Flex, VStack,
 } from '@chakra-ui/react'
 import { GiCutDiamond } from 'react-icons/gi'
 import { useWebsite } from '@/providers/WebsiteProvider'
-import { useSites } from '@/hooks/services/website/useSites'
+import { useWeb } from '@/hooks/services/website/useWeb'
 import { MdOutlineAdd } from 'react-icons/md'
 import { AiOutlineArrowRight, AiOutlineArrowLeft } from 'react-icons/ai'
 import ReCAPTCHA from 'react-google-recaptcha'
@@ -41,7 +41,7 @@ const CreateWebsiteModal = () => {
         setCreateWebsiteStep,
         recaptchaRef
     } = useWebsite();
-    const { CreateWebsite } = useSites();
+    const { CreateWebsite } = useWeb();
 
     const OnCreateWebsite = async () => {
         try {

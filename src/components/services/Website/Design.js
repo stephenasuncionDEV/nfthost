@@ -3,11 +3,11 @@ import { Text, Flex, VStack, useColorModeValue, Tag,
     Input, FormHelperText, FormErrorMessage, Button
 } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
-import { useCurrentTemplate } from '@/hooks/services/website/useCurrentTemplate'
+import { useDesign } from '@/hooks/services/website/useDesign'
 import CurrentTemplate from './CurrentTemplate'
 import { GiCutDiamond } from 'react-icons/gi'
 import { MdSave, MdVerified } from 'react-icons/md'
-import { FaRedo, FaEdit } from 'react-icons/fa'
+import { FaEdit } from 'react-icons/fa'
 import { useTemplate } from '@/hooks/services/website/useTemplate'
 import { webColor } from '@/theme/index'
 
@@ -18,7 +18,7 @@ const Design = () => {
         newRevealDate,
         setNewRevealDate
     } = useWebsite();
-    const { SaveStyle, isSaving } = useCurrentTemplate();
+    const { SaveStyle, isSaving } = useDesign();
     const { EditWebsiteTemplate } = useTemplate();
 
     const containerColor = useColorModeValue(webColor.containerBg[0], webColor.containerBg[1]);

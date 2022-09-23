@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { VStack, Button, Wrap, HStack } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useUser } from '@/providers/UserProvider'
-import { useSites } from '@/hooks/services/website/useSites'
+import { useWeb } from '@/hooks/services/website/useWeb'
 import AreYouSureModal from '@/components/AreYouSureModal'
 import AddonSettingsModal from '@/components/services/Website/AddonSettingsModal'
 import WebsiteList from '@/components/services/Website/WebsiteList'
@@ -14,7 +14,7 @@ import { MdAdd } from 'react-icons/md'
 const Website = () => {
     const { websites, setIsCreateWebsiteModal, setCreateWebsiteStep, isEditWebsite } = useWebsite();
     const { isLoggedIn } = useUser();
-    const { GetWebsites, clearFields } = useSites();
+    const { GetWebsites, clearFields } = useWeb();
     const freeWebsiteCount = websites?.filter((website) => !website.isPremium)?.length;
 
     useEffect(() => {

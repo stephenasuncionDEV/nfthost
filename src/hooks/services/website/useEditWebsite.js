@@ -1,10 +1,10 @@
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useEffect } from 'react'
-import { useSites } from '@/hooks/services/website/useSites'
+import { useWeb } from '@/hooks/services/website/useWeb'
 
 export const useEditWebsite = () => {
     const { editWebsiteFormRef, currentEditWebsite } = useWebsite();
-    const { EditWebsite } = useSites();
+    const { EditWebsite } = useWeb();
 
     useEffect(() => {
         if (!editWebsiteFormRef || !currentEditWebsite) return;

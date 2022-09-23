@@ -5,7 +5,7 @@ import { HStack, Text, Button, Flex, VStack, useColorModeValue,
 import { useCore } from '@/providers/CoreProvider'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useUser } from '@/providers/UserProvider'
-import { useSites } from '@/hooks/services/website/useSites';
+import { useWeb } from '@/hooks/services/website/useWeb';
 import { useEditWebsite } from '@/hooks/services/website/useEditWebsite'
 import { MdSave } from 'react-icons/md'
 import { FaExternalLinkAlt, FaStar, FaTrash } from 'react-icons/fa'
@@ -16,7 +16,7 @@ const EditWebsite = () => {
     const { setAreYouSureData, setIsAreYouSureModal } = useCore();
     const { currentEditWebsite, editWebsiteFormRef, isUpdating, isDeletingWebsite, editErrors } = useWebsite();
     const { user } = useUser();
-    const { CancelEdit, UpdateWebsite, DeleteWebsite, CopyWebsiteLink, UpgradeToPremium, RenewWebsite } = useSites();
+    const { CancelEdit, UpdateWebsite, DeleteWebsite, CopyWebsiteLink, UpgradeToPremium, RenewWebsite } = useWeb();
     useEditWebsite();
     const { components: { title, unrevealedImage }, premiumStartDate } = currentEditWebsite;
     const subscriptionStart = new Date(premiumStartDate);
