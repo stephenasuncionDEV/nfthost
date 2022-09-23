@@ -5,13 +5,16 @@ export const useWebsite = () => useContext(WebsiteContext)
 
 export const WebsiteProvider = ({ children }) => {
     const [userWebsite, setUserWebsite] = useState();
+    const [editingWebsite, setEditingWebsite] = useState();
     const [websites, setWebsites] = useState();
 
     const controllers = {
-        userWebsite,
-        setUserWebsite,
         websites,
         setWebsites,
+        userWebsite,
+        setUserWebsite,
+        editingWebsite,
+        setEditingWebsite
     }
 
     return (
