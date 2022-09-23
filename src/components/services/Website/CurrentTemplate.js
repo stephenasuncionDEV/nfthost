@@ -3,7 +3,7 @@ import { Text, VStack, useColorModeValue, Wrap, Button,
 } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useCore } from '@/providers/CoreProvider'
-import { useTemplate } from '@/hooks/useTemplate'
+import { useTemplate } from '@/hooks/services/website/useTemplate'
 import { MdSettings } from 'react-icons/md'
 import { FaTrash } from 'react-icons/fa'
 import { HiLink } from 'react-icons/hi'

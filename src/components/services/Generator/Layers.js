@@ -1,6 +1,6 @@
 import { Box, HStack, Text, Flex, Button, VStack, Input, IconButton, useColorModeValue } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
-import { useLayer } from '@/hooks/useLayer'
+import { useLayer } from '@/hooks/services/generator/useLayer'
 import { MdOutlineAdd  } from 'react-icons/md'
 import { FaTrashAlt } from 'react-icons/fa'
 import { webColor } from '@/theme/index'

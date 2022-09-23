@@ -3,7 +3,7 @@ import { useColorModeValue, Flex, Text, HStack,
     MenuItem, Button, Avatar
 } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
-import { useSites } from '@/hooks/useSites'
+import { useSites } from '@/hooks/services/website/useSites'
 import { FaExternalLinkAlt } from 'react-icons/fa'
 import { HiOutlineChevronDown } from 'react-icons/hi'
 import config from '@/config/index'

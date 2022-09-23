@@ -5,8 +5,8 @@ import { HStack, Text, Button, Flex, VStack, useColorModeValue,
 import { useCore } from '@/providers/CoreProvider'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useUser } from '@/providers/UserProvider'
-import { useSites } from '@/hooks/useSites';
-import { useEditWebsite } from '@/hooks/useEditWebsite'
+import { useSites } from '@/hooks/services/website/useSites';
+import { useEditWebsite } from '@/hooks/services/website/useEditWebsite'
 import { MdSave } from 'react-icons/md'
 import { FaExternalLinkAlt, FaStar, FaTrash } from 'react-icons/fa'
 import config from '@/config/index'

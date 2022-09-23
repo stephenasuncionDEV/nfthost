@@ -1,6 +1,6 @@
 import { Box, Text, Flex, VStack, useColorModeValue, Image, Button } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
-import { useGenerate } from '@/hooks/useGenerate'
+import { useGenerate } from '@/hooks/services/generator/useGenerate'
 import { FaRedo } from 'react-icons/fa'
 import { webColor } from '@/theme/index'
 

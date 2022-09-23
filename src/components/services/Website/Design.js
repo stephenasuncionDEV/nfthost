@@ -3,12 +3,12 @@ import { Text, Flex, VStack, useColorModeValue, Tag,
     Input, FormHelperText, FormErrorMessage, Button
 } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
-import { useCurrentTemplate } from '@/hooks/useCurrentTemplate'
+import { useCurrentTemplate } from '@/hooks/services/website/useCurrentTemplate'
 import CurrentTemplate from './CurrentTemplate'
 import { GiCutDiamond } from 'react-icons/gi'
 import { MdSave, MdVerified } from 'react-icons/md'
 import { FaRedo, FaEdit } from 'react-icons/fa'
-import { useTemplate } from '@/hooks/useTemplate'
+import { useTemplate } from '@/hooks/services/website/useTemplate'
 import { webColor } from '@/theme/index'
 
 const Design = () => {

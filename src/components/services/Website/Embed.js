@@ -1,7 +1,7 @@
 import { Text, Flex, Button, Link, Box } from '@chakra-ui/react'
 import parse from 'html-react-parser'
 import { MdRefresh } from 'react-icons/md'
-import { useAnalytics } from '@/hooks/useAnalytics'
+import { useAnalytics } from '@/hooks/services/website/useAnalytics'
 
 const isDevelopment = false;
 

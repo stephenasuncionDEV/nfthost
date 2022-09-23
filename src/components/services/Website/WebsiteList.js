@@ -2,7 +2,7 @@ import { HStack, Text, Button, VStack,
     useColorModeValue, Image, Wrap, Tag, TagLeftIcon
 } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
-import { useSites } from '@/hooks/useSites'
+import { useSites } from '@/hooks/services/website/useSites'
 import { MdRefresh } from 'react-icons/md'
 import { GiCutDiamond } from 'react-icons/gi'
 import { webColor } from '@/theme/index'

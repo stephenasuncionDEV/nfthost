@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react'
 import { useToast } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useWeb3 } from '@/hooks/useWeb3'
-import { useSites } from '@/hooks/useSites'
+import { useSites } from '@/hooks/services/website/useSites'
 import axios from 'axios'
 import config from '@/config/index'
 import { decryptToken, convertDateToLocal, convertLocalToDate } from '@/utils/tools'
-import { useTemplate } from '@/hooks/useTemplate'
+import { useTemplate } from '@/hooks/services/website/useTemplate'
 
 export const useCurrentTemplate = () => {
     const toast = useToast();

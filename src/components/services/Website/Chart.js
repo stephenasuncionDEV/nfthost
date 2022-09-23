@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { Text, Flex, VStack, useColorModeValue } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useUser } from '@/providers/UserProvider'
-import { useSites } from '@/hooks/useSites'
+import { useSites } from '@/hooks/services/website/useSites'
 import { Line } from 'react-chartjs-2'
 import {
     Chart as ChartJS,

@@ -1,12 +1,12 @@
 import NextLink from 'next/link'
 import { HStack, Button, Menu, MenuButton, MenuList, MenuItem, useColorModeValue } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
-import { useGenerate } from '@/hooks/useGenerate'
-import { useToolbar } from '@/hooks/useToolbar'
+import { useGenerate } from '@/hooks/services/generator/useGenerate'
+import { useToolbar } from '@/hooks/services/generator/useToolbar'
 import { HiOutlineChevronDown, HiOutlineDesktopComputer } from 'react-icons/hi'
 import { MdSettings } from 'react-icons/md'
 import { FaPlay, FaDownload } from 'react-icons/fa'
-import { useRarity } from '@/hooks/useRarity'
+import { useRarity } from '@/hooks/services/generator/useRarity'
 import { webColor } from '@/theme/index'
 
 const Toolbar = () => {
