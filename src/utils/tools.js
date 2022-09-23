@@ -164,3 +164,9 @@ export const shuffleArray = (array) => {
 
     return array;
 }
+
+export const getAccessToken = () => {
+    const encryptedToken = localStorage.getItem('nfthost-user');
+    if (!encryptedToken) throw new Error('Cannot get access token');
+    return decryptToken(encryptedToken, true).accessToken;
+}
