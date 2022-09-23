@@ -7,9 +7,9 @@ import { SiIpfs } from 'react-icons/si'
 import { FaTools } from 'react-icons/fa'
 
 export const TemplatesArr = [
-    { key: 'Template1', sub: 'free', creator: 'NFTHost' },
-    { key: 'Template2', sub: 'free', creator: 'NFTHost' },
-    { key: 'Template3', sub: 'free', creator: 'NFTHost' },
+    { key: 'Template1', sub: 'free', creator: 'NFTHost', isDefault: true },
+    { key: 'Template2', sub: 'free', creator: 'NFTHost', isDefault: false },
+    { key: 'Template3', sub: 'free', creator: 'NFTHost', isDefault: false },
 ]
 
 export const AddonsArr = [

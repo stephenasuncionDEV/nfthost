@@ -8,15 +8,15 @@ import Layout from '@/components/Layout'
 import GetStarted from '@/components/GetStarted'
 import Generator from '@/components/services/Generator'
 import Website from '@/components/services/Website'
-import Templates from '@/components/services/Website/templates/Templates'
-import Addons from '@/components/services/Website/addons/Addons'
-import Domain from '@/components/services/Website/domain/Domain'
-import WebsiteInfo from '@/components/services/Website/WebsiteInfo'
+// import Templates from '@/components/services/Website/templates/Templates'
+// import Addons from '@/components/services/Website/addons/Addons'
+// import Domain from '@/components/services/Website/domain/Domain'
+// import WebsiteInfo from '@/components/services/Website/WebsiteInfo'
 import ConnectWalletTag from '@/components/ConnectWalletTag'
 import Partners from '@/components/Partners'
 import Payments from '@/components/Payments'
 import Team from '@/components/Team'
-import Analytics from '@/components/services/Website/analytics/Analytics'
+// import Analytics from '@/components/services/Website/analytics/Analytics'
 import Utilities from '@/components/services/Utilities'
 import Metadata from '@/components/services/Generator/metadata'
 import { MdOutlineAccountCircle } from 'react-icons/md'
@@ -44,7 +44,7 @@ const Page = () => {
                                 {currentApp?.toUpperCase()}
                             </Text>
                             <HStack spacing='2em'>
-                                {app[0] === 'website' && <WebsiteInfo isCollapse={isCollapse} />}
+                                {/* {app[0] === 'website' && <WebsiteInfo isCollapse={isCollapse} />} */}
                                 {!isRemoveStepper && (
                                     <Text>
                                         DASHBOARD &gt; {app.join(' > ').toUpperCase()}
@@ -59,13 +59,13 @@ const Page = () => {
                                 metadata: <Metadata />,
                                 utilities: <Utilities />,
                                 website: <Website />,
-                                templates:  <Templates />,
-                                addons: <Addons />,
-                                domain: <Domain />,
+                                // templates:  <Templates />,
+                                // addons: <Addons />,
+                                // domain: <Domain />,
+                                // analytics: <Analytics />,
                                 payments: <Payments />,
                                 partners: <Partners />,
-                                team: <Team />,
-                                analytics: <Analytics />
+                                team: <Team />
                             }[currentApp]
                         )}
                     </>
