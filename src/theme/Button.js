@@ -3,6 +3,10 @@ import { mode } from '@chakra-ui/theme-tools'
 const Button = {
     baseStyle: (props) => ({
         fontWeight: 'normal',
+        h: '8',
+        minW: '8',
+        fontSize: 'sm',
+        px: '3',
     }),
     sizes: {
         xs: {
@@ -24,6 +28,10 @@ const Button = {
                 }
             },
             color: 'white',
+            h: '8',
+            minW: '8',
+            fontSize: 'sm',
+            px: '3',
         }),
         primarySmall: (props) => ({
             bg: 'rgb(52,140,212)',
