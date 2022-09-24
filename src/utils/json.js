@@ -6,50 +6,6 @@ import { AiOutlineTeam, AiOutlinePlus } from 'react-icons/ai'
 import { SiIpfs } from 'react-icons/si'
 import { FaTools } from 'react-icons/fa'
 
-export const TemplatesArr = [
-    { key: 'Template1', sub: 'free', creator: 'NFTHost', isDefault: true },
-    { key: 'Template2', sub: 'free', creator: 'NFTHost', isDefault: false },
-    { key: 'Template3', sub: 'free', creator: 'NFTHost', isDefault: false },
-]
-
-export const AddonsArr = [
-    { key: 'Navbar', sub: 'premium', creator: 'NFTHost' },
-    { key: 'Footer', sub: 'premium', creator: 'NFTHost' },
-]
-
-export const PartnersArr = [
-    {
-        company: 'Flair',
-        image: '/assets/partners/flair.png',
-        link: 'https://flair.finance/',
-        description: 'Open-source Smart Contracts, React Components & REST APIs'
-    },
-    {
-        company: 'ThirdWeb',
-        image: '/assets/partners/thirdweb.svg',
-        link: 'https://thirdweb.com/',
-        description: 'Smart contracts you control. Powerful SDKs and intuitive tools for developers. Ship on-chain faster.'
-    },
-    {
-        company: 'Ambition',
-        image: '/assets/partners/ambition.png',
-        link: 'https://ambition.so/',
-        description: 'End-to-end tools to help creators build their NFT collection'
-    },
-    {
-        company: 'Web3 Philippines',
-        image: '/assets/partners/web3philippines.png',
-        link: 'https://web3philippines.org/discord',
-        description: 'Filipino-led community, helping Filipinos to build in Web3 space by providing free access to Web3 education.'
-    },
-    // {
-    //     company: 'SwiftNFT',
-    //     image: '/assets/partners/swiftnft.png',
-    //     link: 'https://swiftnft.io/',
-    //     description: 'No-Code NFT generator to launch your NFT collection'
-    // },
-]
-
 export const sidebarArr = [
     { 
         parent: 'navigation',
@@ -96,8 +52,7 @@ export const sidebarArr = [
                 children: [
                     { name: 'Templates', link: '/website/templates' },
                     // { name: 'Addons', link: '/website/addons' },
-                    { name: 'Domain', link: '/website/domain' },
-                    { name: 'Analytics', link: '/website/analytics' }
+                    // { name: 'Analytics', link: '/website/analytics' }
                 ],
                 isExternal: false
             },
@@ -131,38 +86,24 @@ export const sidebarArr = [
     },
 ]
 
-export const teamArr = [
+export const getStartedServicesArr = [
     { 
-        name: 'Stephen Asuncion', 
-        position: 'CEO and Founder, Software Engineer',
-        socials: {
-            twitter: 'https://twitter.com/Steb_01',
-            linkedin: 'https://www.linkedin.com/in/stephenasuncion',
-            youtube: 'https://www.youtube.com/c/stephenasuncion'
-        }
-    }
-]
-
-export const analyticsArr = [
-    {
-        title: 'Unique Users',
-        description: 'Amount of unique users who have visited your websites',
-        dataset: 'Unique Visit Count',
-        style: {
-            border: 'rgb(255, 99, 132)',
-            bg: 'rgba(255, 99, 132, 0.5)'
-        },
-        dataKey: 'uniqueVisits'
+        name: 'NFT Collection Generator', 
+        icon: <MdOutlineMiscellaneousServices fontSize='32pt' />, 
+        buttonText: 'Generate',
+        link: '/dashboard/generator'
     },
-    {
-        title: 'Embed Clicks',
-        description: 'Amount of embed clicks of your websites',
-        dataset: 'Embed Click Count',
-        style: {
-            border: 'rgb(255, 165, 0)',
-            bg: 'rgba(255, 165, 0, 0.5)'
-        },
-        dataKey: 'clickedOnEmbed'
+    { 
+        name: 'NFT Mint Website Hosting', 
+        icon: <CgWebsite fontSize='32pt' />, 
+        buttonText: 'Create',
+        link: '/dashboard/website'
+    },
+    { 
+        name: 'Metadata Utilities', 
+        icon: <FaTools fontSize='32pt' />, 
+        buttonText: 'Modify',
+        link: '/dashboard/utilities'
     }
 ]
 
@@ -203,29 +144,94 @@ export const metadataStandardsArr = [
     }
 ]
 
+export const templatesArr = [
+    { key: 'Template1', sub: 'free', creator: 'NFTHost' },
+    { key: 'Template2', sub: 'free', creator: 'NFTHost' },
+    { key: 'Template3', sub: 'free', creator: 'NFTHost' },
+]
+
+export const addonsArr = [
+    { key: 'Navbar', sub: 'premium', creator: 'NFTHost' },
+    { key: 'Footer', sub: 'premium', creator: 'NFTHost' },
+]
+
+export const analyticsArr = [
+    {
+        title: 'Unique Users',
+        description: 'Amount of unique users who have visited your websites',
+        dataset: 'Unique Visit Count',
+        style: {
+            border: 'rgb(255, 99, 132)',
+            bg: 'rgba(255, 99, 132, 0.5)'
+        },
+        dataKey: 'uniqueVisits'
+    },
+    {
+        title: 'Embed Clicks',
+        description: 'Amount of embed clicks of your websites',
+        dataset: 'Embed Click Count',
+        style: {
+            border: 'rgb(255, 165, 0)',
+            bg: 'rgba(255, 165, 0, 0.5)'
+        },
+        dataKey: 'clickedOnEmbed'
+    }
+]
+
+export const websiteSettingsArr = [
+    { name: 'General' },
+    { name: 'Design' },
+    { name: 'Domain' },
+    { name: 'Advanced' }
+]
+
 export const utilsMenuArr = [
     { title: 'Update Image Storage', icon: <SiIpfs />, key: 'image' },
     { title: 'Add/Edit Metadata Key', icon: <AiOutlinePlus />, key: 'add' },
     { title: 'Remove Metadata Key', icon: <CgRemove />, key: 'remove' }
 ]
 
-export const getStartedServicesArr = [
-    { 
-        name: 'NFT Collection Generator', 
-        icon: <MdOutlineMiscellaneousServices fontSize='32pt' />, 
-        buttonText: 'Generate',
-        link: '/dashboard/generator'
+export const partnersArr = [
+    {
+        company: 'Flair',
+        image: '/assets/partners/flair.png',
+        link: 'https://flair.finance/',
+        description: 'Open-source Smart Contracts, React Components & REST APIs'
     },
-    { 
-        name: 'NFT Mint Website Hosting', 
-        icon: <CgWebsite fontSize='32pt' />, 
-        buttonText: 'Create',
-        link: '/dashboard/website'
+    {
+        company: 'ThirdWeb',
+        image: '/assets/partners/thirdweb.svg',
+        link: 'https://thirdweb.com/',
+        description: 'Smart contracts you control. Powerful SDKs and intuitive tools for developers. Ship on-chain faster.'
     },
+    {
+        company: 'Ambition',
+        image: '/assets/partners/ambition.png',
+        link: 'https://ambition.so/',
+        description: 'End-to-end tools to help creators build their NFT collection'
+    },
+    {
+        company: 'Web3 Philippines',
+        image: '/assets/partners/web3philippines.png',
+        link: 'https://web3philippines.org/discord',
+        description: 'Filipino-led community, helping Filipinos to build in Web3 space by providing free access to Web3 education.'
+    },
+    // {
+    //     company: 'SwiftNFT',
+    //     image: '/assets/partners/swiftnft.png',
+    //     link: 'https://swiftnft.io/',
+    //     description: 'No-Code NFT generator to launch your NFT collection'
+    // },
+]
+
+export const teamArr = [
     { 
-        name: 'Metadata Utilities', 
-        icon: <FaTools fontSize='32pt' />, 
-        buttonText: 'Modify',
-        link: '/dashboard/utilities'
+        name: 'Stephen Asuncion', 
+        position: 'CEO and Founder, Software Engineer',
+        socials: {
+            twitter: 'https://twitter.com/Steb_01',
+            linkedin: 'https://www.linkedin.com/in/stephenasuncion',
+            youtube: 'https://www.youtube.com/c/stephenasuncion'
+        }
     }
 ]
