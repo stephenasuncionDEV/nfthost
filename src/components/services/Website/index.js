@@ -1,20 +1,36 @@
-import { VStack, Button, Wrap, HStack } from '@chakra-ui/react'
-import { MdAdd } from 'react-icons/md'
+import { useEffect } from 'react'
+import { Flex, useDisclosure } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useUser } from '@/providers/UserProvider'
-// import { useWeb } from '@/hooks/services/website/useWeb'
-// import AreYouSureModal from '@/components/AreYouSureModal'
-// import AddonSettingsModal from '@/components/services/Website/AddonSettingsModal'
-// import WebsiteList from '@/components/services/Website/WebsiteList'
-// import CreateWebsiteModal from '@/components/services/Website/CreateWebsiteModal'
-// import EditWebsite from '@/components/services/Website/EditWebsite'
-// import Design from '@/components/services/Website/Design'
+import { useWebsiteControls } from '@/hooks/services/website/useWebsiteControls'
+import AreYouSureModal from '@/components/AreYouSureModal'
+import List from './List'
+import CreateWebsiteModal from './CreateWebsiteModal'
+import Settings from './Settings'
 
 const Website = () => {
+    const { isLoggedIn } = useUser();
+    const { editingWebsite } = useWebsite();
+    const { getWebsites } = useWebsiteControls();
+    const { isOpen: isCreateWebsiteOpen, onClose: onCreateWebsiteClose, onOpen: onCreateWebsiteOpen } = useDisclosure();
+
+    useEffect(() => {
+        if (!isLoggedIn) return;
+        getWebsites();
+    },[isLoggedIn])
+
     return (
-        <VStack spacing='2em' alignItems='flex-start'>
-            
-        </VStack>
+        <Flex flexDir='column' spacing='2em'>
+            <AreYouSureModal />
+            <CreateWebsiteModal 
+                isOpen={isCreateWebsiteOpen}
+                onClose={onCreateWebsiteClose}
+            />
+            <List 
+                onCreateWebsiteOpen={onCreateWebsiteOpen} 
+            />
+            {editingWebsite && <Settings />}
+        </Flex>
     )
 }
 
