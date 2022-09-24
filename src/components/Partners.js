@@ -1,5 +1,5 @@
 import { Text, Flex, Button, VStack, useColorModeValue, Wrap, Image, Link } from '@chakra-ui/react'
-import { PartnersArr } from '@/utils/json'
+import { partnersArr } from '@/utils/json'
 import posthog from 'posthog-js';
 import { webColor } from '@/theme/index'
 
@@ -8,7 +8,7 @@ const Partners = () => {
 
     return (
         <Wrap spacing='2em'>
-            {PartnersArr?.map((partner, idx) => (
+            {partnersArr?.map((partner, idx) => (
                 <Link href={partner.link} isExternal style={{ textDecoration: 'none' }} key={idx}>
                     <Wrap 
                         cursor='pointer'
