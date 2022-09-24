@@ -632,7 +632,7 @@ export const useWebsiteControls = () => {
             toast({
                 title: 'Success',
                 status: 'success',
-                description: 'Successfully deleted account'
+                description: 'Successfully deleted website'
             })
 
             setIsDeletingWebsite(false);
