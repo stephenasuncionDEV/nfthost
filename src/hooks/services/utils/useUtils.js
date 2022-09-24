@@ -1,23 +1,28 @@
-import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useToast } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
-import { useCore } from '@/providers/CoreProvider'
 import { useUser } from '@/providers/UserProvider'
+import { usePaymentControls } from '@/hooks/usePaymentControls'
 import { useWeb3 } from '@/hooks/useWeb3'
 import { saveAs } from 'file-saver'
-import { getPriceFromService } from '@/utils/tools'
 import JSZip from 'jszip'
 import posthog from 'posthog-js'
+import errorHandler from '@/utils/errorHandler'
+import { getPriceFromService } from '@/utils/tools'
 
 const zip = new JSZip();
 
 export const useUtils = () => {
-    const toast = useToast();
-    const router = useRouter();
-    const { setPaymentData } = useCore();
+    const toast = useToast({
+        title: 'Error',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+        position: 'bottom'
+    });
+    const { pay } = usePaymentControls();
     const { address } = useUser();
-    const { getUserByAddress, DeductFree } = useWeb3();
+    const { getUserByAddress, deductUnit } = useWeb3();
     const { jsonFiles, setJsonFiles } = useGenerator();
     const [newImageStorage, setNewImageStorage] = useState('');
     const [newKey, setNewKey] = useState({});
@@ -30,14 +35,8 @@ export const useUtils = () => {
             setJsonFiles(data);
         }
         catch (err) {
-            console.error(err);
-            toast({
-                title: 'Error',
-                description: err.message,
-                status: 'error',
-                isClosable: true,
-                position: 'bottom-center'
-            })
+            const msg = errorHandler(err);
+            toast({ description: msg });
         }   
     }
 
@@ -98,21 +97,15 @@ export const useUtils = () => {
 			})
 
 			saveAs(content, "NFTHost Updated Metadata.zip");
-            setIsDownloading(false);
 
             posthog.capture('User updated image storage');
 
+            setIsDownloading(false);
         }
         catch (err) {
             setIsDownloading(false);
-            console.error(err);
-            toast({
-                title: 'Error',
-                description: err.message,
-                status: 'error',
-                isClosable: true,
-                position: 'bottom-center'
-            })
+            const msg = errorHandler(err);
+            toast({ description: msg });
         }
     }
 
@@ -124,10 +117,10 @@ export const useUtils = () => {
 
             const user = await getUserByAddress(address);
 
-            const freeUtil = user.services.utils.freeUtil;
+            const utilsUnits = user.services.utils.units;
 
-            if (freeUtil <= 0 || !freeUtil) {
-                setPaymentData({
+            if (utilsUnits <= 0 || !utilsUnits) {
+                pay({
                     service: 'Utils',
                     price: getPriceFromService('utils'),
                     product: `Add ${Object.keys(newKey)[0]} Key on Metadata`,
@@ -137,15 +130,12 @@ export const useUtils = () => {
                     },
                     data: {
                         size: 1
-                    },
-                    due: new Date()
+                    }
                 })
-                router.push('/payment', undefined, { shallow: true }); 
                 return;
             }
-            else if (freeUtil > 0) {
-                const DECREMENT_VALUE = 1;
-                await DeductFree(DECREMENT_VALUE, 'utils');
+            else if (utilsUnits > 0) {
+                await deductUnit('utils');
             }
 
             setIsDownloading(true);
@@ -173,20 +163,15 @@ export const useUtils = () => {
 			})
 
 			saveAs(content, "NFTHost Updated Metadata.zip");
-            setIsDownloading(false);
 
             posthog.capture('User added metadata key', { key: Object.keys(newKey)[0] });
+
+            setIsDownloading(false);
         }
         catch (err) {
             setIsDownloading(false);
-            console.error(err);
-            toast({
-                title: 'Error',
-                description: err.message,
-                status: 'error',
-                isClosable: true,
-                position: 'bottom-center'
-            })
+            const msg = errorHandler(err);
+            toast({ description: msg });
         }
     }
 
@@ -197,10 +182,10 @@ export const useUtils = () => {
 
             const user = await getUserByAddress(address);
 
-            const freeUtil = user.services.utils.freeUtil;
+            const utilsUnits = user.services.utils.units;
 
-            if (freeUtil <= 0 || !freeUtil) {
-                setPaymentData({
+            if (utilsUnits <= 0 || !utilsUnits) {
+                pay({
                     service: 'Utils',
                     price: 5,
                     product: `Remove ${selectedRemoveKey} Key on Metadata`,
@@ -210,15 +195,12 @@ export const useUtils = () => {
                     },
                     data: {
                         size: 1
-                    },
-                    due: new Date()
+                    }
                 })
-                router.push('/payment', undefined, { shallow: true }); 
                 return;
             }
-            else if (freeUtil > 0) {
-                const DECREMENT_VALUE = 1;
-                await DeductFree(DECREMENT_VALUE, 'utils');
+            else if (utilsUnits > 0) {
+                await deductUnit('utils');
             }
 
             setIsDownloading(true);
@@ -248,92 +230,15 @@ export const useUtils = () => {
 			})
 
 			saveAs(content, "NFTHost Updated Metadata.zip");
-            setIsDownloading(false);
 
             posthog.capture('User removed metadata key', { key: selectedRemoveKey });
+
+            setIsDownloading(false);
         }
         catch (err) {
             setIsDownloading(false);
-            console.error(err);
-            toast({
-                title: 'Error',
-                description: err.message,
-                status: 'error',
-                isClosable: true,
-                position: 'bottom-center'
-            })
-        }
-        try {
-            if (!jsonFiles) throw new Error('Drag and drop your metadata folder first');
-            if (!selectedRemoveKey.length) throw new Error('Select a metadata key to remove first')
-
-            const user = await getUserByAddress(address);
-
-            const freeUtil = user.services.utils.freeUtil;
-
-            if (freeUtil <= 0 || !freeUtil) {
-                setPaymentData({
-                    service: 'Utils',
-                    price: 5,
-                    product: `Remove ${selectedRemoveKey} Key on Metadata`,
-                    redirect: {
-                        origin: '/dashboard/utilities',
-                        title: 'Utils'
-                    },
-                    data: {
-                        size: 1
-                    },
-                    due: new Date()
-                })
-                router.push('/payment', undefined, { shallow: true }); 
-                return;
-            }
-            else if (freeUtil > 0) {
-                const DECREMENT_VALUE = 1;
-                await DeductFree(DECREMENT_VALUE, 'utils');
-            }
-
-            setIsDownloading(true);
-
-            zip.remove('Metadata');
-
-            jsonFiles.forEach((json) => {
-                if (!Array.isArray(json)) { // Json Files
-                    const nftNumber = json.image.slice(json.image.charAt(0) === '/' ? 1 : 0, json.image.indexOf('.'));
-                    let newJson = { ...json };
-                    delete newJson[selectedRemoveKey]
-                    zip.folder("Metadata").file(`${nftNumber}.json`, JSON.stringify(newJson, null, 2));
-                }
-                else { // Metadata
-                    const newMetadata = json.map((jsonData) => {
-                        let newJsonData = { ...jsonData };
-                        delete newJsonData[selectedRemoveKey]
-                        return newJsonData
-                    })
-                    zip.folder("Metadata").file('metadata.json', JSON.stringify(newMetadata, null, 2));
-                }
-            })
-
-            const content = await zip.generateAsync({
-				type: "blob",
-				streamFiles: true
-			})
-
-			saveAs(content, "NFTHost Updated Metadata.zip");
-            setIsDownloading(false);
-
-            posthog.capture('User removed metadata key', { key: selectedRemoveKey });
-        }
-        catch (err) {
-            setIsDownloading(false);
-            console.error(err);
-            toast({
-                title: 'Error',
-                description: err.message,
-                status: 'error',
-                isClosable: true,
-                position: 'bottom-center'
-            })
+            const msg = errorHandler(err);
+            toast({ description: msg });
         }
     }
 
