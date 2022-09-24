@@ -88,11 +88,7 @@ const List = ({ onCreateWebsiteOpen }) => {
                                             {web.components.title}
                                         </Text>
                                         <Text fontSize='10pt' variant='subtle'>
-                                            {`${config?.frontendUrl}/${web.custom.alias.length > 0 ? 
-                                                web.custom.alias 
-                                                : 
-                                                web.route}
-                                            `}
+                                            {`${web.route}.${config?.frontendUrl}`}
                                         </Text>
                                     </Flex>
                                 </HStack>
