@@ -12,7 +12,7 @@ import * as solanaWeb3 from '@solana/web3.js'
 import { getAccessToken } from '@/utils/tools'
 import errorHandler from '@/utils/errorHandler'
 
-export const usePayment = () => {
+export const usePaymentControls = () => {
     const router = useRouter();
     const toast = useToast({
         title: 'Error',
@@ -37,7 +37,7 @@ export const usePayment = () => {
         setPaymentData     
     } = useCore();
 
-    const Pay = (paymentData) => {
+    const pay = (paymentData) => {
         try {
             setPaymentData({
                 ...paymentData,
@@ -61,7 +61,7 @@ export const usePayment = () => {
         return anyTransaction;
     }
 
-    const PayWithCrypto = async () => {
+    const payWithCrypto = async () => {
         try {
             if (!provider) throw new Error('Cannot find web3 provider. Please relogin.');
 
@@ -135,7 +135,7 @@ export const usePayment = () => {
         }
     }
 
-    const PayWithStripe = async (stripe, elements, CardElement) => {
+    const payWithStripe = async (stripe, elements, CardElement) => {
         try {
             setIsPaying(true);
 
@@ -269,8 +269,8 @@ export const usePayment = () => {
     }
 
     return {
-        Pay,
-        PayWithCrypto,
-        PayWithStripe
+        pay,
+        payWithCrypto,
+        payWithStripe
     }
 }
