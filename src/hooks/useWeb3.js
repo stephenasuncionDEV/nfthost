@@ -1,22 +1,39 @@
-import { useToast } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
+import { useToast } from '@chakra-ui/react'
 import { useUser } from '@/providers/UserProvider'
 import { useCore } from '@/providers/CoreProvider'
+import CoinbaseWalletSDK from '@coinbase/wallet-sdk'
+import WalletConnectProvider from '@walletconnect/web3-provider'
+import { encrypt, decryptToken, getAccessToken } from '@/utils/tools'
+import errorHandler from '@/utils/errorHandler'
+import config from '@/config/index'
 import Web3 from 'web3'
 import posthog from 'posthog-js'
 import axios from 'axios'
-import config from '@/config/index'
-import { encrypt, decryptToken } from '@/utils/tools'
-import CoinbaseWalletSDK from '@coinbase/wallet-sdk'
-import WalletConnectProvider from "@walletconnect/web3-provider";
 
 export const useWeb3 = () => {
-    const toast = useToast();
+    const toast = useToast({
+        title: 'Error',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+        position: 'bottom'
+    });
     const router = useRouter();
-    const { setAddress, setIsLoggedIn, setUser, address: userAddress, user, setWallet } = useUser();
-    const { setProvider, provider } = useCore();
+    const { 
+        setAddress, 
+        setIsLoggedIn, 
+        setUser, 
+        address: userAddress, 
+        user, 
+        setWallet 
+    } = useUser();
+    const { 
+        setProvider, 
+        provider 
+    } = useCore();
 
-    const Connect = async (wallet) => {
+    const connect = async (wallet) => {
         try {
             let address = '';
 
@@ -88,29 +105,22 @@ export const useWeb3 = () => {
             return true;
         }
         catch (err) {
-            console.error(err);
-            if (err.message === 'Metamask is not installed') {
+            const msg = errorHandler(err);
+            if (msg === 'Metamask is not installed') {
                 window.open("https://metamask.io/", "_blank");
             }
-            else if (err.message === 'Phantom is not installed') {
+            else if (msg === 'Phantom is not installed') {
                 window.open("https://phantom.app/", "_blank");
             }
-            else if (err.message === 'Coinbase wallet is not installed') {
+            else if (msg === 'Coinbase wallet is not installed') {
                 window.open("https://www.coinbase.com/wallet", "_blank");
             }
-            toast({
-                title: 'Error',
-                description: !err.response ? err.message : err.response.data?.message,
-                status: 'error',
-                duration: 3000,
-                isClosable: true,
-                position: 'bottom-center'
-            })
+            toast({ description: msg });
             return false;
         }
     }
 
-    const Logout = async (silent = true) => {
+    const logout = async (silent = true) => {
         try {
             const storageToken = localStorage.getItem('nfthost-user');
             if (!storageToken) return;
@@ -138,38 +148,26 @@ export const useWeb3 = () => {
                 toast({
                     title: 'Success',
                     description: 'Successfully logged out',
-                    status: 'success',
-                    isClosable: true,
-                    position: 'bottom-center'
+                    status: 'success'
                 })
             }
         }
         catch (err) {
-            console.error(err);
-            toast({
-                title: 'Error',
-                description: !err.response ? err.message : err.response.data.message,
-                status: 'error',
-                duration: 3000,
-                isClosable: true,
-                position: 'bottom-center'
-            })
+            const msg = errorHandler(err);
+            toast({ description: msg });
         }
     }
 
     const getUserByAddress = async (address) => {
         try {
-            const storageToken = localStorage.getItem('nfthost-user');
-            if (!storageToken) return;
-
-            const token = decryptToken(storageToken, true);
+            const accessToken = getAccessToken();
 
             const res = await axios.get(`${config.serverUrl}/api/member/getByAddress`, {
                 params: {
                     address
                 },
                 headers: { 
-                    Authorization: `Bearer ${token.accessToken}` 
+                    Authorization: `Bearer ${accessToken}` 
                 }
             })
 
@@ -180,195 +178,142 @@ export const useWeb3 = () => {
             return res.data;
         }
         catch (err) {
-            console.error(err);
-            if (err.response?.data?.isExpired) await Logout();
-            toast({
-                title: 'Error',
-                description: !err.response ? err.message : err.response.data.message,
-                status: 'error',
-                duration: 3000,
-                isClosable: true,
-                position: 'bottom-center'
-            })
+            const msg = errorHandler(err);
+            toast({ description: msg });
             return null;
         }
     }
 
-    const AddCount = async (value, service) => {
-        return new Promise(async (resolve, reject) => {
-            try {
-                const storageToken = localStorage.getItem('nfthost-user');
-                if (!storageToken) return;
-
-                const token = decryptToken(storageToken, true);
-    
-                await axios.patch(`${config.serverUrl}/api/member/addCount`, {
-                    address: userAddress,
-                    service,
-                    value
-                }, {
-                    headers: { 
-                        Authorization: `Bearer ${token.accessToken}` 
-                    }
-                })
-
-                await getUserByAddress(userAddress);
-                resolve();
-            }
-            catch (err) {
-                reject(err);
-                console.error(err);
-                if (err.response?.data?.isExpired) await Logout();
-                toast({
-                    title: 'Error',
-                    description: !err.response ? err.message : err.response.data.message,
-                    status: 'error',
-                    duration: 3000,
-                    isClosable: true,
-                    position: 'bottom-center'
-                })
-            }
-        });
-    }
-
-    const AddFree = async (value, service) => {
-        return new Promise(async (resolve, reject) => {
-            try {
-                const storageToken = localStorage.getItem('nfthost-user');
-                if (!storageToken) return;
-
-                const token = decryptToken(storageToken, true);
-    
-                const res = await axios.patch(`${config.serverUrl}/api/member/addFree`, {
-                    address: userAddress,
-                    service,
-                    value
-                }, {
-                    headers: { 
-                        Authorization: `Bearer ${token.accessToken}` 
-                    }
-                })
-
-                await getUserByAddress(userAddress);
-                resolve();
-            }
-            catch (err) {
-                reject(err);
-                if (err.response?.data?.isExpired) await Logout();
-                toast({
-                    title: 'Error',
-                    description: !err.response ? err.message : err.response.data.message,
-                    status: 'error',
-                    duration: 3000,
-                    isClosable: true,
-                    position: 'bottom-center'
-                })
-            }
-        });
-    }
-
-    const DeductCount = async (value, service) => {
-        return new Promise(async (resolve, reject) => {
-            try {
-                const storageToken = localStorage.getItem('nfthost-user');
-                if (!storageToken) return;
-
-                const token = decryptToken(storageToken, true);
-    
-                const res = await axios.patch(`${config.serverUrl}/api/member/deductCount`, {
-                    address: userAddress,
-                    service,
-                    value
-                }, {
-                    headers: { 
-                        Authorization: `Bearer ${token.accessToken}` 
-                    }
-                })
-
-                await getUserByAddress(userAddress);
-                resolve();
-            }
-            catch (err) {
-                reject(err);
-                if (err.response?.data?.isExpired) await Logout();
-                toast({
-                    title: 'Error',
-                    description: !err.response ? err.message : err.response.data.message,
-                    status: 'error',
-                    duration: 3000,
-                    isClosable: true,
-                    position: 'bottom-center'
-                })
-            }
-        });
-    }
-
-    const DeductFree = async (value, service) => {
-        return new Promise(async (resolve, reject) => {
-            try {
-                const storageToken = localStorage.getItem('nfthost-user');
-                if (!storageToken) return;
-
-                const token = decryptToken(storageToken, true);
-    
-                await axios.patch(`${config.serverUrl}/api/member/deductFree`, {
-                    address: userAddress,
-                    service,
-                    value
-                }, {
-                    headers: { 
-                        Authorization: `Bearer ${token.accessToken}` 
-                    }
-                })
-
-                await getUserByAddress(userAddress);
-                resolve();
-            }
-            catch (err) {
-                reject(err);
-                console.error(err);
-                if (err.response?.data?.isExpired) await Logout();
-                toast({
-                    title: 'Error',
-                    description: !err.response ? err.message : err.response.data.message,
-                    status: 'error',
-                    duration: 3000,
-                    isClosable: true,
-                    position: 'bottom-center'
-                })
-            }
-        });
-    }
-
-    const UpdateEmail = async (email) => {
+    const addUnit = async (service) => {
         try {
-            const storageToken = localStorage.getItem('nfthost-user');
-            if (!storageToken) return;
+            const accessToken = getAccessToken();
 
-            const token = decryptToken(storageToken, true);
+            const res = await axios.patch(`${config.serverUrl}/api/member/addUnit`, {
+                address: userAddress,
+                service
+            }, {
+                headers: { 
+                    Authorization: `Bearer ${accessToken}` 
+                }
+            })
 
-            await axios.patch(`${config.serverUrl}/api/member/updateEmail`, {
+            if (res.status !== 200) return;
+
+            setUser((prevUser) => {
+                return {
+                    ...prevUser,
+                    services: {
+                        ...prevUser.services,
+                        [service]: {
+                            ...prevUser.services[service],
+                            units: res.data.services[service].units
+                        }
+                    }
+                }
+            })
+        }
+        catch (err) {
+            const msg = errorHandler(err);
+            toast({ description: msg });
+        }
+    }
+
+    const deductUnit = async (service) => {
+        try {
+            const accessToken = getAccessToken();
+
+            const res = await axios.patch(`${config.serverUrl}/api/member/deductUnit`, {
+                address: userAddress,
+                service
+            }, {
+                headers: { 
+                    Authorization: `Bearer ${accessToken}` 
+                }
+            })
+
+            if (res.status !== 200) return;
+
+            setUser((prevUser) => {
+                return {
+                    ...prevUser,
+                    services: {
+                        ...prevUser.services,
+                        [service]: {
+                            ...prevUser.services[service],
+                            units: res.data.services[service].units
+                        }
+                    }
+                }
+            })
+        }
+        catch (err) {
+            const msg = errorHandler(err);
+            toast({ description: msg });
+        }
+    }
+
+    const updateIsSubscribed = async (service, isSubscribed) => {
+        try {
+            const accessToken = getAccessToken();
+
+            const res = await axios.patch(`${config.serverUrl}/api/member/updateIsSubscribed`, {
+                address: userAddress,
+                service,
+                isSubscribed
+            }, {
+                headers: { 
+                    Authorization: `Bearer ${accessToken}` 
+                }
+            })
+
+            if (res.status !== 200) return;
+
+            setUser((prevUser) => {
+                return {
+                    ...prevUser,
+                    services: {
+                        ...prevUser.services,
+                        [service]: {
+                            ...prevUser.services[service],
+                            isSubscribed
+                        }
+                    }
+                }
+            })
+        }
+        catch (err) {
+            const msg = errorHandler(err);
+            toast({ description: msg });
+        }
+    }
+
+    const updateEmail = async (email) => {
+        try {
+            const accessToken = getAccessToken();
+
+            const res = await axios.patch(`${config.serverUrl}/api/member/updateEmail`, {
                 memberId: user._id,
                 email 
             }, {
                 headers: { 
-                    Authorization: `Bearer ${token.accessToken}` 
+                    Authorization: `Bearer ${accessToken}` 
                 }
             })
 
+            if (res.status !== 200) return;
+
             posthog.capture('User email has been updated');
+
+            setUser((prevUser) => {
+                return {
+                    ...prevUser,
+                    email
+                }
+            })
         }
         catch (err) {
-            console.error(err);
-            if (err.response?.data?.isExpired) await Logout();
-            toast({
-                title: 'Error',
-                description: !err.response ? err.message : err.response.data.message,
-                status: 'error',
-                duration: 3000,
-                isClosable: true,
-                position: 'bottom-center'
-            })
+            const msg = errorHandler(err);
+            toast({ description: msg });
         }
     }
 
@@ -400,14 +345,13 @@ export const useWeb3 = () => {
     }
 
     return {
-        Connect,
-        Logout,
+        connect,
+        logout,
         getUserByAddress,
-        AddCount,
-        AddFree,
-        DeductCount,
-        DeductFree,
+        addUnit,
+        deductUnit,
         isNetworkProtected,
-        UpdateEmail
+        updateEmail,
+        updateIsSubscribed
     }
 }
