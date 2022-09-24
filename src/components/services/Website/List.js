@@ -66,6 +66,7 @@ const List = ({ onCreateWebsiteOpen }) => {
                             onClick={() => {
                                 editWebsite(web);
                             }}
+                            border='1px solid rgb(117,63,229)'
                         >
                             <Flex flexDir='column' flex='1' w='full'>
                                 <HStack spacing='1em'>

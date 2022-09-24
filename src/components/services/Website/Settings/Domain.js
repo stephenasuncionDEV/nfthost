@@ -26,8 +26,10 @@ const Domain = () => {
                 flexDir='column' 
                 bg={containerColor} 
                 p='1em' 
-                borderRadius='.25em'
-                maxW='865px'
+                borderRadius='.25em' 
+                maxW='865px' 
+                w='full'
+                border='1px solid rgb(117,63,229)'
             >
                 <Flex flexDir='column'>
                     <VStack spacing='.25em' alignItems='flex-start'>

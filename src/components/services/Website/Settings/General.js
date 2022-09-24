@@ -41,7 +41,15 @@ const General = () => {
 
     return (
         <VStack alignItems='flex-start' mt='1em' flex='1' spacing='2em'>
-            <Flex flexDir='column' bg={containerColor} p='1em' borderRadius='.25em' maxW='865px' w='full'>
+            <Flex 
+                flexDir='column' 
+                bg={containerColor} 
+                p='1em' 
+                borderRadius='.25em' 
+                maxW='865px' 
+                w='full'
+                border='1px solid rgb(117,63,229)'
+            >
                 <Flex flexDir='column'>  
                     <VStack spacing='.25em' alignItems='flex-start'>
                         <Text>Name</Text>
@@ -74,7 +82,15 @@ const General = () => {
                     </Button>
                 </Flex>
             </Flex>
-            <Flex flexDir='column' bg={containerColor} p='1em' borderRadius='.25em' maxW='865px' w='full'>
+            <Flex 
+                flexDir='column' 
+                bg={containerColor} 
+                p='1em' 
+                borderRadius='.25em' 
+                maxW='865px' 
+                w='full'
+                border='1px solid rgb(117,63,229)'
+            >
                 <Flex flexDir='column'>
                     <VStack spacing='.25em' alignItems='flex-start'>
                         <Text>Description</Text>
@@ -107,7 +123,15 @@ const General = () => {
                     </Button>
                 </Flex>
             </Flex>
-            <Flex flexDir='column' bg={containerColor} p='1em' borderRadius='.25em' maxW='865px' w='full'>
+            <Flex 
+                flexDir='column' 
+                bg={containerColor} 
+                p='1em' 
+                borderRadius='.25em' 
+                maxW='865px' 
+                w='full'
+                border='1px solid rgb(117,63,229)'
+            >
                 <Flex flexDir='column'>
                     <VStack spacing='.25em' alignItems='flex-start'>
                         <Text>Language</Text>
@@ -137,7 +161,15 @@ const General = () => {
                     </Button>
                 </Flex>
             </Flex>
-            <Flex flexDir='column' bg={containerColor} p='1em' borderRadius='.25em' maxW='865px' w='full'>
+            <Flex 
+                flexDir='column' 
+                bg={containerColor} 
+                p='1em' 
+                borderRadius='.25em' 
+                maxW='865px' 
+                w='full'
+                border='1px solid rgb(117,63,229)'
+            >
                 <Flex flexDir='column'>
                     <VStack spacing='.25em' alignItems='flex-start'>
                         <Text>Styles &amp; Scripts</Text>
@@ -170,7 +202,15 @@ const General = () => {
                     </Button>
                 </Flex>
             </Flex>
-            <Flex flexDir='column' bg={containerColor} p='1em' borderRadius='.25em' maxW='865px' w='full'>
+            <Flex 
+                flexDir='column' 
+                bg={containerColor} 
+                p='1em' 
+                borderRadius='.25em' 
+                maxW='865px' 
+                w='full'
+                border='1px solid rgb(117,63,229)'
+            >
                 <Flex flexDir='column'>
                     <VStack spacing='.25em' alignItems='flex-start'>
                         <Text>Embed</Text>
@@ -203,7 +243,15 @@ const General = () => {
                     </Button>
                 </Flex>
             </Flex>
-            <Flex flexDir='column' bg={containerColor} p='1em' borderRadius='.25em' maxW='865px' w='full'>
+            <Flex 
+                flexDir='column' 
+                bg={containerColor} 
+                p='1em' 
+                borderRadius='.25em' 
+                maxW='865px' 
+                w='full'
+                border='1px solid rgb(117,63,229)'
+            >
                 <Flex flexDir='column'>
                     <VStack spacing='.25em' alignItems='flex-start'>
                         <Text>Robot</Text>
@@ -239,7 +287,15 @@ const General = () => {
                     </Button>
                 </Flex>
             </Flex>
-            <Flex flexDir='column' bg={containerColor} p='1em' borderRadius='.25em' maxW='865px' w='full' border='2px solid #E53E3E'>
+            <Flex 
+                flexDir='column' 
+                bg={containerColor} 
+                p='1em' 
+                borderRadius='.25em' 
+                maxW='865px' 
+                w='full'
+                border='1px solid #E53E3E'
+            >
                 <Flex flexDir='column'>
                     <VStack spacing='.25em' alignItems='flex-start'>
                         <Text>Delete Website</Text>
