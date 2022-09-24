@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import { useColorModeValue, Flex, Text, VStack, Box, HStack } from '@chakra-ui/react'
 import { useMediaQuery } from 'react-responsive'
+import { MdOutlineAccountCircle } from 'react-icons/md'
 import { useUser } from '@/providers/UserProvider'
 import { useReAuthenticate } from '@/hooks/useReAuthenticate'
 import Meta from '@/components/Meta'
@@ -8,18 +9,14 @@ import Layout from '@/components/Layout'
 import GetStarted from '@/components/GetStarted'
 import Generator from '@/components/services/Generator'
 import Website from '@/components/services/Website'
-// import Templates from '@/components/services/Website/templates/Templates'
-// import Addons from '@/components/services/Website/addons/Addons'
-// import Domain from '@/components/services/Website/domain/Domain'
+import Templates from '@/components/services/Website/Templates'
 // import WebsiteInfo from '@/components/services/Website/WebsiteInfo'
 import ConnectWalletTag from '@/components/ConnectWalletTag'
 import Partners from '@/components/Partners'
 import Payments from '@/components/Payments'
 import Team from '@/components/Team'
-// import Analytics from '@/components/services/Website/analytics/Analytics'
 import Utilities from '@/components/services/Utilities'
-import Metadata from '@/components/services/Generator/metadata'
-import { MdOutlineAccountCircle } from 'react-icons/md'
+import Metadata from '@/components/services/Generator/Metadata'
 import { webColor } from '@/theme/index'
 
 const Page = () => {
@@ -59,10 +56,7 @@ const Page = () => {
                                 metadata: <Metadata />,
                                 utilities: <Utilities />,
                                 website: <Website />,
-                                // templates:  <Templates />,
-                                // addons: <Addons />,
-                                // domain: <Domain />,
-                                // analytics: <Analytics />,
+                                templates:  <Templates />,
                                 payments: <Payments />,
                                 partners: <Partners />,
                                 team: <Team />
