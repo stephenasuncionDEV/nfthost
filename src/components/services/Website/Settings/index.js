@@ -6,6 +6,7 @@ import { MdCircle } from 'react-icons/md'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import General from './General'
 import Domain from './Domain'
+import Advanced from './Advanced'
 import { websiteSettingsArr } from '@/utils/json'
 
 const Settings = () => {
@@ -30,7 +31,7 @@ const Settings = () => {
                             <MdCircle fontSize='16pt' />
                         </TagLeftIcon>
                         <TagLabel fontSize='10pt'>
-                            Published
+                            {editingWebsite?.isPublished ? 'Published' : 'Not Published'}
                         </TagLabel>
                     </Tag>
                 </Wrap>
@@ -58,7 +59,7 @@ const Settings = () => {
                         general: <General />,
                         design: <General />,
                         domain: <Domain />,
-                        advanced: <General />
+                        advanced: <Advanced />
                     }[websiteSettingsArr[currentSettingsIdx]?.name?.toLowerCase()]}
                 </Flex>
             </Flex>
