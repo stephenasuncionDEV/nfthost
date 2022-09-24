@@ -17,7 +17,12 @@ export const useWebsiteControls = () => {
         position: 'bottom'
     });
     const { user } = useUser();
-    const { setWebsites, setEditingWebsite, editingWebsite } = useWebsite();
+    const { 
+        setWebsites, 
+        setEditingWebsite, 
+        editingWebsite,
+        setUserWebsite
+    } = useWebsite();
     const [isGettingWebsites, setIsGettingWebsites] = useState(false);
     const [isCreatingWebsite, setIsCreatingWebsite] = useState(false);
     const [isUpdatingWebsite, setIsUpdatingWebsite] = useState(false);
@@ -25,6 +30,36 @@ export const useWebsiteControls = () => {
     const [creationInputState, setCreationInputState] = useState({});
     const [editInputState, setEditInputState] = useState({});
     const recaptchaRef = useRef();
+
+    const getWebsiteByRoute = async (route) => {
+        try {
+            setIsGettingWebsites(true);
+
+            const res = await axios.get(`${config.serverUrl}/api/website/getWebsiteByRoute`, {
+                params: {
+                    route
+                },
+                headers: { 
+                    Authorization: `Bearer ${process.env.CREATE_WEBSITE_TOKEN}` 
+                }
+            })
+
+            const { isExpired, isPublished } = res.data;
+
+            if (isExpired) throw new Error('Minting website has expired');
+            if (!isPublished) throw new Error('Minting website is not published yet');
+
+            console.log(res.data)
+
+            setUserWebsite(res.data);
+            setIsGettingWebsites(false);
+        }
+        catch (err) {
+            setIsGettingWebsites(false);
+            const msg = errorHandler(err);
+            toast({ description: msg });
+        }
+    }
 
     const getWebsites = async () => {
         try {
@@ -833,7 +868,61 @@ export const useWebsiteControls = () => {
         }
     }
 
+    const updateRevealDate = async (revealDate) => {
+        try {
+            setIsUpdatingWebsite(true);
+
+            const newRevealDate = revealDate;
+
+            const accessToken = getAccessToken();
+
+            const res = await axios.patch(`${config.serverUrl}/api/website/updateRevealDate`, {
+                websiteId: editingWebsite._id,
+                revealDate: newRevealDate
+            }, {
+                headers: { 
+                    Authorization: `Bearer ${accessToken}` 
+                }
+            })
+
+            if (res.status !== 200) throw new Error('Cannot update website at the moment');
+
+            setWebsites((prevWebsite) => {
+                return prevWebsite.map(web => {
+                    if (web.id === editingWebsite._id) {
+                        return {
+                            ...web,
+                            revealDate: res.data.revealDate
+                        }
+                    }
+                    return web;
+                })
+            })
+
+            setEditingWebsite((prevWebsite) => {
+                return {
+                    ...prevWebsite,
+                    revealDate: res.data.revealDate
+                }
+            })
+
+            toast({
+                title: 'Success',
+                description: "Successfuly updated website's embed reveal date",
+                status: 'success',
+            })
+
+            setIsUpdatingWebsite(false);
+        }
+        catch (err) {
+            setIsUpdatingWebsite(false);
+            const msg = errorHandler(err);
+            toast({ description: msg });
+        }
+    }
+
     return {
+        getWebsiteByRoute,
         getWebsites,
         isGettingWebsites,
         createWebsite,
@@ -853,6 +942,7 @@ export const useWebsiteControls = () => {
         updateTemplate,
         updateFavicon,
         updateLogo,
+        updateRevealDate,
         isUpdatingWebsite,
         deleteWebsite,
         isDeletingWebsite,
