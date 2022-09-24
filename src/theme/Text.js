@@ -43,6 +43,10 @@ const Text = {
             lineHeight: '48pt',
             fontWeight: 'bold'
         }),
+        subtle: (props) => ({
+            color: 'gray.500',
+            fontSize: '9pt'
+        })
     }
 }
 
