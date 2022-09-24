@@ -4,9 +4,9 @@ export const WebsiteContext = createContext({})
 export const useWebsite = () => useContext(WebsiteContext)
 
 export const WebsiteProvider = ({ children }) => {
-    const [userWebsite, setUserWebsite] = useState();
-    const [editingWebsite, setEditingWebsite] = useState();
-    const [websites, setWebsites] = useState();
+    const [userWebsite, setUserWebsite] = useState(null);
+    const [editingWebsite, setEditingWebsite] = useState(null);
+    const [websites, setWebsites] = useState([]);
 
     const controllers = {
         websites,
