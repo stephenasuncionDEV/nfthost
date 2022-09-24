@@ -1,12 +1,12 @@
 import { useEffect } from 'react'
-import { useWeb3 } from '@/hooks/useWeb3'
+import { useMemberControls } from '@/hooks/useMemberControls'
 import { useRouter } from 'next/router'
 import { useUser } from '@/providers/UserProvider'
 import { decryptToken } from '@/utils/tools'
 
 export const useReAuthenticate = (protect = false, disable = false) => {
     const { isLoggedIn } = useUser();
-    const { connect } = useWeb3();
+    const { connect } = useMemberControls();
     const router = useRouter();
 
     useEffect(() => {
@@ -17,10 +17,6 @@ export const useReAuthenticate = (protect = false, disable = false) => {
             if (!storageToken) return;
 
             const userData = decryptToken(storageToken);
-
-            //TODO: check if user is connected already, if not, use Connect function, else, setAddress, setIsLoggedIn, setUser
-            // so that we dont get new access token everytime
-
             const isConnected = await connect(userData.wallet);
 
             if (protect && !isConnected) {

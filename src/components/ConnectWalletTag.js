@@ -4,7 +4,7 @@ import { HStack, Menu, MenuButton, Tag,
     TagRightIcon, MenuDivider, Text, Image, Avatar, VStack
 } from '@chakra-ui/react'
 import { useUser } from '@/providers/UserProvider'
-import { useWeb3 } from '@/hooks/useWeb3'
+import { useMemberControls } from '@/hooks/useMemberControls'
 import { useNavbar } from '@/hooks/useNavbar'
 import { HiOutlineChevronDown, HiLogout } from 'react-icons/hi'
 import { MdOutlineContentCopy, MdPayment } from 'react-icons/md'
@@ -12,7 +12,7 @@ import { MdOutlineContentCopy, MdPayment } from 'react-icons/md'
 const ConnectWalletTag = ({ isCopyAddress, isUserProfile, isPayments }) => {
     const { address, isLoggedIn, user } = useUser();
     const { CopyAddress } = useNavbar();
-    const { connect, logout } = useWeb3();
+    const { connect, logout } = useMemberControls();
 
     const toolbarNavColor = useColorModeValue('rgba(0,0,0,.8)', 'white');
     const toolbarBorderColor = useColorModeValue('rgba(0,0,0,.1)', 'white');

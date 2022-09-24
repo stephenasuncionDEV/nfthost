@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import { useToast } from '@chakra-ui/react'
 import { useCore } from '@/providers/CoreProvider'
 import { useUser } from '@/providers/UserProvider'
-import { useWeb3 } from '@/hooks/useWeb3'
+import { useMemberControls } from '@/hooks/useMemberControls'
 import Web3 from 'web3'
 import axios from 'axios'
 import posthog from 'posthog-js'
@@ -22,7 +22,7 @@ export const usePaymentControls = () => {
         position: 'bottom'
     });
     const { user } = useUser();
-    const { isNetworkProtected, addUnit, updateEmail } = useWeb3();
+    const { isNetworkProtected, addUnit, updateEmail } = useMemberControls();
     const { 
         provider,
         paymentData,

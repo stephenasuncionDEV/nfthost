@@ -3,7 +3,7 @@ import { useToast } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { useUser } from '@/providers/UserProvider'
 import { usePaymentControls } from '@/hooks/usePaymentControls'
-import { useWeb3 } from '@/hooks/useWeb3'
+import { useMemberControls } from '@/hooks/useMemberControls'
 import { saveAs } from 'file-saver'
 import JSZip from 'jszip'
 import posthog from 'posthog-js'
@@ -22,7 +22,7 @@ export const useUtils = () => {
     });
     const { pay } = usePaymentControls();
     const { address } = useUser();
-    const { getUserByAddress, deductUnit } = useWeb3();
+    const { getUserByAddress, deductUnit } = useMemberControls();
     const { jsonFiles, setJsonFiles } = useGenerator();
     const [newImageStorage, setNewImageStorage] = useState('');
     const [newKey, setNewKey] = useState({});

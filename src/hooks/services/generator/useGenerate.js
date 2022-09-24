@@ -1,7 +1,7 @@
 import { useUser } from '@/providers/UserProvider'
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { useToast } from '@chakra-ui/react'
-import { useWeb3 } from '@/hooks/useWeb3'
+import { useMemberControls } from '@/hooks/useMemberControls'
 import { usePaymentControls } from '@/hooks/usePaymentControls'
 import posthog from 'posthog-js'
 import MD5 from 'crypto-js/md5'
@@ -55,7 +55,7 @@ export const useGenerate = () => {
         storageURL
     } = useGenerator();
     const { address } = useUser();
-    const { getUserByAddress, deductUnit } = useWeb3();
+    const { getUserByAddress, deductUnit } = useMemberControls();
 
     const RandomPreview = (silent = false) => {
         try {

@@ -11,7 +11,7 @@ import Web3 from 'web3'
 import posthog from 'posthog-js'
 import axios from 'axios'
 
-export const useWeb3 = () => {
+export const useMemberControls = () => {
     const toast = useToast({
         title: 'Error',
         status: 'error',
