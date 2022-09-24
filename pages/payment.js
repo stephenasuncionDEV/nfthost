@@ -1,11 +1,11 @@
 import NextLink from 'next/link'
 import { Box, HStack, Text, Flex, Button, VStack, Link, 
-    useColorModeValue, Input, Divider, Image, Wrap, useColorMode
+    useColorModeValue, Input, Image, Wrap, useColorMode
 } from '@chakra-ui/react'
 import { useReAuthenticate } from '@/hooks/useReAuthenticate'
 import { useCore } from '@/providers/CoreProvider'
 import { useUser } from '@/providers/UserProvider'
-import { usePayment } from '@/hooks/usePayment'
+import { usePaymentControls } from '@/hooks/usePaymentControls'
 import Meta from '@/components/Meta'
 import CardInput from '@/components/CardInput'
 import KeepWorkingModal from '@/components/KeepWorkingModal'
@@ -15,7 +15,6 @@ import { loadStripe } from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
 import config from '@/config/index'
 import { getCurrencyFromWallet, getPriceFromService } from '@/utils/tools'
-import { webColor } from '@/theme/index'
 
 const month = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
 const stripePromise = loadStripe(config.stripe.publicKey);
@@ -40,7 +39,7 @@ const Payment = () => {
         isPaying
     } = useCore();
     const { address, wallet } = useUser();
-    const { PayWithCrypto } = usePayment();
+    const { payWithCrypto } = usePaymentControls();
     const { colorMode } = useColorMode();
     const cryptoCurrency = getCurrencyFromWallet(wallet || 'metamask');
     const cryptoPrice = getPriceFromService(paymentData?.service?.toLowerCase() || 'generator', cryptoCurrency || 'eth');
@@ -139,7 +138,7 @@ const Payment = () => {
                                     <Button 
                                         w='full' 
                                         variant='primary' 
-                                        onClick={PayWithCrypto} 
+                                        onClick={payWithCrypto} 
                                         isLoading={isPaying} 
                                         loadingText='Paying' 
                                     >

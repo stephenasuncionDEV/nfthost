@@ -1,13 +1,13 @@
 import { Box, Button, useColorModeValue } from '@chakra-ui/react'
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import { useCore } from '@/providers/CoreProvider'
-import { usePayment } from '@/hooks/usePayment'
+import { usePaymentControls } from '@/hooks/usePaymentControls'
 
 const CardInput = () => {
     const stripe = useStripe();
     const elements = useElements();
     const { paymentData, isPaying } = useCore();
-    const { PayWithStripe } = usePayment();
+    const { payWithStripe } = usePaymentControls();
 
     const containerColor = useColorModeValue('whiteAlpha.500', 'blackAlpha.500');
 
@@ -25,7 +25,7 @@ const CardInput = () => {
                 variant='primary'
                 w='full' 
                 mt='1em' 
-                onClick={() => PayWithStripe(stripe, elements, CardElement)} 
+                onClick={() => payWithStripe(stripe, elements, CardElement)} 
                 isLoading={isPaying} 
                 loadingText='Paying'
             >
