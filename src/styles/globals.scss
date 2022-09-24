@@ -18,3 +18,11 @@ a {
 * {
     box-sizing: border-box;
 }
+
+.scaleAnimation {
+    transition: all .2s ease-in;
+}
+  
+.scaleAnimation:hover {
+    transform: scale(1.05);
+}
