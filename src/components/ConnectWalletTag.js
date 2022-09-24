@@ -12,7 +12,7 @@ import { MdOutlineContentCopy, MdPayment } from 'react-icons/md'
 const ConnectWalletTag = ({ isCopyAddress, isUserProfile, isPayments }) => {
     const { address, isLoggedIn, user } = useUser();
     const { CopyAddress } = useNavbar();
-    const { Connect, Logout } = useWeb3();
+    const { connect, logout } = useWeb3();
 
     const toolbarNavColor = useColorModeValue('rgba(0,0,0,.8)', 'white');
     const toolbarBorderColor = useColorModeValue('rgba(0,0,0,.1)', 'white');
@@ -39,13 +39,13 @@ const ConnectWalletTag = ({ isCopyAddress, isUserProfile, isPayments }) => {
                                         {address}
                                     </Text>
                                     <Text fontSize='8pt' noOfLines='1'>
-                                        {user?.services?.generator?.freeGeneration || 0} Generation Available
+                                        {user?.services?.generator?.units || 0} Generation Units
                                     </Text>
                                     <Text fontSize='8pt' noOfLines='1'>
-                                        {user?.services?.website?.freeWebsite || 0} Website Available
+                                        {user?.services?.website?.units || 0} Website Units
                                     </Text>
                                     <Text fontSize='8pt' noOfLines='1'>
-                                        {user?.services?.utils?.freeUtil || 0} Utils Available
+                                        {user?.services?.utils?.units || 0} Utils Units
                                     </Text>
                                 </VStack>
                             </HStack>
@@ -65,11 +65,11 @@ const ConnectWalletTag = ({ isCopyAddress, isUserProfile, isPayments }) => {
                         </NextLink>
                     )}
                     {isUserProfile && <MenuDivider />}
-                    <MenuItem icon={<HiLogout />} onClick={() => Logout(false)}>Logout</MenuItem>
+                    <MenuItem icon={<HiLogout />} onClick={() => logout(false)}>Logout</MenuItem>
                     </>
                 ) : (
                     <>
-                    <MenuItem onClick={() => Connect('metamask')}>
+                    <MenuItem onClick={() => connect('metamask')}>
                         <Image
                             boxSize='2rem'
                             borderRadius='full'
@@ -79,7 +79,7 @@ const ConnectWalletTag = ({ isCopyAddress, isUserProfile, isPayments }) => {
                         />
                         <span>Metamask</span>
                     </MenuItem>
-                    <MenuItem onClick={() => Connect('phantom')}>
+                    <MenuItem onClick={() => connect('phantom')}>
                         <Image
                             boxSize='2rem'
                             borderRadius='full'
@@ -89,7 +89,7 @@ const ConnectWalletTag = ({ isCopyAddress, isUserProfile, isPayments }) => {
                         />
                         <span>Phantom</span>
                     </MenuItem>
-                    <MenuItem onClick={() => Connect('coinbase')}>
+                    <MenuItem onClick={() => connect('coinbase')}>
                         <Image
                             boxSize='2rem'
                             borderRadius='full'
@@ -99,7 +99,7 @@ const ConnectWalletTag = ({ isCopyAddress, isUserProfile, isPayments }) => {
                         />
                         <span>Coinbase Wallet</span>
                     </MenuItem>
-                    <MenuItem onClick={() => Connect('walletconnect')}>
+                    <MenuItem onClick={() => connect('walletconnect')}>
                         <Image
                             boxSize='2rem'
                             borderRadius='full'

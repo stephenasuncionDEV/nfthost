@@ -6,7 +6,7 @@ import { decryptToken } from '@/utils/tools'
 
 export const useReAuthenticate = (protect = false, disable = false) => {
     const { isLoggedIn } = useUser();
-    const { Connect } = useWeb3();
+    const { connect } = useWeb3();
     const router = useRouter();
 
     useEffect(() => {
@@ -21,7 +21,7 @@ export const useReAuthenticate = (protect = false, disable = false) => {
             //TODO: check if user is connected already, if not, use Connect function, else, setAddress, setIsLoggedIn, setUser
             // so that we dont get new access token everytime
 
-            const isConnected = await Connect(userData.wallet);
+            const isConnected = await connect(userData.wallet);
 
             if (protect && !isConnected) {
                 if (!isLoggedIn) router.push('/', undefined, { shallow: true });

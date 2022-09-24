@@ -22,7 +22,7 @@ export const usePaymentControls = () => {
         position: 'bottom'
     });
     const { user } = useUser();
-    const { isNetworkProtected, AddFree, UpdateEmail } = useWeb3();
+    const { isNetworkProtected, addUnit, updateEmail } = useWeb3();
     const { 
         provider,
         paymentData,
@@ -116,7 +116,7 @@ export const usePaymentControls = () => {
                 wallet
             });
 
-            await AddFree(1, service);
+            await addUnit(service);
             await addPayment(hash);
 
             toast({
@@ -222,9 +222,9 @@ export const usePaymentControls = () => {
                 price: paymentData.price
             });
 
-            await AddFree(1, service);
+            await addUnit(service);
             await addPayment(transaction.paymentIntent.id);
-            await UpdateEmail(paymentEmail);
+            await updateEmail(paymentEmail);
 
             toast({
                 title: 'Success',

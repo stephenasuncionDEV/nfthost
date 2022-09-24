@@ -16,8 +16,6 @@ export const useCoreControls = () => {
                 }
             })
 
-            console.log(res.data)
-
             setFeaturedWebsites(res.data)
         }
         catch (err) {
