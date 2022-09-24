@@ -2,7 +2,7 @@ const production = {
     frontendUrl: 'nfthost.app',
 	serverUrl: 'https://nfthost-backend.vercel.app',
     stripe: {
-        publicKey: 'pk_live_NvId9HTSPKI3pVQ1UqoAfnnd00Y2VDa3Uh'
+        publicKey: 'pk_live_51LlUJgHjrZpuqKHtNAMYLAAUODz0DyJv6ZN21MJndNhYZS3MjM3fM7fvhKaIxyM0r3GWZ39mL8NELAbqXZeJvdlr00GXCSAZ2n'
     },
     recaptcha: {
         siteKey: '6LeuRbYgAAAAABGYVWikwVFs--HA8EJ1K80kQ8Ew'

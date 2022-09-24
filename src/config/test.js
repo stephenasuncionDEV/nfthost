@@ -2,7 +2,7 @@ const test = {
     frontendUrl: 'localhost:3000',
 	serverUrl: 'http://localhost:8080',
     stripe: {
-        publicKey: 'pk_test_r2MLEc1m0UrIbuxyrPJCbhNs0066BSLFv5'
+        publicKey: 'pk_test_51LlUJgHjrZpuqKHtZxudXKElA6nZSYO2IdYqkdMa0b8BKos4F6KyJCb8ilo4KiiLLNAjbqQAJdaZq9ekqAM4jurq00UQ130FKl'
     },
     recaptcha: {
         siteKey: '6LeuRbYgAAAAABGYVWikwVFs--HA8EJ1K80kQ8Ew'
