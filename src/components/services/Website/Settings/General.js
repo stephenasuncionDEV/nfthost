@@ -14,6 +14,8 @@ const General = () => {
         updateScript,
         updateEmbed,
         updateRobot,
+        deleteWebsite,
+        isDeletingWebsite,
         isUpdatingWebsite,
         editInputState
     } = useWebsiteControls();
@@ -23,6 +25,7 @@ const General = () => {
     const [embed, setEmbed] = useState('');
     const [robot, setRobot] = useState('');
     const [language, setLanguage] = useState('');
+    const [deleteInput, setDeleteInput] = useState('');
 
     const containerColor = useColorModeValue(webColor.containerBg[0], webColor.containerBg[1]);
 
@@ -231,6 +234,40 @@ const General = () => {
                         disabled={isUpdatingWebsite || !robot.length || robot === editingWebsite.meta.robot}
                         isLoading={isUpdatingWebsite}
                         loadingText='Saving'
+                    >
+                        Save
+                    </Button>
+                </Flex>
+            </Flex>
+            <Flex flexDir='column' bg={containerColor} p='1em' borderRadius='.25em' maxW='865px' w='full' border='2px solid #E53E3E'>
+                <Flex flexDir='column'>
+                    <VStack spacing='.25em' alignItems='flex-start'>
+                        <Text>Delete Website</Text>
+                        <Text fontSize='10pt' variant='subtle'>
+                            The Website will be permanently deleted. This action is irreversible and can not be undone.
+                        </Text>
+                    </VStack>
+                    <Text fontSize='10pt' mt='1em'>
+                        Type &apos;<span style={{ fontStyle: 'italic' }}>delete Kalabaw NFT</span>&apos; to delete your website.
+                    </Text>
+                    <DynamicInput 
+                        id='delete'
+                        name='delete'
+                        type='text'
+                        placeholder={`delete ${editingWebsite?.components?.title}`}
+                        value={deleteInput}
+                        onChange={setDeleteInput}
+                        mt='.5em'
+                        flex='1'
+                    />
+                </Flex>
+                <Flex justifyContent='flex-end' mt='1em'>
+                    <Button 
+                        variant='danger' 
+                        onClick={() => deleteWebsite(editingWebsite._id, robot)}
+                        disabled={isDeletingWebsite || deleteInput !== `delete ${editingWebsite?.components?.title}`}
+                        isLoading={isDeletingWebsite}
+                        loadingText='Deleting'
                     >
                         Save
                     </Button>
