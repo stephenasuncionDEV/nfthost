@@ -1,5 +1,8 @@
 import { useState } from 'react'
-import { VStack, Button, Flex, HStack, Text, Divider, Heading } from '@chakra-ui/react'
+import { VStack, Button, Flex, HStack, Text, Divider, Heading,
+    Tag, TagLabel, TagLeftIcon, Wrap
+} from '@chakra-ui/react'
+import { MdCircle } from 'react-icons/md'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import General from './General'
 import Domain from './Domain'
@@ -17,9 +20,21 @@ const Settings = () => {
                 </Text>
                 <Divider flex='1' />
             </HStack>
-            <Heading mt='1em' as='h2' fontSize='2em' fontWeight='500'>
-                {editingWebsite?.components?.title}
-            </Heading>
+            <HStack mt='1em' alignItems='center' spacing='1em'>
+                <Heading as='h2' fontSize='2em' fontWeight='500'>
+                    {editingWebsite?.components?.title}
+                </Heading>
+                <Wrap spacing='1em' mt='1em' overflow='visible'>
+                    <Tag alignItems='center' size='sm'>
+                        <TagLeftIcon color={editingWebsite?.isPublished ? 'green.500' : 'gray.500'}>
+                            <MdCircle fontSize='16pt' />
+                        </TagLeftIcon>
+                        <TagLabel fontSize='10pt'>
+                            Published
+                        </TagLabel>
+                    </Tag>
+                </Wrap>
+            </HStack>
             <Flex mt='2em' gap='2em'>
                 <VStack alignItems='flex-start' flex='1' maxW='255px' mt='1em'>
                     {websiteSettingsArr?.map((setting, idx) => (
