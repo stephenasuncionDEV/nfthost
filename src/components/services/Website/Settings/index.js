@@ -57,6 +57,14 @@ const Settings = () => {
                             justifyContent='flex-start' 
                             fontSize='10pt'
                             onClick={() => setCurrentSettingsIdx(idx)}
+                            color={idx === currentSettingsIdx ? 'rgb(52,140,212)' : 'white'}
+                            _hover={{
+                                color: 'rgb(52,140,212)',
+                                bg: 'transparent'
+                            }}
+                            _focus={{
+                                bg: 'transparent'
+                            }}
                         >
                             {setting.name}
                         </Button>

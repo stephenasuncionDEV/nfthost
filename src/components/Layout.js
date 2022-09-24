@@ -85,7 +85,7 @@ const Layout = ({ children, currentApp }) => {
                             <Text fontSize='10pt'>
                                 {item.parent.toUpperCase()}
                             </Text>
-                            <VStack spacing='.25em'>
+                            <VStack spacing='.25em' w='full'>
                                 {item.items.map((nav, idx) => (
                                     <Box key={idx} w='full'>
                                         {!nav.isExternal ? (
@@ -97,6 +97,7 @@ const Layout = ({ children, currentApp }) => {
                                                     justifyContent='flex-start' 
                                                     bg='transparent'
                                                     _hover={{ bg: 'transparent', color: 'rgb(52,140,212)' }}
+                                                    _focus={{ bg: 'transparent' }}
                                                     color={currentApp === nav.name.replace(' ', '').toLowerCase() ? 'rgb(52,140,212)' : null}
                                                 >
                                                     {nav.name}
@@ -111,6 +112,7 @@ const Layout = ({ children, currentApp }) => {
                                                     justifyContent='flex-start' 
                                                     bg='transparent'
                                                     _hover={{ bg: 'transparent', color: 'rgb(52,140,212)' }}
+                                                    _focus={{ bg: 'transparent' }}
                                                     color={currentApp === nav.name.replace(' ', '').toLowerCase() ? 'rgb(52,140,212)' : null}
                                                 >
                                                     {nav.name}
@@ -125,8 +127,9 @@ const Layout = ({ children, currentApp }) => {
                                                         w='full' 
                                                         justifyContent='flex-start' 
                                                         bg='transparent'
-                                                        _hover={{ bg: 'transparent', color: 'rgb(52,140,212)' }}
                                                         fontSize='10pt'
+                                                        _hover={{ bg: 'transparent', color: 'rgb(52,140,212)' }}
+                                                        _focus={{ bg: 'transparent' }}
                                                         color={currentApp === children.name.toLowerCase() ? 'rgb(52,140,212)' : null}
                                                     >
                                                         {children.name}
