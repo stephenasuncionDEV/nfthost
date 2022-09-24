@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import { useToast } from '@chakra-ui/react'
 import { useCore } from '@/providers/CoreProvider'
 import { useUser } from '@/providers/UserProvider'
@@ -8,11 +9,20 @@ import posthog from 'posthog-js'
 import config from '@/config/index'
 import { decryptToken, getPriceFromService, getCurrencyFromWallet } from '@/utils/tools'
 import * as solanaWeb3 from '@solana/web3.js'
+import { getAccessToken } from '@/utils/tools'
+import errorHandler from '@/utils/errorHandler'
 
 export const usePayment = () => {
-    const toast = useToast();
+    const router = useRouter();
+    const toast = useToast({
+        title: 'Error',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+        position: 'bottom'
+    });
     const { user } = useUser();
-    const { isNetworkProtected, AddFree, UpdateEmail, Logout } = useWeb3();
+    const { isNetworkProtected, AddFree, UpdateEmail } = useWeb3();
     const { 
         provider,
         paymentData,
@@ -23,8 +33,24 @@ export const usePayment = () => {
         paymentState,
         paymentZip,
         setIsPaying,
-        setIsKeepWorkingModal
+        setIsKeepWorkingModal,
+        setPaymentData     
     } = useCore();
+
+    const Pay = (paymentData) => {
+        try {
+            setPaymentData({
+                ...paymentData,
+                due: new Date()
+            })
+
+            router.push('/payment', undefined, { shallow: true }); 
+        }
+        catch (err) {
+            const msg = errorHandler(err);
+            toast({ description: msg });
+        }
+    }
 
     const createTransactionSolana = async (connection, provider, instructions) => {
         const anyTransaction = new solanaWeb3.Transaction().add(instructions);
@@ -90,48 +116,36 @@ export const usePayment = () => {
                 wallet
             });
 
-            const INCREMENT_INDEX = 1;
-            await AddFree(INCREMENT_INDEX, service);
-            await AddPayment(hash);
-
-            setIsPaying(false);
-            setIsKeepWorkingModal(true);
+            await AddFree(1, service);
+            await addPayment(hash);
 
             toast({
                 title: 'Success',
                 description: 'Successfuly Purchased Item',
-                status: 'success',
-                duration: 3000,
-                isClosable: true,
-                position: 'bottom-center'
+                status: 'success'
             })
+
+            setIsKeepWorkingModal(true);
+            setIsPaying(false);
         }
         catch (err) {
-            console.error(err);
             setIsPaying(false);
-            if (err.response?.data?.isExpired) await Logout();
-            toast({
-                title: 'Error',
-                description: !err.response ? err.message : err.response.data.message,
-                status: 'error',
-                duration: 3000,
-                isClosable: true,
-                position: 'bottom-center'
-            })
+            const msg = errorHandler(err);
+            toast({ description: msg });
         }
     }
 
     const PayWithStripe = async (stripe, elements, CardElement) => {
         try {
+            setIsPaying(true);
+
             if (!elements || !stripe) throw new Error('Error initializing stripe payment');
 
-            // Check field length
             const fieldsLength = [paymentName.length, paymentEmail.length, paymentAddress.length, paymentCity.length, paymentState.length, paymentZip.length];
             fieldsLength.forEach((field) => {
                 if (field === 0) throw new Error("Please fill in all the required fields");
             })
 
-            // Validate Email
             const re = /^\S+@\S+\.\S+$/
             if (!re.test(paymentEmail)) throw new Error("Email address must be valid");
 
@@ -146,23 +160,47 @@ export const usePayment = () => {
                 }       
             }
 
-            setIsPaying(true);
-
-            const storageToken = localStorage.getItem('nfthost-user');
-            if (!storageToken) return;
-
-            const token = decryptToken(storageToken, true);
+            const accessToken = getAccessToken();
             const service = paymentData.service.toLowerCase();
             const price = getPriceFromService(service); 
 
-            const clientData = await axios.post(`${config.serverUrl}/api/payment/request`, {
-                email: paymentEmail,
-                amount: price
-            }, {
-                headers: { 
-                    Authorization: `Bearer ${token.accessToken}` 
-                }
-            })
+            const paymentType = {
+                generator: 'onetime',
+                utils: 'onetime',
+                website: 'subscription'
+            }[service];
+            
+            let clientData;
+            if (paymentType === 'subscription') {
+                clientData = await axios.post(`${config.serverUrl}/api/payment/requestSubscription`, {
+                    service,
+                    billingDetails,
+                    customerId: user.customerId,
+                    metadata: {
+                        walletProvider: user.wallet,
+                        walletAddress: user.address
+                    }
+                }, {
+                    headers: { 
+                        Authorization: `Bearer ${accessToken}` 
+                    }
+                })
+            }
+            else {
+                clientData = await axios.post(`${config.serverUrl}/api/payment/request`, {
+                    billingDetails,
+                    amount: price,
+                    customerId: user.customerId,
+                    metadata: {
+                        walletProvider: user.wallet,
+                        walletAddress: user.address
+                    }
+                }, {
+                    headers: { 
+                        Authorization: `Bearer ${accessToken}` 
+                    }
+                })
+            }
 
             const cardElement = elements.getElement(CardElement);
 
@@ -174,23 +212,19 @@ export const usePayment = () => {
 
             if (paymentMethod.error) throw new Error(paymentMethod.error.code);
 
-            const transaction = await stripe.confirmCardPayment(clientData.data.secret, {
+            const transaction = await stripe.confirmCardPayment(clientData.data.clientSecret, {
                 payment_method: paymentMethod.paymentMethod.id
             });
 
             if (transaction.error) throw new Error(transaction.error.code);
 
-            const INCREMENT_INDEX = 1;
-            await AddFree(INCREMENT_INDEX, service);
-            await AddPayment(transaction.paymentIntent.id);
-            await UpdateEmail(paymentEmail);
-
             posthog.capture('User paid with stripe', {
                 price: paymentData.price
             });
 
-            setIsPaying(false);
-            setIsKeepWorkingModal(true);
+            await AddFree(1, service);
+            await addPayment(transaction.paymentIntent.id);
+            await UpdateEmail(paymentEmail);
 
             toast({
                 title: 'Success',
@@ -200,45 +234,43 @@ export const usePayment = () => {
                 isClosable: true,
                 position: 'bottom-center'
             })
+
+            setIsKeepWorkingModal(true);
+            setIsPaying(false);
         }
         catch (err) {
-            console.error(err);
             setIsPaying(false);
-            if (err.response?.data?.isExpired) await Logout();
-            toast({
-                title: 'Error',
-                description: !err.response ? err.message : err.response.data.message,
-                status: 'error',
-                duration: 3000,
-                isClosable: true,
-                position: 'bottom-center'
-            })
+            const msg = errorHandler(err);
+            toast({ description: msg });
         }
     }
 
-    const AddPayment = async (hash) => {
-        const storageToken = localStorage.getItem('nfthost-user');
-        if (!storageToken) return;
-
-        const token = decryptToken(storageToken, true);
-        const service = paymentData.service.toLowerCase();
-        const price = getPriceFromService(service);
-
-        const res = await axios.post(`${config.serverUrl}/api/payment/add`, {
-            memberId: user._id,
-            hash,
-            service,
-            price,
-        }, {
-            headers: { 
-                Authorization: `Bearer ${token.accessToken}` 
-            }
-        })
+    const addPayment = async (hash) => {
+        try {
+            const accessToken = getAccessToken();
+            const service = paymentData.service.toLowerCase();
+            const price = getPriceFromService(service);
+    
+            await axios.post(`${config.serverUrl}/api/payment/add`, {
+                memberId: user._id,
+                hash,
+                service,
+                price,
+            }, {
+                headers: { 
+                    Authorization: `Bearer ${accessToken}` 
+                }
+            })
+        }
+        catch (err) {
+            const msg = errorHandler(err);
+            toast({ description: msg });
+        }
     }
 
     return {
+        Pay,
         PayWithCrypto,
-        PayWithStripe,
-        AddPayment
+        PayWithStripe
     }
 }
