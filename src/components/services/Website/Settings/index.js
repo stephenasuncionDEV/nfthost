@@ -7,6 +7,7 @@ import { useWebsite } from '@/providers/WebsiteProvider'
 import General from './General'
 import Domain from './Domain'
 import Advanced from './Advanced'
+import Design from './Design'
 import { websiteSettingsArr } from '@/utils/json'
 
 const Settings = () => {
@@ -57,7 +58,7 @@ const Settings = () => {
                     </Text>
                     {{
                         general: <General />,
-                        design: <General />,
+                        design: <Design />,
                         domain: <Domain />,
                         advanced: <Advanced />
                     }[websiteSettingsArr[currentSettingsIdx]?.name?.toLowerCase()]}
