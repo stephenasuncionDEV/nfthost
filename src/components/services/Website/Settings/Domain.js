@@ -4,6 +4,7 @@ import { useWebsite } from '@/providers/WebsiteProvider'
 import { useWebsiteControls } from '@/hooks/services/website/useWebsiteControls'
 import DynamicInput from '@/components/DynamicInput'
 import { webColor } from '@/theme/index'
+import config from '@/config/index'
 
 const Domain = () => {
     const { editingWebsite } = useWebsite();
@@ -48,7 +49,7 @@ const Domain = () => {
                         mt='1em'
                         maxW='380px'
                         addonRight
-                        addonRightText='.nfthost.app'
+                        addonRightText={`.${config?.frontendUrl}`}
                         isInvalid={editInputState?.route?.status}
                         errorText={editInputState?.route?.message}
                         textTransform='lowercase'

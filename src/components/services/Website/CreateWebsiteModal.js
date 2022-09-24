@@ -45,7 +45,7 @@ const CreateWebsiteModal = ({ isOpen, onClose }) => {
                             placeholder='Title'
                             value={title}
                             onChange={setTitle}
-                            helperText="Title you see in your browser's tab"
+                            helperText="Display title of your minting website"
                             isInvalid={creationInputState?.title?.status}
                             errorText={creationInputState?.title?.message}
                             flex='1'
@@ -57,7 +57,7 @@ const CreateWebsiteModal = ({ isOpen, onClose }) => {
                             placeholder='Language'
                             value={language}
                             onChange={setLanguage}
-                            helperText="Language of your website's content"
+                            helperText="Website's content language"
                         />
                     </HStack>
                     <DynamicInput 
@@ -67,7 +67,7 @@ const CreateWebsiteModal = ({ isOpen, onClose }) => {
                         placeholder='Description'
                         value={description}
                         onChange={setDescription}
-                        helperText="Short description of your mint website"
+                        helperText="Short description of your minting website"
                         isInvalid={creationInputState?.description?.status}
                         errorText={creationInputState?.description?.message}
                         rows={5}
@@ -99,7 +99,7 @@ const CreateWebsiteModal = ({ isOpen, onClose }) => {
                             placeholder='Logo URL'
                             value={logo}
                             onChange={setLogo}
-                            helperText="External link of logo of your nft collection"
+                            helperText="External link of logo of your minting website"
                             isInvalid={creationInputState?.logo?.status}
                             errorText={creationInputState?.logo?.message}
                             flex='1'
@@ -180,7 +180,7 @@ const CreateWebsiteModal = ({ isOpen, onClose }) => {
                         mt='1em'
                         maxW='380px'
                         addonRight
-                        addonRightText='.nfthost.app'
+                        addonRightText={`.${config?.frontendUrl}`}
                         textTransform='lowercase'
                     />
                     <Flex mt='2em' alignItems='center' flexDir='column'>
