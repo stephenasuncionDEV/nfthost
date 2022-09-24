@@ -315,6 +315,7 @@ export const useGenerate = () => {
                     curMetadata.push(nftJson);
                     setCurMetadata(JSON.stringify(nftJson, null, 2));
 
+                    // Todo: check performance even under 1000
                     //if (!window.performance.memory) {
                         if (collectionSize >= 1000 && (curRenderIndex == collectionSize || curRenderIndex % 1000 == 0)) {
                             setIsAutoSave(true);
