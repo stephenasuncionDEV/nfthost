@@ -3,9 +3,9 @@ import { Flex, useDisclosure } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useUser } from '@/providers/UserProvider'
 import { useWebsiteControls } from '@/hooks/services/website/useWebsiteControls'
+import CreateWebsiteModal from './CreateWebsiteModal'
 import AreYouSureModal from '@/components/AreYouSureModal'
 import List from './List'
-import CreateWebsiteModal from './CreateWebsiteModal'
 import Settings from './Settings'
 
 const Website = () => {
