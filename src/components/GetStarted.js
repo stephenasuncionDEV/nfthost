@@ -1,6 +1,7 @@
+import { useEffect } from 'react'
 import NextLink from 'next/link'
 import { Flex, Wrap, Button, Text, useColorModeValue, VStack, HStack, Link, Tag, Box, Image } from '@chakra-ui/react'
-import { useGetStarted } from '@/hooks/useGetStarted'
+import { useCoreControls } from '@/hooks/useCoreControls'
 import { AiOutlineRight } from 'react-icons/ai'
 import { FiExternalLink } from 'react-icons/fi'
 import { GiCutDiamond } from 'react-icons/gi'
@@ -9,10 +10,16 @@ import config from '@/config/index'
 import { webColor } from '@/theme/index'
 
 const GetStarted = () => {
-    const { featuredWebsites } = useGetStarted();
+    const { 
+        featuredWebsites, 
+        getFeaturedWebsites 
+    } = useCoreControls();
 
     const containerColor = useColorModeValue(webColor.containerBg[0], webColor.containerBg[1]);
-    const featuredWebsiteColor = useColorModeValue('black', 'white');
+
+    useEffect(() => {
+        getFeaturedWebsites();
+    }, [])
 
     return (
         <Flex flexDir='column' flex='1'>
