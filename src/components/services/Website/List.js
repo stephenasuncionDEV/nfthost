@@ -10,7 +10,8 @@ import config from '@/config/index'
 const List = ({ onCreateWebsiteOpen }) => {
     const { 
         websites, 
-        isGettingWebsites
+        isGettingWebsites,
+        editingWebsite
     } = useWebsite();
     const { getWebsites, editWebsite } = useWebsiteControls();
 
@@ -53,62 +54,66 @@ const List = ({ onCreateWebsiteOpen }) => {
             {!isGettingWebsites ? (
                 <Wrap spacing='1.5em' w='full' overflow='visible'>  
                     {websites?.map((web, idx) => (
-                        <Flex 
-                            flexDir='column'
+                        <Box 
                             key={idx} 
-                            w='380px'
-                            h='210px'
-                            bg={containerColor}
-                            p='1.5em'
-                            borderRadius='.25em'
-                            cursor='pointer'
-                            className='scaleAnimation'
-                            onClick={() => {
-                                editWebsite(web);
-                            }}
-                            border='1px solid rgb(117,63,229)'
+                            cursor={editingWebsite?._id === web._id ? 'not-allowed' : 'pointer'}
                         >
-                            <Flex flexDir='column' flex='1' w='full'>
-                                <HStack spacing='1em'>
-                                    <Avatar 
-                                        src={web.components.unrevealedImage} 
-                                        name={`${web.components.title}'s logo`} 
-                                        bg='transparent'
-                                        size='sm'
-                                    >
-                                        <AvatarBadge 
-                                            boxSize='1em' 
-                                            bg={web.isPublished ? 'green.500': 'red.500'} 
-                                            borderColor='white' 
-                                            borderWidth='1px' 
-                                        />
-                                    </Avatar>
-                                    <Flex flexDir='column' alignItems='flex-start'>
-                                        <Text fontWeight='bold'>
-                                            {web.components.title}
+                            <Flex 
+                                flexDir='column'
+                                w='380px'
+                                h='210px'
+                                bg={containerColor}
+                                p='1.5em'
+                                borderRadius='.25em'
+                                className='scaleAnimation'
+                                onClick={() => {
+                                    editWebsite(web);
+                                }}
+                                border='1px solid rgb(117,63,229)'
+                                pointerEvents={editingWebsite?._id === web._id ? 'none' : 'all'}
+                            >
+                                <Flex flexDir='column' flex='1' w='full'>
+                                    <HStack spacing='1em'>
+                                        <Avatar 
+                                            src={web.components.unrevealedImage} 
+                                            name={`${web.components.title}'s logo`} 
+                                            bg='transparent'
+                                            size='sm'
+                                        >
+                                            <AvatarBadge 
+                                                boxSize='1em' 
+                                                bg={web.isPublished ? 'green.500': 'red.500'} 
+                                                borderColor='white' 
+                                                borderWidth='1px' 
+                                            />
+                                        </Avatar>
+                                        <Flex flexDir='column' alignItems='flex-start'>
+                                            <Text fontWeight='bold'>
+                                                {web.components.title}
+                                            </Text>
+                                            <Text fontSize='10pt' variant='subtle'>
+                                                {`${web.route}.${config?.frontendUrl}`}
+                                            </Text>
+                                        </Flex>
+                                    </HStack>
+                                    <Box flex='1' w='full'>
+                                        <Text 
+                                            fontSize='10pt' 
+                                            mt='2em' 
+                                            noOfLines={3}
+                                            textAlign='start'
+                                        >
+                                            {web.components.description}
                                         </Text>
-                                        <Text fontSize='10pt' variant='subtle'>
-                                            {`${web.route}.${config?.frontendUrl}`}
-                                        </Text>
-                                    </Flex>
-                                </HStack>
-                                <Box flex='1' w='full'>
-                                    <Text 
-                                        fontSize='10pt' 
-                                        mt='2em' 
-                                        noOfLines={3}
-                                        textAlign='start'
-                                    >
-                                        {web.components.description}
-                                    </Text>
-                                </Box>
+                                    </Box>
+                                </Flex>
+                                <Flex>
+                                    <Text fontSize='9pt' variant='subtle'>
+                                        {Math.floor((new Date() - Date.parse(web.createdAt)) / 86400000).toString()}d ago
+                                    </Text>              
+                                </Flex>
                             </Flex>
-                            <Flex>
-                                <Text fontSize='9pt' variant='subtle'>
-                                    {Math.floor((new Date() - Date.parse(web.createdAt)) / 86400000).toString()}d ago
-                                </Text>              
-                            </Flex>
-                        </Flex>
+                        </Box>
                     ))}
                 </Wrap>
             ) : (
