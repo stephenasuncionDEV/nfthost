@@ -84,7 +84,7 @@ const Navbar = ({ isSocial, isLanding, isColorMode, isWallet, isLandingPage }) =
                             )}
                             {isLanding && (
                                 <NextLink href='/' shallow passHref>
-                                    <Button rightIcon={<AiOutlineArrowLeft />} _hover={{ bg: 'transparent', color: navbarButton }}>
+                                    <Button leftIcon={<AiOutlineArrowLeft />} _hover={{ bg: 'transparent', color: navbarButton }}>
                                         Landing Page
                                     </Button>
                                 </NextLink>
