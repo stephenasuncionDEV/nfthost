@@ -1,6 +1,6 @@
 import Head from 'next/head'
 
-const Meta = ({ title, children }) => {
+const Meta = ({ title }) => {
     return <Head>
         <title>{title}</title>
         <meta name="title" content='NFT Host' />
@@ -23,8 +23,6 @@ const Meta = ({ title, children }) => {
         <meta property="twitter:title" content='NFT Host - Generate &#38; Host your NFT Collection' />
         <meta property="twitter:description" content='NFT Host is a website where you can generate NFT collections and create NFT minting website. Metadata utils available for post generation.' />
         <meta property="twitter:image" content='https://www.nfthost.app/assets/logo.png' />
-
-        {children}
     </Head>
 }
 
