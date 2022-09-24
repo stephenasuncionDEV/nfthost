@@ -53,6 +53,10 @@ const Button = {
                 }
             },
             color: 'white',
+            h: '8',
+            minW: '8',
+            fontSize: 'sm',
+            px: '3',
         }),
     }
 }
