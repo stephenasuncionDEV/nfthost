@@ -5,19 +5,19 @@ import { useWebsiteControls } from '@/hooks/services/website/useWebsiteControls'
 import DynamicInput from '@/components/DynamicInput'
 import { webColor } from '@/theme/index'
 
-const Domain = () => {
+const Advanced = () => {
     const { editingWebsite } = useWebsite();
     const { 
-        updateRoute,
-        isUpdatingWebsite,
-        editInputState
+        updateIsPublished,
+        isUpdatingWebsite
     } = useWebsiteControls();
+    const [isPublished, setIsPublished] = useState(false);
+
     const containerColor = useColorModeValue(webColor.containerBg[0], webColor.containerBg[1]);
-    const [route, setRoute] = useState('');
 
     useEffect(() => {
         if (!editingWebsite) return;
-        setRoute(editingWebsite.route);
+        setIsPublished(editingWebsite.isPublished);
     }, [editingWebsite])
 
     return (
@@ -31,32 +31,31 @@ const Domain = () => {
             >
                 <Flex flexDir='column'>
                     <VStack spacing='.25em' alignItems='flex-start'>
-                        <Text>Subdomain</Text>
+                        <Text>Publish</Text>
                         <Text fontSize='10pt' variant='subtle'>
-                            Where your NFT minters can navigate to mint your NFTs.
+                            Toggle to make your website viewable or not. Don't Forget to press Save.
                         </Text>
                     </VStack>
                     <DynamicInput 
-                        id='subdomain'
-                        name='subdomain'
-                        type='text'
+                        id='publish'
+                        name='publish'
+                        type='switch'
                         placeholder='Subdomain'
-                        value={route}
-                        onChange={setRoute}
+                        isChecked={isPublished}
+                        onChange={setIsPublished}
                         mt='1em'
                         maxW='380px'
                         addonRight
                         addonRightText='.nfthost.app'
-                        isInvalid={editInputState?.route?.status}
-                        errorText={editInputState?.route?.message}
                         textTransform='lowercase'
+                        size='lg'
                     />
                 </Flex>
                 <Flex justifyContent='flex-end' mt='1em'>
                     <Button 
                         variant='primary' 
-                        onClick={() => updateRoute(route)}
-                        disabled={isUpdatingWebsite || !route.length || route === editingWebsite.route}
+                        onClick={() => updateIsPublished(isPublished)}
+                        disabled={isUpdatingWebsite || isPublished === editingWebsite?.isPublished}
                         isLoading={isUpdatingWebsite}
                         loadingText='Saving'
                     >
@@ -68,4 +67,4 @@ const Domain = () => {
     )
 }
 
-export default Domain
+export default Advanced

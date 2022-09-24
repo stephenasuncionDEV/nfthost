@@ -65,7 +65,7 @@ const General = () => {
                 <Flex justifyContent='flex-end' mt='1em'>
                     <Button 
                         variant='primary' 
-                        onClick={() => updateTitle(editingWebsite._id, title)}
+                        onClick={() => updateTitle(title)}
                         disabled={isUpdatingWebsite || !title.length || title === editingWebsite.components.title}
                         isLoading={isUpdatingWebsite}
                         loadingText='Saving'
@@ -98,7 +98,7 @@ const General = () => {
                 <Flex justifyContent='flex-end' mt='1em'>
                     <Button 
                         variant='primary' 
-                        onClick={() => updateDescription(editingWebsite._id, description)}
+                        onClick={() => updateDescription(description)}
                         disabled={isUpdatingWebsite || !description.length || description === editingWebsite.components.description}
                         isLoading={isUpdatingWebsite}
                         loadingText='Saving'
@@ -128,7 +128,7 @@ const General = () => {
                 <Flex justifyContent='flex-end' mt='1em'>
                     <Button 
                         variant='primary' 
-                        onClick={() => updateLanguage(editingWebsite._id, language)}
+                        onClick={() => updateLanguage(language)}
                         disabled={isUpdatingWebsite || !language.length || language === editingWebsite.meta.language}
                         isLoading={isUpdatingWebsite}
                         loadingText='Saving'
@@ -161,7 +161,7 @@ const General = () => {
                 <Flex justifyContent='flex-end' mt='1em'>
                     <Button 
                         variant='primary' 
-                        onClick={() => updateScript(editingWebsite._id, script)}
+                        onClick={() => updateScript(script)}
                         disabled={isUpdatingWebsite || !script.length || script === editingWebsite.components.script}
                         isLoading={isUpdatingWebsite}
                         loadingText='Saving'
@@ -194,7 +194,7 @@ const General = () => {
                 <Flex justifyContent='flex-end' mt='1em'>
                     <Button 
                         variant='primary' 
-                        onClick={() => updateEmbed(editingWebsite._id, embed)}
+                        onClick={() => updateEmbed(embed)}
                         disabled={isUpdatingWebsite || !embed.length || embed === editingWebsite.components.embed}
                         isLoading={isUpdatingWebsite}
                         loadingText='Saving'
@@ -230,7 +230,7 @@ const General = () => {
                 <Flex justifyContent='flex-end' mt='1em'>
                     <Button 
                         variant='primary' 
-                        onClick={() => updateRobot(editingWebsite._id, robot)}
+                        onClick={() => updateRobot(robot)}
                         disabled={isUpdatingWebsite || !robot.length || robot === editingWebsite.meta.robot}
                         isLoading={isUpdatingWebsite}
                         loadingText='Saving'
@@ -264,7 +264,7 @@ const General = () => {
                 <Flex justifyContent='flex-end' mt='1em'>
                     <Button 
                         variant='danger' 
-                        onClick={() => deleteWebsite(editingWebsite._id, robot)}
+                        onClick={() => deleteWebsite(robot)}
                         disabled={isDeletingWebsite || deleteInput !== `delete ${editingWebsite?.components?.title}`}
                         isLoading={isDeletingWebsite}
                         loadingText='Deleting'
