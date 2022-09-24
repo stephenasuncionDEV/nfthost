@@ -3,9 +3,16 @@ import { useRouter } from 'next/router'
 import { useUser } from '@/providers/UserProvider'
 import { useCore } from '@/providers/CoreProvider'
 import posthog from 'posthog-js'
+import errorHandler from '@/utils/errorHandler'
 
 export const useLanding = () => { 
-    const toast = useToast();
+    const toast = useToast({
+        title: 'Error',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+        position: 'bottom'
+    });
     const router = useRouter();
     const { setIsCookieModal, setIsServiceModal } = useCore();
     const { isLoggedIn } = useUser();
@@ -22,14 +29,8 @@ export const useLanding = () => {
             setIsServiceModal(true);
         }
         catch (err) {
-            toast({
-                title: 'Error',
-                description: err.message,
-                status: 'error',
-                duration: 3000,
-                isClosable: true,
-                position: 'bottom-center'
-            })
+            const msg = errorHandler(err);
+            toast({ description: msg });
         }
     }
 
@@ -45,14 +46,8 @@ export const useLanding = () => {
             router.push(route, undefined, { shallow: true }); 
         }
         catch (err) {
-            toast({
-                title: 'Error',
-                description: err.message,
-                status: 'error',
-                duration: 3000,
-                isClosable: true,
-                position: 'bottom-center'
-            })
+            const msg = errorHandler(err);
+            toast({ description: msg });
         }
     }
 

@@ -1,8 +1,15 @@
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { useToast } from '@chakra-ui/react'
+import errorHandler from '@/utils/errorHandler'
 
 export const useToolbar = () => {
-    const toast = useToast();
+    const toast = useToast({
+        title: 'Error',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+        position: 'bottom'
+    });
     const { 
         layers, 
         setLayers,
@@ -100,33 +107,19 @@ export const useToolbar = () => {
                         title: 'Success',
                         description: 'Imported project settings',
                         status: 'success',
-                        isClosable: true,
-                        position: 'bottom-center'
                     })
                 }
                 catch (err) {
-                    toast({
-                        title: 'Error',
-                        description: err.message,
-                        status: 'error',
-                        duration: 3000,
-                        isClosable: true,
-                        position: 'bottom-center'
-                    })
+                    const msg = errorHandler(err);
+                    toast({ description: msg });
                 }
             }
 
             fileReader.readAsText(e.target.files[0]);
         }
         catch (err) {
-            toast({
-                title: 'Error',
-                description: err.message,
-                status: 'error',
-                duration: 3000,
-                isClosable: true,
-                position: 'bottom-center'
-            })
+            const msg = errorHandler(err);
+            toast({ description: msg });
         }
     }
 
@@ -170,14 +163,8 @@ export const useToolbar = () => {
             }
         }
         catch (err) {
-            toast({
-                title: 'Error',
-                description: err.message,
-                status: 'error',
-                duration: 3000,
-                isClosable: true,
-                position: 'bottom-center'
-            })
+            const msg = errorHandler(err);
+            toast({ description: msg });
         }
     }
 

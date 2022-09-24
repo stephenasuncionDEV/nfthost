@@ -1,8 +1,15 @@
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { useToast } from '@chakra-ui/react'
+import errorHandler from '@/utils/errorHandler'
 
 export const useMetadata = () => {
-    const toast = useToast();
+    const toast = useToast({
+        title: 'Error',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+        position: 'bottom'
+    });
     const { 
         creators, 
         setCreators, 
@@ -35,14 +42,8 @@ export const useMetadata = () => {
             setCreatorShare(100);
         }
         catch (err) {
-            toast({
-                title: 'Error',
-                description: err.message,
-                status: 'error',
-                duration: 3000,
-                isClosable: true,
-                position: 'bottom-center'
-            })
+            const msg = errorHandler(err);
+            toast({ description: msg });
         }
     }
 
@@ -53,14 +54,8 @@ export const useMetadata = () => {
             setCreators(newCreators);
         }
         catch (err) {
-            toast({
-                title: 'Error',
-                description: err.message,
-                status: 'error',
-                duration: 3000,
-                isClosable: true,
-                position: 'bottom-center'
-            })
+            const msg = errorHandler(err);
+            toast({ description: msg });
         }
     }
 

@@ -2,16 +2,20 @@ import { useEffect } from 'react'
 import { useToast } from '@chakra-ui/react'
 import { useUser } from '@/providers/UserProvider'
 import { useCore } from '@/providers/CoreProvider'
-import { useWeb3 } from '@/hooks/useWeb3'
 import axios from 'axios'
 import config from '@/config/index'
 import { decryptToken } from '@/utils/tools'
 
 export const useTransactions = (update = true) => {
-    const toast = useToast();
+    const toast = useToast({
+        title: 'Error',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+        position: 'bottom'
+    });
     const { setTransactions, setIsGettingTransactions } = useCore();
     const { user } = useUser();
-    const { Logout } = useWeb3();
 
     useEffect(() => {
         if (!update) return;
@@ -43,16 +47,8 @@ export const useTransactions = (update = true) => {
         }
         catch (err) {
             setIsGettingTransactions(false);
-            console.error(err);
-            if (err.response?.data?.isExpired) await Logout();
-            toast({
-                title: 'Error',
-                description: !err.response ? err.message : err.response.data.message,
-                status: 'error',
-                duration: 3000,
-                isClosable: true,
-                position: 'bottom-center'
-            })
+            const msg = errorHandler(err);
+            toast({ description: msg });
         }
     }
 
@@ -63,9 +59,6 @@ export const useTransactions = (update = true) => {
             title: 'Success',
             description: 'Copied transaction hash',
             status: 'success',
-            duration: 3000,
-            isClosable: true,
-            position: 'bottom-center'
         })
     }
 
