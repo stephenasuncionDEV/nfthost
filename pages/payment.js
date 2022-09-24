@@ -154,13 +154,13 @@ const Payment = () => {
                                             <Text fontSize='10pt' mb='.25em'>
                                                 Customer Information
                                             </Text>
-                                            <Input placeholder='name' name='name' id='name' value={paymentName} onChange={(e) => setPaymentName(e.target.value)} />
-                                            <Input type='email' placeholder='email' name='email' id='email' value={paymentEmail} onChange={(e) => setPaymentEmail(e.target.value)}/>
-                                            <Input placeholder='address' name='address' id='address' value={paymentAddress} onChange={(e) => setPaymentAddress(e.target.value)}/>
+                                            <Input placeholder='Name' name='name' id='name' value={paymentName} onChange={(e) => setPaymentName(e.target.value)} />
+                                            <Input placeholder='Email' type='email' name='email' id='email' value={paymentEmail} onChange={(e) => setPaymentEmail(e.target.value)}/>
+                                            <Input placeholder='Billing Address' name='address' id='address' value={paymentAddress} onChange={(e) => setPaymentAddress(e.target.value)}/>
                                             <HStack>
-                                                <Input placeholder='city' name='city' id='city' value={paymentCity} onChange={(e) => setPaymentCity(e.target.value)}/>
-                                                <Input placeholder='state' name='state' id='state' value={paymentState} onChange={(e) => setPaymentState(e.target.value)}/>
-                                                <Input placeholder='zip/postal code' name='zip' id='zip' value={paymentZip} onChange={(e) => setPaymentZip(e.target.value)}/>
+                                                <Input placeholder='City' name='city' id='city' value={paymentCity} onChange={(e) => setPaymentCity(e.target.value)}/>
+                                                <Input placeholder='State' name='state' id='state' value={paymentState} onChange={(e) => setPaymentState(e.target.value)}/>
+                                                <Input placeholder='Zip/Postal code' name='zip' id='zip' value={paymentZip} onChange={(e) => setPaymentZip(e.target.value)}/>
                                             </HStack>
                                         </VStack>
                                         <VStack alignItems='flex-start' w='full'>
