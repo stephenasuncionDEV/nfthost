@@ -181,6 +181,7 @@ const CreateWebsiteModal = ({ isOpen, onClose }) => {
                         maxW='380px'
                         addonRight
                         addonRightText='.nfthost.app'
+                        textTransform='lowercase'
                     />
                     <Flex mt='2em' alignItems='center' flexDir='column'>
                         <Text fontSize='10pt' mb='.5em'>

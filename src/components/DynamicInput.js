@@ -24,6 +24,7 @@ const DynamicInput = (props) => {
         addonRightText,
         name,
         id,
+        textTransform,
         ...styles
     } = props;
 
@@ -40,6 +41,7 @@ const DynamicInput = (props) => {
                             type='text' 
                             value={value} 
                             onChange={(e) => onChange(e.target.value)} 
+                            textTransform={textTransform}
                         />
                         {addonRight && <InputRightAddon children={addonRightText} />}
                     </InputGroup>
