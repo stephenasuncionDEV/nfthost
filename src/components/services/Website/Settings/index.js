@@ -37,7 +37,17 @@ const Settings = () => {
                     </Tag>
                 </Wrap>
             </HStack>
-            <Flex mt='2em' gap='2em'>
+            <HStack>
+                <Flex flexDir='column' mt='1em'>
+                    <Text fontSize='10pt' variant='subtle'>
+                        CURRENT TEMPLATE
+                    </Text>
+                    <Text fontSize='10pt'>
+                        {editingWebsite?.components?.template}
+                    </Text>
+                </Flex>
+            </HStack>
+            <Flex mt='3em' gap='2em'>
                 <VStack alignItems='flex-start' flex='1' maxW='255px' mt='1em'>
                     {websiteSettingsArr?.map((setting, idx) => (
                         <Button 
