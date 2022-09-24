@@ -48,6 +48,17 @@ const DynamicInput = (props) => {
                         {addonRight && <InputRightAddon children={addonRightText} />}
                     </InputGroup>
                 )}
+                {type === 'date' && (
+                    <Input 
+                        id={id}
+                        name={name}
+                        placeholder={placeholder} 
+                        type='datetime-local' 
+                        value={value} 
+                        onChange={(e) => onChange(e.target.value)} 
+                        textTransform={textTransform}
+                    />
+                )}
                 {type === 'switch' && (
                     <Switch 
                         colorScheme='blue'
