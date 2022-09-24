@@ -325,7 +325,7 @@ const General = () => {
                         isLoading={isDeletingWebsite}
                         loadingText='Deleting'
                     >
-                        Save
+                        Delete
                     </Button>
                 </Flex>
             </Flex>
