@@ -8,7 +8,7 @@ const production = {
         siteKey: '6LeuRbYgAAAAABGYVWikwVFs--HA8EJ1K80kQ8Ew'
     },
     nfthost: {
-        wallet_metamask: '0x6Ae52916bdB4AB8D6ebDc0c07C6dd9Cd20f86368',
+        wallet_metamask: '0x76FDC668f5c5b6112757A80e63ca7807Dd1F2d79',
         wallet_phantom: 'FXJk29TmfWmReUxbKJF385oifSNxCspvqyXhzUsf2X9e'
     }
 }
