@@ -7,6 +7,11 @@ import { webColor } from '@/theme/index'
 
 const Domain = () => {
     const { editingWebsite } = useWebsite();
+    const { 
+        updateRoute,
+        isUpdatingWebsite,
+        editInputState
+    } = useWebsiteControls();
     const containerColor = useColorModeValue(webColor.containerBg[0], webColor.containerBg[1]);
     const [route, setRoute] = useState('');
 
@@ -42,10 +47,19 @@ const Domain = () => {
                         maxW='380px'
                         addonRight
                         addonRightText='.nfthost.app'
+                        isInvalid={editInputState?.route?.status}
+                        errorText={editInputState?.route?.message}
+                        textTransform='lowercase'
                     />
                 </Flex>
                 <Flex justifyContent='flex-end' mt='1em'>
-                    <Button variant='primary'>
+                    <Button 
+                        variant='primary' 
+                        onClick={() => updateRoute(editingWebsite._id, route)}
+                        disabled={isUpdatingWebsite || !route.length || route === editingWebsite.route}
+                        isLoading={isUpdatingWebsite}
+                        loadingText='Saving'
+                    >
                         Save
                     </Button>
                 </Flex>
