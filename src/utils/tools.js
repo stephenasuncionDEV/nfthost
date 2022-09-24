@@ -140,13 +140,10 @@ export const ParseWebsiteData = (data) => {
 }
 
 export const convertDateToLocal = (date) => {
+    if (!date) return null;
     const d = new Date(date);
     d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
     return d.toISOString().slice(0, -1);
-}
-
-export const convertLocalToDate = (local) => {
-    return new Date(local);
 }
 
 export const capitalizeFirstLetter = (str) => {
