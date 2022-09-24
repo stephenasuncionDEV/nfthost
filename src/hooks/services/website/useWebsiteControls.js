@@ -643,6 +643,63 @@ export const useWebsiteControls = () => {
         }
     }
 
+    const updateTemplate = async (template) => {
+        try {
+            setIsUpdatingWebsite(true);
+
+            const accessToken = getAccessToken();
+
+            const res = await axios.patch(`${config.serverUrl}/api/website/updateTemplate`, {
+                websiteId: editingWebsite._id,
+                template
+            }, {
+                headers: { 
+                    Authorization: `Bearer ${accessToken}` 
+                }
+            })
+
+            if (res.status !== 200) throw new Error('Cannot update website at the moment');
+
+            setWebsites((prevWebsite) => {
+                return prevWebsite.map(web => {
+                    if (web.id === editingWebsite._id) {
+                        return {
+                            ...web,
+                            components: {
+                                ...web.components,
+                                template
+                            }
+                        }
+                    }
+                    return web;
+                })
+            })
+
+            setEditingWebsite((prevWebsite) => {
+                return {
+                    ...prevWebsite,
+                    components: {
+                        ...prevWebsite.components,
+                        template
+                    }
+                }
+            })
+
+            toast({
+                title: 'Success',
+                description: "Successfuly updated website's template",
+                status: 'success',
+            })
+
+            setIsUpdatingWebsite(false);
+        }
+        catch (err) {
+            setIsUpdatingWebsite(false);
+            const msg = errorHandler(err);
+            toast({ description: msg });
+        }
+    }
+
     return {
         getWebsites,
         isGettingWebsites,
@@ -660,6 +717,7 @@ export const useWebsiteControls = () => {
         updateRobot,
         updateRoute,
         updateIsPublished,
+        updateTemplate,
         isUpdatingWebsite,
         deleteWebsite,
         isDeletingWebsite,
