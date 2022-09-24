@@ -18,6 +18,7 @@ export const useWebsiteControls = () => {
     });
     const { user } = useUser();
     const { 
+        websites,
         setWebsites, 
         setEditingWebsite, 
         editingWebsite,
@@ -48,8 +49,6 @@ export const useWebsiteControls = () => {
 
             if (isExpired) throw new Error('Minting website has expired');
             if (!isPublished) throw new Error('Minting website is not published yet');
-
-            console.log(res.data)
 
             setUserWebsite(res.data);
             setIsGettingWebsites(false);
@@ -89,6 +88,9 @@ export const useWebsiteControls = () => {
     const createWebsite = async ({ route, title, description, logo, script, embed, favicon, robot, language, onClose }) => {
         try {
             setIsCreatingWebsite(true);
+
+            const freeWebsiteCount = websites.filter((web) => web.isPremium === false).length; 
+            if (freeWebsiteCount >= 1) throw new Error('You have used your 1 Free minting website. Upgrade your subscription to create more.');
 
             let errorsObj = {};
 
