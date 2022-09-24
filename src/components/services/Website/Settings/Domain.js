@@ -21,7 +21,7 @@ const Domain = () => {
     }, [editingWebsite])
 
     return (
-        <Flex flexDir='column' mt='1em' flex='1'>
+        <VStack mt='1em' flex='1' alignItems='flex-start' spacing='2em'>
             <Flex 
                 flexDir='column' 
                 bg={containerColor} 
@@ -66,7 +66,7 @@ const Domain = () => {
                     </Button>
                 </Flex>
             </Flex>
-        </Flex>
+        </VStack>
     )
 }
 

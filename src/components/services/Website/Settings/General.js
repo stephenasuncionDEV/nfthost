@@ -74,7 +74,7 @@ const General = () => {
                     <Button 
                         variant='primary' 
                         onClick={() => updateTitle(title)}
-                        disabled={isUpdatingWebsite || !title.length || title === editingWebsite.components.title}
+                        disabled={isUpdatingWebsite || !title.length || title === editingWebsite?.components?.title}
                         isLoading={isUpdatingWebsite}
                         loadingText='Saving'
                     >
@@ -115,7 +115,7 @@ const General = () => {
                     <Button 
                         variant='primary' 
                         onClick={() => updateDescription(description)}
-                        disabled={isUpdatingWebsite || !description.length || description === editingWebsite.components.description}
+                        disabled={isUpdatingWebsite || !description.length || description === editingWebsite?.components?.description}
                         isLoading={isUpdatingWebsite}
                         loadingText='Saving'
                     >
@@ -153,7 +153,7 @@ const General = () => {
                     <Button 
                         variant='primary' 
                         onClick={() => updateLanguage(language)}
-                        disabled={isUpdatingWebsite || !language.length || language === editingWebsite.meta.language}
+                        disabled={isUpdatingWebsite || !language.length || language === editingWebsite?.meta?.language}
                         isLoading={isUpdatingWebsite}
                         loadingText='Saving'
                     >
@@ -194,7 +194,7 @@ const General = () => {
                     <Button 
                         variant='primary' 
                         onClick={() => updateScript(script)}
-                        disabled={isUpdatingWebsite || !script.length || script === editingWebsite.components.script}
+                        disabled={isUpdatingWebsite || !script.length || script === editingWebsite?.components?.script}
                         isLoading={isUpdatingWebsite}
                         loadingText='Saving'
                     >
@@ -235,7 +235,7 @@ const General = () => {
                     <Button 
                         variant='primary' 
                         onClick={() => updateEmbed(embed)}
-                        disabled={isUpdatingWebsite || !embed.length || embed === editingWebsite.components.embed}
+                        disabled={isUpdatingWebsite || !embed.length || embed === editingWebsite?.components?.embed}
                         isLoading={isUpdatingWebsite}
                         loadingText='Saving'
                     >
@@ -279,7 +279,7 @@ const General = () => {
                     <Button 
                         variant='primary' 
                         onClick={() => updateRobot(robot)}
-                        disabled={isUpdatingWebsite || !robot.length || robot === editingWebsite.meta.robot}
+                        disabled={isUpdatingWebsite || !robot.length || robot === editingWebsite?.meta?.robot}
                         isLoading={isUpdatingWebsite}
                         loadingText='Saving'
                     >
