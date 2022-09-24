@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { VStack, Button, Wrap, Flex, useDisclosure, FormControl,
     Select, Input, RadioGroup, Radio, FormHelperText, FormErrorMessage, 
     Textarea, InputGroup, InputRightAddon, InputLeftAddon, HStack, IconButton,
-    Text
+    Text, Switch
 } from '@chakra-ui/react'
 import { MdEdit } from 'react-icons/md'
 
@@ -25,6 +25,8 @@ const DynamicInput = (props) => {
         name,
         id,
         textTransform,
+        size,
+        isChecked,
         ...styles
     } = props;
 
@@ -46,6 +48,14 @@ const DynamicInput = (props) => {
                         {addonRight && <InputRightAddon children={addonRightText} />}
                     </InputGroup>
                 )}
+                {type === 'switch' && (
+                    <Switch 
+                        colorScheme='blue'
+                        isChecked={isChecked}
+                        onChange={(e) => onChange(e.target.checked)} 
+                        size={size}
+                    />
+                )}
                 {type === 'textarea' && (
                     <Textarea 
                         id={id}
@@ -64,8 +74,8 @@ const DynamicInput = (props) => {
                         value={value} 
                         onChange={(e) => onChange(e.target.value)}
                     >
-                        {selectData?.map((data) => (
-                            <option value={data.value}>{data.text}</option>
+                        {selectData?.map((data, idx) => (
+                            <option key={idx} value={data.value}>{data.text}</option>
                         ))}
                     </Select>
                 )}
