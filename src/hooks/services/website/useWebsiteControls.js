@@ -66,6 +66,7 @@ export const useWebsiteControls = () => {
             if (!embed.length || !(/</i.test(embed) && />/i.test(embed))) errorsObj.embed = { status: true, message: 'Embed code must be a valid html code' };
             if (!logo.length) errorsObj.logo = { status: true, message: 'Logo Image Link field must be filled in' };
             if (logo.match(/\.(jpeg|jpg|gif|png|bmp|svg|webp)$/) == null) errorsObj.logo = { status: true, message: 'Logo Image Link field must be an image file' };
+            if (!favicon.length) errorsObj.favicon = { status: true, message: 'Favicon Image Link field must be filled in' };
             if (favicon.match(/\.(jpeg|jpg|gif|png|bmp|svg|webp|ico)$/) == null) errorsObj.favicon = { status: true, message: 'Favicon Link field must be an image file' };
 
             if (Object.keys(errorsObj).length > 0) {
@@ -700,6 +701,138 @@ export const useWebsiteControls = () => {
         }
     }
 
+    const updateFavicon = async (favicon) => {
+        try {
+            setIsUpdatingWebsite(true);
+
+            let errorsObj = { ...editInputState };
+
+            if (favicon.match(/\.(jpeg|jpg|gif|png|bmp|svg|webp|ico)$/) == null) errorsObj.favicon = { status: true, message: 'Favicon field must be an image file' };
+
+            if (errorsObj.favicon) {
+                setEditInputState(errorsObj);
+                throw new Error('Please fix all the errors');
+            }
+
+            const accessToken = getAccessToken();
+
+            const res = await axios.patch(`${config.serverUrl}/api/website/updateFavicon`, {
+                websiteId: editingWebsite._id,
+                favicon
+            }, {
+                headers: { 
+                    Authorization: `Bearer ${accessToken}` 
+                }
+            })
+
+            if (res.status !== 200) throw new Error('Cannot update website at the moment');
+
+            setWebsites((prevWebsite) => {
+                return prevWebsite.map(web => {
+                    if (web.id === editingWebsite._id) {
+                        return {
+                            ...web,
+                            meta: {
+                                ...web.meta,
+                                favicon
+                            }
+                        }
+                    }
+                    return web;
+                })
+            })
+
+            setEditingWebsite((prevWebsite) => {
+                return {
+                    ...prevWebsite,
+                    meta: {
+                        ...prevWebsite.meta,
+                        favicon
+                    }
+                }
+            })
+
+            toast({
+                title: 'Success',
+                description: "Successfuly updated website's favicon",
+                status: 'success',
+            })
+
+            setIsUpdatingWebsite(false);
+        }
+        catch (err) {
+            setIsUpdatingWebsite(false);
+            const msg = errorHandler(err);
+            toast({ description: msg });
+        }
+    }
+
+    const updateLogo = async (logo) => {
+        try {
+            setIsUpdatingWebsite(true);
+
+            let errorsObj = { ...editInputState };
+
+            if (logo.match(/\.(jpeg|jpg|gif|png|bmp|svg|webp|ico)$/) == null) errorsObj.logo = { status: true, message: 'Logo field must be an image file' };
+
+            if (errorsObj.logo) {
+                setEditInputState(errorsObj);
+                throw new Error('Please fix all the errors');
+            }
+
+            const accessToken = getAccessToken();
+
+            const res = await axios.patch(`${config.serverUrl}/api/website/updateLogo`, {
+                websiteId: editingWebsite._id,
+                logo
+            }, {
+                headers: { 
+                    Authorization: `Bearer ${accessToken}` 
+                }
+            })
+
+            if (res.status !== 200) throw new Error('Cannot update website at the moment');
+
+            setWebsites((prevWebsite) => {
+                return prevWebsite.map(web => {
+                    if (web.id === editingWebsite._id) {
+                        return {
+                            ...web,
+                            components: {
+                                ...web.components,
+                                unrevealedImage: logo
+                            }
+                        }
+                    }
+                    return web;
+                })
+            })
+
+            setEditingWebsite((prevWebsite) => {
+                return {
+                    ...prevWebsite,
+                    components: {
+                        ...prevWebsite.components,
+                        unrevealedImage: logo
+                    }
+                }
+            })
+
+            toast({
+                title: 'Success',
+                description: "Successfuly updated website's logo",
+                status: 'success',
+            })
+
+            setIsUpdatingWebsite(false);
+        }
+        catch (err) {
+            setIsUpdatingWebsite(false);
+            const msg = errorHandler(err);
+            toast({ description: msg });
+        }
+    }
+
     return {
         getWebsites,
         isGettingWebsites,
@@ -718,6 +851,8 @@ export const useWebsiteControls = () => {
         updateRoute,
         updateIsPublished,
         updateTemplate,
+        updateFavicon,
+        updateLogo,
         isUpdatingWebsite,
         deleteWebsite,
         isDeletingWebsite,
