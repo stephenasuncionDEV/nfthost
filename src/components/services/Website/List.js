@@ -1,5 +1,5 @@
 import { HStack, Text, Button, VStack, IconButton, Center, Spinner,
-    useColorModeValue, Wrap, Avatar, AvatarBadge, Flex, Box
+    useColorModeValue, Wrap, Avatar, AvatarBadge, Flex, Box, Toast, useToast
 } from '@chakra-ui/react'
 import { MdRefresh, MdAdd } from 'react-icons/md'
 import { useWebsite } from '@/providers/WebsiteProvider'
@@ -8,6 +8,13 @@ import { webColor } from '@/theme/index'
 import config from '@/config/index'
 
 const List = ({ onCreateWebsiteOpen }) => {
+    const toast = useToast({
+        title: 'Error',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+        position: 'bottom'
+    });
     const { 
         websites, 
         isGettingWebsites,
@@ -42,7 +49,14 @@ const List = ({ onCreateWebsiteOpen }) => {
                         color='white' 
                         variant='primary' 
                         size='sm'
-                        onClick={onCreateWebsiteOpen}
+                        onClick={() => {
+                            const freeWebsiteCount = websites?.filter((web) => web.isPremium === false)?.length || 0; 
+                            if (freeWebsiteCount >= 1) {
+                                toast({ description: 'You have used your 1 Free minting website. Upgrade your subscription to create more.' })
+                                return;
+                            }
+                            onCreateWebsiteOpen();
+                        }}
                     >
                         Create Website
                     </Button>
