@@ -17,7 +17,7 @@ export const useWebsiteControls = () => {
         position: 'bottom'
     });
     const { user } = useUser();
-    const { setWebsites, setEditingWebsite } = useWebsite();
+    const { setWebsites, setEditingWebsite, editingWebsite } = useWebsite();
     const [isGettingWebsites, setIsGettingWebsites] = useState(false);
     const [isCreatingWebsite, setIsCreatingWebsite] = useState(false);
     const [isUpdatingWebsite, setIsUpdatingWebsite] = useState(false);
@@ -58,7 +58,7 @@ export const useWebsiteControls = () => {
             let errorsObj = {};
 
             if (!route.length) errorsObj.route = { status: true, message: 'Subdomain must be filled in' };
-            if (route.length > 255) errorsObj.route = { status: true, message: 'Max subdomain length is 255 characters' };
+            if (route.length > 32) errorsObj.route = { status: true, message: 'Max subdomain length is 32 characters' };
             if (!title.length) errorsObj.title = { status: true, message: 'Title field must be filled in' };
             if (title.length > 32) errorsObj.title = { status: true, message: 'Max title length is 32 characters' };
             if (!description.length) errorsObj.description = { status: true, message: 'Description field must be filled in' };
@@ -119,10 +119,11 @@ export const useWebsiteControls = () => {
     }
 
     const editWebsite = (website) => {
+        console.log(website)
         setEditingWebsite(website);
     }
 
-    const updateTitle = async (websiteId, title) => {
+    const updateTitle = async (title) => {
         try {
             setIsUpdatingWebsite(true);
 
@@ -138,7 +139,7 @@ export const useWebsiteControls = () => {
             const accessToken = getAccessToken();
 
             const res = await axios.patch(`${config.serverUrl}/api/website/updateTitle`, {
-                websiteId,
+                websiteId: editingWebsite._id,
                 title
             }, {
                 headers: { 
@@ -150,7 +151,7 @@ export const useWebsiteControls = () => {
 
             setWebsites((prevWebsite) => {
                 return prevWebsite.map(web => {
-                    if (web._id === websiteId) {
+                    if (web.id === editingWebsite._id) {
                         return {
                             ...web,
                             components: {
@@ -188,14 +189,14 @@ export const useWebsiteControls = () => {
         }
     }
 
-    const updateDescription = async (websiteId, description) => {
+    const updateDescription = async (description) => {
         try {
             setIsUpdatingWebsite(true);
 
             const accessToken = getAccessToken();
 
             const res = await axios.patch(`${config.serverUrl}/api/website/updateDescription`, {
-                websiteId,
+                websiteId: editingWebsite._id,
                 description
             }, {
                 headers: { 
@@ -207,7 +208,7 @@ export const useWebsiteControls = () => {
 
             setWebsites((prevWebsite) => {
                 return prevWebsite.map(web => {
-                    if (web._id === websiteId) {
+                    if (web.id === editingWebsite._id) {
                         return {
                             ...web,
                             components: {
@@ -245,14 +246,14 @@ export const useWebsiteControls = () => {
         }
     }
 
-    const updateLanguage = async (websiteId, language) => {
+    const updateLanguage = async (language) => {
         try {
             setIsUpdatingWebsite(true);
 
             const accessToken = getAccessToken();
 
             const res = await axios.patch(`${config.serverUrl}/api/website/updateLanguage`, {
-                websiteId,
+                websiteId: editingWebsite._id,
                 language
             }, {
                 headers: { 
@@ -264,7 +265,7 @@ export const useWebsiteControls = () => {
 
             setWebsites((prevWebsite) => {
                 return prevWebsite.map(web => {
-                    if (web._id === websiteId) {
+                    if (web.id === editingWebsite._id) {
                         return {
                             ...web,
                             meta: {
@@ -302,7 +303,7 @@ export const useWebsiteControls = () => {
         }
     }
 
-    const updateScript = async (websiteId, script) => {
+    const updateScript = async (script) => {
         try {
             setIsUpdatingWebsite(true);
 
@@ -318,7 +319,7 @@ export const useWebsiteControls = () => {
             const accessToken = getAccessToken();
 
             const res = await axios.patch(`${config.serverUrl}/api/website/updateScript`, {
-                websiteId,
+                websiteId: editingWebsite._id,
                 script
             }, {
                 headers: { 
@@ -330,7 +331,7 @@ export const useWebsiteControls = () => {
 
             setWebsites((prevWebsite) => {
                 return prevWebsite.map(web => {
-                    if (web._id === websiteId) {
+                    if (web.id === editingWebsite._id) {
                         return {
                             ...web,
                             components: {
@@ -368,7 +369,7 @@ export const useWebsiteControls = () => {
         }
     }
 
-    const updateEmbed = async (websiteId, embed) => {
+    const updateEmbed = async (embed) => {
         try {
             setIsUpdatingWebsite(true);
 
@@ -384,7 +385,7 @@ export const useWebsiteControls = () => {
             const accessToken = getAccessToken();
 
             const res = await axios.patch(`${config.serverUrl}/api/website/updateEmbed`, {
-                websiteId,
+                websiteId: editingWebsite._id,
                 embed
             }, {
                 headers: { 
@@ -396,7 +397,7 @@ export const useWebsiteControls = () => {
 
             setWebsites((prevWebsite) => {
                 return prevWebsite.map(web => {
-                    if (web._id === websiteId) {
+                    if (web.id === editingWebsite._id) {
                         return {
                             ...web,
                             components: {
@@ -434,14 +435,14 @@ export const useWebsiteControls = () => {
         }
     }
 
-    const updateRobot = async (websiteId, robot) => {
+    const updateRobot = async (robot) => {
         try {
             setIsUpdatingWebsite(true);
 
             const accessToken = getAccessToken();
 
             const res = await axios.patch(`${config.serverUrl}/api/website/updateRobot`, {
-                websiteId,
+                websiteId: editingWebsite._id,
                 robot
             }, {
                 headers: { 
@@ -453,7 +454,7 @@ export const useWebsiteControls = () => {
 
             setWebsites((prevWebsite) => {
                 return prevWebsite.map(web => {
-                    if (web._id === websiteId) {
+                    if (web.id === editingWebsite._id) {
                         return {
                             ...web,
                             meta: {
@@ -491,11 +492,149 @@ export const useWebsiteControls = () => {
         }
     }
 
+    const updateRoute = async (route) => {
+        try {
+            setIsUpdatingWebsite(true);
+
+            let errorsObj = { ...editInputState };
+
+            if (route.length > 32) errorsObj.route = { status: true, message: 'Max subdomain length is 32 characters' };
+
+            if (errorsObj.route) {
+                setEditInputState(errorsObj);
+                throw new Error('Please fix all the errors');
+            }
+
+            const accessToken = getAccessToken();
+
+            const res = await axios.patch(`${config.serverUrl}/api/website/updateRoute`, {
+                websiteId: editingWebsite._id,
+                route: route.toLowerCase()
+            }, {
+                headers: { 
+                    Authorization: `Bearer ${accessToken}` 
+                }
+            })
+
+            if (res.status !== 200) throw new Error('Cannot update website at the moment');
+
+            setWebsites((prevWebsite) => {
+                return prevWebsite.map(web => {
+                    if (web.id === editingWebsite._id) {
+                        return {
+                            ...web,
+                            route
+                        }
+                    }
+                    return web;
+                })
+            })
+
+            setEditingWebsite((prevWebsite) => {
+                return {
+                    ...prevWebsite,
+                    route
+                }
+            })
+
+            toast({
+                title: 'Success',
+                description: "Successfuly updated website's subdomain",
+                status: 'success',
+            })
+
+            setIsUpdatingWebsite(false);
+        }
+        catch (err) {
+            setIsUpdatingWebsite(false);
+            const msg = errorHandler(err);
+            toast({ description: msg });
+        }
+    }
+
+    const updateIsPublished = async (isPublished) => {
+        try {
+            setIsUpdatingWebsite(true);
+
+            const accessToken = getAccessToken();
+
+            const res = await axios.patch(`${config.serverUrl}/api/website/updateIsPublished`, {
+                websiteId: editingWebsite._id,
+                isPublished
+            }, {
+                headers: { 
+                    Authorization: `Bearer ${accessToken}` 
+                }
+            })
+
+            if (res.status !== 200) throw new Error('Cannot update website at the moment');
+
+            setWebsites((prevWebsite) => {
+                return prevWebsite.map(web => {
+                    if (web.id === editingWebsite._id) {
+                        return {
+                            ...web,
+                            isPublished
+                        }
+                    }
+                    return web;
+                })
+            })
+
+            setEditingWebsite((prevWebsite) => {
+                return {
+                    ...prevWebsite,
+                    isPublished
+                }
+            })
+
+            toast({
+                title: 'Success',
+                description: "Successfuly published website",
+                status: 'success',
+            })
+
+            setIsUpdatingWebsite(false);
+        }
+        catch (err) {
+            setIsUpdatingWebsite(false);
+            const msg = errorHandler(err);
+            toast({ description: msg });
+        }
+    }
+
     const deleteWebsite = async () => {
         try {
-            setIsDeletingWebsite(false);
-
             setIsDeletingWebsite(true);
+
+            const accessToken = getAccessToken();
+
+            const res = await axios.delete(`${config.serverUrl}/api/website/delete`, {
+                data: {
+                    websiteId: editingWebsite._id,
+                },
+                headers: { 
+                    Authorization: `Bearer ${accessToken}` 
+                }
+            })
+
+            if (res.status !== 200) throw new Error('Cannot delete website at the moment');
+
+            setWebsites((prevWebsite) => {
+                return prevWebsite.filter(web => {
+                    return web._id !== editingWebsite._id;
+                })
+            })
+
+            setEditingWebsite(null);
+
+            toast({
+                title: 'Success',
+                status: 'success',
+                description: 'Successfully deleted account'
+            })
+
+            setIsDeletingWebsite(false);
         }
         catch (err) {
             setIsDeletingWebsite(false);
@@ -519,6 +658,8 @@ export const useWebsiteControls = () => {
         updateScript,
         updateEmbed,
         updateRobot,
+        updateRoute,
+        updateIsPublished,
         isUpdatingWebsite,
         deleteWebsite,
         isDeletingWebsite,
