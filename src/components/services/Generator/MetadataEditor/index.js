@@ -7,7 +7,7 @@ import Option from './Option'
 import Preview from './Preview'
 import { webColor } from '@/theme/index'
 
-const Metadata = () => {
+const MetadataEditor = () => {
     const { 
         standardType,
         setStandardType,
@@ -78,4 +78,4 @@ const Metadata = () => {
     )
 }
 
-export default Metadata
+export default MetadataEditor
