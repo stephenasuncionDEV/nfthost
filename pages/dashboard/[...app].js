@@ -10,7 +10,7 @@ import GetStarted from '@/components/GetStarted'
 import Generator from '@/components/services/Generator'
 import Website from '@/components/services/Website'
 import Templates from '@/components/services/Website/Templates'
-// import WebsiteInfo from '@/components/services/Website/WebsiteInfo'
+import SelectedWebsite from '@/components/services/Website/SelectedWebsite'
 import ConnectWalletTag from '@/components/ConnectWalletTag'
 import Partners from '@/components/Partners'
 import Payments from '@/components/Payments'
@@ -41,7 +41,7 @@ const Page = () => {
                                 {currentApp?.toUpperCase()}
                             </Text>
                             <HStack spacing='2em'>
-                                {/* {app[0] === 'website' && <WebsiteInfo isCollapse={isCollapse} />} */}
+                                {app[0] === 'website' && <SelectedWebsite isCollapse={isCollapse} />}
                                 {!isRemoveStepper && (
                                     <Text>
                                         DASHBOARD &gt; {app.join(' > ').toUpperCase()}
