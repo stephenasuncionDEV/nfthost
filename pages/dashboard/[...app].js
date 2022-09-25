@@ -16,7 +16,7 @@ import Partners from '@/components/Partners'
 import Payments from '@/components/Payments'
 import Team from '@/components/Team'
 import Utilities from '@/components/services/Utilities'
-import Metadata from '@/components/services/Generator/Metadata'
+import MetadataComp from '@/components/services/Generator/Metadata'
 import { webColor } from '@/theme/index'
 
 const Page = () => {
@@ -53,7 +53,7 @@ const Page = () => {
                             {
                                 getstarted: <GetStarted />,
                                 generator: <Generator />,
-                                metadata: <Metadata />,
+                                metadata: <MetadataComp />,
                                 utilities: <Utilities />,
                                 website: <Website />,
                                 templates:  <Templates />,
