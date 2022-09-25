@@ -31,6 +31,8 @@ const Domain = () => {
                 maxW='865px' 
                 w='full'
                 border='1px solid rgb(117,63,229)'
+                opacity={editingWebsite?.isExpired ? '.2' : '1'}
+                pointerEvents={editingWebsite?.isExpired ? 'none' : 'all'}
             >
                 <Flex flexDir='column'>
                     <VStack spacing='.25em' alignItems='flex-start'>
@@ -59,7 +61,7 @@ const Domain = () => {
                     <Button 
                         variant='primary' 
                         onClick={() => updateRoute(route)}
-                        disabled={isUpdatingWebsite || !route.length || route === editingWebsite.route}
+                        disabled={editingWebsite?.isExpired || isUpdatingWebsite || !route.length || route === editingWebsite.route}
                         isLoading={isUpdatingWebsite}
                         loadingText='Saving'
                     >

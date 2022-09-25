@@ -34,6 +34,8 @@ const Design = () => {
                 maxW='865px' 
                 w='full'
                 border='1px solid rgb(117,63,229)'
+                opacity={editingWebsite?.isExpired ? '.2' : '1'}
+                pointerEvents={editingWebsite?.isExpired ? 'none' : 'all'}
             >
                 <Flex flexDir='column'>
                     <VStack spacing='.25em' alignItems='flex-start'>
@@ -59,7 +61,7 @@ const Design = () => {
                     <Button 
                         variant='primary' 
                         onClick={() => updateFavicon(favicon)}
-                        disabled={isUpdatingWebsite || !favicon.length || favicon === editingWebsite?.meta?.favicon}
+                        disabled={editingWebsite?.isExpired || isUpdatingWebsite || !favicon.length || favicon === editingWebsite?.meta?.favicon}
                         isLoading={isUpdatingWebsite}
                         loadingText='Saving'
                     >
@@ -75,6 +77,8 @@ const Design = () => {
                 maxW='865px' 
                 w='full'
                 border='1px solid rgb(117,63,229)'
+                opacity={editingWebsite?.isExpired ? '.2' : '1'}
+                pointerEvents={editingWebsite?.isExpired ? 'none' : 'all'}
             >
                 <Flex flexDir='column'>
                     <VStack spacing='.25em' alignItems='flex-start'>
@@ -100,7 +104,7 @@ const Design = () => {
                     <Button 
                         variant='primary' 
                         onClick={() => updateLogo(logo)}
-                        disabled={isUpdatingWebsite || !logo.length || logo === editingWebsite?.components?.unrevealedImage}
+                        disabled={editingWebsite?.isExpired || isUpdatingWebsite || !logo.length || logo === editingWebsite?.components?.unrevealedImage}
                         isLoading={isUpdatingWebsite}
                         loadingText='Saving'
                     >

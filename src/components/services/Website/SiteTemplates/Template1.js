@@ -1,4 +1,4 @@
-import { Text, Flex, Tag, TagLeftIcon, Image, VStack } from '@chakra-ui/react'
+import { Text, Flex, Tag, TagLeftIcon, Image, VStack, Heading } from '@chakra-ui/react'
 import { GiCutDiamond } from 'react-icons/gi'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import Embed from './Embed'
@@ -23,9 +23,9 @@ const Template1 = () => {
                     objectFit='scale-down'
                 />
                 <VStack>
-                    <Text variant='content_title'>
+                    <Heading as='h1'>
                         {userWebsite?.components?.title}
-                    </Text>
+                    </Heading>
                     <Text>
                         {userWebsite?.components?.description}
                     </Text>

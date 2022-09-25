@@ -1,6 +1,7 @@
 import NextLink from 'next/link'
 import { Box, HStack, Text, Flex, Button, VStack, Link, 
-    useColorModeValue, Input, Image, Wrap, useColorMode
+    useColorModeValue, Input, Image, Wrap, useColorMode,
+    Heading
 } from '@chakra-ui/react'
 import { useReAuthenticate } from '@/hooks/useReAuthenticate'
 import { useCore } from '@/providers/CoreProvider'
@@ -41,9 +42,11 @@ const Payment = () => {
     const { address, wallet } = useUser();
     const { payWithCrypto } = usePaymentControls();
     const { colorMode } = useColorMode();
+    useReAuthenticate(true);
+
+    const usdPrice  = getPriceFromService(paymentData?.service?.toLowerCase() || 'generator');
     const cryptoCurrency = getCurrencyFromWallet(wallet || 'metamask');
     const cryptoPrice = getPriceFromService(paymentData?.service?.toLowerCase() || 'generator', cryptoCurrency || 'eth');
-    useReAuthenticate(true);
 
     const containerColor = useColorModeValue('whiteAlpha.500', 'blackAlpha.500');
     const buttonDefaultColor = useColorModeValue('gray.100', 'whiteAlpha.200');
@@ -71,9 +74,9 @@ const Payment = () => {
                             <Flex justifyContent='space-between'>
                                 <Flex flexDir='column'>
                                     <Flex alignItems='flex-end'>
-                                        <Text variant='content_title'>
-                                            ${paymentData?.price?.toFixed(2)}
-                                        </Text>
+                                        <Heading as='h2'>
+                                            ${usdPrice?.toFixed(2)}
+                                        </Heading>
                                         <Text fontSize='8pt' ml='.5em'>
                                             USD
                                         </Text>
@@ -102,21 +105,23 @@ const Payment = () => {
                                 Select a payment method
                             </Text>
                             <Wrap my='1em' spacing='.5em'>
-                                <Button 
-                                    h='60px' 
-                                    minW='120px' 
-                                    justifyContent='flex-start' 
-                                    onClick={() => setPaymentMethodStep('cryptowallet')}
-                                    borderColor={paymentMethodStep === 'cryptowallet' ? 'rgb(52,140,212)' : buttonDefaultColor}
-                                    borderBottomWidth='3px'
-                                >
-                                    <Flex flexDir='column' w='full'>
-                                        <FaEthereum />
-                                        <Text fontSize='10pt' textAlign='start'>
-                                            Crypto Wallet
-                                        </Text>
-                                    </Flex>
-                                </Button>
+                                {paymentData?.service?.toLowerCase() !== 'website' && (
+                                    <Button 
+                                        h='60px' 
+                                        minW='120px' 
+                                        justifyContent='flex-start' 
+                                        onClick={() => setPaymentMethodStep('cryptowallet')}
+                                        borderColor={paymentMethodStep === 'cryptowallet' ? 'rgb(52,140,212)' : buttonDefaultColor}
+                                        borderBottomWidth='3px'
+                                    >
+                                        <Flex flexDir='column' w='full' gap='.5em'>
+                                            <FaEthereum />
+                                            <Text fontSize='10pt' textAlign='start'>
+                                                Crypto Wallet
+                                            </Text>
+                                        </Flex>
+                                    </Button>
+                                )}
                                 <Button 
                                     h='60px' 
                                     minW='120px' 
@@ -125,7 +130,7 @@ const Payment = () => {
                                     borderColor={paymentMethodStep === 'bankcard' ? 'rgb(52,140,212)' : buttonDefaultColor}
                                     borderBottomWidth='3px'
                                 >
-                                    <Flex flexDir='column' w='full'>
+                                    <Flex flexDir='column' w='full' gap='.5em'>
                                         <FaWallet />
                                         <Text fontSize='10pt' textAlign='start'>
                                             Bank Card
@@ -140,7 +145,7 @@ const Payment = () => {
                                         variant='primary' 
                                         onClick={payWithCrypto} 
                                         isLoading={isPaying} 
-                                        loadingText='Paying' 
+                                        loadingText='Paying'
                                     >
                                         Pay&nbsp;
                                         {cryptoPrice}&nbsp;

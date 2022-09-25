@@ -35,6 +35,8 @@ const Advanced = () => {
                 maxW='865px' 
                 w='full'
                 border='1px solid rgb(117,63,229)'
+                opacity={editingWebsite?.isExpired ? '.2' : '1'}
+                pointerEvents={editingWebsite?.isExpired ? 'none' : 'all'}
             >
                 <Flex flexDir='column'>
                     <VStack spacing='.25em' alignItems='flex-start'>
@@ -63,7 +65,7 @@ const Advanced = () => {
                     <Button 
                         variant='primary' 
                         onClick={() => updateIsPublished(isPublished)}
-                        disabled={isUpdatingWebsite || isPublished === editingWebsite?.isPublished}
+                        disabled={editingWebsite?.isExpired || isUpdatingWebsite || isPublished === editingWebsite?.isPublished}
                         isLoading={isUpdatingWebsite}
                         loadingText='Saving'
                     >
@@ -79,6 +81,8 @@ const Advanced = () => {
                 maxW='865px' 
                 w='full'
                 border='1px solid rgb(117,63,229)'
+                opacity={editingWebsite?.isExpired ? '.2' : '1'}
+                pointerEvents={editingWebsite?.isExpired ? 'none' : 'all'}
             >
                 <Flex flexDir='column'>
                     <VStack spacing='.25em' alignItems='flex-start'>
@@ -100,7 +104,7 @@ const Advanced = () => {
                     <Button 
                         variant='primary' 
                         onClick={() => updateRevealDate(revealDate)}
-                        disabled={isUpdatingWebsite || !revealDate.length || revealDate === convertDateToLocal(editingWebsite?.revealDate)}
+                        disabled={editingWebsite?.isExpired || isUpdatingWebsite || !revealDate.length || revealDate === convertDateToLocal(editingWebsite?.revealDate)}
                         isLoading={isUpdatingWebsite}
                         loadingText='Saving'
                     >

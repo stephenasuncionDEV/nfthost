@@ -50,18 +50,46 @@ const Settings = () => {
                     </Question>
                 </Wrap>
             </HStack>
-            <HStack>
-                <Flex flexDir='column' mt='1em'>
-                    <Question prompt='Current design template of your website. Go to Templates tab to change.'>
-                        <Text fontSize='10pt' variant='subtle'>
-                            CURRENT TEMPLATE
+            <VStack mt='2em' spacing='1.5em' alignItems='flex-start'>
+                <HStack spacing='3em'>
+                    <Flex flexDir='column'>
+                        <Question prompt='Unique ID correlated to your minting website.'>
+                            <Text fontSize='10pt' variant='subtle'>
+                                ID
+                            </Text>
+                        </Question>
+                        <Text fontSize='9pt'>
+                            {editingWebsite?._id}
                         </Text>
-                    </Question>
-                    <Text fontSize='10pt'>
-                        {editingWebsite?.components?.template}
-                    </Text>
-                </Flex>
-            </HStack>
+                    </Flex>
+                    <Flex flexDir='column'>
+                        <Question prompt='Current design template of your website. Go to Templates tab to change.'>
+                            <Text fontSize='10pt' variant='subtle'>
+                                CURRENT TEMPLATE
+                            </Text>
+                        </Question>
+                        <Text fontSize='9pt'>
+                            {editingWebsite?.components?.template}
+                        </Text>
+                    </Flex>
+                </HStack>
+                {editingWebsite?.premiumEndDate && (
+                    <Flex flexDir='column'>
+                        <Question prompt='The expiration date of your premium website subscription.'>
+                            <Text fontSize='10pt' variant='subtle'>
+                                Subscription Expiry Date
+                            </Text>
+                        </Question>
+                        <Text fontSize='9pt'>
+                            {new Date(editingWebsite?.premiumEndDate).toLocaleDateString('en-US', {
+                                year: 'numeric', 
+                                month: 'long', 
+                                day: 'numeric'
+                            })}
+                        </Text>
+                    </Flex>
+                )}
+            </VStack>
             <Flex mt='3em' gap='2em'>
                 <VStack alignItems='flex-start' flex='1' maxW='255px' mt='1em'>
                     {websiteSettingsArr?.map((setting, idx) => (

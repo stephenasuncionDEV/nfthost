@@ -52,9 +52,9 @@ const Embed = () => {
                         Mint Button will be revealed at
                     </Text>
                     <Text fontSize='10pt'>
-                        {revealDate && `${new Date(revealDate).toString()}`}
+                        {userWebsite?.revealDate && `${new Date(userWebsite?.revealDate).toString()}`}
                     </Text>
-                    <Button mt='1em' rightIcon={<MdRefresh />} onClick={() => {
+                    <Button mt='1em' rightIcon={<MdRefresh />} size='sm' onClick={() => {
                         getWebsiteByRoute(userWebsite.route)
                     }}>
                         Refresh

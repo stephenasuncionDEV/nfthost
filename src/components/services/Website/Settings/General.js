@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
-import { VStack, Button, Flex, Text, useColorModeValue } from '@chakra-ui/react'
+import { VStack, Button, Flex, Text, useColorModeValue, HStack } from '@chakra-ui/react'
+import { BsStarFill } from 'react-icons/bs'
+import { AiOutlineWarning } from 'react-icons/ai'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useWebsiteControls } from '@/hooks/services/website/useWebsiteControls'
 import DynamicInput from '@/components/DynamicInput'
@@ -17,7 +19,8 @@ const General = () => {
         deleteWebsite,
         isDeletingWebsite,
         isUpdatingWebsite,
-        editInputState
+        editInputState,
+        upgradeWebsiteToPremium
     } = useWebsiteControls();
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -41,6 +44,78 @@ const General = () => {
 
     return (
         <VStack alignItems='flex-start' mt='1em' flex='1' spacing='2em'>
+            {!editingWebsite?.isExpired ? (
+                <Flex 
+                    alignItems='flex-end' 
+                    maxW='865px' 
+                    w='full' 
+                    flexDir='column'
+                >
+                    <Flex 
+                        flexDir='column' 
+                        bg={containerColor} 
+                        p='1em' 
+                        borderRadius='.25em' 
+                        maxW='865px' 
+                        w='full'
+                        border='1px solid rgb(117,63,229)'
+                    >
+                        <Button 
+                            variant='primary'
+                            size='lg' 
+                            rightIcon={<BsStarFill />}
+                            onClick={upgradeWebsiteToPremium}
+                        >
+                            Upgrade Account to Premium
+                        </Button>
+                        <Text variant='subtle' mt='.5em'>
+                            - Unlock All Templates &amp; Addons
+                        </Text>
+                        <Text variant='subtle'>
+                            - Custom Domain Support
+                        </Text>
+                        <Text variant='subtle'>
+                            - Unlimited Premium Minting Websites
+                        </Text>
+                    </Flex>
+                </Flex>
+            ) : (
+                <Flex 
+                    alignItems='flex-end' 
+                    maxW='865px' 
+                    w='full' 
+                    flexDir='column'
+                >
+                    <Flex 
+                        flexDir='column' 
+                        bg={containerColor} 
+                        p='1em' 
+                        borderRadius='.25em' 
+                        maxW='865px' 
+                        w='full'
+                        border='1px solid #E53E3E'
+                    >
+                        <HStack color='red.500'>
+                            <AiOutlineWarning fontSize='24pt'/>
+                            <Text color='red.500'>
+                                Action Required
+                            </Text>
+                        </HStack>
+                        <Text fontSize='10pt' color='red.500' mt='.5em'>
+                            Website has been locked. Your premium subscription has expired.
+                        </Text>
+                        <Button 
+                            variant='outline' 
+                            size='sm' 
+                            rightIcon={<BsStarFill />}
+                            onClick={upgradeWebsiteToPremium}
+                            mt='1em'
+                        >
+                            Re-Subscribe to Premium Plan
+                        </Button>
+                    </Flex>
+                </Flex>
+            )}
             <Flex 
                 flexDir='column' 
                 bg={containerColor} 
@@ -49,6 +124,8 @@ const General = () => {
                 maxW='865px' 
                 w='full'
                 border='1px solid rgb(117,63,229)'
+                opacity={editingWebsite?.isExpired ? '.2' : '1'}
+                pointerEvents={editingWebsite?.isExpired ? 'none' : 'all'}
             >
                 <Flex flexDir='column'>  
                     <VStack spacing='.25em' alignItems='flex-start'>
@@ -74,7 +151,7 @@ const General = () => {
                     <Button 
                         variant='primary' 
                         onClick={() => updateTitle(title)}
-                        disabled={isUpdatingWebsite || !title.length || title === editingWebsite?.components?.title}
+                        disabled={editingWebsite?.isExpired || isUpdatingWebsite || !title.length || title === editingWebsite?.components?.title}
                         isLoading={isUpdatingWebsite}
                         loadingText='Saving'
                     >
@@ -90,6 +167,8 @@ const General = () => {
                 maxW='865px' 
                 w='full'
                 border='1px solid rgb(117,63,229)'
+                opacity={editingWebsite?.isExpired ? '.2' : '1'}
+                pointerEvents={editingWebsite?.isExpired ? 'none' : 'all'}
             >
                 <Flex flexDir='column'>
                     <VStack spacing='.25em' alignItems='flex-start'>
@@ -115,7 +194,7 @@ const General = () => {
                     <Button 
                         variant='primary' 
                         onClick={() => updateDescription(description)}
-                        disabled={isUpdatingWebsite || !description.length || description === editingWebsite?.components?.description}
+                        disabled={editingWebsite?.isExpired || isUpdatingWebsite || !description.length || description === editingWebsite?.components?.description}
                         isLoading={isUpdatingWebsite}
                         loadingText='Saving'
                     >
@@ -131,6 +210,8 @@ const General = () => {
                 maxW='865px' 
                 w='full'
                 border='1px solid rgb(117,63,229)'
+                opacity={editingWebsite?.isExpired ? '.2' : '1'}
+                pointerEvents={editingWebsite?.isExpired ? 'none' : 'all'}
             >
                 <Flex flexDir='column'>
                     <VStack spacing='.25em' alignItems='flex-start'>
@@ -153,7 +234,7 @@ const General = () => {
                     <Button 
                         variant='primary' 
                         onClick={() => updateLanguage(language)}
-                        disabled={isUpdatingWebsite || !language.length || language === editingWebsite?.meta?.language}
+                        disabled={editingWebsite?.isExpired || isUpdatingWebsite || !language.length || language === editingWebsite?.meta?.language}
                         isLoading={isUpdatingWebsite}
                         loadingText='Saving'
                     >
@@ -169,6 +250,8 @@ const General = () => {
                 maxW='865px' 
                 w='full'
                 border='1px solid rgb(117,63,229)'
+                opacity={editingWebsite?.isExpired ? '.2' : '1'}
+                pointerEvents={editingWebsite?.isExpired ? 'none' : 'all'}
             >
                 <Flex flexDir='column'>
                     <VStack spacing='.25em' alignItems='flex-start'>
@@ -194,7 +277,7 @@ const General = () => {
                     <Button 
                         variant='primary' 
                         onClick={() => updateScript(script)}
-                        disabled={isUpdatingWebsite || !script.length || script === editingWebsite?.components?.script}
+                        disabled={editingWebsite?.isExpired || isUpdatingWebsite || !script.length || script === editingWebsite?.components?.script}
                         isLoading={isUpdatingWebsite}
                         loadingText='Saving'
                     >
@@ -210,6 +293,8 @@ const General = () => {
                 maxW='865px' 
                 w='full'
                 border='1px solid rgb(117,63,229)'
+                opacity={editingWebsite?.isExpired ? '.2' : '1'}
+                pointerEvents={editingWebsite?.isExpired ? 'none' : 'all'}
             >
                 <Flex flexDir='column'>
                     <VStack spacing='.25em' alignItems='flex-start'>
@@ -235,7 +320,7 @@ const General = () => {
                     <Button 
                         variant='primary' 
                         onClick={() => updateEmbed(embed)}
-                        disabled={isUpdatingWebsite || !embed.length || embed === editingWebsite?.components?.embed}
+                        disabled={editingWebsite?.isExpired || isUpdatingWebsite || !embed.length || embed === editingWebsite?.components?.embed}
                         isLoading={isUpdatingWebsite}
                         loadingText='Saving'
                     >
@@ -251,6 +336,8 @@ const General = () => {
                 maxW='865px' 
                 w='full'
                 border='1px solid rgb(117,63,229)'
+                opacity={editingWebsite?.isExpired ? '.2' : '1'}
+                pointerEvents={editingWebsite?.isExpired ? 'none' : 'all'}
             >
                 <Flex flexDir='column'>
                     <VStack spacing='.25em' alignItems='flex-start'>
@@ -279,7 +366,7 @@ const General = () => {
                     <Button 
                         variant='primary' 
                         onClick={() => updateRobot(robot)}
-                        disabled={isUpdatingWebsite || !robot.length || robot === editingWebsite?.meta?.robot}
+                        disabled={editingWebsite?.isExpired || isUpdatingWebsite || !robot.length || robot === editingWebsite?.meta?.robot}
                         isLoading={isUpdatingWebsite}
                         loadingText='Saving'
                     >
@@ -304,7 +391,7 @@ const General = () => {
                         </Text>
                     </VStack>
                     <Text fontSize='10pt' mt='1em'>
-                        Type &apos;<span style={{ fontStyle: 'italic' }}>delete Kalabaw NFT</span>&apos; to delete your website.
+                        Type &apos;<span style={{ fontStyle: 'italic' }}>delete {editingWebsite?.components?.title}</span>&apos; to delete your website.
                     </Text>
                     <DynamicInput 
                         id='delete'
