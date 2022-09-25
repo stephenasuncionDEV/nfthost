@@ -1,9 +1,9 @@
 import NextLink from 'next/link'
-import {  Text, Flex, Button,
+import { Text, Flex, Button,
     Modal, ModalOverlay, Image,
     ModalContent, ModalHeader,
     ModalFooter, ModalBody,
-    ModalCloseButton
+    ModalCloseButton, Link
 } from '@chakra-ui/react'
 import { useCore } from '@/providers/CoreProvider'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
@@ -32,11 +32,19 @@ const KeepWorkingModal = () => {
                     </Flex>
                 </ModalBody>
                 <ModalFooter justifyContent='center'>
-                    <NextLink href={paymentData?.redirect?.origin} shallow passHref>
-                        <Button leftIcon={<AiOutlineArrowLeft />} size='sm' onClick={() => setIsKeepWorkingModal(false)}>
-                            Go back to {paymentData?.redirect?.title}
-                        </Button>
-                    </NextLink>
+                    {paymentData?.service === 'Website' ? (
+                        <Link href={paymentData?.redirect?.origin}>
+                            <Button leftIcon={<AiOutlineArrowLeft />} size='sm' onClick={() => setIsKeepWorkingModal(false)}>
+                                Go back to {paymentData?.redirect?.title}
+                            </Button>
+                        </Link>
+                    ) : (
+                        <NextLink href={paymentData?.redirect?.origin} shallow passHref>
+                            <Button leftIcon={<AiOutlineArrowLeft />} size='sm' onClick={() => setIsKeepWorkingModal(false)}>
+                                Go back to {paymentData?.redirect?.title}
+                            </Button>
+                        </NextLink>
+                    )}
                 </ModalFooter>
             </ModalContent>
         </Modal>
