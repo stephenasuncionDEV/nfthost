@@ -1,3 +1,4 @@
+import NextLink from 'next/link'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
@@ -8,6 +9,7 @@ import { AiOutlineArrowRight } from 'react-icons/ai'
 import { useMediaQuery } from 'react-responsive'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useWebsiteControls } from '@/hooks/services/website/useWebsiteControls'
+import { usePaymentControls } from '@/hooks/usePaymentControls'
 import Template1 from '@/components/services/Website/SiteTemplates/Template1'
 import posthog from 'posthog-js'
 
@@ -16,13 +18,24 @@ import config from '@/config/index'
 const UserWebsite = () => {
     const router = useRouter();
     const { userWebsite } = useWebsite();
-    const { getWebsiteByRoute } = useWebsiteControls();
+    const { 
+        getWebsiteByRoute, 
+        userWebsiteErrors,
+        checkSubscription
+    } = useWebsiteControls();
     const siteRoute = router.query.siteRoute;
 
     useEffect(() => {
         if (!siteRoute) return;
         getWebsiteByRoute(siteRoute);
     }, [siteRoute])
+
+    useEffect(() => {
+        if (!userWebsite) return;
+        checkSubscription();
+    }, [userWebsite])
+
+    const { colorMode } = useColorMode();
 
     return (
         <>
@@ -59,13 +72,32 @@ const UserWebsite = () => {
                     </main>
                 </div>
             ) : (
-                <Spinner
-                    thickness='4px'
-                    speed='0.65s'
-                    emptyColor='gray.200'
-                    color='rgb(117,63,229)'
-                    size='lg'
-                />
+                <Center style={{ minHeight: '100vh' }}>
+                    {userWebsiteErrors?.length > 0 ? (
+                        <VStack spacing='1em'>
+                            <NextLink href='/' shallow passHref>
+                                <HStack spacing='1em' cursor='pointer'>
+                                    <Image src={colorMode === 'dark' ? '/assets/logo_full_white.png' : '/assets/logo_full_black.png'} alt='NFT Host Logo' width='170px' />
+                                </HStack>
+                            </NextLink>
+                            <VStack>
+                                {userWebsiteErrors?.map((err, idx) => (
+                                    <Text key={idx} fontSize='10pt'>
+                                        {err}
+                                    </Text>
+                                ))}
+                            </VStack>
+                        </VStack>
+                    ) : (
+                        <Spinner
+                            thickness='4px'
+                            speed='0.65s'
+                            emptyColor='gray.200'
+                            color='rgb(117,63,229)'
+                            size='lg'
+                        />
+                    )}
+                </Center>
             )}
         </>
     )
