@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
 import { useToast } from '@chakra-ui/react'
+import { useWebsite } from '@/providers/WebsiteProvider'
 import { useUser } from '@/providers/UserProvider'
 import { useCore } from '@/providers/CoreProvider'
 import CoinbaseWalletSDK from '@coinbase/wallet-sdk'
@@ -30,8 +31,14 @@ export const useMemberControls = () => {
     } = useUser();
     const { 
         setProvider, 
-        provider 
+        provider,
+        setPaymentData
     } = useCore();
+    const {
+        websites,
+        setWebsites,
+        setEditingWebsite
+    } = useWebsite();
 
     const connect = async (wallet) => {
         try {
@@ -252,41 +259,6 @@ export const useMemberControls = () => {
         }
     }
 
-    const updateIsSubscribed = async (service, isSubscribed) => {
-        try {
-            const accessToken = getAccessToken();
-
-            const res = await axios.patch(`${config.serverUrl}/api/member/updateIsSubscribed`, {
-                address: userAddress,
-                service,
-                isSubscribed
-            }, {
-                headers: { 
-                    Authorization: `Bearer ${accessToken}` 
-                }
-            })
-
-            if (res.status !== 200) return;
-
-            setUser((prevUser) => {
-                return {
-                    ...prevUser,
-                    services: {
-                        ...prevUser.services,
-                        [service]: {
-                            ...prevUser.services[service],
-                            isSubscribed
-                        }
-                    }
-                }
-            })
-        }
-        catch (err) {
-            const msg = errorHandler(err);
-            toast({ description: msg });
-        }
-    }
-
     const updateEmail = async (email) => {
         try {
             const accessToken = getAccessToken();
@@ -351,7 +323,6 @@ export const useMemberControls = () => {
         addUnit,
         deductUnit,
         isNetworkProtected,
-        updateEmail,
-        updateIsSubscribed
+        updateEmail
     }
 }

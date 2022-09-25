@@ -1,5 +1,7 @@
 import { useState, useRef } from 'react'
 import { useWebsite } from '@/providers/WebsiteProvider'
+import { useMemberControls } from '@/hooks/useMemberControls'
+import { usePaymentControls } from '@/hooks/usePaymentControls'
 import { useToast } from '@chakra-ui/react'
 import { useUser } from '@/providers/UserProvider'
 import { getAccessToken } from '@/utils/tools'
@@ -16,20 +18,24 @@ export const useWebsiteControls = () => {
         isClosable: true,
         position: 'bottom'
     });
+    const { pay } = usePaymentControls();
     const { user } = useUser();
     const { 
         websites,
         setWebsites, 
         setEditingWebsite, 
         editingWebsite,
+        userWebsite,
         setUserWebsite
     } = useWebsite();
+    const { getUserByAddress } = useMemberControls();
     const [isGettingWebsites, setIsGettingWebsites] = useState(false);
     const [isCreatingWebsite, setIsCreatingWebsite] = useState(false);
     const [isUpdatingWebsite, setIsUpdatingWebsite] = useState(false);
     const [isDeletingWebsite, setIsDeletingWebsite] = useState(false);
     const [creationInputState, setCreationInputState] = useState({});
     const [editInputState, setEditInputState] = useState({});
+    const [userWebsiteErrors, setUserWebsiteErrors] = useState([]);
     const recaptchaRef = useRef();
 
     const getWebsiteByRoute = async (route) => {
@@ -45,10 +51,17 @@ export const useWebsiteControls = () => {
                 }
             })
 
-            const { isExpired, isPublished } = res.data;
+            const { isExpired, isPublished, components: { title } } = res.data;
 
-            if (isExpired) throw new Error('Minting website has expired');
-            if (!isPublished) throw new Error('Minting website is not published yet');
+            let newUserWebsiteErrors = [];
+
+            if (isExpired) newUserWebsiteErrors.push(`${title} minting website has expired`);
+            if (!isPublished) newUserWebsiteErrors.push(`${title} minting website is not published yet`);
+
+            if (newUserWebsiteErrors.length > 0) {
+                setUserWebsiteErrors(newUserWebsiteErrors);
+                throw new Error('If you are the owner of this minting website, please check your site settings');
+            }
 
             setUserWebsite(res.data);
             setIsGettingWebsites(false);
@@ -56,7 +69,7 @@ export const useWebsiteControls = () => {
         catch (err) {
             setIsGettingWebsites(false);
             const msg = errorHandler(err);
-            toast({ description: msg });
+            //toast({ description: msg });
         }
     }
 
@@ -89,8 +102,10 @@ export const useWebsiteControls = () => {
         try {
             setIsCreatingWebsite(true);
 
-            const freeWebsiteCount = websites.filter((web) => web.isPremium === false).length; 
-            if (freeWebsiteCount >= 1) throw new Error('You have used your 1 Free minting website. Upgrade your subscription to create more.');
+            if (user.services.website.units !== 1) {
+                const freeWebsiteCount = websites.filter((web) => web.isPremium === false).length; 
+                if (freeWebsiteCount >= 1) throw new Error('You have used your 1 Free minting website. Upgrade your subscription to create more.');
+            }
 
             let errorsObj = {};
 
@@ -157,7 +172,6 @@ export const useWebsiteControls = () => {
     }
 
     const editWebsite = (website) => {
-        console.log(website)
         setEditingWebsite(website);
     }
 
@@ -923,6 +937,122 @@ export const useWebsiteControls = () => {
         }
     }
 
+    const upgradeWebsiteToPremium = async () => {
+        try {
+            const newUser = await getUserByAddress(user.address);
+
+            const websiteUnits = newUser.services.website.units;
+
+            if (websiteUnits <= 0 || !websiteUnits) {
+                pay({
+                    service: 'Website',
+                    product: `Premium Minting Website`,
+                    redirect: {
+                        origin: '/dashboard/website',
+                        title: 'Website'
+                    },
+                    data: {
+                        size: 1
+                    }
+                })
+            }
+        }
+        catch (err) {
+            const msg = errorHandler(err);
+            toast({ description: msg });
+        }
+    }
+
+    const updateSubscription = async ({ memberId, subscriptionId, isPremium, isExpired, premiumStartDate, premiumEndDate }) => {
+        try {           
+            const accessToken = getAccessToken();
+
+            const res = await axios.patch(`${config.serverUrl}/api/website/updateSubscription`, {
+                memberId,
+                subscriptionId,
+                isPremium,
+                isExpired,
+                premiumStartDate,
+                premiumEndDate
+            }, {
+                headers: { 
+                    Authorization: `Bearer ${accessToken}` 
+                }
+            })
+
+            if (res.status !== 200) return;
+
+            if (userWebsite) {
+                setUserWebsite((prevUserWebsite) => {
+                    return {
+                        ...prevUserWebsite,
+                        isPremium,
+                        isExpired
+                    }
+                })
+            }
+        }
+        catch (err) {
+            const msg = errorHandler(err);
+            toast({ description: msg });
+        }
+    }
+
+    const checkSubscription = async () => {
+        try {
+            if (!userWebsite) return;
+            if (!userWebsite.isPremium) return;
+
+            const accessToken = getAccessToken();
+
+            const res = await axios.get(`${config.serverUrl}/api/payment/getSubscription`, {
+                params: {
+                    subscriptionId: userWebsite.subscriptionId
+                },
+                headers: {
+                    Authorization: `Bearer ${accessToken}` 
+                }
+            })
+
+            if (res.status !== 200) return;
+
+            const { cancel_at_period_end, cancel_at } = res.data;
+
+            if (cancel_at_period_end) {
+                const cancelAt = new Date(cancel_at * 1000);
+                const today = new Date();
+
+                if (!userWebsite.premiumEndDate) {
+                    await updateSubscription({
+                        memberId: userWebsite.memberId,
+                        subscriptionId: userWebsite.subscriptionId,
+                        isPremium: userWebsite.isPremium,
+                        isExpired: userWebsite.isExpired,
+                        isPublished: userWebsite.isPublished,
+                        premiumStartDate: userWebsite.premiumStartDate,
+                        premiumEndDate: cancelAt
+                    })
+                }
+
+                if (today > cancelAt) {
+                    await updateSubscription({
+                        memberId: userWebsite.memberId,
+                        subscriptionId: userWebsite.subscriptionId,
+                        isPremium: false,
+                        isExpired: true,
+                        isPublished: false,
+                        premiumStartDate: null,
+                        premiumEndDate: null
+                    })
+                }
+            }
+        }
+        catch (err) {
+            const msg = errorHandler(err);
+            toast({ description: msg });
+        }
+    }
+
     return {
         getWebsiteByRoute,
         getWebsites,
@@ -948,5 +1078,9 @@ export const useWebsiteControls = () => {
         isUpdatingWebsite,
         deleteWebsite,
         isDeletingWebsite,
+        userWebsiteErrors,
+        upgradeWebsiteToPremium,
+        updateSubscription,
+        checkSubscription
     }
 }

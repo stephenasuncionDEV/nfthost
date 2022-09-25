@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router'
+import { useState } from 'react'
 import { useToast } from '@chakra-ui/react'
 import { useCore } from '@/providers/CoreProvider'
 import { useUser } from '@/providers/UserProvider'
@@ -11,6 +12,7 @@ import { decryptToken, getPriceFromService, getCurrencyFromWallet } from '@/util
 import * as solanaWeb3 from '@solana/web3.js'
 import { getAccessToken } from '@/utils/tools'
 import errorHandler from '@/utils/errorHandler'
+import { useWebsite } from '@/providers/WebsiteProvider'
 
 export const usePaymentControls = () => {
     const router = useRouter();
@@ -22,7 +24,11 @@ export const usePaymentControls = () => {
         position: 'bottom'
     });
     const { user } = useUser();
-    const { isNetworkProtected, addUnit, updateEmail } = useMemberControls();
+    const { 
+        isNetworkProtected, 
+        addUnit, 
+        updateEmail 
+    } = useMemberControls();
     const { 
         provider,
         paymentData,
@@ -36,6 +42,12 @@ export const usePaymentControls = () => {
         setIsKeepWorkingModal,
         setPaymentData     
     } = useCore();
+    const { 
+        setWebsites,
+        editingWebsite
+    } = useWebsite();
+    const [isCanceling, setIsCanceling] = useState(false);
+    const [subscriptions, setSubscriptions] = useState([]);
 
     const pay = (paymentData) => {
         try {
@@ -73,7 +85,7 @@ export const usePaymentControls = () => {
             
             const service = paymentData.service.toLowerCase();
 
-            const currency = getCurrencyFromWallet(wallet);
+            const currency = getCurrencyFromWallet(wallet || 'metamask');
             const price = getPriceFromService(service, currency);
 
             await isNetworkProtected(wallet);
@@ -169,7 +181,7 @@ export const usePaymentControls = () => {
                 utils: 'onetime',
                 website: 'subscription'
             }[service];
-            
+
             let clientData;
             if (paymentType === 'subscription') {
                 clientData = await axios.post(`${config.serverUrl}/api/payment/requestSubscription`, {
@@ -217,6 +229,25 @@ export const usePaymentControls = () => {
             });
 
             if (transaction.error) throw new Error(transaction.error.code);
+            
+            if (service === 'website') {
+                const subscriptionId = clientData.data.subscriptionId;
+                const res = await axios.patch(`${config.serverUrl}/api/website/updateSubscription`, {
+                    memberId: user._id,
+                    subscriptionId,
+                    isPremium: true,
+                    isExpired: false,
+                    isPublished: editingWebsite.isPublished || false,
+                    premiumStartDate: new Date(),
+                    premiumEndDate: null
+                }, {
+                    headers: { 
+                        Authorization: `Bearer ${accessToken}` 
+                    }
+                })
+
+                setWebsites(res.data);
+            }
 
             posthog.capture('User paid with stripe', {
                 price: paymentData.price
@@ -268,9 +299,95 @@ export const usePaymentControls = () => {
         }
     }
 
+    const getSubscriptions = async () => {
+        try {
+            const accessToken = getAccessToken();
+
+            const res = await axios.get(`${config.serverUrl}/api/payment/getSubscriptions`, {
+                params: {
+                    customerId: user.customerId
+                },
+                headers: {
+                    Authorization: `Bearer ${accessToken}` 
+                }
+            })
+
+            if (res.status !== 200) return;
+
+            setSubscriptions(res.data);
+        }
+        catch (err) {
+            const msg = errorHandler(err);
+            toast({ description: msg });
+        }
+    }
+
+    const getSubscription = async (subscriptionId) => {
+        try {
+            const accessToken = getAccessToken();
+
+            const res = await axios.get(`${config.serverUrl}/api/payment/getSubscription`, {
+                params: {
+                    subscriptionId
+                },
+                headers: {
+                    Authorization: `Bearer ${accessToken}` 
+                }
+            })
+
+            if (res.status !== 200) return;
+
+            setSubscriptions(res.data);
+        }
+        catch (err) {
+            const msg = errorHandler(err);
+            toast({ description: msg });
+        }
+    }
+
+    const cancelSubscription = async (subscriptionId) => {
+        try {
+            setIsCanceling(true);
+
+            const accessToken = getAccessToken();
+
+            const res = await axios.post(`${config.serverUrl}/api/payment/cancelSubscription`, {
+                subscriptionId
+            }, {
+                headers: { 
+                    Authorization: `Bearer ${accessToken}` 
+                }
+            })
+
+            if (res.status !== 200) throw new Error('Cannot cancel subscription at the moment');
+
+            setSubscriptions((prevSubscriptions) => {
+                return prevSubscriptions.filter((sub) => sub.id !== res.data.id);
+            })
+
+            toast({
+                title: 'Success',
+                status: 'success',
+                description: 'Successfully canceled subscription'
+            })
+
+            setIsCanceling(false);
+        }   
+        catch (err) {
+            setIsCanceling(false);
+            const msg = errorHandler(err);
+            toast({ description: msg });
+        }
+    }
+
     return {
         pay,
         payWithCrypto,
-        payWithStripe
+        payWithStripe,
+        cancelSubscription,
+        isCanceling,
+        getSubscriptions,
+        subscriptions,
+        getSubscription
     }
 }
