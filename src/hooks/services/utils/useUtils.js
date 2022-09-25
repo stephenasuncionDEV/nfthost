@@ -8,7 +8,6 @@ import { saveAs } from 'file-saver'
 import JSZip from 'jszip'
 import posthog from 'posthog-js'
 import errorHandler from '@/utils/errorHandler'
-import { getPriceFromService } from '@/utils/tools'
 
 const zip = new JSZip();
 
@@ -122,7 +121,6 @@ export const useUtils = () => {
             if (utilsUnits <= 0 || !utilsUnits) {
                 pay({
                     service: 'Utils',
-                    price: getPriceFromService('utils'),
                     product: `Add ${Object.keys(newKey)[0]} Key on Metadata`,
                     redirect: {
                         origin: '/dashboard/utilities',

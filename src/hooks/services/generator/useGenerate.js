@@ -7,7 +7,7 @@ import posthog from 'posthog-js'
 import MD5 from 'crypto-js/md5'
 import JSZip from 'jszip'
 import { saveAs } from 'file-saver'
-import { shuffleArray, getPriceFromService } from '@/utils/tools'
+import { shuffleArray } from '@/utils/tools'
 import errorHandler from '@/utils/errorHandler'
 
 const zip = new JSZip();
@@ -256,7 +256,6 @@ export const useGenerate = () => {
             if (collectionSize > 100 && generationUnits <= 0) {
                 pay({
                     service: 'Generator',
-                    price: getPriceFromService('generator'),
                     product: `1 NFT collection generation (${collectionSize}x unique images)`,
                     redirect: {
                         origin: '/dashboard/generator',
