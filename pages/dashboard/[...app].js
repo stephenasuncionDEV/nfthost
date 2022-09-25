@@ -16,7 +16,7 @@ import Partners from '@/components/Partners'
 import Payments from '@/components/Payments'
 import Team from '@/components/Team'
 import Utilities from '@/components/services/Utilities'
-import Metadata from '@/components/services/Generator/Metadata'
+import Metadata from '@/components/services/Generator/Metadata/index'
 import { webColor } from '@/theme/index'
 
 const Page = () => {
