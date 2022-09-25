@@ -17,10 +17,10 @@ const Partners = () => {
                         p='1em' 
                         bg={containerColor}
                         borderRadius='.25em'
-                        boxShadow='0 0 2px 0 rgb(0 0 0 / 10%)'
                         alignItems='flex-start' 
                         key={idx}
                         onClick={() => posthog?.capture('User visited partner', { company: partner.company })}
+                        border='1px solid rgb(117,63,229)'
                     >
                         <VStack>
                             <Image src={partner.image} alt='Flair Logo' width='40px' />

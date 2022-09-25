@@ -26,6 +26,7 @@ const Payments = () => {
                 borderRadius='.25em'
                 boxShadow='0 0 2px 0 rgb(0 0 0 / 10%)'
                 w='full'
+                border='1px solid rgb(117,63,229)'
             >
                 <TableContainer w='full'>
                     <Table variant='simple'>

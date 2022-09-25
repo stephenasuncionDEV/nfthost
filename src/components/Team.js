@@ -18,9 +18,9 @@ const Team = () => {
                     p='1em' 
                     bg={containerColor}
                     borderRadius='.25em'
-                    boxShadow='0 0 2px 0 rgb(0 0 0 / 10%)'
                     alignItems='flex-start'
                     key={idx}
+                    border='1px solid rgb(117,63,229)'
                 >
                     <VStack>
                         <Avatar src='/assets/team/stephen.png' name='Stephen Asuncion' size='lg' />

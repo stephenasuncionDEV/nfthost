@@ -31,6 +31,7 @@ const Utilities = () => {
                                 setJsonFiles(null);
                                 setUtilsTab(menu.key);
                             }}
+                            fontSize='10pt'
                         >
                             {menu.title}
                         </Button>
@@ -48,6 +49,7 @@ const Utilities = () => {
                 alignItems='flex-start'
                 w='full'
                 maxW='850px'
+                border='1px solid rgb(117,63,229)'
             >
                 {{
                     image: <ImageStorage />,

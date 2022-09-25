@@ -103,13 +103,12 @@ const Preview = () => {
     return (
         <Flex 
             flexDir='column'
-            id='metadata'
             spacing='1.5em'
             p='1em' 
             bg={containerColor}
             borderRadius='.25em'
-            boxShadow='0 0 2px 0 rgb(0 0 0 / 10%)'
             alignItems='flex-start'
+            border='1px solid rgb(117,63,229)'
         >
             <Text fontWeight='bold' fontSize='10pt'>
                 Preview

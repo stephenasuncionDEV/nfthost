@@ -73,13 +73,7 @@ const Settings = () => {
                             fontSize='10pt'
                             onClick={() => setCurrentSettingsIdx(idx)}
                             color={idx === currentSettingsIdx ? 'rgb(52,140,212)' : 'white'}
-                            _hover={{
-                                color: 'rgb(52,140,212)',
-                                bg: 'transparent'
-                            }}
-                            _focus={{
-                                bg: 'transparent'
-                            }}
+                            pointerEvents={currentSettingsIdx === idx ? 'none' : 'all'}
                         >
                             {setting.name}
                         </Button>

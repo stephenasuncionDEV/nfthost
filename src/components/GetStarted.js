@@ -44,6 +44,7 @@ const GetStarted = () => {
                             w='full'
                             key={idx}
                             alignItems='flex-start'
+                            border='1px solid rgb(117,63,229)'
                         >
                             <HStack spacing='1em' justifyContent='space-between' w='full'>
                                 <HStack spacing='1em'>
