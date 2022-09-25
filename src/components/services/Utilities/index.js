@@ -7,7 +7,11 @@ import RemoveKey from './RemoveKey'
 import { webColor } from '@/theme/index'
 
 const Utilities = () => {
-    const { utilsTab, setUtilsTab } = useGenerator();
+    const { 
+        utilsTab, 
+        setUtilsTab, 
+        setJsonFiles 
+    } = useGenerator();
 
     const containerColor = useColorModeValue(webColor.containerBg[0], webColor.containerBg[1]);
 
@@ -23,7 +27,10 @@ const Utilities = () => {
                             _hover={{ bg: 'whiteAlpha.100' }}
                             w='full'
                             color={utilsTab === menu.key ? '#348CD4' : 'white'}
-                            onClick={() => setUtilsTab(menu.key)}
+                            onClick={() => {
+                                setJsonFiles(null);
+                                setUtilsTab(menu.key);
+                            }}
                         >
                             {menu.title}
                         </Button>
@@ -40,6 +47,7 @@ const Utilities = () => {
                 boxShadow='0 0 2px 0 rgb(0 0 0 / 10%)'
                 alignItems='flex-start'
                 w='full'
+                maxW='850px'
             >
                 {{
                     image: <ImageStorage />,
