@@ -23,11 +23,12 @@ export default async function middleware(req) {
 
     // Prevent security issues – users should not be able to canonically access
     // the pages/sites folder and its respective contents.
+    console.log('hostname', hostname)
     console.log('pathname', url.pathname)
-    console.log('subpath', url.pathname)
+    console.log('subpath', subpath)
 
     // rewrite to the current subdomain under the pages/sites folder
-    url.pathname = `/${subpath}${url.pathname}`
+    url.pathname = `/mints/${subpath}${url.pathname}`
     
 
     return NextResponse.rewrite(url)

@@ -1,8 +1,0 @@
-{   
-    "rewrites": [     
-        { 
-            "source": "/(.*).nfthost.app", 
-            "destination": "https://nfthost.app/$1" 
-        }   
-    ] 
-}
