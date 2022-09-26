@@ -1,14 +1,8 @@
 {
     "rewrites": [
         {
-            "source": "/:path*",
-            "has": [
-                {
-                    "type": "host",
-                    "value": "(?<subdomain>.*).nfthost.app"
-                }
-            ],
-            "destination": "/:subdomain/:path*"
+            "source": "/:subdomain*.nfthost.app",
+            "destination": "https://nfthost.app/:subdomain*"
         }
     ]
 }
