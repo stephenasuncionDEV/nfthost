@@ -1,8 +1,8 @@
 {   
-    "redirects": [     
+    "rewrites": [     
         { 
             "source": "/(.*).nfthost.app", 
-            "destination": "nfthost.app/$1" 
+            "destination": "https://nfthost.app/$1" 
         }   
     ] 
 }
