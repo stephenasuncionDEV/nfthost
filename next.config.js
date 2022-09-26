@@ -6,5 +6,21 @@ module.exports = {
         POSTHOG_KEY: process.env.POSTHOG_KEY,
         CREATE_WEBSITE_TOKEN: process.env.CREATE_WEBSITE_TOKEN,
         INFURA_ID: process.env.INFURA_ID
+    },
+    rewrites() {
+        return {
+            beforeFiles: [
+                {
+                    source: '/:path*',
+                    has: [
+                        {
+                            type: 'host',
+                            value: '(?<subdomain>.*).nfthost.app',
+                        },
+                    ],
+                    destination: '/:subdomain/:path*',
+                },
+            ]
+        }
     }
 }
