@@ -10,6 +10,7 @@ import Domain from './Domain'
 import Advanced from './Advanced'
 import Design from './Design'
 import { websiteSettingsArr } from '@/utils/json'
+import config from '@/config/index'
 
 const Settings = () => {
     const { editingWebsite } = useWebsite();
@@ -70,6 +71,16 @@ const Settings = () => {
                         </Question>
                         <Text fontSize='9pt'>
                             {editingWebsite?.components?.template}
+                        </Text>
+                    </Flex>
+                    <Flex flexDir='column'>
+                        <Question prompt='The link of your minting website.'>
+                            <Text fontSize='10pt' variant='subtle'>
+                                SUBDOMAIN
+                            </Text>
+                        </Question>
+                        <Text fontSize='9pt'>
+                            https://{editingWebsite?.route}.{config?.frontendUrl}
                         </Text>
                     </Flex>
                 </HStack>

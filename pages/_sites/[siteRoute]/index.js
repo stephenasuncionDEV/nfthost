@@ -125,7 +125,7 @@ const UserWebsite = (props) => {
 }
 
 export const getStaticPaths = async () => {
-    const mappedSubdomains = await axios.get(`${config.serverUrl}/api/website/getWebsitesWithSubdomain`, {
+    const mappedSubdomains = await axios.get(`${config.serverUrl}/api/website/getMappedSubdomains`, {
         headers: {
             Authorization: `bearer ${process.env.CREATE_WEBSITE_TOKEN}`
         }
