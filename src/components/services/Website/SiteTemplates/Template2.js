@@ -1,9 +1,10 @@
-import { Text, Flex, Image, Heading, Box } from '@chakra-ui/react'
+import { Text, Flex, Tag, TagLeftIcon, Image, Heading, Wrap, Box } from '@chakra-ui/react'
+import { GiCutDiamond } from 'react-icons/gi'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import Embed from './Embed'
 import Watermark from './Watermark'
 
-const Template1 = () => {
+const Template2 = () => {
     const { userWebsite } = useWebsite();
 
     return (
@@ -16,19 +17,12 @@ const Template1 = () => {
             position='relative'
         >
             <Watermark position='absolute' bottom='4' right='4' />
-            <Flex 
-                flexDir='column' 
-                spacing='2em' 
+            <Wrap 
+                spacing='5em' 
                 p='3em' 
                 borderRadius='20px'
-                alignItems='center'
+                justify='center'
             >
-                <Image 
-                    src={userWebsite?.components?.unrevealedImage}
-                    alt={userWebsite?.components?.title}
-                    boxSize='240px'
-                    objectFit='scale-down'
-                />
                 <Flex flexDir='column' alignItems='center' mb='1em'>
                     <Heading as='h1' textAlign='center'>
                         {userWebsite?.components?.title}
@@ -38,11 +32,25 @@ const Template1 = () => {
                             {userWebsite?.components?.description}
                         </Text>
                     </Box>
+                    {userWebsite?.isPremium && (
+                        <Tag>
+                            <TagLeftIcon as={GiCutDiamond} color='skyblue' />
+                            <Text>
+                                Premium
+                            </Text>
+                        </Tag>
+                    )}
+                    <Embed mt='1em' />
                 </Flex>
-                <Embed mt='1em' />
-            </Flex>
+                <Image 
+                    src={userWebsite?.components?.unrevealedImage}
+                    alt={userWebsite?.components?.title}
+                    boxSize='240px'
+                    objectFit='scale-down'
+                />
+            </Wrap>
         </Flex>
     )
 }
 
-export default Template1
+export default Template2

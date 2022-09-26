@@ -124,6 +124,28 @@ export const usePaymentControls = () => {
                 throw new Error('Your wallet is currently not supported for payment, please login with a different wallet provider')
             }
 
+            if (service === 'website') {
+                let premiumEndDate = new Date();
+                premiumEndDate.setDate(premiumEndDate.getDate() + 30);
+                const accessToken = getAccessToken();
+                // const subscriptionId = clientData.data.subscriptionId;
+                const res = await axios.patch(`${config.serverUrl}/api/website/updateSubscription`, {
+                    memberId: user._id,
+                    subscriptionId: 'temporary',
+                    isPremium: true,
+                    isExpired: false,
+                    isPublished: editingWebsite.isPublished || false,
+                    premiumStartDate: new Date(),
+                    premiumEndDate: premiumEndDate
+                }, {
+                    headers: { 
+                        Authorization: `Bearer ${accessToken}` 
+                    }
+                })
+
+                setWebsites(res.data);
+            }
+
             posthog.capture('User paid with crypto wallet', {
                 wallet
             });

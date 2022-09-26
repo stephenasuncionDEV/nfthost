@@ -11,6 +11,8 @@ import { useWebsite } from '@/providers/WebsiteProvider'
 import { useWebsiteControls } from '@/hooks/services/website/useWebsiteControls'
 import { usePaymentControls } from '@/hooks/usePaymentControls'
 import Template1 from '@/components/services/Website/SiteTemplates/Template1'
+import Template2 from '@/components/services/Website/SiteTemplates/Template2'
+import Template3 from '@/components/services/Website/SiteTemplates/Template3'
 import posthog from 'posthog-js'
 
 import config from '@/config/index'
@@ -67,7 +69,9 @@ const UserWebsite = () => {
                     </Head>
                     <main>
                         {{
-                            Template1: <Template1 />
+                            Template1: <Template1 />,
+                            Template2: <Template2 />,
+                            Template3: <Template3 />
                         }[userWebsite?.components?.template]}
                     </main>
                 </div>

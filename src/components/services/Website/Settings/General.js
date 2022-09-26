@@ -44,7 +44,7 @@ const General = () => {
 
     return (
         <VStack alignItems='flex-start' mt='1em' flex='1' spacing='2em'>
-            {!editingWebsite?.isExpired ? (
+            {(!editingWebsite?.isPremium && !editingWebsite?.isExpired) && (
                 <Flex 
                     alignItems='flex-end' 
                     maxW='865px' 
@@ -79,7 +79,8 @@ const General = () => {
                         </Text>
                     </Flex>
                 </Flex>
-            ) : (
+            )}
+            {editingWebsite?.isExpired && (
                 <Flex 
                     alignItems='flex-end' 
                     maxW='865px' 

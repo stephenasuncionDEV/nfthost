@@ -55,8 +55,8 @@ export const useWebsiteControls = () => {
 
             let newUserWebsiteErrors = [];
 
-            if (isExpired) newUserWebsiteErrors.push(`${title} minting website has expired`);
-            if (!isPublished) newUserWebsiteErrors.push(`${title} minting website is not published yet`);
+            if (isExpired) newUserWebsiteErrors.push(`${title} Minting Website has Expired`);
+            if (!isPublished) newUserWebsiteErrors.push(`${title} Minting Website is not Published yet`);
 
             if (newUserWebsiteErrors.length > 0) {
                 setUserWebsiteErrors(newUserWebsiteErrors);
@@ -963,7 +963,7 @@ export const useWebsiteControls = () => {
         }
     }
 
-    const updateSubscription = async ({ memberId, subscriptionId, isPremium, isExpired, premiumStartDate, premiumEndDate }) => {
+    const updateSubscription = async ({ memberId, subscriptionId, isPremium, isExpired, premiumStartDate, premiumEndDate, isPublished }) => {
         try {           
             const accessToken = getAccessToken();
 
@@ -972,6 +972,7 @@ export const useWebsiteControls = () => {
                 subscriptionId,
                 isPremium,
                 isExpired,
+                isPublished,
                 premiumStartDate,
                 premiumEndDate
             }, {
@@ -1003,49 +1004,64 @@ export const useWebsiteControls = () => {
             if (!userWebsite) return;
             if (!userWebsite.isPremium) return;
 
-            const accessToken = getAccessToken();
+            const today = new Date();
+            let premiumEndDate = new Date(userWebsite.premiumEndDate);
 
-            const res = await axios.get(`${config.serverUrl}/api/payment/getSubscription`, {
-                params: {
-                    subscriptionId: userWebsite.subscriptionId
-                },
-                headers: {
-                    Authorization: `Bearer ${accessToken}` 
-                }
-            })
-
-            if (res.status !== 200) return;
-
-            const { cancel_at_period_end, cancel_at } = res.data;
-
-            if (cancel_at_period_end) {
-                const cancelAt = new Date(cancel_at * 1000);
-                const today = new Date();
-
-                if (!userWebsite.premiumEndDate) {
-                    await updateSubscription({
-                        memberId: userWebsite.memberId,
-                        subscriptionId: userWebsite.subscriptionId,
-                        isPremium: userWebsite.isPremium,
-                        isExpired: userWebsite.isExpired,
-                        isPublished: userWebsite.isPublished,
-                        premiumStartDate: userWebsite.premiumStartDate,
-                        premiumEndDate: cancelAt
-                    })
-                }
-
-                if (today > cancelAt) {
-                    await updateSubscription({
-                        memberId: userWebsite.memberId,
-                        subscriptionId: userWebsite.subscriptionId,
-                        isPremium: false,
-                        isExpired: true,
-                        isPublished: false,
-                        premiumStartDate: null,
-                        premiumEndDate: null
-                    })
-                }
+            if (today < premiumEndDate) {
+                await updateSubscription({
+                    memberId: userWebsite.memberId,
+                    subscriptionId: userWebsite.subscriptionId,
+                    isPremium: false,
+                    isExpired: true,
+                    isPublished: false,
+                    premiumStartDate: null,
+                    premiumEndDate: null
+                })
             }
+
+            // const accessToken = getAccessToken();
+
+            // const res = await axios.get(`${config.serverUrl}/api/payment/getSubscription`, {
+            //     params: {
+            //         subscriptionId: userWebsite.subscriptionId
+            //     },
+            //     headers: {
+            //         Authorization: `Bearer ${accessToken}` 
+            //     }
+            // })
+
+            // if (res.status !== 200) return;
+
+            // const { cancel_at_period_end, cancel_at } = res.data;
+
+            // if (cancel_at_period_end) {
+            //     const cancelAt = new Date(cancel_at * 1000);
+            //     const today = new Date();
+
+            //     if (!userWebsite.premiumEndDate) {
+            //         await updateSubscription({
+            //             memberId: userWebsite.memberId,
+            //             subscriptionId: userWebsite.subscriptionId,
+            //             isPremium: userWebsite.isPremium,
+            //             isExpired: userWebsite.isExpired,
+            //             isPublished: userWebsite.isPublished,
+            //             premiumStartDate: userWebsite.premiumStartDate,
+            //             premiumEndDate: cancelAt
+            //         })
+            //     }
+
+            //     if (today > cancelAt) {
+            //         await updateSubscription({
+            //             memberId: userWebsite.memberId,
+            //             subscriptionId: userWebsite.subscriptionId,
+            //             isPremium: false,
+            //             isExpired: true,
+            //             isPublished: false,
+            //             premiumStartDate: null,
+            //             premiumEndDate: null
+            //         })
+            //     }
+            // }
         }
         catch (err) {
             const msg = errorHandler(err);

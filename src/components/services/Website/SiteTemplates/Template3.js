@@ -1,9 +1,10 @@
-import { Text, Flex, Image, Heading, Box } from '@chakra-ui/react'
+import { Text, Flex, Tag, TagLeftIcon, Image, Heading, Wrap, Box } from '@chakra-ui/react'
+import { GiCutDiamond } from 'react-icons/gi'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import Embed from './Embed'
 import Watermark from './Watermark'
 
-const Template1 = () => {
+const Template3 = () => {
     const { userWebsite } = useWebsite();
 
     return (
@@ -16,12 +17,11 @@ const Template1 = () => {
             position='relative'
         >
             <Watermark position='absolute' bottom='4' right='4' />
-            <Flex 
-                flexDir='column' 
-                spacing='2em' 
+            <Wrap 
+                spacing='5em' 
                 p='3em' 
                 borderRadius='20px'
-                alignItems='center'
+                justify='center'
             >
                 <Image 
                     src={userWebsite?.components?.unrevealedImage}
@@ -38,11 +38,19 @@ const Template1 = () => {
                             {userWebsite?.components?.description}
                         </Text>
                     </Box>
+                    {userWebsite?.isPremium && (
+                        <Tag>
+                            <TagLeftIcon as={GiCutDiamond} color='skyblue' />
+                            <Text>
+                                Premium
+                            </Text>
+                        </Tag>
+                    )}
+                    <Embed mt='1em' />
                 </Flex>
-                <Embed mt='1em' />
-            </Flex>
+            </Wrap>
         </Flex>
     )
 }
 
-export default Template1
+export default Template3

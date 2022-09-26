@@ -36,14 +36,14 @@ const Payments = () => {
     const containerColor = useColorModeValue(webColor.containerBg[0], webColor.containerBg[1]);
     const textColor = useColorModeValue('black', 'white');
 
-    useEffect(() => {
-        getSubscriptions();
-    }, [])
+    // useEffect(() => {
+    //     getSubscriptions();
+    // }, [])
 
     return (
         <VStack alignItems='flex-start' spacing='2em'>
             <AreYouSureModal />
-            <Flex 
+            {/* <Flex 
                 flexDir='column' 
                 bg={containerColor} 
                 p='1em' 
@@ -98,7 +98,7 @@ const Payments = () => {
                         ))}
                     </Wrap>
                 </Flex>
-            </Flex>
+            </Flex> */}
             <VStack 
                 id='payments'
                 spacing='1.5em'

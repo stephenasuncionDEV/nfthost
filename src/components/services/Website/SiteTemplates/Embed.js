@@ -6,7 +6,7 @@ import parse from 'html-react-parser'
 
 const isDevelopment = false;
 
-const Embed = () => {
+const Embed = (styles) => {
     const { userWebsite } = useWebsite();
     const { getWebsiteByRoute } = useWebsiteControls();
     const isReveal = !userWebsite?.revealDate || new Date(userWebsite?.revealDate) <= new Date();
@@ -16,7 +16,7 @@ const Embed = () => {
             {isReveal ? (
                 <>
                     {!isDevelopment ? (
-                        <Box>
+                        <Box {...styles}>
                             {parse(userWebsite?.components?.embed, {
                                 replace: val => {
                                     //TODO@: Auto Style Embeds ?
@@ -31,6 +31,7 @@ const Embed = () => {
                             justifyContent='center'
                             alignItems='center'
                             h='40px'
+                            {...styles}
                         >
                             <Text color='white'>
                                 Embed
@@ -47,6 +48,7 @@ const Embed = () => {
                     justifyContent='center'
                     alignItems='center'
                     flexDir='column'
+                    {...styles}
                 >
                     <Text>
                         Mint Button will be revealed at
@@ -54,7 +56,7 @@ const Embed = () => {
                     <Text fontSize='10pt'>
                         {userWebsite?.revealDate && `${new Date(userWebsite?.revealDate).toString()}`}
                     </Text>
-                    <Button mt='1em' rightIcon={<MdRefresh />} size='sm' onClick={() => {
+                    <Button mt='1em' leftIcon={<MdRefresh />} size='sm' onClick={() => {
                         getWebsiteByRoute(userWebsite.route)
                     }}>
                         Refresh
