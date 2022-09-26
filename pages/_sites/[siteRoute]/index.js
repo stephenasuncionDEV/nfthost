@@ -18,8 +18,10 @@ import Template5 from '@/components/services/Website/SiteTemplates/Template5'
 import posthog from 'posthog-js'
 import parse from 'html-react-parser'
 import config from '@/config/index'
+import axios from 'axios'
+import { getAccessToken } from '@/utils/tools'
 
-const UserWebsite = () => {
+const UserWebsite = (props) => {
     const router = useRouter();
     const { userWebsite } = useWebsite();
     const { 
@@ -39,6 +41,20 @@ const UserWebsite = () => {
     }, [userWebsite])
 
     const { colorMode } = useColorMode();
+
+    if (router.isFallback) {
+        return (
+            <Center style={{ minHeight: '100vh' }}>
+                <Spinner
+                    thickness='4px'
+                    speed='0.65s'
+                    emptyColor='gray.200'
+                    color='rgb(117,63,229)'
+                    size='lg'
+                />
+            </Center>
+        )
+    }
 
     return (
         <>
@@ -109,5 +125,36 @@ const UserWebsite = () => {
         </>
     )
 }
+
+export const getStaticPaths = async () => {
+
+    const sites = await axios.get(`${config.serverUrl}/api/website/getWebsitesWithSubdomain`);
+
+    const paths = sites.data.map((item) => {
+        return { params: { siteRoute: item.route } }
+    })
+
+    return {
+        paths,
+        // paths: [{ params: { siteRoute: 'knft' } }],
+        fallback: true, // fallback true allows sites to be generated using ISR
+    }
+}
+
+export const getStaticProps = async ({ params: { siteRoute } }) => {
+    const site = await axios.get(`${config.serverUrl}/api/website/getWebsiteByRoute`, {
+        params: {
+            route: siteRoute
+        },
+        headers: {
+            Authorization: `bearer ${process.env.CREATE_WEBSITE_TOKEN}`
+        }
+    });
+
+    return {
+        props: site.data,
+        revalidate: 3600, // set revalidate interval of 1 hour
+    }
+  }
 
 export default UserWebsite

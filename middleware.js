@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 
 export const config = {
-  matcher: ['/', '/mints/:path'],
+  matcher: ['/', '/_sites/:path'],
 }
 
 export default async function middleware(req) {
@@ -14,7 +14,7 @@ export default async function middleware(req) {
     //     url.pathname = `/404`
     // } else {
         if (subpath !== 'www') {   
-            url.pathname = `/mints/${subpath}${url.pathname}`;
+            url.pathname = `/_sites/${subpath}${url.pathname}`;
         }
     //}
 
