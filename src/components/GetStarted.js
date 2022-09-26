@@ -1,6 +1,7 @@
+import { useEffect } from 'react'
 import NextLink from 'next/link'
 import { Flex, Wrap, Button, Text, useColorModeValue, VStack, HStack, Link, Tag, Box, Image } from '@chakra-ui/react'
-import { useGetStarted } from '@/hooks/useGetStarted'
+import { useCoreControls } from '@/hooks/useCoreControls'
 import { AiOutlineRight } from 'react-icons/ai'
 import { FiExternalLink } from 'react-icons/fi'
 import { GiCutDiamond } from 'react-icons/gi'
@@ -9,10 +10,16 @@ import config from '@/config/index'
 import { webColor } from '@/theme/index'
 
 const GetStarted = () => {
-    const { featuredWebsites } = useGetStarted();
+    const { 
+        featuredWebsites, 
+        getFeaturedWebsites 
+    } = useCoreControls();
 
     const containerColor = useColorModeValue(webColor.containerBg[0], webColor.containerBg[1]);
-    const featuredWebsiteColor = useColorModeValue('black', 'white');
+
+    useEffect(() => {
+        getFeaturedWebsites();
+    }, [])
 
     return (
         <Flex flexDir='column' flex='1'>
@@ -37,6 +44,7 @@ const GetStarted = () => {
                             w='full'
                             key={idx}
                             alignItems='flex-start'
+                            border='1px solid rgb(117,63,229)'
                         >
                             <HStack spacing='1em' justifyContent='space-between' w='full'>
                                 <HStack spacing='1em'>
@@ -101,18 +109,10 @@ const GetStarted = () => {
                                     <FiExternalLink />
                                 </HStack>
                             </Link>
-                            <Link href='https://discord.gg/u2xXYn7C9T' isExternal>
+                            <Link href='https://discord.gg/2BDzCvSTVc' isExternal>
                                 <HStack>
                                     <Text fontSize='10pt'>
                                         Discord
-                                    </Text>
-                                    <FiExternalLink />
-                                </HStack>
-                            </Link>
-                            <Link href='https://twitter.com/Steb_01' isExternal>
-                                <HStack>
-                                    <Text fontSize='10pt'>
-                                        Twitter
                                     </Text>
                                     <FiExternalLink />
                                 </HStack>

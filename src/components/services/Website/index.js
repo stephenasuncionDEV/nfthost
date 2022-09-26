@@ -1,56 +1,34 @@
 import { useEffect } from 'react'
-import { VStack, Button, Wrap, HStack } from '@chakra-ui/react'
+import { Flex, useDisclosure } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useUser } from '@/providers/UserProvider'
-import { useWeb } from '@/hooks/services/website/useWeb'
-import AreYouSureModal from '@/components/AreYouSureModal'
-import AddonSettingsModal from '@/components/services/Website/AddonSettingsModal'
-import WebsiteList from '@/components/services/Website/WebsiteList'
-import CreateWebsiteModal from '@/components/services/Website/CreateWebsiteModal'
-import EditWebsite from '@/components/services/Website/EditWebsite'
-import Design from '@/components/services/Website/Design'
-import { MdAdd } from 'react-icons/md'
+import { useWebsiteControls } from '@/hooks/services/website/useWebsiteControls'
+import CreateWebsiteModal from './CreateWebsiteModal'
+import List from './List'
+import Settings from './Settings'
 
 const Website = () => {
-    const { websites, setIsCreateWebsiteModal, setCreateWebsiteStep, isEditWebsite } = useWebsite();
     const { isLoggedIn } = useUser();
-    const { GetWebsites, clearFields } = useWeb();
-    const freeWebsiteCount = websites?.filter((website) => !website.isPremium)?.length;
+    const { editingWebsite } = useWebsite();
+    const { getWebsites } = useWebsiteControls();
+    const { isOpen: isCreateWebsiteOpen, onClose: onCreateWebsiteClose, onOpen: onCreateWebsiteOpen } = useDisclosure();
 
     useEffect(() => {
         if (!isLoggedIn) return;
-        GetWebsites();
-    }, [isLoggedIn])
+        getWebsites();
+    },[isLoggedIn])
 
     return (
-        <VStack spacing='2em' alignItems='flex-start'>
-            <CreateWebsiteModal />
-            <AreYouSureModal />
-            <AddonSettingsModal />
-            <HStack spacing='2em'>
-                <Button 
-                    leftIcon={<MdAdd />} 
-                    color='white' 
-                    variant='primary' 
-                    size='sm' 
-                    onClick={() => {
-                        clearFields();
-                        setCreateWebsiteStep('information');
-                        setIsCreateWebsiteModal(true);
-                    }} 
-                    disabled={freeWebsiteCount >= 3}
-                >
-                    Create Website
-                </Button>
-            </HStack>
-            <WebsiteList />
-            {isEditWebsite && (
-                <Wrap spacing='2em' w='full'>
-                    <EditWebsite />
-                    <Design />
-                </Wrap>
-            )}
-        </VStack>
+        <Flex flexDir='column' spacing='2em'>
+            <CreateWebsiteModal 
+                isOpen={isCreateWebsiteOpen}
+                onClose={onCreateWebsiteClose}
+            />
+            <List 
+                onCreateWebsiteOpen={onCreateWebsiteOpen} 
+            />
+            {editingWebsite && <Settings />}
+        </Flex>
     )
 }
 

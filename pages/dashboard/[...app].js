@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import { useColorModeValue, Flex, Text, VStack, Box, HStack } from '@chakra-ui/react'
 import { useMediaQuery } from 'react-responsive'
+import { MdOutlineAccountCircle } from 'react-icons/md'
 import { useUser } from '@/providers/UserProvider'
 import { useReAuthenticate } from '@/hooks/useReAuthenticate'
 import Meta from '@/components/Meta'
@@ -8,18 +9,14 @@ import Layout from '@/components/Layout'
 import GetStarted from '@/components/GetStarted'
 import Generator from '@/components/services/Generator'
 import Website from '@/components/services/Website'
-import Template from '@/components/services/Website/Template'
-import Addons from '@/components/services/Website/Addons'
-import Domain from '@/components/services/Website/Domain'
-import WebsiteInfo from '@/components/services/Website/WebsiteInfo'
+import Templates from '@/components/services/Website/Templates'
+import SelectedWebsite from '@/components/services/Website/SelectedWebsite'
 import ConnectWalletTag from '@/components/ConnectWalletTag'
 import Partners from '@/components/Partners'
 import Payments from '@/components/Payments'
 import Team from '@/components/Team'
-import Analytics from '@/components/services/Website/Analytics'
 import Utilities from '@/components/services/Utilities'
-import Metadata from '@/components/services/Generator/metadata'
-import { MdOutlineAccountCircle } from 'react-icons/md'
+import MetadataEditor from '@/components/services/Generator/MetadataEditor'
 import { webColor } from '@/theme/index'
 
 const Page = () => {
@@ -44,7 +41,7 @@ const Page = () => {
                                 {currentApp?.toUpperCase()}
                             </Text>
                             <HStack spacing='2em'>
-                                {app[0] === 'website' && <WebsiteInfo isCollapse={isCollapse} />}
+                                {app[0] === 'website' && <SelectedWebsite isCollapse={isCollapse} />}
                                 {!isRemoveStepper && (
                                     <Text>
                                         DASHBOARD &gt; {app.join(' > ').toUpperCase()}
@@ -52,20 +49,17 @@ const Page = () => {
                                 )}
                             </HStack>
                         </Flex>
-                        {app.length > 0 && (
+                        {app?.length > 0 && (
                             {
                                 getstarted: <GetStarted />,
                                 generator: <Generator />,
-                                metadata: <Metadata />,
+                                metadata: <MetadataEditor />,
                                 utilities: <Utilities />,
                                 website: <Website />,
-                                templates:  <Template />,
-                                addons: <Addons />,
-                                domain: <Domain />,
+                                templates:  <Templates />,
                                 payments: <Payments />,
                                 partners: <Partners />,
-                                team: <Team />,
-                                analytics: <Analytics />
+                                team: <Team />
                             }[currentApp]
                         )}
                     </>

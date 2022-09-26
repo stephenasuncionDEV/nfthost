@@ -1,301 +1,232 @@
-import { HStack, Text, Button, Flex, VStack,
-    Input, FormControl, Radio, RadioGroup,
-    Textarea, FormHelperText, FormErrorMessage, Divider,
-    Select, Wrap, Modal, ModalOverlay, ModalContent, ModalHeader, 
-    ModalFooter, ModalBody, ModalCloseButton, Box, useToast
+import { useState } from 'react'
+import { HStack, Text, Button, Flex, Divider, Modal, ModalOverlay, 
+    ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton
 } from '@chakra-ui/react'
-import { GiCutDiamond } from 'react-icons/gi'
-import { useWebsite } from '@/providers/WebsiteProvider'
-import { useWeb } from '@/hooks/services/website/useWeb'
-import { MdOutlineAdd } from 'react-icons/md'
-import { AiOutlineArrowRight, AiOutlineArrowLeft } from 'react-icons/ai'
+import { useWebsiteControls } from '@/hooks/services/website/useWebsiteControls'
+import DynamicInput from '@/components/DynamicInput'
 import ReCAPTCHA from 'react-google-recaptcha'
 import config from '@/config/index'
 
-const CreateWebsiteModal = () => {
-    const toast = useToast();
-    const {
-        newSubcription,
-        setNewSubscription,
-        newComponentTitle,
-        setNewComponentTitle,
-        newComponentImage,
-        setNewComponentImage,
-        newComponentDescription,
-        setNewComponentDescription,
-        newComponentEmbed,
-        setNewComponentEmbed,
-        newComponentScript,
-        setNewComponentScript,
-        newMetaRobot,
-        setNewMetaRobot,
-        newMetaFavicon,
-        setNewMetaFavicon,
-        newMetaLanguage,
-        setNewMetaLanguage,
-        newErrors,
-        isCreating,
-        isCreateWebsiteModal,
-        setIsCreateWebsiteModal,
-        createWebsiteStep,
-        setCreateWebsiteStep,
+const CreateWebsiteModal = ({ isOpen, onClose }) => {
+    const { 
+        createWebsite, 
+        isCreatingWebsite, 
+        creationInputState,
         recaptchaRef
-    } = useWebsite();
-    const { CreateWebsite } = useWeb();
-
-    const OnCreateWebsite = async () => {
-        try {
-            if (!recaptchaRef.current.getValue().length) throw new Error('Please verify that you are a human.');
-            await CreateWebsite();
-        }
-        catch (err) {
-            toast({
-                title: 'Error',
-                description: err.message,
-                status: 'error',
-                duration: 3000,
-                isClosable: true,
-                position: 'bottom-center'
-            })
-        }
-    }
+    } = useWebsiteControls();
+    const [route, setRoute] = useState('');
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    const [logo, setLogo] = useState('https://www.nfthost.app/assets/logo.png');
+    const [script, setScript] = useState('');
+    const [embed, setEmbed] = useState('');
+    const [favicon, setFavicon] = useState('https://www.nfthost.app/favicon.ico');
+    const [robot, setRobot] = useState('');
+    const [language, setLanguage] = useState('');
 
     return (
-        <Modal isOpen={isCreateWebsiteModal} onClose={() => setIsCreateWebsiteModal(false)} isCentered size='3xl'>
+        <Modal isOpen={isOpen} onClose={onClose} size='3xl' scrollBehavior='inside' isCentered>
             <ModalOverlay />
             <ModalContent>
-                <ModalHeader>Create a Mint Website</ModalHeader>
+                <ModalHeader>Create a Minting Website</ModalHeader>
                 <ModalCloseButton />
-                <ModalBody>             
-                    {createWebsiteStep === 'information' && (
-                        <Flex flexDir='column' alignItems='flex-start' w='full'>
-                            <HStack w='full'>
-                                <Text fontSize='10pt' >
-                                    Website Information
-                                </Text>
-                                <Divider flex='1' />
-                            </HStack>
-                            <VStack spacing='.75em' w='full' alignItems='flex-start' mt='1em'>
-                                <Wrap w='full'>
-                                    <FormControl isInvalid={newErrors?.title?.status} flex='1'>
-                                        <Input placeholder='Title*' value={newComponentTitle} onChange={(e) => setNewComponentTitle(e.target.value)} />
-                                        {!newErrors?.title?.status ? <FormHelperText fontSize='9pt'>Title you see in your browser's tab</FormHelperText> : <FormErrorMessage fontSize='9pt'>{newErrors?.title?.message}</FormErrorMessage>}
-                                    </FormControl>
-                                    <FormControl isInvalid={newErrors?.language?.status} flex='1'>
-                                        <Select placeholder='Language' value={newMetaLanguage} onChange={(e) => setNewMetaLanguage(e.target.value)}>
-                                            <option value="AF">Afrikaans</option>
-                                            <option value="SQ">Albanian</option>
-                                            <option value="AR">Arabic</option>
-                                            <option value="HY">Armenian</option>
-                                            <option value="EU">Basque</option>
-                                            <option value="BN">Bengali</option>
-                                            <option value="BG">Bulgarian</option>
-                                            <option value="CA">Catalan</option>
-                                            <option value="KM">Cambodian</option>
-                                            <option value="ZH">Chinese (Mandarin)</option>
-                                            <option value="HR">Croatian</option>
-                                            <option value="CS">Czech</option>
-                                            <option value="DA">Danish</option>
-                                            <option value="NL">Dutch</option>
-                                            <option value="EN">English</option>
-                                            <option value="ET">Estonian</option>
-                                            <option value="FJ">Fiji</option>
-                                            <option value="FI">Finnish</option>
-                                            <option value="FR">French</option>
-                                            <option value="KA">Georgian</option>
-                                            <option value="DE">German</option>
-                                            <option value="EL">Greek</option>
-                                            <option value="GU">Gujarati</option>
-                                            <option value="HE">Hebrew</option>
-                                            <option value="HI">Hindi</option>
-                                            <option value="HU">Hungarian</option>
-                                            <option value="IS">Icelandic</option>
-                                            <option value="ID">Indonesian</option>
-                                            <option value="GA">Irish</option>
-                                            <option value="IT">Italian</option>
-                                            <option value="JA">Japanese</option>
-                                            <option value="JW">Javanese</option>
-                                            <option value="KO">Korean</option>
-                                            <option value="LA">Latin</option>
-                                            <option value="LV">Latvian</option>
-                                            <option value="LT">Lithuanian</option>
-                                            <option value="MK">Macedonian</option>
-                                            <option value="MS">Malay</option>
-                                            <option value="ML">Malayalam</option>
-                                            <option value="MT">Maltese</option>
-                                            <option value="MI">Maori</option>
-                                            <option value="MR">Marathi</option>
-                                            <option value="MN">Mongolian</option>
-                                            <option value="NE">Nepali</option>
-                                            <option value="NO">Norwegian</option>
-                                            <option value="FA">Persian</option>
-                                            <option value="PL">Polish</option>
-                                            <option value="PT">Portuguese</option>
-                                            <option value="PA">Punjabi</option>
-                                            <option value="QU">Quechua</option>
-                                            <option value="RO">Romanian</option>
-                                            <option value="RU">Russian</option>
-                                            <option value="SM">Samoan</option>
-                                            <option value="SR">Serbian</option>
-                                            <option value="SK">Slovak</option>
-                                            <option value="SL">Slovenian</option>
-                                            <option value="ES">Spanish</option>
-                                            <option value="SW">Swahili</option>
-                                            <option value="SV">Swedish </option>
-                                            <option value="TA">Tamil</option>
-                                            <option value="TT">Tatar</option>
-                                            <option value="TE">Telugu</option>
-                                            <option value="TH">Thai</option>
-                                            <option value="BO">Tibetan</option>
-                                            <option value="TO">Tonga</option>
-                                            <option value="TR">Turkish</option>
-                                            <option value="UK">Ukrainian</option>
-                                            <option value="UR">Urdu</option>
-                                            <option value="UZ">Uzbek</option>
-                                            <option value="VI">Vietnamese</option>
-                                            <option value="CY">Welsh</option>
-                                            <option value="XH">Xhosa</option>
-                                        </Select>
-                                        {!newErrors?.language?.status ? <FormHelperText fontSize='9pt'>Language of your website's content</FormHelperText> : <FormErrorMessage fontSize='9pt'>{newErrors?.language?.message}</FormErrorMessage>}
-                                    </FormControl>
-                                </Wrap>
-                                <Wrap w='full'>
-                                    <FormControl isInvalid={newErrors?.favicon?.status} flex='1'>
-                                        <Input placeholder='Favicon Image Link' value={newMetaFavicon} onChange={(e) => setNewMetaFavicon(e.target.value)} />
-                                        {!newErrors?.favicon?.status ? <FormHelperText fontSize='9pt'>External link of Icon in your browser's tab</FormHelperText> : <FormErrorMessage fontSize='9pt'>{newErrors?.favicon?.message}</FormErrorMessage>}
-                                    </FormControl>
-                                    <FormControl isInvalid={newErrors?.image?.status} flex='1'>
-                                        <Input placeholder='Unrevealed Image Link' value={newComponentImage} onChange={(e) => setNewComponentImage(e.target.value)} />
-                                        {!newErrors?.image?.status ? <FormHelperText fontSize='9pt'>External link of logo of your nft collection</FormHelperText> : <FormErrorMessage fontSize='9pt'>{newErrors?.image?.message}</FormErrorMessage>}
-                                    </FormControl>
-                                </Wrap>
-                                <FormControl isInvalid={newErrors?.description?.status}>
-                                    <Textarea placeholder='Description*' value={newComponentDescription} onChange={(e) => setNewComponentDescription(e.target.value)} rows='5' />
-                                    {!newErrors?.description?.status ? <FormHelperText fontSize='9pt'>Short description of your mint website</FormHelperText> : <FormErrorMessage fontSize='9pt'>{newErrors?.description?.message}</FormErrorMessage>}
-                                </FormControl>
-                            </VStack>
-                        </Flex>
-                    )}
-                    {createWebsiteStep === 'settings' && (
-                        <Flex flexDir='column' alignItems='flex-start' w='full'>
-                            <HStack w='full'>
-                                <Text fontSize='10pt' >
-                                    Miscellaneous
-                                </Text>
-                                <Divider flex='1' />
-                            </HStack>
-                            <Wrap w='full' mt='1em'>
-                                <FormControl isInvalid={newErrors?.script?.status} flex='1'>
-                                    <Textarea placeholder='Script or Style' value={newComponentScript} onChange={(e) => setNewComponentScript(e.target.value)} rows='8' />
-                                    {!newErrors?.script?.status ? <FormHelperText fontSize='9pt'>Script or Style code of a third-party website</FormHelperText> : <FormErrorMessage fontSize='9pt'>{newErrors?.script?.message}</FormErrorMessage>}
-                                </FormControl>
-                                <FormControl isInvalid={newErrors?.embed?.status} flex='1'>
-                                    <Textarea placeholder='Embed*' value={newComponentEmbed} onChange={(e) => setNewComponentEmbed(e.target.value)} rows='8' />
-                                    {!newErrors?.embed?.status ? <FormHelperText fontSize='9pt'>Embed code of a third-party website</FormHelperText> : <FormErrorMessage fontSize='9pt'>{newErrors?.embed?.message}</FormErrorMessage>}
-                                </FormControl>
-                            </Wrap>
-                            <Wrap w='full' mt='2em'>
-                                <FormControl isInvalid={newErrors?.robot?.status} flex='1'>
-                                    <Text mb='1em' fontSize='10pt' fontWeight='bold'>
-                                        SEO Robot
-                                    </Text>
-                                    <RadioGroup onChange={setNewMetaRobot} value={newMetaRobot}>
-                                        <VStack alignItems='flex-start' >
-                                            <Radio value='if'><Text fontSize='10pt'>index, follow</Text></Radio>
-                                            <Radio value='nf'><Text fontSize='10pt'>noindex, follow</Text></Radio>
-                                            <Radio value='in'><Text fontSize='10pt'>index, nofollow</Text></Radio>
-                                            <Radio value='nn'><Text fontSize='10pt'>noindex, nofollow</Text></Radio>
-                                        </VStack>
-                                    </RadioGroup>
-                                    {!newErrors?.robot?.status ? <FormHelperText fontSize='9pt'>Tells search engines what to follow and what not to follow</FormHelperText> : <FormErrorMessage fontSize='9pt'>{newErrors?.robot?.message}</FormErrorMessage>}
-                                </FormControl>
-                                <Flex justifyContent='flex-end' flex='1'>
-                                    <VStack alignItems='flex-start'>
-                                        <Text mb='1em' fontSize='10pt' fontWeight='bold'>
-                                            Subscription
-                                        </Text>
-                                        <RadioGroup onChange={setNewSubscription} value={newSubcription}>
-                                            <VStack alignItems='flex-start'>
-                                                <Radio value='free'>
-                                                    <Text fontSize='10pt'>Free</Text>
-                                                </Radio>
-                                                <VStack p='.5em' borderStyle='dashed' borderWidth='3px' borderRadius='10px' alignItems='flex-start' pr='1em'>
-                                                    <Radio value='premium'>
-                                                        <HStack>
-                                                            <GiCutDiamond color='rgb(52,140,212)' />
-                                                            <Text color='rgb(52,140,212)' fontSize='10pt' fontWeight='bold' boxShadow='md'>
-                                                                Premium
-                                                            </Text>
-                                                        </HStack>
-                                                    </Radio>
-                                                    <Flex flexDir='column' fontSize='9pt' pl='2em'>
-                                                        <Text>- Templates &#38; Addons</Text>
-                                                        <Text>- No Watermark</Text>
-                                                        <Text>- More...</Text>
-                                                    </Flex>
-                                                </VStack>
-                                            </VStack>
-                                        </RadioGroup>
-                                    </VStack>
-                                </Flex>
-                            </Wrap>
-                        </Flex>
-                    )}
+                <ModalBody display='flex' flexDir='column' maxH='530px'>
+                    <HStack alignItems='center' w='full'>
+                        <Text fontSize='10pt'>
+                            Website Information
+                        </Text>
+                        <Divider flex='1' />
+                    </HStack>
+                    <HStack mt='1em'>
+                        <DynamicInput 
+                            id='title'
+                            name='title'
+                            type='text'
+                            placeholder='Title'
+                            value={title}
+                            onChange={setTitle}
+                            helperText="Display title of your minting website"
+                            isInvalid={creationInputState?.title?.status}
+                            errorText={creationInputState?.title?.message}
+                            flex='1'
+                        />
+                        <DynamicInput 
+                            id='language'
+                            name='language'
+                            type='language'
+                            placeholder='Language'
+                            value={language}
+                            onChange={setLanguage}
+                            helperText="Website's content language"
+                        />
+                    </HStack>
+                    <DynamicInput 
+                        id='description'
+                        name='description'
+                        type='textarea'
+                        placeholder='Description'
+                        value={description}
+                        onChange={setDescription}
+                        helperText="Short description of your minting website"
+                        isInvalid={creationInputState?.description?.status}
+                        errorText={creationInputState?.description?.message}
+                        rows={5}
+                        mt='1em'
+                    />
+                    <HStack alignItems='center' w='full' mt='2em'>
+                        <Text fontSize='10pt'>
+                            Media
+                        </Text>
+                        <Divider flex='1' />
+                    </HStack>
+                    <HStack mt='1em'>
+                        <DynamicInput 
+                            id='favicon'
+                            name='favicon'
+                            type='text'
+                            placeholder='Favicon URL'
+                            value={favicon}
+                            onChange={setFavicon}
+                            helperText="External link of Icon in your browser's tab"
+                            isInvalid={creationInputState?.favicon?.status}
+                            errorText={creationInputState?.favicon?.message}
+                            flex='1'
+                        />
+                        <DynamicInput 
+                            id='logo'
+                            name='logo'
+                            type='text'
+                            placeholder='Logo URL'
+                            value={logo}
+                            onChange={setLogo}
+                            helperText="External link of logo of your minting website"
+                            isInvalid={creationInputState?.logo?.status}
+                            errorText={creationInputState?.logo?.message}
+                            flex='1'
+                        />
+                    </HStack>
+                    <HStack alignItems='center' w='full' mt='2em'>
+                        <Text fontSize='10pt'>
+                            Code
+                        </Text>
+                        <Divider flex='1' />
+                    </HStack>
+                    <HStack mt='1em'>
+                        <DynamicInput 
+                            id='script'
+                            name='script'
+                            type='textarea'
+                            placeholder='Style or Script code'
+                            value={script}
+                            onChange={setScript}
+                            helperText="Script or Style code of a third-party website"
+                            isInvalid={creationInputState?.script?.status}
+                            errorText={creationInputState?.script?.message}
+                            rows={5}
+                            flex='1'
+                        />
+                        <DynamicInput 
+                            id='embed'
+                            name='embed'
+                            type='textarea'
+                            placeholder='Embed code'
+                            value={embed}
+                            onChange={setEmbed}
+                            helperText="Embed code of a third-party website"
+                            isInvalid={creationInputState?.embed?.status}
+                            errorText={creationInputState?.embed?.message}
+                            rows={5}
+                            flex='1'
+                        />
+                    </HStack>
+                    <HStack alignItems='center' w='full' mt='2em'>
+                        <Text fontSize='10pt'>
+                            SEO
+                        </Text>
+                        <Divider flex='1' />
+                    </HStack>
+                    <DynamicInput 
+                        id='robot'
+                        name='robot'
+                        type='select'
+                        placeholder='SEO Robot Configuration'
+                        value={robot}
+                        onChange={setRobot}
+                        helperText="Tells search engines what to follow and what not to follow"
+                        selectData={[
+                            { value: 'if', text: 'index, follow' },
+                            { value: 'nf', text: 'noindex, follow' },
+                            { value: 'in', text: 'index, nofollow' },
+                            { value: 'nn', text: 'noindex, nofollow' }
+                        ]}
+                        mt='1em'
+                    />
+                    <HStack alignItems='center' w='full' mt='2em'>
+                        <Text fontSize='10pt'>
+                            Misc
+                        </Text>
+                        <Divider flex='1' />
+                    </HStack>
+                    <DynamicInput 
+                        id='subdomain'
+                        name='subdomain'
+                        type='text'
+                        placeholder='Subdomain'
+                        value={route}
+                        onChange={setRoute}
+                        helperText="Subdomain of your website"
+                        isInvalid={creationInputState?.route?.status}
+                        errorText={creationInputState?.route?.message}
+                        mt='1em'
+                        maxW='380px'
+                        addonRight
+                        addonRightText={`.${config?.frontendUrl}`}
+                        textTransform='lowercase'
+                    />
+                    <Flex mt='2em' alignItems='center' flexDir='column'>
+                        <Text fontSize='10pt' mb='.5em'>
+                            Verify that you are a human
+                        </Text>
+                        <ReCAPTCHA 
+                            ref={recaptchaRef} 
+                            sitekey={config?.recaptcha?.siteKey}
+                            onExpired={() => {
+                                toast({ description: 'ReCaptcha has expired' });
+                            }}
+                            onErrored={() => {
+                                toast({ description: 'ReCaptcha network issue' });
+                            }}
+                        />
+                    </Flex>
                 </ModalBody>
                 <ModalFooter>
-                    {createWebsiteStep === 'information' && (
-                        <Button size='sm' rightIcon={<AiOutlineArrowRight />} onClick={() => setCreateWebsiteStep('settings')}>
-                            Next
+                    <HStack>
+                        <Button size='sm' onClick={onClose}>
+                            Cancel
                         </Button>
-                    )}
-                    {createWebsiteStep === 'settings' && (
-                        <HStack w='full' justifyContent='space-between'>
-                            <Button size='sm' leftIcon={<AiOutlineArrowLeft />} onClick={() => setCreateWebsiteStep('information')}>
-                                Previous
-                            </Button>
-                            <HStack>
-                                <Box>
-                                    <ReCAPTCHA 
-                                        ref={recaptchaRef} 
-                                        sitekey={config?.recaptcha?.siteKey}
-                                        onExpired={() => {
-                                            toast({
-                                                title: 'Error',
-                                                description: 'ReCaptcha has expired',
-                                                status: 'error',
-                                                duration: 3000,
-                                                isClosable: true,
-                                                position: 'bottom-center'
-                                            })
-                                        }}
-                                        onErrored={() => {
-                                            toast({
-                                                title: 'Error',
-                                                description: 'ReCaptcha Network Issue',
-                                                status: 'error',
-                                                duration: 3000,
-                                                isClosable: true,
-                                                position: 'bottom-center'
-                                            })
-                                        }}
-                                        style={{
-                                            transform: 'scale(0.77)',
-                                            transforOrigin: '0 0'
-                                        }}
-                                    />
-                                </Box>
-                                <Button 
-                                    rightIcon={<MdOutlineAdd />} 
-                                    onClick={OnCreateWebsite} 
-                                    disabled={isCreating} 
-                                    variant='primary'
-                                    size='sm'
-                                >
-                                    Create
-                                </Button>
-                            </HStack>    
-                        </HStack>
-                    )}
+                        <Button 
+                            variant='primary' 
+                            onClick={() => {
+                                createWebsite({
+                                    route,
+                                    title,
+                                    description,
+                                    logo,
+                                    script,
+                                    embed,
+                                    favicon,
+                                    robot,
+                                    language,
+                                    onClose: onClose
+                                })
+                            }}
+                            disabled={isCreatingWebsite}
+                            isLoading={isCreatingWebsite}
+                            loadingText='Creating'
+                        >
+                            Create
+                        </Button>
+                    </HStack>
                 </ModalFooter>
             </ModalContent>
         </Modal>

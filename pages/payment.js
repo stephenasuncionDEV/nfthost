@@ -1,11 +1,12 @@
 import NextLink from 'next/link'
 import { Box, HStack, Text, Flex, Button, VStack, Link, 
-    useColorModeValue, Input, Divider, Image, Wrap, useColorMode
+    useColorModeValue, Input, Image, Wrap, useColorMode,
+    Heading
 } from '@chakra-ui/react'
 import { useReAuthenticate } from '@/hooks/useReAuthenticate'
 import { useCore } from '@/providers/CoreProvider'
 import { useUser } from '@/providers/UserProvider'
-import { usePayment } from '@/hooks/usePayment'
+import { usePaymentControls } from '@/hooks/usePaymentControls'
 import Meta from '@/components/Meta'
 import CardInput from '@/components/CardInput'
 import KeepWorkingModal from '@/components/KeepWorkingModal'
@@ -15,10 +16,9 @@ import { loadStripe } from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
 import config from '@/config/index'
 import { getCurrencyFromWallet, getPriceFromService } from '@/utils/tools'
-import { webColor } from '@/theme/index'
 
 const month = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
-const stripePromise = loadStripe(config.stripe.publicKey);
+// const stripePromise = loadStripe(config.stripe.publicKey);
 
 const Payment = () => {
     const { 
@@ -40,11 +40,13 @@ const Payment = () => {
         isPaying
     } = useCore();
     const { address, wallet } = useUser();
-    const { PayWithCrypto } = usePayment();
+    const { payWithCrypto } = usePaymentControls();
     const { colorMode } = useColorMode();
+    useReAuthenticate(true);
+
+    const usdPrice  = getPriceFromService(paymentData?.service?.toLowerCase() || 'generator');
     const cryptoCurrency = getCurrencyFromWallet(wallet || 'metamask');
     const cryptoPrice = getPriceFromService(paymentData?.service?.toLowerCase() || 'generator', cryptoCurrency || 'eth');
-    useReAuthenticate(true);
 
     const containerColor = useColorModeValue('whiteAlpha.500', 'blackAlpha.500');
     const buttonDefaultColor = useColorModeValue('gray.100', 'whiteAlpha.200');
@@ -72,9 +74,9 @@ const Payment = () => {
                             <Flex justifyContent='space-between'>
                                 <Flex flexDir='column'>
                                     <Flex alignItems='flex-end'>
-                                        <Text variant='content_title'>
-                                            ${paymentData?.price?.toFixed(2)}
-                                        </Text>
+                                        <Heading as='h2'>
+                                            ${usdPrice?.toFixed(2)}
+                                        </Heading>
                                         <Text fontSize='8pt' ml='.5em'>
                                             USD
                                         </Text>
@@ -111,14 +113,14 @@ const Payment = () => {
                                     borderColor={paymentMethodStep === 'cryptowallet' ? 'rgb(52,140,212)' : buttonDefaultColor}
                                     borderBottomWidth='3px'
                                 >
-                                    <Flex flexDir='column' w='full'>
+                                    <Flex flexDir='column' w='full' gap='.5em'>
                                         <FaEthereum />
                                         <Text fontSize='10pt' textAlign='start'>
                                             Crypto Wallet
                                         </Text>
                                     </Flex>
                                 </Button>
-                                <Button 
+                                {/* <Button 
                                     h='60px' 
                                     minW='120px' 
                                     justifyContent='flex-start' 
@@ -126,41 +128,41 @@ const Payment = () => {
                                     borderColor={paymentMethodStep === 'bankcard' ? 'rgb(52,140,212)' : buttonDefaultColor}
                                     borderBottomWidth='3px'
                                 >
-                                    <Flex flexDir='column' w='full'>
+                                    <Flex flexDir='column' w='full' gap='.5em'>
                                         <FaWallet />
                                         <Text fontSize='10pt' textAlign='start'>
                                             Bank Card
                                         </Text>
                                     </Flex>
-                                </Button>
+                                </Button> */}
                             </Wrap>
                             <Box mt='1em'>
                                 {(paymentMethodStep === 'cryptowallet') && (
                                     <Button 
                                         w='full' 
                                         variant='primary' 
-                                        onClick={PayWithCrypto} 
+                                        onClick={payWithCrypto} 
                                         isLoading={isPaying} 
-                                        loadingText='Paying' 
+                                        loadingText='Paying'
                                     >
                                         Pay&nbsp;
                                         {cryptoPrice}&nbsp;
                                         {cryptoCurrency?.toUpperCase()}
                                     </Button>
                                 )}
-                                {paymentMethodStep === 'bankcard' && (
+                                {/* {paymentMethodStep === 'bankcard' && (
                                     <VStack spacing='1em'>
                                         <VStack alignItems='flex-start' w='full'>
                                             <Text fontSize='10pt' mb='.25em'>
                                                 Customer Information
                                             </Text>
-                                            <Input placeholder='name' name='name' id='name' value={paymentName} onChange={(e) => setPaymentName(e.target.value)} />
-                                            <Input type='email' placeholder='email' name='email' id='email' value={paymentEmail} onChange={(e) => setPaymentEmail(e.target.value)}/>
-                                            <Input placeholder='address' name='address' id='address' value={paymentAddress} onChange={(e) => setPaymentAddress(e.target.value)}/>
+                                            <Input placeholder='Name' name='name' id='name' value={paymentName} onChange={(e) => setPaymentName(e.target.value)} />
+                                            <Input placeholder='Email' type='email' name='email' id='email' value={paymentEmail} onChange={(e) => setPaymentEmail(e.target.value)}/>
+                                            <Input placeholder='Billing Address' name='address' id='address' value={paymentAddress} onChange={(e) => setPaymentAddress(e.target.value)}/>
                                             <HStack>
-                                                <Input placeholder='city' name='city' id='city' value={paymentCity} onChange={(e) => setPaymentCity(e.target.value)}/>
-                                                <Input placeholder='state' name='state' id='state' value={paymentState} onChange={(e) => setPaymentState(e.target.value)}/>
-                                                <Input placeholder='zip/postal code' name='zip' id='zip' value={paymentZip} onChange={(e) => setPaymentZip(e.target.value)}/>
+                                                <Input placeholder='City' name='city' id='city' value={paymentCity} onChange={(e) => setPaymentCity(e.target.value)}/>
+                                                <Input placeholder='State' name='state' id='state' value={paymentState} onChange={(e) => setPaymentState(e.target.value)}/>
+                                                <Input placeholder='Zip/Postal code' name='zip' id='zip' value={paymentZip} onChange={(e) => setPaymentZip(e.target.value)}/>
                                             </HStack>
                                         </VStack>
                                         <VStack alignItems='flex-start' w='full'>
@@ -172,7 +174,7 @@ const Payment = () => {
                                             </Elements>
                                         </VStack>
                                     </VStack>
-                                )}
+                                )} */}
                             </Box>
                         </Flex>
                         <HStack justifyContent='center' mt='2em' spacing='1em' opacity='.3'>

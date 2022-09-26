@@ -1,21 +1,26 @@
-import { useRouter } from 'next/router'
-import { useCore } from '@/providers/CoreProvider'
 import { useUser } from '@/providers/UserProvider'
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { useToast } from '@chakra-ui/react'
-import { useWeb3 } from '../../useWeb3'
+import { useMemberControls } from '@/hooks/useMemberControls'
+import { usePaymentControls } from '@/hooks/usePaymentControls'
 import posthog from 'posthog-js'
 import MD5 from 'crypto-js/md5'
 import JSZip from 'jszip'
 import { saveAs } from 'file-saver'
-import { shuffleArray, getPriceFromService } from '@/utils/tools'
+import { shuffleArray } from '@/utils/tools'
+import errorHandler from '@/utils/errorHandler'
 
 const zip = new JSZip();
 
 export const useGenerate = () => {
-    const toast = useToast();
-    const router = useRouter();
-    const { setPaymentData } = useCore();
+    const toast = useToast({
+        title: 'Error',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+        position: 'bottom'
+    });
+    const { pay } = usePaymentControls();
     const {
         name,
         description,
@@ -50,7 +55,7 @@ export const useGenerate = () => {
         storageURL
     } = useGenerator();
     const { address } = useUser();
-    const { getUserByAddress, AddCount, DeductFree } = useWeb3();
+    const { getUserByAddress, deductUnit } = useMemberControls();
 
     const RandomPreview = (silent = false) => {
         try {
@@ -69,14 +74,8 @@ export const useGenerate = () => {
             setPreviewLayers(retPreviewLayers);
         }
         catch (err) {
-            toast({
-                title: 'Error',
-                description: err.message,
-                status: 'error',
-                duration: 3000,
-                isClosable: true,
-                position: 'bottom-center'
-            })
+            const msg = errorHandler(err);
+            toast({ description: msg });
         }
     }
 
@@ -252,12 +251,11 @@ export const useGenerate = () => {
 
             const user = await getUserByAddress(address);
 
-            const freeGeneration = user.services.generator.freeGeneration;
+            const generationUnits = user.services.generator.units;
 
-            if (collectionSize > 100 && freeGeneration <= 0) {
-                setPaymentData({
+            if (collectionSize > 100 && generationUnits <= 0) {
+                pay({
                     service: 'Generator',
-                    price: getPriceFromService('generator'),
                     product: `1 NFT collection generation (${collectionSize}x unique images)`,
                     redirect: {
                         origin: '/dashboard/generator',
@@ -265,20 +263,12 @@ export const useGenerate = () => {
                     },
                     data: {
                         size: parseInt(collectionSize)
-                    },
-                    due: new Date()
+                    }
                 })
-                router.push('/payment', undefined, { shallow: true }); 
                 return;
             }
-            else if(collectionSize > 100 && freeGeneration > 0) {
-                const DECREMENT_VALUE = 1;
-                await DeductFree(DECREMENT_VALUE, 'generator');
-            }
-            
-            if (collectionSize > 100) {
-                const INCREMENT_VALUE = 1;
-                await AddCount(INCREMENT_VALUE, 'generator');
+            else if(collectionSize > 100 && generationUnits > 0) {
+                await deductUnit('generator');
             }
 
             setIsGenerateModal(true);
@@ -315,6 +305,7 @@ export const useGenerate = () => {
                     curMetadata.push(nftJson);
                     setCurMetadata(JSON.stringify(nftJson, null, 2));
 
+                    // Todo: check performance even under 1000
                     //if (!window.performance.memory) {
                         if (collectionSize >= 1000 && (curRenderIndex == collectionSize || curRenderIndex % 1000 == 0)) {
                             setIsAutoSave(true);
@@ -351,14 +342,8 @@ export const useGenerate = () => {
             }
         }
         catch (err) {
-            toast({
-                title: 'Error',
-                description: err.message,
-                status: 'error',
-                duration: 3000,
-                isClosable: true,
-                position: 'bottom-center'
-            })
+            const msg = errorHandler(err);
+            toast({ description: msg });
         }
     }
 
@@ -432,14 +417,8 @@ export const useGenerate = () => {
             posthog.capture('User downloaded collection');
 		}
 		catch (err) {
-			console.error(err);
-            toast({
-                title: 'Error',
-                description: err.message,
-                status: 'error',
-                isClosable: true,
-                position: 'bottom-center'
-            })
+			const msg = errorHandler(err);
+            toast({ description: msg });
 		}
 	}
 
@@ -513,14 +492,8 @@ export const useGenerate = () => {
             posthog.capture('User downloaded metadata');
 		}
 		catch (err) {
-			console.error(err);
-            toast({
-                title: 'Error',
-                description: err.message,
-                status: 'error',
-                isClosable: true,
-                position: 'bottom-center'
-            })
+			const msg = errorHandler(err);
+            toast({ description: msg });
 		}
     }
 

@@ -1,8 +1,15 @@
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { useToast } from '@chakra-ui/react'
+import errorHandler from '@/utils/errorHandler'
 
 export const useRarity = () => {
-    const toast = useToast();
+    const toast = useToast({
+        title: 'Error',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+        position: 'bottom'
+    });
     const { layers, setLayers, currentLayer, setIsRarityModal } = useGenerator();
 
     const OpenRarityModal = () => {
@@ -11,14 +18,8 @@ export const useRarity = () => {
             setIsRarityModal(true);
         }
         catch (err) {
-            toast({
-                title: 'Error',
-                description: err.message,
-                status: 'error',
-                duration: 3000,
-                isClosable: true,
-                position: 'bottom-center'
-            })
+            const msg = errorHandler(err);
+            toast({ description: msg });
         }
     }
 

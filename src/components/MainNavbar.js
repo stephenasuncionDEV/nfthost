@@ -1,5 +1,5 @@
 import NextLink from 'next/link'
-import { Box, Text, HStack, Avatar, Button, IconButton, 
+import { Box, HStack, Button, IconButton, 
     useColorMode, MenuButton, MenuList, Menu, MenuItem, 
     MenuDivider, useColorModeValue, Image
 } from '@chakra-ui/react'
@@ -53,7 +53,7 @@ const Navbar = ({ isSocial, isLanding, isColorMode, isWallet, isLandingPage }) =
                             )}
                             {isSocial && (
                                 <HStack>
-                                    <IconButton 
+                                    {/* <IconButton 
                                         aria-label='NFT Host Twitter'
                                         icon={<FaTwitter />}
                                         borderRadius='50%'
@@ -61,7 +61,7 @@ const Navbar = ({ isSocial, isLanding, isColorMode, isWallet, isLandingPage }) =
                                         bg='transparent'
                                         _hover={{ bg: 'transparent', color: navbarButton }}
                                         onClick={Twitter}
-                                    />
+                                    /> */}
                                     <IconButton 
                                         aria-label='NFT Host Discord'
                                         icon={<FaDiscord />}
@@ -84,7 +84,7 @@ const Navbar = ({ isSocial, isLanding, isColorMode, isWallet, isLandingPage }) =
                             )}
                             {isLanding && (
                                 <NextLink href='/' shallow passHref>
-                                    <Button rightIcon={<AiOutlineArrowLeft />} _hover={{ bg: 'transparent', color: navbarButton }}>
+                                    <Button leftIcon={<AiOutlineArrowLeft />} _hover={{ bg: 'transparent', color: navbarButton }}>
                                         Landing Page
                                     </Button>
                                 </NextLink>

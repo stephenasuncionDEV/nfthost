@@ -7,7 +7,7 @@ import CookieModal from '@/components/CookieModal'
 import Announcement from '@/components/Announcement'
 import { AiOutlineArrowRight } from 'react-icons/ai'
 import { useMediaQuery } from 'react-responsive'
-import { PartnersArr } from '@/utils/json'
+import { partnersArr } from '@/utils/json'
 import style from '@/styles/Main.module.scss'
 import posthog from 'posthog-js'
 
@@ -43,7 +43,12 @@ const Main = () => {
                     <SlideFade in={true} offsetY='20px' delay={.45}>
                         <Flex gap={!isTouchingLogo ? '2em' : '0'}>
                             <Flex flexDir='column' alignItems='center' justifyContent='center' h='600px' flex='1'>
-                                <Text variant='header_1' fontSize={isSmallerFont ? '32pt' : '52pt'} textAlign='center'>
+                                <Text 
+                                    lineHeight='48pt'
+                                    fontWeight='bold'
+                                    fontSize={isSmallerFont ? '32pt' : '52pt'} 
+                                    textAlign='center'
+                                >
                                     Generate and Host your
                                 </Text>
                                 <Text className={style.gradientBlue} fontSize={isSmallerFont ? '22pt' : '42pt'} fontWeight='bold'>
@@ -71,7 +76,7 @@ const Main = () => {
                                 SUPPORTED BY
                             </Text>
                             <Wrap spacing='4em' my='1em'>
-                                {PartnersArr?.map((partner, idx) => (
+                                {partnersArr?.map((partner, idx) => (
                                     <Link href={partner.link} isExternal key={idx}>
                                         <Button 
                                             variant='unstyled' 

@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
 
 html,
 body {
@@ -17,4 +18,12 @@ a {
 
 * {
     box-sizing: border-box;
+}
+
+.scaleAnimation {
+    transition: all .2s ease-in;
+}
+  
+.scaleAnimation:hover {
+    transform: scale(1.05);
 }

@@ -18,13 +18,12 @@ const Layers = () => {
     
     return (
         <VStack 
-            id='layers'
             spacing='1.5em'
             p='1em' 
             bg={containerColor}
             borderRadius='.25em'
-            boxShadow='0 0 2px 0 rgb(0 0 0 / 10%)'
             h='100%'
+            border='1px solid rgb(117,63,229)'
         >
             <HStack spacing='2em'>
                 <Text fontWeight='bold' fontSize='10pt'>

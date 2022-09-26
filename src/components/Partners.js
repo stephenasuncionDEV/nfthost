@@ -1,5 +1,5 @@
 import { Text, Flex, Button, VStack, useColorModeValue, Wrap, Image, Link } from '@chakra-ui/react'
-import { PartnersArr } from '@/utils/json'
+import { partnersArr } from '@/utils/json'
 import posthog from 'posthog-js';
 import { webColor } from '@/theme/index'
 
@@ -8,7 +8,7 @@ const Partners = () => {
 
     return (
         <Wrap spacing='2em'>
-            {PartnersArr?.map((partner, idx) => (
+            {partnersArr?.map((partner, idx) => (
                 <Link href={partner.link} isExternal style={{ textDecoration: 'none' }} key={idx}>
                     <Wrap 
                         cursor='pointer'
@@ -17,10 +17,10 @@ const Partners = () => {
                         p='1em' 
                         bg={containerColor}
                         borderRadius='.25em'
-                        boxShadow='0 0 2px 0 rgb(0 0 0 / 10%)'
                         alignItems='flex-start' 
                         key={idx}
                         onClick={() => posthog?.capture('User visited partner', { company: partner.company })}
+                        border='1px solid rgb(117,63,229)'
                     >
                         <VStack>
                             <Image src={partner.image} alt='Flair Logo' width='40px' />

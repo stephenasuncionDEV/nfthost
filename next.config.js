@@ -1,5 +1,5 @@
 module.exports = {
-    reactStrictMode: true,
+    reactStrictMode: false,
     env: {
         CHAIN_ID: process.env.CHAIN_ID,
         ENCRYPT_KEY: process.env.ENCRYPT_KEY,
