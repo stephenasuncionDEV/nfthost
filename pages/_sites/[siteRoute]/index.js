@@ -125,17 +125,15 @@ const UserWebsite = (props) => {
 }
 
 export const getStaticPaths = async () => {
-
-    const sites = await axios.get(`${config.serverUrl}/api/website/getWebsitesWithSubdomain`);
-
-    const paths = sites.data.map((item) => {
-        return { params: { siteRoute: item.route } }
-    })
+    const mappedSubdomains = await axios.get(`${config.serverUrl}/api/website/getWebsitesWithSubdomain`, {
+        headers: {
+            Authorization: `bearer ${process.env.CREATE_WEBSITE_TOKEN}`
+        }
+    });
 
     return {
-        paths,
-        // paths: [{ params: { siteRoute: 'knft' } }],
-        fallback: true, // fallback true allows sites to be generated using ISR
+        paths: mappedSubdomains.data,
+        fallback: true,
     }
 }
 
@@ -151,7 +149,7 @@ export const getStaticProps = async ({ params: { siteRoute } }) => {
 
     return {
         props: site.data,
-        revalidate: 3600, // set revalidate interval of 1 hour
+        revalidate: 3600
     }
   }
 
