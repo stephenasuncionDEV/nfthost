@@ -10,16 +10,10 @@ module.exports = {
     async rewrites() {
         return {
             beforeFiles: [
-                {
-                    source: '/',
-                    has: [
-                        {
-                            type: 'host',
-                            value: '.*\\..*\\..*',
-                        },
-                    ],
-                    destination: 'https://www.nfthost.app/',
-                }
+                { 
+                    "source": "/(.*).nfthost.app", 
+                    "destination": "nfthost.app/$1" 
+                } 
             ]
         }
     }
