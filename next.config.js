@@ -10,18 +10,30 @@ module.exports = {
     rewrites() {
         return {
             beforeFiles: [
+                // {
+                //     source: '/:path*',
+                //     has: [
+                //         {
+                //             type: 'host',
+                //             value: '.*\\..*\\..*'
+                //         },
+                //     ],
+                //     destination: 'https://nfthost.app/'
+                // }
                 {
                     source: '/:subdomain*.nfthost.app',
 			        destination: 'https://nfthost.app/:subdomain*',
-                    // source: '/:path*',
-                    // has: [
-                    //     {
-                    //         type: 'host',
-                    //         value: '(?<subdomain>.*).nfthost.app',
-                    //     },
-                    // ],
-                    // destination: '/:subdomain/:path*',
                 },
+                // {
+                //     source: '/:path*',
+                //     has: [
+                //         {
+                //             type: 'host',
+                //             value: '(?<subdomain>.*).nfthost.app',
+                //         },
+                //     ],
+                //     destination: '/:subdomain/:path*',
+                // }
             ]
         }
     }
