@@ -19,20 +19,18 @@ import posthog from 'posthog-js'
 import parse from 'html-react-parser'
 import config from '@/config/index'
 import axios from 'axios'
-import { getAccessToken } from '@/utils/tools'
 
 const UserWebsite = (props) => {
     const router = useRouter();
-    const { userWebsite } = useWebsite();
+    const { userWebsite, setUserWebsite } = useWebsite();
     const { 
-        getWebsiteByRoute, 
         userWebsiteErrors,
         checkSubscription
     } = useWebsiteControls();
 
     useEffect(() => {
         const siteRoute = window?.location?.host?.slice(0, window?.location?.host?.indexOf('.'));
-        if (siteRoute) getWebsiteByRoute(siteRoute);
+        if (siteRoute) setUserWebsite(props);
     }, [])
 
     useEffect(() => {
@@ -71,13 +69,13 @@ const UserWebsite = (props) => {
                         <meta name="language" content={userWebsite?.meta?.language} />
 
                         <meta property="og:type" content='website' />
-                        <meta property="og:url" content={`https://${siteRoute}.${config.frontendUrl}`} />
+                        <meta property="og:url" content={`https://${userWebsite?.route}.${config.frontendUrl}`} />
                         <meta property="og:title" content='NFT Host' />
                         <meta property="og:description" content={userWebsite?.components?.description} />
                         <meta property="og:image" content={userWebsite?.components?.unrevealedImage} />
 
                         <meta property="twitter:card" content="summary_large_image" />
-                        <meta property="twitter:url" content={`https://${siteRoute}.${config.frontendUrl}`} />
+                        <meta property="twitter:url" content={`https://${userWebsite?.route}.${config.frontendUrl}`} />
                         <meta property="twitter:title" content={userWebsite?.components?.title} />
                         <meta property="twitter:description" content={userWebsite?.components?.description} />
                         <meta property="twitter:image" content={userWebsite?.components?.unrevealedImage} />
