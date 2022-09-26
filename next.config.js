@@ -7,20 +7,20 @@ module.exports = {
         CREATE_WEBSITE_TOKEN: process.env.CREATE_WEBSITE_TOKEN,
         INFURA_ID: process.env.INFURA_ID
     },
-    // async rewrites() {
-    //     return {
-    //         beforeFiles: [
-    //             {
-    //                 source: '/:path*',
-    //                 has: [
-    //                     {
-    //                         type: 'host',
-    //                         value: '(?<subdomain>.*).nfthost.app',
-    //                     },
-    //                 ],
-    //                 destination: '/:subdomain/:path*',
-    //             }
-    //         ]
-    //     }
-    // }
+    async rewrites() {
+        return {
+            beforeFiles: [
+                {
+                    source: '/:path*',
+                    has: [
+                        {
+                            type: 'host',
+                            value: '(?subdomain.*).nfthost.app',
+                        },
+                    ],
+                    destination: '/:subdomain',
+                }
+            ]
+        }
+    }
 }
