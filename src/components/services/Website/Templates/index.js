@@ -37,7 +37,7 @@ const Templates = () => {
                                 p='1em'
                                 borderRadius='.25em'
                                 bg={containerColor}
-                                border={`1px solid ${template.sub === 'free' ? 'rgb(117,63,229)' : 'rgb(247,185,40)'}`}
+                                border={`1px solid ${template.sub === 'free' ? 'rgb(117,63,229)' : 'orange'}`}
                                 key={idx}
                             >
                                 <Flex
@@ -60,7 +60,7 @@ const Templates = () => {
                                         />
                                     </Link>
                                     <Tag position='absolute' top='2' right='2' size='sm'>
-                                        {template.sub === 'premium' && <TagLeftIcon as={GiCutDiamond} color='#08BDD4' />}
+                                        {template.sub === 'premium' && <TagLeftIcon as={GiCutDiamond} color='orange' />}
                                         <Text>
                                             {template.sub === 'premium' ? 'Premium' : 'Free'}
                                         </Text>
@@ -85,6 +85,7 @@ const Templates = () => {
                                         (editingWebsite?.components?.template === template.key)
                                     }
                                     rightIcon={<MdAdd />}
+                                    bg={template?.sub === 'premium' ? 'orange.500' : 'rgb(117, 63, 229)'}
                                 >
                                     Use
                                 </Button>
