@@ -1,5 +1,6 @@
 const test = {
     frontendUrl: 'localhost:3000',
+    clientUrl: 'http://localhost:3000',
 	serverUrl: 'http://localhost:8080',
     stripe: {
         publicKey: 'pk_test_51LlUJgHjrZpuqKHtZxudXKElA6nZSYO2IdYqkdMa0b8BKos4F6KyJCb8ilo4KiiLLNAjbqQAJdaZq9ekqAM4jurq00UQ130FKl'

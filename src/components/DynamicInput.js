@@ -173,7 +173,9 @@ const DynamicInput = (props) => {
                     </Select>
                 )}
                 {!isInvalid ? (
-                    <FormHelperText fontSize='9pt'>{helperText}</FormHelperText>
+                    <>
+                    {helperText?.length > 0 && <FormHelperText fontSize='9pt'>{helperText}</FormHelperText>}
+                    </>
                 ) : (
                     <FormErrorMessage fontSize='9pt'>{errorText}</FormErrorMessage>
                 )}

@@ -13,8 +13,10 @@ import { usePaymentControls } from '@/hooks/usePaymentControls'
 import Template1 from '@/components/services/Website/SiteTemplates/Template1'
 import Template2 from '@/components/services/Website/SiteTemplates/Template2'
 import Template3 from '@/components/services/Website/SiteTemplates/Template3'
+import Template4 from '@/components/services/Website/SiteTemplates/Template4'
+import Template5 from '@/components/services/Website/SiteTemplates/Template5'
 import posthog from 'posthog-js'
-
+import parse from 'html-react-parser'
 import config from '@/config/index'
 
 const UserWebsite = () => {
@@ -71,7 +73,9 @@ const UserWebsite = () => {
                         {{
                             Template1: <Template1 />,
                             Template2: <Template2 />,
-                            Template3: <Template3 />
+                            Template3: <Template3 />,
+                            Template4: <Template4 />,
+                            Template5: <Template5 />
                         }[userWebsite?.components?.template]}
                     </main>
                 </div>

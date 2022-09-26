@@ -203,7 +203,7 @@ export const useWebsiteControls = () => {
 
             setWebsites((prevWebsite) => {
                 return prevWebsite.map(web => {
-                    if (web.id === editingWebsite._id) {
+                    if (web._id === editingWebsite._id) {
                         return {
                             ...web,
                             components: {
@@ -260,7 +260,7 @@ export const useWebsiteControls = () => {
 
             setWebsites((prevWebsite) => {
                 return prevWebsite.map(web => {
-                    if (web.id === editingWebsite._id) {
+                    if (web._id === editingWebsite._id) {
                         return {
                             ...web,
                             components: {
@@ -317,7 +317,7 @@ export const useWebsiteControls = () => {
 
             setWebsites((prevWebsite) => {
                 return prevWebsite.map(web => {
-                    if (web.id === editingWebsite._id) {
+                    if (web._id === editingWebsite._id) {
                         return {
                             ...web,
                             meta: {
@@ -383,7 +383,7 @@ export const useWebsiteControls = () => {
 
             setWebsites((prevWebsite) => {
                 return prevWebsite.map(web => {
-                    if (web.id === editingWebsite._id) {
+                    if (web._id === editingWebsite._id) {
                         return {
                             ...web,
                             components: {
@@ -449,7 +449,7 @@ export const useWebsiteControls = () => {
 
             setWebsites((prevWebsite) => {
                 return prevWebsite.map(web => {
-                    if (web.id === editingWebsite._id) {
+                    if (web._id === editingWebsite._id) {
                         return {
                             ...web,
                             components: {
@@ -506,7 +506,7 @@ export const useWebsiteControls = () => {
 
             setWebsites((prevWebsite) => {
                 return prevWebsite.map(web => {
-                    if (web.id === editingWebsite._id) {
+                    if (web._id === editingWebsite._id) {
                         return {
                             ...web,
                             meta: {
@@ -572,7 +572,7 @@ export const useWebsiteControls = () => {
 
             setWebsites((prevWebsite) => {
                 return prevWebsite.map(web => {
-                    if (web.id === editingWebsite._id) {
+                    if (web._id === editingWebsite._id) {
                         return {
                             ...web,
                             route
@@ -623,7 +623,7 @@ export const useWebsiteControls = () => {
 
             setWebsites((prevWebsite) => {
                 return prevWebsite.map(web => {
-                    if (web.id === editingWebsite._id) {
+                    if (web._id === editingWebsite._id) {
                         return {
                             ...web,
                             isPublished
@@ -714,7 +714,7 @@ export const useWebsiteControls = () => {
 
             setWebsites((prevWebsite) => {
                 return prevWebsite.map(web => {
-                    if (web.id === editingWebsite._id) {
+                    if (web._id === editingWebsite._id) {
                         return {
                             ...web,
                             components: {
@@ -780,7 +780,7 @@ export const useWebsiteControls = () => {
 
             setWebsites((prevWebsite) => {
                 return prevWebsite.map(web => {
-                    if (web.id === editingWebsite._id) {
+                    if (web._id === editingWebsite._id) {
                         return {
                             ...web,
                             meta: {
@@ -846,7 +846,7 @@ export const useWebsiteControls = () => {
 
             setWebsites((prevWebsite) => {
                 return prevWebsite.map(web => {
-                    if (web.id === editingWebsite._id) {
+                    if (web._id === editingWebsite._id) {
                         return {
                             ...web,
                             components: {
@@ -905,7 +905,7 @@ export const useWebsiteControls = () => {
 
             setWebsites((prevWebsite) => {
                 return prevWebsite.map(web => {
-                    if (web.id === editingWebsite._id) {
+                    if (web._id === editingWebsite._id) {
                         return {
                             ...web,
                             revealDate: res.data.revealDate
@@ -1007,7 +1007,7 @@ export const useWebsiteControls = () => {
             const today = new Date();
             let premiumEndDate = new Date(userWebsite.premiumEndDate);
 
-            if (today < premiumEndDate) {
+            if (today > premiumEndDate) {
                 await updateSubscription({
                     memberId: userWebsite.memberId,
                     subscriptionId: userWebsite.subscriptionId,
@@ -1069,6 +1069,70 @@ export const useWebsiteControls = () => {
         }
     }
 
+    const updateExternalLink = async (social, link) => {
+        try {
+            try {
+                setIsUpdatingWebsite(true);
+    
+                const accessToken = getAccessToken();
+    
+                const res = await axios.patch(`${config.serverUrl}/api/website/updateExternalLink`, {
+                    websiteId: editingWebsite._id,
+                    social,
+                    link
+                }, {
+                    headers: { 
+                        Authorization: `Bearer ${accessToken}` 
+                    }
+                })
+    
+                if (res.status !== 200) throw new Error('Cannot update website at the moment');
+    
+                setWebsites((prevWebsite) => {
+                    return prevWebsite.map(web => {
+                        if (web._id === editingWebsite._id) {
+                            return {
+                                ...web,
+                                externalLinks: {
+                                    ...web.externalLinks,
+                                    [social]: link
+                                }
+                            }
+                        }
+                        return web;
+                    })
+                })
+    
+                setEditingWebsite((prevWebsite) => {
+                    return {
+                        ...prevWebsite,
+                        externalLinks: {
+                            ...prevWebsite.externalLinks,
+                            [social]: link
+                        }
+                    }
+                })
+    
+                toast({
+                    title: 'Success',
+                    description: "Successfuly updated website's external link",
+                    status: 'success',
+                })
+    
+                setIsUpdatingWebsite(false);
+            }
+            catch (err) {
+                setIsUpdatingWebsite(false);
+                const msg = errorHandler(err);
+                toast({ description: msg });
+            }
+        }
+        catch (err) {
+            const msg = errorHandler(err);
+            toast({ description: msg });
+        }
+    }
+
     return {
         getWebsiteByRoute,
         getWebsites,
@@ -1097,6 +1161,7 @@ export const useWebsiteControls = () => {
         userWebsiteErrors,
         upgradeWebsiteToPremium,
         updateSubscription,
+        updateExternalLink,
         checkSubscription
     }
 }

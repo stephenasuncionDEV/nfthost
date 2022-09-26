@@ -1,13 +1,15 @@
 import NextLink from 'next/link'
 import { Text, Flex, Button, VStack, useColorModeValue, Image, 
-    Wrap, Tag, TagLeftIcon, HStack, Divider
+    Wrap, Tag, TagLeftIcon, HStack, Divider, Link
 } from '@chakra-ui/react'
 import { MdAdd } from 'react-icons/md'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
+import { GiCutDiamond } from 'react-icons/gi'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useWebsiteControls } from '@/hooks/services/website/useWebsiteControls'
 import { templatesArr } from '@/utils/json'
 import { webColor } from '@/theme/index'
+import config from '@/config/index'
 
 const Templates = () => {
     const { editingWebsite } = useWebsite();
@@ -35,7 +37,7 @@ const Templates = () => {
                                 p='1em'
                                 borderRadius='.25em'
                                 bg={containerColor}
-                                border='1px solid rgb(117,63,229)'
+                                border={`1px solid ${template.sub === 'free' ? 'rgb(117,63,229)' : 'rgb(247,185,40)'}`}
                                 key={idx}
                             >
                                 <Flex
@@ -48,13 +50,15 @@ const Templates = () => {
                                     alignItems='center'
                                     key={idx}
                                 >
-                                    <Image 
-                                        position='absolute'
-                                        src={`/assets/templates/${template.key}.png`}
-                                        objectFit='cover' 
-                                        boxSize='250px'
-                                        opacity='.6' 
-                                    />
+                                    <Link href={`${config?.clientUrl}/assets/templates/${template.key}.png`} boxSize='250px' isExternal>
+                                        <Image 
+                                            position='absolute'
+                                            src={`/assets/templates/${template.key}.png`}
+                                            objectFit='cover' 
+                                            boxSize='250px'
+                                            opacity='.6' 
+                                        />
+                                    </Link>
                                     <Tag position='absolute' top='2' right='2' size='sm'>
                                         {template.sub === 'premium' && <TagLeftIcon as={GiCutDiamond} color='#08BDD4' />}
                                         <Text>
@@ -64,7 +68,7 @@ const Templates = () => {
                                 </Flex>
                                 <VStack spacing='0' alignItems='flex-start' my='1em'>
                                     <Text fontSize='10pt' noOfLines='1'>
-                                        {template.key}
+                                        {template.name}
                                     </Text>
                                     <Text fontSize='8pt' noOfLines='1'>
                                         by {template.creator}

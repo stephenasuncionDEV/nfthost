@@ -109,18 +109,10 @@ const GetStarted = () => {
                                     <FiExternalLink />
                                 </HStack>
                             </Link>
-                            <Link href='https://discord.gg/u2xXYn7C9T' isExternal>
+                            <Link href='https://discord.gg/2BDzCvSTVc' isExternal>
                                 <HStack>
                                     <Text fontSize='10pt'>
                                         Discord
-                                    </Text>
-                                    <FiExternalLink />
-                                </HStack>
-                            </Link>
-                            <Link href='https://twitter.com/Steb_01' isExternal>
-                                <HStack>
-                                    <Text fontSize='10pt'>
-                                        Twitter
                                     </Text>
                                     <FiExternalLink />
                                 </HStack>

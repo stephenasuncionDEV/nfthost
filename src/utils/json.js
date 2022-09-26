@@ -77,7 +77,7 @@ export const sidebarArr = [
             },
             { 
                 name: 'Support', 
-                link: 'https://discord.gg/u2xXYn7C9T', 
+                link: 'https://discord.gg/2BDzCvSTVc', 
                 icon: <BiSupport />, 
                 children: [],
                 isExternal: true
@@ -145,9 +145,11 @@ export const metadataStandardsArr = [
 ]
 
 export const templatesArr = [
-    { key: 'Template1', sub: 'free', creator: 'NFTHost' },
-    { key: 'Template2', sub: 'free', creator: 'NFTHost' },
-    { key: 'Template3', sub: 'free', creator: 'NFTHost' },
+    { name: 'Template1', key: 'Template1', sub: 'free', creator: 'NFTHost' },
+    { name: 'Template2', key: 'Template2', sub: 'free', creator: 'NFTHost' },
+    { name: 'Template3', key: 'Template3', sub: 'free', creator: 'NFTHost' },
+    { name: 'Astro Orange', key: 'Template4', sub: 'premium', creator: 'NFTHost' },
+    { name: 'Astro Blue', key: 'Template5', sub: 'premium', creator: 'NFTHost' },
 ]
 
 export const addonsArr = [

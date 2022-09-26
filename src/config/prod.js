@@ -1,5 +1,6 @@
 const production = {
     frontendUrl: 'nfthost.app',
+    clientUrl: 'https://nfthost.app',
 	serverUrl: 'https://nfthost-backend.vercel.app',
     stripe: {
         publicKey: 'pk_live_51LlUJgHjrZpuqKHtNAMYLAAUODz0DyJv6ZN21MJndNhYZS3MjM3fM7fvhKaIxyM0r3GWZ39mL8NELAbqXZeJvdlr00GXCSAZ2n'

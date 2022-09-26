@@ -32,14 +32,6 @@ const Template2 = () => {
                             {userWebsite?.components?.description}
                         </Text>
                     </Box>
-                    {userWebsite?.isPremium && (
-                        <Tag>
-                            <TagLeftIcon as={GiCutDiamond} color='skyblue' />
-                            <Text>
-                                Premium
-                            </Text>
-                        </Tag>
-                    )}
                     <Embed mt='1em' />
                 </Flex>
                 <Image 

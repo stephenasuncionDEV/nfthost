@@ -10,7 +10,7 @@ export const useNavbar = () => {
     }
 
     const Discord = () => {
-        window.open("https://discord.gg/u2xXYn7C9T");
+        window.open("https://discord.gg/2BDzCvSTVc");
     }
 
     const Sponsor = () => {
