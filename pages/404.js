@@ -1,5 +1,4 @@
-import NextLink from 'next/link'
-import { Text, Flex, Button } from '@chakra-ui/react'
+import { Text, Flex, Button, Link } from '@chakra-ui/react'
 import Meta from '@/components/Meta'
 import MainNavbar from '@/components/MainNavbar'
 import MainFooter from '@/components/MainFooter'
@@ -16,17 +15,20 @@ const NotFound = () => {
                     <AiOutlineWarning fontSize='28pt' />
                     <Flex flexDir='column' alignItems='center' mt='.5em'>
                         <Text fontWeight='bold' fontSize='10pt'>
-                            404 Error
+                            Error
                         </Text>
                         <Text fontSize='10pt'>
                             Page Not Found
                         </Text>
+                        <Text variant='subtle'>
+                            If you think this is an error please contact us.
+                        </Text>
                     </Flex>
-                    <NextLink href='/' shallow passHref>
-                        <Button leftIcon={<AiOutlineArrowLeft />} color='white' bg='rgb(52,140,212)' _hover={{ bg: 'rgb(39,107,163)' }} size='sm' mt='1.5em'>
+                    <Link href='/'>
+                        <Button leftIcon={<AiOutlineArrowLeft />} variant='primary' size='sm' mt='1.5em'>
                             Landing Page
                         </Button>
-                    </NextLink>
+                    </Link>
                 </Flex>
             </Flex>
             <MainFooter />
