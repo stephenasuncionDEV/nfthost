@@ -55,7 +55,7 @@ const SelectedWebsite = ({ isCollapse }) => {
                                         onClick={onCopyWebsiteLink}
                                         size='sm'
                                     />
-                                    <Link href={`${editingWebsite?.route}.${config?.frontendUrl}`} isExternal>
+                                    <Link href={`https://${editingWebsite?.route}.${config?.frontendUrl}`} isExternal>
                                         <IconButton size='sm'>
                                             <FaExternalLinkAlt />
                                         </IconButton>
