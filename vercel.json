@@ -1,0 +1,8 @@
+{   
+    "redirects": [     
+        { 
+            "source": "/(.*).nfthost.app", 
+            "destination": "nfthost.app/$1" 
+        }   
+    ] 
+}

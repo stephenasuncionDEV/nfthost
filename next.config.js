@@ -7,14 +7,14 @@ module.exports = {
         CREATE_WEBSITE_TOKEN: process.env.CREATE_WEBSITE_TOKEN,
         INFURA_ID: process.env.INFURA_ID
     },
-    async rewrites() {
-        return {
-            beforeFiles: [
-                { 
-                    "source": "/(.*).nfthost.app", 
-                    "destination": "nfthost.app/$1" 
-                } 
-            ]
-        }
-    }
+    // async rewrites() {
+    //     return {
+    //         beforeFiles: [
+    //             { 
+    //                 "source": "/(.*).nfthost.app", 
+    //                 "destination": "nfthost.app/$1" 
+    //             } 
+    //         ]
+    //     }
+    // }
 }
