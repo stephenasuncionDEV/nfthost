@@ -96,13 +96,13 @@ const Main = () => {
                     <SlideFade in={true} offsetY='20px' delay={1.5}>
                         <Wrap direction='row' spacing='4em' justifyContent='space-between' id='features' mt='4em'>
                             <Flex flexDir='column' maxW='550px'>
-                                <Text variant='content_intro'>
+                                <Text fontSize='14pt' color='rgb(107,60,209)' fontWeight='bold'>
                                     The new way of generating NFTs
                                 </Text>
-                                <Text variant='content_title' mt='0.25rem'>
+                                <Text fontSize='32pt' fontWeight='bold' mt='0.25rem'>
                                     NFT Collection
                                 </Text>
-                                <Text variant='content_title' mt='0.25rem'>
+                                <Text fontSize='32pt' fontWeight='bold' mt='0.25rem'>
                                     Generator
                                 </Text>
                                 <HStack mt='.5rem' opacity='0.5'>
@@ -144,13 +144,13 @@ const Main = () => {
                                 </Link>
                             </VStack>
                             <Flex flexDir='column' maxW='550px'>
-                                <Text variant='content_intro'>
+                                <Text fontSize='14pt' color='rgb(107,60,209)'>
                                     Easily create minting website
                                 </Text>
-                                <Text variant='content_title' mt='0.25rem'>
+                                <Text fontSize='32pt' fontWeight='bold' mt='0.25rem'>
                                     Mint Website
                                 </Text>
-                                <Text variant='content_title' mt='0.25rem'>
+                                <Text fontSize='32pt' fontWeight='bold' mt='0.25rem'>
                                     Hosting
                                 </Text>
                                 <HStack mt='.5rem' opacity='0.5'>
@@ -176,13 +176,13 @@ const Main = () => {
                     <SlideFade in={true} offsetY='20px' delay={1.5}>
                         <Wrap direction='row' spacing='4em' justifyContent='space-between' mt='20em'>
                             <Flex flexDir='column' maxW='550px'>
-                                <Text variant='content_intro'>
+                                <Text fontSize='14pt' color='rgb(107,60,209)'>
                                     Modify metadata files at ease
                                 </Text>
-                                <Text variant='content_title' mt='0.25rem'>
+                                <Text fontSize='32pt' fontWeight='bold' mt='0.25rem'>
                                     Metadata
                                 </Text>
-                                <Text variant='content_title' mt='0.25rem'>
+                                <Text fontSize='32pt' fontWeight='bold' mt='0.25rem'>
                                     Utilities
                                 </Text>
                                 <HStack mt='.5rem' opacity='0.5'>
