@@ -15,10 +15,10 @@ module.exports = {
                     has: [
                         {
                             type: 'host',
-                            value: '.(?<subdomain>.*)\\..*\\..*',
+                            value: '.*\\..*\\..*',
                         },
                     ],
-                    destination: 'https://www.nfthost.app/:subdomain',
+                    destination: 'https://www.nfthost.app/',
                 }
             ]
         }
