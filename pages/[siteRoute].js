@@ -27,12 +27,11 @@ const UserWebsite = () => {
         userWebsiteErrors,
         checkSubscription
     } = useWebsiteControls();
-    const siteRoute = router.query.siteRoute;
 
     useEffect(() => {
-        if (!siteRoute) return;
-        getWebsiteByRoute(siteRoute);
-    }, [siteRoute])
+        const siteRoute = window?.location?.host?.slice(0, window?.location?.host?.indexOf('.'));
+        if (siteRoute) getWebsiteByRoute(siteRoute);
+    }, [])
 
     useEffect(() => {
         if (!userWebsite) return;
