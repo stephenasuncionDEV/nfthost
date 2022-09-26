@@ -11,7 +11,7 @@ module.exports = {
         return {
             beforeFiles: [
                 {
-                    source: 'https://:subdomain*.nfthost.app',
+                    source: '/:subdomain*.nfthost.app',
 			        destination: 'https://nfthost.app/:subdomain*',
                     // source: '/:path*',
                     // has: [
