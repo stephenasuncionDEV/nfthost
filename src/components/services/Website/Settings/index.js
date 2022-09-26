@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { VStack, Button, Flex, HStack, Text, Divider, Heading,
-    Tag, TagLabel, TagLeftIcon, Wrap
+    Tag, TagLabel, TagLeftIcon, Wrap, Link
 } from '@chakra-ui/react'
 import { MdCircle } from 'react-icons/md'
+import { FaExternalLinkAlt } from 'react-icons/fa'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import Question from '@/components/Question'
 import General from './General'
@@ -79,9 +80,14 @@ const Settings = () => {
                                 SUBDOMAIN
                             </Text>
                         </Question>
-                        <Text fontSize='9pt'>
-                            https://{editingWebsite?.route}.{config?.frontendUrl}
-                        </Text>
+                        <HStack> 
+                            <Text fontSize='9pt'>
+                                https://{editingWebsite?.route}.{config?.frontendUrl}
+                            </Text>
+                            <Link href={`https://${editingWebsite?.route}.nfthost.app`} isExternal>
+                                <FaExternalLinkAlt />
+                            </Link>
+                        </HStack>
                     </Flex>
                 </HStack>
                 {editingWebsite?.premiumEndDate && (
