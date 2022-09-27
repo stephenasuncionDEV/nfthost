@@ -104,7 +104,7 @@ export const usePaymentControls = () => {
             } 
             else if (wallet === 'phantom') {
                 const connection = new solanaWeb3.Connection(
-                    solanaWeb3.clusterApiUrl(process.env.CHAIN_ID === '0x1' ? 'mainnet-beta': 'devnet'), 
+                    solanaWeb3.clusterApiUrl(process.env.CHAIN_ID === '0x89' ? 'mainnet-beta': 'devnet'), 
                 );
 
                 const { signature } = await provider.signAndSendTransaction(await createTransactionSolana(

@@ -89,7 +89,7 @@ export const getCurrencyFromWallet = (wallet) => {
         case 'metamask':
         case 'coinbase':
         case 'walletconnect':
-            currency = 'eth'
+            currency = 'matic'
             break;
         case 'phantom':
             currency = 'sol'
@@ -100,9 +100,9 @@ export const getCurrencyFromWallet = (wallet) => {
 // https://crypto.com/price/<currency>
 export const getPriceFromService = (service, currency = 'usd') => {
     const price = {
-        generator: { usd: 25, eth: 0.02165, sol: 0.6942 },
-        website: { usd: 15, eth: 0.01299, sol: 0.4165 },
-        utils: { usd: 5, eth: 0.004558, sol: 0.1528 },
+        generator: { usd: 25, eth: 0.02165, sol: 0.6942, matic: 32.5553},
+        website: { usd: 15, eth: 0.01299, sol: 0.4165, matic: 19.5332},
+        utils: { usd: 5, eth: 0.004558, sol: 0.1528, matic: 6.5110},
     }[service][currency];
 
     return price || 25;

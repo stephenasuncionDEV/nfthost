@@ -44,6 +44,10 @@ export const useMemberControls = () => {
         try {
             let address = '';
 
+            const isMainnet = process.env.CHAIN_ID === '0x89';
+            const rpcUrl = `https://${isMainnet ? 'mainnet' : 'polygon-mumbai'}.infura.io/v3/${process.env.INFURA_ID}`;
+            const chainId = isMainnet ? 137 : 80001;
+            
             if (wallet === 'metamask') {
                 if (typeof window.ethereum === 'undefined' || (typeof window.web3 === 'undefined')) throw new Error('Metamask is not installed');
                 window.web3 = new Web3(window.ethereum) || new Web3(window.web3.currentProvider);
@@ -64,7 +68,7 @@ export const useMemberControls = () => {
                     appLogoUrl: 'https://www.nfthost.app/assets/logo.png',
                     darkMode: false
                 });
-                const ethereum = coinbaseWallet.makeWeb3Provider(`https://mainnet.infura.io/v3/${process.env.INFURA_ID}`, 1);
+                const ethereum = coinbaseWallet.makeWeb3Provider(rpcUrl, chainId);
                 if (!ethereum) throw new Error('Coinbase wallet is not installed')
                 window.web3 = new Web3(ethereum);
                 setProvider(ethereum);
@@ -74,11 +78,11 @@ export const useMemberControls = () => {
             else if (wallet === 'walletconnect') {
                 const walletConnect = new WalletConnectProvider({
                     rpc: {
-                        1: `https://mainnet.infura.io/v3/${process.env.INFURA_ID}`,
-                        4: `https://rinkeby.infura.io/v3/${process.env.INFURA_ID}`
+                        137: `https://mainnet.infura.io/v3/${process.env.INFURA_ID}`,
+                        13881: `https://polygon-mumbai.infura.io/v3/${process.env.INFURA_ID}`
                     },
                 });
-                if (walletConnect.rpcUrl !== `https://${process.env.CHAIN_ID === '0x1' ? 'mainnet' : 'rinkeby'}.infura.io/v3/${process.env.INFURA_ID}`) throw new Error('WalletConnect: You must be on ethereum mainnet');
+                if (walletConnect.rpcUrl !== rpcUrl) throw new Error('WalletConnect: You must be on the polygon mainnet');
                 await walletConnect.enable();
                 window.web3 = new Web3(walletConnect);
                 setProvider(walletConnect);
