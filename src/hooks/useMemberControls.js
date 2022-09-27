@@ -62,9 +62,9 @@ export const useMemberControls = () => {
                 const coinbaseWallet = new CoinbaseWalletSDK({
                     appName: 'NFTHost',
                     appLogoUrl: 'https://www.nfthost.app/assets/logo.png',
-                    darkMode: true
+                    darkMode: false
                 });
-                const ethereum = coinbaseWallet.makeWeb3Provider('https://mainnet.infura.io/v3', 1);
+                const ethereum = coinbaseWallet.makeWeb3Provider(`https://mainnet.infura.io/v3/${process.env.INFURA_ID}`, 1);
                 if (!ethereum) throw new Error('Coinbase wallet is not installed')
                 window.web3 = new Web3(ethereum);
                 setProvider(ethereum);
@@ -149,7 +149,7 @@ export const useMemberControls = () => {
             setAddress('');
             setIsLoggedIn(false);
 
-            router.push('/', undefined, { shallow: true });
+            router.push('/dashboard/getStarted', undefined, { shallow: true });
 
             if (!silent) {
                 toast({
