@@ -18,7 +18,8 @@ const List = ({ onCreateWebsiteOpen }) => {
     const { 
         websites, 
         isGettingWebsites,
-        editingWebsite
+        editingWebsite,
+        setWebsites
     } = useWebsite();
     const { getWebsites, editWebsite } = useWebsiteControls();
 
@@ -60,7 +61,10 @@ const List = ({ onCreateWebsiteOpen }) => {
                     >
                         Create Website
                     </Button>
-                    <IconButton size='sm' onClick={getWebsites} disabled={isGettingWebsites}>
+                    <IconButton size='sm' onClick={() => {
+                        setWebsites([]);
+                        getWebsites();
+                    }} disabled={isGettingWebsites}>
                         <MdRefresh fontSize='12pt' />
                     </IconButton>
                 </HStack>
@@ -70,7 +74,7 @@ const List = ({ onCreateWebsiteOpen }) => {
                     {websites?.map((web, idx) => (
                         <Box 
                             key={idx} 
-                            cursor={editingWebsite?._id === web._id ? 'not-allowed' : 'pointer'}
+                            //cursor={editingWebsite?._id === web._id ? 'not-allowed' : 'pointer'}
                         >
                             <Flex 
                                 flexDir='column'
@@ -84,7 +88,8 @@ const List = ({ onCreateWebsiteOpen }) => {
                                     editWebsite(web);
                                 }}
                                 border='1px solid rgb(117,63,229)'
-                                pointerEvents={editingWebsite?._id === web._id ? 'none' : 'all'}
+                                cursor='pointer'
+                               // pointerEvents={editingWebsite?._id === web._id ? 'none' : 'all'}
                             >
                                 <Flex flexDir='column' flex='1' w='full'>
                                     <HStack spacing='1em'>

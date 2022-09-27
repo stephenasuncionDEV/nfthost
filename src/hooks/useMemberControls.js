@@ -83,7 +83,7 @@ export const useMemberControls = () => {
                         13881: `https://polygon-mumbai.infura.io/v3/${process.env.INFURA_ID}`
                     },
                 });
-                if (walletConnect.rpcUrl !== rpcUrl) throw new Error('WalletConnect: You must be on the polygon mainnet');
+                if (walletConnect.rpcUrl !== rpcUrl) throw new Error('WalletConnect is not installed correctly');
                 await walletConnect.enable();
                 window.web3 = new Web3(walletConnect);
                 setProvider(walletConnect);

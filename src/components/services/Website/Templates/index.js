@@ -56,10 +56,10 @@ const Templates = () => {
                                             src={`/assets/templates/${template.key}.png`}
                                             objectFit='cover' 
                                             boxSize='250px'
-                                            opacity='.6' 
+                                            zIndex='1337'
                                         />
                                     </Link>
-                                    <Tag position='absolute' top='2' right='2' size='sm'>
+                                    <Tag position='absolute' top='2' right='2' size='sm' zIndex='1338'>
                                         {template.sub === 'premium' && <TagLeftIcon as={GiCutDiamond} color='orange' />}
                                         <Text>
                                             {template.sub === 'premium' ? 'Premium' : 'Free'}
@@ -86,6 +86,9 @@ const Templates = () => {
                                     }
                                     rightIcon={<MdAdd />}
                                     bg={template?.sub === 'premium' ? 'orange.500' : 'rgb(117, 63, 229)'}
+                                    _hover={{
+                                        bg: template?.sub === 'premium' ? 'orange.400' : 'rgb(142, 90, 250)'
+                                    }}
                                 >
                                     Use
                                 </Button>

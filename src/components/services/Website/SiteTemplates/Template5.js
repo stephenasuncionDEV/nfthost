@@ -35,28 +35,30 @@ const Template5 = () => {
                     <Heading as='h1' fontSize='64pt' textShadow='4px 4px 4px black' textAlign='center'>
                         {userWebsite?.components?.title}
                     </Heading>
-                    <Flex 
-                        flexDir='column' 
-                        bg='rgb(27,28,30)' 
-                        border='1px solid #3182ce' 
-                        p='2em' 
-                        borderRadius='10px'
-                        maxW='500px'
-                        alignItems='center'
-                    >
-                        <Text fontSize='18pt' color='blue.500'>
-                            Enter {userWebsite?.components?.title}&apos;s universe
-                        </Text>
-                        <Text color='white'>
-                            {userWebsite?.components?.description}
-                        </Text>
-                        <Image  
-                            src={userWebsite?.components?.unrevealedImage}
-                            alt={userWebsite?.components?.title} 
-                            boxSize='150px'
-                            my='1.5em'
-                        />
-                        <Embed mt='1em' display='flex' justifyContent='center'/>
+                    <Flex flexDir='column' justifyContent='center'>
+                        <Flex 
+                            flexDir='column' 
+                            bg='rgba(27,28,30,.8)' 
+                            border='1px solid #3182ce' 
+                            p='2em' 
+                            borderRadius='10px'
+                            maxW='500px'
+                            alignItems='center'
+                        >
+                            <Text fontSize='18pt' color='blue.500'>
+                                Enter {userWebsite?.components?.title}&apos;s universe
+                            </Text>
+                            <Text color='white'>
+                                {userWebsite?.components?.description}
+                            </Text>
+                            <Image  
+                                src={userWebsite?.components?.unrevealedImage}
+                                alt={userWebsite?.components?.title} 
+                                boxSize='150px'
+                                my='1.5em'
+                            />
+                            <Embed mt='1em' display='flex' justifyContent='center'/>
+                        </Flex>
                     </Flex>
                 </Wrap>
             </Flex>

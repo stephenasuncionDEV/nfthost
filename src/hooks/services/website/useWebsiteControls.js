@@ -88,6 +88,8 @@ export const useWebsiteControls = () => {
                 }
             })
 
+            console.log(res.data)
+
             setWebsites(res.data);
             setIsGettingWebsites(false);
         }
@@ -1007,16 +1009,18 @@ export const useWebsiteControls = () => {
             const today = new Date();
             let premiumEndDate = new Date(userWebsite.premiumEndDate);
 
-            if (today > premiumEndDate) {
-                await updateSubscription({
-                    memberId: userWebsite.memberId,
-                    subscriptionId: userWebsite.subscriptionId,
-                    isPremium: false,
-                    isExpired: true,
-                    isPublished: false,
-                    premiumStartDate: null,
-                    premiumEndDate: null
-                })
+            if (userWebsite.premiumEndDate) {
+                if (today > premiumEndDate) {
+                    await updateSubscription({
+                        memberId: userWebsite.memberId,
+                        subscriptionId: userWebsite.subscriptionId,
+                        isPremium: false,
+                        isExpired: true,
+                        isPublished: false,
+                        premiumStartDate: null,
+                        premiumEndDate: null
+                    })
+                }
             }
 
             // const accessToken = getAccessToken();

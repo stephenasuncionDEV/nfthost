@@ -10,13 +10,13 @@ export default async function middleware(req) {
 
     const subpath = process.env.NODE_ENV === 'production' ? hostname.slice(0, hostname.indexOf('.')) : 'www';
 
-    if (url.pathname.startsWith(`/_sites`)) {
-        url.pathname = `/404`
-    } else {
+    // if (url.pathname.startsWith(`/_sites`)) {
+    //     url.pathname = `/404`
+    // } else {
         if (subpath !== 'www') {   
             url.pathname = `/_sites/${subpath}${url.pathname}`;
         }
-    }
+    //}
 
     return NextResponse.rewrite(url);
 }
