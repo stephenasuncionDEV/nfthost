@@ -129,7 +129,8 @@ const GetStarted = () => {
             </Text>
             <Wrap spacing='1em' mt='2em'>
                 {featuredWebsites?.sort((a, b) => (a.isPremium === b.isPremium)? 0 : a.isPremium ? -1 : 1).map((website, idx) => (
-                    <Link href={`${config?.frontendUrl}/${website.custom?.alias.length > 0 ? website.custom?.alias : website._id}`} isExternal key={idx} style={{ textDecoration: 'none' }} position='relative'>
+                    // <Link href={`${config?.frontendUrl}/${website.custom?.alias.length > 0 ? website.custom?.alias : website._id}`} isExternal key={idx} style={{ textDecoration: 'none' }} position='relative'>
+                        <Box key={idx} position='relative'>
                         <Button 
                             opacity='0.3'
                             w='250px' 
@@ -141,6 +142,7 @@ const GetStarted = () => {
                             }}
                             leftIcon={website.isPremium ? <GiCutDiamond color='blue.500' /> : null}
                             position='relative'
+                            cursor='default'
                         >        
                         </Button>
                         <Box position='absolute' top='0' left='0' pointerEvents='none'>
@@ -152,10 +154,12 @@ const GetStarted = () => {
                             left='50%'
                             transform='translate(-50% , -50%)'
                             textAlign='center'
+                            pointerEvents='none'
                         >
                             {website.components.title}
                         </Text>
-                    </Link>
+                        </Box>
+                    // </Link>
                 ))}
             </Wrap>
             <Flex flexDir='column' mt='3em'>

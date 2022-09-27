@@ -3,6 +3,8 @@ import { useState } from 'react'
 import { useToast } from '@chakra-ui/react'
 import { useCore } from '@/providers/CoreProvider'
 import { useUser } from '@/providers/UserProvider'
+import { useWebsite } from '@/providers/WebsiteProvider'
+import { useCoreControls } from '@/hooks/useCoreControls'
 import { useMemberControls } from '@/hooks/useMemberControls'
 import Web3 from 'web3'
 import axios from 'axios'
@@ -12,7 +14,6 @@ import { decryptToken, getPriceFromService, getCurrencyFromWallet } from '@/util
 import * as solanaWeb3 from '@solana/web3.js'
 import { getAccessToken } from '@/utils/tools'
 import errorHandler from '@/utils/errorHandler'
-import { useWebsite } from '@/providers/WebsiteProvider'
 
 export const usePaymentControls = () => {
     const router = useRouter();
@@ -40,7 +41,8 @@ export const usePaymentControls = () => {
         paymentZip,
         setIsPaying,
         setIsKeepWorkingModal,
-        setPaymentData     
+        setPaymentData,
+        referrer
     } = useCore();
     const { 
         setWebsites,
@@ -48,6 +50,7 @@ export const usePaymentControls = () => {
     } = useWebsite();
     const [isCanceling, setIsCanceling] = useState(false);
     const [subscriptions, setSubscriptions] = useState([]);
+    const { addReferral } = useCoreControls();
 
     const pay = (paymentData) => {
         try {
@@ -158,6 +161,8 @@ export const usePaymentControls = () => {
                 description: 'Successfuly Purchased Item',
                 status: 'success'
             })
+            
+            await addReferral(referrer);
 
             setIsKeepWorkingModal(true);
             setIsPaying(false);

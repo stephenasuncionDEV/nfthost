@@ -6,13 +6,13 @@ import { BsQuestion } from 'react-icons/bs'
 import { webColor } from '@/theme/index'
 
 const Question = (props) => {
-    const { children, spacing, prompt, w, ...style } = props;
+    const { children, spacing, prompt, w, top, left, flex, right, ...style } = props;
     const [isPrompt, setIsPrompt] = useState(false);
 
     const containerBg = useColorModeValue(webColor.containerBg[0], webColor.containerBg[1]);
 
     return (
-        <HStack spacing={spacing || 0} position='relative'>
+        <HStack spacing={spacing || 0} position='relative' flex={flex}>
             {children}
             <BsQuestion 
                 color='rgb(89,109,141)' 
@@ -25,8 +25,8 @@ const Question = (props) => {
                     flexDir='column' 
                     position='absolute' 
                     p='.5em' 
-                    top='7' 
-                    left='0'
+                    top={top || '7'} 
+                    left={left || '0'}
                     bg={containerBg}
                     zIndex='1337'
                     w={w || '200px'}

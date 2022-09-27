@@ -32,6 +32,7 @@ export const CoreProvider = ({ children }) => {
     });
     const [transactions, setTransactions] = useState();
     const [isGettingTransactions, setIsGettingTransactions] = useState(false);
+    const [referrer, setReferrer] = useState('');
 
     const controllers = {
         provider,
@@ -75,7 +76,9 @@ export const CoreProvider = ({ children }) => {
         addonSettingsData,
         setAddonSettingsData,
         paymentPageNumber,
-        setPaymentPageNumber
+        setPaymentPageNumber,
+        referrer,
+        setReferrer
     }
 
     return (

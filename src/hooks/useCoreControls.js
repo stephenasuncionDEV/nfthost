@@ -23,8 +23,26 @@ export const useCoreControls = () => {
         }
     }
 
+    const addReferral = async (name) => {
+        try {
+            const accessToken = getAccessToken();
+
+            await axios.post(`${config.serverUrl}/api/core/addReferral`, {
+                name
+            }, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            })
+        }
+        catch (err) {
+            console.error(err);
+        }
+    }
+
     return {
         featuredWebsites,
-        getFeaturedWebsites
+        getFeaturedWebsites,
+        addReferral
     }
 }

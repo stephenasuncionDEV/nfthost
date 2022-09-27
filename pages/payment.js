@@ -1,4 +1,5 @@
 import NextLink from 'next/link'
+import { useState } from 'react'
 import { Box, HStack, Text, Flex, Button, VStack, Link, 
     useColorModeValue, Input, Image, Wrap, useColorMode,
     Heading
@@ -8,6 +9,7 @@ import { useCore } from '@/providers/CoreProvider'
 import { useUser } from '@/providers/UserProvider'
 import { usePaymentControls } from '@/hooks/usePaymentControls'
 import Meta from '@/components/Meta'
+import Question from '@/components/Question'
 import CardInput from '@/components/CardInput'
 import KeepWorkingModal from '@/components/KeepWorkingModal'
 import { AiOutlineArrowLeft, AiOutlineWarning } from 'react-icons/ai'
@@ -37,7 +39,9 @@ const Payment = () => {
         setPaymentState,
         paymentZip,
         setPaymentZip,
-        isPaying
+        isPaying,
+        referrer,
+        setReferrer
     } = useCore();
     const { address, wallet } = useUser();
     const { payWithCrypto } = usePaymentControls();
@@ -136,6 +140,18 @@ const Payment = () => {
                                     </Flex>
                                 </Button> */}
                             </Wrap>
+                            <Flex>
+                                <Question prompt='The code given to you by your referrer. Leave blank if you dont have one.' top={10} flex='1'>
+                                    <Input 
+                                        type='text' 
+                                        placeholder='Referral Code' 
+                                        textTransform='lowercase' 
+                                        value={referrer} 
+                                        onChange={(e) => setReferrer(e.target.value)} 
+                                        size='sm'
+                                    />
+                                </Question>
+                            </Flex>
                             <Box mt='1em'>
                                 {(paymentMethodStep === 'cryptowallet') && (
                                     <Button 
