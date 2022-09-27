@@ -57,6 +57,7 @@ export const useMemberControls = () => {
             }
             else if (wallet === 'phantom') {
                 const provider = window.solana;
+                if (!provider) throw new Error('Phantom is not installed');
                 if (!provider.isPhantom) throw new Error('Phantom is not installed');
                 const sol = await window.solana.connect();
                 setProvider(window.solana);
