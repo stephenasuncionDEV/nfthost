@@ -40,11 +40,11 @@ const Template6 = () => {
                 flex='1' 
                 mt='2em'
             >
-                <Heading as='h1' textAlign='center' textShadow='4px 4px 4px black' fontSize='64pt'>
+                <Heading as='h1' textAlign='center' textShadow='4px 4px 4px black' fontSize='64pt' fontFamily='Rubik Wet Paint'>
                     {userWebsite?.components?.title}
                 </Heading>
                 <Box maxW='735px'>
-                    <Text fontSize='18pt' color='blackAlpha.800' mt='.5em'>
+                    <Text fontSize='18pt' color='blackAlpha.800' mt='1em'>
                         {userWebsite?.components?.description}
                     </Text>
                 </Box>
