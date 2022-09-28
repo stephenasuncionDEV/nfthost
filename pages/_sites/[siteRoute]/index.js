@@ -42,6 +42,8 @@ const UserWebsite = (props) => {
 
     const { colorMode } = useColorMode();
 
+    console.log(props)
+
     if (router.isFallback) {
         return (
             <Center style={{ minHeight: '100vh' }}>
