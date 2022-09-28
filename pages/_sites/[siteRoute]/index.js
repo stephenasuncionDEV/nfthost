@@ -24,7 +24,7 @@ import axios from 'axios'
 
 const UserWebsite = (props) => {
     const router = useRouter();
-    const { userWebsite, setUserWebsite } = useWebsite();
+    const { userWebsite } = useWebsite();
     const { 
         userWebsiteErrors,
         checkSubscription,
@@ -32,8 +32,6 @@ const UserWebsite = (props) => {
     } = useWebsiteControls();
 
     useEffect(() => {
-        const siteRoute = window?.location?.host?.slice(0, window?.location?.host?.indexOf('.'));
-        if (siteRoute) setUserWebsite(props);
         if (props) {
             getWebsiteByRoute(props.route);
         }
