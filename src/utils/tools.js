@@ -89,7 +89,7 @@ export const getCurrencyFromWallet = (wallet) => {
         case 'metamask':
         case 'coinbase':
         case 'walletconnect':
-            currency = 'matic'
+            currency = 'eth'
             break;
         case 'phantom':
             currency = 'sol'
