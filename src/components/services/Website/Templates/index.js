@@ -1,6 +1,6 @@
 import NextLink from 'next/link'
 import { Text, Flex, Button, VStack, useColorModeValue, Image, 
-    Wrap, Tag, TagLeftIcon, HStack, Divider, Link
+    Wrap, Tag, TagLeftIcon, HStack, Divider, Link, Box
 } from '@chakra-ui/react'
 import { MdAdd } from 'react-icons/md'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
@@ -40,33 +40,30 @@ const Templates = () => {
                                 border={`1px solid ${template.sub === 'free' ? 'rgb(117,63,229)' : 'orange'}`}
                                 key={idx}
                             >
-                                <Flex
-                                    w='230px'
-                                    h='180px'
-                                    overflow='hidden'
-                                    position='relative'
+                                <VStack
+                                    flexDir='column'
                                     borderRadius='5px'
-                                    justifyContent='center'
-                                    alignItems='center'
                                     key={idx}
+                                    h='170px'
+                                    spacing='.75em'
                                 >
-                                    <Link href={`${config?.clientUrl}/assets/templates/${template.key}.png`} boxSize='250px' isExternal>
-                                        <Image 
-                                            position='absolute'
-                                            src={`/assets/templates/${template.key}.png`}
-                                            objectFit='scale-down' 
-                                            w='250px'
-                                            h='270px'
-                                            zIndex='1337'
-                                        />
-                                    </Link>
-                                    <Tag position='absolute' top='2' right='2' size='sm' zIndex='1338'>
-                                        {template.sub === 'premium' && <TagLeftIcon as={GiCutDiamond} color='orange' />}
-                                        <Text>
-                                            {template.sub === 'premium' ? 'Premium' : 'Free'}
-                                        </Text>
-                                    </Tag>
-                                </Flex>
+                                    <Flex justifyContent='flex-end' w='full'>
+                                        <Tag size='sm' zIndex='1338'>
+                                            {template.sub === 'premium' && <TagLeftIcon as={GiCutDiamond} color='orange' />}
+                                            <Text>
+                                                {template.sub === 'premium' ? 'Premium' : 'Free'}
+                                            </Text>
+                                        </Tag>
+                                    </Flex>
+                                    <Box w='250px' h='125px' overflow='hidden'>
+                                        <Link href={`${config?.clientUrl}/assets/templates/${template.key}.png`} boxSize='250px' isExternal>
+                                            <Image 
+                                                src={`/assets/templates/${template.key}.png`}
+                                                objectFit='scale-down' 
+                                            />
+                                        </Link>
+                                    </Box>
+                                </VStack>
                                 <VStack spacing='0' alignItems='flex-start' mb='1em'>
                                     <Text fontSize='10pt' noOfLines='1'>
                                         {template.name}

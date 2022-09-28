@@ -4,7 +4,7 @@ import { useWebsite } from '@/providers/WebsiteProvider'
 import { useWebsiteControls } from '@/hooks/services/website/useWebsiteControls'
 import parse from 'html-react-parser'
 
-const isDevelopment = false;
+const isDevelopment = true;
 
 const Embed = (styles) => {
     const { userWebsite } = useWebsite();

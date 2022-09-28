@@ -151,6 +151,7 @@ export const templatesArr = [
     { name: 'Astro Orange', key: 'Template4', sub: 'premium', creator: 'NFTHost' },
     { name: 'Astro Blue', key: 'Template5', sub: 'premium', creator: 'NFTHost' },
     { name: 'Tropical', key: 'Template6', sub: 'premium', creator: 'NFTHost' },
+    { name: 'City Night', key: 'Template7', sub: 'premium', creator: 'NFTHost' },
 ]
 
 export const addonsArr = [
