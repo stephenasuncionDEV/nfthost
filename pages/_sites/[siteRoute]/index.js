@@ -27,12 +27,17 @@ const UserWebsite = (props) => {
     const { userWebsite, setUserWebsite } = useWebsite();
     const { 
         userWebsiteErrors,
-        checkSubscription
+        checkSubscription,
+        getWebsiteByRoute
     } = useWebsiteControls();
 
     useEffect(() => {
         const siteRoute = window?.location?.host?.slice(0, window?.location?.host?.indexOf('.'));
         if (siteRoute) setUserWebsite(props);
+        if (props) {
+            getWebsiteByRoute(props.route);
+        }
+        console.log(props)
     }, [])
 
     useEffect(() => {
@@ -41,8 +46,6 @@ const UserWebsite = (props) => {
     }, [userWebsite])
 
     const { colorMode } = useColorMode();
-
-    console.log(props)
 
     if (router.isFallback) {
         return (
@@ -164,8 +167,6 @@ export const getStaticProps = async ({ params: { siteRoute } }) => {
             Authorization: `bearer ${process.env.CREATE_WEBSITE_TOKEN}`
         }
     });
-
-    
 
     return {
         props: site.data,
