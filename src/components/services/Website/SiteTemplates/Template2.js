@@ -18,12 +18,12 @@ const Template2 = () => {
         >
             <Watermark position='absolute' bottom='4' right='4' />
             <Wrap 
-                spacing='5em' 
+                spacing='10em' 
                 p='3em' 
                 borderRadius='20px'
                 justify='center'
             >
-                <Flex flexDir='column' alignItems='center' mb='1em'>
+                <Flex flexDir='column' alignItems='center' mb='1em' justifyContent='center'>
                     <Heading as='h1' textAlign='center'>
                         {userWebsite?.components?.title}
                     </Heading>
