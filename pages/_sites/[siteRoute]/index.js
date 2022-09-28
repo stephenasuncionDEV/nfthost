@@ -42,8 +42,6 @@ const UserWebsite = (props) => {
 
     const { colorMode } = useColorMode();
 
-    const curTemplate = userWebsite?.components?.template;
-
     if (router.isFallback) {
         return (
             <Center style={{ minHeight: '100vh' }}>
@@ -87,25 +85,25 @@ const UserWebsite = (props) => {
                         {userWebsite?.components?.script && parse(userWebsite?.components?.script)}
                     </Head>
                     <main>
-                        {curTemplate === 'Template1' && (
+                        {userWebsite?.components?.template === 'Template1' && (
                             <Template1 />
                         )}
-                        {curTemplate === 'Template2' && (
+                        {userWebsite?.components?.template === 'Template2' && (
                             <Template2 />
                         )}
-                        {curTemplate === 'Template3' && (
+                        {userWebsite?.components?.template === 'Template3' && (
                             <Template3 />
                         )}
-                        {curTemplate === 'Template4' && (
+                        {userWebsite?.components?.template === 'Template4' && (
                             <Template4 />
                         )}
-                        {curTemplate === 'Template5' && (
+                        {userWebsite?.components?.template === 'Template5' && (
                             <Template5 />
                         )}
-                        {curTemplate === 'Template6' && (
+                        {userWebsite?.components?.template === 'Template6' && (
                             <Template6 />
                         )}
-                        {curTemplate === 'Template7' && (
+                        {userWebsite?.components?.template === 'Template7' && (
                             <Template7 />
                         )}
                     </main>
