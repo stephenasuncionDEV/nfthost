@@ -44,7 +44,7 @@ const Payment = () => {
         setReferrer
     } = useCore();
     const { address, wallet } = useUser();
-    const { payWithCrypto } = usePaymentControls();
+    const { payWithCrypto, applyReferral, isApplying, isApplied } = usePaymentControls();
     const { colorMode } = useColorMode();
     useReAuthenticate(true);
 
@@ -140,7 +140,10 @@ const Payment = () => {
                                     </Flex>
                                 </Button> */}
                             </Wrap>
-                            <Flex>
+                            <Text fontSize='10pt'>
+                                Referral Code
+                            </Text>
+                            <Flex gap='.5em' mt='.25em'>
                                 <Question prompt='The code given to you by your referrer. Leave blank if you dont have one.' top={10} flex='1'>
                                     <Input 
                                         type='text' 
@@ -149,9 +152,24 @@ const Payment = () => {
                                         value={referrer} 
                                         onChange={(e) => setReferrer(e.target.value)} 
                                         size='sm'
+                                        disabled={isApplied}
                                     />
                                 </Question>
+                                <Button 
+                                    variant='primary' 
+                                    onClick={applyReferral} 
+                                    disabled={isApplying || isApplied} 
+                                >
+                                    Apply
+                                </Button>
                             </Flex>
+                            {isApplied && (
+                                <Flex justifyContent='center' mt='1em'>
+                                    <Text fontSize='10pt' color='purple.500'>
+                                        <span style={{ fontStyle: 'italic' }}>{referrer}</span> code was applied.
+                                    </Text>
+                                </Flex>
+                            )}
                             <Box mt='1em'>
                                 {(paymentMethodStep === 'cryptowallet') && (
                                     <Button 
@@ -164,6 +182,7 @@ const Payment = () => {
                                         Pay&nbsp;
                                         {cryptoPrice}&nbsp;
                                         {cryptoCurrency?.toUpperCase()}
+                                        {isApplied && <span style={{ color: 'white', fontWeight: 'bold', marginLeft: '.5em' }}>with 5% Off</span>}
                                     </Button>
                                 )}
                                 {/* {paymentMethodStep === 'bankcard' && (

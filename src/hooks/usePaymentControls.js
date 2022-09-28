@@ -30,6 +30,7 @@ export const usePaymentControls = () => {
         addUnit, 
         updateEmail 
     } = useMemberControls();
+    const { addReferral, getReferral } = useCoreControls();
     const { 
         provider,
         paymentData,
@@ -49,8 +50,9 @@ export const usePaymentControls = () => {
         editingWebsite
     } = useWebsite();
     const [isCanceling, setIsCanceling] = useState(false);
+    const [isApplying, setIsApplying] = useState(false);
+    const [isApplied, setIsApplied] = useState(false);
     const [subscriptions, setSubscriptions] = useState([]);
-    const { addReferral } = useCoreControls();
 
     const pay = (paymentData) => {
         try {
@@ -89,7 +91,8 @@ export const usePaymentControls = () => {
             const service = paymentData.service.toLowerCase();
 
             const currency = getCurrencyFromWallet(wallet || 'metamask');
-            const price = getPriceFromService(service, currency);
+
+            const price = getPriceFromService(service, currency) - (paymentData.discount || 0);
 
             await isNetworkProtected(wallet);
 
@@ -107,7 +110,7 @@ export const usePaymentControls = () => {
             } 
             else if (wallet === 'phantom') {
                 const connection = new solanaWeb3.Connection(
-                    solanaWeb3.clusterApiUrl(process.env.CHAIN_ID === '0x89' ? 'mainnet-beta': 'devnet'), 
+                    solanaWeb3.clusterApiUrl(process.env.CHAIN_ID === '0x1' ? 'mainnet-beta': 'devnet'), 
                 );
 
                 const { signature } = await provider.signAndSendTransaction(await createTransactionSolana(
@@ -407,6 +410,46 @@ export const usePaymentControls = () => {
         }
     }
 
+    const applyReferral = async () => {
+        try {
+            setIsApplying(true);
+
+            const res = await getReferral(referrer);
+
+            if (res.status !== 200) throw new Error('Referral Code cannot be applied at the moment');
+            if (!res.data) throw new Error('Referral Code not found');
+
+            const storageToken = localStorage.getItem('nfthost-user');
+            const userData = decryptToken(storageToken);
+            const wallet = userData.wallet;
+            const service = paymentData.service.toLowerCase();
+            const currency = getCurrencyFromWallet(wallet || 'metamask');
+            const price = getPriceFromService(service, currency);
+            const discount = price * 0.05;
+
+            setPaymentData((prevPaymentData) => {
+                return {
+                    ...prevPaymentData,
+                    discount
+                }
+            })
+
+            toast({
+                title: 'Success',
+                status: 'success',
+                description: 'Successfully applied referral code'
+            })
+
+            setIsApplied(true);
+            setIsApplying(false);
+        }
+        catch (err) {
+            setIsApplying(false);
+            const msg = errorHandler(err);
+            toast({ description: msg });
+        }
+    }
+
     return {
         pay,
         payWithCrypto,
@@ -415,6 +458,9 @@ export const usePaymentControls = () => {
         isCanceling,
         getSubscriptions,
         subscriptions,
-        getSubscription
+        getSubscription,
+        applyReferral,
+        isApplying,
+        isApplied
     }
 }

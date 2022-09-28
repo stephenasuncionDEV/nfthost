@@ -6,6 +6,7 @@ import config from '@/config/index'
 
 export const useCoreControls = () => {
     const [featuredWebsites, setFeaturedWebsites] = useState([]);
+    const [isApplying, setIsApplying] = useState(false);
     const { paymentData } = useCore();
 
     const getFeaturedWebsites = async () => {
@@ -19,6 +20,29 @@ export const useCoreControls = () => {
             })
 
             setFeaturedWebsites(res.data)
+        }
+        catch (err) {
+            console.error(err);
+        }
+    }
+
+    const getReferral = async (name) => {
+        try {
+            if (!name) return;
+
+            const accessToken = getAccessToken();
+
+            const res = await axios.get(`${config.serverUrl}/api/core/getReferral`, {
+                params: {
+                    name,
+                    service: paymentData.service.toLowerCase()
+                },
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            })
+
+            return res;
         }
         catch (err) {
             console.error(err);
@@ -48,6 +72,7 @@ export const useCoreControls = () => {
     return {
         featuredWebsites,
         getFeaturedWebsites,
-        addReferral
+        addReferral,
+        getReferral
     }
 }
