@@ -24,18 +24,14 @@ import axios from 'axios'
 
 const UserWebsite = (props) => {
     const router = useRouter();
-    const { userWebsite } = useWebsite();
+    const { userWebsite, setUserWebsite } = useWebsite();
     const { 
         userWebsiteErrors,
-        checkSubscription,
-        getWebsiteByRoute
+        checkSubscription
     } = useWebsiteControls();
 
     useEffect(() => {
-        if (props) {
-            getWebsiteByRoute(props.route);
-        }
-        console.log(props)
+        setUserWebsite(props);
     }, [])
 
     useEffect(() => {
@@ -168,7 +164,7 @@ export const getStaticProps = async ({ params: { siteRoute } }) => {
 
     return {
         props: site.data,
-        revalidate: 3600
+        revalidate: 300
     }
   }
 
