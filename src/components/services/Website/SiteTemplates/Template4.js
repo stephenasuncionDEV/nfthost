@@ -12,8 +12,8 @@ const Template4 = () => {
             flexDir='column'
             minH='100vh'
             position='relative'
-            bg='rgb(27,28,30)'
-            bgImage='/assets/templates/components/bg4.png'
+            bg='url(/assets/templates/components/bg4.png) no-repeat center center fixed'
+            bgSize='cover'
         >
             <Flex p='1.5em' py='1em' w='full' justifyContent='center' bg='rgb(27,28,30)'>
                 <Flex maxW='1500px' flex='1' justifyContent='space-between' alignItems='center'>
