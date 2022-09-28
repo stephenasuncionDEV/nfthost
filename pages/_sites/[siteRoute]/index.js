@@ -163,6 +163,8 @@ export const getStaticProps = async ({ params: { siteRoute } }) => {
         }
     });
 
+    
+
     return {
         props: site.data,
         revalidate: 3600
