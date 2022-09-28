@@ -54,8 +54,9 @@ const Templates = () => {
                                         <Image 
                                             position='absolute'
                                             src={`/assets/templates/${template.key}.png`}
-                                            objectFit='cover' 
-                                            boxSize='250px'
+                                            objectFit='scale-down' 
+                                            w='250px'
+                                            h='270px'
                                             zIndex='1337'
                                         />
                                     </Link>
@@ -66,7 +67,7 @@ const Templates = () => {
                                         </Text>
                                     </Tag>
                                 </Flex>
-                                <VStack spacing='0' alignItems='flex-start' my='1em'>
+                                <VStack spacing='0' alignItems='flex-start' mb='1em'>
                                     <Text fontSize='10pt' noOfLines='1'>
                                         {template.name}
                                     </Text>
