@@ -88,8 +88,6 @@ export const useWebsiteControls = () => {
                 }
             })
 
-            console.log(res.data)
-
             setWebsites(res.data);
             setIsGettingWebsites(false);
         }
