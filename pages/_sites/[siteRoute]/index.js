@@ -17,6 +17,8 @@ import Template4 from '@/components/services/Website/SiteTemplates/Template4'
 import Template5 from '@/components/services/Website/SiteTemplates/Template5'
 import Template6 from '@/components/services/Website/SiteTemplates/Template6'
 import Template7 from '@/components/services/Website/SiteTemplates/Template7'
+import Template8 from '@/components/services/Website/SiteTemplates/Template8'
+import Template9 from '@/components/services/Website/SiteTemplates/Template9'
 import posthog from 'posthog-js'
 import parse from 'html-react-parser'
 import config from '@/config/index'
@@ -84,27 +86,17 @@ const UserWebsite = (props) => {
                         {userWebsite?.components?.script && parse(userWebsite?.components?.script)}
                     </Head>
                     <main>
-                        {userWebsite?.components?.template === 'Template1' && (
-                            <Template1 />
-                        )}
-                        {userWebsite?.components?.template === 'Template2' && (
-                            <Template2 />
-                        )}
-                        {userWebsite?.components?.template === 'Template3' && (
-                            <Template3 />
-                        )}
-                        {userWebsite?.components?.template === 'Template4' && (
-                            <Template4 />
-                        )}
-                        {userWebsite?.components?.template === 'Template5' && (
-                            <Template5 />
-                        )}
-                        {userWebsite?.components?.template === 'Template6' && (
-                            <Template6 />
-                        )}
-                        {userWebsite?.components?.template === 'Template7' && (
-                            <Template7 />
-                        )}
+                        {{
+                            Template1: <Template1 />,
+                            Template2: <Template2 />,
+                            Template3: <Template3 />,
+                            Template4: <Template4 />,
+                            Template5: <Template5 />,
+                            Template6: <Template6 />,
+                            Template7: <Template7 />,
+                            Template8: <Template8 />,
+                            Template9: <Template9 />
+                        }[userWebsite?.components?.template]}
                     </main>
                 </div>
             ) : (
