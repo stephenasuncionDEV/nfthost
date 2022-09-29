@@ -1,21 +1,16 @@
-import { Box, HStack, Text, Flex, Button, VStack, Input, IconButton, useColorModeValue } from '@chakra-ui/react'
-import { useGenerator } from '@/providers/GeneratorProvider'
-import { useLayer } from '@/hooks/services/generator/useLayer'
+import { Box, HStack, Text, Button, VStack, useColorModeValue, Flex } from '@chakra-ui/react'
 import { MdOutlineAdd  } from 'react-icons/md'
-import { FaTrashAlt } from 'react-icons/fa'
+import { useLayer } from '@/hooks/services/generator/useLayer'
+import LayerList from '@/components/services/Generator/LayerList'
 import { webColor } from '@/theme/index'
 
 const Layers = () => {
-    const { layers, currentLayer } = useGenerator();
     const { 
-        ChangeLayerName, 
-        PreviewLayer, 
-        DeleteLayer, 
-        AddLayer 
+        AddLayer
     } = useLayer();
 
     const containerColor = useColorModeValue(webColor.containerBg[0], webColor.containerBg[1]);
-    
+
     return (
         <VStack 
             spacing='1.5em'
@@ -47,42 +42,9 @@ const Layers = () => {
                     </Text>
                 </HStack>
             </VStack>
-            <VStack spacing='1em'>
-                {layers?.map((layer, idx) => (
-                    <Box position='relative' key={idx}>
-                        <Button 
-                            key={idx} w='170px' h='55px' 
-                            borderLeftWidth={idx === 0 || idx === layers.length - 1 ? '4px' : '0'} 
-                            borderColor={idx === 0 ? '#08BDD4' : 'orange'}
-                            onClick={() => PreviewLayer(idx)}
-                        >
-                            <Flex flexDir='column'>
-                                <Input 
-                                    variant='unstyled' 
-                                    value={layer.name} 
-                                    fontSize='10pt' 
-                                    onChange={(e) => ChangeLayerName(e, idx)} 
-                                    fontWeight={currentLayer === idx ? 'bold' : 'normal'}
-                                />
-                                <Text fontSize='8pt' textAlign='left' fontWeight='500' mt='.25em'>
-                                    Images: {layer.images.length}
-                                </Text>
-                            </Flex>
-                        </Button>
-                        <IconButton 
-                            aria-label='Delete Layer' 
-                            position='absolute'
-                            top='-2.5'
-                            right='-2.5'
-                            isRound
-                            icon={<FaTrashAlt />}
-                            size='sm'
-                            onClick={() => DeleteLayer(idx)}
-                            variant='primary'
-                        />
-                    </Box>
-                )).reverse()}
-            </VStack>
+            <Flex w='full'>
+                <LayerList />
+            </Flex>
         </VStack>
     )
 }
