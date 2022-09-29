@@ -17,11 +17,13 @@ const Template6 = () => {
             alignItems='center'
         >
             <Flex w='full' maxW='1260px' p='2em' justifyContent='space-between' alignItems='center'>
-                <Avatar  
-                    src={userWebsite?.components?.unrevealedImage}
-                    name={userWebsite?.components?.title} 
-                    bg='white'
-                />
+                <Flex maxW='200px' w='full'>
+                    <Avatar  
+                        src={userWebsite?.components?.unrevealedImage}
+                        name={userWebsite?.components?.title} 
+                        bg='white'
+                    />
+                </Flex>
                 <Links bx={{ color: 'white', size: 'md' }} />
                 <Address 
                     maxW='200px'
