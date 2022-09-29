@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Box, Text, Flex, Button, Input, IconButton } from '@chakra-ui/react'
+import { Box, Text, Flex, Input, IconButton } from '@chakra-ui/react'
 import { FaTrashAlt } from 'react-icons/fa'
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { useLayer } from '@/hooks/services/generator/useLayer'
