@@ -12,82 +12,9 @@ const Layers = () => {
         PreviewLayer, 
         DeleteLayer,
     } = useLayer();
-    const [placeholderProps, setPlaceholderProps] = useState({});
-
-    const getDraggedDom = (draggableId) => {
-        const domQuery = `[data-rbd-drag-handle-draggable-id='${draggableId}']`;
-        const draggedDOM = document.querySelector(domQuery);
-        return draggedDOM;
-    };
-
-    const onDragStart = (e) => {
-        const draggedDOM = getDraggedDom(e.draggableId);
-        if (!draggedDOM) return;
-
-        const { clientHeight, clientWidth } = draggedDOM;
-        const sourceIndex = e.source.index;
-
-        let clientY =
-        parseFloat(window.getComputedStyle(draggedDOM.parentNode).paddingTop) +
-        [...draggedDOM.parentNode.children]
-            .slice(0, sourceIndex)
-            .reduce((total, curr) => {
-                const style = curr.currentStyle || window.getComputedStyle(curr);
-                const marginBottom = parseFloat(style.marginBottom);
-                return total + curr.clientHeight + marginBottom;
-            }, 0);
-
-        setPlaceholderProps({
-            clientHeight,
-            clientWidth,
-            clientY,
-            clientX: parseFloat(
-                window.getComputedStyle(draggedDOM.parentNode).paddingLeft
-            )
-        });
-    }
-
-    const onDragUpdate = (e) => {
-        const draggedDOM = getDraggedDom(e.draggableId);
-        if (!draggedDOM) return;
-
-        const { clientHeight, clientWidth } = draggedDOM;
-        const destinationIndex = e.destination.index;
-        const sourceIndex = e.source.index;
-
-        const childrenArray = [...draggedDOM.parentNode.children];
-
-        const movedItem = childrenArray[sourceIndex];
-        childrenArray.splice(sourceIndex, 1);
-
-        const updatedArray = [
-            ...childrenArray.slice(0, destinationIndex),
-            movedItem,
-            ...childrenArray.slice(destinationIndex + 1)
-        ];
-    
-        let clientY =
-        parseFloat(window.getComputedStyle(draggedDOM.parentNode).paddingTop) +
-        updatedArray.slice(0, destinationIndex).reduce((total, curr) => {
-                const style = curr.currentStyle || window.getComputedStyle(curr);
-                const marginBottom = parseFloat(style.marginBottom);
-                return total + curr.clientHeight + marginBottom;
-        }, 0);
-
-        setPlaceholderProps({
-            clientHeight,
-            clientWidth,
-            clientY,
-            clientX: parseFloat(
-                window.getComputedStyle(draggedDOM.parentNode).paddingLeft
-            )
-        });
-    }
 
     const onDragEnd = (result) => {
         const { destination, source } = result;
-
-        setPlaceholderProps({});
 
         if (!layers) return;
         if (!destination) return;
@@ -103,11 +30,9 @@ const Layers = () => {
     return (
         <DragDropContext 
             onDragEnd={onDragEnd}
-            onDragStart={onDragStart}
-            onDragUpdate={onDragUpdate}
         >
             <Droppable droppableId='root'>
-                {(provided, snapshot) => (
+                {(provided) => (
                     <div
                         {...provided.droppableProps}
                         ref={provided.innerRef}
@@ -118,7 +43,7 @@ const Layers = () => {
                                 key={layer.name.trim().replaceAll(' ', '-')}
                                 index={idx}
                             >
-                                {(provided, snapshot) => (
+                                {(provided) => (
                                     <Box 
                                         style={provided.draggableProps.style}
                                         ref={provided.innerRef}
