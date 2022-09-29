@@ -16,14 +16,16 @@ const Meta = ({ title }) => {
         <meta property="og:url" content='https://www.nfthost.app/' />
         <meta property="og:title" content='NFT Host - Generate &#38; Host your NFT Collection' />
         <meta property="og:description" content='NFT Host is a website where you can generate NFT collections and create NFT minting website. Metadata utilities available for post-generation.' />
-        <meta property="og:image" content='https://www.nfthost.app/assets/logo.png' />
+        <meta property="og:image" content='https://www.nfthost.app/assets/nfthost-og.png' />
+        <meta property="og:image:alt" content='NFTHost OpenGraph Picture' />
         <meta property="og:site_name" content='NFT Host' />
 
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:url" content='https://www.nfthost.app/' />
         <meta property="twitter:title" content='NFT Host - Generate &#38; Host your NFT Collection' />
         <meta property="twitter:description" content='NFT Host is a website where you can generate NFT collections and create NFT minting website. Metadata utilities available for post-generation.' />
-        <meta property="twitter:image" content='https://www.nfthost.app/assets/logo.png' />
+        <meta property="twitter:image" content='https://www.nfthost.app/assets/nfthost-og.png' />
+        <meta property="twitter:image:alt" content='NFTHost TwitterCard Picture' />
     </Head>
 }
 
