@@ -31,7 +31,7 @@ const Templates = () => {
                         <Divider flex='1' />
                     </HStack>
                     <Text my='.5em' variant='subtle'>
-                        You will see changes in your minting website 5 minutes after you changed your template.
+                        You will see changes in your minting website 30 seconds after you changed your template.
                     </Text>
                     <Wrap spacing='2em' mt='2em'>
                         {templatesArr?.map((template, idx) => (
