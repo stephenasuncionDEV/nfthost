@@ -17,6 +17,20 @@ export const useTraits = () => {
         setLayers
     } = useGenerator();
 
+    const DeleteAllTraits = () => {
+        setLayers(prevState => {
+            return prevState.map((layer, idx) => {
+                if (idx === currentLayer) {
+                    return {
+                        ...layer,
+                        images: []
+                    }
+                }
+                return layer;
+            })
+        })
+    }
+
     const DeleteTrait = (imageName) => {
         setLayers(prevState => {
 			const filteredImages = prevState[currentLayer].images.filter(image => image.name !== imageName);
@@ -105,6 +119,7 @@ export const useTraits = () => {
 
     return {
         DeleteTrait,
-        UploadAssets
+        UploadAssets,
+        DeleteAllTraits
     }
 }

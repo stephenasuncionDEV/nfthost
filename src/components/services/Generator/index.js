@@ -9,6 +9,7 @@ import RarityModal from './RarityModal'
 import GenerateModal from './GenerateModal'
 import useWindowSize from 'react-use/lib/useWindowSize'
 import DownloadModal from './DownloadModal'
+import AreYouSureModal from '@/components/AreYouSureModal'
 
 const Generator = () => {
     const { width, height } = useWindowSize();
@@ -16,6 +17,7 @@ const Generator = () => {
 
     return (
         <Box p='1em'>
+            <AreYouSureModal />
             <Confetti
                 numberOfPieces={200}
                 width={width - 25}
