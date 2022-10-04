@@ -19,6 +19,8 @@ import Template6 from '@/components/services/Website/SiteTemplates/Template6'
 import Template7 from '@/components/services/Website/SiteTemplates/Template7'
 import Template8 from '@/components/services/Website/SiteTemplates/Template8'
 import Template9 from '@/components/services/Website/SiteTemplates/Template9'
+import Template10 from '@/components/services/Website/SiteTemplates/Template10'
+import Template11 from '@/components/services/Website/SiteTemplates/Template11'
 import posthog from 'posthog-js'
 import parse from 'html-react-parser'
 import config from '@/config/index'
@@ -95,7 +97,9 @@ const UserWebsite = (props) => {
                             Template6: <Template6 />,
                             Template7: <Template7 />,
                             Template8: <Template8 />,
-                            Template9: <Template9 />
+                            Template9: <Template9 />,
+                            Template10: <Template10 />,
+                            Template11: <Template11 />
                         }[userWebsite?.components?.template]}
                     </main>
                 </div>

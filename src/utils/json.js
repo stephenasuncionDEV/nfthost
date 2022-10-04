@@ -145,15 +145,17 @@ export const metadataStandardsArr = [
 ]
 
 export const templatesArr = [
-    { name: 'Template1', key: 'Template1', sub: 'free', creator: 'NFTHost' },
-    { name: 'Template2', key: 'Template2', sub: 'free', creator: 'NFTHost' },
-    { name: 'Template3', key: 'Template3', sub: 'free', creator: 'NFTHost' },
-    { name: 'Astro Orange', key: 'Template4', sub: 'premium', creator: 'NFTHost' },
-    { name: 'Astro Blue', key: 'Template5', sub: 'premium', creator: 'NFTHost' },
-    { name: 'Tropical', key: 'Template6', sub: 'premium', creator: 'NFTHost' },
-    { name: 'City Night', key: 'Template7', sub: 'premium', creator: 'NFTHost' },
-    { name: 'Graffiti Green', key: 'Template8', sub: 'premium', creator: 'NFTHost' },
-    { name: 'Graffiti Blue', key: 'Template9', sub: 'premium', creator: 'NFTHost' }
+    { name: 'Template1', key: 'Template1', sub: 'free', isAnimated: false, creator: 'NFTHost', filterKey: 'f_free' },
+    { name: 'Template2', key: 'Template2', sub: 'free', isAnimated: false, creator: 'NFTHost', filterKey: 'f_free' },
+    { name: 'Template3', key: 'Template3', sub: 'free', isAnimated: false, creator: 'NFTHost', filterKey: 'f_free' },
+    { name: 'Astro Orange', key: 'Template4', sub: 'premium', cisAnimated: false, reator: 'NFTHost', filterKey: 'f_premium' },
+    { name: 'Astro Blue', key: 'Template5', sub: 'premium', isAnimated: false, creator: 'NFTHost', filterKey: 'f_premium' },
+    { name: 'Tropical', key: 'Template6', sub: 'premium', isAnimated: false, creator: 'NFTHost', filterKey: 'f_premium' },
+    { name: 'City Night', key: 'Template7', sub: 'premium', isAnimated: false, creator: 'NFTHost', filterKey: 'f_premium' },
+    { name: 'Graffiti Green', key: 'Template8', sub: 'premium', isAnimated: false, creator: 'NFTHost', filterKey: 'f_premium' },
+    { name: 'Graffiti Blue', key: 'Template9', sub: 'premium', isAnimated: false, creator: 'NFTHost', filterKey: 'f_premium' },
+    { name: 'Fantasy', key: 'Template10', sub: 'premium', isAnimated: true, creator: 'NFTHost', filterKey: 'f_premium_animated' },
+    { name: 'Lofi Mario', key: 'Template11', sub: 'premium', isAnimated: true, creator: 'NFTHost', filterKey: 'f_premium_animated' }
 ]
 
 export const addonsArr = [
