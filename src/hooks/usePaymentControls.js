@@ -149,7 +149,9 @@ export const usePaymentControls = () => {
                     }
                 })
 
-                setWebsites(res.data);
+                if (res.status === 200) {
+                    setWebsites(res.data);
+                }
             }
 
             posthog.capture('User paid with crypto wallet', {
