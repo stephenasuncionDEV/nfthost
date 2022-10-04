@@ -43,12 +43,15 @@ const UserWebsite = (props) => {
 
         const renderWebsite = async () => {
             try {
-                const { isExpired, isPublished, components: { title } } = props;
-
                 let newUserWebsiteErrors = [];
-        
-                if (isExpired) newUserWebsiteErrors.push(`${title} Minting Website has Expired`);
-                if (!isPublished) newUserWebsiteErrors.push(`${title} Minting Website is not Published yet`);
+
+                if (!Object.keys(props).length) newUserWebsiteErrors.push(`Minting Website was not found`);
+                else {
+                    const { isExpired, isPublished, components: { title } } = props;
+
+                    if (isExpired) newUserWebsiteErrors.push(`${title} Minting Website has Expired`);
+                    if (!isPublished) newUserWebsiteErrors.push(`${title} Minting Website is not Published yet`);
+                }
         
                 if (newUserWebsiteErrors.length > 0) {
                     setUserWebsiteErrors(newUserWebsiteErrors);
@@ -187,7 +190,7 @@ export const getStaticProps = async ({ params: { siteRoute } }) => {
     });
 
     return {
-        props: site.data,
+        props: site.data || {},
         revalidate: 30
     }
   }
