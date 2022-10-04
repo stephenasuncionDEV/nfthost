@@ -1161,6 +1161,7 @@ export const useWebsiteControls = () => {
         deleteWebsite,
         isDeletingWebsite,
         userWebsiteErrors,
+        setUserWebsiteErrors,
         upgradeWebsiteToPremium,
         updateSubscription,
         updateExternalLink,

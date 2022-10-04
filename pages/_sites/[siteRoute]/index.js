@@ -2,11 +2,7 @@ import NextLink from 'next/link'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
-import { Text, Flex, Button, VStack, SlideFade, Link, useColorModeValue, 
-    Wrap, Image, Tag, HStack, useColorMode, Center, Spinner
-} from '@chakra-ui/react'
-import { AiOutlineArrowRight } from 'react-icons/ai'
-import { useMediaQuery } from 'react-responsive'
+import { Text, VStack, Image, HStack, useColorMode, Center, Spinner, useToast } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useWebsiteControls } from '@/hooks/services/website/useWebsiteControls'
 import { usePaymentControls } from '@/hooks/usePaymentControls'
@@ -21,21 +17,53 @@ import Template8 from '@/components/services/Website/SiteTemplates/Template8'
 import Template9 from '@/components/services/Website/SiteTemplates/Template9'
 import Template10 from '@/components/services/Website/SiteTemplates/Template10'
 import Template11 from '@/components/services/Website/SiteTemplates/Template11'
-import posthog from 'posthog-js'
 import parse from 'html-react-parser'
 import config from '@/config/index'
 import axios from 'axios'
+import errorHandler from '@/utils/errorHandler'
 
 const UserWebsite = (props) => {
+    const toast = useToast({
+        title: 'Error',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+        position: 'bottom'
+    });
     const router = useRouter();
     const { userWebsite, setUserWebsite } = useWebsite();
     const { 
         userWebsiteErrors,
-        checkSubscription
+        checkSubscription,
+        setUserWebsiteErrors
     } = useWebsiteControls();
 
     useEffect(() => {
-        setUserWebsite(props);
+        if (!props) return;
+
+        const renderWebsite = async () => {
+            try {
+                const { isExpired, isPublished, components: { title } } = props;
+
+                let newUserWebsiteErrors = [];
+        
+                if (isExpired) newUserWebsiteErrors.push(`${title} Minting Website has Expired`);
+                if (!isPublished) newUserWebsiteErrors.push(`${title} Minting Website is not Published yet`);
+        
+                if (newUserWebsiteErrors.length > 0) {
+                    setUserWebsiteErrors(newUserWebsiteErrors);
+                    throw new Error('If you are the owner of this minting website, please check your site settings');
+                }
+        
+                setUserWebsite(props);
+            }
+            catch (err) {
+                const msg = errorHandler(err);
+                toast({ description: msg });
+            }
+        }
+
+        renderWebsite();
     }, [])
 
     useEffect(() => {
@@ -61,7 +89,7 @@ const UserWebsite = (props) => {
 
     return (
         <>
-            {userWebsite ? (
+            {(userWebsite) ? (
                 <div>
                     <Head>
                         <title>{userWebsite?.components?.title}</title>
