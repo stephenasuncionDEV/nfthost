@@ -1,10 +1,11 @@
 import NextLink from 'next/link'
+import { useState } from 'react'
 import { Text, Flex, Button, VStack, useColorModeValue, Image, 
-    Wrap, Tag, TagLeftIcon, HStack, Divider, Link, Box
+    Wrap, Tag, TagLeftIcon, HStack, Divider, Link, Box, Checkbox
 } from '@chakra-ui/react'
 import { MdAdd } from 'react-icons/md'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
-import { GiCutDiamond } from 'react-icons/gi'
+import { GiCutDiamond, GiFairyWand } from 'react-icons/gi'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useWebsiteControls } from '@/hooks/services/website/useWebsiteControls'
 import { templatesArr } from '@/utils/json'
@@ -17,8 +18,16 @@ const Templates = () => {
         updateTemplate,
         isUpdatingWebsite
     } = useWebsiteControls();
+    const [filter, setFilter] = useState(['f_free', 'f_premium', 'f_premium_animated']);
 
     const containerColor = useColorModeValue(webColor.containerBg[0], webColor.containerBg[1]);
+
+    const onFilterChange = (e) => {
+        const checkedValues = [...document.querySelectorAll('.filterCheckbox')]
+        .filter((checkbox) => checkbox.firstChild.checked)
+        .map((checkbox) => checkbox.firstChild.name);
+        setFilter(checkedValues);
+    }
 
     return (
         <>
@@ -33,8 +42,19 @@ const Templates = () => {
                     <Text my='.5em' variant='subtle'>
                         You will see changes in your minting website 30 seconds after you changed your template.
                     </Text>
+                    <HStack spacing='1em' mt='1em'>
+                        <Checkbox id='free' name='f_free' onChange={onFilterChange} className='filterCheckbox' defaultChecked>
+                            Free
+                        </Checkbox>
+                        <Checkbox id='premium' name='f_premium' onChange={onFilterChange} className='filterCheckbox' defaultChecked>
+                            Premium
+                        </Checkbox>
+                        <Checkbox id='animated' name='f_premium_animated' onChange={onFilterChange} className='filterCheckbox' defaultChecked>
+                            Animated
+                        </Checkbox>
+                    </HStack>
                     <Wrap spacing='2em' mt='2em'>
-                        {templatesArr?.map((template, idx) => (
+                        {templatesArr?.filter(({ filterKey }) => filter.includes(filterKey)).map((template, idx) => (
                             <Flex
                                 flexDir='column'
                                 p='1em'
@@ -50,14 +70,6 @@ const Templates = () => {
                                     h='170px'
                                     spacing='.75em'
                                 >
-                                    <Flex justifyContent='flex-end' w='full'>
-                                        <Tag size='sm' zIndex='1338'>
-                                            {template.sub === 'premium' && <TagLeftIcon as={GiCutDiamond} color='orange' />}
-                                            <Text>
-                                                {template.sub === 'premium' ? 'Premium' : 'Free'}
-                                            </Text>
-                                        </Tag>
-                                    </Flex>
                                     <Box w='250px' h='125px' overflow='hidden'>
                                         <Link href={`${config?.clientUrl}/assets/templates/${template.key}.png`} boxSize='250px' isExternal>
                                             <Image 
@@ -66,6 +78,22 @@ const Templates = () => {
                                             />
                                         </Link>
                                     </Box>
+                                    <Wrap justify='flex-start' w='full' gap='.5em'>
+                                        <Tag size='sm'>
+                                            {template.sub === 'premium' && <TagLeftIcon as={GiCutDiamond} color='orange' />}
+                                            <Text>
+                                                {template.sub === 'premium' ? 'Premium' : 'Free'}
+                                            </Text>
+                                        </Tag>
+                                        {template.isAnimated && (
+                                            <Tag size='sm'>
+                                                <TagLeftIcon as={GiFairyWand} color='green.500' />
+                                                <Text>
+                                                    Animated
+                                                </Text>
+                                            </Tag>
+                                        )}
+                                    </Wrap>
                                 </VStack>
                                 <VStack spacing='0' alignItems='flex-start' mb='1em'>
                                     <Text fontSize='10pt' noOfLines='1'>
