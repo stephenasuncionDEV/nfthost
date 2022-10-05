@@ -1,65 +1,116 @@
-import { Flex, Text, VStack, Link, HStack, useColorModeValue, Wrap, Image } from '@chakra-ui/react'
-import { BiLinkExternal } from 'react-icons/bi'
-import { webColor } from '@/theme/index';
+import NextLink from 'next/link'
+import { Flex, Text, VStack, Link, HStack, useColorModeValue, Wrap, 
+    Image, Heading, IconButton 
+} from '@chakra-ui/react'
+import { FaTiktok, FaDiscord, FaGithub } from 'react-icons/fa'
 
 const Footer = () => {
-    const bg = useColorModeValue(webColor.footerBg[0], webColor.footerBg[1]);
-    const srcColor = useColorModeValue('rgb(34,34,34)', 'white');
+
+    const defaultColor = useColorModeValue('black', 'white');
+    const navbarButton = useColorModeValue('blackAlpha.600', 'whiteAlpha.600');
 
     return (
-        <footer>
-            <Flex minH='500px' bg={bg} justifyContent='center' alignItems='center'>
-                <Wrap maxW='8xl' w='full' px='24px' justifyContent='space-between' direction='row' spacing='2em'>
-                    <VStack alignItems='center' flex='1' minW='249.5px' spacing='1em'>
-                        <Image src='/assets/logo.svg' alt='NFTHost Logo' width='60px' />
-                        <Flex flexDir='column' alignItems='center'>
-                            <Text fontSize='10pt'>
-                                Copyright &copy; 2022 NFT Host Ltd.
+        <Flex as='footer' minH='500px' justifyContent='center' alignItems='flex-start' bg='#000616' p='2em' py='4em'>
+            <Wrap justify='center' w='full' spacing='5em'>
+                <Flex flexDir='column' flex='1' alignItems='center'>
+                    <NextLink href='/' shallow passHref>
+                        <Flex flexDir='column'>
+                            <HStack spacing='.5em' cursor='pointer' flex='1'>
+                                <Image src='/assets/logo.png' alt='NFT Host Logo' w='50px'/>
+                                <Heading as='h1' fontWeight='bold' fontFamily='inter' fontSize='20pt'>
+                                    NFT Host
+                                </Heading>
+                            </HStack>
+                            <Text fontSize='9pt' mt='1.25em'>
+                                &copy; 2022 NFTHost. All rights Reserved.
                             </Text>
-                            <Text fontSize='9pt'>
-                                All rights reserved.
-                            </Text>
+                            <HStack justifyContent='center' mt='1em'>
+                                <Link href='https://discord.gg/2BDzCvSTVc' isExternal style={{ color: defaultColor }}>
+                                    <IconButton 
+                                        aria-label='NFT Host Discord'
+                                        icon={<FaDiscord />}
+                                        borderRadius='50%'
+                                        size='sm'
+                                        bg='transparent'
+                                        _hover={{ bg: 'transparent', color: navbarButton }}
+
+                                    />
+                                </Link>
+                                <Link href='https://github.com/stephenasuncionDEV/nfthost' isExternal style={{ color: defaultColor }}>
+                                    <IconButton 
+                                        aria-label='NFT Host Github'
+                                        icon={<FaGithub />}
+                                        borderRadius='50%'
+                                        size='sm'
+                                        bg='transparent'
+                                        _hover={{ bg: 'transparent', color: navbarButton }}
+                                    />
+                                </Link>
+                                <Link href='https://www.tiktok.com/@nfthostofficial' isExternal style={{ color: defaultColor }}>
+                                    <IconButton 
+                                        aria-label='NFT Host Tiktok'
+                                        icon={<FaTiktok />}
+                                        borderRadius='50%'
+                                        size='sm'
+                                        bg='transparent'
+                                        _hover={{ bg: 'transparent', color: navbarButton }}
+                                    />
+                                </Link>
+                            </HStack>
                         </Flex>
-                    </VStack>
-                    <Wrap direction='row' flex='1' justifyContent='center' spacing='5em'>
-                        <VStack alignItems='flex-start' justifyContent='flex-start' flex='1'>
-                            <Text fontWeight='bold' fontSize='10pt'>
-                                Privacy
+                    </NextLink>
+                </Flex>
+                <Flex flex='1' justifyContent='flex-start'>
+                    <Wrap spacing='4em'>
+                        <VStack alignItems='flex-start'>
+                            <Text fontWeight='bold'>
+                                Landing
                             </Text>
-                            <Link href='/about/terms' color='white' isExternal>
-                                <HStack minW='151.58px' fontSize='9pt'>
-                                    <Text>
-                                        Terms of Service
-                                    </Text>
-                                    <BiLinkExternal color={srcColor} />
-                                </HStack>
+                            <NextLink href='/#features' passHref shallow>
+                                <Text cursor='pointer' _hover={{ color: navbarButton }}>
+                                    Features
+                                </Text>
+                            </NextLink>
+                            <NextLink href='/#testimonials' passHref shallow>
+                                <Text cursor='pointer' _hover={{ color: navbarButton }}>
+                                    Testimonials
+                                </Text>
+                            </NextLink>
+                            <NextLink href='/#pricing' passHref shallow>
+                                <Text cursor='pointer' _hover={{ color: navbarButton }}>
+                                    Pricing
+                                </Text>
+                            </NextLink>
+                        </VStack>
+                        <VStack alignItems='flex-start'>
+                            <Text fontWeight='bold'>
+                                Policies
+                            </Text>
+                            <Link href='/about/terms' isExternal style={{ textDecoration: 'none' }}>
+                                <Text cursor='pointer' _hover={{ color: navbarButton }}>
+                                    Terms of Service
+                                </Text>
                             </Link>
-                            <Link href='/about/privacy-policy' color='white' isExternal>
-                                <HStack minW='128.97px' fontSize='9pt'>
-                                    <Text>
-                                        Privacy Policy
-                                    </Text>
-                                    <BiLinkExternal color={srcColor} />
-                                </HStack>
+                            <Link href='/about/privacy-policy' isExternal style={{ textDecoration: 'none' }}>
+                                <Text cursor='pointer' _hover={{ color: navbarButton }}>
+                                    Privacy Policy
+                                </Text>
                             </Link>
                         </VStack>
-                        <VStack alignItems='flex-start' justifyContent='flex-start' flex='1'>
-                            <Text fontWeight='bold' fontSize='10pt'>
-                                Team
+                        <VStack alignItems='flex-start'>
+                            <Text fontWeight='bold'>
+                                About
                             </Text>
-                            <Link href='https://www.linkedin.com/in/stephenasuncion/' color='white' isExternal>
-                                <HStack minW='161.13' fontSize='9pt'>
-                                    <Text>
-                                        Stephen Asuncion
-                                    </Text>
-                                    <BiLinkExternal color={srcColor} />
-                                </HStack>
-                            </Link>
+                            <NextLink href='/dashboard/team' passHref shallow>
+                                <Text cursor='pointer' _hover={{ color: navbarButton }}>
+                                    Team
+                                </Text>
+                            </NextLink>
                         </VStack>
                     </Wrap>
-                </Wrap>
-            </Flex>
-        </footer>
+                </Flex>
+            </Wrap>
+        </Flex>
     )
 }
 
