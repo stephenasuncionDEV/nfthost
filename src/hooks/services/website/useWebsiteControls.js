@@ -672,6 +672,8 @@ export const useWebsiteControls = () => {
 
             if (res.status !== 200) throw new Error('Cannot delete website at the moment');
 
+            posthog.capture('User deleted a mint website');
+
             setWebsites((prevWebsite) => {
                 return prevWebsite.filter(web => {
                     return web._id !== editingWebsite._id;
