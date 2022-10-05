@@ -5,9 +5,9 @@ import MainFooter from '@/components/MainFooter'
 
 const Terms = () => {
     return (
-        <Box>
+        <Box bg='#000616'>
             <Meta title='NFT Host Terms Of Service | NFT Host' />
-            <MainNavbar isLanding />
+            <MainNavbar isSocial />
             <main>
                 <Flex 
                     w='full' 

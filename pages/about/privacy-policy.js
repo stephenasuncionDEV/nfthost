@@ -5,9 +5,9 @@ import MainFooter from '@/components/MainFooter'
 
 const PrivacyPolicy = () => {
     return (
-        <Box>
+        <Box bg='#000616'>
             <Meta title='NFT Host Privacy Policy | NFT Host' />
-            <MainNavbar isLanding />
+            <MainNavbar isSocial />
             <main>
                 <Flex 
                     w='full' 

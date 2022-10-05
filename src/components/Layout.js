@@ -1,5 +1,5 @@
 import NextLink from 'next/link'
-import { Box, Text, useColorModeValue, VStack, HStack, 
+import { Box, Text, useColorModeValue, VStack, HStack, Heading,
     IconButton, Button, useColorMode, Flex, Link, Image
 } from '@chakra-ui/react'
 import { useCore } from '@/providers/CoreProvider'
@@ -32,9 +32,12 @@ const Layout = ({ children, currentApp }) => {
                 boxShadow='sm'
             >
                 <HStack spacing='2em'>
-                    <Link href='/dashboard' style={{ textDecoration: 'none' }}>
-                        <HStack spacing='1em' cursor='pointer' p='1em'>
-                            <Image src={colorMode === 'dark' ? '/assets/logo_full_white.png' : '/assets/logo_full_black.png'} alt='NFTHost Logo' width='140px' />
+                    <Link href='/dashboard' style={{ textDecoration: 'none', color: 'white' }}>
+                        <HStack spacing='.5em' cursor='pointer' flex='1'>
+                            <Image src='/assets/logo.png' alt='NFT Host Logo' w='50px'/>
+                            <Heading as='h1' fontWeight='bold' fontFamily='inter' fontSize='16pt'>
+                                NFT Host
+                            </Heading>
                         </HStack>
                     </Link>
                     <IconButton 
@@ -48,7 +51,7 @@ const Layout = ({ children, currentApp }) => {
                     </IconButton>
                 </HStack>
                 <HStack spacing='2em'>
-                    <IconButton 
+                    {/* <IconButton 
                         aria-label='Toggle Color Mode' 
                         bg='transparent'
                         color={defaultColor} 
@@ -56,7 +59,7 @@ const Layout = ({ children, currentApp }) => {
                         onClick={toggleColorMode}
                     >
                         {colorMode === 'light' ? <MdOutlineDarkMode /> : <MdOutlineLightMode />}
-                    </IconButton>
+                    </IconButton> */}
                     <ConnectWalletTag 
                         isUserProfile
                         isPayments

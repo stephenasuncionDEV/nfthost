@@ -32,3 +32,72 @@ a {
 .scaleAnimation:hover {
     transform: scale(1.05);
 }
+
+.upDownAnimation {
+    animation: upDown 5s infinite;
+}
+
+.upDownAnimation2 {
+    animation: upDown2 10s infinite;
+}
+
+.upDownAnimation3 {
+    animation: upDown3 10s infinite;
+}
+
+.upDownAnimation4 {
+    animation: upDown4 5s infinite;
+}
+
+.rotateAnimation {
+    animation: rotate 200s infinite;
+}
+
+.rotateAnimation2 {
+    animation: rotate2 150s infinite;
+}
+
+
+@keyframes upDown {
+    0% { top: 0px; }
+    50% { top: -80px; }
+    100% { top: 0px; }
+}
+
+@keyframes upDown2 {
+    0% { top: 250px; }
+    50% { top: -50px; }
+    100% { top: 250px; }
+}
+
+@keyframes upDown3 {
+    0% { top: 300px; }
+    50% { top: -100px; }
+    100% { top: 30px; }
+}
+
+@keyframes upDown4 {
+    0% { top: 0px; }
+    50% { top: -25px; }
+    100% { top: 0px; }
+}
+
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes rotate2 {
+    0% { transform: rotate(360deg); }
+    100% { transform: rotate(0); }
+}
+
+.gradientPurple {
+    background-image: linear-gradient(45deg, #6135ba, #f211ea);
+    background-size: 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent;
+}

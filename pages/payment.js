@@ -64,8 +64,11 @@ const Payment = () => {
                     <Flex flexDir='column'>
                         <Flex justifyContent='space-between' alignItems='center'>
                             <NextLink href='/' shallow passHref>
-                                <HStack spacing='1em' cursor='pointer'>
-                                    <Image src={colorMode === 'dark' ? '/assets/logo_full_white.png' : '/assets/logo_full_black.png'} alt='NFT Host Logo' width='170px' />
+                                <HStack spacing='.5em' cursor='pointer' flex='1'>
+                                    <Image src='/assets/logo.png' alt='NFT Host Logo' w='50px'/>
+                                    <Heading as='h1' fontWeight='bold' fontFamily='inter' fontSize='20pt'>
+                                        NFT Host
+                                    </Heading>
                                 </HStack>
                             </NextLink>
                             <NextLink href={paymentData?.redirect?.origin} shallow passHref>
@@ -140,29 +143,31 @@ const Payment = () => {
                                     </Flex>
                                 </Button> */}
                             </Wrap>
-                            <Text fontSize='10pt'>
-                                Referral Code
-                            </Text>
-                            <Flex gap='.5em' mt='.25em'>
-                                <Question prompt='The code given to you by your referrer. Leave blank if you dont have one.' top={10} flex='1'>
-                                    <Input 
-                                        type='text' 
-                                        placeholder='Referral Code' 
-                                        textTransform='lowercase' 
-                                        value={referrer} 
-                                        onChange={(e) => setReferrer(e.target.value)} 
-                                        size='sm'
-                                        disabled={isApplied}
-                                    />
-                                </Question>
-                                <Button 
-                                    variant='primary' 
-                                    onClick={applyReferral} 
-                                    disabled={isApplying || isApplied} 
-                                >
-                                    Apply
-                                </Button>
-                            </Flex>
+                            <Box mt='1em'>
+                                <Text fontSize='10pt'>
+                                    Referral Code
+                                </Text>
+                                <Flex gap='.5em' mt='.25em'>
+                                    <Question prompt='The code given to you by your referrer. Leave blank if you dont have one.' top={10} flex='1'>
+                                        <Input 
+                                            type='text' 
+                                            placeholder='Referral Code' 
+                                            textTransform='lowercase' 
+                                            value={referrer} 
+                                            onChange={(e) => setReferrer(e.target.value)} 
+                                            size='sm'
+                                            disabled={isApplied}
+                                        />
+                                    </Question>
+                                    <Button 
+                                        variant='primary' 
+                                        onClick={applyReferral} 
+                                        disabled={isApplying || isApplied} 
+                                    >
+                                        Apply
+                                    </Button>
+                                </Flex>
+                            </Box>
                             {isApplied && (
                                 <Flex justifyContent='center' mt='1em'>
                                     <Text fontSize='10pt' color='purple.500'>

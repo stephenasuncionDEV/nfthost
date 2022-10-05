@@ -49,6 +49,7 @@ export const useMemberControls = () => {
             const RPC_URL_MAP = {
                 1: `https://mainnet.infura.io/v3/${process.env.INFURA_ID}`,
                 4: `https://rinkeby.infura.io/v3/${process.env.INFURA_ID}`,
+                5: `https://goerli.infura.io/v3/${process.env.INFURA_ID}`,
                 137: `https://mainnet.infura.io/v3/${process.env.INFURA_ID}`,
                 80001: `https://polygon-mumbai.infura.io/v3/${process.env.INFURA_ID}`
             };
