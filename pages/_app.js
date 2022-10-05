@@ -13,7 +13,9 @@ const MyApp = ({ Component, pageProps }) => {
     const router = useRouter();
 
     useEffect(() => {
-        posthog.init(process.env.POSTHOG_KEY, { api_host: 'https://app.posthog.com' });
+        posthog.init(process.env.POSTHOG_KEY, { 
+            api_host: 'https://app.posthog.com' 
+        });
 
         const handleRouteChange = () => {
             posthog.capture('$pageview');

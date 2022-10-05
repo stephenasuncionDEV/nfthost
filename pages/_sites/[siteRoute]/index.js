@@ -58,11 +58,6 @@ const UserWebsite = (props) => {
                     setUserWebsiteErrors(newUserWebsiteErrors);
                     throw new Error('If you are the owner of this minting website, please check your site settings');
                 }
-
-                posthog.capture('User visited minting website', {
-                    route: props.route,
-                    referrer: document.referrer
-                });
         
                 setUserWebsite(props);
             }
@@ -78,6 +73,11 @@ const UserWebsite = (props) => {
     useEffect(() => {
         if (!userWebsite) return;
         checkSubscription();
+
+        posthog.capture('User visited minting website', {
+            route: userWebsite.route,
+            referrer: document.referrer
+        });
     }, [userWebsite])
 
     const { colorMode } = useColorMode();
