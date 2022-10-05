@@ -5,14 +5,16 @@ import { HStack, Menu, MenuButton, Tag,
 } from '@chakra-ui/react'
 import { useUser } from '@/providers/UserProvider'
 import { useMemberControls } from '@/hooks/useMemberControls'
-import { useNavbar } from '@/hooks/useNavbar'
+import { useCopy } from '@/hooks/useCopy'
 import { HiOutlineChevronDown, HiLogout } from 'react-icons/hi'
 import { MdOutlineContentCopy, MdPayment } from 'react-icons/md'
 
 const ConnectWalletTag = ({ isCopyAddress, isUserProfile, isPayments }) => {
     const { address, isLoggedIn, user } = useUser();
-    const { CopyAddress } = useNavbar();
     const { connect, logout } = useMemberControls();
+    const { onCopy: onCopyAddress } = useCopy({
+        text: address
+    })
 
     const toolbarNavColor = useColorModeValue('rgba(0,0,0,.8)', 'white');
     const toolbarBorderColor = useColorModeValue('rgba(0,0,0,.1)', 'white');
@@ -54,7 +56,7 @@ const ConnectWalletTag = ({ isCopyAddress, isUserProfile, isPayments }) => {
                     {isCopyAddress && (
                         <>
                             <MenuDivider />
-                            <MenuItem icon={<MdOutlineContentCopy />} onClick={CopyAddress}>Copy Address</MenuItem>
+                            <MenuItem icon={<MdOutlineContentCopy />} onClick={onCopyAddress}>Copy Address</MenuItem>
                         </>
                     )}
                     {isPayments && (
