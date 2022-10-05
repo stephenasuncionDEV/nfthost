@@ -17,8 +17,10 @@ const MyApp = ({ Component, pageProps }) => {
             api_host: 'https://app.posthog.com' 
         });
 
-        const handleRouteChange = () => {
-            posthog.capture('$pageview');
+        const handleRouteChange = (page) => {
+            posthog.capture('$pageview', {
+                page
+            });
         };
 
         router.events.on('routeChangeComplete', handleRouteChange);
