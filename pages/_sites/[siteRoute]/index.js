@@ -57,6 +57,11 @@ const UserWebsite = (props) => {
                     setUserWebsiteErrors(newUserWebsiteErrors);
                     throw new Error('If you are the owner of this minting website, please check your site settings');
                 }
+
+                posthog.capture('User visited minting website', {
+                    route: props.route,
+                    referrer: document.referrer
+                });
         
                 setUserWebsite(props);
             }

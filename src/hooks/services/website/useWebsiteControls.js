@@ -53,17 +53,12 @@ export const useWebsiteControls = () => {
 
             if (res.status === 200) return;
 
-            posthog.capture('User visited minting website', {
-                route,
-                referrer: document.referrer
-            });
-
             const { isExpired, isPublished, components: { title } } = res.data;
 
             let newUserWebsiteErrors = [];
 
-            if (isExpired) newUserWebsiteErrors.push(`${title} Minting Website has Expired`);
-            if (!isPublished) newUserWebsiteErrors.push(`${title} Minting Website is not Published yet`);
+            if (isExpired) newUserWebsiteErrors.push(`${title} Minting Website has Expired. Go to website settings -> General -> Renew`);
+            if (!isPublished) newUserWebsiteErrors.push(`${title} Minting Website is not Published yet. Go to website settings -> Advanced -> Publish`);
 
             if (newUserWebsiteErrors.length > 0) {
                 setUserWebsiteErrors(newUserWebsiteErrors);
