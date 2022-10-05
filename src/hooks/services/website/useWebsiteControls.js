@@ -51,6 +51,13 @@ export const useWebsiteControls = () => {
                 }
             })
 
+            if (res.status === 200) return;
+
+            posthog.capture('User visited minting website', {
+                route,
+                referrer: document.referrer
+            });
+
             const { isExpired, isPublished, components: { title } } = res.data;
 
             let newUserWebsiteErrors = [];
