@@ -2,7 +2,7 @@ import NextLink from 'next/link'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
-import { Text, VStack, Image, HStack, useColorMode, Center, Spinner, useToast } from '@chakra-ui/react'
+import { Text, VStack, Image, HStack, useColorMode, Center, Spinner, useToast, Heading } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useWebsiteControls } from '@/hooks/services/website/useWebsiteControls'
 import { usePaymentControls } from '@/hooks/usePaymentControls'
@@ -49,8 +49,8 @@ const UserWebsite = (props) => {
                 else {
                     const { isExpired, isPublished, components: { title } } = props;
 
-                    if (isExpired) newUserWebsiteErrors.push(`${title} Minting Website has Expired`);
-                    if (!isPublished) newUserWebsiteErrors.push(`${title} Minting Website is not Published yet`);
+                    if (isExpired) newUserWebsiteErrors.push(`${title} Minting Website has Expired. Go to website settings -> General -> Renew`);
+                    if (!isPublished) newUserWebsiteErrors.push(`${title} Minting Website is not Published yet. Go to website settings -> Advanced -> Publish`);
                 }
         
                 if (newUserWebsiteErrors.length > 0) {
@@ -139,8 +139,11 @@ const UserWebsite = (props) => {
                     {userWebsiteErrors?.length > 0 ? (
                         <VStack spacing='1em'>
                             <NextLink href='/' shallow passHref>
-                                <HStack spacing='1em' cursor='pointer'>
-                                    <Image src={colorMode === 'dark' ? '/assets/logo_full_white.png' : '/assets/logo_full_black.png'} alt='NFT Host Logo' width='170px' />
+                                <HStack spacing='.5em' cursor='pointer' flex='1'>
+                                    <Image src='/assets/logo.png' alt='NFT Host Logo' w='50px'/>
+                                    <Heading as='h1' fontWeight='bold' fontFamily='inter' fontSize='20pt'>
+                                        NFT Host
+                                    </Heading>
                                 </HStack>
                             </NextLink>
                             <VStack>
