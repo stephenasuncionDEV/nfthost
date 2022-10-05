@@ -17,10 +17,11 @@ import Template8 from '@/components/services/Website/SiteTemplates/Template8'
 import Template9 from '@/components/services/Website/SiteTemplates/Template9'
 import Template10 from '@/components/services/Website/SiteTemplates/Template10'
 import Template11 from '@/components/services/Website/SiteTemplates/Template11'
-import parse from 'html-react-parser'
-import config from '@/config/index'
-import axios from 'axios'
 import errorHandler from '@/utils/errorHandler'
+import config from '@/config/index'
+import parse from 'html-react-parser'
+import axios from 'axios'
+import posthog from 'posthog-js'
 
 const UserWebsite = (props) => {
     const toast = useToast({
