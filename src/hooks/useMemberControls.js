@@ -114,7 +114,7 @@ export const useMemberControls = () => {
             if (!userData) throw new Error('Cannot get user data');
 
             posthog.identify(userData._id);
-            posthog.people.set({ address: userData.address })
+            posthog.people.set({ walletAddress: userData.address });
 
             setUser(userData);
             setAddress(address);
