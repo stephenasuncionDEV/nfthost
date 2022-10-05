@@ -113,6 +113,9 @@ export const useMemberControls = () => {
 
             if (!userData) throw new Error('Cannot get user data');
 
+            posthog.identify(userData._id);
+            posthog.people.set({ address: userData.address })
+
             setUser(userData);
             setAddress(address);
             setWallet(wallet);
@@ -151,6 +154,8 @@ export const useMemberControls = () => {
                     refreshToken: token.refreshToken,
                 }
             })
+
+            posthog.reset();
 
             localStorage.removeItem('nfthost-user');
 
