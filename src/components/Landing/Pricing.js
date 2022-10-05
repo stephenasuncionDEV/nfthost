@@ -62,7 +62,7 @@ const Pricing = () => {
                     </Text>
                     <HStack>
                         <Text fontWeight='bold' fontSize='18pt'>
-                            Free or $15
+                            Free or $5
                         </Text>
                         <Text variant='subtle'>
                             / Modification
