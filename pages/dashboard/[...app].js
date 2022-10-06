@@ -73,12 +73,12 @@ const Page = () => {
                                 <Text fontWeight='bold' fontSize='10pt'>
                                     Connect
                                 </Text>
-                                <Text fontSize='10pt'>
+                                <Text fontSize='10pt' variant='subtle'>
                                     Connect your wallet, to unlock dashboard.
                                 </Text>
                             </Flex>
-                            <Box bg='rgb(52,140,212)' p='.25em' borderRadius='10px' mt='1em'>
-                                <ConnectWalletTag />
+                            <Box bg='rgb(112,62,221)' p='.25em' borderRadius='10px' mt='1em'>
+                                <ConnectWalletTag borderColor='transparent'/>
                             </Box>
                         </Flex>
                     </VStack>

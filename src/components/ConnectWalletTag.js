@@ -9,7 +9,7 @@ import { useCopy } from '@/hooks/useCopy'
 import { HiOutlineChevronDown, HiLogout } from 'react-icons/hi'
 import { MdOutlineContentCopy, MdPayment } from 'react-icons/md'
 
-const ConnectWalletTag = ({ isCopyAddress, isUserProfile, isPayments }) => {
+const ConnectWalletTag = ({ isCopyAddress, isUserProfile, isPayments, ...styles }) => {
     const { address, isLoggedIn, user } = useUser();
     const { connect, logout } = useMemberControls();
     const { onCopy: onCopyAddress } = useCopy({
@@ -21,7 +21,7 @@ const ConnectWalletTag = ({ isCopyAddress, isUserProfile, isPayments }) => {
 
     return (
         <Menu>
-            <MenuButton as={Tag} borderWidth='1px' size='md' cursor='pointer' bg='transparent' borderColor={toolbarBorderColor}>
+            <MenuButton as={Tag} borderWidth='1px' size='md' cursor='pointer' bg='transparent' borderColor={toolbarBorderColor} {...styles}>
                 <HStack>
                     <Text as={TagLabel} noOfLines='1' maxW='200px' color={toolbarNavColor}>
                         {isLoggedIn ? address : 'Connect Your Wallet'}

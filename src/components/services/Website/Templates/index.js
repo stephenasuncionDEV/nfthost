@@ -131,7 +131,7 @@ const Templates = () => {
                         <Text fontWeight='bold' fontSize='10pt'>
                             Error
                         </Text>
-                        <Text fontSize='10pt'>
+                        <Text fontSize='10pt' variant='subtle'>
                             Please create or select a website first.
                         </Text>
                     </Flex>
