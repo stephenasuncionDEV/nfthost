@@ -278,7 +278,7 @@ const General = () => {
                     <Button 
                         variant='primary' 
                         onClick={() => updateScript(script)}
-                        disabled={editingWebsite?.isExpired || isUpdatingWebsite || !script.length || script === editingWebsite?.components?.script}
+                        disabled={editingWebsite?.isExpired || isUpdatingWebsite || script === editingWebsite?.components?.script}
                         isLoading={isUpdatingWebsite}
                         loadingText='Saving'
                     >

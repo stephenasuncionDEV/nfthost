@@ -363,7 +363,7 @@ export const useWebsiteControls = () => {
 
             let errorsObj = { ...editInputState };
 
-            if (!(/</i.test(script) && />/i.test(script))) errorsObj.script = { status: true, message: 'Script/Style code must be a valid html code' };
+            if (script.length > 0 && (!(/</i.test(script) && />/i.test(script)))) errorsObj.script = { status: true, message: 'Script/Style code must be a valid html code' };
 
             if (errorsObj.script) {
                 setEditInputState(errorsObj);
