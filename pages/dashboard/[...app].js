@@ -11,6 +11,7 @@ import Generator from '@/components/services/Generator'
 import Website from '@/components/services/Website'
 import Templates from '@/components/services/Website/Templates'
 import SelectedWebsite from '@/components/services/Website/SelectedWebsite'
+import Analytics from '@/components/services/Website/Analytics'
 import ConnectWalletTag from '@/components/ConnectWalletTag'
 import Partners from '@/components/Partners'
 import Payments from '@/components/Payments'
@@ -57,6 +58,7 @@ const Page = () => {
                                 utilities: <Utilities />,
                                 website: <Website />,
                                 templates:  <Templates />,
+                                analytics: <Analytics />,
                                 payments: <Payments />,
                                 partners: <Partners />,
                                 team: <Team />

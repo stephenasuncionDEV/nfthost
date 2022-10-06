@@ -52,7 +52,7 @@ export const sidebarArr = [
                 children: [
                     { name: 'Templates', link: '/website/templates' },
                     // { name: 'Addons', link: '/website/addons' },
-                    // { name: 'Analytics', link: '/website/analytics' }
+                    { name: 'Analytics', link: '/website/analytics' }
                 ],
                 isExternal: false
             },

@@ -10,6 +10,11 @@ export const useCookie = () => {
         if (!localStorage.getItem('nfthost-cookie')) {
             setIsCookieModal(true);
         }
+
+        // Check if default color mode is light
+        if (localStorage.getItem('chakra-ui-color-mode') === 'light') {
+            localStorage.setItem('chakra-ui-color-mode', 'dark');
+        }
     }, [])
 
     const Accept = () => {
