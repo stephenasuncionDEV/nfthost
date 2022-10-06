@@ -99,7 +99,11 @@ const Pricing = () => {
                     </HStack>
                     <HStack w='full' maxW='250px' mt='2em'>
                         <Box borderRadius='5px' p='.5em' bg='gray.600' />
-                        <Text>3 Templates</Text>
+                        <Text>3 Pre-built Templates</Text>
+                    </HStack>
+                    <HStack w='full' maxW='250px' mt='2em'>
+                        <Box borderRadius='5px' p='.5em' bg='gray.600' />
+                        <Text>Subdomain</Text>
                     </HStack>
                     <HStack w='full' maxW='250px' mt='2em'>
                         <Box borderRadius='5px' p='.5em' bg='rgb(117,63,229)' />
@@ -107,7 +111,7 @@ const Pricing = () => {
                     </HStack>
                     <HStack w='full' maxW='250px' mt='2em'>
                         <Box borderRadius='5px' p='.5em' bg='rgb(117,63,229)' />
-                        <Text>All Templates</Text>
+                        <Text>All Pre-built Templates</Text>
                     </HStack>
                     <HStack w='full' maxW='250px' mt='2em'>
                         <Box borderRadius='5px' p='.5em' bg='rgb(117,63,229)' />
