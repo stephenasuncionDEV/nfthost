@@ -28,7 +28,8 @@ const CustomTooltip = ({ active, payload, label }) => {
     return null;
 };
 
-const CustomLabelList = ({ x, y, width, height, value }) => {
+const renderCustomizedLabel = (props) => {
+    const { x, y, width, value } = props;
     return (
         <g>
             <text x={x + (width / 2)} y={y - 10} fill="#fff" textAnchor="middle" dominantBaseline="middle">
@@ -142,12 +143,13 @@ const Analytics = () => {
                                             width={width}
                                             height={height - 16}
                                             data={websiteVisits}
+                                            is
                                         >
                                             <XAxis dataKey="name" stroke="#8884d8" />
                                             <YAxis stroke="#8884d8" />
                                             <Tooltip content={<CustomTooltip />} cursor={{ fill: 'transparent' }} />
-                                            <Bar dataKey='visits' barSize={30}>
-                                                <LabelList dataKey="visits" content={<CustomLabelList />}/>
+                                            <Bar dataKey='visits' barSize={30} fill="#8884D8" isAnimationActive={false}>
+                                                <LabelList dataKey="visits" content={renderCustomizedLabel} />
                                             </Bar>
                                         </BarChart>
                                     )}
