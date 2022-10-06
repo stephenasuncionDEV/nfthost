@@ -121,85 +121,97 @@ const Analytics = () => {
                     <Text my='.5em' variant='subtle'>
                         Analytics for all your minting websites
                     </Text>
-                    <Wrap py='1em' spacing='2em'>
-                        <Flex 
-                            bg={containerColor} 
-                            border='1px solid rgb(117,63,229)' 
-                            pt='2em' 
-                            pr='2em' 
-                            flex='1' 
-                            h='380px' 
-                            alignItems='center' 
-                            flexDir='column'
-                        >
-                            <Text mb='1em'>
-                                Visits
-                            </Text>
-                            <AutoSizer flex='1' w='full'>
-                                {({ width, height }) => (
-                                    <BarChart
-                                        width={width}
-                                        height={height}
-                                        data={websiteVisits}
-                                    >
-                                        <XAxis dataKey="name" stroke="#8884d8" />
-                                        <YAxis stroke="#8884d8" />
-                                        <Tooltip content={<CustomTooltip />} cursor={{ fill: 'transparent' }} />
-                                        <Bar dataKey='visits' barSize={30}>
-                                            <LabelList dataKey="visits" content={<CustomLabelList />}/>
-                                        </Bar>
-                                    </BarChart>
-                                )}
-                            </AutoSizer>
-                        </Flex>
-                        <Flex 
-                            flexDir='column'
-                            bg={containerColor} 
-                            border='1px solid rgb(117,63,229)' 
-                            p='2em' 
-                            flex='1' 
-                            alignItems='center'
-                            maxW='470px'
-                        >
-                            <Text mb='1em'>
-                                Unique Visits
-                            </Text>
-                            <Wrap justify='center' w='full'>
-                                <Flex>
-                                    <PieChart width={300} height={250}>
-                                        <Pie
-                                            data={websiteUniqueVisits}
-                                            innerRadius={60}
-                                            outerRadius={80}
-                                            fill="#8884d8"
-                                            paddingAngle={5}
-                                            dataKey="visits"
-                                            activeShape={renderActiveShape}
-                                            activeIndex={uniqueWebsiteActiveIdx}
-                                            onMouseEnter={onUniqueWebsiteEnter}
-                                        >    
-                                        </Pie>
-                                    </PieChart>
-                                </Flex>
-                                
-                            </Wrap>
-                            <VStack w='full' flex='1' alignItems='center' pt='2em'>
-                                    {websiteUniqueVisits?.map((web, idx) => (
-                                        <HStack p='.5em' justifyContent='space-between' key={idx} w='full' maxW='320px'>
-                                            <HStack>
-                                                <Box bg={web.fill} w='.75em' h='.75em' borderRadius='.25em' />
-                                                <Text>
-                                                    {web.name}
+                    {(websiteVisits.length > 0 && websiteVisits.length > 0) ? (
+                        <Wrap py='1em' spacing='2em'>
+                            <Flex 
+                                bg={containerColor} 
+                                border='1px solid rgb(117,63,229)' 
+                                pt='2em' 
+                                pr='2em' 
+                                flex='1' 
+                                h='380px' 
+                                alignItems='center' 
+                                flexDir='column'
+                            >
+                                <Text mb='1em'>
+                                    Visits
+                                </Text>
+                                <AutoSizer flex='1' w='full'>
+                                    {({ width, height }) => (
+                                        <BarChart
+                                            width={width}
+                                            height={height}
+                                            data={websiteVisits}
+                                        >
+                                            <XAxis dataKey="name" stroke="#8884d8" />
+                                            <YAxis stroke="#8884d8" />
+                                            <Tooltip content={<CustomTooltip />} cursor={{ fill: 'transparent' }} />
+                                            <Bar dataKey='visits' barSize={30}>
+                                                <LabelList dataKey="visits" content={<CustomLabelList />}/>
+                                            </Bar>
+                                        </BarChart>
+                                    )}
+                                </AutoSizer>
+                            </Flex>
+                            <Flex 
+                                flexDir='column'
+                                bg={containerColor} 
+                                border='1px solid rgb(117,63,229)' 
+                                p='2em' 
+                                flex='1' 
+                                alignItems='center'
+                                maxW='470px'
+                            >
+                                <Text mb='1em'>
+                                    Unique Visits
+                                </Text>
+                                <Wrap justify='center' w='full'>
+                                    <Flex>
+                                        <PieChart width={300} height={250}>
+                                            <Pie
+                                                data={websiteUniqueVisits}
+                                                innerRadius={60}
+                                                outerRadius={80}
+                                                fill="#8884d8"
+                                                paddingAngle={5}
+                                                dataKey="visits"
+                                                activeShape={renderActiveShape}
+                                                activeIndex={uniqueWebsiteActiveIdx}
+                                                onMouseEnter={onUniqueWebsiteEnter}
+                                            >    
+                                            </Pie>
+                                        </PieChart>
+                                    </Flex>
+                                </Wrap>
+                                <VStack w='full' flex='1' alignItems='center' pt='2em'>
+                                        {websiteUniqueVisits?.map((web, idx) => (
+                                            <HStack p='.5em' justifyContent='space-between' key={idx} w='full' maxW='320px'>
+                                                <HStack>
+                                                    <Box bg={web.fill} w='.75em' h='.75em' borderRadius='.25em' />
+                                                    <Text>
+                                                        {web.name}
+                                                    </Text>
+                                                </HStack>
+                                                <Text fontWeight='bold'>
+                                                    {web.visits}
                                                 </Text>
                                             </HStack>
-                                            <Text fontWeight='bold'>
-                                                {web.visits}
-                                            </Text>
-                                        </HStack>
-                                    ))}
-                                </VStack>
+                                        ))}
+                                    </VStack>
+                            </Flex>
+                        </Wrap>
+                    ) : (
+                        <Flex flexDir='column' justifyContent='center' alignItems='center' flex='1'>
+                            <Flex flexDir='column' alignItems='center' mt='.5em'>
+                                <Text fontWeight='bold' fontSize='10pt'>
+                                    Oops
+                                </Text>
+                                <Text fontSize='10pt' variant='subtle'>
+                                    No data found for you minting website(s)
+                                </Text>
+                            </Flex>
                         </Flex>
-                    </Wrap>
+                    )}
                 </Flex>
             ) : (
                 <>
@@ -219,7 +231,7 @@ const Analytics = () => {
                                 <Text fontWeight='bold' fontSize='10pt'>
                                     Error
                                 </Text>
-                                <Text fontSize='10pt'>
+                                <Text fontSize='10pt' variant='subtle'>
                                     Please create a website first.
                                 </Text>
                             </Flex>
