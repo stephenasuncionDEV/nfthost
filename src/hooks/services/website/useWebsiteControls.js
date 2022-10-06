@@ -113,6 +113,7 @@ export const useWebsiteControls = () => {
 
             if (!route.length) errorsObj.route = { status: true, message: 'Subdomain must be filled in' };
             if (route.length > 32) errorsObj.route = { status: true, message: 'Max subdomain length is 32 characters' };
+            if ((/[^a-z0-9\-]/).test(route)) errorsObj.route = { status: true, message: 'Subdomain contains an invalid character' };
             if (!title.length) errorsObj.title = { status: true, message: 'Title field must be filled in' };
             if (title.length > 32) errorsObj.title = { status: true, message: 'Max title length is 32 characters' };
             if (!description.length) errorsObj.description = { status: true, message: 'Description field must be filled in' };
@@ -553,7 +554,8 @@ export const useWebsiteControls = () => {
             let errorsObj = { ...editInputState };
 
             if (route.length > 32) errorsObj.route = { status: true, message: 'Max subdomain length is 32 characters' };
-
+            if ((/[^a-z0-9\-]/).test(route)) errorsObj.route = { status: true, message: 'Subdomain contains an invalid character' };
+            
             if (errorsObj.route) {
                 setEditInputState(errorsObj);
                 throw new Error('Please fix all the errors');
