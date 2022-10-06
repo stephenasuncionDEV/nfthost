@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { Box } from '@chakra-ui/react'
 
-const AutoSizer = ({ children, className, style }) => {
+const AutoSizer = ({ children, className, ...style }) => {
     const [childParams, setChildParams] = useState({ width: 0, height: 0 });
     const parentRef = useRef();
 
@@ -17,8 +17,8 @@ const AutoSizer = ({ children, className, style }) => {
         <Box
             ref={parentRef}
             className={className}
-            style={{...style}}
             h='full'
+            {...style}
         >
             {children(childParams)}
         </Box>
