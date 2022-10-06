@@ -1,4 +1,4 @@
-import { Text, Flex, Wrap, Image, Heading, HStack } from '@chakra-ui/react'
+import { Text, Flex, Wrap, Image, Heading, HStack, Box, Center} from '@chakra-ui/react'
 
 const Pricing = () => {
 
@@ -14,7 +14,7 @@ const Pricing = () => {
             p='2em'
             overflow='hidden'
         >
-                <HStack position='relative' mt='2em'>
+                <HStack position='relative' mt='1em'>
                 <Heading as='h2' className='gradientPurple' fontSize='32pt'>
                     Our Pricing
                 </Heading>
@@ -29,6 +29,20 @@ const Pricing = () => {
                 Always know what you'll pay
             </Text>
             <Image src='/assets/landing-effect-5.png' alt='Landing Effect - Arc' mt='1.5em' />
+            <HStack spacing='2em' mt='2em'>
+                <HStack>
+                    <Box borderRadius='5px' p='.5em' bg='gray.600' />
+                    <Text>
+                        Free
+                    </Text>
+                </HStack>
+                <HStack>
+                    <Box borderRadius='5px' p='.5em' bg='rgb(117,63,229)' />
+                    <Text>
+                        Premium
+                    </Text>
+                </HStack>
+            </HStack>
             <Wrap justify='center' my='4em' w='full' maxW='1200px' spacing='10em'>
                 <Flex flexDir='column'>
                     <Text fontWeight='semibold'>
@@ -41,6 +55,30 @@ const Pricing = () => {
                         <Text variant='subtle'>
                             / Generation
                         </Text>
+                    </HStack>
+                    <HStack w='full' maxW='250px' mt='2em'>
+                        <Box borderRadius='5px' p='.5em' bg='gray.600' />
+                        <Text>&lt;= 100 Collection Size</Text>
+                    </HStack>
+                    <HStack w='full' maxW='250px' mt='2em'>
+                        <Box borderRadius='5px' p='.5em' bg='gray.600' />
+                        <Text>Metadata Editor</Text>
+                    </HStack>
+                    <HStack w='full' maxW='250px' mt='2em'>
+                        <Box borderRadius='5px' p='.5em' bg='gray.600' />
+                        <Text>Configurable Rarity</Text>
+                    </HStack>
+                    <HStack w='full' maxW='250px' mt='2em'>
+                        <Box borderRadius='5px' p='.5em' bg='gray.600' />
+                        <Text>Preview</Text>
+                    </HStack>
+                    <HStack w='full' maxW='250px' mt='2em'>
+                        <Box borderRadius='5px' p='.5em' bg='gray.600' />
+                        <Text>ETH &amp; SOL Metadata</Text>
+                    </HStack>
+                    <HStack w='full' maxW='250px' mt='2em'>
+                        <Box borderRadius='5px' p='.5em' bg='rgb(117,63,229)' />
+                        <Text>&gt; 100 Collection Size</Text>
                     </HStack>
                 </Flex>
                 <Flex flexDir='column'>
@@ -55,6 +93,26 @@ const Pricing = () => {
                             / Website
                         </Text>
                     </HStack>
+                    <HStack w='full' maxW='250px' mt='2em'>
+                        <Box borderRadius='5px' p='.5em' bg='gray.600' />
+                        <Text>1x Minting Website</Text>
+                    </HStack>
+                    <HStack w='full' maxW='250px' mt='2em'>
+                        <Box borderRadius='5px' p='.5em' bg='gray.600' />
+                        <Text>3 Templates</Text>
+                    </HStack>
+                    <HStack w='full' maxW='250px' mt='2em'>
+                        <Box borderRadius='5px' p='.5em' bg='rgb(117,63,229)' />
+                        <Text>Unlimited Minting Website</Text>
+                    </HStack>
+                    <HStack w='full' maxW='250px' mt='2em'>
+                        <Box borderRadius='5px' p='.5em' bg='rgb(117,63,229)' />
+                        <Text>All Templates</Text>
+                    </HStack>
+                    <HStack w='full' maxW='250px' mt='2em'>
+                        <Box borderRadius='5px' p='.5em' bg='rgb(117,63,229)' />
+                        <Text>Analytics</Text>
+                    </HStack>
                 </Flex>
                 <Flex flexDir='column'>
                     <Text fontWeight='semibold'>
@@ -67,6 +125,18 @@ const Pricing = () => {
                         <Text variant='subtle'>
                             / Modification
                         </Text>
+                    </HStack>
+                    <HStack w='full' maxW='250px' mt='2em'>
+                        <Box borderRadius='5px' p='.5em' bg='gray.600' />
+                        <Text>Update Image Storage</Text>
+                    </HStack>
+                    <HStack w='full' maxW='250px' mt='2em'>
+                        <Box borderRadius='5px' p='.5em' bg='rgb(117,63,229)' />
+                        <Text>Add/Edit Metadata Key</Text>
+                    </HStack>
+                    <HStack w='full' maxW='250px' mt='2em'>
+                        <Box borderRadius='5px' p='.5em' bg='rgb(117,63,229)' />
+                        <Text>Remove Metadata Key</Text>
                     </HStack>
                 </Flex>
             </Wrap>
