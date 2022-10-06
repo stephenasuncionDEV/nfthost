@@ -78,7 +78,7 @@ const List = ({ onCreateWebsiteOpen }) => {
                         >
                             <Flex 
                                 flexDir='column'
-                                w='380px'
+                                w='360px'
                                 h='210px'
                                 bg={containerColor}
                                 p='1.5em'
