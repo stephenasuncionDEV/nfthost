@@ -199,7 +199,7 @@ export const getStaticProps = async ({ params: { siteRoute } }) => {
     });
 
     return {
-        props: site.data || {},
+        props: site.data || null,
         revalidate: 30
     }
   }
