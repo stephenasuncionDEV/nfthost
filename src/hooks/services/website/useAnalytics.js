@@ -52,7 +52,8 @@ export const useAnalytics = () => {
             })
     
             if (res.status !== 200) throw new Error('Cannot get minting website insights at the moment');
-    
+            if (!res.data.result) return;
+
             const { result } = res.data;
 
             const routesArr = websites.map((web) => web.route);
@@ -89,7 +90,8 @@ export const useAnalytics = () => {
             })
     
             if (res.status !== 200) throw new Error('Cannot get minting website insights at the moment');
-    
+            if (!res.data.result) return;
+
             const { result } = res.data;
 
             const routesArr = websites.map((web) => web.route);

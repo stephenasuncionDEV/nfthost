@@ -140,7 +140,7 @@ const Analytics = () => {
                                     {({ width, height }) => (
                                         <BarChart
                                             width={width}
-                                            height={height}
+                                            height={height - 16}
                                             data={websiteVisits}
                                         >
                                             <XAxis dataKey="name" stroke="#8884d8" />
