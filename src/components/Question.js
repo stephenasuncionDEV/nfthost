@@ -28,7 +28,7 @@ const Question = (props) => {
                     top={top || '7'} 
                     left={left || '0'}
                     bg={containerBg}
-                    zIndex='1337'
+                    zIndex='2'
                     w={w || '200px'}
                     boxShadow='lg'
                 >

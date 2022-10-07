@@ -4,6 +4,7 @@ import { HStack, Menu, MenuButton, Tag,
     TagRightIcon, MenuDivider, Text, Image, Avatar, VStack
 } from '@chakra-ui/react'
 import { useUser } from '@/providers/UserProvider'
+import { useCore } from '@/providers/CoreProvider'
 import { useMemberControls } from '@/hooks/useMemberControls'
 import { useCopy } from '@/hooks/useCopy'
 import { HiOutlineChevronDown, HiLogout } from 'react-icons/hi'
@@ -11,6 +12,7 @@ import { MdOutlineContentCopy, MdPayment } from 'react-icons/md'
 
 const ConnectWalletTag = ({ isCopyAddress, isUserProfile, isPayments, ...styles }) => {
     const { address, isLoggedIn, user } = useUser();
+    const { onProfileOpen } = useCore();
     const { connect, logout } = useMemberControls();
     const { onCopy: onCopyAddress } = useCopy({
         text: address
@@ -33,7 +35,7 @@ const ConnectWalletTag = ({ isCopyAddress, isUserProfile, isPayments, ...styles 
                 {isLoggedIn ? (
                     <>
                     {isUserProfile && (
-                        <MenuItem>
+                        <MenuItem onClick={onProfileOpen}>
                             <HStack alignItems='flex-start'>
                                 <Avatar src={user?.picture} name={address} />
                                 <VStack alignItems='flex-start' spacing='0'>

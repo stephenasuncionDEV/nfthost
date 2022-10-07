@@ -1,4 +1,5 @@
 import { useState, useContext, createContext } from 'react'
+import { useDisclosure } from '@chakra-ui/react'
 
 export const CoreContext = createContext({})
 export const useCore = () => useContext(CoreContext)
@@ -10,8 +11,6 @@ export const CoreProvider = ({ children }) => {
     const [isKeepWorkingModal, setIsKeepWorkingModal] = useState(false);
     const [isAreYouSureModal, setIsAreYouSureModal] = useState(false);
     const [isSidebar, setIsSidebar] = useState(true);
-    const [isAddonSettingsModal, setIsAddonSettingsModal] = useState(false);
-    const [addonSettingsData, setAddonSettingsData] = useState();
     const [paymentData, setPaymentData] = useState();
     const [paymentMethodStep, setPaymentMethodStep] = useState('cryptowallet');
     const [paymentName, setPaymentName] = useState('');
@@ -33,6 +32,7 @@ export const CoreProvider = ({ children }) => {
     const [transactions, setTransactions] = useState();
     const [isGettingTransactions, setIsGettingTransactions] = useState(false);
     const [referrer, setReferrer] = useState('');
+    const { isOpen: isProfileOpen, onClose: onProfileClose, onOpen: onProfileOpen } = useDisclosure();
 
     const controllers = {
         provider,
@@ -71,14 +71,13 @@ export const CoreProvider = ({ children }) => {
         setTransactions,
         isGettingTransactions,
         setIsGettingTransactions,
-        isAddonSettingsModal,
-        setIsAddonSettingsModal,
-        addonSettingsData,
-        setAddonSettingsData,
         paymentPageNumber,
         setPaymentPageNumber,
         referrer,
-        setReferrer
+        setReferrer,
+        isProfileOpen,
+        onProfileClose,
+        onProfileOpen
     }
 
     return (

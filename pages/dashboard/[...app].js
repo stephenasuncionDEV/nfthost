@@ -18,6 +18,8 @@ import Payments from '@/components/Payments'
 import Team from '@/components/Team'
 import Utilities from '@/components/services/Utilities'
 import MetadataEditor from '@/components/services/Generator/MetadataEditor'
+import ProfileModal from '@/components/ProfileModal'
+import AreYouSureModal from '@/components/AreYouSureModal'
 import { webColor } from '@/theme/index'
 
 const Page = () => {
@@ -37,6 +39,8 @@ const Page = () => {
             <Layout currentApp={currentApp}>
                 {isLoggedIn ? (
                     <>
+                        <ProfileModal />
+                        <AreYouSureModal />
                         <Flex justifyContent='space-between' h='4em' alignItems='center' mb='1em'>
                             <Text fontWeight='bold'>
                                 {currentApp?.toUpperCase()}
