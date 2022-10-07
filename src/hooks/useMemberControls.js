@@ -1,6 +1,6 @@
+import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useToast } from '@chakra-ui/react'
-import { useWebsite } from '@/providers/WebsiteProvider'
 import { useUser } from '@/providers/UserProvider'
 import { useCore } from '@/providers/CoreProvider'
 import CoinbaseWalletSDK from '@coinbase/wallet-sdk'
@@ -31,14 +31,9 @@ export const useMemberControls = () => {
     } = useUser();
     const { 
         setProvider, 
-        provider,
-        setPaymentData
+        provider
     } = useCore();
-    const {
-        websites,
-        setWebsites,
-        setEditingWebsite
-    } = useWebsite();
+    const [isDeleting, setIsDeleting] = useState(false);
 
     const connect = async (wallet) => {
         try {
@@ -152,6 +147,9 @@ export const useMemberControls = () => {
             const res = await axios.delete(`${config.serverUrl}/api/member/logout`, {
                 data: {
                     refreshToken: token.refreshToken,
+                },
+                headers: {
+                    Authorization: `Bearer ${token.accessToken}` 
                 }
             })
 
@@ -337,6 +335,42 @@ export const useMemberControls = () => {
         return accounts[0];
     }
 
+    const deleteAccount = async () => {
+        try {
+            setIsDeleting(true);
+
+            const accessToken = getAccessToken();
+
+            const res = await axios.delete(`${config.serverUrl}/api/member/delete`, {
+                data: {
+                    memberId: user._id
+                },
+                headers: { 
+                    Authorization: `Bearer ${accessToken}` 
+                }
+            })
+
+            if (res.status !== 200) return;
+
+            posthog.capture('User deleted account');
+
+            await logout();
+
+            toast({
+                title: 'Success',
+                status: 'success',
+                description: 'Successfully deleted account'
+            })
+
+            setIsDeleting(false);
+        }
+        catch (err) {
+            setIsDeleting(false);
+            const msg = errorHandler(err);
+            toast({ description: msg });
+        }
+    }
+
     return {
         connect,
         logout,
@@ -345,6 +379,8 @@ export const useMemberControls = () => {
         deductUnit,
         isNetworkProtected,
         updateEmail,
-        getConnectedAddress
+        getConnectedAddress,
+        deleteAccount,
+        isDeleting
     }
 }
