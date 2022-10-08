@@ -1,4 +1,8 @@
-module.exports = {
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+    enabled: process.env.ANALYZE === 'true',
+})
+
+module.exports = withBundleAnalyzer({
     reactStrictMode: false,
     env: {
         CHAIN_ID: process.env.CHAIN_ID,
@@ -8,4 +12,4 @@ module.exports = {
         CREATE_WEBSITE_TOKEN: process.env.CREATE_WEBSITE_TOKEN,
         INFURA_ID: process.env.INFURA_ID
     }
-}
+})

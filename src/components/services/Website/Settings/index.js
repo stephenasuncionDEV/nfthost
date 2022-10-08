@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { VStack, Button, Flex, HStack, Text, Divider, Heading,
     Tag, TagLabel, TagLeftIcon, Wrap, Link
 } from '@chakra-ui/react'
-import { MdCircle } from 'react-icons/md'
-import { FaExternalLinkAlt } from 'react-icons/fa'
+import { FaCircle } from '@react-icons/all-files/fa/FaCircle'
+import { FaExternalLinkAlt } from '@react-icons/all-files/fa/FaExternalLinkAlt'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import Question from '@/components/Question'
 import General from './General'
@@ -33,7 +33,7 @@ const Settings = () => {
                     <Question prompt={editingWebsite?.isPremium ? 'This minting website is subscribed to the premium plan.' : 'This minting website is subscribed to the free plan called Hobby.'}>
                         <Tag alignItems='center' size='sm'>
                             <TagLeftIcon color={editingWebsite?.isPremium ? 'rgb(255,167,1)' : 'gray.500'}>
-                                <MdCircle fontSize='16pt' />
+                                <FaCircle fontSize='16pt' />
                             </TagLeftIcon>
                             <TagLabel fontSize='10pt'>
                                 {editingWebsite?.isPremium ? 'Premium' : 'Hobby'}
@@ -43,7 +43,7 @@ const Settings = () => {
                     <Question prompt={editingWebsite?.isPublished ? 'This website is viewable to your minters.' : 'This website is NOT viewable to your minters. Go to Advanced tab to publish.'}>
                         <Tag alignItems='center' size='sm'>
                             <TagLeftIcon color={editingWebsite?.isPublished ? 'green.500' : 'gray.500'}>
-                                <MdCircle fontSize='16pt' />
+                                <FaCircle fontSize='16pt' />
                             </TagLeftIcon>
                             <TagLabel fontSize='10pt'>
                                 {editingWebsite?.isPublished ? 'Published' : 'Not Published'}

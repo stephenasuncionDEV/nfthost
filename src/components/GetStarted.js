@@ -1,12 +1,11 @@
 import { useEffect } from 'react'
 import NextLink from 'next/link'
-import { Flex, Wrap, Button, Text, useColorModeValue, VStack, HStack, Link, Tag, Box, Image } from '@chakra-ui/react'
+import { Flex, Wrap, Button, Text, useColorModeValue, VStack, HStack, Link, Box, Image } from '@chakra-ui/react'
+import { AiOutlineRight } from '@react-icons/all-files/ai/AiOutlineRight'
+import { FiExternalLink } from '@react-icons/all-files/fi/FiExternalLink'
+import { GiCutDiamond } from '@react-icons/all-files/gi/GiCutDiamond'
 import { useCoreControls } from '@/hooks/useCoreControls'
-import { AiOutlineRight } from 'react-icons/ai'
-import { FiExternalLink } from 'react-icons/fi'
-import { GiCutDiamond } from 'react-icons/gi'
 import { getStartedServicesArr } from '@/utils/json'
-import config from '@/config/index'
 import { webColor } from '@/theme/index'
 
 const GetStarted = () => {

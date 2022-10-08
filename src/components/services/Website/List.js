@@ -1,7 +1,8 @@
 import { HStack, Text, Button, VStack, IconButton, Center, Spinner,
     useColorModeValue, Wrap, Avatar, AvatarBadge, Flex, Box, Toast, useToast
 } from '@chakra-ui/react'
-import { MdRefresh, MdAdd } from 'react-icons/md'
+import { MdRefresh } from '@react-icons/all-files/md/MdRefresh'
+import { MdAdd } from '@react-icons/all-files/md/MdAdd'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useWebsiteControls } from '@/hooks/services/website/useWebsiteControls'
 import { webColor } from '@/theme/index'

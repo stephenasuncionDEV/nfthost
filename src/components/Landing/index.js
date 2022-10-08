@@ -55,12 +55,14 @@ const Landing = () => {
                                     alt='Landing Animation - Ball' 
                                     w='35px' 
                                     left='5%'
+                                    loading='lazy'
                                 />
                                 <Image 
                                     position='absolute' 
                                     className='upDownAnimation' 
                                     src='/assets/landing-effect-3.png'  
                                     left='20%'
+                                    loading='lazy'
                                 />
                                 <Image 
                                     position='absolute' 
@@ -68,6 +70,7 @@ const Landing = () => {
                                     src='/assets/landing-effect-2.png' 
                                     alt='Landing Animation - Ball' 
                                     left='50%'
+                                    loading='lazy'
                                 />
                                 <Image 
                                     position='absolute' 
@@ -76,6 +79,7 @@ const Landing = () => {
                                     alt='Landing Animation - Ball' 
                                     w='35px' 
                                     left='80%'
+                                    loading='lazy'
                                 />
                                 <Image 
                                     position='absolute' 
@@ -84,6 +88,7 @@ const Landing = () => {
                                     alt='Landing Animation - Ball' 
                                     w='35px' 
                                     left='60%'
+                                    loading='lazy'
                                 />
                                 <Image 
                                     position='absolute' 
@@ -92,6 +97,7 @@ const Landing = () => {
                                     alt='Landing Animation - Ball' 
                                     w='35px' 
                                     left='25%'
+                                    loading='lazy'
                                 />
                             </Flex>
                         )}

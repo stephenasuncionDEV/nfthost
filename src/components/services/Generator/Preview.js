@@ -1,7 +1,7 @@
 import { Box, Text, Flex, VStack, useColorModeValue, Image, Button } from '@chakra-ui/react'
+import { FaRedo } from '@react-icons/all-files/fa/FaRedo'
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { useGenerate } from '@/hooks/services/generator/useGenerate'
-import { FaRedo } from 'react-icons/fa'
 import { webColor } from '@/theme/index'
 
 const Preview = () => {

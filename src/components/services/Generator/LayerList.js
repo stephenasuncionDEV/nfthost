@@ -1,6 +1,5 @@
-import { useState } from 'react'
 import { Box, Text, Flex, Input, IconButton } from '@chakra-ui/react'
-import { FaTrashAlt } from 'react-icons/fa'
+import { FaTrashAlt } from '@react-icons/all-files/fa/FaTrashAlt'
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { useLayer } from '@/hooks/services/generator/useLayer'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'

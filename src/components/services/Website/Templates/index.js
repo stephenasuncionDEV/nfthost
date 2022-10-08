@@ -3,9 +3,10 @@ import { useState } from 'react'
 import { Text, Flex, Button, VStack, useColorModeValue, Image, 
     Wrap, Tag, TagLeftIcon, HStack, Divider, Link, Box, Checkbox
 } from '@chakra-ui/react'
-import { MdAdd } from 'react-icons/md'
-import { AiOutlineArrowLeft } from 'react-icons/ai'
-import { GiCutDiamond, GiFairyWand } from 'react-icons/gi'
+import { MdAdd } from '@react-icons/all-files/md/MdAdd'
+import { AiOutlineArrowLeft } from '@react-icons/all-files/ai/AiOutlineArrowLeft'
+import { GiCutDiamond } from '@react-icons/all-files/gi/GiCutDiamond'
+import { GiFairyWand } from '@react-icons/all-files/gi/GiFairyWand'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useWebsiteControls } from '@/hooks/services/website/useWebsiteControls'
 import { templatesArr } from '@/utils/json'

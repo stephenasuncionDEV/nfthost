@@ -1,15 +1,15 @@
-import { useEffect } from 'react'
 import { VStack, Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption,
     TableContainer, IconButton, Menu, MenuItem, MenuList, MenuButton,
-    useColorModeValue, Text, Tag, Link, HStack, Button, Flex, Wrap
+    useColorModeValue, Text, Tag, Link, HStack, Button
 } from '@chakra-ui/react'
 import { useCore } from '@/providers/CoreProvider'
 import { useTransactions } from '@/hooks/useTransactions'
-import { usePaymentControls } from '@/hooks/usePaymentControls'
-import { BiSupport } from 'react-icons/bi'
-import { MdOutlineContentCopy, MdCancel } from 'react-icons/md'
-import { IoMdSettings } from 'react-icons/io'
-import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai'
+// import { usePaymentControls } from '@/hooks/usePaymentControls'
+import { BiSupport } from '@react-icons/all-files/bi/BiSupport'
+import { AiOutlineCopy } from '@react-icons/all-files/ai/AiOutlineCopy'
+import { IoMdSettings } from '@react-icons/all-files/io/IoMdSettings'
+import { AiOutlineLeft } from '@react-icons/all-files/ai/AiOutlineLeft'
+import { AiOutlineRight } from '@react-icons/all-files/ai/AiOutlineRight'
 import { webColor } from '@/theme/index'
 import AreYouSureModal from '@/components/AreYouSureModal'
 
@@ -19,19 +19,19 @@ const Payments = () => {
         paymentPageNumber, 
         setPaymentPageNumber, 
         isGettingTransactions,
-        setIsAreYouSureModal,
-        setAreYouSureData
+        // setIsAreYouSureModal,
+        // setAreYouSureData
     } = useCore();
     const { 
         CopyHash, 
         GetTransactions 
     } = useTransactions();
-    const { 
-        subscriptions,
-        getSubscriptions,
-        cancelSubscription, 
-        isCanceling 
-    } = usePaymentControls();
+    // const { 
+    //     subscriptions,
+    //     getSubscriptions,
+    //     cancelSubscription, 
+    //     isCanceling 
+    // } = usePaymentControls();
 
     const containerColor = useColorModeValue(webColor.containerBg[0], webColor.containerBg[1]);
     const textColor = useColorModeValue('black', 'white');
@@ -129,7 +129,7 @@ const Payments = () => {
                                             <Text noOfLines={1} fontSize='10pt' maxW='200px'>
                                                 {payment.hash}
                                             </Text>
-                                            <MdOutlineContentCopy fontSize='12pt'/>
+                                            <AiOutlineCopy fontSize='12pt'/>
                                         </HStack>
                                     </Td>
                                     <Td>

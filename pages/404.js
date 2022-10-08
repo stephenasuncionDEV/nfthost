@@ -1,8 +1,9 @@
 import { Text, Flex, Button, Link } from '@chakra-ui/react'
+import { AiOutlineArrowLeft } from '@react-icons/all-files/ai/AiOutlineArrowLeft'
+import { AiOutlineWarning } from '@react-icons/all-files/ai/AiOutlineWarning'
 import Meta from '@/components/Meta'
 import MainNavbar from '@/components/MainNavbar'
 import MainFooter from '@/components/MainFooter'
-import { AiOutlineArrowLeft, AiOutlineWarning } from 'react-icons/ai'
 
 const NotFound = () => {
 

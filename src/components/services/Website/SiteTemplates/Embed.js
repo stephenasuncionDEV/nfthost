@@ -1,5 +1,5 @@
 import { Text, Flex, Button, Box } from '@chakra-ui/react'
-import { MdRefresh } from 'react-icons/md'
+import { MdRefresh } from '@react-icons/all-files/md/MdRefresh'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useWebsiteControls } from '@/hooks/services/website/useWebsiteControls'
 import parse from 'html-react-parser'

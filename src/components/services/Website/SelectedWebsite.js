@@ -2,13 +2,13 @@ import { useColorModeValue, Flex, Text, HStack,
     IconButton, Input, Link, Menu, MenuButton, MenuList, 
     MenuItem, Button, Avatar
 } from '@chakra-ui/react'
+import { FaExternalLinkAlt } from '@react-icons/all-files/fa/FaExternalLinkAlt'
+import { HiOutlineChevronDown } from '@react-icons/all-files/hi/HiOutlineChevronDown'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useWebsiteControls } from '@/hooks/services/website/useWebsiteControls'
 import { useCopy } from '@/hooks/useCopy'
-import { FaExternalLinkAlt } from 'react-icons/fa'
-import { HiOutlineChevronDown } from 'react-icons/hi'
-import config from '@/config/index'
 import { webColor } from '@/theme/index'
+import config from '@/config/index'
 
 const SelectedWebsite = ({ isCollapse }) => {
     const { 

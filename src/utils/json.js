@@ -1,10 +1,14 @@
-import { CgWebsite, CgRemove } from 'react-icons/cg'
-import { BiSupport } from 'react-icons/bi'
-import { VscOrganization } from 'react-icons/vsc'
-import { MdOutlineDashboard, MdOutlineMiscellaneousServices, MdPayment } from 'react-icons/md'
-import { AiOutlineTeam, AiOutlinePlus } from 'react-icons/ai'
-import { SiIpfs } from 'react-icons/si'
-import { FaTools } from 'react-icons/fa'
+import { CgWebsite } from '@react-icons/all-files/cg/CgWebsite'
+import { CgRemove } from '@react-icons/all-files/cg/CgRemove'
+import { CgSmartHomeWashMachine } from '@react-icons/all-files/cg/CgSmartHomeWashMachine'
+import { BiSupport } from '@react-icons/all-files/bi/BiSupport'
+import { VscOrganization } from '@react-icons/all-files/vsc/VscOrganization'
+import { MdDashboard } from '@react-icons/all-files/md/MdDashboard'
+import { MdPayment } from '@react-icons/all-files/md/MdPayment'
+import { AiOutlineTeam } from '@react-icons/all-files/ai/AiOutlineTeam'
+import { AiOutlinePlus } from '@react-icons/all-files/ai/AiOutlinePlus'
+import { SiIpfs } from '@react-icons/all-files/si/SiIpfs'
+import { FaTools } from '@react-icons/all-files/fa/FaTools'
 
 export const sidebarArr = [
     { 
@@ -13,7 +17,7 @@ export const sidebarArr = [
             { 
                 name: 'Get Started', 
                 link: '/getStarted', 
-                icon: <MdOutlineDashboard />, 
+                icon: <MdDashboard />, 
                 children: [],
                 isExternal: false
             },
@@ -32,7 +36,7 @@ export const sidebarArr = [
             { 
                 name: 'Generator', 
                 link: '/generator', 
-                icon: <MdOutlineMiscellaneousServices />, 
+                icon: <CgSmartHomeWashMachine />, 
                 children: [
                     { name: 'Metadata', link: '/generator/metadata' },
                 ],
@@ -89,7 +93,7 @@ export const sidebarArr = [
 export const getStartedServicesArr = [
     { 
         name: 'NFT Collection Generator', 
-        icon: <MdOutlineMiscellaneousServices fontSize='32pt' />, 
+        icon: <CgSmartHomeWashMachine fontSize='32pt' />, 
         buttonText: 'Generate',
         link: '/dashboard/generator'
     },

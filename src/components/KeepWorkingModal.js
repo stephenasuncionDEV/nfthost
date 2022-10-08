@@ -6,7 +6,7 @@ import { Text, Flex, Button,
     ModalCloseButton, Link
 } from '@chakra-ui/react'
 import { useCore } from '@/providers/CoreProvider'
-import { AiOutlineArrowLeft } from 'react-icons/ai'
+import { AiOutlineArrowLeft } from '@react-icons/all-files/ai/AiOutlineArrowLeft'
 
 const KeepWorkingModal = () => {
     const { isKeepWorkingModal, setIsKeepWorkingModal, paymentData } = useCore();

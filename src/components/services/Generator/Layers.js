@@ -1,5 +1,5 @@
 import { Box, HStack, Text, Button, VStack, useColorModeValue, Flex } from '@chakra-ui/react'
-import { MdOutlineAdd  } from 'react-icons/md'
+import { MdAdd } from '@react-icons/all-files/md/MdAdd'
 import { useLayer } from '@/hooks/services/generator/useLayer'
 import LayerList from '@/components/services/Generator/LayerList'
 import { webColor } from '@/theme/index'
@@ -24,7 +24,7 @@ const Layers = () => {
                 <Text fontWeight='bold' fontSize='10pt'>
                     Layers
                 </Text>
-                <Button size='sm' rightIcon={<MdOutlineAdd />} onClick={AddLayer} variant='primary'>
+                <Button size='sm' rightIcon={<MdAdd />} onClick={AddLayer} variant='primary'>
                     Add Layer
                 </Button>
             </HStack>

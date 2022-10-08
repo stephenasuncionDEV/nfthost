@@ -1,10 +1,6 @@
-import { useState } from 'react'
-import { VStack, Button, Wrap, Flex, useDisclosure, FormControl,
-    Select, Input, RadioGroup, Radio, FormHelperText, FormErrorMessage, 
-    Textarea, InputGroup, InputRightAddon, InputLeftAddon, HStack, IconButton,
-    Text, Switch
+import { Flex, FormControl, Select, Input, FormHelperText, FormErrorMessage, 
+    Textarea, InputGroup, InputRightAddon, InputLeftAddon, Switch
 } from '@chakra-ui/react'
-import { MdEdit } from 'react-icons/md'
 
 const DynamicInput = (props) => {
     const { 
