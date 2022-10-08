@@ -39,7 +39,7 @@ const Layers = () => {
                         {layers?.map((layer, idx) => (
                             <Draggable
                                 draggableId={`${layer.name.trim().replaceAll(' ', '-')}-${idx}`}
-                                key={layer.name.trim().replaceAll(' ', '-')}
+                                key={idx}
                                 index={idx}
                             >
                                 {(provided) => (
