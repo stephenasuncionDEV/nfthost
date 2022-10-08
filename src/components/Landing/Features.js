@@ -28,12 +28,13 @@ const Features = () => {
                     left='105%'
                     src='/assets/landing-effect-4.png' 
                     alt='Landing Effect - Bar' 
+                    loading='lazy'
                 />
             </HStack>
             <Text fontSize='18pt' mt='.75em'>
                 Powerful tools that will ensure your NFTs success.
             </Text>
-            <Image src='/assets/landing-effect-5.png' alt='Landing Effect - Arc' my='1.5em' />
+            <Image src='/assets/landing-effect-5.png' alt='Landing Effect - Arc' my='1.5em' loading='lazy'/>
             <Flex w='full' justifyContent={!isCollapse ? 'space-between' : 'center'}>
                 <VStack spacing='1.5em' flex='1' alignItems='center' maxW='550px'>
                     <Flex maxW='380px' flexDir='column' flex='1' border='1px solid #6135ba' borderRadius='5px' p='1em' cursor='pointer' onClick={() => setFeatureImage('/assets/generator-mockup.png')}>
@@ -42,6 +43,7 @@ const Features = () => {
                                 src='/assets/landing-icon-1.png' 
                                 alt='Landing Icon - Generator' 
                                 w='35px'
+                                loading='lazy'
                             />
                             <Text fontWeight='semibold' fontSize='16pt'>
                                 Collection Generator
@@ -57,6 +59,7 @@ const Features = () => {
                                 src='/assets/landing-icon-2.png' 
                                 alt='Landing Icon - Generator' 
                                 w='35px'
+                                loading='lazy'
                             />
                             <Text fontWeight='semibold' fontSize='16pt'>
                                 Minting Website Hosting
@@ -72,6 +75,7 @@ const Features = () => {
                                 src='/assets/landing-icon-3.png' 
                                 alt='Landing Icon - Generator' 
                                 w='35px'
+                                loading='lazy'
                             />
                             <Text fontWeight='semibold' fontSize='16pt'>
                                 Metadata Utilities
@@ -90,12 +94,14 @@ const Features = () => {
                             src='/assets/landing-effect-6.png' 
                             alt='Landing Animation - Ball' 
                             left='5%'
+                            loading='lazy'
                         />
                         <Image 
                             position='absolute' 
                             className='rotateAnimation2' 
                             src='/assets/landing-effect-7.png' 
                             alt='Landing Animation - Ball' 
+                            loading='lazy'
                         />
                         <Image 
                             src={featureImage}

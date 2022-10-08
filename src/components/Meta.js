@@ -3,6 +3,7 @@ import Head from 'next/head'
 const Meta = ({ title }) => {
     return <Head>
         <title>{title}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="shortcut icon" type="image/png" href='https://www.nfthost.app/favicon.ico' />
         <meta name="title" content='NFT Host' />
         <meta name="description" content='NFT Host is a website where you can generate NFT collections and create an NFT minting website. Metadata utilities available for post-generation.' />
