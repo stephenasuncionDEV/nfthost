@@ -1,5 +1,4 @@
 import { Link, Button } from '@chakra-ui/react'
-import { GiCutDiamond } from 'react-icons/gi'
 import { useWebsite } from '@/providers/WebsiteProvider'
 
 const Watermark = (styles) => {
