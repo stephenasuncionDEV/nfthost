@@ -21,7 +21,7 @@ const KeepWorkingModal = () => {
                     <Flex flexDir='column' justifyContent='center' alignItems='center'>
                         <Image src='/assets/worker.png' alt='Worker' w='100px' />
                         <Text mt='.5em'>
-                            Looks like you're still working on the {paymentData?.redirect?.title}
+                            Looks like you&apos;re still working on the {paymentData?.redirect?.title}
                         </Text>
                         <Text fontSize='8pt' opacity='.8'>
                             If you want to keep working on your&nbsp;

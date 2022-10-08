@@ -42,7 +42,7 @@ const Advanced = () => {
                     <VStack spacing='.25em' alignItems='flex-start'>
                         <Text>Publish</Text>
                         <Text fontSize='10pt' variant='subtle'>
-                            Toggle to make your website viewable or not. Don't Forget to press Save.
+                            Toggle to make your website viewable or not. Don&apos;t Forget to press Save.
                         </Text>
                     </VStack>
                     <DynamicInput 

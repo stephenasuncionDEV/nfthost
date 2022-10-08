@@ -169,7 +169,9 @@ const GetStarted = () => {
                     If you like our service, please upvote NFT Host on Product Hunt.
                 </Text>
                 <Box mt='1em'>
-                    <a href="https://www.producthunt.com/posts/nft-host?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-nft&#0045;host" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=326763&theme=dark" alt="NFT&#0032;Host - Generate&#0032;and&#0032;Host&#0032;your&#0032;NFT&#0032;Collection&#0032;in&#0032;under&#0032;10&#0032;minutes | Product Hunt" style={{width: '235px', height: '50px'}} width="235" height="50" /></a>
+                    <a href="https://www.producthunt.com/posts/nft-host?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-nft&#0045;host" target="_blank" rel="noreferrer">
+                        <Image src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=326763&theme=dark" alt="NFT&#0032;Host - Generate&#0032;and&#0032;Host&#0032;your&#0032;NFT&#0032;Collection&#0032;in&#0032;under&#0032;10&#0032;minutes | Product Hunt" style={{width: '235px', height: '50px'}} width="235" height="50" />
+                    </a>
                 </Box>
             </Flex>
         </Flex>

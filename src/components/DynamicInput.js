@@ -31,7 +31,11 @@ const DynamicInput = (props) => {
             <FormControl isInvalid={isInvalid} isDisabled={isDisabled}>
                 {type === 'text' && (
                     <InputGroup>
-                        {addonLeft && <InputLeftAddon children={addonLeftText} />}
+                        {addonLeft && (
+                            <InputLeftAddon>
+                                {addonLeftText}
+                            </InputLeftAddon>
+                        )}
                         <Input 
                             id={id}
                             name={name}
@@ -41,7 +45,11 @@ const DynamicInput = (props) => {
                             onChange={(e) => onChange(e.target.value)} 
                             textTransform={textTransform}
                         />
-                        {addonRight && <InputRightAddon children={addonRightText} />}
+                        {addonRight && (
+                            <InputRightAddon>
+                                {addonRightText}
+                            </InputRightAddon>
+                        )}
                     </InputGroup>
                 )}
                 {type === 'date' && (

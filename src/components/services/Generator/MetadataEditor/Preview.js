@@ -114,7 +114,7 @@ const Preview = () => {
                 Preview
             </Text>
             <Text fontSize='9pt' mb='1.5em'>
-                A preview of your NFT collection's json metadata file.
+                A preview of your NFT collection&apos;s json metadata file.
             </Text>
             <Flex bg={bgColor} borderRadius='10px' justifyContent='center' alignItems='center' p='1em' w='full' position='relative'>
                 <Textarea value={previewMetadata()} size='sm' rows={20} readOnly bg='transparent' border='0' />

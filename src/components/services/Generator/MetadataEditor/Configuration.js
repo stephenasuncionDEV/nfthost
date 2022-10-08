@@ -130,7 +130,7 @@ const Configuration = () => {
             {isDisplay('external_url') && (
                 <FormControl mt='1em'>
                     <Input id='collectionExternalUrl' placeholder='External URL' w='full' value={externalURL} onChange={(e) => setExternalURL(e.target.value)}/>
-                    <FormHelperText fontSize='9pt'>This is the URL that will appear below the asset's image on OpenSea and will allow users to leave OpenSea and view the item on your site. URL to an external application or website where users can also view the asset.</FormHelperText>
+                    <FormHelperText fontSize='9pt'>This is the URL that will appear below the asset&apos;s image on OpenSea and will allow users to leave OpenSea and view the item on your site. URL to an external application or website where users can also view the asset.</FormHelperText>
                 </FormControl>
             )}
             {isDisplay('background_color') && (

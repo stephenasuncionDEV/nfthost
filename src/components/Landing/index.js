@@ -61,6 +61,7 @@ const Landing = () => {
                                     position='absolute' 
                                     className='upDownAnimation' 
                                     src='/assets/landing-effect-3.png'  
+                                    alt='Landing Animation - NFT' 
                                     left='20%'
                                     loading='lazy'
                                 />
@@ -68,7 +69,7 @@ const Landing = () => {
                                     position='absolute' 
                                     className='upDownAnimation' 
                                     src='/assets/landing-effect-2.png' 
-                                    alt='Landing Animation - Ball' 
+                                    alt='Landing Animation - NFT'
                                     left='50%'
                                     loading='lazy'
                                 />

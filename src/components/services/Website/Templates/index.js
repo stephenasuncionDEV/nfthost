@@ -75,6 +75,7 @@ const Templates = () => {
                                         <Link href={`${config?.clientUrl}/assets/templates/${template.key}.png`} boxSize='250px' isExternal>
                                             <Image 
                                                 src={`/assets/templates/${template.key}.png`}
+                                                alt={template.name}
                                                 objectFit='scale-down' 
                                             />
                                         </Link>

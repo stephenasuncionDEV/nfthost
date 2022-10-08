@@ -21,7 +21,7 @@ const Option = () => {
                 Options
             </Text>
             <Text fontSize='9pt' mb='1em'>
-                This will affect your collection's metadata.json file.
+                This will affect your collection&apos;s metadata.json file.
             </Text>
             <VStack p='1em' alignItems='flex-start' w='full'>
                 <Checkbox isChecked={isRandomizedMetadata} onChange={(e) => setIsRandomizedMetadata(e.target.checked)}>

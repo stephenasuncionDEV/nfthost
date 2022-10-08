@@ -26,7 +26,7 @@ const Pricing = () => {
                 />
             </HStack>
             <Text fontSize='18pt' mt='.75em'>
-                Always know what you'll pay
+                Always know what you&apos;ll pay
             </Text>
             <Image src='/assets/landing-effect-5.png' alt='Landing Effect - Arc' mt='1.5em' />
             <HStack spacing='2em' mt='2em'>

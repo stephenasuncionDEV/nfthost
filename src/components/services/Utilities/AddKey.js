@@ -36,7 +36,7 @@ const AddKey = () => {
                         <FormHelperText fontSize='9pt'>The value of the key you want to add on your metadata files</FormHelperText>
                     </FormControl>
                     <Text>
-                        "{Object.keys(newKey)[0] || ''}": "{newKey[Object.keys(newKey)[0]] || ''}",
+                        &quot;{Object.keys(newKey)[0] || ''}&quot;: &quot;{newKey[Object.keys(newKey)[0]] || ''}&quot;,
                     </Text>
                 </VStack>
             )}

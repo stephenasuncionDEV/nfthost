@@ -66,7 +66,7 @@ const Design = () => {
                     <VStack spacing='.25em' alignItems='flex-start'>
                         <Text>Favicon URL</Text>
                         <Text fontSize='10pt' variant='subtle'>
-                            An external link to an Icon file representing your website. This will be displayed on your browser's tab.
+                            An external link to an Icon file representing your website. This will be displayed on your browser&apos;s tab.
                         </Text>
                     </VStack>
                     <DynamicInput 
@@ -109,7 +109,7 @@ const Design = () => {
                     <VStack spacing='.25em' alignItems='flex-start'>
                         <Text>Logo URL</Text>
                         <Text fontSize='10pt' variant='subtle'>
-                            An external link to an Image file representing your website. This will be displayed on your browser's tab.
+                            An external link to an Image file representing your website. This will be displayed on your browser&apos;s tab.
                         </Text>
                     </VStack>
                     <DynamicInput 
