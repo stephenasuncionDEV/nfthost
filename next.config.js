@@ -11,5 +11,8 @@ module.exports = withBundleAnalyzer({
         POSTHOG_PERSONAL_KEY: process.env.POSTHOG_PERSONAL_KEY,
         CREATE_WEBSITE_TOKEN: process.env.CREATE_WEBSITE_TOKEN,
         INFURA_ID: process.env.INFURA_ID
-    }
+    },
+    experimental: {
+        forceSwcTransforms: true,
+    },
 })
