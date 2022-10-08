@@ -3,9 +3,15 @@ import { Flex, HStack, Button, IconButton, useColorMode, MenuButton, MenuList,
     Menu, MenuItem, MenuDivider, useColorModeValue, Image, Heading, Link,
     MenuGroup
 } from '@chakra-ui/react'
-import { FaTiktok, FaDiscord, FaGithub } from 'react-icons/fa'
-import { MdOutlineDarkMode, MdOutlineLightMode, MdOutlineFeaturedPlayList, MdOutlinePriceChange, MdPeople } from 'react-icons/md'
-import { GiHamburgerMenu } from 'react-icons/gi'
+import { SiTiktok } from '@react-icons/all-files/si/SiTiktok'
+import { FaDiscord } from '@react-icons/all-files/fa/FaDiscord'
+import { FaGithub } from '@react-icons/all-files/fa/FaGithub'
+import { SunIcon, MoonIcon } from '@chakra-ui/icons/'
+import { MdPeople } from '@react-icons/all-files/md/MdPeople'
+import { MdFeaturedPlayList } from '@react-icons/all-files/md/MdFeaturedPlayList'
+import { GiPriceTag } from '@react-icons/all-files/gi/GiPriceTag'
+import { GiHamburgerMenu } from '@react-icons/all-files/gi/GiHamburgerMenu'
+
 import { useMediaQuery } from 'react-responsive'
 
 const Navbar = ({ isLanding, isColorMode, isSocial }) => {
@@ -72,7 +78,7 @@ const Navbar = ({ isLanding, isColorMode, isSocial }) => {
                         <Link href='https://www.tiktok.com/@nfthostofficial' isExternal style={{ color: defaultColor }}>
                             <IconButton 
                                 aria-label='NFT Host Tiktok'
-                                icon={<FaTiktok />}
+                                icon={<SiTiktok />}
                                 borderRadius='50%'
                                 size='sm'
                                 bg='transparent'
@@ -83,7 +89,7 @@ const Navbar = ({ isLanding, isColorMode, isSocial }) => {
                             <IconButton 
                                 ml='.5em'
                                 aria-label='Toggle Color Mode' 
-                                icon={colorMode === 'light' ? <MdOutlineDarkMode /> : <MdOutlineLightMode />} 
+                                icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />} 
                                 bg='transparent'
                                 _hover={{ bg: 'transparent', color: navbarButton }}
                                 onClick={toggleColorMode}
@@ -107,7 +113,7 @@ const Navbar = ({ isLanding, isColorMode, isSocial }) => {
                         {isLanding && (
                             <MenuGroup title='Landing'>
                                 <NextLink href='/#features' shallow passHref>
-                                    <MenuItem icon={<MdOutlineFeaturedPlayList />}>
+                                    <MenuItem icon={<MdFeaturedPlayList />}>
                                         Features
                                     </MenuItem>
                                 </NextLink>
@@ -117,7 +123,7 @@ const Navbar = ({ isLanding, isColorMode, isSocial }) => {
                                     </MenuItem>
                                 </NextLink>
                                 <NextLink href='/#pricing' shallow passHref>
-                                    <MenuItem icon={<MdOutlinePriceChange />}>
+                                    <MenuItem icon={<GiPriceTag />}>
                                         Pricing
                                     </MenuItem>
                                 </NextLink>
@@ -136,7 +142,7 @@ const Navbar = ({ isLanding, isColorMode, isSocial }) => {
                                     </MenuItem>
                                 </Link>
                                 <Link href='https://www.tiktok.com/@nfthostofficial' isExternal style={{ textDecoration: 'none', color: 'white' }}>
-                                    <MenuItem icon={<FaTiktok />}>
+                                    <MenuItem icon={<SiTiktok />}>
                                         Tiktok
                                     </MenuItem>
                                 </Link>
@@ -145,7 +151,7 @@ const Navbar = ({ isLanding, isColorMode, isSocial }) => {
                         {isColorMode && (
                             <>
                                 <MenuDivider />
-                                <MenuItem icon={colorMode === 'light' ? <MdOutlineDarkMode /> : <MdOutlineLightMode />} onClick={toggleColorMode}>
+                                <MenuItem icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />} onClick={toggleColorMode}>
                                     {colorMode === 'light' ? 'Dark Mode' : 'Light Mode' } 
                                 </MenuItem>
                             </>

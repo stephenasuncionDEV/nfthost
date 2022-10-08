@@ -1,9 +1,9 @@
 import {  Button,Modal, ModalOverlay, ModalContent, ModalHeader,
     ModalFooter, ModalBody, ModalCloseButton, HStack, Text, VStack
 } from '@chakra-ui/react'
+import { FaTrash } from '@react-icons/all-files/fa/FaTrash'
+import { AiOutlineWarning } from '@react-icons/all-files/ai/AiOutlineWarning'
 import { useCore } from '@/providers/CoreProvider'
-import { FaTrash } from 'react-icons/fa'
-import { AiOutlineWarning } from 'react-icons/ai'
 
 const AreYouSureModal = () => {
     const { isAreYouSureModal, setIsAreYouSureModal, areYouSureData } = useCore();

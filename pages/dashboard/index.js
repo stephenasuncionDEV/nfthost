@@ -1,10 +1,10 @@
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { Text, Flex } from '@chakra-ui/react'
+import { AiOutlineWarning } from '@react-icons/all-files/ai/AiOutlineWarning'
 import Meta from '@/components/Meta'
 import MainNavbar from '@/components/MainNavbar'
 import MainFooter from '@/components/MainFooter'
-import { AiOutlineWarning } from 'react-icons/ai'
 
 const Dashboard = () => {
     const router = useRouter();

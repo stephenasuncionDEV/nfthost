@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Text, Flex, VStack, Image, HStack, Heading, Wrap } from '@chakra-ui/react'
+import { Text, Flex, VStack, Image, HStack, Heading } from '@chakra-ui/react'
 import { useMediaQuery } from 'react-responsive'
 
 const Features = () => {

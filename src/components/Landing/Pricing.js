@@ -1,4 +1,4 @@
-import { Text, Flex, Wrap, Image, Heading, HStack, Box, Center} from '@chakra-ui/react'
+import { Text, Flex, Wrap, Image, Heading, HStack, Box } from '@chakra-ui/react'
 
 const Pricing = () => {
 

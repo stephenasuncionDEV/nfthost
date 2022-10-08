@@ -1,8 +1,6 @@
 import { useState } from 'react'
-import { VStack, Button, Flex, HStack, Text, Divider, Heading,
-    Tag, TagLabel, TagLeftIcon, Wrap, useColorModeValue
-} from '@chakra-ui/react'
-import { BsQuestion } from 'react-icons/bs'
+import { Flex, HStack, Text, useColorModeValue } from '@chakra-ui/react'
+import { BsQuestion } from '@react-icons/all-files/bs/BsQuestion'
 import { webColor } from '@/theme/index'
 
 const Question = (props) => {

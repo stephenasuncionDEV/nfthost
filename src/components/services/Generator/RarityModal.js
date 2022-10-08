@@ -3,8 +3,8 @@ import { Modal, ModalOverlay, ModalContent, ModalFooter,
     Box, Grid, GridItem, NumberInput, NumberIncrementStepper, 
     NumberDecrementStepper, NumberInputStepper, NumberInputField
 } from '@chakra-ui/react'
-import { useGenerator } from '@/providers/GeneratorProvider'
 import { FixedSizeList as List } from 'react-window'
+import { useGenerator } from '@/providers/GeneratorProvider'
 import AutoSizer from '@/components/AutoSizer'
 import { useRarity } from '@/hooks/services/generator/useRarity'
 

@@ -4,9 +4,8 @@ import { HStack, Text, Button, Modal, ModalOverlay,
 } from '@chakra-ui/react'
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { useGenerate } from '@/hooks/services/generator/useGenerate'
-import { BiInfoCircle } from 'react-icons/bi'
-import { FaDownload } from 'react-icons/fa'
-import { AiOutlineArrowRight } from 'react-icons/ai'
+import { FaDownload } from '@react-icons/all-files/fa/FaDownload'
+import { AiOutlineArrowRight } from '@react-icons/all-files/ai/AiOutlineArrowRight'
 
 const DownloadModal = () => {
     const { 

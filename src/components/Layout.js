@@ -2,10 +2,10 @@ import NextLink from 'next/link'
 import { Box, Text, useColorModeValue, VStack, HStack, Heading,
     IconButton, Button, useColorMode, Flex, Link, Image
 } from '@chakra-ui/react'
+import { GiHamburgerMenu } from '@react-icons/all-files/gi/GiHamburgerMenu'
+import { SunIcon, MoonIcon } from '@chakra-ui/icons/'
 import { useCore } from '@/providers/CoreProvider'
 import ConnectWalletTag from './ConnectWalletTag'
-import { GiHamburgerMenu } from 'react-icons/gi'
-import { MdOutlineDarkMode, MdOutlineLightMode } from 'react-icons/md'
 import { sidebarArr } from '@/utils/json'
 import { webColor } from '@/theme/index'
 
@@ -58,7 +58,7 @@ const Layout = ({ children, currentApp }) => {
                         _hover={{ bg: 'transparent', color: defaultColor }}
                         onClick={toggleColorMode}
                     >
-                        {colorMode === 'light' ? <MdOutlineDarkMode /> : <MdOutlineLightMode />}
+                        {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
                     </IconButton> */}
                     <ConnectWalletTag 
                         isUserProfile

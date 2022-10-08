@@ -3,8 +3,10 @@ import { Button, Modal, ModalOverlay, ModalContent, ModalHeader,
     Image, Tag, TagLabel, TagRightIcon, Flex, Box, Input, Wrap, InputGroup,
     InputRightElement
 } from '@chakra-ui/react'
-import { FaSave } from 'react-icons/fa'
-import { MdPerson, MdOutlineContentCopy, MdDelete } from 'react-icons/md'
+import { FaSave } from '@react-icons/all-files/fa/FaSave'
+import { MdPerson } from '@react-icons/all-files/md/MdPerson'
+import { MdDelete } from '@react-icons/all-files/md/MdDelete'
+import { AiOutlineCopy } from '@react-icons/all-files/ai/AiOutlineCopy'
 import { useCore } from '@/providers/CoreProvider'
 import { useUser } from '@/providers/UserProvider'
 import { useMemberControls } from '@/hooks/useMemberControls'
@@ -58,7 +60,7 @@ const ProfileModal = () => {
                                         {user?._id}
                                     </TagLabel>
                                     <TagRightIcon color='gray.500' _hover={{ color: 'gray.600' }} onClick={onUserIdCopy} cursor='pointer'>
-                                        <MdOutlineContentCopy fontSize='18pt' />
+                                        <AiOutlineCopy fontSize='18pt' />
                                     </TagRightIcon>
                                 </Tag>
                             </HStack>

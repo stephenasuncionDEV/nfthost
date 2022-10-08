@@ -1,11 +1,11 @@
 import { Box, Text, Flex, VStack, IconButton, useColorModeValue, 
     Wrap, Icon, Image, Button, HStack
 } from '@chakra-ui/react'
+import { FaTrashAlt } from '@react-icons/all-files/fa/FaTrashAlt'
+import { BsFillImageFill } from '@react-icons/all-files/bs/BsFillImageFill'
 import { useCore } from '@/providers/CoreProvider'
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { useTraits } from '@/hooks/services/generator/useTraits'
-import { FaTrashAlt } from 'react-icons/fa'
-import { BsFillImageFill } from 'react-icons/bs'
 import Dropzone from 'react-dropzone'
 import { webColor } from '@/theme/index'
 

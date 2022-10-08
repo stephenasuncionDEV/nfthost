@@ -1,22 +1,24 @@
 import NextLink from 'next/link'
-import { useState } from 'react'
+// import { useState } from 'react'
 import { Box, HStack, Text, Flex, Button, VStack, Link, 
     useColorModeValue, Input, Image, Wrap, useColorMode,
     Heading
 } from '@chakra-ui/react'
+import { AiOutlineArrowLeft } from '@react-icons/all-files/ai/AiOutlineArrowLeft'
+import { AiOutlineWarning } from '@react-icons/all-files/ai/AiOutlineWarning'
+// import { FaWallet } from '@react-icons/all-files/fa/FaWallet'
+import { FaEthereum } from '@react-icons/all-files/fa/FaEthereum'
 import { useReAuthenticate } from '@/hooks/useReAuthenticate'
 import { useCore } from '@/providers/CoreProvider'
 import { useUser } from '@/providers/UserProvider'
 import { usePaymentControls } from '@/hooks/usePaymentControls'
 import Meta from '@/components/Meta'
 import Question from '@/components/Question'
-import CardInput from '@/components/CardInput'
+// import CardInput from '@/components/CardInput'
 import KeepWorkingModal from '@/components/KeepWorkingModal'
-import { AiOutlineArrowLeft, AiOutlineWarning } from 'react-icons/ai'
-import { FaWallet, FaEthereum } from 'react-icons/fa'
-import { loadStripe } from '@stripe/stripe-js'
-import { Elements } from '@stripe/react-stripe-js'
-import config from '@/config/index'
+// import { loadStripe } from '@stripe/stripe-js'
+// import { Elements } from '@stripe/react-stripe-js'
+// import config from '@/config/index'
 import { getCurrencyFromWallet, getPriceFromService } from '@/utils/tools'
 
 const month = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];

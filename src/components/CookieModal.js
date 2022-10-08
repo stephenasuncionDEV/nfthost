@@ -1,6 +1,6 @@
 import { Text, HStack, Button, Flex, IconButton, Link, useColorModeValue } from '@chakra-ui/react'
+import { IoMdClose } from '@react-icons/all-files/io/IoMdClose'
 import { useCore } from '@/providers/CoreProvider'
-import { IoMdClose } from 'react-icons/io'
 import { useCookie } from '@/hooks/useCookie'
 
 const CookieModal = () => {

@@ -3,12 +3,14 @@ import { HStack, Menu, MenuButton, Tag,
     MenuList, MenuItem, useColorModeValue, TagLabel,
     TagRightIcon, MenuDivider, Text, Image, Avatar, VStack
 } from '@chakra-ui/react'
+import { HiOutlineChevronDown } from '@react-icons/all-files/hi/HiOutlineChevronDown'
+import { HiLogout } from '@react-icons/all-files/hi/HiLogout'
+import { AiOutlineCopy } from '@react-icons/all-files/ai/AiOutlineCopy'
+import { MdPayment } from '@react-icons/all-files/md/MdPayment'
 import { useUser } from '@/providers/UserProvider'
 import { useCore } from '@/providers/CoreProvider'
 import { useMemberControls } from '@/hooks/useMemberControls'
 import { useCopy } from '@/hooks/useCopy'
-import { HiOutlineChevronDown, HiLogout } from 'react-icons/hi'
-import { MdOutlineContentCopy, MdPayment } from 'react-icons/md'
 
 const ConnectWalletTag = ({ isCopyAddress, isUserProfile, isPayments, ...styles }) => {
     const { address, isLoggedIn, user } = useUser();
@@ -58,7 +60,7 @@ const ConnectWalletTag = ({ isCopyAddress, isUserProfile, isPayments, ...styles 
                     {isCopyAddress && (
                         <>
                             <MenuDivider />
-                            <MenuItem icon={<MdOutlineContentCopy />} onClick={onCopyAddress}>Copy Address</MenuItem>
+                            <MenuItem icon={<AiOutlineCopy />} onClick={onCopyAddress}>Copy Address</MenuItem>
                         </>
                     )}
                     {isPayments && (

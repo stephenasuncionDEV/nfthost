@@ -2,7 +2,9 @@ import NextLink from 'next/link'
 import { Flex, Text, VStack, Link, HStack, useColorModeValue, Wrap, 
     Image, Heading, IconButton 
 } from '@chakra-ui/react'
-import { FaTiktok, FaDiscord, FaGithub } from 'react-icons/fa'
+import { SiTiktok } from '@react-icons/all-files/si/SiTiktok'
+import { FaDiscord } from '@react-icons/all-files/fa/FaDiscord'
+import { FaGithub } from '@react-icons/all-files/fa/FaGithub'
 
 const Footer = () => {
 
@@ -49,7 +51,7 @@ const Footer = () => {
                                 <Link href='https://www.tiktok.com/@nfthostofficial' isExternal style={{ color: defaultColor }}>
                                     <IconButton 
                                         aria-label='NFT Host Tiktok'
-                                        icon={<FaTiktok />}
+                                        icon={<SiTiktok />}
                                         borderRadius='50%'
                                         size='sm'
                                         bg='transparent'

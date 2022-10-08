@@ -1,7 +1,13 @@
 import { useState, useEffect } from 'react'
 import { VStack, Button, Flex, Text, useColorModeValue, HStack } from '@chakra-ui/react'
-import { FaTwitter, FaInstagram, FaYoutube, FaTiktok, FaDiscord, FaReddit, FaFacebook } from 'react-icons/fa'
-import { GiSailboat } from 'react-icons/gi'
+import { FaTwitter } from '@react-icons/all-files/fa/FaTwitter'
+import { FaInstagram } from '@react-icons/all-files/fa/FaInstagram'
+import { FaYoutube } from '@react-icons/all-files/fa/FaYoutube'
+import { SiTiktok } from '@react-icons/all-files/si/SiTiktok'
+import { FaDiscord } from '@react-icons/all-files/fa/FaDiscord'
+import { FaReddit } from '@react-icons/all-files/fa/FaReddit'
+import { FaFacebook } from '@react-icons/all-files/fa/FaFacebook'
+import { GiSailboat } from '@react-icons/all-files/gi/GiSailboat'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useWebsiteControls } from '@/hooks/services/website/useWebsiteControls'
 import DynamicInput from '@/components/DynamicInput'
@@ -235,7 +241,7 @@ const Design = () => {
                             </Button>
                         </HStack>
                         <HStack w='full'>
-                            <FaTiktok />
+                            <SiTiktok />
                             <DynamicInput 
                                 id='tiktok'
                                 name='tiktok'

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { Text, Flex, Button, VStack, useColorModeValue, 
     Wrap, HStack, Divider, Spinner, Box, Center
 } from '@chakra-ui/react'
-import { AiOutlineArrowLeft } from 'react-icons/ai'
+import { AiOutlineArrowLeft } from '@react-icons/all-files/ai/AiOutlineArrowLeft'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import { useUser } from '@/providers/UserProvider'
 import { useAnalytics } from '@/hooks/services/website/useAnalytics'

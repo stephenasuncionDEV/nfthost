@@ -1,6 +1,12 @@
 import { HStack, IconButton, Link } from '@chakra-ui/react'
-import { FaTwitter, FaInstagram, FaYoutube, FaTiktok, FaDiscord, FaReddit, FaFacebook } from 'react-icons/fa'
-import { GiSailboat } from 'react-icons/gi'
+import { FaTwitter } from '@react-icons/all-files/fa/FaTwitter'
+import { FaInstagram } from '@react-icons/all-files/fa/FaInstagram'
+import { FaYoutube } from '@react-icons/all-files/fa/FaYoutube'
+import { FaTiktok } from '@react-icons/all-files/fa/FaTiktok'
+import { FaDiscord } from '@react-icons/all-files/fa/FaDiscord'
+import { FaReddit } from '@react-icons/all-files/fa/FaReddit'
+import { FaFacebook } from '@react-icons/all-files/fa/FaFacebook'
+import { GiSailboat } from '@react-icons/all-files/gi/GiSailboat'
 import { useWebsite } from '@/providers/WebsiteProvider'
 
 const Links = ({ sx, bx }) => {

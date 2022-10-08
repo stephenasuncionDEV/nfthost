@@ -1,10 +1,11 @@
-import { Text, Flex, VStack, useColorModeValue, 
-    Wrap, Link, Avatar, HStack, IconButton
-} from '@chakra-ui/react'
-import { FaLinkedin, FaInstagram, FaTwitter, FaYoutube, FaFacebook } from 'react-icons/fa'
+import { Text, Flex, VStack, useColorModeValue, Wrap, Link, Avatar, HStack, IconButton } from '@chakra-ui/react'
+import { FaTwitter } from '@react-icons/all-files/fa/FaTwitter'
+import { FaInstagram } from '@react-icons/all-files/fa/FaInstagram'
+import { FaYoutube } from '@react-icons/all-files/fa/FaYoutube'
+import { FaFacebook } from '@react-icons/all-files/fa/FaFacebook'
 import { teamArr } from '@/utils/json'
-import posthog from 'posthog-js'
 import { webColor } from '@/theme/index'
+import posthog from 'posthog-js'
 
 const Team = () => {
     const containerColor = useColorModeValue(webColor.containerBg[0], webColor.containerBg[1]);

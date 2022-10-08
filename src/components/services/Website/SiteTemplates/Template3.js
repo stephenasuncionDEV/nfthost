@@ -1,5 +1,4 @@
-import { Text, Flex, Tag, TagLeftIcon, Image, Heading, Wrap, Box } from '@chakra-ui/react'
-import { GiCutDiamond } from 'react-icons/gi'
+import { Text, Flex, Image, Heading, Wrap, Box } from '@chakra-ui/react'
 import { useWebsite } from '@/providers/WebsiteProvider'
 import Embed from './Embed'
 import Watermark from './Watermark'

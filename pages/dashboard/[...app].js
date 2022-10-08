@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { useColorModeValue, Flex, Text, VStack, Box, HStack } from '@chakra-ui/react'
 import { useMediaQuery } from 'react-responsive'
-import { MdOutlineAccountCircle } from 'react-icons/md'
+import { FaLink } from '@react-icons/all-files/fa/FaLink'
 import { useUser } from '@/providers/UserProvider'
 import { useReAuthenticate } from '@/hooks/useReAuthenticate'
 import Meta from '@/components/Meta'
@@ -72,7 +72,7 @@ const Page = () => {
                 ) : (
                     <VStack flex='1'>
                         <Flex flexDir='column' justifyContent='center' alignItems='center' flex='1'>
-                            <MdOutlineAccountCircle fontSize='28pt' />
+                            <FaLink fontSize='24pt' />
                             <Flex flexDir='column' alignItems='center' mt='.5em'>
                                 <Text fontWeight='bold' fontSize='10pt'>
                                     Connect

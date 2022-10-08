@@ -4,9 +4,9 @@ import { Box, HStack, Text, Flex, Button,
     NumberDecrementStepper, FormControl, Tag, TagCloseButton, 
     FormHelperText, useColorModeValue
 } from '@chakra-ui/react'
+import { IoMdAdd } from '@react-icons/all-files/io/IoMdAdd'
 import { useGenerator } from '@/providers/GeneratorProvider'
 import { useMetadata } from '@/hooks/services/generator/useMetadata'
-import { IoMdAdd } from 'react-icons/io'
 import { webColor } from '@/theme/index'
 
 const Configuration = () => {

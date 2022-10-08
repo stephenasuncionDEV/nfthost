@@ -1,5 +1,5 @@
 import NextImage from 'next/image'
-import { Text, Flex, Wrap, Image, Heading, Link, Button } from '@chakra-ui/react'
+import { Text, Flex, Wrap, Heading, Link, Button } from '@chakra-ui/react'
 
 const Testimonials = () => {
 
