@@ -1,4 +1,5 @@
 import NextLink from 'next/link'
+import NextImage from 'next/image'
 import { Text, Flex, Button, SlideFade, Link, useColorModeValue, 
     Wrap, Image, Heading
 } from '@chakra-ui/react'
@@ -106,12 +107,18 @@ const Landing = () => {
                                         <Button 
                                             variant='unstyled' 
                                             display='flex' 
-                                            h='full' 
+                                            h='62.92px'
                                             _hover={{ opacity: '1' }} 
                                             opacity='0.3'
                                             onClick={() => posthog?.capture('User visited partner from landing page', { company: partner.company })}
                                         >
-                                            <Image src={partner.image} alt={`${partner.company}'s Logo`} width='40px' />
+                                            <NextImage 
+                                                src={partner.image} 
+                                                alt={`${partner.company}'s Logo`} 
+                                                layout='fill'
+                                                objectFit='scale-down'
+                                                sizes='40px'
+                                            />
                                         </Button>
                                     </Link>
                                 ))}

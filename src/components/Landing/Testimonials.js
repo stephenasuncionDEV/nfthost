@@ -1,3 +1,4 @@
+import NextImage from 'next/image'
 import { Text, Flex, Wrap, Image, Heading, Link, Button } from '@chakra-ui/react'
 
 const Testimonials = () => {
@@ -23,9 +24,25 @@ const Testimonials = () => {
                     Testify for Us ✋
                 </Button>
             </Link>
-            <Wrap spacing='4em' mt='4em' justify='center' overflow='visible' mx='2em'>
-                <Image position='relative' src='/assets/testimony-1.png' alt='Testimony 1' className='upDownAnimation4'/>
-                <Image position='relative' src='/assets/testimony-2.png' alt='Testimony 2' className='upDownAnimation4'/>
+            <Wrap spacing='4em' mt='4em' justify='center' mx='2em' w='full' overflow='visible'>
+                <Flex maxW='442px' position='relative' w='full' h='360px' overflow='visible'>
+                    <NextImage 
+                        position='absolute'
+                        src='/assets/testimony-1.png'
+                        alt='Testimony 1'
+                        layout='fill'
+                        className='upDownAnimation4'
+                    />
+                </Flex>
+                <Flex maxW='442px' position='relative' w='full' h='360px' overflow='visible'>
+                    <NextImage 
+                        position='absolute'
+                        src='/assets/testimony-2.png'
+                        alt='Testimony 2'
+                        layout='fill'
+                        className='upDownAnimation4'
+                    />
+                </Flex>
             </Wrap>
         </Flex>
     )

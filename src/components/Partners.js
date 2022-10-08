@@ -23,7 +23,7 @@ const Partners = () => {
                         border='1px solid rgb(117,63,229)'
                     >
                         <VStack>
-                            <Image src={partner.image} alt='Flair Logo' width='40px' />
+                            <Image src={partner.image} alt={`${partner.company}'s Logo`} width='40px' />
                         </VStack>
                         <VStack alignItems='flex-start' flex='1'>
                             <Flex flexDir='column'>
