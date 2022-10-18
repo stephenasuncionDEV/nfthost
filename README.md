@@ -63,4 +63,4 @@ Want to donate? [https://www.buymeacoffee.com/stephenasuncion](https://www.buyme
 
 ## License
 
-[GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html)
+[MIT](https://github.com/stephenasuncionDEV/nfthost/blob/main/LICENSE)
