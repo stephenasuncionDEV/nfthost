@@ -1,175 +1,182 @@
-import { useGenerator } from '@/providers/GeneratorProvider'
-import { useToast } from '@chakra-ui/react'
-import errorHandler from '@/utils/errorHandler'
+import { useGenerator } from "@/providers/GeneratorProvider";
+import { useToast } from "@chakra-ui/react";
+import errorHandler from "@/utils/errorHandler";
 
 export const useToolbar = () => {
-    const toast = useToast({
-        title: 'Error',
-        status: 'error',
-        duration: 3000,
-        isClosable: true,
-        position: 'bottom'
-    });
-    const { 
-        layers, 
-        setLayers,
-        name,
-        setName,
-        description,
-        setDescription,
-        externalURL,
-        setExternalURL,
-        standardType,
-        collectionSize,
-        setCollectionSize,
-        symbol,
-        setSymbol,
-        creatorAddress,
-        setCreatorAddress,
-        sellerFee,
-        setSellerFee,
-        creatorShare,
-        setCreatorShare,
-        creators,
-        setCreators,
-        storageURL,
-        setStorageURL,
-        animationURL,
-        setAnimationURL,
-        youtubeURL,
-        setYoutubeURL,
-        backgroundColor,
-        setBackgroundColor,
-        isRandomizedMetadata,
-        setIsRandomizedMetadata
-    } = useGenerator();
+  const toast = useToast({
+    title: "Error",
+    status: "error",
+    duration: 3000,
+    isClosable: true,
+    position: "bottom",
+  });
+  const {
+    layers,
+    setLayers,
+    name,
+    setName,
+    description,
+    setDescription,
+    externalURL,
+    setExternalURL,
+    standardType,
+    collectionSize,
+    setCollectionSize,
+    symbol,
+    setSymbol,
+    creatorAddress,
+    setCreatorAddress,
+    sellerFee,
+    setSellerFee,
+    creatorShare,
+    setCreatorShare,
+    creators,
+    setCreators,
+    storageURL,
+    setStorageURL,
+    animationURL,
+    setAnimationURL,
+    youtubeURL,
+    setYoutubeURL,
+    backgroundColor,
+    setBackgroundColor,
+    isRandomizedMetadata,
+    setIsRandomizedMetadata,
+  } = useGenerator();
 
-    const OpenComputer = (e) => {
+  const OpenComputer = (e) => {
+    try {
+      const fileReader = new FileReader();
+      fileReader.onload = () => {
         try {
-            const fileReader = new FileReader();
-            fileReader.onload = () => {
-                try {
-                    const projectJson = JSON.parse(fileReader.result);
+          const projectJson = JSON.parse(fileReader.result);
 
-                    if (projectJson.layers.length != layers.length) throw new Error('Imported Rarity Setting does not match current layers');
+          if (projectJson.layers.length != layers.length)
+            throw new Error(
+              "Imported Rarity Setting does not match current layers",
+            );
 
-                    projectJson.rarity.forEach((data, idx) => {
-                        if(data.length != layers[idx].images.length) throw new Error('Imported Rarity Setting does not match current layer images');
-                    })
+          projectJson.rarity.forEach((data, idx) => {
+            if (data.length != layers[idx].images.length)
+              throw new Error(
+                "Imported Rarity Setting does not match current layer images",
+              );
+          });
 
-                    const newLayers = layers.map((layer, layerIdx) => {
-                        return {
-                            name: projectJson.layers[layerIdx],
-                            images: layer.images.map((image, imageIdx) => {
-                                return {
-                                    ...image,
-                                    rarity: projectJson.rarity[layerIdx][imageIdx]
-                                }
-                            })
-                        }
-                    })
+          const newLayers = layers.map((layer, layerIdx) => {
+            return {
+              name: projectJson.layers[layerIdx],
+              images: layer.images.map((image, imageIdx) => {
+                return {
+                  ...image,
+                  rarity: projectJson.rarity[layerIdx][imageIdx],
+                };
+              }),
+            };
+          });
 
-                    setLayers(newLayers);
+          setLayers(newLayers);
 
-                    const { 
-                        name, 
-                        collectionSize, 
-                        description, 
-                        externalURL, 
-                        storageURL, 
-                        backgroundColor, 
-                        animationURL, 
-                        youtubeURL, 
-                        symbol, 
-                        sellerFee, 
-                        creatorAddress,
-                        creators, 
-                        creatorShare, 
-                        isRandomizedMetadata 
-                    } = projectJson.metadata;
+          const {
+            name,
+            collectionSize,
+            description,
+            externalURL,
+            storageURL,
+            backgroundColor,
+            animationURL,
+            youtubeURL,
+            symbol,
+            sellerFee,
+            creatorAddress,
+            creators,
+            creatorShare,
+            isRandomizedMetadata,
+          } = projectJson.metadata;
 
-                    setName(name);
-                    setCollectionSize(collectionSize);
-                    setDescription(description);
-                    setExternalURL(externalURL);
-                    setStorageURL(storageURL);
-                    setBackgroundColor(backgroundColor);
-                    setAnimationURL(animationURL);
-                    setYoutubeURL(youtubeURL);
-                    setSymbol(symbol);
-                    setSellerFee(sellerFee);
-                    setCreatorAddress(creatorAddress);
-                    setCreators(creators);
-                    setCreatorShare(creatorShare);
-                    setIsRandomizedMetadata(isRandomizedMetadata);
+          setName(name);
+          setCollectionSize(collectionSize);
+          setDescription(description);
+          setExternalURL(externalURL);
+          setStorageURL(storageURL);
+          setBackgroundColor(backgroundColor);
+          setAnimationURL(animationURL);
+          setYoutubeURL(youtubeURL);
+          setSymbol(symbol);
+          setSellerFee(sellerFee);
+          setCreatorAddress(creatorAddress);
+          setCreators(creators);
+          setCreatorShare(creatorShare);
+          setIsRandomizedMetadata(isRandomizedMetadata);
 
-                    toast({
-                        title: 'Success',
-                        description: 'Imported project settings',
-                        status: 'success',
-                    })
-                }
-                catch (err) {
-                    const msg = errorHandler(err);
-                    toast({ description: msg });
-                }
-            }
-
-            fileReader.readAsText(e.target.files[0]);
+          toast({
+            title: "Success",
+            description: "Imported project settings",
+            status: "success",
+          });
+        } catch (err) {
+          const msg = errorHandler(err);
+          toast({ description: msg });
         }
-        catch (err) {
-            const msg = errorHandler(err);
-            toast({ description: msg });
-        }
+      };
+
+      fileReader.readAsText(e.target.files[0]);
+    } catch (err) {
+      const msg = errorHandler(err);
+      toast({ description: msg });
     }
+  };
 
-    const Save = (type = 'computer') => {
-        try {
-            if (type === 'computer') {
-                let projectJson = {
-                    layers: [],
-                    rarity: [],
-                    metadata: {
-                        name,
-                        collectionSize,
-                        description,
-                        externalURL,
-                        storageURL,
-                        backgroundColor,
-                        animationURL,
-                        youtubeURL,
-                        symbol,
-                        sellerFee,
-                        creatorAddress,
-                        creators,
-                        creatorShare,
-                        isRandomizedMetadata
-                    },
-                    createdAt: new Date()
-                }
+  const Save = (type = "computer") => {
+    try {
+      if (type === "computer") {
+        let projectJson = {
+          layers: [],
+          rarity: [],
+          metadata: {
+            name,
+            collectionSize,
+            description,
+            externalURL,
+            storageURL,
+            backgroundColor,
+            animationURL,
+            youtubeURL,
+            symbol,
+            sellerFee,
+            creatorAddress,
+            creators,
+            creatorShare,
+            isRandomizedMetadata,
+          },
+          createdAt: new Date(),
+        };
 
-                layers.forEach((layer) => {
-                    // Get all layer names
-                    projectJson.layers.push(layer.name);
+        layers.forEach((layer) => {
+          // Get all layer names
+          projectJson.layers.push(layer.name);
 
-                    // Get all rarity
-                    projectJson.rarity.push(layer.images.map((img) => {
-                        return img.rarity;
-                    }));
-                })
+          // Get all rarity
+          projectJson.rarity.push(
+            layer.images.map((img) => {
+              return img.rarity;
+            }),
+          );
+        });
 
-                const blob = new Blob([JSON.stringify(projectJson, null, 2)], {type: "text/plain;charset=utf-8"});
-                saveAs(blob, "NFTHost Generator Project.json");
-            }
-        }
-        catch (err) {
-            const msg = errorHandler(err);
-            toast({ description: msg });
-        }
+        const blob = new Blob([JSON.stringify(projectJson, null, 2)], {
+          type: "text/plain;charset=utf-8",
+        });
+        saveAs(blob, "NFTHost Generator Project.json");
+      }
+    } catch (err) {
+      const msg = errorHandler(err);
+      toast({ description: msg });
     }
+  };
 
-    return {
-        OpenComputer,
-        Save
-    }
-}
+  return {
+    OpenComputer,
+    Save,
+  };
+};

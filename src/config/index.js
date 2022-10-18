@@ -1,11 +1,11 @@
-import development from './dev'
-import production from './prod'
-import test from './test'
+import development from "./dev";
+import production from "./prod";
+import test from "./test";
 
 const configurationMap = {
-	development,
-	production,
-	test
+  development,
+  production,
+  test,
 };
 
 const config = configurationMap[process.env.NODE_ENV];
