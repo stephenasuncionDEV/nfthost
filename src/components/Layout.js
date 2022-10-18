@@ -14,7 +14,8 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { GiHamburgerMenu } from "@react-icons/all-files/gi/GiHamburgerMenu";
-import { SunIcon, MoonIcon } from "@chakra-ui/icons/";
+// import { BiSun } from "@react-icons/all-files/bi/BiSun";
+// import { BiMoon } from "@react-icons/all-files/bi/BiMoon";
 import { useCore } from "@/providers/CoreProvider";
 import ConnectWalletTag from "./ConnectWalletTag";
 import { sidebarArr } from "@/utils/json";
@@ -22,7 +23,7 @@ import { webColor } from "@/theme/index";
 
 const Layout = ({ children, currentApp }) => {
   const { isSidebar, setIsSidebar } = useCore();
-  const { colorMode, toggleColorMode } = useColorMode();
+  // const { colorMode, toggleColorMode } = useColorMode();
 
   const sidebarBG = useColorModeValue(
     webColor.sidebarBg[0],
@@ -83,7 +84,7 @@ const Layout = ({ children, currentApp }) => {
                         _hover={{ bg: 'transparent', color: defaultColor }}
                         onClick={toggleColorMode}
                     >
-                        {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+                        {colorMode === 'light' ? <BiMoon /> : <BiSun />}
                     </IconButton> */}
           <ConnectWalletTag isUserProfile isPayments isCopyAddress />
         </HStack>

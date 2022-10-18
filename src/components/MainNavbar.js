@@ -19,7 +19,8 @@ import {
 import { SiTiktok } from "@react-icons/all-files/si/SiTiktok";
 import { FaDiscord } from "@react-icons/all-files/fa/FaDiscord";
 import { FaGithub } from "@react-icons/all-files/fa/FaGithub";
-import { SunIcon, MoonIcon } from "@chakra-ui/icons/";
+import { BiSun } from "@react-icons/all-files/bi/BiSun";
+import { BiMoon } from "@react-icons/all-files/bi/BiMoon";
 import { MdPeople } from "@react-icons/all-files/md/MdPeople";
 import { MdFeaturedPlayList } from "@react-icons/all-files/md/MdFeaturedPlayList";
 import { GiPriceTag } from "@react-icons/all-files/gi/GiPriceTag";
@@ -122,7 +123,7 @@ const Navbar = ({ isLanding, isColorMode, isSocial }) => {
                 <IconButton
                   ml=".5em"
                   aria-label="Toggle Color Mode"
-                  icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+                  icon={colorMode === "light" ? <BiMoon /> : <BiSun />}
                   bg="transparent"
                   _hover={{ bg: "transparent", color: navbarButton }}
                   onClick={toggleColorMode}
@@ -185,7 +186,7 @@ const Navbar = ({ isLanding, isColorMode, isSocial }) => {
               <>
                 <MenuDivider />
                 <MenuItem
-                  icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+                  icon={colorMode === "light" ? <BiMoon /> : <BiSun />}
                   onClick={toggleColorMode}
                 >
                   {colorMode === "light" ? "Dark Mode" : "Light Mode"}
