@@ -59,7 +59,7 @@
     "react-responsive": "^9.0.0",
     "react-use": "^17.4.0",
     "react-window": "^1.8.7",
-    "recharts": "^2.1.12",
+    "recharts": "^2.1.15",
     "sass": "^1.55.0",
     "web3": "^1.8.0"
   },
