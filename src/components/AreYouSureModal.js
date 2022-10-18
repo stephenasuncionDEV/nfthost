@@ -46,9 +46,7 @@ const AreYouSureModal = () => {
             <Button
               size="sm"
               onClick={() => {
-                {
-                  areYouSureData?.callback();
-                }
+                areYouSureData?.callback();
                 setIsAreYouSureModal(false);
               }}
               variant={areYouSureData?.button || "danger"}
