@@ -36,7 +36,7 @@
     "@emotion/styled": "^11.10.4",
     "@react-icons/all-files": "^4.1.0",
     "@solana/web3.js": "^1.63.0",
-    "@stripe/react-stripe-js": "^1.10.0",
+    "@stripe/react-stripe-js": "^1.13.0",
     "@stripe/stripe-js": "^1.42.0",
     "@walletconnect/web3-provider": "^1.8.0",
     "axios": "^0.27.2",
