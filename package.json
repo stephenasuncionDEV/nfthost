@@ -54,7 +54,7 @@
     "react-beautiful-dnd": "^13.1.1",
     "react-confetti": "^6.1.0",
     "react-dom": "^18.2.0",
-    "react-dropzone": "^14.2.2",
+    "react-dropzone": "^14.2.3",
     "react-google-recaptcha": "^2.1.0",
     "react-responsive": "^9.0.0",
     "react-use": "^17.4.0",
