@@ -1,12 +1,32 @@
 {
   "name": "nfthost",
-  "private": true,
+  "description": "NFT Collection Generator and Minting Website Hosting",
+  "version": "0.0.1",
+  "author": "StephenAsuncion",
+  "publisher": "StephenAsuncion",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stephenasuncionDEV/nfthost.git"
+  },
+  "homepage": "https://github.com/stephenasuncionDEV/nfthost#readme",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/stephenasuncionDEV"
+  },
+  "bugs": {
+    "url": "https://github.com/stephenasuncionDEV/nfthost/issues"
+  },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev:no-cache": "rm -rf .next/cache && yarn dev",
     "lint": "next lint",
-    "vercel": "vercel dev"
+    "lint:format": "prettier --check .",
+    "lint:staged": "npm run lint && npm run lint:format && npm run build",
+    "format": "prettier --write .",
+    "build": "next build",
+    "build:analyze": "cross-env ANALYZE=true yarn build",
+    "start": "next start"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.10",
@@ -15,7 +35,6 @@
     "@coinbase/wallet-sdk": "^3.5.2",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
-    "@next/bundle-analyzer": "^12.3.1",
     "@react-icons/all-files": "^4.1.0",
     "@solana/web3.js": "^1.63.0",
     "@stripe/react-stripe-js": "^1.10.0",
@@ -46,7 +65,12 @@
     "web3": "^1.8.0"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^12.3.1",
+    "cross-env": "^7.0.3",
     "eslint": "8.23.1",
-    "eslint-config-next": "12.3.1"
+    "eslint-config-next": "12.3.1",
+    "eslint-config-prettier": "^8.5.0",
+    "husky": "^8.0.1",
+    "prettier": "^2.7.1"
   }
 }
