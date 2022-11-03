@@ -33,7 +33,7 @@
     "@chakra-ui/theme-tools": "^2.0.12",
     "@coinbase/wallet-sdk": "^3.5.3",
     "@emotion/react": "^11.10.5",
-    "@emotion/styled": "^11.10.4",
+    "@emotion/styled": "^11.10.5",
     "@react-icons/all-files": "^4.1.0",
     "@solana/web3.js": "^1.66.2",
     "@stripe/react-stripe-js": "^1.13.0",
