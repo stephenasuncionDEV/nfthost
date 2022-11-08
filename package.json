@@ -29,7 +29,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@chakra-ui/react": "^2.3.6",
+    "@chakra-ui/react": "^2.3.7",
     "@chakra-ui/theme-tools": "^2.0.12",
     "@coinbase/wallet-sdk": "^3.5.4",
     "@emotion/react": "^11.10.5",
