@@ -31,7 +31,7 @@
   "dependencies": {
     "@chakra-ui/react": "^2.3.6",
     "@chakra-ui/theme-tools": "^2.0.13",
-    "@coinbase/wallet-sdk": "^3.5.4",
+    "@coinbase/wallet-sdk": "^3.6.0",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@react-icons/all-files": "^4.1.0",
