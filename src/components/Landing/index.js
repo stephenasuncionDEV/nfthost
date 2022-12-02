@@ -152,9 +152,8 @@ const Landing = () => {
                       <NextImage
                         src={partner.image}
                         alt={`${partner.company}'s Logo`}
-                        layout="fill"
-                        objectFit="scale-down"
-                        sizes="40px"
+                        width={40}
+                        height={40}
                       />
                     </Button>
                   </Link>

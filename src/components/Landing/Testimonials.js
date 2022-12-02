@@ -44,8 +44,8 @@ const Testimonials = () => {
             position="absolute"
             src="/assets/testimony-1.png"
             alt="Testimony 1"
-            layout="fill"
-            className="upDownAnimation4"
+            width={442}
+            height={360}
           />
         </Flex>
         <Flex
@@ -59,8 +59,8 @@ const Testimonials = () => {
             position="absolute"
             src="/assets/testimony-2.png"
             alt="Testimony 2"
-            layout="fill"
-            className="upDownAnimation4"
+            width={442}
+            height={360}
           />
         </Flex>
       </Wrap>

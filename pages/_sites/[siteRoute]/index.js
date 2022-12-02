@@ -233,39 +233,42 @@ const UserWebsite = (props) => {
   );
 };
 
-export const getStaticPaths = async () => {
-  const mappedSubdomains = await axios.get(
+export async function getStaticPaths() {
+  const mappedSubdomains = await fetch(
     `${config.serverUrl}/api/website/getMappedSubdomains`,
     {
+      method: "GET",
       headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
         Authorization: `bearer ${process.env.CREATE_WEBSITE_TOKEN}`,
       },
     },
   );
 
   return {
-    paths: mappedSubdomains.data,
+    paths: await mappedSubdomains.json(),
     fallback: true,
   };
-};
+}
 
-export const getStaticProps = async ({ params: { siteRoute } }) => {
-  const site = await axios.get(
-    `${config.serverUrl}/api/website/getWebsiteByRoute`,
+export async function getStaticProps({ params: { siteRoute } }) {
+  const site = await fetch(
+    `${config.serverUrl}/api/website/getWebsiteByRoute?route=${siteRoute}`,
     {
-      params: {
-        route: siteRoute,
-      },
+      method: "GET",
       headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
         Authorization: `bearer ${process.env.CREATE_WEBSITE_TOKEN}`,
       },
     },
   );
 
   return {
-    props: site.data || null,
+    props: await site.json(),
     revalidate: 30,
   };
-};
+}
 
 export default UserWebsite;

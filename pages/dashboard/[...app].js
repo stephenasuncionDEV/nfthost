@@ -47,7 +47,7 @@ const Page = () => {
     <main style={{ background: bgColor, minHeight: "100vh" }}>
       <Meta title="Dashboard | NFT Host" />
       <Layout currentApp={currentApp}>
-        {isLoggedIn ? (
+        {currentApp === "team" || currentApp === "partners" || isLoggedIn ? (
           <>
             <ProfileModal />
             <AreYouSureModal />

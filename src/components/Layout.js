@@ -170,6 +170,7 @@ const Layout = ({ children, currentApp }) => {
                           shallow
                           passHref
                           key={idx}
+                          style={{ width: "100%" }}
                         >
                           <Button
                             borderRadius="0"
