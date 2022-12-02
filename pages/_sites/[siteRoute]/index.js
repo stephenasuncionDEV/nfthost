@@ -244,7 +244,7 @@ export const getStaticPaths = async () => {
   );
 
   return {
-    paths: mappedSubdomains.data,
+    paths: mappedSubdomains.data ?? [{ params: { siteRoute: "test" } }],
     fallback: true,
   };
 };
