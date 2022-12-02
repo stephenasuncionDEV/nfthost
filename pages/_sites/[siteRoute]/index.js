@@ -233,33 +233,42 @@ const UserWebsite = (props) => {
   );
 };
 
-export const getStaticPaths = async () => {
+export async function getStaticPaths() {
+  const mappedSubdomains = await fetch(
+    `${config.serverUrl}/api/website/getMappedSubdomains`,
+    {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `bearer ${process.env.CREATE_WEBSITE_TOKEN}`,
+      },
+    },
+  );
+
   return {
-    paths: (
-      await axios.get(`${config.serverUrl}/api/website/getMappedSubdomains`, {
-        headers: {
-          Authorization: `bearer ${process.env.CREATE_WEBSITE_TOKEN}`,
-        },
-      })
-    ).data,
+    paths: await mappedSubdomains.json(),
     fallback: true,
   };
-};
+}
 
-export const getStaticProps = async ({ params: { siteRoute } }) => {
+export async function getStaticProps({ params: { siteRoute } }) {
+  const site = await fetch(
+    `${config.serverUrl}/api/website/getWebsiteByRoute?route=${siteRoute}`,
+    {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `bearer ${process.env.CREATE_WEBSITE_TOKEN}`,
+      },
+    },
+  );
+
   return {
-    props: (
-      await axios.get(`${config.serverUrl}/api/website/getWebsiteByRoute`, {
-        params: {
-          route: siteRoute,
-        },
-        headers: {
-          Authorization: `bearer ${process.env.CREATE_WEBSITE_TOKEN}`,
-        },
-      })
-    ).data,
+    props: await site.json(),
     revalidate: 30,
   };
-};
+}
 
 export default UserWebsite;
