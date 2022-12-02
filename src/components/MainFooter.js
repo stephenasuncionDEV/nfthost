@@ -14,10 +14,13 @@ import {
 import { SiTiktok } from "@react-icons/all-files/si/SiTiktok";
 import { FaDiscord } from "@react-icons/all-files/fa/FaDiscord";
 import { FaGithub } from "@react-icons/all-files/fa/FaGithub";
+import { useExternalLink } from "@/hooks/useExternalLink";
 
 const Footer = () => {
   const defaultColor = useColorModeValue("black", "white");
   const navbarButton = useColorModeValue("blackAlpha.600", "whiteAlpha.600");
+
+  const { toTiktok, toDiscord, toGitHub } = useExternalLink();
 
   return (
     <Flex
@@ -48,48 +51,33 @@ const Footer = () => {
                 &copy; 2022 NFTHost. All rights Reserved.
               </Text>
               <HStack justifyContent="center" mt="1em">
-                <Link
-                  href="https://discord.gg/2BDzCvSTVc"
-                  isExternal
-                  style={{ color: defaultColor }}
-                >
-                  <IconButton
-                    aria-label="NFT Host Discord"
-                    icon={<FaDiscord />}
-                    borderRadius="50%"
-                    size="sm"
-                    bg="transparent"
-                    _hover={{ bg: "transparent", color: navbarButton }}
-                  />
-                </Link>
-                <Link
-                  href="https://github.com/stephenasuncionDEV/nfthost"
-                  isExternal
-                  style={{ color: defaultColor }}
-                >
-                  <IconButton
-                    aria-label="NFT Host Github"
-                    icon={<FaGithub />}
-                    borderRadius="50%"
-                    size="sm"
-                    bg="transparent"
-                    _hover={{ bg: "transparent", color: navbarButton }}
-                  />
-                </Link>
-                <Link
-                  href="https://www.tiktok.com/@nfthostofficial"
-                  isExternal
-                  style={{ color: defaultColor }}
-                >
-                  <IconButton
-                    aria-label="NFT Host Tiktok"
-                    icon={<SiTiktok />}
-                    borderRadius="50%"
-                    size="sm"
-                    bg="transparent"
-                    _hover={{ bg: "transparent", color: navbarButton }}
-                  />
-                </Link>
+                <IconButton
+                  aria-label="NFT Host Discord"
+                  icon={<FaDiscord />}
+                  borderRadius="50%"
+                  size="sm"
+                  bg="transparent"
+                  _hover={{ bg: "transparent", color: navbarButton }}
+                  onClick={toDiscord}
+                />
+                <IconButton
+                  aria-label="NFT Host GitHub"
+                  icon={<FaGithub />}
+                  borderRadius="50%"
+                  size="sm"
+                  bg="transparent"
+                  _hover={{ bg: "transparent", color: navbarButton }}
+                  onClick={toGitHub}
+                />
+                <IconButton
+                  aria-label="NFT Host Tiktok"
+                  icon={<SiTiktok />}
+                  borderRadius="50%"
+                  size="sm"
+                  bg="transparent"
+                  _hover={{ bg: "transparent", color: navbarButton }}
+                  onClick={toTiktok}
+                />
               </HStack>
             </Flex>
           </NextLink>
