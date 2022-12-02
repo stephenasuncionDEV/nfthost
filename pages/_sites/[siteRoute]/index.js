@@ -234,36 +234,30 @@ const UserWebsite = (props) => {
 };
 
 export const getStaticPaths = async () => {
-  const mappedSubdomains = await axios.get(
-    `${config.serverUrl}/api/website/getMappedSubdomains`,
-    {
-      headers: {
-        Authorization: `bearer ${process.env.CREATE_WEBSITE_TOKEN}`,
-      },
-    },
-  );
-
   return {
-    paths: mappedSubdomains.data ?? [{ params: { siteRoute: "test" } }],
+    paths: (
+      await axios.get(`${config.serverUrl}/api/website/getMappedSubdomains`, {
+        headers: {
+          Authorization: `bearer ${process.env.CREATE_WEBSITE_TOKEN}`,
+        },
+      })
+    ).data,
     fallback: true,
   };
 };
 
 export const getStaticProps = async ({ params: { siteRoute } }) => {
-  const site = await axios.get(
-    `${config.serverUrl}/api/website/getWebsiteByRoute`,
-    {
-      params: {
-        route: siteRoute,
-      },
-      headers: {
-        Authorization: `bearer ${process.env.CREATE_WEBSITE_TOKEN}`,
-      },
-    },
-  );
-
   return {
-    props: site.data || null,
+    props: (
+      await axios.get(`${config.serverUrl}/api/website/getWebsiteByRoute`, {
+        params: {
+          route: siteRoute,
+        },
+        headers: {
+          Authorization: `bearer ${process.env.CREATE_WEBSITE_TOKEN}`,
+        },
+      })
+    ).data,
     revalidate: 30,
   };
 };
