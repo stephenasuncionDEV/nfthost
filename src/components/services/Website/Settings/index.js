@@ -108,7 +108,9 @@ const Settings = () => {
                 https://{editingWebsite?.route}.{config?.frontendUrl}
               </Text>
               <Link
-                href={`https://${editingWebsite?.route}.nfthost.app`}
+                href={`http${
+                  process.env.NODE_ENV === "production" ? "s" : ""
+                }://${editingWebsite?.route}.${config?.frontendUrl}`}
                 isExternal
               >
                 <FaExternalLinkAlt />
