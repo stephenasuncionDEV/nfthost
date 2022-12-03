@@ -4,6 +4,7 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 
 module.exports = withBundleAnalyzer({
   reactStrictMode: false,
+  swcMinify: false,
   env: {
     CHAIN_ID: process.env.CHAIN_ID,
     ENCRYPT_KEY: process.env.ENCRYPT_KEY,

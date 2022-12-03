@@ -9,11 +9,21 @@ export default async function middleware(req) {
   const url = req.nextUrl;
   const hostname = req.headers.get("host");
 
+  console.log("[nfthost] uri: ", appConfig.frontendUrl);
+
   const isDomain = hostname.indexOf(appConfig.frontendUrl) === -1;
   if (isDomain) {
     console.log("[nfthost]", "Using custom domain");
+
+    const host =
+      hostname.indexOf("www.") !== -1
+        ? hostname.slice(hostname.indexOf("www.") + 4)
+        : hostname;
+
+    console.log("[nfthost]", "host:", host);
+
     const site = await fetch(
-      `${appConfig.serverUrl}/api/website/getWebsiteByDomain?domain=${hostname}`,
+      `${appConfig.serverUrl}/api/website/getWebsiteByDomain?domain=${host}`,
       {
         method: "GET",
         headers: {
