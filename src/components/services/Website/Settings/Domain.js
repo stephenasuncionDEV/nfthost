@@ -13,7 +13,9 @@ import {
   Td,
   Table,
 } from "@chakra-ui/react";
+import { AiOutlineCopy } from "@react-icons/all-files/ai/AiOutlineCopy";
 import { useWebsite } from "@/providers/WebsiteProvider";
+import { useCopy } from "@/hooks/useCopy";
 import { useWebsiteControls } from "@/hooks/services/website/useWebsiteControls";
 import DynamicInput from "@/components/DynamicInput";
 import { webColor } from "@/theme/index";
@@ -29,6 +31,12 @@ const Domain = () => {
   );
   const [route, setRoute] = useState("");
   const [domain, setDomain] = useState("");
+  const { onCopy: copyNsOne } = useCopy({
+    text: "ns1.vercel-dns.com",
+  });
+  const { onCopy: copyNsTwo } = useCopy({
+    text: "ns2.vercel-dns.com",
+  });
 
   useEffect(() => {
     if (!editingWebsite) return;
@@ -117,10 +125,28 @@ const Domain = () => {
                 </Thead>
                 <Tbody>
                   <Tr>
-                    <Td>ns1.vercel-dns.com</Td>
+                    <Td
+                      display="flex"
+                      gap="1em"
+                      alignItems="center"
+                      onClick={copyNsOne}
+                      cursor="pointer"
+                    >
+                      ns1.vercel-dns.com
+                      <AiOutlineCopy />
+                    </Td>
                   </Tr>
                   <Tr>
-                    <Td>ns2.vercel-dns.com</Td>
+                    <Td
+                      display="flex"
+                      gap="1em"
+                      alignItems="center"
+                      onClick={copyNsTwo}
+                      cursor="pointer"
+                    >
+                      ns2.vercel-dns.com
+                      <AiOutlineCopy />
+                    </Td>
                   </Tr>
                 </Tbody>
               </Table>
