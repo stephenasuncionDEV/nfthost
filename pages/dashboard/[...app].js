@@ -27,7 +27,6 @@ import Utilities from "@/components/services/Utilities";
 import MetadataEditor from "@/components/services/Generator/MetadataEditor";
 import ProfileModal from "@/components/ProfileModal";
 import AreYouSureModal from "@/components/AreYouSureModal";
-import Domain from "@/components/services/Website/Domain";
 import { webColor } from "@/theme/index";
 
 const Page = () => {
@@ -77,7 +76,6 @@ const Page = () => {
                 website: <Website />,
                 templates: <Templates />,
                 analytics: <Analytics />,
-                domain: <Domain />,
                 payments: <Payments />,
                 partners: <Partners />,
                 team: <Team />,

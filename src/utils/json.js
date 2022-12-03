@@ -55,7 +55,7 @@ export const sidebarArr = [
           { name: "Templates", link: "/website/templates" },
           // { name: 'Addons', link: '/website/addons' },
           { name: "Analytics", link: "/website/analytics" },
-          { name: "Domain", link: "/website/domain" },
+          //{ name: "Domain", link: "/website/domain" },
         ],
         isExternal: false,
       },
