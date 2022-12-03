@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
 import { default as appConfig } from "@/config/index";
 
+String.prototype.countChar = function (c) {
+  return this.split(c).length - 1;
+};
+
 export const config = {
   matcher: ["/", "/_sites/:path"],
 };
@@ -9,18 +13,17 @@ export default async function middleware(req) {
   const url = req.nextUrl;
   const hostname = req.headers.get("host");
 
-  console.log("[nfthost] uri: ", appConfig.frontendUrl);
-
   const isDomain = hostname.indexOf(appConfig.frontendUrl) === -1;
-  if (isDomain) {
-    console.log("[nfthost]", "Using custom domain");
+  const isSubdomain =
+    !isDomain &&
+    hostname.countChar(".") ===
+      (process.env.NODE_ENV === "development" ? 1 : 2);
 
+  if (isDomain) {
     const host =
       hostname.indexOf("www.") !== -1
         ? hostname.slice(hostname.indexOf("www.") + 4)
         : hostname;
-
-    console.log("[nfthost]", "host:", host);
 
     const site = await fetch(
       `${appConfig.serverUrl}/api/website/getWebsiteByDomain?domain=${host}`,
@@ -38,14 +41,14 @@ export default async function middleware(req) {
     if (!siteRes) return NextResponse.redirect("/404");
 
     url.pathname = `/_sites/${siteRes.route}${url.pathname}`;
-    return NextResponse.rewrite(url);
   }
 
-  // For subdomains
-  const subpath = hostname.slice(0, hostname.indexOf("."));
+  if (isSubdomain) {
+    const subpath = hostname.slice(0, hostname.indexOf("."));
 
-  if (subpath !== "www") {
-    url.pathname = `/_sites/${subpath}${url.pathname}`;
+    if (!isDomain && subpath !== "www") {
+      url.pathname = `/_sites/${subpath}${url.pathname}`;
+    }
   }
 
   return NextResponse.rewrite(url);
