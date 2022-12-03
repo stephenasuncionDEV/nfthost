@@ -105,7 +105,8 @@ const Settings = () => {
             </Question>
             <HStack>
               <Text fontSize="9pt">
-                https://{editingWebsite?.route}.{config?.frontendUrl}
+                http{process.env.NODE_ENV === "production" ? "s" : ""}://
+                {editingWebsite?.route}.{config?.frontendUrl}
               </Text>
               <Link
                 href={`http${
