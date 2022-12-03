@@ -1314,6 +1314,67 @@ export const useWebsiteControls = () => {
     }
   };
 
+  const updateDomain = async (domain) => {
+    try {
+      setIsUpdatingWebsite(true);
+
+      const accessToken = getAccessToken();
+
+      const res = await axios.patch(
+        `${config.serverUrl}/api/website/updateDomain`,
+        {
+          websiteId: editingWebsite._id,
+          domain: domain.trim().toLowerCase(),
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
+
+      if (res.status !== 200)
+        throw new Error("Cannot update website at the moment");
+
+      setWebsites((prevWebsite) => {
+        return prevWebsite.map((web) => {
+          if (web._id === editingWebsite._id) {
+            return {
+              ...web,
+              custom: {
+                ...web.custom,
+                domain,
+              },
+            };
+          }
+          return web;
+        });
+      });
+
+      setEditingWebsite((prevWebsite) => {
+        return {
+          ...prevWebsite,
+          custom: {
+            ...prevWebsite.custom,
+            domain,
+          },
+        };
+      });
+
+      toast({
+        title: "Success",
+        description: "Successfuly updated website's domain",
+        status: "success",
+      });
+
+      setIsUpdatingWebsite(false);
+    } catch (err) {
+      setIsUpdatingWebsite(false);
+      const msg = errorHandler(err);
+      toast({ description: msg });
+    }
+  };
+
   return {
     getWebsiteByRoute,
     getWebsites,
@@ -1336,6 +1397,7 @@ export const useWebsiteControls = () => {
     updateFavicon,
     updateLogo,
     updateRevealDate,
+    updateDomain,
     isUpdatingWebsite,
     deleteWebsite,
     isDeletingWebsite,

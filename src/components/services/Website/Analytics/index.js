@@ -24,13 +24,11 @@ import {
   XAxis,
   YAxis,
   Tooltip,
-  Legend,
   BarChart,
   LabelList,
   Bar,
   PieChart,
   Pie,
-  Cell,
   Sector,
 } from "recharts";
 
