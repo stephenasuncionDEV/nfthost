@@ -59,21 +59,19 @@ const Domain = () => {
                 type="text"
                 ref={domainInput}
                 placeholder="example.com"
+                size="sm"
               />
               <Button
                 variant="primary"
                 onClick={() => {
-                  if (
-                    domainInput.current.value === editingWebsite?.custom?.domain
-                  )
-                    return;
                   updateDomain(domainInput.current.value);
                 }}
                 loadingText="Saving"
                 isLoading={isUpdatingWebsite}
                 isDisabled={isUpdatingWebsite}
+                px="1.5em"
               >
-                Save
+                Connect
               </Button>
             </HStack>
           </Flex>

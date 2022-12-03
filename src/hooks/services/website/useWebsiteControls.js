@@ -1318,6 +1318,13 @@ export const useWebsiteControls = () => {
     try {
       setIsUpdatingWebsite(true);
 
+      if (!domain.trim().length) throw new Error("Enter a valid domain.");
+
+      if (domain === editingWebsite?.custom?.domain) return;
+
+      if (!domain.length || domain.split(".").length > 2)
+        throw new Error("Enter a valid domain.");
+
       const accessToken = getAccessToken();
 
       const res = await axios.patch(
