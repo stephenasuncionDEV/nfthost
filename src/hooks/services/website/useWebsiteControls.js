@@ -1318,9 +1318,14 @@ export const useWebsiteControls = () => {
     try {
       setIsUpdatingWebsite(true);
 
+      if (!editingWebsite.isPremium)
+        throw new Error(
+          "You must upgrade to premium subscription to use custom domain.",
+        );
+
       if (!domain.trim().length) throw new Error("Enter a valid domain.");
 
-      if (domain === editingWebsite?.custom?.domain) return;
+      if (domain === editingWebsite.custom?.domain) return;
 
       if (!domain.length || domain.split(".").length > 2)
         throw new Error("Enter a valid domain.");
