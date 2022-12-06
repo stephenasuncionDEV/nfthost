@@ -39,7 +39,7 @@
     "@stripe/react-stripe-js": "^1.15.0",
     "@stripe/stripe-js": "^1.45.0",
     "@walletconnect/web3-provider": "^1.8.0",
-    "axios": "^1.2.0",
+    "axios": "^1.2.1",
     "crypto-js": "^4.1.1",
     "ethers": "^5.7.2",
     "file-saver": "^2.0.5",
