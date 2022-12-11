@@ -35,8 +35,8 @@
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@react-icons/all-files": "^4.1.0",
-    "@solana/web3.js": "^1.70.0",
-    "@stripe/react-stripe-js": "^1.16.0",
+    "@solana/web3.js": "^1.70.1",
+    "@stripe/react-stripe-js": "^1.16.1",
     "@stripe/stripe-js": "^1.46.0",
     "@walletconnect/web3-provider": "^1.8.0",
     "axios": "^1.2.1",
@@ -59,8 +59,8 @@
     "react-responsive": "^9.0.2",
     "react-use": "^17.4.0",
     "react-window": "^1.8.8",
-    "recharts": "^2.1.16",
-    "sass": "^1.56.1",
+    "recharts": "^2.2.0",
+    "sass": "^1.56.2",
     "web3": "^1.7.4"
   },
   "devDependencies": {
@@ -70,6 +70,6 @@
     "eslint-config-next": "13.0.6",
     "eslint-config-prettier": "^8.5.0",
     "husky": "^8.0.2",
-    "prettier": "^2.8.0"
+    "prettier": "^2.8.1"
   }
 }
