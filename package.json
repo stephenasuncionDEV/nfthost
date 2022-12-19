@@ -60,7 +60,7 @@
     "react-use": "^17.4.0",
     "react-window": "^1.8.8",
     "recharts": "^2.2.0",
-    "sass": "^1.56.2",
+    "sass": "^1.57.0",
     "web3": "^1.7.4"
   },
   "devDependencies": {
