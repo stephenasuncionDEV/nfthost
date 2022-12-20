@@ -61,7 +61,7 @@
     "react-window": "^1.8.8",
     "recharts": "^2.2.0",
     "sass": "^1.57.1",
-    "web3": "^1.7.4"
+    "web3": "^1.8.1"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^13.0.7",
