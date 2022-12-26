@@ -64,7 +64,7 @@
     "web3": "^1.7.4"
   },
   "devDependencies": {
-    "@next/bundle-analyzer": "^13.0.7",
+    "@next/bundle-analyzer": "^13.1.1",
     "cross-env": "^7.0.3",
     "eslint": "8.30.0",
     "eslint-config-next": "13.0.7",
