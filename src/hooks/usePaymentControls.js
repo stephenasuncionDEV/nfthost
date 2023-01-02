@@ -107,10 +107,14 @@ export const usePaymentControls = () => {
         wallet === "coinbase" ||
         wallet === "walletconnect"
       ) {
+        const gasPrice = (await window.web3.eth.getGasPrice()) ?? 20000000000;
+
         const txHash = await window.web3.eth.sendTransaction({
           from: provider.selectedAddress || userData.address,
           to: config.nfthost.wallet_metamask,
-          value: Web3.utils.toWei(price.toFixed(7).toString(), "ether"),
+          value: Web3.utils.toWei(price.toFixed(6).toString(), "ether"),
+          gas: 21000,
+          gasPrice,
         });
         hash = txHash.blockHash;
       } else if (wallet === "phantom") {
