@@ -318,6 +318,8 @@ export const useGenerate = () => {
       const ctx = canvas.getContext("2d");
 
       zip.remove("Images");
+      zip.remove("Metadata");
+      zip.remove("CSV metadata.csv");
 
       let chunkCount = 1;
       let curRenderIndex = 1;
