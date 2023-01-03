@@ -1140,6 +1140,7 @@ export const useWebsiteControls = () => {
   }) => {
     try {
       const accessToken = getAccessToken();
+      if (!accessToken) return;
 
       const res = await axios.patch(
         `${config.serverUrl}/api/website/updateSubscription`,
