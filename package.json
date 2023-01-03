@@ -43,7 +43,7 @@
     "crypto-js": "^4.1.1",
     "ethers": "^5.7.2",
     "file-saver": "^2.0.5",
-    "framer-motion": "^8.0.2",
+    "framer-motion": "^8.1.3",
     "html-react-parser": "^3.0.6",
     "jszip": "^3.10.1",
     "jwt-decode": "^3.1.2",
@@ -61,14 +61,14 @@
     "react-window": "^1.8.8",
     "recharts": "^2.2.0",
     "sass": "^1.57.1",
-    "web3": "^1.8.1"
+    "web3": "^1.7.4"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^13.1.1",
     "cross-env": "^7.0.3",
     "eslint": "8.31.0",
     "eslint-config-next": "13.1.1",
-    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-prettier": "^8.6.0",
     "husky": "^8.0.2",
     "prettier": "^2.8.1"
   }
