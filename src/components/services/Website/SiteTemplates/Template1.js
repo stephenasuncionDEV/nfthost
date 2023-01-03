@@ -28,8 +28,9 @@ const Template1 = () => {
           alt={userWebsite?.components?.title}
           boxSize="240px"
           objectFit="scale-down"
+          borderRadius="10px"
         />
-        <Flex flexDir="column" alignItems="center" mb="1em">
+        <Flex flexDir="column" alignItems="center" mt="1.5em">
           <Heading as="h1" textAlign="center">
             {userWebsite?.components?.title}
           </Heading>
@@ -39,7 +40,7 @@ const Template1 = () => {
             </Text>
           </Box>
         </Flex>
-        <Embed mt="1em" />
+        <Embed mt="2em" />
       </Flex>
     </Flex>
   );
