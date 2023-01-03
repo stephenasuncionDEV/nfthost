@@ -50,7 +50,7 @@ export const webColor = {
   sidebarBg: ["white", "#0C0C0E"],
   borderColor: ["rgba(0,0,0,.1)", "rgba(255,255,255,.1)"],
   toolbarBg: ["white", "#0C0C0E"],
-  announcementBg: ["rgb(117,63,229)", "#0C0C0E"],
+  announcementBg: ["rgb(117,63,229)", "rgb(117,63,229)"],
   footerBg: ["rgb(240,240,240)", "rgb(19,15,28)"],
 };
 
