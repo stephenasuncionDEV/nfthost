@@ -26,6 +26,7 @@
     "format": "prettier --write .",
     "build": "next build",
     "build:analyze": "cross-env ANALYZE=true npm run build",
+    "postbuild": "next-sitemap",
     "start": "next start"
   },
   "dependencies": {
@@ -49,6 +50,7 @@
     "jwt-decode": "^3.1.2",
     "lzutf8": "^0.6.3",
     "next": "^13.1.1",
+    "next-sitemap": "^3.1.44",
     "posthog-js": "^1.39.0",
     "react": "18.2.0",
     "react-beautiful-dnd": "^13.1.1",
