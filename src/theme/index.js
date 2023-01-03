@@ -23,7 +23,7 @@ const styles = {
     body: {
       bg: mode(
         "linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(249,250,250,1) 100%)",
-        "linear-gradient(0deg, rgb(30,26,48) 0%, rgb(19, 15, 28) 100%)",
+        "#000616",
       )(props),
     },
   }),

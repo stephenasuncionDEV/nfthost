@@ -15,6 +15,7 @@ const Features = () => {
       as="section"
       flexDir="column"
       minH="90vh"
+      bgColor="#000616"
       bg="url(/assets/landing-bg-2.png) no-repeat center"
       bgSize="cover"
       alignItems="center"

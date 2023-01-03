@@ -31,6 +31,7 @@ const Landing = () => {
       <Flex
         flexDir="column"
         minH="90vh"
+        bgColor="#000616"
         bg="url(/assets/landing-bg-1.png) no-repeat center"
         bgSize="cover"
       >
