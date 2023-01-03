@@ -167,6 +167,11 @@ const Analytics = () => {
     webColor.containerBg[1],
   );
 
+  const borderColor = useColorModeValue(
+    webColor.borderColor[0],
+    webColor.borderColor[1],
+  );
+
   useEffect(() => {
     if (!isLoggedIn) return;
     getWebsites();
@@ -191,7 +196,6 @@ const Analytics = () => {
             <Wrap py="1em" spacing="2em">
               <Flex
                 bg={containerColor}
-                border="1px solid rgb(117,63,229)"
                 pt="2em"
                 pr="2em"
                 flex="1"
@@ -208,8 +212,8 @@ const Analytics = () => {
                       data={websiteVisits}
                       is
                     >
-                      <XAxis dataKey="name" stroke="#8884d8" />
-                      <YAxis stroke="#8884d8" />
+                      <XAxis dataKey="name" stroke={borderColor} />
+                      <YAxis stroke={borderColor} />
                       <Tooltip
                         content={<CustomTooltip />}
                         cursor={{ fill: "transparent" }}
@@ -217,7 +221,7 @@ const Analytics = () => {
                       <Bar
                         dataKey="visits"
                         barSize={30}
-                        fill="#8884D8"
+                        fill={borderColor}
                         isAnimationActive={false}
                       >
                         <LabelList
@@ -232,8 +236,8 @@ const Analytics = () => {
               <Flex
                 flexDir="column"
                 bg={containerColor}
-                border="1px solid rgb(117,63,229)"
                 p="2em"
+                border={`1px solid ${borderColor}`}
                 flex="1"
                 alignItems="center"
                 maxW="470px"

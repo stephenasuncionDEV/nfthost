@@ -53,8 +53,6 @@ const Utilities = () => {
         boxShadow="0 0 2px 0 rgb(0 0 0 / 10%)"
         alignItems="flex-start"
         w="full"
-        maxW="850px"
-        border="1px solid rgb(117,63,229)"
       >
         {
           {

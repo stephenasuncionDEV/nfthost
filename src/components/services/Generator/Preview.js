@@ -33,7 +33,6 @@ const Preview = () => {
       flexDir="column"
       h="100%"
       alignItems="flex-start"
-      border="1px solid rgb(117,63,229)"
     >
       <Text fontWeight="bold" fontSize="10pt">
         Preview

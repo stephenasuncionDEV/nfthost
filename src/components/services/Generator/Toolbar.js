@@ -37,7 +37,6 @@ const Toolbar = () => {
       bg={containerColor}
       borderRadius="5px"
       justifyContent="space-between"
-      border="1px solid rgb(117,63,229)"
     >
       <HStack>
         <Menu>

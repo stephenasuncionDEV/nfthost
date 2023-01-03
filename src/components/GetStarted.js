@@ -11,13 +11,16 @@ import {
   Link,
   Box,
   Image,
+  Heading,
+  Center,
+  Badge,
 } from "@chakra-ui/react";
 import { AiOutlineRight } from "@react-icons/all-files/ai/AiOutlineRight";
 import { FiExternalLink } from "@react-icons/all-files/fi/FiExternalLink";
-import { GiCutDiamond } from "@react-icons/all-files/gi/GiCutDiamond";
 import { useCoreControls } from "@/hooks/useCoreControls";
 import { getStartedServicesArr } from "@/utils/json";
 import { webColor } from "@/theme/index";
+import config from "@/config/index";
 
 const GetStarted = () => {
   const { featuredWebsites, getFeaturedWebsites } = useCoreControls();
@@ -27,6 +30,11 @@ const GetStarted = () => {
     webColor.containerBg[1],
   );
 
+  const borderColor = useColorModeValue(
+    webColor.borderColor[0],
+    webColor.borderColor[1],
+  );
+
   useEffect(() => {
     getFeaturedWebsites();
   }, []);
@@ -34,9 +42,16 @@ const GetStarted = () => {
   return (
     <Flex flexDir="column" flex="1">
       <Flex flexDir="column" mt=".5em">
-        <Text fontWeight="bold" fontSize="26pt">
-          Welcome
-        </Text>
+        <Flex>
+          <Heading
+            as="h1"
+            fontSize="6xl"
+            bgGradient="linear(to-l, #374782, #1C97E7)"
+            bgClip="text"
+          >
+            Welcome
+          </Heading>
+        </Flex>
         <Text fontSize="10pt">
           Welcome to NFT Host! We created this page to guide you through your
           NFT journey.
@@ -55,7 +70,7 @@ const GetStarted = () => {
               w="full"
               key={idx}
               alignItems="flex-start"
-              border="1px solid rgb(117,63,229)"
+              border={`1px solid ${borderColor}`}
             >
               <HStack spacing="1em" justifyContent="space-between" w="full">
                 <HStack spacing="1em">
@@ -132,86 +147,87 @@ const GetStarted = () => {
                 </HStack>
               </Link>
             </VStack>
+            <Flex flexDir="column">
+              <Text fontWeight="bold" fontSize="18pt" mt="1em">
+                Support Us
+              </Text>
+              <Text fontSize="10pt">
+                If you like our service, please upvote NFT Host on Product Hunt.
+              </Text>
+              <Box mt="1em">
+                <a
+                  href="https://www.producthunt.com/posts/nft-host?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-nft&#0045;host"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Image
+                    src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=326763&theme=dark"
+                    alt="NFT&#0032;Host - Generate&#0032;and&#0032;Host&#0032;your&#0032;NFT&#0032;Collection&#0032;in&#0032;under&#0032;10&#0032;minutes | Product Hunt"
+                    style={{ width: "235px", height: "50px" }}
+                    width="235"
+                    height="50"
+                  />
+                </a>
+              </Box>
+            </Flex>
           </VStack>
         </VStack>
       </Wrap>
-      <Text fontWeight="bold" fontSize="22pt" mt="2em">
-        Featured Websites
-      </Text>
-      <Text fontSize="10pt">
-        Top 5 Visited Mint Websites created with NFT Host. Not in particular
-        order.
-      </Text>
-      <Wrap spacing="1em" mt="2em">
-        {featuredWebsites
-          ?.sort((a, b) =>
-            a.isPremium === b.isPremium ? 0 : a.isPremium ? -1 : 1,
-          )
-          .map((website, idx) => (
-            // <Link href={`${config?.frontendUrl}/${website.custom?.alias.length > 0 ? website.custom?.alias : website._id}`} isExternal key={idx} style={{ textDecoration: 'none' }} position='relative'>
-            <Box key={idx} position="relative">
-              <Button
-                opacity="0.3"
-                w="250px"
-                h="60px"
-                bgImage={website.components.unrevealedImage}
-                backgroundPosition="center"
-                _hover={{
-                  opacity: 1,
-                }}
-                leftIcon={
-                  website.isPremium ? <GiCutDiamond color="blue.500" /> : null
-                }
-                position="relative"
-                cursor="default"
-              ></Button>
-              <Box position="absolute" top="0" left="0" pointerEvents="none">
-                <Image
-                  src={
-                    website.isPremium
-                      ? "/assets/featured-premium.png"
-                      : "/assets/featured-free.png"
-                  }
-                  alt="Featured Website"
-                />
-              </Box>
-              <Text
-                position="absolute"
-                top="50%"
-                left="50%"
-                transform="translate(-50% , -50%)"
-                textAlign="center"
-                pointerEvents="none"
-              >
-                {website.components.title}
-              </Text>
-            </Box>
-            // </Link>
-          ))}
-      </Wrap>
-      <Flex flexDir="column" mt="3em">
-        <Text fontWeight="bold" fontSize="22pt">
-          Support Us
-        </Text>
+      <Flex mt="4em" flexDir="column">
+        <Heading
+          as="h1"
+          fontSize="5xl"
+          bgGradient="linear(to-l, #374782, #1C97E7)"
+          bgClip="text"
+        >
+          Featured Website
+        </Heading>
         <Text fontSize="10pt">
-          If you like our service, please upvote NFT Host on Product Hunt.
+          Current featured website that users have created.
         </Text>
-        <Box mt="1em">
-          <a
-            href="https://www.producthunt.com/posts/nft-host?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-nft&#0045;host"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <Image
-              src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=326763&theme=dark"
-              alt="NFT&#0032;Host - Generate&#0032;and&#0032;Host&#0032;your&#0032;NFT&#0032;Collection&#0032;in&#0032;under&#0032;10&#0032;minutes | Product Hunt"
-              style={{ width: "235px", height: "50px" }}
-              width="235"
-              height="50"
-            />
-          </a>
-        </Box>
       </Flex>
+      {featuredWebsites?.length > 0 && (
+        <Flex justifyContent="flex-end" mt="1em">
+          <Center flex="1" flexDir="column">
+            <Heading fontSize="6xl">
+              {featuredWebsites[0].components.title}
+            </Heading>
+            {featuredWebsites[0].isPremium && (
+              <Badge colorScheme="yellow" fontSize="10pt">
+                Premium
+              </Badge>
+            )}
+            <Text mt="1em">{featuredWebsites[0].components.description}</Text>
+            <Link
+              href={`http${
+                process.env.NODE_ENV === "production" ? "s" : ""
+              }://${featuredWebsites[0]?.route}.${config?.frontendUrl}`}
+              isExternal
+              style={{ textDecoration: "none" }}
+            >
+              <Button mt="3em" leftIcon={<FiExternalLink />} variant="outline">
+                Visit Website
+              </Button>
+            </Link>
+          </Center>
+          <Flex position="relative">
+            <Box
+              position="absolute"
+              bgGradient="linear(to-r, #0C0C0E 0%, #0C0C0E 10%, rgba(0,0,0,0) 100%)"
+              width="full"
+              height="full"
+            />
+            <Image
+              src={featuredWebsites[0].components.unrevealedImage}
+              alt={featuredWebsites[0].route}
+              maxW={680}
+              maxH={530}
+              borderRadius="10px"
+              fallbackSrc="https://via.placeholder.com/680x530"
+            />
+          </Flex>
+        </Flex>
+      )}
     </Flex>
   );
 };

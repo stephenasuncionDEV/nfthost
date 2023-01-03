@@ -38,6 +38,11 @@ const Domain = () => {
     text: "ns2.vercel-dns.com",
   });
 
+  const borderColor = useColorModeValue(
+    webColor.borderColor[0],
+    webColor.borderColor[1],
+  );
+
   useEffect(() => {
     if (!editingWebsite) return;
     setRoute(editingWebsite.route);
@@ -53,7 +58,7 @@ const Domain = () => {
         borderRadius=".25em"
         maxW="865px"
         w="full"
-        border="1px solid rgb(117,63,229)"
+        border={`1px solid ${borderColor}`}
         opacity={editingWebsite?.isExpired ? ".2" : "1"}
         pointerEvents={editingWebsite?.isExpired ? "none" : "all"}
       >
@@ -104,7 +109,7 @@ const Domain = () => {
         borderRadius=".25em"
         maxW="865px"
         w="full"
-        border="1px solid rgb(117,63,229)"
+        border={`1px solid ${borderColor}`}
         opacity={editingWebsite?.isExpired ? ".2" : "1"}
         pointerEvents={editingWebsite?.isExpired ? "none" : "all"}
       >

@@ -39,6 +39,11 @@ const List = ({ onCreateWebsiteOpen }) => {
     webColor.containerBg[1],
   );
 
+  const borderColor = useColorModeValue(
+    webColor.borderColor[0],
+    webColor.borderColor[1],
+  );
+
   return (
     <VStack
       alignItems="flex-start"
@@ -107,7 +112,7 @@ const List = ({ onCreateWebsiteOpen }) => {
                 onClick={() => {
                   editWebsite(web);
                 }}
-                border="1px solid rgb(117,63,229)"
+                border={`1px solid ${borderColor}`}
                 cursor="pointer"
                 // pointerEvents={editingWebsite?._id === web._id ? 'none' : 'all'}
               >

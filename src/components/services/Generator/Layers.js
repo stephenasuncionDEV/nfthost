@@ -27,7 +27,6 @@ const Layers = () => {
       bg={containerColor}
       borderRadius=".25em"
       h="100%"
-      border="1px solid rgb(117,63,229)"
     >
       <HStack spacing="2em">
         <Text fontWeight="bold" fontSize="10pt">

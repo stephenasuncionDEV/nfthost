@@ -40,6 +40,11 @@ const Templates = () => {
     webColor.containerBg[1],
   );
 
+  const borderColor = useColorModeValue(
+    webColor.borderColor[0],
+    webColor.borderColor[1],
+  );
+
   const onFilterChange = (e) => {
     const checkedValues = [...document.querySelectorAll(".filterCheckbox")]
       .filter((checkbox) => checkbox.firstChild.checked)
@@ -98,7 +103,7 @@ const Templates = () => {
                   borderRadius=".25em"
                   bg={containerColor}
                   border={`1px solid ${
-                    template.sub === "free" ? "rgb(117,63,229)" : "orange"
+                    template.sub === "free" ? borderColor : "orange"
                   }`}
                   key={idx}
                 >
@@ -162,13 +167,13 @@ const Templates = () => {
                     bg={
                       template?.sub === "premium"
                         ? "orange.500"
-                        : "rgb(117, 63, 229)"
+                        : "whiteAlpha.300"
                     }
                     _hover={{
                       bg:
                         template?.sub === "premium"
                           ? "orange.400"
-                          : "rgb(142, 90, 250)",
+                          : "whiteAlpha.400",
                     }}
                   >
                     Use

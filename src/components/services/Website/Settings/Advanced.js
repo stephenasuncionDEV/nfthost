@@ -24,6 +24,11 @@ const Advanced = () => {
     webColor.containerBg[1],
   );
 
+  const borderColor = useColorModeValue(
+    webColor.borderColor[0],
+    webColor.borderColor[1],
+  );
+
   useEffect(() => {
     if (!editingWebsite) return;
     setIsPublished(editingWebsite.isPublished);
@@ -39,7 +44,7 @@ const Advanced = () => {
         borderRadius=".25em"
         maxW="865px"
         w="full"
-        border="1px solid rgb(117,63,229)"
+        border={`1px solid ${borderColor}`}
         opacity={editingWebsite?.isExpired ? ".2" : "1"}
         pointerEvents={editingWebsite?.isExpired ? "none" : "all"}
       >
@@ -90,7 +95,7 @@ const Advanced = () => {
         borderRadius=".25em"
         maxW="865px"
         w="full"
-        border="1px solid rgb(117,63,229)"
+        border={`1px solid ${borderColor}`}
         opacity={editingWebsite?.isExpired ? ".2" : "1"}
         pointerEvents={editingWebsite?.isExpired ? "none" : "all"}
       >

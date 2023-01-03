@@ -32,6 +32,11 @@ const Preview = () => {
   );
   const bgColor = useColorModeValue("rgba(0,0,0,0.1)", "rgba(0,0,0,0.5)");
 
+  const borderColor = useColorModeValue(
+    webColor.borderColor[0],
+    webColor.borderColor[1],
+  );
+
   const previewMetadata = () => {
     const standard = standardType.name.toLowerCase();
     const externalStorage =
@@ -136,7 +141,7 @@ const Preview = () => {
       bg={containerColor}
       borderRadius=".25em"
       alignItems="flex-start"
-      border="1px solid rgb(117,63,229)"
+      border={`1px solid ${borderColor}`}
     >
       <Text fontWeight="bold" fontSize="10pt">
         Preview

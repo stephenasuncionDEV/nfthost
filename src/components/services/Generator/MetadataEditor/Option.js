@@ -16,6 +16,11 @@ const Option = () => {
     webColor.containerBg[1],
   );
 
+  const borderColor = useColorModeValue(
+    webColor.borderColor[0],
+    webColor.borderColor[1],
+  );
+
   return (
     <Flex
       flexDir="column"
@@ -24,7 +29,7 @@ const Option = () => {
       bg={containerColor}
       borderRadius=".25em"
       alignItems="flex-start"
-      border="1px solid rgb(117,63,229)"
+      border={`1px solid ${borderColor}`}
     >
       <Text fontWeight="bold" fontSize="10pt">
         Options

@@ -42,6 +42,11 @@ const General = () => {
     webColor.containerBg[1],
   );
 
+  const borderColor = useColorModeValue(
+    webColor.borderColor[0],
+    webColor.borderColor[1],
+  );
+
   useEffect(() => {
     if (!editingWebsite) return;
     setTitle(editingWebsite.components.title);
@@ -63,7 +68,7 @@ const General = () => {
             borderRadius=".25em"
             maxW="865px"
             w="full"
-            border="1px solid rgb(117,63,229)"
+            border={`1px solid ${borderColor}`}
           >
             <Button
               variant="primary"
@@ -90,7 +95,7 @@ const General = () => {
             borderRadius=".25em"
             maxW="865px"
             w="full"
-            border="1px solid #E53E3E"
+            border={`1px solid ${borderColor}`}
           >
             <HStack color="red.500">
               <AiOutlineWarning fontSize="24pt" />
@@ -118,7 +123,7 @@ const General = () => {
         borderRadius=".25em"
         maxW="865px"
         w="full"
-        border="1px solid rgb(117,63,229)"
+        border={`1px solid ${borderColor}`}
         opacity={editingWebsite?.isExpired ? ".2" : "1"}
         pointerEvents={editingWebsite?.isExpired ? "none" : "all"}
       >
@@ -167,7 +172,7 @@ const General = () => {
         borderRadius=".25em"
         maxW="865px"
         w="full"
-        border="1px solid rgb(117,63,229)"
+        border={`1px solid ${borderColor}`}
         opacity={editingWebsite?.isExpired ? ".2" : "1"}
         pointerEvents={editingWebsite?.isExpired ? "none" : "all"}
       >
@@ -215,7 +220,7 @@ const General = () => {
         borderRadius=".25em"
         maxW="865px"
         w="full"
-        border="1px solid rgb(117,63,229)"
+        border={`1px solid ${borderColor}`}
         opacity={editingWebsite?.isExpired ? ".2" : "1"}
         pointerEvents={editingWebsite?.isExpired ? "none" : "all"}
       >
@@ -260,7 +265,7 @@ const General = () => {
         borderRadius=".25em"
         maxW="865px"
         w="full"
-        border="1px solid rgb(117,63,229)"
+        border={`1px solid ${borderColor}`}
         opacity={editingWebsite?.isExpired ? ".2" : "1"}
         pointerEvents={editingWebsite?.isExpired ? "none" : "all"}
       >
@@ -307,7 +312,7 @@ const General = () => {
         borderRadius=".25em"
         maxW="865px"
         w="full"
-        border="1px solid rgb(117,63,229)"
+        border={`1px solid ${borderColor}`}
         opacity={editingWebsite?.isExpired ? ".2" : "1"}
         pointerEvents={editingWebsite?.isExpired ? "none" : "all"}
       >
@@ -356,7 +361,7 @@ const General = () => {
         borderRadius=".25em"
         maxW="865px"
         w="full"
-        border="1px solid rgb(117,63,229)"
+        border={`1px solid ${borderColor}`}
         opacity={editingWebsite?.isExpired ? ".2" : "1"}
         pointerEvents={editingWebsite?.isExpired ? "none" : "all"}
       >

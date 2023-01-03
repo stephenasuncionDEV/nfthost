@@ -18,6 +18,11 @@ const Partners = () => {
     webColor.containerBg[1],
   );
 
+  const borderColor = useColorModeValue(
+    webColor.borderColor[0],
+    webColor.borderColor[1],
+  );
+
   return (
     <Wrap spacing="2em">
       {partnersArr?.map((partner, idx) => (
@@ -41,7 +46,7 @@ const Partners = () => {
                 company: partner.company,
               })
             }
-            border="1px solid rgb(117,63,229)"
+            border={`1px solid ${borderColor}`}
           >
             <VStack>
               <Image

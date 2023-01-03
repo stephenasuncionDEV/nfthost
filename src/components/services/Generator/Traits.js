@@ -44,7 +44,6 @@ const Traits = () => {
       minW="180px"
       flexDir="column"
       h="100%"
-      border="1px solid rgb(117,63,229)"
     >
       <Flex justifyContent="space-between">
         <Flex flexDir="column">

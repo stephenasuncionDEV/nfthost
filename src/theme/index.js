@@ -45,11 +45,12 @@ const theme = extendTheme({
 });
 
 export const webColor = {
-  dashboardBg: ["rgb(236,242,245)", "rgb(30,26,48)"],
-  containerBg: ["white", "rgb(46,40,76)"],
-  sidebarBg: ["white", "rgb(46,40,76)"],
-  toolbarBg: ["white", "rgb(46,40,76)"],
-  announcementBg: ["rgb(117,63,229)", "rgb(117,63,229)"],
+  dashboardBg: ["rgb(236,242,245)", "#0C0C0E"],
+  containerBg: ["white", "#0C0C0E"],
+  sidebarBg: ["white", "#0C0C0E"],
+  borderColor: ["rgba(0,0,0,.1)", "rgba(255,255,255,.1)"],
+  toolbarBg: ["white", "#0C0C0E"],
+  announcementBg: ["rgb(117,63,229)", "#0C0C0E"],
   footerBg: ["rgb(240,240,240)", "rgb(19,15,28)"],
 };
 

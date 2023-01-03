@@ -20,11 +20,11 @@ const Button = {
       color: mode("white", "black")(props),
     }),
     primary: (props) => ({
-      bg: "rgb(117, 63, 229)",
+      bg: "whiteAlpha.300",
       _hover: {
-        bg: "rgb(142, 90, 250)",
+        bg: "whiteAlpha.400",
         _disabled: {
-          bg: "rgb(142, 90, 250)",
+          bg: "whiteAlpha.200",
         },
       },
       color: "white",
