@@ -11,6 +11,7 @@ module.exports = withBundleAnalyzer({
     POSTHOG_KEY: process.env.POSTHOG_KEY,
     POSTHOG_PERSONAL_KEY: process.env.POSTHOG_PERSONAL_KEY,
     CREATE_WEBSITE_TOKEN: process.env.CREATE_WEBSITE_TOKEN,
+    SOLANA_RPC_URL: process.env.SOLANA_RPC_URL,
     INFURA_ID: process.env.INFURA_ID,
   },
 });
