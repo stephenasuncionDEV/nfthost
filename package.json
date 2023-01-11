@@ -44,7 +44,7 @@
     "crypto-js": "^4.1.1",
     "ethers": "^5.7.2",
     "file-saver": "^2.0.5",
-    "framer-motion": "^8.2.4",
+    "framer-motion": "^8.4.1",
     "html-react-parser": "^3.0.7",
     "jszip": "^3.10.1",
     "jwt-decode": "^3.1.2",
