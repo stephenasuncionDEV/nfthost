@@ -93,6 +93,8 @@ const UserWebsite = (props) => {
     if (!userWebsite) return;
     checkSubscription();
 
+    console.log("Website ID:", userWebsite._id);
+
     posthog.capture("User visited minting website", {
       route: userWebsite.route,
       referrer: document.referrer,
