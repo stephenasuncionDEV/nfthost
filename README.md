@@ -1,3 +1,5 @@
+> This project is no longer maintained.
+
 <p align="center">
     <a href='https://www.nfthost.app/' rel='nofollow'>
         <img src='./public/assets/logo.png' alt='NFTHost Logo' width='125px'/>
